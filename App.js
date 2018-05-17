@@ -1,39 +1,56 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
-import {ButtonCE, ProfileIndicatorCE} from './src/components';
-import {LinearGradient} from 'expo';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+import { createStackNavigator } from 'react-navigation';
+import { DangerZone } from 'expo';
+import { ProfileScreen } from './src/profile';
+import { HomeScreen } from './src/home';
+import { ConfigurationScreen } from './src/configuration';
+import { reducers } from './src/state/reducer';
+import { changeLanguage } from './src/state/action';
 
+const { Localization } = DangerZone;
+const store = createStore(reducers);
+
+const HomeNavigation = createStackNavigator(
+    {
+        home: {
+            screen: HomeScreen,
+            navigationOptions: {
+                title:'MTFHC',
+                header: null
+            }
+        },
+        profile: {
+            screen: ProfileScreen,
+            navigationOptions: {
+                header: null
+            }
+        },
+        configuration: {
+            screen: ConfigurationScreen,
+            navigationOptions: {
+                header: null
+            }
+        }
+    },
+    {
+        initialRouteName: 'configuration'
+    }
+);
 
 export default class App extends React.Component {
+
+    async componentDidMount(){
+        const currentLocale = await Localization.getCurrentLocaleAsync();
+        store.dispatch(changeLanguage(currentLocale));
+    }
+
     render() {
         return (
-            <View style={styles.container}>
-                <LinearGradient colors={["#e13223", "#ffffff"]} style={styles.gradient}>
-                    <ButtonCE style={styles.button} title="TITLE"/>
-
-                    <View style={{flexDirection: 'row', flex: 1}}>
-                        <ProfileIndicatorCE style={{marginTop: 10, flex: 1}}
-                                            title="Indicações Feitas"
-                                            subtitle="Explore"
-                                            count={4}/>
-                        <ProfileIndicatorCE style={{marginTop: 10, flex: 1}} title="Seguidores" subtitle="Convide seus amigos"/>
-                    </View>
-                </LinearGradient>
-            </View>
+            <Provider store={store}>
+                <HomeNavigation />
+            </Provider>
         );
     }
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1
-    },
-    gradient: {
-        flex: 1,
-        paddingTop: 18,
-        alignItems: 'center'
-    },
-    button: {
-        width: 230
-    }
-});
