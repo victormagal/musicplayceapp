@@ -35,7 +35,7 @@ const HomeNavigation = createStackNavigator(
         }
     },
     {
-        initialRouteName: 'configuration'
+        initialRouteName: 'profile'
     }
 );
 
