@@ -1,6 +1,7 @@
 import React from 'react';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
+import thunkMiddleware from 'redux-thunk'
 import { createStackNavigator } from 'react-navigation';
 import { DangerZone } from 'expo';
 import { ProfileScreen } from './src/profile';
@@ -10,14 +11,13 @@ import { reducers } from './src/state/reducer';
 import { changeLanguage } from './src/state/action';
 
 const { Localization } = DangerZone;
-const store = createStore(reducers);
+const store = createStore(reducers, applyMiddleware(thunkMiddleware));
 
 const HomeNavigation = createStackNavigator(
     {
         home: {
             screen: HomeScreen,
             navigationOptions: {
-                title:'MTFHC',
                 header: null
             }
         },
