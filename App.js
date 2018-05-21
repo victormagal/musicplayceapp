@@ -7,6 +7,7 @@ import { createStackNavigator } from 'react-navigation';
 import { DangerZone } from 'expo';
 import { ProfileScreen } from './src/profile';
 import { HomeScreen } from './src/home';
+import { RegisterArtistsScreen } from './src/registerSongs';
 import { ConfigurationScreen } from './src/configuration';
 import { reducers } from './src/state/reducer';
 import { changeLanguage } from './src/state/action';
@@ -14,7 +15,10 @@ import { changeLanguage } from './src/state/action';
 const { Localization } = DangerZone;
 const store = createStore(reducers, applyMiddleware(thunkMiddleware));
 
-global.fetch = fetch;
+if(typeof global.self === "undefined")
+{
+    global.self = global;
+}
 
 const HomeNavigation = createStackNavigator(
     {
@@ -32,6 +36,12 @@ const HomeNavigation = createStackNavigator(
         },
         configuration: {
             screen: ConfigurationScreen,
+            navigationOptions: {
+                header: null
+            }
+        },
+        registerSongs: {
+            screen: RegisterArtistsScreen,
             navigationOptions: {
                 header: null
             }
