@@ -1,4 +1,5 @@
 import React from 'react';
+import fetch from 'cross-fetch';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import thunkMiddleware from 'redux-thunk'
@@ -12,6 +13,8 @@ import { changeLanguage } from './src/state/action';
 
 const { Localization } = DangerZone;
 const store = createStore(reducers, applyMiddleware(thunkMiddleware));
+
+global.fetch = fetch;
 
 const HomeNavigation = createStackNavigator(
     {
