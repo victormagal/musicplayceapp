@@ -1,0 +1,40 @@
+import React from 'react';
+import {StyleSheet, Text, View, TextInput} from 'react-native';
+import { Icon, Button } from 'react-native-elements';
+import { ButtonCE } from '../../components';
+
+class SaveDraftScreen extends React.Component {
+  constructor(props){
+    super(props);
+  }
+  
+  render() {
+    return (
+      <View style={styles.container}>
+        <Text style={styles.textTop}>Deseja salvar como rascunho?</Text>
+        <ButtonCE title="Salvar Rascunho" onPress={ () => {console.log("salvar")}} style={{marginBottom: 20}}/>
+        <ButtonCE title="Apagar música" onPress={ () => {console.log("apagar")}}/>
+      </View>
+    );
+  }
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    marginTop: 30,
+    marginBottom: 30,
+    marginStart: 40,
+    marginEnd: 40,
+    flexDirection: 'column',
+    alignItems: 'center'
+  },
+  textTop: {
+    fontSize: 20,
+    color: '#000000',
+    height: 22,
+    marginBottom: 20,
+  }
+});
+
+export {SaveDraftScreen};
