@@ -1,8 +1,9 @@
 import React from 'react';
-import { Text, View, StyleSheet, FlatList } from 'react-native';
+import { Text, View, StyleSheet, FlatList, ScrollView } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
 import { DarkHeader } from '../../components/configuration/DarkHeader';
 import { ItemList } from '../../components/configuration/ItemList';
+import { NavFooter } from '../../components/configuration/NavFooter';
 
 class ConfigurationScreen extends React.Component {
 	
@@ -295,16 +296,19 @@ class ConfigurationScreen extends React.Component {
 	render() {
 		return (
 			<View style={styles.parent}>
-				<DarkHeader title={"Configure o MusicPlayce do seu jeitinho"} />
-				<FlatList
-					data={this.list.data}
-					keyExtractor={item => item.id}
-					renderItem={({ item }) => {
-						return (
-							<ItemList item={item} />
-						)
-					}}
-				/>
+				<ScrollView>
+					<DarkHeader title={"Configure o MusicPlayce do seu jeitinho"} />
+					<FlatList
+						data={this.list.data}
+						keyExtractor={item => item.id}
+						renderItem={({ item }) => {
+							return (
+								<ItemList item={item} />
+							)
+						}}
+					/>
+					<NavFooter />
+				</ScrollView>
 			</View>
 		);
 	}
