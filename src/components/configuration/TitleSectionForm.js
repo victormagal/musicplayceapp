@@ -14,7 +14,7 @@ class TitleSectionFormComponent extends React.Component {
           this.props.fontLoaded ? (
             <View style={styles.container}>
               <Text style={styles.title}>{title}</Text>
-              <ButtonCE style={styles.button} title={textButton} selected={true} onPress={() => { return false; }} />
+              <ButtonCE style={styles.button} title={textButton} onPress={() => { return false; }} />
             </View>
           ) : null
         }
