@@ -5,3 +5,4 @@ export * from './MusicDescriptionScreen';
 export * from './ISRCScreen';
 export * from './TitleScreen';
 export * from './MusicLetterScreen';
+export * from './ConfirmationScreen';

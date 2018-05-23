@@ -7,7 +7,7 @@ import { createStackNavigator } from 'react-navigation';
 import { Font, DangerZone } from 'expo';
 import { ProfileScreen } from './src/profile';
 import { HomeScreen } from './src/home';
-import { MusicLetterScreen } from './src/registerSongs';
+import { ConfirmationScreen } from './src/registerSongs';
 import { ConfigurationScreen } from './src/configuration';
 import { reducers } from './src/state/reducer';
 import { changeLanguage, loadFont } from './src/state/action';
@@ -45,14 +45,14 @@ const HomeNavigation = createStackNavigator(
             }
         },
         registerSongs: {
-            screen: MusicLetterScreen,
+            screen: ConfirmationScreen,
             navigationOptions: {
                 header: null
             }
         }
     },
     {
-        initialRouteName: 'configuration'
+        initialRouteName: 'registerSongs'
     }
 );
 

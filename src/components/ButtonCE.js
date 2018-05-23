@@ -7,6 +7,11 @@ class ButtonCE extends Component{
 
     render() {
         let {style, title, selected} = this.props;
+
+        if(selected == null){
+            selected = true;
+        }
+        
         let linearColorOptions = [['#bb1a1a', '#2e2c9d'], ['transparent', 'transparent']];
         let linearColor = selected ? linearColorOptions[0] : linearColorOptions[1];
         let textStyle = selected ? {} : {color: "#e13223", fontWeight: 'normal'};
