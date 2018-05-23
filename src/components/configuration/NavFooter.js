@@ -72,7 +72,6 @@ class NavFooter extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
     backgroundColor: '#FFFFFF',
@@ -88,12 +87,12 @@ const styles = StyleSheet.create({
   button: {
     alignItems: 'center',
     paddingVertical: 15,
-    flex: 0.33
+    flex: 1
   },
   buttonActive: {
     alignItems: 'center',
     paddingVertical: 15,
-    flex: 0.33,
+    flex: 1,
     borderBottomWidth: 2,
     borderBottomColor: '#E13223'
   }

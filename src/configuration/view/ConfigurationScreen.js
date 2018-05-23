@@ -11,6 +11,7 @@ class ConfigurationScreen extends React.Component {
 		data: [
 			{
 				id: '00',
+				rota: 'editConfiguration',
 				name: 'Editar dados cadastrais',
 				width: '20',
 				height: '20',
@@ -36,6 +37,7 @@ class ConfigurationScreen extends React.Component {
 			},
 			{
 				id: '01',
+				rota: 'editConfiguration',
 				name: 'Personalizar notificações',
 				width: '18',
 				height: '22',
@@ -53,6 +55,7 @@ class ConfigurationScreen extends React.Component {
 			},
 			{
 				id: '02',
+				rota: 'editConfiguration',
 				name: 'Convide seus amigos',
 				width: '23',
 				height: '20',
@@ -86,6 +89,7 @@ class ConfigurationScreen extends React.Component {
 			},
 			{
 				id: '03',
+				rota: 'editConfiguration',
 				name: 'Peça ajuda',
 				width: '9',
 				height: '19',
@@ -111,6 +115,7 @@ class ConfigurationScreen extends React.Component {
 			},
 			{
 				id: '04',
+				rota: 'editConfiguration',
 				name: 'Troque sua senha',
 				width: '18',
 				height: '22',
@@ -128,6 +133,7 @@ class ConfigurationScreen extends React.Component {
 			},
 			{
 				id: '05',
+				rota: 'editConfiguration',
 				name: 'Alterar plano',
 				width: '22',
 				height: '20',
@@ -201,6 +207,7 @@ class ConfigurationScreen extends React.Component {
 			},
 			{
 				id: '06',
+				rota: 'editConfiguration',
 				name: 'Alterar forma de pagamento',
 				width: '10',
 				height: '22',
@@ -226,6 +233,7 @@ class ConfigurationScreen extends React.Component {
 			},
 			{
 				id: '07',
+				rota: 'editConfiguration',
 				name: 'Enviar feedback',
 				width: '24',
 				height: '22',
@@ -267,6 +275,7 @@ class ConfigurationScreen extends React.Component {
 			},
 			{
 				id: '08',
+				rota: 'editConfiguration',
 				name: 'Termos e condições',
 				width: '16',
 				height: '26',
@@ -296,19 +305,19 @@ class ConfigurationScreen extends React.Component {
 	render() {
 		return (
 			<View style={styles.parent}>
-				<ScrollView>
-					<DarkHeader title={"Configure o MusicPlayce do seu jeitinho"} />
+				<DarkHeader style={styles.header} title={"Configure o MusicPlayce do seu jeitinho"} />
+				<ScrollView style={styles.scroll}>
 					<FlatList
 						data={this.list.data}
 						keyExtractor={item => item.id}
 						renderItem={({ item }) => {
 							return (
-								<ItemList item={item} />
+								<ItemList item={item} {...this.props} />
 							)
 						}}
 					/>
-					<NavFooter />
 				</ScrollView>
+				<NavFooter style={styles.footer} />
 			</View>
 		);
 	}
@@ -316,8 +325,21 @@ class ConfigurationScreen extends React.Component {
 
 const styles = StyleSheet.create({
 	parent: {
+		display: 'flex',
 		flex: 1,
-		backgroundColor: '#FCFCFC'
+		backgroundColor: '#FCFCFC',
+		justifyContent: 'flex-end'
+	},
+	header: {
+		flex: 1
+	},
+	scroll: {
+		flex: 2
+	},
+	footer: {
+		flex: 1,
+		flexDirection: 'column',
+		alignItems: 'flex-end'
 	}
 });
 

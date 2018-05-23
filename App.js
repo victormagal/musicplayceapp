@@ -8,7 +8,7 @@ import { Font, DangerZone } from 'expo';
 import { ProfileScreen } from './src/profile';
 import { HomeScreen } from './src/home';
 import { MusicLetterScreen } from './src/registerSongs';
-import { ConfigurationScreen } from './src/configuration';
+import { ConfigurationScreensNavigation } from './src/configuration';
 import { reducers } from './src/state/reducer';
 import { changeLanguage, loadFont } from './src/state/action';
 
@@ -19,6 +19,8 @@ if(typeof global.self === "undefined")
 {
     global.self = global;
 }
+
+global.fetch = fetch;
 
 let state = {
     fontLoaded: false,
@@ -38,14 +40,14 @@ const HomeNavigation = createStackNavigator(
                 header: null
             }
         },
-        configuration: {
-            screen: ConfigurationScreen,
+        registerSongs: {
+            screen: MusicLetterScreen,
             navigationOptions: {
                 header: null
             }
         },
-        registerSongs: {
-            screen: MusicLetterScreen,
+        configuration: {
+            screen: ConfigurationScreensNavigation,
             navigationOptions: {
                 header: null
             }
@@ -57,11 +59,11 @@ const HomeNavigation = createStackNavigator(
 );
 
 export default class App extends React.Component {
-//      Ionicons: require("@expo/vector-icons/fonts/Ionicons.ttf"),
 
     async componentWillMount(){
         await Font.loadAsync({
             'montSerrat': require('./assets/fonts/Montserrat-Regular.ttf'),
+            'montSerratMedium': require('./assets/fonts/Montserrat-Medium.ttf'),
         });
         store.dispatch(loadFont(true))
     }
