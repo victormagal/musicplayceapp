@@ -6,3 +6,5 @@ export * from './ISRCScreen';
 export * from './TitleScreen';
 export * from './MusicLetterScreen';
 export * from './ConfirmationScreen';
+export * from './ArtistsScreen';
+export * from './ListArtistsScreen';
