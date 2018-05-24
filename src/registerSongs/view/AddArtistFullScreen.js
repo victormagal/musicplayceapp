@@ -33,7 +33,7 @@ class AddArtistFullScreen extends React.Component {
         </View>
         <View style={ styles.stretchedArtistCardContainer }>
             <View style={ [styles.stretchedArtistCardInnerContainer, this.state.emailItem.selected == true ? {borderWidth:2, borderColor: '#e13223'} : {}] }>
-                <View style={ styles.stretchedArtistTextContainer }>
+                <View>
                     <Text style={ styles.stretchedArtistText}>{ this.state.emailItem.title }</Text>
                     <Text style={ styles.stretchedArtistEmail}>{ this.state.emailItem.email }</Text>
                 </View>
