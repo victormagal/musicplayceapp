@@ -10,3 +10,4 @@ export * from './ArtistsScreen';
 export * from './ListArtistsScreen';
 export * from './AddArtistScreen';
 export * from './AddArtistByEmailScreen';
+export * from './AddArtistFullScreen';
