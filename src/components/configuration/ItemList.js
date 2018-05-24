@@ -59,10 +59,11 @@ class ItemListComponent extends React.Component {
 const styles = StyleSheet.create({
   item: {
     backgroundColor: '#FFFFFF',
-    height: 50,
+    paddingVertical: 15,
     marginHorizontal: 20,
     marginVertical: 10,
     flexDirection: 'row',
+    flex: 0.1,
     alignItems: 'center',
     justifyContent: 'flex-start',
     borderRadius: 4,
@@ -75,7 +76,7 @@ const styles = StyleSheet.create({
     }
   },
   boxIcon: {
-    width: 32,
+    flex: 0.05,
     marginLeft: 12,
     paddingRight: 12,
     borderRightWidth: 2,
@@ -84,12 +85,16 @@ const styles = StyleSheet.create({
   },
   boxText: {
     marginLeft: 10,
-    width: 260
+    flex: 0.9
   },
   text: {
     color: 'black',
     fontFamily: 'montSerrat',
     fontSize: 16
+  },
+  boxFoward: {
+    flex: 0.05,
+    paddingRight: 10
   }
 });
 

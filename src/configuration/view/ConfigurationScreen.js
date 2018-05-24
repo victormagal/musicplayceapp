@@ -55,7 +55,7 @@ class ConfigurationScreen extends React.Component {
 			},
 			{
 				id: '02',
-				rota: 'editConfiguration',
+				rota: 'inviteConfiguration',
 				name: 'Convide seus amigos',
 				width: '23',
 				height: '20',
