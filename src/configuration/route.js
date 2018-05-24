@@ -3,12 +3,13 @@ import { ConfigurationScreen } from './view/ConfigurationScreen';
 import { EditConfigurationScreen } from './view/EditConfigurationScreen';
 import { InviteConfigurationScreen } from './view/InviteConfigurationScreen';
 import { ChangePasswordConfigurationScreen } from './view/ChangePasswordConfigurationScreen';
+import { FeedbackConfigurationScreen } from './view/FeedbackConfigurationScreen';
 
 export const ConfigurationScreensNavigation = createStackNavigator(
   {
     configuration: {
-      // screen: ChangePasswordConfigurationScreen,
-      screen: ConfigurationScreen,
+      screen: FeedbackConfigurationScreen,
+      // screen: ConfigurationScreen,
       navigationOptions: {
         header: null
       }
@@ -27,6 +28,12 @@ export const ConfigurationScreensNavigation = createStackNavigator(
     },
     changePasswordConfiguration: {
       screen: ChangePasswordConfigurationScreen,
+      navigationOptions: {
+        header: null
+      }
+    },
+    FeedbackConfiguration: {
+      screen: FeedbackConfigurationScreen,
       navigationOptions: {
         header: null
       }
