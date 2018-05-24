@@ -10,8 +10,9 @@ class ItemListComponent extends React.Component {
   }
 
   renderPaths(item) {
-    return item.paths.map((p, index) => {
-      return <Path
+    if (item.paths) {
+      return item.paths.map((p, index) => {
+        return <Path
         key={index}
         fill={p.fill}
         stroke={p.stroke}
@@ -19,8 +20,11 @@ class ItemListComponent extends React.Component {
         strokeLinecap={p.strokeLinecap}
         strokeLinejoin={p.strokeLinejoin}
         d={p.d}
-      />
-    })
+        />
+      })
+    } else {
+      return false;
+    }
   }
 
   render() {
@@ -28,11 +32,15 @@ class ItemListComponent extends React.Component {
     return (
       <TouchableHighlight onPress={this.onPress.bind(this, item.rota)} underlayColor="transparent">
         <View style={styles.item}>
-          <View style={styles.boxIcon}>
-            <Svg width={item.width} height={item.height} viewBox={item.viewBox}>
-              {this.renderPaths(item)}
-            </Svg>
-          </View>
+          {
+            item.paths ? (
+              <View style={styles.boxIcon}>
+                <Svg width={item.width} height={item.height} viewBox={item.viewBox}>
+                  {this.renderPaths(item)}
+                </Svg>
+              </View>
+            ) : null
+          }
           <View style={styles.boxText}>
             {
               this.props.fontLoaded ? (
@@ -59,12 +67,13 @@ class ItemListComponent extends React.Component {
 const styles = StyleSheet.create({
   item: {
     backgroundColor: '#FFFFFF',
-    height: 50,
+    paddingVertical: 15,
     marginHorizontal: 20,
     marginVertical: 10,
     flexDirection: 'row',
+    flex: 1,
     alignItems: 'center',
-    justifyContent: 'flex-start',
+    justifyContent: 'space-around',
     borderRadius: 4,
     shadowColor: '#000000',
     shadowOpacity: 0.15,
@@ -75,7 +84,7 @@ const styles = StyleSheet.create({
     }
   },
   boxIcon: {
-    width: 32,
+    flex: 0.05,
     marginLeft: 12,
     paddingRight: 12,
     borderRightWidth: 2,
@@ -84,12 +93,17 @@ const styles = StyleSheet.create({
   },
   boxText: {
     marginLeft: 10,
-    width: 260
+    flex: 0.9
   },
   text: {
     color: 'black',
     fontFamily: 'montSerrat',
     fontSize: 16
+  },
+  boxFoward: {
+    flex: 0.05,
+    paddingRight: 10,
+    alignItems: 'flex-end'
   }
 });
 
