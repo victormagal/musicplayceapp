@@ -1,11 +1,21 @@
 import React from 'react';
-import {StyleSheet, Text, View, TextInput} from 'react-native';
+import {StyleSheet, Text, View, TextInput, FlatList} from 'react-native';
 import { Icon } from 'react-native-elements'
 import { ButtonCE } from '../../components'
+import { TextField } from 'react-native-material-textfield';
 
 class UploadMediaEmptyScreen extends React.Component {
   constructor(props){
     super(props);
+    this.state = {
+      titleText: '',
+      letterText: '',
+      stilesText: '',
+      decriptionText: '',
+      authorsText: '',
+      interpretersText: '',
+      folderText: '',
+    }
   }
   
   render() {
@@ -13,11 +23,80 @@ class UploadMediaEmptyScreen extends React.Component {
       <View style={styles.container}>
         <View style={ styles.topIndicator}>
           <View style={ styles.topIndicatorDone}></View>
+          <View style={ styles.topIndicatorLeft}></View>
         </View>
         <Text style={styles.headerTitle}>Mostre pra todo mundo o que você faz de melhor.</Text>
-        <Text style={ styles.headerText}>Upload de media</Text>
+        <Text style={ styles.headerText}>Upload de melodia</Text>
         <ButtonCE title='Escolher o arquivo' onPress={ () => {} } textSize={16} style={ {marginBottom: 10} } />
-        <Text style={ styles.subText}>Você pode fazer upload de músicas em MP3 e AAC.</Text>
+        <Text style={ styles.subText}>Você pode fazer upload de músicas em MP3 ou AAC.</Text>
+        <View style={ styles.textFieldsVerticalContainer }>
+          <View style={  styles.textFieldsHorizontalContainer}>
+            <View style={ styles.textFieldsInnerContainer}>
+              <TextField
+              titleTextStyle={{color: '#000'}}
+              lineWidth={0}
+              label='Qual é o título da música?'
+              value={this.state.titleText}
+              labelFontSize={12}
+              onChangeText={(titleText) => this.setState({titleText})}/>
+            </View>
+            <View style={ styles.textFieldsInnerContainer}>
+              <TextField
+              labelTextStyle={{color: '#000'}}
+              lineWidth={0}
+              label='Qual é a letra?'
+              value={this.state.letterText}
+              labelFontSize={12}
+              onChangeText={(letterText) => this.setState({letterText})}/>
+            </View>
+          </View>
+          <View style={  styles.textFieldsHorizontalContainer}>
+            <View style={ styles.textFieldsInnerContainer}>
+              <TextField
+              lineWidth={0}
+              label='Quais as categorias e estilos que combinam?'
+              value={this.state.stilesText}
+              labelFontSize={12}
+              onChangeText={(stilesText) => this.setState({stilesText})}/>
+            </View>
+            <View style={ styles.textFieldsInnerContainer}>
+              <TextField
+              lineWidth={0}
+              label='Fale um pouquinho mais sobre a música'
+              value={this.state.letterText}
+              labelFontSize={12}
+              onChangeText={(letterText) => this.setState({letterText})}/>
+            </View>
+          </View>
+          <View style={  styles.textFieldsHorizontalContainer}>
+            <View style={ styles.textFieldsInnerContainer}>
+              <TextField
+              lineWidth={0}
+              label='Tem outros autores?'
+              value={this.state.authorsText}
+              labelFontSize={12}
+              onChangeText={(authorsText) => this.setState({authorsText})}/>
+            </View>
+            <View style={ styles.textFieldsInnerContainer}>
+              <TextField
+              lineWidth={0}
+              label='Tem outros intérpretes?'
+              value={this.state.interpretersText}
+              labelFontSize={12}
+              onChangeText={(interpretersText) => this.setState({interpretersText})}/>
+            </View>
+          </View>
+          <View style={  styles.textFieldsHorizontalContainer}>
+            <View style={ styles.textFieldsInnerContainer}>
+              <TextField
+              lineWidth={0}
+              label='Organize sua música em pastas'
+              value={this.state.folderText}
+              labelFontSize={12}
+              onChangeText={(folderText) => this.setState({folderText})}/>
+            </View>
+          </View>
+        </View>
         <ButtonCE title='Publicar' onPress={ () => {} } textSize={16} style={ {marginBottom: 20} } />
         <View style={styles.clickableTextContainer}>
           <Text style={styles.clickableText}>Terminar depois</Text>
@@ -38,7 +117,9 @@ const styles = StyleSheet.create({
   },
   topIndicator: {
     height: 7,
+    flexDirection: 'row',
     alignItems: 'flex-start',
+    alignContent: 'stretch',
     backgroundColor: '#d8d8d8',
     marginBottom: 20,
   },
@@ -46,6 +127,11 @@ const styles = StyleSheet.create({
     height: 7,
     flex: 1,
     backgroundColor: '#e13223',
+  },
+  topIndicatorLeft: {
+    height: 7,
+    flex: 19,
+    backgroundColor: '#d8d8d8',
   },
   headerTitle: {
     fontSize: 16,
@@ -79,6 +165,27 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#5994db',
     fontSize: 14,
+  },
+  textFieldsVerticalContainer: {
+    flex: 1,
+    flexDirection: 'column',
+    alignContent: 'stretch',
+    marginTop: 20,
+    marginBottom: 10
+  },
+  textFieldsHorizontalContainer:{
+    flexDirection: 'row',
+    alignContent: 'space-between',
+    flex: 1,
+  },
+  textFieldsInnerContainer: {
+    flex: 1,
+    backgroundColor: '#fff',
+    height: 78,
+    marginBottom: 10,
+    marginStart: 5,
+    marginEnd: 5,
+    borderRadius: 4,
   }
 });
 
