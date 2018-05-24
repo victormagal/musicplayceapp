@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 class ButtonCE extends Component{
 
     render() {
-        let {style, title, selected} = this.props;
+        let {style, title, selected, textSize} = this.props;
 
         if(selected == null){
             selected = true;
@@ -15,6 +15,7 @@ class ButtonCE extends Component{
         let linearColorOptions = [['#bb1a1a', '#2e2c9d'], ['transparent', 'transparent']];
         let linearColor = selected ? linearColorOptions[0] : linearColorOptions[1];
         let textStyle = selected ? {} : {color: "#e13223", fontWeight: 'normal'};
+        let textSizeStyle = textSize != null ? {fontSize: textSize} : {};
 
         return (
             <TouchableOpacity style={style || {}}>
@@ -24,7 +25,7 @@ class ButtonCE extends Component{
                     end={[1.0, 0]}
                     style={styles.linear}
                     selected={true}>
-                    <Text style={[styles.text, textStyle]}>
+                    <Text style={[styles.text, textStyle, textSizeStyle]}>
                         {title}
                     </Text>
                 </LinearGradient>
@@ -35,7 +36,8 @@ class ButtonCE extends Component{
 
 ButtonCE.propTypes = {
 	title: PropTypes.string.isRequired,
-	onPress: PropTypes.func.isRequired,
+    onPress: PropTypes.func.isRequired,
+    textSize: PropTypes.number,
 	style: PropTypes.any,
 	selected: PropTypes.bool
 };

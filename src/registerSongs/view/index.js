@@ -12,3 +12,4 @@ export * from './AddArtistScreen';
 export * from './AddArtistByEmailScreen';
 export * from './AddArtistFullScreen';
 export * from './FolderScreen';
+export * from './UploadMediaEmptyScreen';
