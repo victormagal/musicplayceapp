@@ -1,2 +1,5 @@
 export * from './ConfigurationScreen';
-export * from './EditConfigurationScreen';
+export * from './ChangePasswordConfigurationScreen';
+export * from './FeedbackConfigurationScreen';
+export * from './InviteConfigurationScreen';
+export * from './edit';

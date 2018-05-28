@@ -1,9 +1,8 @@
 import { createStackNavigator } from 'react-navigation';
-import { ConfigurationScreen } from './view/ConfigurationScreen';
-import { EditConfigurationScreen } from './view/EditConfigurationScreen';
-import { InviteConfigurationScreen } from './view/InviteConfigurationScreen';
-import { ChangePasswordConfigurationScreen } from './view/ChangePasswordConfigurationScreen';
-import { FeedbackConfigurationScreen } from './view/FeedbackConfigurationScreen';
+import {
+    ConfigurationScreen, EditConfigurationScreen, InviteConfigurationScreen,
+    ChangePasswordConfigurationScreen, FeedbackConfigurationScreen
+} from './view';
 
 export const ConfigurationScreensNavigation = createStackNavigator(
   {

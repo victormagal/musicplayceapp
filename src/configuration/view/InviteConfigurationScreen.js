@@ -1,6 +1,5 @@
 import React from 'react';
 import { Text, View, StyleSheet, FlatList, ScrollView } from 'react-native';
-import Svg, { Path } from 'react-native-svg';
 import { DarkHeader } from '../../components/configuration/DarkHeader';
 import { ItemList } from '../../components/configuration/ItemList';
 import { NavFooter } from '../../components/configuration/NavFooter';
