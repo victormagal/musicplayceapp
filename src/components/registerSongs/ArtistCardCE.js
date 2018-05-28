@@ -7,7 +7,7 @@ class ArtistCardCE extends Component{
     render() {
         let {artist, selected} = this.props;
         let borderStyle = {};
-        let iconStyle = {display: 'none'};
+        let iconStyle = {};
 
         if(selected != null && selected == true){
             borderStyle = {
@@ -15,7 +15,6 @@ class ArtistCardCE extends Component{
                 borderWidth: 2
             };
             iconStyle = {
-                display: 'block',
                 position: 'absolute',
                 right: 0,
                 top: 0
@@ -24,11 +23,15 @@ class ArtistCardCE extends Component{
 
         return (
             <TouchableOpacity>
-                <View style={ [styles.stretchedArtistCardContainer, borderStyle] }>
-                    <View style={ styles.stretchedArtistImage } backgroundColor={ '#f06' }></View>
-                    <Text style={ styles.stretchedArtistText}>{ artist }</Text>
+                <View>
+                    <View style={ [styles.stretchedArtistCardContainer, borderStyle] }>
+                        <View style={ styles.stretchedArtistImage } backgroundColor={ '#f06' }></View>
+                        <Text style={ styles.stretchedArtistText}>{ artist }</Text>
+                    </View>
+                    { selected && 
+                    <Icon name='check-circle' color='#f00' size={18} containerStyle={ iconStyle || {} }/> 
+                    }
                 </View>
-                <Icon name='check-circle' color='#f00' size={18} containerStyle={ iconStyle }/>
             </TouchableOpacity>
         );
     }

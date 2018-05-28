@@ -14,7 +14,7 @@ class AddArtistScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <ArtistCardCE artist={"Almir Sater"} selected={true} onPress={ () => {}} />
+        <ArtistCardCE artist={"Almir Sater"} selected={false} onPress={ () => {}} />
         <Text style={styles.textTop}>Essa música tem outros autores?</Text>
         <View style={ styles.textInputContainer}>
           <TextInput style={styles.textInput}
