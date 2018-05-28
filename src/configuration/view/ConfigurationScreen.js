@@ -1,11 +1,11 @@
 import React from 'react';
 import { Text, View, StyleSheet, FlatList, ScrollView } from 'react-native';
-import Svg, { Path } from 'react-native-svg';
+import { connect } from 'react-redux';
 import { DarkHeader } from '../../components/configuration/DarkHeader';
 import { ItemList } from '../../components/configuration/ItemList';
 import { NavFooter } from '../../components/configuration/NavFooter';
 
-class ConfigurationScreen extends React.Component {
+class ConfigurationScreenComponent extends React.Component {
 	
 	list = {
 		data: [
@@ -301,11 +301,15 @@ class ConfigurationScreen extends React.Component {
 			}
 		]
 	};
+
+    handleBackClick = () => {
+		this.props.navigation.pop();
+	};
 	
 	render() {
 		return (
 			<View style={styles.parent}>
-				<DarkHeader style={styles.header} title={"Configure o MusicPlayce do seu jeitinho"} />
+				<DarkHeader style={styles.header} title={"Configure o MusicPlayce do seu jeitinho"} back={true} onBack={this.handleBackClick}/>
 				<ScrollView style={styles.scroll}>
 					<FlatList
 						data={this.list.data}
@@ -343,4 +347,9 @@ const styles = StyleSheet.create({
 	}
 });
 
+const mapStateToProps = () => {
+	return {};
+};
+
+const ConfigurationScreen = connect(mapStateToProps)(ConfigurationScreenComponent);
 export { ConfigurationScreen };
