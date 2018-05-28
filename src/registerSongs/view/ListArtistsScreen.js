@@ -1,6 +1,8 @@
 import React from 'react';
 import {StyleSheet, Text, View, TextInput, FlatList} from 'react-native';
-import { Icon } from 'react-native-elements'
+import { Icon } from 'react-native-elements';
+import { ArtistCardCE } from '../../components';
+import { TextField } from 'react-native-material-textfield';
 
 class ListArtistsScreen extends React.Component {
   constructor(props){
@@ -70,26 +72,20 @@ class ListArtistsScreen extends React.Component {
   }
 
   renderItem = ({item}) => (
-    <View>
-        <View style={ [styles.stretchedArtistCardContainer, item.selected == true ? {borderWidth:2, borderColor: '#e13223'} : {}] }>
-            <View style={ styles.stretchedArtistImage } backgroundColor={ item.backgroundColor}></View>
-            <Text style={ styles.stretchedArtistText}>{ item.title }</Text>
-        </View>
-        <Icon name='check-circle' color='#f00' size={18} containerStyle={ item.selected == true ? styles.stretchedArtistSelectedIcon : { display: 'none'}}/>
-    </View>
+    <ArtistCardCE artist={item.title} selected={item.selected} />
   )
   
   render() {
     return (
       <View style={styles.container}>
         <Text style={styles.textTop}>Essa música tem outros autores?</Text>
-        <View style={ styles.textInputContainer}>
-          <TextInput style={styles.textInput}
-            onFocus={ () => this.setState({text: ""})}
-            onChangeText={ (text) => this.setState({text}) }
-            value={this.state.text}
-            underlineColorAndroid='transparent'/>
-          <Icon name='search' color='#e13223' size={16}/>
+        <View style={ styles.textFieldWithButtonContainer}>
+            <TextField label="Pesquisar por nome"
+            value="Almir Sater"
+            labelFontSize={16} 
+            lineWidth={1}
+            containerStyle={{flex: 1}}/>
+            <Icon name='search' color='#e13223' size={20} containerStyle={ styles.textFieldIcon }/>
         </View>
         <FlatList data = {this.artistList.data}
                 keyExtractor={(item,index) => item.id} 
@@ -155,7 +151,16 @@ const styles = StyleSheet.create({
       right: 0,
       top: 0,
       overflow: 'visible'
-  }
+  },
+  textFieldWithButtonContainer: {
+    flexDirection: 'row',
+    padding: 0,
+    marginBottom: 30
+},
+textFieldIcon: {
+    alignSelf: 'flex-end',
+    paddingBottom: 16,
+}
 });
 
 export {ListArtistsScreen};

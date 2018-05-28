@@ -2,6 +2,7 @@ import React from 'react';
 import {StyleSheet, Text, View, TextInput, FlatList} from 'react-native';
 import { Icon } from 'react-native-elements';
 import { ArtistCardCE } from '../../components';
+import { TextField } from 'react-native-material-textfield';
 
 class AddArtistScreen extends React.Component {
   constructor(props){
@@ -16,13 +17,13 @@ class AddArtistScreen extends React.Component {
       <View style={styles.container}>
         <ArtistCardCE artist={"Almir Sater"} selected={true} onPress={ () => {}} />
         <Text style={styles.textTop}>Essa música tem outros autores?</Text>
-        <View style={ styles.textInputContainer}>
-          <TextInput style={styles.textInput}
-            onFocus={ () => this.setState({text: ""})}
-            onChangeText={ (text) => this.setState({text}) }
-            value={this.state.text}
-            underlineColorAndroid='transparent'/>
-          <Icon name='search' color='#e13223' size={16}/>
+        <View style={ styles.textFieldWithButtonContainer}>
+            <TextField label="Pesquisar por nome"
+            value=""
+            labelFontSize={16} 
+            lineWidth={1}
+            containerStyle={{flex: 1}}/>
+            <Icon name='search' color='#e13223' size={20} containerStyle={ styles.textFieldIcon }/>
         </View>
       </View>
     );
@@ -44,18 +45,15 @@ const styles = StyleSheet.create({
     height: 20,
     marginBottom: 20,
   },
-  textInputContainer: {
-    height: 46,
+  textFieldWithButtonContainer: {
     flexDirection: 'row',
-    marginBottom: 30    ,
-    borderBottomWidth: 1,
-    borderColor: '#b1b1b1',
-    padding: 5
-  },
-  textInput: {
-    borderColor: 'transparent',
-    flex: 9
-  },
+    padding: 0,
+    marginBottom: 30
+},
+textFieldIcon: {
+    alignSelf: 'flex-end',
+    paddingBottom: 16,
+}
   
 });
 
