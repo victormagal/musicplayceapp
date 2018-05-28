@@ -6,10 +6,14 @@ import { InputText } from '../../components/configuration/InputText';
 
 class EditConfigurationScreen extends React.Component {
 
+  handleBackClick = () => {
+    this.props.navigation.pop();
+  };
+
   render() {
     return (
       <View style={styles.parent}>
-        <DarkHeader style={styles.header} title={"Mantenha seus dados cadastrais atualizados."} />
+        <DarkHeader style={styles.header} back={true} onBack={this.handleBackClick} title={"Mantenha seus dados cadastrais atualizados."} />
         <ScrollView style={styles.scroll}>
           <TitleSectionForm title={"Identificação"} textButton={"ALTERAR"} />
           <InputText label={"Usuário"} value={"@brunocaliman_oficial"} />

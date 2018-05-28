@@ -44,10 +44,14 @@ class InviteConfigurationScreen extends React.Component {
     ]
   };
 
+  handleBackClick = () => {
+    this.props.navigation.pop();
+  };
+
   render() {
     return (
       <View style={styles.parent}>
-        <DarkHeader style={styles.header} title={"Convide seus amigos para o MusicPlayce"} />
+        <DarkHeader style={styles.header} back={true} onBack={this.handleBackClick} title={"Convide seus amigos para o MusicPlayce"} />
         <ScrollView style={styles.scroll}>
           <FlatList
             data={this.list.data}

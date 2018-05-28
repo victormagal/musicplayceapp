@@ -6,14 +6,19 @@ import { InputText } from '../../components/configuration/InputText';
 class FeedbackConfigurationScreen extends React.Component {
 
   state = { user: '' }
+
   updateUser = (user) => {
     this.setState({ user: user })
-  }
+  };
+
+  handleBackClick = () => {
+    this.props.navigation.pop();
+  };
 
   render() {
     return (
       <View style={styles.parent}>
-        <DarkHeader style={styles.header} title={"Troque sua senha de acesso"} />
+        <DarkHeader style={styles.header} back={true} onBack={this.handleBackClick} title={"Troque sua senha de acesso"} />
         <ScrollView style={styles.scroll}>
           <Picker selectedValue={this.state.user} onValueChange={this.updateUser}>
             <Picker.Item label="Steve" value="steve" />
