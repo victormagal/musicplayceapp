@@ -233,7 +233,7 @@ class ConfigurationScreen extends React.Component {
 			},
 			{
 				id: '07',
-				rota: 'editConfiguration',
+				rota: 'feedbackConfiguration',
 				name: 'Enviar feedback',
 				width: '24',
 				height: '22',

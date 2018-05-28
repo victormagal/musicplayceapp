@@ -5,8 +5,7 @@ import { connect } from 'react-redux';
 class InputTextComponent extends React.Component {
 
   render() {
-    let { value } = this.props;
-    let { label } = this.props;
+    let { value, label } = this.props;
     return (
       <View style={styles.parent}>
         {

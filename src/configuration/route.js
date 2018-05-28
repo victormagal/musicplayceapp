@@ -32,7 +32,7 @@ export const ConfigurationScreensNavigation = createStackNavigator(
         header: null
       }
     },
-    FeedbackConfiguration: {
+    feedbackConfiguration: {
       screen: FeedbackConfigurationScreen,
       navigationOptions: {
         header: null
