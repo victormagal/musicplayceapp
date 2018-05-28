@@ -14,6 +14,8 @@ class HomeScreen extends React.Component {
   goToConfiguration(){
     let { navigate } = this.props.navigation;
     navigate("configuration");
+      console.log("navigate is not working")
+
   };
   
   render() {

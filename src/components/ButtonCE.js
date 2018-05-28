@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 class ButtonCE extends Component{
 
     render() {
-        let {style, title, selected, textSize} = this.props;
+        let {style, title, selected, textSize, onPress} = this.props;
 
         if(selected == null){
             selected = true;
@@ -18,7 +18,7 @@ class ButtonCE extends Component{
         let textSizeStyle = textSize != null ? {fontSize: textSize} : {};
 
         return (
-            <TouchableOpacity style={style || {}}>
+            <TouchableOpacity style={style || {}} onPress={onPress}>
                 <LinearGradient
                     colors={linearColor}
                     start={[0.0, 0]}

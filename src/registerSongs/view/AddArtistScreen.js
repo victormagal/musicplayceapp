@@ -1,30 +1,20 @@
 import React from 'react';
 import {StyleSheet, Text, View, TextInput, FlatList} from 'react-native';
-import { Icon } from 'react-native-elements'
+import { Icon } from 'react-native-elements';
+import { ArtistCardCE } from '../../components';
 
 class AddArtistScreen extends React.Component {
   constructor(props){
     super(props);
     this.state = { 
         text: "Pesquise pelo nome",
-        item: {
-            selected: true,
-            backgroundColor: '#f05',
-            title: 'Almir Sater'
-        }
     };
   }
   
   render() {
     return (
       <View style={styles.container}>
-        <View>
-            <View style={ [styles.stretchedArtistCardContainer, this.state.item.selected == true ? {borderWidth:2, borderColor: '#e13223'} : {}] }>
-                <View style={ styles.stretchedArtistImage } backgroundColor={ this.state.item.backgroundColor}></View>
-                <Text style={ styles.stretchedArtistText}>{ this.state.item.title }</Text>
-            </View>
-            <Icon name='check-circle' color='#f00' size={18} containerStyle={ this.state.item.selected == true ? styles.stretchedArtistSelectedIcon : { display: 'none'}}/>
-        </View>
+        <ArtistCardCE artist={"Almir Sater"} selected={true} onPress={ () => {}} />
         <Text style={styles.textTop}>Essa música tem outros autores?</Text>
         <View style={ styles.textInputContainer}>
           <TextInput style={styles.textInput}
@@ -66,35 +56,7 @@ const styles = StyleSheet.create({
     borderColor: 'transparent',
     flex: 9
   },
-  stretchedArtistCardContainer: {
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    flexDirection: 'row',
-    backgroundColor: '#fff',
-    borderRadius: 4,
-    shadowColor: '#000',
-    shadowOffset: {width: 0, height: 4},
-    shadowOpacity: 0.9,
-    shadowRadius: 4,
-    height: 60,
-    marginBottom: 20,
-    overflow: 'hidden'
-  },
-  stretchedArtistImage: {
-    width: 60,
-    height: 60,
-  },
-  stretchedArtistText: {
-    color: "#000",
-    paddingStart: 20,
-    fontSize: 20,
-  },
-  stretchedArtistSelectedIcon: {
-      position: 'absolute',
-      right: 0,
-      top: 0,
-      overflow: 'visible'
-  }
+  
 });
 
 export {AddArtistScreen};

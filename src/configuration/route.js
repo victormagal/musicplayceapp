@@ -8,8 +8,8 @@ import { FeedbackConfigurationScreen } from './view/FeedbackConfigurationScreen'
 export const ConfigurationScreensNavigation = createStackNavigator(
   {
     configuration: {
-      screen: FeedbackConfigurationScreen,
-      // screen: ConfigurationScreen,
+      //screen: FeedbackConfigurationScreen,
+      screen: ConfigurationScreen,
       navigationOptions: {
         header: null
       }

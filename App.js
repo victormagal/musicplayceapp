@@ -7,11 +7,10 @@ import { createStackNavigator } from 'react-navigation';
 import { Font, DangerZone } from 'expo';
 import { ProfileScreen } from './src/profile';
 import { HomeScreen } from './src/home';
-import { UploadMediaEmptyScreen } from './src/registerSongs';
+import { AddArtistScreen } from './src/registerSongs';
 import { ConfigurationScreensNavigation } from './src/configuration';
 import { reducers } from './src/state/reducer';
 import { changeLanguage, loadFont } from './src/state/action';
-import { List } from 'react-native-elements';
 
 const { Localization } = DangerZone;
 const store = createStore(reducers, applyMiddleware(thunkMiddleware));
@@ -22,10 +21,6 @@ if(typeof global.self === "undefined")
 }
 
 global.fetch = fetch;
-
-let state = {
-    fontLoaded: false,
-};
 
 const HomeNavigation = createStackNavigator(
     {
@@ -42,7 +37,7 @@ const HomeNavigation = createStackNavigator(
             }
         },
         registerSongs: {
-            screen: UploadMediaEmptyScreen,
+            screen: AddArtistScreen,
             navigationOptions: {
                 header: null
             }
@@ -55,7 +50,7 @@ const HomeNavigation = createStackNavigator(
         }
     },
     {
-        initialRouteName: 'registerSongs'
+        initialRouteName: 'home'
     }
 );
 
