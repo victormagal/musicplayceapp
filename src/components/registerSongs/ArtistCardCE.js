@@ -1,5 +1,6 @@
 import React, { Component } from 'react'; 
-import { View, Icon, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { Icon } from 'react-native-elements';
 import PropTypes from 'prop-types';
 
 class ArtistCardCE extends Component{
@@ -9,7 +10,7 @@ class ArtistCardCE extends Component{
         let borderStyle = {};
         let iconStyle = {};
 
-        if(selected != null && selected == true){
+        if(selected == true){
             borderStyle = {
                 borderColor: "#e13223",
                 borderWidth: 2
