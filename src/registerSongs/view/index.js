@@ -13,3 +13,4 @@ export * from './AddArtistByEmailScreen';
 export * from './AddArtistFullScreen';
 export * from './FolderScreen';
 export * from './UploadMediaEmptyScreen';
+export * from './UploadMediaFilledScreen';
