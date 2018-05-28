@@ -2,6 +2,7 @@ import React from 'react';
 import {StyleSheet, Text, View, TextInput, FlatList} from 'react-native';
 import { Icon } from 'react-native-elements'
 import { TextField } from 'react-native-material-textfield';
+import { ArtistCardCE } from '../../components';
 
 class AddArtistByEmailScreen extends React.Component {
   constructor(props){
@@ -20,21 +21,15 @@ class AddArtistByEmailScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <View>
-            <View style={ [styles.stretchedArtistCardContainer, this.state.item.selected == true ? {borderWidth:2, borderColor: '#e13223'} : {}] }>
-                <View style={ styles.stretchedArtistImage } backgroundColor={ this.state.item.backgroundColor}></View>
-                <Text style={ styles.stretchedArtistText}>{ this.state.item.title }</Text>
-            </View>
-            <Icon name='check-circle' color='#f00' size={18} containerStyle={ this.state.item.selected == true ? styles.stretchedArtistSelectedIcon : { display: 'none'}}/>
-        </View>
+        <ArtistCardCE artist={"Almir Sater"} selected={true} />
         <Text style={styles.textTop}>Essa música tem outros autores?</Text>
-        <View style={ styles.textInputContainer}>
-          <TextInput style={styles.textInput}
-            onFocus={ () => this.setState({text: ""})}
-            onChangeText={ (text) => this.setState({text}) }
-            value={this.state.text}
-            underlineColorAndroid='transparent'/>
-          <Icon name='search' color='#e13223' size={16}/>
+        <View style={ styles.textFieldWithButtonContainer}>
+            <TextField label="Pesquisar por nome"
+            value="Almir Sater"
+            labelFontSize={16} 
+            lineWidth={1}
+            containerStyle={{flex: 1}}/>
+            <Icon name='search' color='#e13223' size={20} containerStyle={ styles.textFieldIcon }/>
         </View>
         <View style={ styles.textInputSubTextContainer}>
             <Text style={ styles.textInputSubTextHeader}>Não encontrou o co-autor?</Text>
@@ -120,7 +115,16 @@ const styles = StyleSheet.create({
     fontWeight: 'normal',
     fontSize: 12,
     color: '#686868',
-  }
+  },
+  textFieldWithButtonContainer: {
+    flexDirection: 'row',
+    padding: 0,
+    marginBottom: 2
+},
+textFieldIcon: {
+    alignSelf: 'flex-end',
+    paddingBottom: 16,
+}
 });
 
 export {AddArtistByEmailScreen};
