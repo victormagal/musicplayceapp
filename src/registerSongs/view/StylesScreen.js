@@ -100,7 +100,7 @@ class StylesScreen extends React.Component {
 
   renderItem = ({item}) => (
     <View style={styles.buttonContainer}>
-        <ButtonCE title={item.title} selected={item.selected} onPress={() => {}} />
+        <ButtonCE title={item.title} selected={item.selected} textSize={16} onPress={() => {}} />
     </View>
   );
   
@@ -125,8 +125,6 @@ const styles = StyleSheet.create({
     flex: 1,
     marginTop: 30,
     marginBottom: 30,
-    marginStart: 40,
-    marginEnd: 40,
     flexDirection: 'column',
     alignItems: 'center'
   },
@@ -136,14 +134,12 @@ const styles = StyleSheet.create({
     color: '#686868',
     height: 60,
     marginBottom: 21,
+    marginStart: 40,
+    marginEnd: 40
   },
   buttonContainer: {
-      borderRadius: 25,
       marginEnd: 10,
       marginBottom: 10,
-      borderWidth: 1,
-      borderColor: '#e13223',
-      alignItems: 'center',
   }
 });
 

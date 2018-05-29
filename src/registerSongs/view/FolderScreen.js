@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet, Text, View, TextInput, FlatList} from 'react-native';
 import { Icon, Button } from 'react-native-elements'
-import { ButtonCE } from '../../components';
+import { ButtonCE, ChooseFolderCE } from '../../components';
 import { TextField } from 'react-native-material-textfield';
 
 class FolderScreen extends React.Component {
@@ -27,37 +27,20 @@ class FolderScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <View>
-            <View style={ [styles.stretchedArtistCardContainer, this.state.item[0].selected == true ? {borderWidth:2, borderColor: '#e13223'} : {}] }>
-                <View style={ styles.stretchedArtistImage }>
-                    <Icon type='font-awesome' name='folder-open-o' color='#5994db' />
-                </View>
-                <View style={ styles.stretchedArtistTextContainer }>
-                    <Text style={ styles.stretchedArtistText}>{ this.state.item[0].title }</Text>
-                    <Text style={ styles.stretchedArtistSubText}>{ this.state.item[0].subTitle }</Text>
-                </View>
-            </View>
-            <Icon name='check-circle' color='#f00' size={18} containerStyle={ this.state.item[0].selected == true ? styles.stretchedArtistSelectedIcon : { display: 'none'}}/>
-        </View>
-        <View>
-            <View style={ [styles.stretchedArtistCardContainer, this.state.item[1].selected == true ? {borderWidth:2, borderColor: '#e13223'} : {}] }>
-                <View style={ styles.stretchedArtistImage }>
-                    <Icon type='font-awesome' name='folder-open-o' color='#5994db' />
-                </View>
-                <View>
-                    <Text style={ styles.stretchedArtistText}>{ this.state.item[1].title }</Text>
-                    <Text style={ styles.stretchedArtistSubText}>{ this.state.item[1].subTitle }</Text>
-                </View>
-            </View>
-            <Icon name='check-circle' color='#f00' size={18} containerStyle={ this.state.item[1].selected == true ? styles.stretchedArtistSelectedIcon : { display: 'none'}}/>
-        </View>
+        <ChooseFolderCE folderName={ this.state.item[0].title}
+            musicAmount={ this.state.item[0].subTitle }
+            selected={true}
+            onPress={() => {}} />
+        <ChooseFolderCE folderName={ this.state.item[1].title}
+            musicAmount={ this.state.item[1].subTitle }
+            onPress={() => {}} />
         <View style={ styles.textFieldWithButtonContainer}>
             <TextField label="Nome da nova pasta"
             value="Falando de amor"
             labelFontSize={16} 
             lineWidth={0}
             containerStyle={{flex: 1}}/>
-            <ButtonCE title='Criar' onPress={() => {}} />
+            <ButtonCE title='Criar' onPress={() => {}} style={{alignSelf: 'flex-end', paddingBottom: 16}} />
         </View>
       </View>
     );
@@ -117,8 +100,6 @@ const styles = StyleSheet.create({
   },
   textFieldWithButtonContainer: {
       flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'center',
       borderBottomWidth: 1,
       borderColor: "#b1b1b1",
       padding: 0

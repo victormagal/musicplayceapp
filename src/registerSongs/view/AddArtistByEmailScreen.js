@@ -25,9 +25,10 @@ class AddArtistByEmailScreen extends React.Component {
         <Text style={styles.textTop}>Essa música tem outros autores?</Text>
         <View style={ styles.textFieldWithButtonContainer}>
             <TextField label="Pesquisar por nome"
-            value="Almir Sater"
+            value="Roberto Carlos"
             labelFontSize={16} 
             lineWidth={1}
+            baseColor={"#b1b1b1"}
             containerStyle={{flex: 1}}/>
             <Icon name='search' color='#e13223' size={20} containerStyle={ styles.textFieldIcon }/>
         </View>

@@ -18,7 +18,7 @@ class MusicDescriptionScreen extends React.Component {
         labelFontSize={16}
         multiline={true}
         lineWidth={1}
-        baseColor={'#686868'}
+        baseColor={'#b1b1b1'}
         onChangeText={(text) => this.setState({text})}/>
       </View>
     );

@@ -18,8 +18,7 @@ class ISRCScreen extends React.Component {
         labelFontSize={16}
         multiline={true}
         lineWidth={1}
-        baseColor={'#686868'}
-        onChangeText={(text) => this.setState({text})} />
+        baseColor={'#b1b1b1'} />
         <View style={[styles.clickableTextContainer, {marginTop: 76}]}>
           <Text style={styles.clickableText}>A gravação ainda nao está registrada.</Text>
         </View>
