@@ -3,6 +3,7 @@ import { Picker, ScrollView, StyleSheet, TouchableWithoutFeedback, Text, View } 
 import { DarkHeader } from '../../components/configuration/DarkHeader';
 import { SelectArea } from '../../components/configuration/SelectArea';
 import { TextAreaInput } from '../../components/configuration/TextAreaInput';
+import { SwitchElement } from '../../components/configuration/SwitchComponent';
 
 class FeedbackConfigurationScreen extends React.Component {
 
@@ -17,6 +18,7 @@ class FeedbackConfigurationScreen extends React.Component {
         <ScrollView style={styles.scroll}>
           <SelectArea />
           <TextAreaInput />
+          <SwitchElement />
         </ScrollView>
       </View>
     );
