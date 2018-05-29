@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
     flex: 0.9
   },
   text: {
-    color: 'black',
+    color: '#686868',
     fontFamily: 'montSerrat',
     fontSize: 16
   },

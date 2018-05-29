@@ -1,11 +1,10 @@
 import React from 'react';
-import { Text, View, StyleSheet, TextInput } from 'react-native';
+import { StyleSheet, View, TextInput } from 'react-native';
 import { connect } from 'react-redux';
 
-class InputTextComponent extends React.Component {
+class TextAreaInputComponent extends React.Component {
 
   render() {
-    let { value, label } = this.props;
     return (
       <View style={styles.parent}>
         {
@@ -13,10 +12,11 @@ class InputTextComponent extends React.Component {
             <View>
               <TextInput
                 style={styles.text}
-                placeholder={label}
+                multiline={true}
+                numberOfLines={3}
+                placeholder={"Esse é o placeholder"}
                 placeholderTextColor={"#686868"}
                 underlineColorAndroid={"transparent"}
-                value={value}
               />
             </View>
           ) : null
@@ -48,5 +48,5 @@ const mapStateToProps = ({ fontReducer }) => {
   return { ...fontReducer };
 };
 
-const InputText = connect(mapStateToProps)(InputTextComponent);
-export { InputText };
+const TextAreaInput = connect(mapStateToProps)(TextAreaInputComponent);
+export { TextAreaInput };
