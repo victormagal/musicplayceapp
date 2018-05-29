@@ -27,7 +27,7 @@ class UploadMediaFilledScreen extends React.Component {
         </View>
         <Text style={styles.headerTitle}>Mostre pra todo mundo o que você faz de melhor.</Text>
         <Text style={ styles.headerText}>Melodia selecionada</Text>
-        <ButtonCE title='Nome da música.mp3' onPress={ () => {} } textSize={16} style={ {marginBottom: 10} } />
+        <ButtonCE iconName={'play-circle-o'} iconType={ 'font-awesome' } title='Nome da música.mp3' textSize={16} onPress={ () => {} } textSize={16} style={ {marginBottom: 10} } />
         <View style={styles.clickableTextContainer}>
           <Text style={styles.clickableText}>Substituir arquivo</Text>
         </View> 

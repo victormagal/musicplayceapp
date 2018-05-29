@@ -27,7 +27,7 @@ class UploadMediaEmptyScreen extends React.Component {
         </View>
         <Text style={styles.headerTitle}>Mostre pra todo mundo o que você faz de melhor.</Text>
         <Text style={ styles.headerText}>Upload de melodia</Text>
-        <ButtonCE title='Escolher o arquivo' onPress={ () => {} } textSize={16} style={ {marginBottom: 10} } />
+        <ButtonCE iconName={'music-tone-alt'} iconType={'simple-line-icon'} title='Escolher o arquivo' onPress={ () => {} } textSize={16} style={ {marginBottom: 10} } />
         <Text style={ styles.subText}>Você pode fazer upload de músicas em MP3 ou AAC.</Text>
         <View style={ styles.textFieldsVerticalContainer }>
           <View style={  styles.textFieldsHorizontalContainer}>
