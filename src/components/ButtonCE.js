@@ -12,9 +12,13 @@ class ButtonCE extends Component{
             selected = true;
         }
         
+        let borderStyle = selected ? {} : {borderWidth : 1, borderColor: '#e13223'};
+
         let linearColorOptions = [['#bb1a1a', '#2e2c9d'], ['transparent', 'transparent']];
         let linearColor = selected ? linearColorOptions[0] : linearColorOptions[1];
+
         let textStyle = selected ? {} : {color: "#e13223", fontWeight: 'normal'};
+
         let textSizeStyle = textSize != null ? {fontSize: textSize} : {};
 
         return (
@@ -23,7 +27,7 @@ class ButtonCE extends Component{
                     colors={linearColor}
                     start={[0.0, 0]}
                     end={[1.0, 0]}
-                    style={styles.linear}
+                    style={[styles.linear, borderStyle]}
                     selected={true}>
                     <Text style={[styles.text, textStyle, textSizeStyle]}>
                         {title}
