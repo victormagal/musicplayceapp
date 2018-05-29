@@ -7,9 +7,6 @@ import { TextField } from 'react-native-material-textfield';
 class AddArtistScreen extends React.Component {
   constructor(props){
     super(props);
-    this.state = { 
-        text: "Pesquise pelo nome",
-    };
   }
   
   render() {
@@ -18,7 +15,7 @@ class AddArtistScreen extends React.Component {
         <ArtistCardCE artist={"Almir Sater"} selected={true} onPress={ () => {}} />
         <Text style={styles.textTop}>Essa música tem outros autores?</Text>
         <View style={ styles.textFieldWithButtonContainer}>
-            <TextField label="Pesquisar por nome"
+            <TextField label="Pesquise pelo nome"
             value=""
             labelFontSize={16} 
             lineWidth={1}
