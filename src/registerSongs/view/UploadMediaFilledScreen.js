@@ -41,6 +41,8 @@ class UploadMediaFilledScreen extends React.Component {
               label='Qual é o título da música?'
               value={this.state.titleText}
               labelFontSize={12}
+              baseColor={'#000'}
+              textColor={'#686868'}
               onChangeText={(titleText) => this.setState({titleText})}/>
               <Icon name='check-circle' color='#f00' size={18} containerStyle={ styles.stretchedArtistSelectedIcon }/>
             </View>
@@ -52,6 +54,8 @@ class UploadMediaFilledScreen extends React.Component {
               label='Qual é a letra?'
               value={this.state.letterText}
               labelFontSize={12}
+              baseColor={'#000'}
+              textColor={'#686868'}
               onChangeText={(letterText) => this.setState({letterText})}/>
               <Icon name='check-circle' color='#f00' size={18} containerStyle={ styles.stretchedArtistSelectedIcon }/>
             </View>
@@ -63,6 +67,8 @@ class UploadMediaFilledScreen extends React.Component {
               label='Quais as categorias e estilos que combinam?'
               value={this.state.stilesText}
               labelFontSize={12}
+              baseColor={'#000'}
+              textColor={'#686868'}
               onChangeText={(stilesText) => this.setState({stilesText})}/>
               <Icon name='check-circle' color='#f00' size={18} containerStyle={ styles.stretchedArtistSelectedIcon }/>
             </View>
@@ -72,6 +78,8 @@ class UploadMediaFilledScreen extends React.Component {
               label='Fale um pouquinho mais sobre a música'
               value={this.state.decriptionText}
               labelFontSize={12}
+              baseColor={'#000'}
+              textColor={'#686868'}
               onChangeText={(decriptionText) => this.setState({decriptionText})}/>
               <Icon name='check-circle' color='#f00' size={18} containerStyle={ styles.stretchedArtistSelectedIcon }/>
             </View>
@@ -83,6 +91,8 @@ class UploadMediaFilledScreen extends React.Component {
               label='Tem outros autores?'
               value={this.state.authorsText}
               labelFontSize={12}
+              baseColor={'#000'}
+              textColor={'#686868'}
               onChangeText={(authorsText) => this.setState({authorsText})}/>
               <Icon name='check-circle' color='#f00' size={18} containerStyle={ styles.stretchedArtistSelectedIcon }/>
             </View>
@@ -92,6 +102,8 @@ class UploadMediaFilledScreen extends React.Component {
               label='Tem outros intérpretes?'
               value={this.state.interpretersText}
               labelFontSize={12}
+              baseColor={'#000'}
+              textColor={'#686868'}
               onChangeText={(interpretersText) => this.setState({interpretersText})}/>
               <Icon name='check-circle' color='#f00' size={18} containerStyle={ styles.stretchedArtistSelectedIcon }/>
             </View>
@@ -103,6 +115,8 @@ class UploadMediaFilledScreen extends React.Component {
               label='Organize sua música em pastas'
               value={this.state.folderText}
               labelFontSize={12}
+              baseColor={'#000'}
+              textColor={'#686868'}
               onChangeText={(folderText) => this.setState({folderText})}/>
               <Icon name='check-circle' color='#f00' size={18} containerStyle={ styles.stretchedArtistSelectedIcon }/>
             </View>
@@ -198,7 +212,8 @@ const styles = StyleSheet.create({
     marginEnd: 5,
     borderRadius: 4,
     borderWidth: 2,
-    borderColor: '#e13223'
+    borderColor: '#e13223',
+    padding: 10
   },
   stretchedArtistSelectedIcon: {
     position: 'absolute',
