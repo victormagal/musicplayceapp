@@ -5,7 +5,7 @@ import { SelectArea } from '../../components/configuration/SelectArea';
 import { TextAreaInput } from '../../components/configuration/TextAreaInput';
 import { SwitchElement } from '../../components/configuration/SwitchComponent';
 
-class FeedbackConfigurationScreen extends React.Component {
+class NotificationConfigurationScreen extends React.Component {
 
   render() {
     return (
@@ -41,4 +41,4 @@ const mapStateToProps = ({ fontReducer }) => {
   return { ...fontReducer };
 };
 
-export { FeedbackConfigurationScreen };
+export { NotificationConfigurationScreen };

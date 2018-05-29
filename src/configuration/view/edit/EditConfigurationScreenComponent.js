@@ -1,6 +1,6 @@
 import React from 'react';
-import {Text, View, ScrollView, StyleSheet} from 'react-native';
-import {DarkHeader, TitleSectionForm, InputText} from '../../../components';
+import { Text, View, ScrollView, StyleSheet } from 'react-native';
+import { DarkHeader, TitleSectionForm, InputText } from '../../../components';
 
 class EditConfigurationScreenComponent extends React.Component {
 	

@@ -1,5 +1,6 @@
 import React from 'react';
-import { Text, View, StyleSheet, TextInput } from 'react-native';
+import { View, StyleSheet } from 'react-native';
+import { TextField } from 'react-native-material-textfield';
 import { connect } from 'react-redux';
 
 class InputTextComponent extends React.Component {
@@ -11,12 +12,17 @@ class InputTextComponent extends React.Component {
         {
           this.props.fontLoaded ? (
             <View>
-              <TextInput
-                style={styles.text}
-                placeholder={label}
-                placeholderTextColor={"#686868"}
-                underlineColorAndroid={"transparent"}
+              <TextField
+                lineWidth={1}
+                activeLineWidth={1}
+                disabledLineWidth={0}
+                label={label}
                 value={value}
+                labelFontSize={12}
+                baseColor={'rgba(104, 104, 104, 0.8)'}
+                tintColor={'rgba(177, 177, 177, 0.8)'}
+                labelTextStyle={{ fontFamily: 'montSerrat' }}
+                style={{ fontFamily: 'montSerrat', fontSize: 16 }}
               />
             </View>
           ) : null
@@ -33,14 +39,6 @@ const styles = StyleSheet.create({
     display: 'flex',
     backgroundColor: '#FCFCFC',
     justifyContent: 'flex-end'
-  },
-  text: {
-    fontSize: 16,
-    paddingVertical: 10,
-    fontFamily: 'montSerrat',
-    color: '#000000',
-    borderBottomWidth: 1,
-    borderBottomColor: '#B1B1B1'
   }
 });
 

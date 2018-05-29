@@ -13,12 +13,12 @@ class ButtonCE extends Component{
             selected = true;
         }
         
-        let borderStyle = selected ? {} : {borderWidth : 1, borderColor: '#e13223'};
+        let borderStyle = selected ? {} : {borderWidth : 1, borderColor: '#E13223'};
 
-        let linearColorOptions = [['#bb1a1a', '#2e2c9d'], ['transparent', 'transparent']];
+        let linearColorOptions = [['#bb1a1a', '#2E2C9D'], ['transparent', 'transparent']];
         let linearColor = selected ? linearColorOptions[0] : linearColorOptions[1];
 
-        let textStyle = selected ? {} : {color: "#e13223", fontWeight: 'normal'};
+        let textStyle = selected ? {} : { color: "#E13223", fontWeight: 'normal', fontFamily: 'montSerrat' };
 
         let textSizeStyle = textSize != null ? {fontSize: textSize} : {};
 
@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
 	},
 	text: {
 		backgroundColor: 'transparent',
-		fontSize: 10,
+        fontSize: 10,
 		color: '#fff'
     },
     icon: {
