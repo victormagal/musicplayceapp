@@ -54,14 +54,14 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     alignItems: 'center',
     borderBottomWidth: 1,
-    borderBottomColor: '#B1B1B1'
+    borderBottomColor: 'rgba(104, 104, 104, 0.8)'
   },
   boxText: {
     alignItems: 'flex-start',
     flex: 0.9
   },
   text: {
-    color: '#686868',
+    color: 'rgba(104, 104, 104, 0.8)',
     fontFamily: 'montSerrat',
     fontSize: 16
   },

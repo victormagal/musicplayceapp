@@ -1,22 +1,30 @@
 import React from 'react';
-import { StyleSheet, View, TextInput } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import { TextField } from 'react-native-material-textfield';
 import { connect } from 'react-redux';
 
 class TextAreaInputComponent extends React.Component {
 
   render() {
+    let { value, label } = this.props;
     return (
       <View style={styles.parent}>
         {
           this.props.fontLoaded ? (
             <View>
-              <TextInput
-                style={styles.text}
+              <TextField
+                lineWidth={1}
+                activeLineWidth={1}
+                disabledLineWidth={0}
+                label={label}
+                value={value}
+                labelFontSize={12}
+                baseColor={'rgba(104, 104, 104, 0.8)'}
+                tintColor={'rgba(177, 177, 177, 0.8)'}
+                labelTextStyle={{ fontFamily: 'montSerrat' }}
                 multiline={true}
-                numberOfLines={3}
-                placeholder={"Esse é o placeholder"}
-                placeholderTextColor={"#686868"}
-                underlineColorAndroid={"transparent"}
+                characterRestriction={140}
+                style={{ fontFamily: 'montSerrat', fontSize: 16 }}
               />
             </View>
           ) : null
@@ -28,19 +36,10 @@ class TextAreaInputComponent extends React.Component {
 
 const styles = StyleSheet.create({
   parent: {
-    marginTop: 20,
     marginHorizontal: 40,
     display: 'flex',
     backgroundColor: '#FCFCFC',
     justifyContent: 'flex-end'
-  },
-  text: {
-    fontSize: 16,
-    paddingVertical: 10,
-    fontFamily: 'montSerrat',
-    color: '#000000',
-    borderBottomWidth: 1,
-    borderBottomColor: '#B1B1B1'
   }
 });
 

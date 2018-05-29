@@ -14,7 +14,7 @@ class ChangePasswordConfigurationScreen extends React.Component {
       <View style={styles.parent}>
         <DarkHeader style={styles.header} back={true} onBack={this.handleBackClick} title={"Troque sua senha de acesso"} />
         <ScrollView style={styles.scroll}>
-          <InputText label={"Senha atual"} value={"Senha atual"} />
+          <InputText label={"Senha atual"} value={""} />
           <InputText label={"Nova senha"} value={"Nova senha"} />
           <InputText label={"Confirme a nova senha"} value={"Confirme a nova senha"} />
         </ScrollView>

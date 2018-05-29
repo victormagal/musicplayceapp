@@ -7,17 +7,13 @@ import { SwitchElement } from '../../components/configuration/SwitchComponent';
 
 class FeedbackConfigurationScreen extends React.Component {
 
-  state = { 
-    user: ''
-  }
-
   render() {
     return (
       <View style={styles.parent}>
         <DarkHeader style={styles.header} back={true} onBack={this.handleBackClick} title={"Alguma sugestão? Ajude-nos a melhorar a plataforma."} />
         <ScrollView style={styles.scroll}>
           <SelectArea />
-          <TextAreaInput />
+          <TextAreaInput label={"Envie sua mensagem"} value={""} />
           <SwitchElement />
         </ScrollView>
       </View>
