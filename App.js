@@ -7,7 +7,7 @@ import { createStackNavigator } from 'react-navigation';
 import { Font, DangerZone } from 'expo';
 import { ProfileScreen } from './src/profile';
 import { HomeScreen } from './src/home';
-import { StylesScreen } from './src/registerSongs';
+import { RegisterArtistsScreen } from './src/registerSongs';
 import { ConfigurationScreensNavigation } from './src/configuration';
 import { reducers } from './src/state/reducer';
 import { changeLanguage, loadFont } from './src/state/action';
@@ -37,7 +37,7 @@ const HomeNavigation = createStackNavigator(
             }
         },
         registerSongs: {
-            screen: StylesScreen,
+            screen: RegisterArtistsScreen,
             navigationOptions: {
                 header: null
             }
