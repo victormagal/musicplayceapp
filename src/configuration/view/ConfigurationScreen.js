@@ -37,7 +37,7 @@ class ConfigurationScreenComponent extends React.Component {
 			},
 			{
 				id: '01',
-				rota: 'editConfiguration',
+				rota: 'notificationConfiguration',
 				name: 'Personalizar notificações',
 				width: '18',
 				height: '22',
