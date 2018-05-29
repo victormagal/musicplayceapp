@@ -48,8 +48,8 @@ class ConfirmationScreen extends React.Component {
                 columnWrapperStyle={{flexWrap: 'wrap', justifyContent: 'center'}}/>
         </View>
         <View style={ styles.confirmationButtonsContainer }>
-            <ButtonCE title={"Convidar para o MusicPlayce"} onPress={() => {}} style={ styles.confirmationButtonTop } />
-            <ButtonCE title={"Fechar"} onPress={() => {}} style={ styles.confirmationButtonBottom }/>
+            <ButtonCE title={"Convidar para o MusicPlayce"} onPress={() => {}} style={ styles.confirmationButtonTop } textSize={16} />
+            <ButtonCE title={"Fechar"} onPress={() => {}} style={ styles.confirmationButtonBottom } textSize={16} />
         </View>
       </View>
     );
@@ -83,8 +83,8 @@ const styles = StyleSheet.create({
     height: 40,
     color: '#000',
     marginBottom: 20,
-    paddingStart: 12,
-    paddingEnd: 12
+    paddingStart: 45,
+    paddingEnd: 45
   },
   simpleArtistCardContainer: {
     width: 100,

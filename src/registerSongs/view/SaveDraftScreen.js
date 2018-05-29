@@ -12,8 +12,8 @@ class SaveDraftScreen extends React.Component {
     return (
       <View style={styles.container}>
         <Text style={styles.textTop}>Deseja salvar como rascunho?</Text>
-        <ButtonCE title="Salvar Rascunho" onPress={ () => {console.log("salvar")}} style={{marginBottom: 20}}/>
-        <ButtonCE title="Apagar música" onPress={ () => {console.log("apagar")}}/>
+        <ButtonCE title="Salvar Rascunho" onPress={ () => {console.log("salvar")}} style={[styles.buttonStyle, {marginBottom: 20}]} textSize={16}/>
+        <ButtonCE title="Apagar música" onPress={ () => {console.log("apagar")}} style={ styles.buttonStyle } textSize={16}/>
       </View>
     );
   }
@@ -34,6 +34,10 @@ const styles = StyleSheet.create({
     color: '#000000',
     height: 22,
     marginBottom: 20,
+  },
+  buttonStyle: {
+    paddingStart: 100,
+    paddingEnd: 100
   }
 });
 
