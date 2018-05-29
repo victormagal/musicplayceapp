@@ -1,14 +1,11 @@
 import { createStackNavigator } from 'react-navigation';
-import {
-    ConfigurationScreen, EditConfigurationScreen, InviteConfigurationScreen,
-    ChangePasswordConfigurationScreen, FeedbackConfigurationScreen
-} from './view';
+import { ConfigurationScreen, EditConfigurationScreen, InviteConfigurationScreen, ChangePasswordConfigurationScreen, FeedbackConfigurationScreen } from './view';
 
 export const ConfigurationScreensNavigation = createStackNavigator(
   {
     configuration: {
-      //screen: FeedbackConfigurationScreen,
-      screen: ConfigurationScreen,
+      screen: FeedbackConfigurationScreen,
+      // screen: ConfigurationScreen,
       navigationOptions: {
         header: null
       }

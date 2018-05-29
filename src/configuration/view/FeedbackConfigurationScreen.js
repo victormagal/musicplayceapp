@@ -1,30 +1,21 @@
 import React from 'react';
-import { Text, View, ScrollView, StyleSheet, Picker } from 'react-native';
+import { Picker, ScrollView, StyleSheet, TouchableWithoutFeedback, Text, View } from 'react-native';
 import { DarkHeader } from '../../components/configuration/DarkHeader';
 import { InputText } from '../../components/configuration/InputText';
+import { SelectArea } from '../../components/configuration/SelectArea';
 
 class FeedbackConfigurationScreen extends React.Component {
 
-  state = { user: '' }
-
-  updateUser = (user) => {
-    this.setState({ user: user })
-  };
-
-  handleBackClick = () => {
-    this.props.navigation.pop();
-  };
+  state = { 
+    user: ''
+  }
 
   render() {
     return (
       <View style={styles.parent}>
-        <DarkHeader style={styles.header} back={true} onBack={this.handleBackClick} title={"Troque sua senha de acesso"} />
+        <DarkHeader style={styles.header} back={true} onBack={this.handleBackClick} title={"Alguma sugestão? Ajude-nos a melhorar a plataforma."} />
         <ScrollView style={styles.scroll}>
-          <Picker selectedValue={this.state.user} onValueChange={this.updateUser}>
-            <Picker.Item label="Steve" value="steve" />
-            <Picker.Item label="Ellen" value="ellen" />
-            <Picker.Item label="Maria" value="maria" />
-          </Picker>
+          <SelectArea />
           <Text>{this.state.user}</Text>
           <InputText label={"Senha atual"} value={"Senha atual"} />
           <InputText label={"Nova senha"} value={"Nova senha"} />
@@ -33,6 +24,7 @@ class FeedbackConfigurationScreen extends React.Component {
       </View>
     );
   }
+
 }
 
 const styles = StyleSheet.create({
