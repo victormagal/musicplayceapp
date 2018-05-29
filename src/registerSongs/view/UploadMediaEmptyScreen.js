@@ -3,6 +3,7 @@ import {StyleSheet, Text, View, TextInput, FlatList} from 'react-native';
 import { Icon } from 'react-native-elements'
 import { ButtonCE } from '../../components'
 import { TextField } from 'react-native-material-textfield';
+import { connect } from 'react-redux';
 
 class UploadMediaEmptyScreen extends React.Component {
   constructor(props){
@@ -69,12 +70,13 @@ class UploadMediaEmptyScreen extends React.Component {
               <TextField
               lineWidth={0}
               label='Fale um pouquinho mais sobre a música'
-              value={this.state.letterText}
+              value={this.state.decriptionText}
               labelFontSize={12}
               baseColor={'#000'}
               textColor={'#686868'}
-              labelTextStyle={{flex: 1,flexWrap: 'wrap'}}
-              onChangeText={(letterText) => this.setState({letterText})}/>
+              labelTextStyle={{flex: 1,flexWrap: 'wrap', fontFamily: 'monospace'}}
+              style={{fontFamily: 'monospace', fontSize: 10}}
+              onChangeText={(decriptionText) => this.setState({decriptionText})}/>
             </View>
           </View>
           <View style={  styles.textFieldsHorizontalContainer}>
@@ -120,6 +122,10 @@ class UploadMediaEmptyScreen extends React.Component {
     );
   }
 }
+
+const mapStateToProps = ({ fontReducer }) => {
+  return { ...fontReducer };
+};
 
 const styles = StyleSheet.create({
   container: {
