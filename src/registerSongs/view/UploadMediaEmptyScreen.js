@@ -3,6 +3,7 @@ import {StyleSheet, Text, View, TextInput, FlatList} from 'react-native';
 import { Icon } from 'react-native-elements'
 import { ButtonCE } from '../../components'
 import { TextField } from 'react-native-material-textfield';
+import { connect } from 'react-redux';
 
 class UploadMediaEmptyScreen extends React.Component {
   constructor(props){
@@ -11,10 +12,10 @@ class UploadMediaEmptyScreen extends React.Component {
       titleText: '',
       letterText: '',
       stilesText: '',
-      decriptionText: '',
+      decriptionText: '*Opcional',
       authorsText: '',
-      interpretersText: '',
-      folderText: '',
+      interpretersText: '*Opcional',
+      folderText: '*Opcional',
     }
   }
   
@@ -27,7 +28,7 @@ class UploadMediaEmptyScreen extends React.Component {
         </View>
         <Text style={styles.headerTitle}>Mostre pra todo mundo o que você faz de melhor.</Text>
         <Text style={ styles.headerText}>Upload de melodia</Text>
-        <ButtonCE title='Escolher o arquivo' onPress={ () => {} } textSize={16} style={ {marginBottom: 10} } />
+        <ButtonCE iconName={'music-tone-alt'} iconType={'simple-line-icon'} title='Escolher o arquivo' onPress={ () => {} } textSize={16} style={ {marginBottom: 10} } />
         <Text style={ styles.subText}>Você pode fazer upload de músicas em MP3 ou AAC.</Text>
         <View style={ styles.textFieldsVerticalContainer }>
           <View style={  styles.textFieldsHorizontalContainer}>
@@ -38,6 +39,8 @@ class UploadMediaEmptyScreen extends React.Component {
               label='Qual é o título da música?'
               value={this.state.titleText}
               labelFontSize={12}
+              baseColor={'#000'}
+              textColor={'#686868'}
               onChangeText={(titleText) => this.setState({titleText})}/>
             </View>
             <View style={ styles.textFieldsInnerContainer}>
@@ -47,6 +50,8 @@ class UploadMediaEmptyScreen extends React.Component {
               label='Qual é a letra?'
               value={this.state.letterText}
               labelFontSize={12}
+              baseColor={'#000'}
+              textColor={'#686868'}
               onChangeText={(letterText) => this.setState({letterText})}/>
             </View>
           </View>
@@ -57,15 +62,21 @@ class UploadMediaEmptyScreen extends React.Component {
               label='Quais as categorias e estilos que combinam?'
               value={this.state.stilesText}
               labelFontSize={12}
+              baseColor={'#000'}
+              textColor={'#686868'}
               onChangeText={(stilesText) => this.setState({stilesText})}/>
             </View>
             <View style={ styles.textFieldsInnerContainer}>
               <TextField
               lineWidth={0}
               label='Fale um pouquinho mais sobre a música'
-              value={this.state.letterText}
+              value={this.state.decriptionText}
               labelFontSize={12}
-              onChangeText={(letterText) => this.setState({letterText})}/>
+              baseColor={'#000'}
+              textColor={'#686868'}
+              labelTextStyle={{flex: 1,flexWrap: 'wrap', fontFamily: 'monospace'}}
+              style={{fontFamily: 'monospace', fontSize: 10}}
+              onChangeText={(decriptionText) => this.setState({decriptionText})}/>
             </View>
           </View>
           <View style={  styles.textFieldsHorizontalContainer}>
@@ -75,6 +86,8 @@ class UploadMediaEmptyScreen extends React.Component {
               label='Tem outros autores?'
               value={this.state.authorsText}
               labelFontSize={12}
+              baseColor={'#000'}
+              textColor={'#686868'}
               onChangeText={(authorsText) => this.setState({authorsText})}/>
             </View>
             <View style={ styles.textFieldsInnerContainer}>
@@ -83,6 +96,8 @@ class UploadMediaEmptyScreen extends React.Component {
               label='Tem outros intérpretes?'
               value={this.state.interpretersText}
               labelFontSize={12}
+              baseColor={'#000'}
+              textColor={'#686868'}
               onChangeText={(interpretersText) => this.setState({interpretersText})}/>
             </View>
           </View>
@@ -93,6 +108,8 @@ class UploadMediaEmptyScreen extends React.Component {
               label='Organize sua música em pastas'
               value={this.state.folderText}
               labelFontSize={12}
+              baseColor={'#000'}
+              textColor={'#686868'}
               onChangeText={(folderText) => this.setState({folderText})}/>
             </View>
           </View>
@@ -105,6 +122,10 @@ class UploadMediaEmptyScreen extends React.Component {
     );
   }
 }
+
+const mapStateToProps = ({ fontReducer }) => {
+  return { ...fontReducer };
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -186,6 +207,7 @@ const styles = StyleSheet.create({
     marginStart: 5,
     marginEnd: 5,
     borderRadius: 4,
+    padding: 10
   }
 });
 
