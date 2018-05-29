@@ -19,8 +19,7 @@ class MusicLetterScreen extends React.Component {
         labelFontSize={16}
         multiline={true}
         lineWidth={1}
-        baseColor={'#686868'}
-        onChangeText={(text) => this.setState({text})} />
+        baseColor={'#b1b1b1'} />
         <View style={[styles.clickableTextContainer, {marginTop: 20}]}>
           <Text>ou </Text>
           <Text style={styles.clickableText}>faça upload da letra(doc, tx ou rtf)</Text>
@@ -29,8 +28,9 @@ class MusicLetterScreen extends React.Component {
           <Picker
               selectedValue={this.state.language}
               onValueChange={(itemValue, itemIndex) => itemValue != 'default' ? this.setState({language: itemValue}) : {}}
-              mode={'dropdown'}>
-              <Picker.Item label="Idioma" value="default" style={styles.notEnabled} />
+              mode={'dropdown'}
+              style={ {color: "#b1b1b1"} }>
+              <Picker.Item label="Idioma" value="default" style={styles.notEnabled}  />
               <Picker.Item label="Português" value="pt" />
               <Picker.Item label="Inglês" value="en" />
               <Picker.Item label="Espanhol" value="es" />
