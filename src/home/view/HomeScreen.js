@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import {ButtonCE, ProfileIndicatorCE} from '../../../src/components';
+import {MPGradientButton, ProfileIndicatorCE} from '../../../src/components';
 import {LinearGradient} from 'expo';
 
 class HomeScreen extends React.Component {
@@ -22,9 +22,9 @@ class HomeScreen extends React.Component {
     return (
       <View style={styles.container}>
         <LinearGradient colors={["#e13223", "#ffffff"]} style={styles.gradient}>
-          <ButtonCE style={styles.button} title="TITLE" onPress={() => this.goToProfile()}/>
-          <ButtonCE style={styles.button} title="PERFIL" onPress={() => this.goToProfile()}/>
-          <ButtonCE style={styles.button} title="CONFIGURAÇÕES" onPress={() => this.goToConfiguration()}/>
+          <MPGradientButton style={styles.button} title="TITLE" onPress={() => this.goToProfile()}/>
+          <MPGradientButton style={styles.button} title="PERFIL" onPress={() => this.goToProfile()}/>
+          <MPGradientButton style={styles.button} title="CONFIGURAÇÕES" onPress={() => this.goToConfiguration()}/>
           
           <View style={{flexDirection: 'row', flex: 1}}>
             <ProfileIndicatorCE style={{marginTop: 10, flex: 1}} title="Indicações Feitas" subtitle="Explore" count={4}/>

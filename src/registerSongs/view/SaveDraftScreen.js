@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet, Text, View, TextInput} from 'react-native';
 import { Icon, Button } from 'react-native-elements';
-import { ButtonCE } from '../../components';
+import { MPGradientButton } from '../../components';
 
 class SaveDraftScreen extends React.Component {
   constructor(props){
@@ -12,8 +12,8 @@ class SaveDraftScreen extends React.Component {
     return (
       <View style={styles.container}>
         <Text style={styles.textTop}>Deseja salvar como rascunho?</Text>
-        <ButtonCE title="Salvar Rascunho" onPress={ () => {console.log("salvar")}} style={[styles.buttonStyle, {marginBottom: 20}]} textSize={16}/>
-        <ButtonCE title="Apagar música" onPress={ () => {console.log("apagar")}} style={ styles.buttonStyle } textSize={16}/>
+        <MPGradientButton title="Salvar Rascunho" onPress={ () => {console.log("salvar")}} style={[styles.buttonStyle, {marginBottom: 20}]} textSize={16}/>
+        <MPGradientButton title="Apagar música" onPress={ () => {console.log("apagar")}} style={ styles.buttonStyle } textSize={16}/>
       </View>
     );
   }

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, View, StyleSheet } from 'react-native';
-import { ButtonCE } from '../../components/ButtonCE';
+import { MPGradientButton } from '../../components';
 import { connect } from 'react-redux';
 
 class TitleSectionFormComponent extends React.Component {
@@ -14,7 +14,7 @@ class TitleSectionFormComponent extends React.Component {
           this.props.fontLoaded ? (
             <View style={styles.container}>
               <Text style={styles.title}>{title}</Text>
-              <ButtonCE style={styles.button} title={textButton} onPress={() => { return false; }} />
+              <MPGradientButton style={styles.button} title={textButton} onPress={() => { return false; }} />
             </View>
           ) : null
         }

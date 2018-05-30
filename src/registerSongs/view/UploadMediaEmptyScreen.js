@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet, Text, View, TextInput, FlatList} from 'react-native';
 import { Icon } from 'react-native-elements'
-import { ButtonCE } from '../../components'
+import { MPGradientButton } from '../../components'
 import { TextField } from 'react-native-material-textfield';
 import { connect } from 'react-redux';
 
@@ -28,7 +28,7 @@ class UploadMediaEmptyScreen extends React.Component {
         </View>
         <Text style={styles.headerTitle}>Mostre pra todo mundo o que você faz de melhor.</Text>
         <Text style={ styles.headerText}>Upload de melodia</Text>
-        <ButtonCE iconName={'music-tone-alt'} iconType={'simple-line-icon'} title='Escolher o arquivo' onPress={ () => {} } textSize={16} style={ {marginBottom: 10} } />
+        <MPGradientButton iconName={'music-tone-alt'} iconType={'simple-line-icon'} title='Escolher o arquivo' onPress={ () => {} } textSize={16} style={ {marginBottom: 10} } />
         <Text style={ styles.subText}>Você pode fazer upload de músicas em MP3 ou AAC.</Text>
         <View style={ styles.textFieldsVerticalContainer }>
           <View style={  styles.textFieldsHorizontalContainer}>
@@ -114,7 +114,7 @@ class UploadMediaEmptyScreen extends React.Component {
             </View>
           </View>
         </View>
-        <ButtonCE title='Publicar' onPress={ () => {} } textSize={16} style={ {marginBottom: 20} } />
+        <MPGradientButton title='Publicar' onPress={ () => {} } textSize={16} style={ {marginBottom: 20} } />
         <View style={styles.clickableTextContainer}>
           <Text style={styles.clickableText}>Terminar depois</Text>
         </View> 

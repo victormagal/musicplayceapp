@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet, Text, View, TextInput, FlatList, ScrollView} from 'react-native';
 import { Icon, Button } from 'react-native-elements';
-import { ButtonCE } from '../../components';
+import { MPGradientButton } from '../../components';
 
 class StylesScreen extends React.Component {
   constructor(props){
@@ -100,7 +100,7 @@ class StylesScreen extends React.Component {
 
   renderItem = ({item}) => (
     <View style={styles.buttonContainer}>
-        <ButtonCE title={item.title} selected={item.selected} textSize={16} onPress={() => {}} />
+        <MPGradientButton title={item.title} selected={item.selected} textSize={16} onPress={() => {}} />
     </View>
   );
   

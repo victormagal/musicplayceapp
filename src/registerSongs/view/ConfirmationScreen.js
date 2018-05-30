@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet, Text, View, TextInput, Image, FlatList} from 'react-native';
-import { ButtonCE } from '../../components';
+import { MPGradientButton } from '../../components';
 
 class ConfirmationScreen extends React.Component {
   constructor(props){
@@ -48,8 +48,8 @@ class ConfirmationScreen extends React.Component {
                 columnWrapperStyle={{flexWrap: 'wrap', justifyContent: 'center'}}/>
         </View>
         <View style={ styles.confirmationButtonsContainer }>
-            <ButtonCE title={"Convidar para o MusicPlayce"} onPress={() => {}} style={ styles.confirmationButtonTop } textSize={16} />
-            <ButtonCE title={"Fechar"} onPress={() => {}} style={ styles.confirmationButtonBottom } textSize={16} />
+            <MPGradientButton title={"Convidar para o MusicPlayce"} onPress={() => {}} style={ styles.confirmationButtonTop } textSize={16} />
+            <MPGradientButton title={"Fechar"} onPress={() => {}} style={ styles.confirmationButtonBottom } textSize={16} />
         </View>
       </View>
     );

@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet, Text, View, TextInput, FlatList} from 'react-native';
 import { Icon, Button } from 'react-native-elements'
-import { ButtonCE, ChooseFolderCE } from '../../components';
+import { MPGradientButton, ChooseFolderCE } from '../../components';
 import { TextField } from 'react-native-material-textfield';
 
 class FolderScreen extends React.Component {
@@ -40,7 +40,7 @@ class FolderScreen extends React.Component {
             labelFontSize={16} 
             lineWidth={0}
             containerStyle={{flex: 1}}/>
-            <ButtonCE title='Criar' onPress={() => {}} style={{alignSelf: 'flex-end', paddingBottom: 16}} />
+            <MPGradientButton title='Criar' onPress={() => {}} style={{alignSelf: 'flex-end', paddingBottom: 16}} />
         </View>
       </View>
     );

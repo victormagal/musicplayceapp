@@ -4,7 +4,7 @@ import { LinearGradient } from 'expo';
 import PropTypes from 'prop-types';
 import { Icon } from 'react-native-elements';
 
-class ButtonCE extends Component{
+class MPGradientButton extends Component{
 
     render() {
         let {style, title, selected, textSize, onPress, iconName, iconType} = this.props;
@@ -47,7 +47,7 @@ class ButtonCE extends Component{
     }
 }
 
-ButtonCE.propTypes = {
+MPGradientButton.propTypes = {
 	title: PropTypes.string.isRequired,
     onPress: PropTypes.func.isRequired,
     textSize: PropTypes.number,
@@ -77,4 +77,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export { ButtonCE };
+export { MPGradientButton };
