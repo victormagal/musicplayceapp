@@ -2,7 +2,7 @@ import React from 'react';
 import { View, StyleSheet, TouchableHighlight, Text } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
 
-class NavFooter extends React.Component {
+class MPFooter extends React.Component {
 
   onPress = () => {
     return false;
@@ -98,4 +98,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export { NavFooter };
+export { MPFooter };

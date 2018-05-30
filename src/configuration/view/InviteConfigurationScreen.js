@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, View, StyleSheet, FlatList, ScrollView } from 'react-native';
 import { MPHeader } from '../../components';
 import { ItemList } from '../../components/configuration/ItemList';
-import { NavFooter } from '../../components/configuration/NavFooter';
+import { MPFooter } from '../../components';
 
 class InviteConfigurationScreen extends React.Component {
 
@@ -62,7 +62,7 @@ class InviteConfigurationScreen extends React.Component {
             }}
           />
         </ScrollView>
-        <NavFooter style={styles.footer} />
+        <MPFooter style={styles.footer} />
       </View>
     );
   }
