@@ -3,7 +3,7 @@ import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { Icon } from 'react-native-elements';
 import PropTypes from 'prop-types';
 
-class InvitationCardCE extends Component{
+class MPInvitation extends Component{
 
     render() {
         let {artistName, artistEmail, selected} = this.props;
@@ -44,7 +44,7 @@ class InvitationCardCE extends Component{
     }
 }
 
-InvitationCardCE.propTypes = {
+MPInvitation.propTypes = {
     artist: PropTypes.string.isRequired,
     onPress: PropTypes.func.isRequired,
     selected: PropTypes.bool
@@ -99,4 +99,4 @@ const styles = StyleSheet.create({
           flex: 1,
       }
 });
-export { InvitationCardCE };
+export { MPInvitation };

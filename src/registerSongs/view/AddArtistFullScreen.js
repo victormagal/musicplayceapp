@@ -2,7 +2,7 @@ import React from 'react';
 import {StyleSheet, Text, View, TextInput, FlatList} from 'react-native';
 import { Icon } from 'react-native-elements'
 import { TextField } from 'react-native-material-textfield';
-import { MPArtistHorizontal, InvitationCardCE } from '../../components';
+import { MPArtistHorizontal, MPInvitation } from '../../components';
 
 class AddArtistFullScreen extends React.Component {
   constructor(props){
@@ -26,7 +26,7 @@ class AddArtistFullScreen extends React.Component {
     return (
       <View style={styles.container}>
         <MPArtistHorizontal artist={"Almir Sater"} selected={true} />
-        <InvitationCardCE artistName={"Roberto Carlos"} artistEmail={"robertocarlos@gmail.com"} selected={true} />
+        <MPInvitation artistName={"Roberto Carlos"} artistEmail={"robertocarlos@gmail.com"} selected={true} />
         <Text style={styles.textTop}>Essa música tem outros autores?</Text>
         <View style={ styles.textFieldWithButtonContainer}>
             <TextField label="Pesquisar por nome"
