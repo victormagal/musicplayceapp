@@ -43,14 +43,14 @@ const HomeNavigation = createStackNavigator(
             }
         },
         configuration: {
-            screen: EditConfigurationScreen,
+            screen: ConfigurationScreensNavigation,
             navigationOptions: {
                 header: null
             }
         }
     },
     {
-        initialRouteName: 'registerSongs'
+        initialRouteName: 'configuration'
     }
 );
 
