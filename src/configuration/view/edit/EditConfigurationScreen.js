@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {fetchProfile} from '../../../state/action';
-import {EditConfigurationScreenComponent} from './EditConfigurationScreenComponent';
+import { fetchProfile } from '../../../state/action';
+import { EditConfigurationScreenComponent } from './EditConfigurationScreenComponent';
 
 class EditConfigurationScreenContainer extends React.Component {
 
@@ -19,7 +19,6 @@ class EditConfigurationScreenContainer extends React.Component {
     );
   }
 }
-
 
 const mapStateToProps = ({ profileReducer }) => {
   return {...profileReducer };
