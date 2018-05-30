@@ -3,7 +3,7 @@ import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { Icon } from 'react-native-elements';
 import PropTypes from 'prop-types';
 
-class ChooseFolderCE extends Component{
+class MPFolder extends Component{
 
     render() {
         let {folderName, musicAmount, selected} = this.props;
@@ -44,7 +44,7 @@ class ChooseFolderCE extends Component{
     }
 }
 
-ChooseFolderCE.propTypes = {
+MPFolder.propTypes = {
     folderName: PropTypes.string.isRequired,
     musicAmount: PropTypes.string.isRequired,
     onPress: PropTypes.func.isRequired,
@@ -88,4 +88,4 @@ const styles = StyleSheet.create({
           top: 0,
       },
 });
-export { ChooseFolderCE };
+export { MPFolder };

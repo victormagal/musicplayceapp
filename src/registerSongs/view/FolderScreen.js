@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet, Text, View, TextInput, FlatList} from 'react-native';
 import { Icon, Button } from 'react-native-elements'
-import { MPGradientButton, ChooseFolderCE } from '../../components';
+import { MPGradientButton, MPFolder } from '../../components';
 import { TextField } from 'react-native-material-textfield';
 
 class FolderScreen extends React.Component {
@@ -27,11 +27,11 @@ class FolderScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <ChooseFolderCE folderName={ this.state.item[0].title}
+        <MPFolder folderName={ this.state.item[0].title}
             musicAmount={ this.state.item[0].subTitle }
             selected={true}
             onPress={() => {}} />
-        <ChooseFolderCE folderName={ this.state.item[1].title}
+        <MPFolder folderName={ this.state.item[1].title}
             musicAmount={ this.state.item[1].subTitle }
             onPress={() => {}} />
         <View style={ styles.textFieldWithButtonContainer}>
