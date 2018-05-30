@@ -85,5 +85,4 @@ const mapStateToProps = ({fontReducer}) => {
 };
 
 const MPGradientButton = connect(mapStateToProps)(MPGradientButtonComponent);
-
-export {MPGradientButton};
+export { MPGradientButton };

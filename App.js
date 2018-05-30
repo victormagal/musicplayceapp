@@ -8,7 +8,7 @@ import { Font, DangerZone } from 'expo';
 import { ProfileScreen } from './src/profile';
 import { HomeScreen } from './src/home';
 import { TitleScreen } from './src/registerSongs';
-import { ConfigurationScreensNavigation, EditConfigurationScreen } from './src/configuration';
+import { ConfigurationScreensNavigation } from './src/configuration';
 import { reducers } from './src/state/reducer';
 import { changeLanguage, loadFont } from './src/state/action';
 
