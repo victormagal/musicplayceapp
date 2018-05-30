@@ -7,8 +7,8 @@ import { createStackNavigator } from 'react-navigation';
 import { Font, DangerZone } from 'expo';
 import { ProfileScreen } from './src/profile';
 import { HomeScreen } from './src/home';
-import { UploadMediaEmptyScreen, UploadMediaFilledScreen, AddArtistByEmailScreen } from './src/registerSongs';
-import { ConfigurationScreensNavigation } from './src/configuration';
+import { StylesScreen } from './src/registerSongs';
+import { ConfigurationScreensNavigation, EditConfigurationScreen } from './src/configuration';
 import { reducers } from './src/state/reducer';
 import { changeLanguage, loadFont } from './src/state/action';
 
@@ -37,13 +37,13 @@ const HomeNavigation = createStackNavigator(
             }
         },
         registerSongs: {
-            screen: AddArtistByEmailScreen,
+            screen: StylesScreen,
             navigationOptions: {
                 header: null
             }
         },
         configuration: {
-            screen: ConfigurationScreensNavigation,
+            screen: EditConfigurationScreen,
             navigationOptions: {
                 header: null
             }

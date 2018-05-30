@@ -3,8 +3,9 @@ import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { LinearGradient } from 'expo';
 import PropTypes from 'prop-types';
 import { Icon } from 'react-native-elements';
+import { connect } from 'react-redux';
 
-class MPGradientButton extends Component{
+class MPGradientButtonComponent extends Component{
 
     render() {
         let {style, title, selected, textSize, onPress, iconName, iconType} = this.props;
@@ -17,9 +18,10 @@ class MPGradientButton extends Component{
 
         let linearColorOptions = [['#bb1a1a', '#2E2C9D'], ['transparent', 'transparent']];
         let linearColor = selected ? linearColorOptions[0] : linearColorOptions[1];
-
-        let textStyle = selected ? {} : { color: "#E13223", fontWeight: 'normal', fontFamily: 'montSerrat' };
-
+        let textStyle = {}
+        { this.props.fontLoaded ? 
+            textStyle = (selected ? {} : { color: "#E13223", fontFamily: 'montSerrat' }) : null;
+        }
         let textSizeStyle = textSize != null ? {fontSize: textSize} : {};
 
         return (
@@ -47,7 +49,7 @@ class MPGradientButton extends Component{
     }
 }
 
-MPGradientButton.propTypes = {
+MPGradientButtonComponent.propTypes = {
 	title: PropTypes.string.isRequired,
     onPress: PropTypes.func.isRequired,
     textSize: PropTypes.number,
@@ -76,5 +78,11 @@ const styles = StyleSheet.create({
         left: 6
     }
 });
+
+const mapStateToProps = ({ fontReducer }) => {
+    return { ...fontReducer };
+};
+
+const MPGradientButton = connect(mapStateToProps)(MPGradientButtonComponent);
 
 export { MPGradientButton };
