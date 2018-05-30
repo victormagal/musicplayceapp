@@ -3,11 +3,10 @@ import { Text, View, StyleSheet } from 'react-native';
 import { MPGradientButton } from '../../components';
 import { connect } from 'react-redux';
 
-class TitleSectionFormComponent extends React.Component {
+class MPTitleFormContainerComponent extends React.Component {
 
   render() {
-    let { title } = this.props;
-    let { textButton } = this.props;
+    let { title, textButton } = this.props;
     return (
       <View style={styles.parent}>
         {
@@ -49,5 +48,5 @@ const mapStateToProps = ({ fontReducer }) => {
   return { ...fontReducer };
 };
 
-const TitleSectionForm = connect(mapStateToProps)(TitleSectionFormComponent);
-export { TitleSectionForm };
+const MPTitleFormContainer = connect(mapStateToProps)(MPTitleFormContainerComponent);
+export { MPTitleFormContainer };

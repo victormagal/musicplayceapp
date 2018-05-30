@@ -1,1 +1,1 @@
-export * from './TitleSectionForm';
+export * from './MPTitleFormContainer';
