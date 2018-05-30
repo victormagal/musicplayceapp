@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, View, StyleSheet, FlatList, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 import { MPHeader } from '../../components';
-import { ItemList } from '../../components/configuration/ItemList';
+import { MPItemList } from '../../components';
 import { MPFooter } from '../../components';
 
 class ConfigurationScreenComponent extends React.Component {
@@ -316,7 +316,7 @@ class ConfigurationScreenComponent extends React.Component {
 						keyExtractor={item => item.id}
 						renderItem={({ item }) => {
 							return (
-								<ItemList item={item} {...this.props} />
+								<MPItemList item={item} {...this.props} />
 							)
 						}}
 					/>

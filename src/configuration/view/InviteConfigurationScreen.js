@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, View, StyleSheet, FlatList, ScrollView } from 'react-native';
 import { MPHeader } from '../../components';
-import { ItemList } from '../../components/configuration/ItemList';
+import { MPItemList } from '../../components';
 import { MPFooter } from '../../components';
 
 class InviteConfigurationScreen extends React.Component {
@@ -57,7 +57,7 @@ class InviteConfigurationScreen extends React.Component {
             keyExtractor={item => item.id}
             renderItem={({ item }) => {
               return (
-                <ItemList item={item} {...this.props} />
+                <MPItemList item={item} {...this.props} />
               )
             }}
           />

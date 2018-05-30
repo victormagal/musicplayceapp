@@ -3,7 +3,7 @@ import { Text, View, StyleSheet, TouchableHighlight } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
 import { connect } from 'react-redux';
 
-class ItemListComponent extends React.Component {
+class MPItemListComponent extends React.Component {
 
   onPress = (rota) => {
     this.props.navigation.navigate(rota);
@@ -111,5 +111,5 @@ const mapStateToProps = ({ fontReducer }) => {
   return { ...fontReducer };
 };
 
-const ItemList = connect(mapStateToProps)(ItemListComponent);
-export { ItemList };
+const MPItemList = connect(mapStateToProps)(MPItemListComponent);
+export { MPItemList };
