@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, View, ScrollView, StyleSheet } from 'react-native';
-import { DarkHeader, TitleSectionForm, InputText } from '../../../components';
+import { MPHeader, TitleSectionForm, InputText } from '../../../components';
 
 class EditConfigurationScreenComponent extends React.Component {
 	
@@ -32,7 +32,7 @@ class EditConfigurationScreenComponent extends React.Component {
 		
 		return (
 			<View style={styles.parent}>
-			<DarkHeader style={styles.header} back={true} onBack={onBack}
+			<MPHeader style={styles.header} back={true} onBack={onBack}
 			title={"Mantenha seus dados cadastrais atualizados."}/>
 			<ScrollView style={styles.scroll}>
 			<TitleSectionForm title={"Identificação"} textButton={"ALTERAR"}/>

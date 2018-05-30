@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, View, StyleSheet, FlatList, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
-import { DarkHeader } from '../../components/configuration/DarkHeader';
+import { MPHeader } from '../../components';
 import { ItemList } from '../../components/configuration/ItemList';
 import { NavFooter } from '../../components/configuration/NavFooter';
 
@@ -309,7 +309,7 @@ class ConfigurationScreenComponent extends React.Component {
 	render() {
 		return (
 			<View style={styles.parent}>
-				<DarkHeader style={styles.header} title={"Configure o MusicPlayce do seu jeitinho"} back={true} onBack={this.handleBackClick}/>
+				<MPHeader style={styles.header} title={"Configure o MusicPlayce do seu jeitinho"} back={true} onBack={this.handleBackClick}/>
 				<ScrollView style={styles.scroll}>
 					<FlatList
 						data={this.list.data}

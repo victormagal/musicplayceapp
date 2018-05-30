@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, View, StyleSheet, FlatList, ScrollView } from 'react-native';
-import { DarkHeader } from '../../components/configuration/DarkHeader';
+import { MPHeader } from '../../components';
 import { ItemList } from '../../components/configuration/ItemList';
 import { NavFooter } from '../../components/configuration/NavFooter';
 
@@ -50,7 +50,7 @@ class InviteConfigurationScreen extends React.Component {
   render() {
     return (
       <View style={styles.parent}>
-        <DarkHeader style={styles.header} back={true} onBack={this.handleBackClick} title={"Convide seus amigos para o MusicPlayce"} />
+        <MPHeader style={styles.header} back={true} onBack={this.handleBackClick} title={"Convide seus amigos para o MusicPlayce"} />
         <ScrollView style={styles.scroll}>
           <FlatList
             data={this.list.data}

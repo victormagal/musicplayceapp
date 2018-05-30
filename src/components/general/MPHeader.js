@@ -4,7 +4,7 @@ import Svg, { Path } from 'react-native-svg';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-class DarkHeaderComponent extends React.Component {
+class MPHeaderComponent extends React.Component {
 
   render() {
     let { title, back, onBack } = this.props;
@@ -47,7 +47,7 @@ class DarkHeaderComponent extends React.Component {
   }
 }
 
-DarkHeaderComponent.propTypes = {
+MPHeaderComponent.propTypes = {
   title: PropTypes.string.isRequired,
   back: PropTypes.bool,
   onBack: PropTypes.func
@@ -89,5 +89,5 @@ const mapStateToProps = ({ fontReducer }) => {
   return { ...fontReducer };
 };
 
-const DarkHeader = connect(mapStateToProps)(DarkHeaderComponent);
-export { DarkHeader };
+const MPHeader = connect(mapStateToProps)(MPHeaderComponent);
+export { MPHeader };

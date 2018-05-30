@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, View, ScrollView, StyleSheet } from 'react-native';
-import { DarkHeader } from '../../components/configuration/DarkHeader';
+import { MPHeader } from '../../components';
 import { InputText } from '../../components/configuration/InputText';
 
 class ChangePasswordConfigurationScreen extends React.Component {
@@ -12,7 +12,7 @@ class ChangePasswordConfigurationScreen extends React.Component {
   render() {
     return (
       <View style={styles.parent}>
-        <DarkHeader style={styles.header} back={true} onBack={this.handleBackClick} title={"Troque sua senha de acesso"} />
+        <MPHeader style={styles.header} back={true} onBack={this.handleBackClick} title={"Troque sua senha de acesso"} />
         <ScrollView style={styles.scroll}>
           <InputText label={"Senha atual"} value={""} />
           <InputText label={"Nova senha"} value={"Nova senha"} />
