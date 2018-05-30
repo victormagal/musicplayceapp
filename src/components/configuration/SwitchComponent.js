@@ -25,7 +25,7 @@ class SwitchElementComponent extends React.Component {
     Animated.timing(
       this.state.switchAnim,
       {
-        toValue: value ? 23 : 0,
+        toValue: value ? 33 : 0,
         duration: 300
       }
     ).start();
