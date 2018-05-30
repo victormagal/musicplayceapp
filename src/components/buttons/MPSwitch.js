@@ -6,7 +6,7 @@ import {connect} from 'react-redux';
 import {LinearGradient} from 'expo';
 import Svg, { Path } from 'react-native-svg';
 
-class SwitchElementComponent extends React.Component {
+class MPSwitchComponent extends React.Component {
 
   state = {
     switchValue: false,
@@ -107,5 +107,5 @@ const mapStateToProps = ({fontReducer}) => {
   return {...fontReducer};
 };
 
-const SwitchElement = connect(mapStateToProps)(SwitchElementComponent);
-export {SwitchElement};
+const MPSwitch = connect(mapStateToProps)(MPSwitchComponent);
+export {MPSwitch};

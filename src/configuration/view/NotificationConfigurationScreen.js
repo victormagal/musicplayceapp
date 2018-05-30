@@ -3,7 +3,7 @@ import { Picker, ScrollView, StyleSheet, TouchableWithoutFeedback, Text, View } 
 import { MPHeader } from '../../components';
 import { MPSelect } from '../../components';
 import { TextAreaInput } from '../../components/configuration/TextAreaInput';
-import { SwitchElement } from '../../components/configuration/SwitchComponent';
+import { MPSwitch } from '../../components';
 
 class NotificationConfigurationScreen extends React.Component {
 
@@ -14,7 +14,7 @@ class NotificationConfigurationScreen extends React.Component {
         <ScrollView style={styles.scroll}>
           <MPSelect />
           <TextAreaInput label={"Envie sua mensagem"} value={""} />
-          <SwitchElement />
+          <MPSwitch />
         </ScrollView>
       </View>
     );
