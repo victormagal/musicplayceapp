@@ -4,7 +4,7 @@ import Svg, { Path } from 'react-native-svg';
 import ActionSheet from 'react-native-actionsheet';
 import { connect } from 'react-redux';
 
-class SelectAreaComponent extends React.Component {
+class MPSelectComponent extends React.Component {
 
   showActionSheet = () => {
     this.ActionSheet.show()
@@ -75,5 +75,5 @@ const mapStateToProps = ({ fontReducer }) => {
   return { ...fontReducer };
 };
 
-const SelectArea = connect(mapStateToProps)(SelectAreaComponent);
-export { SelectArea };
+const MPSelect = connect(mapStateToProps)(MPSelectComponent);
+export { MPSelect };
