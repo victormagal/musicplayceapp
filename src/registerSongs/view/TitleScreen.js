@@ -1,23 +1,27 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import {StyleSheet, Text, View, TextInput} from 'react-native';
 import { TextField } from 'react-native-material-textfield';
+import {updateSongRegisterData} from '../../state/action';
 
-class TitleScreen extends React.Component {
-  constructor(props){
-    super(props);
-    this.state = { text: ''};
-  }
-  
+class TitleScreenContainer extends React.Component {
+
+  handleChangeName = (value) => {
+    let song = {...this.props.song, name: value};
+    this.props.dispatch(updateSongRegisterData(song));
+  };
+
   render() {
     return (
       <View style={styles.container}>
         <Text style={styles.textTop}>Escreva o título da música.</Text>
-        <TextField 
-        label='Título da música'
-        value={this.state.text}
-        labelFontSize={16}
-        lineWidth={1}
-        baseColor={'#b1b1b1'} />
+        <TextField
+          onChangeText={this.handleChangeName}
+          label='Título da música'
+          value={this.props.song.name}
+          labelFontSize={16}
+          lineWidth={1}
+          baseColor={'#b1b1b1'} />
       </View>
     );
   }
@@ -50,4 +54,9 @@ const styles = StyleSheet.create({
   }
 });
 
+const mapStateToProps = ({songsReducer}) => {
+  return {...songsReducer}
+};
+
+const TitleScreen = connect(mapStateToProps)(TitleScreenContainer);
 export {TitleScreen};

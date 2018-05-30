@@ -74,8 +74,8 @@ class UploadMediaEmptyScreen extends React.Component {
               labelFontSize={12}
               baseColor={'#000'}
               textColor={'#686868'}
-              labelTextStyle={{flex: 1,flexWrap: 'wrap', fontFamily: 'monospace'}}
-              style={{fontFamily: 'monospace', fontSize: 10}}
+              labelTextStyle={{flex: 1,flexWrap: 'wrap'}}
+              style={{fontSize: 10}}
               onChangeText={(decriptionText) => this.setState({decriptionText})}/>
             </View>
           </View>
