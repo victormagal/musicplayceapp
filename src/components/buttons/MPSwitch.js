@@ -32,13 +32,14 @@ class MPSwitchComponent extends React.Component {
   };
 
   render() {
+    let { label } = this.props;
     return (
       <View style={styles.parent}>
         {
           this.props.fontLoaded ? (
               <View style={styles.areaSwitch}>
                 <View style={styles.boxText}>
-                  <Text style={styles.text}>Celular</Text>
+                  <Text style={styles.text}>{label}</Text>
                 </View>
                 <TouchableWithoutFeedback onPress={this.handleToggleSwitch}>
                   <LinearGradient
