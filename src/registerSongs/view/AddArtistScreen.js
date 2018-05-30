@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet, Text, View, TextInput, FlatList} from 'react-native';
 import { Icon } from 'react-native-elements';
-import { ArtistCardCE } from '../../components';
+import { MPArtistHorizontal } from '../../components';
 import { TextField } from 'react-native-material-textfield';
 
 class AddArtistScreen extends React.Component {
@@ -12,7 +12,7 @@ class AddArtistScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <ArtistCardCE artist={"Almir Sater"} selected={true} onPress={ () => {}} />
+        <MPArtistHorizontal artist={"Almir Sater"} selected={true} onPress={ () => {}} />
         <Text style={styles.textTop}>Essa música tem outros autores?</Text>
         <View style={ styles.textFieldWithButtonContainer}>
             <TextField label="Pesquise pelo nome"

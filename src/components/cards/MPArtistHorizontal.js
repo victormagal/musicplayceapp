@@ -3,7 +3,7 @@ import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { Icon } from 'react-native-elements';
 import PropTypes from 'prop-types';
 
-class ArtistCardCE extends Component{
+class MPArtistHorizontal extends Component{
 
     render() {
         let {artist, selected} = this.props;
@@ -38,7 +38,7 @@ class ArtistCardCE extends Component{
     }
 }
 
-ArtistCardCE.propTypes = {
+MPArtistHorizontal.propTypes = {
     artist: PropTypes.string.isRequired,
     onPress: PropTypes.func.isRequired,
     selected: PropTypes.bool
@@ -74,4 +74,4 @@ const styles = StyleSheet.create({
           top: 0,
       }
 });
-export { ArtistCardCE };
+export { MPArtistHorizontal };

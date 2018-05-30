@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet, Text, View, TextInput, FlatList} from 'react-native';
 import { Icon } from 'react-native-elements';
-import { ArtistCardCE } from '../../components';
+import { MPArtistHorizontal } from '../../components';
 import { TextField } from 'react-native-material-textfield';
 
 class ListArtistsScreen extends React.Component {
@@ -72,7 +72,7 @@ class ListArtistsScreen extends React.Component {
   }
 
   renderItem = ({item}) => (
-    <ArtistCardCE artist={item.title} selected={item.selected} />
+    <MPArtistHorizontal artist={item.title} selected={item.selected} />
   )
   
   render() {
