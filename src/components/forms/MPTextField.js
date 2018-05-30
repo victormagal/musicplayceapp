@@ -3,7 +3,7 @@ import { View, StyleSheet } from 'react-native';
 import { TextField } from 'react-native-material-textfield';
 import { connect } from 'react-redux';
 
-class InputTextComponent extends React.Component {
+class MPTextFieldComponent extends React.Component {
 
   render() {
     let { value, label } = this.props;
@@ -46,5 +46,5 @@ const mapStateToProps = ({ fontReducer }) => {
   return { ...fontReducer };
 };
 
-const InputText = connect(mapStateToProps)(InputTextComponent);
-export { InputText };
+const MPTextField = connect(mapStateToProps)(MPTextFieldComponent);
+export { MPTextField };

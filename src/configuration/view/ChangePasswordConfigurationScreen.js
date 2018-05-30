@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, View, ScrollView, StyleSheet } from 'react-native';
 import { MPHeader } from '../../components';
-import { InputText } from '../../components/configuration/InputText';
+import { MPTextField } from '../../components';
 
 class ChangePasswordConfigurationScreen extends React.Component {
 
@@ -14,9 +14,9 @@ class ChangePasswordConfigurationScreen extends React.Component {
       <View style={styles.parent}>
         <MPHeader style={styles.header} back={true} onBack={this.handleBackClick} title={"Troque sua senha de acesso"} />
         <ScrollView style={styles.scroll}>
-          <InputText label={"Senha atual"} value={""} />
-          <InputText label={"Nova senha"} value={"Nova senha"} />
-          <InputText label={"Confirme a nova senha"} value={"Confirme a nova senha"} />
+          <MPTextField label={"Senha atual"} value={""} />
+          <MPTextField label={"Nova senha"} value={"Nova senha"} />
+          <MPTextField label={"Confirme a nova senha"} value={"Confirme a nova senha"} />
         </ScrollView>
       </View>
     );

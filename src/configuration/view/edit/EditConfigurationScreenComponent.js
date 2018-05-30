@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, View, ScrollView, StyleSheet } from 'react-native';
-import { MPHeader, TitleSectionForm, InputText } from '../../../components';
+import { MPHeader, TitleSectionForm, MPTextField } from '../../../components';
 
 class EditConfigurationScreenComponent extends React.Component {
 	
@@ -36,15 +36,15 @@ class EditConfigurationScreenComponent extends React.Component {
 			title={"Mantenha seus dados cadastrais atualizados."}/>
 			<ScrollView style={styles.scroll}>
 			<TitleSectionForm title={"Identificação"} textButton={"ALTERAR"}/>
-			<InputText label={"Usuário"} value={this.state.form.username}/>
-			<InputText label={"Nome"} value={this.state.form.name}/>
-			<InputText label={"Sobrenome"} value={this.state.form.lastName}/>
+			<MPTextField label={"Usuário"} value={this.state.form.username}/>
+			<MPTextField label={"Nome"} value={this.state.form.name}/>
+			<MPTextField label={"Sobrenome"} value={this.state.form.lastName}/>
 			<View style={styles.separator}/>
 			<TitleSectionForm title={"Endereço de e-mail"} textButton={"ALTERAR"}/>
-			<InputText label={"E-mail"} value={this.state.form.email}/>
+			<MPTextField label={"E-mail"} value={this.state.form.email}/>
 			<View style={styles.separator}/>
 			<TitleSectionForm title={"Telefone celular"} textButton={"ALTERAR"}/>
-			<InputText label={"Nº de telefone"} value={this.state.form.phone}/>
+			<MPTextField label={"Nº de telefone"} value={this.state.form.phone}/>
 			</ScrollView>
 			</View>
 		);
