@@ -34,8 +34,4 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = ({ fontReducer }) => {
-  return { ...fontReducer };
-};
-
 export { FeedbackConfigurationScreen };

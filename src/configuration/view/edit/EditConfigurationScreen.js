@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { fetchProfile } from '../../../state/action';
+import { fetchProfile, saveProfile } from '../../../state/action';
 import { EditConfigurationScreenComponent } from './EditConfigurationScreenComponent';
 
 class EditConfigurationScreenContainer extends React.Component {
@@ -13,9 +13,18 @@ class EditConfigurationScreenContainer extends React.Component {
     this.props.navigation.pop();
   };
 
+  handleSaveClick = () => {
+    //TODO: receive and send data
+    this.props.dispatch(saveProfile());
+  };
+
   render() {
     return (
-      <EditConfigurationScreenComponent onBack={this.handleBackClick} profile={this.props.profile}/>
+      <EditConfigurationScreenComponent
+        onSave={this.handleSaveClick}
+        onBack={this.handleBackClick}
+        profile={this.props.profile}
+        loading={this.props.loading}/>
     );
   }
 }
