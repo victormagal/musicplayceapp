@@ -16,7 +16,7 @@ class NotificationConfigurationScreenComponent extends React.Component {
                 <Text style={styles.title}>Novos interessados</Text>
                 <Text style={styles.paragraph}>Fique sabendo quando entrarem em contato com você</Text>
               </View>
-            ) : <Text>não vai não</Text>
+            ) : null
           }
           <MPSwitch label={"E-mail"} />
           <MPSwitch label={"Celular / tablet"} />
@@ -28,7 +28,7 @@ class NotificationConfigurationScreenComponent extends React.Component {
                 <Text style={styles.title}>Indicaram sua música</Text>
                 <Text style={styles.paragraph}>Fique sabendo quando indicarem suas composições</Text>
               </View>
-            ) : <Text>não vai não</Text>
+            ) : null
           }
           <MPSelect />
           <MPSwitch label={"E-mail"} />
@@ -41,7 +41,7 @@ class NotificationConfigurationScreenComponent extends React.Component {
                 <Text style={styles.title}>Indicaram para você</Text>
                 <Text style={styles.paragraph}>Fique sabendo quando indicarem músicas para você</Text>
               </View>
-            ) : <Text>não vai não</Text>
+            ) : null
           }
           <MPSelect />
           <MPSwitch label={"E-mail"} />
@@ -54,7 +54,7 @@ class NotificationConfigurationScreenComponent extends React.Component {
                 <Text style={styles.title}>Promoções e dicas</Text>
                 <Text style={styles.paragraph}>Receba promoções e dicas para turbinar o seu perfil</Text>
               </View>
-            ) : <Text>não vai não</Text>
+            ) : null
           }
           <MPSwitch label={"E-mail"} />
           <MPSwitch label={"Celular / tablet"} />
@@ -66,7 +66,7 @@ class NotificationConfigurationScreenComponent extends React.Component {
                 <Text style={styles.title}>Ajuda</Text>
                 <Text style={styles.paragraph}>Quando entrar em contato com a gente, como prefere receber nossas respostas e avisos importantes?</Text>
               </View>
-            ) : <Text>não vai não</Text>
+            ) : null
           }
           <MPSwitch label={"E-mail"} />
           <MPSwitch label={"Celular / tablet"} />
