@@ -1,10 +1,10 @@
 import { createStackNavigator } from 'react-navigation';
-import { ConfigurationScreen, EditConfigurationScreen, InviteConfigurationScreen, ChangePasswordConfigurationScreen, FeedbackConfigurationScreen, NotificationConfigurationScreen } from './view';
+import { ConfigurationScreen, EditConfigurationScreen, InviteConfigurationScreen, ChangePasswordConfigurationScreen, FeedbackConfigurationScreen, NotificationConfigurationScreen, TermsConfigurationScreen } from './view';
 
 export const ConfigurationScreensNavigation = createStackNavigator(
   {
     configuration: {
-      // screen: InviteConfigurationScreen,
+      // screen: TermsConfigurationScreen,
       screen: ConfigurationScreen,
       navigationOptions: {
         header: null
@@ -36,6 +36,12 @@ export const ConfigurationScreensNavigation = createStackNavigator(
     },
     notificationConfiguration: {
       screen: NotificationConfigurationScreen,
+      navigationOptions: {
+        header: null
+      }
+    },
+    termsConfiguration: {
+      screen: TermsConfigurationScreen,
       navigationOptions: {
         header: null
       }

@@ -273,7 +273,7 @@ class ConfigurationScreenComponent extends React.Component {
 			},
 			{
 				id: '08',
-				rota: 'editConfiguration',
+				rota: 'termsConfiguration',
 				name: 'Termos e condições',
 				width: '16',
 				height: '26',
