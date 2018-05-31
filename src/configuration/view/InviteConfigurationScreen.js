@@ -1,8 +1,6 @@
 import React from 'react';
-import { Text, View, StyleSheet, FlatList, ScrollView } from 'react-native';
-import { MPHeader } from '../../components';
-import { MPItemList } from '../../components';
-import { MPFooter } from '../../components';
+import { FlatList, ScrollView, StyleSheet, View } from 'react-native';
+import { MPHeader, MPItemList, MPFooter } from '../../components';
 
 class InviteConfigurationScreen extends React.Component {
 
@@ -50,7 +48,7 @@ class InviteConfigurationScreen extends React.Component {
   render() {
     return (
       <View style={styles.parent}>
-        <MPHeader style={styles.header} back={true} onBack={this.handleBackClick} title={"Convide seus amigos para o MusicPlayce"} />
+        <MPHeader back={true} onBack={this.handleBackClick} title={"Convide seus amigos para o MusicPlayce"} />
         <ScrollView style={styles.scroll}>
           <FlatList
             data={this.list.data}
@@ -62,7 +60,7 @@ class InviteConfigurationScreen extends React.Component {
             }}
           />
         </ScrollView>
-        <MPFooter style={styles.footer} />
+        <MPFooter />
       </View>
     );
   }
@@ -75,16 +73,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#FCFCFC',
     justifyContent: 'flex-end'
   },
-  header: {
-    flex: 1
-  },
   scroll: {
     flex: 2
-  },
-  footer: {
-    flex: 1,
-    flexDirection: 'column',
-    alignItems: 'flex-end'
   }
 });
 

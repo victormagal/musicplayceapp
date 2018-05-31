@@ -4,7 +4,7 @@ import { ConfigurationScreen, EditConfigurationScreen, InviteConfigurationScreen
 export const ConfigurationScreensNavigation = createStackNavigator(
   {
     configuration: {
-      //screen: EditConfigurationScreen,
+      // screen: InviteConfigurationScreen,
       screen: ConfigurationScreen,
       navigationOptions: {
         header: null

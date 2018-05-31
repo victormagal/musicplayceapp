@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 class MPTextFieldComponent extends React.Component {
 
   render() {
-    let { value, label } = this.props;
+    let { value, label, multiline } = this.props;
     return (
       <View style={styles.parent}>
         {
@@ -15,7 +15,8 @@ class MPTextFieldComponent extends React.Component {
               <TextField
                 lineWidth={0.5}
                 activeLineWidth={0.5}
-                disabledLineWidth={0}
+                disabledLineWidth={0.5}
+                multiline={multiline}
                 label={label}
                 value={value}
                 labelFontSize={12}

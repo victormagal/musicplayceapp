@@ -1,9 +1,7 @@
 import React from 'react';
-import { Text, View, StyleSheet, FlatList, ScrollView } from 'react-native';
+import { FlatList, ScrollView, StyleSheet, View } from 'react-native';
+import { MPHeader, MPItemList, MPFooter } from '../../components';
 import { connect } from 'react-redux';
-import { MPHeader } from '../../components';
-import { MPItemList } from '../../components';
-import { MPFooter } from '../../components';
 
 class ConfigurationScreenComponent extends React.Component {
 	
@@ -302,14 +300,14 @@ class ConfigurationScreenComponent extends React.Component {
 		]
 	};
 
-    handleBackClick = () => {
+	handleBackClick = () => {
 		this.props.navigation.pop();
 	};
 	
 	render() {
 		return (
 			<View style={styles.parent}>
-				<MPHeader style={styles.header} title={"Configure o MusicPlayce do seu jeitinho"} back={true} onBack={this.handleBackClick}/>
+				<MPHeader title={"Configure o MusicPlayce do seu jeitinho"} back={true} onBack={this.handleBackClick}/>
 				<ScrollView style={styles.scroll}>
 					<FlatList
 						data={this.list.data}
@@ -321,7 +319,7 @@ class ConfigurationScreenComponent extends React.Component {
 						}}
 					/>
 				</ScrollView>
-				<MPFooter style={styles.footer} />
+				<MPFooter />
 			</View>
 		);
 	}
@@ -334,16 +332,8 @@ const styles = StyleSheet.create({
 		backgroundColor: '#FCFCFC',
 		justifyContent: 'flex-end'
 	},
-	header: {
-		flex: 1
-	},
 	scroll: {
 		flex: 2
-	},
-	footer: {
-		flex: 1,
-		flexDirection: 'column',
-		alignItems: 'flex-end'
 	}
 });
 

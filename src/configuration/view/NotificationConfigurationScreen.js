@@ -1,6 +1,6 @@
 import React from 'react';
-import { Picker, ScrollView, StyleSheet, TouchableWithoutFeedback, Text, View } from 'react-native';
-import { MPHeader, MPSelect, MPTextField, MPSwitch } from '../../components';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { MPHeader, MPSelect, MPSwitch, MPFooter } from '../../components';
 import { connect } from 'react-redux';
 
 class NotificationConfigurationScreenComponent extends React.Component {
@@ -8,7 +8,7 @@ class NotificationConfigurationScreenComponent extends React.Component {
   render() {
     return (
       <View style={styles.parent}>
-        <MPHeader style={styles.header} back={true} onBack={this.handleBackClick} title={"Preferências de notificação."} />
+        <MPHeader back={true} onBack={this.handleBackClick} title={"Preferências de notificação"} />
         <ScrollView style={styles.scroll}>
           {
             this.props.fontLoaded ? (
@@ -72,6 +72,7 @@ class NotificationConfigurationScreenComponent extends React.Component {
           <MPSwitch label={"Celular / tablet"} />
           <MPSwitch label={"SMS"} />
         </ScrollView>
+        <MPFooter />
       </View>
     );
   }
@@ -84,9 +85,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#FCFCFC',
     justifyContent: 'flex-end'
-  },
-  header: {
-    flex: 1
   },
   scroll: {
     flex: 2

@@ -1,7 +1,6 @@
 import React from 'react';
-import { Text, View, ScrollView, StyleSheet } from 'react-native';
-import { MPHeader, MPTitleFormContainer, MPTextField, MPLoading } from '../../../components';
-import { MPIconEditIcon } from '../../../assets/svg';
+import { ScrollView, StyleSheet, View } from 'react-native';
+import { MPHeader, MPTitleFormContainer, MPTextField, MPLoading, MPFooter } from '../../../components';
 
 class EditConfigurationScreenComponent extends React.Component {
 	
@@ -37,21 +36,20 @@ class EditConfigurationScreenComponent extends React.Component {
 		return (
 		  <View style={styles.parent}>
         <View style={styles.container}>
-          <MPHeader style={styles.header} back={true} onBack={onBack} title={"Mantenha seus dados cadastrais atualizados."}/>
-
+          <MPHeader style={styles.header} back={true} onBack={onBack} title={"Mantenha seus dados cadastrais atualizados"}/>
           <ScrollView style={styles.scroll}>
-
-            <MPTitleFormContainer title={"Identificação"} textButton={"ALTERAR"} onPress={this.handleUpdateIdentificacao}/>
+            <MPTitleFormContainer title={"Identificação"} textButton={"ALTERAR"} onPress={this.handleUpdateIdentificacao} />
             <MPTextField label={"Usuário"} value={this.state.form.username}/>
             <MPTextField label={"Nome"} value={this.state.form.name}/>
             <MPTextField label={"Sobrenome"} value={this.state.form.lastName}/>
             <View style={styles.separator}/>
-            <MPTitleFormContainer title={"Endereço de e-mail"} textButton={"ALTERAR"}/>
+						<MPTitleFormContainer title={"Endereço de e-mail"} textButton={"ALTERAR"} onPress={this.handleUpdateIdentificacao} />
             <MPTextField label={"E-mail"} value={this.state.form.email}/>
             <View style={styles.separator}/>
-            <MPTitleFormContainer title={"Telefone celular"} textButton={"ALTERAR"}/>
+						<MPTitleFormContainer title={"Telefone celular"} textButton={"ALTERAR"} onPress={this.handleUpdateIdentificacao} />
             <MPTextField label={"Nº de telefone"} value={this.state.form.phone}/>
           </ScrollView>
+					<MPFooter />
         </View>
         <MPLoading visible={this.props.loading}/>
       </View>

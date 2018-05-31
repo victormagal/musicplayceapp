@@ -1,17 +1,18 @@
 import React from 'react';
-import { Picker, ScrollView, StyleSheet, TouchableWithoutFeedback, Text, View } from 'react-native';
-import { MPHeader, MPSelect, MPTextField, MPSwitch } from '../../components';
+import { ScrollView, StyleSheet, View } from 'react-native';
+import { MPHeader, MPSelect, MPTextField, MPFooter } from '../../components';
 
 class FeedbackConfigurationScreen extends React.Component {
 
   render() {
     return (
       <View style={styles.parent}>
-        <MPHeader style={styles.header} back={true} onBack={this.handleBackClick} title={"Alguma sugestão? Ajude-nos a melhorar a plataforma."} />
+        <MPHeader back={true} onBack={this.handleBackClick} title={"Alguma sugestão? Ajude-nos a melhorar a plataforma"} />
         <ScrollView style={styles.scroll}>
           <MPSelect />
-          <MPTextField label={"Envie sua mensagem"} value={""} />
+          <MPTextField label={"Envie sua mensagem"} value={""} multiline={true} />
         </ScrollView>
+        <MPFooter />
       </View>
     );
   }
@@ -24,9 +25,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#FCFCFC',
     justifyContent: 'flex-end'
-  },
-  header: {
-    flex: 1
   },
   scroll: {
     flex: 2
