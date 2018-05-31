@@ -106,8 +106,8 @@ const styles = StyleSheet.create({
     fontFamily: 'montSerrat'
   },
   separator: {
-    borderBottomWidth: 1,
-    borderBottomColor: '#D8D8D8',
+    borderBottomWidth: 0.5,
+    borderBottomColor: 'rgba(104, 104, 104, 0.8)',
     marginHorizontal: 40,
     marginVertical: 30
   }

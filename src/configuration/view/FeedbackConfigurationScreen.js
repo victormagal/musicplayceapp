@@ -11,7 +11,6 @@ class FeedbackConfigurationScreen extends React.Component {
         <ScrollView style={styles.scroll}>
           <MPSelect />
           <MPTextField label={"Envie sua mensagem"} value={""} />
-          <MPTextField />
         </ScrollView>
       </View>
     );

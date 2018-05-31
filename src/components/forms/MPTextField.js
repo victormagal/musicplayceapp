@@ -13,8 +13,8 @@ class MPTextFieldComponent extends React.Component {
           this.props.fontLoaded ? (
             <View>
               <TextField
-                lineWidth={1}
-                activeLineWidth={1}
+                lineWidth={0.5}
+                activeLineWidth={0.5}
                 disabledLineWidth={0}
                 label={label}
                 value={value}

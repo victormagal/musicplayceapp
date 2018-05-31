@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, View, ScrollView, StyleSheet } from 'react-native';
 import { MPHeader, MPTitleFormContainer, MPTextField, MPLoading } from '../../../components';
-import {Fill_1} from '../../../assets/svg';
+import { MPIconEditIcon } from '../../../assets/svg';
 
 class EditConfigurationScreenComponent extends React.Component {
 	
@@ -42,7 +42,6 @@ class EditConfigurationScreenComponent extends React.Component {
           <ScrollView style={styles.scroll}>
 
             <MPTitleFormContainer title={"Identificação"} textButton={"ALTERAR"} onPress={this.handleUpdateIdentificacao}/>
-            <Fill_1 />
             <MPTextField label={"Usuário"} value={this.state.form.username}/>
             <MPTextField label={"Nome"} value={this.state.form.name}/>
             <MPTextField label={"Sobrenome"} value={this.state.form.lastName}/>
