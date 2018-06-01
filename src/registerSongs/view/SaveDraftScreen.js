@@ -1,19 +1,29 @@
 import React from 'react';
 import {StyleSheet, Text, View, TextInput} from 'react-native';
 import { Icon, Button } from 'react-native-elements';
-import { MPGradientButton } from '../../components';
+import { MPGradientButton, MPHeader } from '../../components';
+import { connect } from 'react-redux';
 
-class SaveDraftScreen extends React.Component {
+class SaveDraftScreenContainer extends React.Component {
   constructor(props){
     super(props);
   }
   
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.textTop}>Deseja salvar como rascunho?</Text>
-        <MPGradientButton title="Salvar Rascunho" onPress={ () => {console.log("salvar")}} style={[styles.buttonStyle, {marginBottom: 20}]} textSize={16}/>
-        <MPGradientButton title="Apagar música" onPress={ () => {console.log("apagar")}} style={ styles.buttonStyle } textSize={16}/>
+      <View>
+        {
+          this.props.fontLoaded ? (
+            <View>
+              <MPHeader back={false} onBack={this.handleBackClick} title={""} />
+              <View style={styles.container}>
+                <Text style={styles.textTop}>Deseja salvar como rascunho?</Text>
+                <MPGradientButton title="Salvar Rascunho" onPress={ () => {} } style={[styles.buttonStyle, {marginBottom: 20}]} textSize={16}/>
+                <MPGradientButton title="Apagar música" onPress={ () => {} } style={ styles.buttonStyle } textSize={16}/>
+              </View>
+            </View>
+          ) :null
+        }
       </View>
     );
   }
@@ -34,11 +44,17 @@ const styles = StyleSheet.create({
     color: '#000000',
     height: 22,
     marginBottom: 20,
+    fontFamily: 'montSerrat'
   },
   buttonStyle: {
-    paddingStart: 100,
-    paddingEnd: 100
+    paddingStart: 70,
+    paddingEnd: 70
   }
 });
 
+const mapStateToProps = ({ fontReducer }) => {
+  return { ...fontReducer };
+};
+
+const SaveDraftScreen = connect(mapStateToProps)(SaveDraftScreenContainer);
 export {SaveDraftScreen};
