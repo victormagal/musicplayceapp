@@ -1,25 +1,32 @@
 import React from 'react';
 import {StyleSheet, Text, View, TextInput} from 'react-native';
 import { TextField } from 'react-native-material-textfield';
+import { connect } from 'react-redux';
+import { updateSongRegisterData } from '../../state/action';
 
-class MusicDescriptionScreen extends React.Component {
+class MusicDescriptionScreenContainer extends React.Component {
   constructor(props){
     super(props);
     this.state = { text: ''};
   }
+
+  handleChangeDescription = (value) => {
+    let song = {...this.props.song, description  : value};
+    this.props.dispatch(updateSongRegisterData(song));
+  };
   
   render() {
     return (
       <View style={styles.container}>
         <Text style={styles.textTop}>Explique um pouquinho sobre sua música.</Text>
         <TextField 
+        onChangeText={this.handleChangeDescription}
         label='Descrição'
-        value={this.state.text}
+        value={this.props.song.description}
         labelFontSize={16}
         multiline={true}
         lineWidth={1}
-        baseColor={'#b1b1b1'}
-        onChangeText={(text) => this.setState({text})}/>
+        baseColor={'#b1b1b1'}/>
       </View>
     );
   }
@@ -52,4 +59,9 @@ const styles = StyleSheet.create({
   }
 });
 
+const mapStateToProps = ({songsReducer}) => {
+  return {...songsReducer}
+};
+
+const MusicDescriptionScreen = connect(mapStateToProps)(MusicDescriptionScreenContainer);
 export {MusicDescriptionScreen};

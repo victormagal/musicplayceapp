@@ -3,7 +3,13 @@ import {UPDATE_SONG_REGISTER_DATA} from './songsAction';
 const songsReducer = (state, action) => {
     state = state || {
         song: {
-            name: ''
+            name: '',
+            letter: '',
+            genres: '',
+            description: '',
+            authors: '',
+            interpreters: '',
+            folders: ''
         }
     };
 
