@@ -9,6 +9,7 @@ import { ProfileScreen } from './src/profile';
 import { HomeScreen } from './src/home';
 import { StylesScreen } from './src/registerSongs';
 import { ConfigurationScreensNavigation } from './src/configuration';
+import { SongsScreensNavigation } from './src/registerSongs';
 import { reducers } from './src/state/reducer';
 import { changeLanguage, loadFont } from './src/state/action';
 
@@ -37,7 +38,7 @@ const HomeNavigation = createStackNavigator(
             }
         },
         registerSongs: {
-            screen: StylesScreen,
+            screen: SongsScreensNavigation,
             navigationOptions: {
                 header: null
             }
