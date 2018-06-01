@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, View, TextInput} from 'react-native';
+import { ScrollView, StyleSheet, Text, View, TextInput } from 'react-native';
 import { Icon, Button } from 'react-native-elements';
 import { MPGradientButton, MPHeader } from '../../components';
 import { connect } from 'react-redux';
@@ -11,19 +11,19 @@ class SaveDraftScreenContainer extends React.Component {
   
   render() {
     return (
-      <View>
-        {
-          this.props.fontLoaded ? (
-            <View>
-              <MPHeader back={false} onBack={this.handleBackClick} title={""} />
-              <View style={styles.container}>
+      <View style={styles.container}>
+        <MPHeader back={false} onBack={this.handleBackClick} title={""} />
+        <ScrollView style={styles.scroll}>
+          {
+            this.props.fontLoaded ? (
+              <View>
                 <Text style={styles.textTop}>Deseja salvar como rascunho?</Text>
-                <MPGradientButton title="Salvar Rascunho" onPress={ () => {} } style={[styles.buttonStyle, {marginBottom: 20}]} textSize={16}/>
-                <MPGradientButton title="Apagar música" onPress={ () => {} } style={ styles.buttonStyle } textSize={16}/>
               </View>
-            </View>
-          ) :null
-        }
+            ) :null
+          }
+          <MPGradientButton title="Deseja salvar como rascunho" onPress={ () => {} } />
+          <MPGradientButton title="Apagar música" onPress={ () => {} } />
+        </ScrollView>
       </View>
     );
   }
@@ -31,13 +31,13 @@ class SaveDraftScreenContainer extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
+    display: 'flex',
     flex: 1,
-    marginTop: 30,
-    marginBottom: 30,
-    marginStart: 40,
-    marginEnd: 40,
-    flexDirection: 'column',
-    alignItems: 'center'
+    backgroundColor: '#FCFCFC',
+    justifyContent: 'flex-end'
+  },
+  scroll: {
+    flex: 2
   },
   textTop: {
     fontSize: 20,

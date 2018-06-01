@@ -7,7 +7,7 @@ import { createStackNavigator } from 'react-navigation';
 import { Font, DangerZone } from 'expo';
 import { ProfileScreen } from './src/profile';
 import { HomeScreen } from './src/home';
-import { StylesScreen } from './src/registerSongs';
+import { StylesScreen, SaveDraftScreen } from './src/registerSongs';
 import { ConfigurationScreensNavigation } from './src/configuration';
 import { SongsScreensNavigation } from './src/registerSongs';
 import { reducers } from './src/state/reducer';
@@ -38,7 +38,7 @@ const HomeNavigation = createStackNavigator(
             }
         },
         registerSongs: {
-            screen: SongsScreensNavigation,
+            screen: SaveDraftScreen,
             navigationOptions: {
                 header: null
             }

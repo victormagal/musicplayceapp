@@ -3,11 +3,10 @@ import { Animated, StyleSheet, Text, TouchableHighlight, View } from 'react-nati
 import { MPArrowDownIcon, MPArrowUpIcon } from '../../assets/svg';
 import { connect } from 'react-redux';
 
-// measurements = []
 class MPToggleListComponent extends React.Component {
 
 
-  DELAY = 300;
+  DELAY = 150;
   timer = null;
 
   constructor(props) {
