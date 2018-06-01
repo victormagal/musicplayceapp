@@ -21,8 +21,8 @@ class SaveDraftScreenContainer extends React.Component {
               </View>
             ) :null
           }
-          <MPGradientButton title="Deseja salvar como rascunho" onPress={ () => {} } />
-          <MPGradientButton title="Apagar música" onPress={ () => {} } />
+          <MPGradientButton textSize={16} title="Salvar rascunho" onPress={ () => {} } style={[styles.buttonStyle, {marginBottom: 20}]} />
+          <MPGradientButton textSize={16} title="Apagar música" onPress={ () => {} } style={styles.buttonStyle} />
         </ScrollView>
       </View>
     );
@@ -44,11 +44,14 @@ const styles = StyleSheet.create({
     color: '#000000',
     height: 22,
     marginBottom: 20,
-    fontFamily: 'montSerrat'
+    fontFamily: 'montSerrat',
+    marginTop: 30,
+    marginStart: 25,
+    marginEnd: 25,
   },
   buttonStyle: {
-    paddingStart: 70,
-    paddingEnd: 70
+    paddingStart: 100,
+    paddingEnd: 100
   }
 });
 
