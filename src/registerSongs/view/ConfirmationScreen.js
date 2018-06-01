@@ -1,8 +1,9 @@
 import React from 'react';
 import {StyleSheet, Text, View, TextInput, Image, FlatList} from 'react-native';
-import { MPGradientButton } from '../../components';
+import { MPGradientButton, MPHeader } from '../../components';
+import { connect } from 'react-redux';
 
-class ConfirmationScreen extends React.Component {
+class ConfirmationScreenContainer extends React.Component {
   constructor(props){
     super(props);
     this.state = { text: "Pesquise pelo nome"};
@@ -37,20 +38,26 @@ class ConfirmationScreen extends React.Component {
   
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.titleText}>Pronto! Tudo certo.</Text>
-        <Text style={styles.subTitleText}>Que tal indicar sua música pra uma banda que você goste?</Text>
-        <View style={{height: 152}}>
-            <FlatList data = {this.artistList.data}
-                keyExtractor={(item,index) => item.id} 
-                renderItem={this.renderItem}
-                numColumns={3}
-                columnWrapperStyle={{flexWrap: 'wrap', justifyContent: 'center'}}/>
-        </View>
-        <View style={ styles.confirmationButtonsContainer }>
-            <MPGradientButton title={"Convidar para o MusicPlayce"} onPress={() => {}} style={ styles.confirmationButtonTop } textSize={16} />
-            <MPGradientButton title={"Fechar"} onPress={() => {}} style={ styles.confirmationButtonBottom } textSize={16} />
-        </View>
+      <View>
+        {
+          this.props.fontLoaded ? (
+            <View style={styles.container}>
+              <Text style={styles.titleText}>Pronto! Tudo certo.</Text>
+              <Text style={styles.subTitleText}>Que tal indicar sua música pra uma banda que você goste?</Text>
+              <View style={{height: 152}}>
+                  <FlatList data = {this.artistList.data}
+                      keyExtractor={(item,index) => item.id} 
+                      renderItem={this.renderItem}
+                      numColumns={3}
+                      columnWrapperStyle={{flexWrap: 'wrap', justifyContent: 'center'}}/>
+              </View>
+              <View style={ styles.confirmationButtonsContainer }>
+                  <MPGradientButton title={"Convidar para o MusicPlayce"} onPress={() => {}} style={ styles.confirmationButtonTop } textSize={16} />
+                  <MPGradientButton title={"Fechar"} onPress={() => {}} style={ styles.confirmationButtonBottom } textSize={16} />
+              </View>
+            </View>
+          ) : null
+        }
       </View>
     );
   }
@@ -73,7 +80,8 @@ const styles = StyleSheet.create({
     color: '#000',
     marginBottom: 10,
     paddingStart: 64,
-    paddingEnd: 64
+    paddingEnd: 64, 
+    fontFamily: 'montSerrat'
   },
   subTitleText: {
     fontSize: 16,
@@ -84,7 +92,8 @@ const styles = StyleSheet.create({
     color: '#000',
     marginBottom: 20,
     paddingStart: 45,
-    paddingEnd: 45
+    paddingEnd: 45,
+    fontFamily: 'montSerrat'
   },
   simpleArtistCardContainer: {
     width: 100,
@@ -125,4 +134,9 @@ const styles = StyleSheet.create({
   }
 });
 
+const mapStateToProps = ({ fontReducer }) => {
+  return { ...fontReducer };
+};
+
+const ConfirmationScreen = connect(mapStateToProps)(ConfirmationScreenContainer);
 export {ConfirmationScreen};
