@@ -1,22 +1,14 @@
 import React from 'react';
-import {StyleSheet, Text, View, TextInput, FlatList} from 'react-native';
+import { Alert, StyleSheet, Text, View, TextInput, FlatList} from 'react-native';
 import { Icon } from 'react-native-elements'
 import { MPGradientButton } from '../../components'
 import { TextField } from 'react-native-material-textfield';
 import { connect } from 'react-redux';
 
-class UploadMediaEmptyScreen extends React.Component {
-  constructor(props){
-    super(props);
-    this.state = {
-      titleText: '',
-      letterText: '',
-      stilesText: '',
-      decriptionText: '*Opcional',
-      authorsText: '',
-      interpretersText: '*Opcional',
-      folderText: '*Opcional',
-    }
+class UploadMediaEmptyScreenContainer extends React.Component {
+
+  goToScreen = (route) => {
+    this.props.navigation.navigate(route);
   }
   
   render() {
@@ -37,22 +29,20 @@ class UploadMediaEmptyScreen extends React.Component {
               titleTextStyle={{color: '#000'}}
               lineWidth={0}
               label='Qual é o título da música?'
-              value={this.state.titleText}
+              value={this.props.song.name}
               labelFontSize={12}
               baseColor={'#000'}
-              textColor={'#686868'}
-              onChangeText={(titleText) => this.setState({titleText})}/>
+              textColor={'#686868'}/>
             </View>
             <View style={ styles.textFieldsInnerContainer}>
               <TextField
               labelTextStyle={{color: '#000'}}
               lineWidth={0}
               label='Qual é a letra?'
-              value={this.state.letterText}
+              value={this.props.song.letter}
               labelFontSize={12}
               baseColor={'#000'}
-              textColor={'#686868'}
-              onChangeText={(letterText) => this.setState({letterText})}/>
+              textColor={'#686868'}/>
             </View>
           </View>
           <View style={  styles.textFieldsHorizontalContainer}>
@@ -60,23 +50,21 @@ class UploadMediaEmptyScreen extends React.Component {
               <TextField
               lineWidth={0}
               label='Quais as categorias e estilos que combinam?'
-              value={this.state.stilesText}
+              value={this.props.song.genres}
               labelFontSize={12}
               baseColor={'#000'}
-              textColor={'#686868'}
-              onChangeText={(stilesText) => this.setState({stilesText})}/>
+              textColor={'#686868'}/>
             </View>
             <View style={ styles.textFieldsInnerContainer}>
               <TextField
               lineWidth={0}
               label='Fale um pouquinho mais sobre a música'
-              value={this.state.decriptionText}
+              value={this.props.song.description}
               labelFontSize={12}
               baseColor={'#000'}
               textColor={'#686868'}
               labelTextStyle={{flex: 1,flexWrap: 'wrap'}}
-              style={{fontSize: 10}}
-              onChangeText={(decriptionText) => this.setState({decriptionText})}/>
+              style={{fontSize: 10}}/>
             </View>
           </View>
           <View style={  styles.textFieldsHorizontalContainer}>
@@ -84,21 +72,19 @@ class UploadMediaEmptyScreen extends React.Component {
               <TextField
               lineWidth={0}
               label='Tem outros autores?'
-              value={this.state.authorsText}
+              value={this.props.song.authors}
               labelFontSize={12}
               baseColor={'#000'}
-              textColor={'#686868'}
-              onChangeText={(authorsText) => this.setState({authorsText})}/>
+              textColor={'#686868'}/>
             </View>
             <View style={ styles.textFieldsInnerContainer}>
               <TextField
               lineWidth={0}
               label='Tem outros intérpretes?'
-              value={this.state.interpretersText}
+              value={this.props.song.interpreters}
               labelFontSize={12}
               baseColor={'#000'}
-              textColor={'#686868'}
-              onChangeText={(interpretersText) => this.setState({interpretersText})}/>
+              textColor={'#686868'}/>
             </View>
           </View>
           <View style={  styles.textFieldsHorizontalContainer}>
@@ -106,26 +92,21 @@ class UploadMediaEmptyScreen extends React.Component {
               <TextField
               lineWidth={0}
               label='Organize sua música em pastas'
-              value={this.state.folderText}
+              value={this.props.song.folders}
               labelFontSize={12}
               baseColor={'#000'}
-              textColor={'#686868'}
-              onChangeText={(folderText) => this.setState({folderText})}/>
+              textColor={'#686868'}/>
             </View>
           </View>
         </View>
         <MPGradientButton title='Publicar' onPress={ () => {} } textSize={16} style={ {marginBottom: 20} } />
         <View style={styles.clickableTextContainer}>
-          <Text style={styles.clickableText}>Terminar depois</Text>
+          <Text style={styles.clickableText} >Terminar depois</Text>
         </View> 
       </View>
     );
   }
 }
-
-const mapStateToProps = ({ fontReducer }) => {
-  return { ...fontReducer };
-};
 
 const styles = StyleSheet.create({
   container: {
@@ -211,4 +192,8 @@ const styles = StyleSheet.create({
   }
 });
 
+const mapStateToProps = ({ fontReducer, songsReducer }) => {
+  return { ...fontReducer, ...songsReducer};
+};
+const UploadMediaEmptyScreen = connect(mapStateToProps)(UploadMediaEmptyScreenContainer);
 export {UploadMediaEmptyScreen};

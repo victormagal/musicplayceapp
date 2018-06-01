@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, TouchableOpacity} from 'react-native';
+import { Alert, StyleSheet, Text, TouchableOpacity} from 'react-native';
 import {LinearGradient} from 'expo';
 import PropTypes from 'prop-types';
 import {Icon} from 'react-native-elements';

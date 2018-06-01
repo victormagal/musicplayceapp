@@ -1,13 +1,20 @@
 import React from 'react';
 import {StyleSheet, Text, View, TextInput, Picker} from 'react-native';
 import { TextField } from 'react-native-material-textfield';
+import { connect } from 'react-redux';
+import {updateSongRegisterData} from '../../state/action';
 
-class MusicLetterScreen extends React.Component {
+class MusicLetterScreenContainer extends React.Component {
   constructor(props){
     super(props);
     this.state = { text: '', language: 'default'};
 
   }
+
+  handleChangeLetter = (value) => {
+    let song = {...this.props.song, letter  : value};
+    this.props.dispatch(updateSongRegisterData(song));
+  };
   
   render() {
     return (
@@ -15,7 +22,8 @@ class MusicLetterScreen extends React.Component {
         <Text style={styles.textTop}>Pode colar a letra da música aqui:</Text>
         <TextField 
         label='Letra da Música'
-        value={this.state.text}
+        onChangeText={this.handleChangeLetter}
+        value={this.props.song.letter}
         labelFontSize={16}
         multiline={true}
         lineWidth={1}
@@ -88,4 +96,9 @@ const styles = StyleSheet.create({
   }
 });
 
+const mapStateToProps = ({songsReducer}) => {
+  return {...songsReducer}
+};
+
+const MusicLetterScreen = connect(mapStateToProps)(MusicLetterScreenContainer);
 export {MusicLetterScreen};
