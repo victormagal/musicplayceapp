@@ -101,15 +101,15 @@ class StylesScreenContainer extends React.Component {
 
   renderItem = ({item}) => (
     <View style={styles.buttonContainer}>
-        <MPGradientButton title={item.title} selected={item.selected} textSize={16} onPress={() => {}} />
+        <MPGradientButton textSize={16} title={item.title} selected={item.selected} textSize={16} onPress={() => {}} />
     </View>
   );
   
   render() {
     return (
-    <View>
+    <View style={styles.container}>
       <MPHeader back={true} onBack={this.handleBackClick} title={"Estilos e categorias"} />    
-      <View style={styles.container}>
+      <ScrollView style={styles.scroll}>
       {
           this.props.fontLoaded ? (
             <View>
@@ -117,14 +117,12 @@ class StylesScreenContainer extends React.Component {
             </View>
           ) : null
       }
-        <ScrollView>
-            <FlatList data = {this.buttonList.data}
-            keyExtractor={(item,index) => item.id} 
-            renderItem={this.renderItem}
-            numColumns={3}
-            columnWrapperStyle={{flexWrap: 'wrap', justifyContent: 'center'}}/>
-        </ScrollView>
-      </View>
+        <FlatList data = {this.buttonList.data}
+        keyExtractor={(item,index) => item.id} 
+        renderItem={this.renderItem}
+        numColumns={3}
+        columnWrapperStyle={{flexWrap: 'wrap', justifyContent: 'center'}}/>
+      </ScrollView>
     </View>
     );
   }
@@ -132,11 +130,13 @@ class StylesScreenContainer extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
+    display: 'flex',
     flex: 1,
-    marginTop: 30,
-    marginBottom: 30,
-    flexDirection: 'column',
-    alignItems: 'center'
+    backgroundColor: '#FCFCFC',
+    justifyContent: 'center'
+  },
+  scroll: {
+      flex: 2
   },
   textTop: {
     fontSize: 16,
@@ -145,6 +145,7 @@ const styles = StyleSheet.create({
     height: 60,
     marginBottom: 21,
     marginStart: 40,
+    marginTop: 30,
     marginEnd: 40,
     fontFamily: 'montSerrat'
   },
