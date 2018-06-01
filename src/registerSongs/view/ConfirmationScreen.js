@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, View, TextInput, Image, FlatList} from 'react-native';
+import {StyleSheet, ScrollView, Text, View, TextInput, Image, FlatList} from 'react-native';
 import { MPGradientButton, MPHeader } from '../../components';
 import { connect } from 'react-redux';
 
@@ -38,10 +38,11 @@ class ConfirmationScreenContainer extends React.Component {
   
   render() {
     return (
-      <View>
+      <View style={styles.container}>
+        <MPHeader back={false} onBack={this.handleBackClick} title={""} />
         {
           this.props.fontLoaded ? (
-            <View style={styles.container}>
+            <ScrollView style={styles.scroll}>
               <Text style={styles.titleText}>Pronto! Tudo certo.</Text>
               <Text style={styles.subTitleText}>Que tal indicar sua música pra uma banda que você goste?</Text>
               <View style={{height: 152}}>
@@ -52,10 +53,10 @@ class ConfirmationScreenContainer extends React.Component {
                       columnWrapperStyle={{flexWrap: 'wrap', justifyContent: 'center'}}/>
               </View>
               <View style={ styles.confirmationButtonsContainer }>
-                  <MPGradientButton title={"Convidar para o MusicPlayce"} onPress={() => {}} style={ styles.confirmationButtonTop } textSize={16} />
-                  <MPGradientButton title={"Fechar"} onPress={() => {}} style={ styles.confirmationButtonBottom } textSize={16} />
+                  <MPGradientButton textSize={16} title={"Convidar para o MusicPlayce"} onPress={() => {}} style={ styles.confirmationButtonTop } textSize={16} />
+                  <MPGradientButton textSize={16} title={"Fechar"} onPress={() => {}} style={ styles.confirmationButtonBottom } textSize={16} />
               </View>
-            </View>
+              </ScrollView>
           ) : null
         }
       </View>
@@ -65,12 +66,13 @@ class ConfirmationScreenContainer extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
+    display: 'flex',
     flex: 1,
-    marginTop: 74,
-    marginBottom: 20,
-    marginStart: 20,
-    marginEnd: 20,
-    flexDirection: 'column'
+    backgroundColor: '#FCFCFC',
+    justifyContent: 'flex-end'
+  },
+  scroll: {
+    flex: 2
   },
   titleText: {
     fontSize: 20,
@@ -79,6 +81,7 @@ const styles = StyleSheet.create({
     height: 22,
     color: '#000',
     marginBottom: 10,
+    marginTop: 70,
     paddingStart: 64,
     paddingEnd: 64, 
     fontFamily: 'montSerrat'
