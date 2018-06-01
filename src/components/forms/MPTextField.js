@@ -38,7 +38,6 @@ const styles = StyleSheet.create({
     marginTop: 20,
     marginHorizontal: 40,
     display: 'flex',
-    backgroundColor: '#FCFCFC',
     justifyContent: 'flex-end'
   }
 });
