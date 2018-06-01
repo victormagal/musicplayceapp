@@ -1,9 +1,10 @@
 import React from 'react';
 import {StyleSheet, Text, View, TextInput, FlatList, ScrollView} from 'react-native';
 import { Icon, Button } from 'react-native-elements';
-import { MPGradientButton } from '../../components';
+import { MPGradientButton, MPHeader } from '../../components';
+import { connect } from 'react-redux';
 
-class StylesScreen extends React.Component {
+class StylesScreenContainer extends React.Component {
   constructor(props){
     super(props);
   }
@@ -106,8 +107,16 @@ class StylesScreen extends React.Component {
   
   render() {
     return (
+    <View>
+      <MPHeader back={true} onBack={this.handleBackClick} title={"Estilos e categorias"} />    
       <View style={styles.container}>
-        <Text style={styles.textTop}>Melhore a encontrabilidade do seu trabalho. Do que ela fala? Quais estilos combinam com sua musica?</Text>
+      {
+          this.props.fontLoaded ? (
+            <View>
+                <Text style={styles.textTop}>Melhore a encontrabilidade do seu trabalho. Do que ela fala? Quais estilos combinam com sua musica?</Text>
+            </View>
+          ) : null
+      }
         <ScrollView>
             <FlatList data = {this.buttonList.data}
             keyExtractor={(item,index) => item.id} 
@@ -116,6 +125,7 @@ class StylesScreen extends React.Component {
             columnWrapperStyle={{flexWrap: 'wrap', justifyContent: 'center'}}/>
         </ScrollView>
       </View>
+    </View>
     );
   }
 }
@@ -135,7 +145,8 @@ const styles = StyleSheet.create({
     height: 60,
     marginBottom: 21,
     marginStart: 40,
-    marginEnd: 40
+    marginEnd: 40,
+    fontFamily: 'montSerrat'
   },
   buttonContainer: {
       marginEnd: 10,
@@ -143,4 +154,9 @@ const styles = StyleSheet.create({
   }
 });
 
+const mapStateToProps = ({ fontReducer }) => {
+    return { ...fontReducer };
+  };
+  
+const StylesScreen = connect(mapStateToProps)(StylesScreenContainer);
 export {StylesScreen};
