@@ -6,78 +6,68 @@ import { connect } from 'react-redux';
 // measurements = []
 class MPToggleListComponent extends React.Component {
 
+
+  DELAY = 300;
+  timer = null;
+
   constructor(props) {
     super(props);
 
     this.icons = {
-      'up': 'up',
-      'down': 'down'
-    }
+      'up': MPArrowUpIcon,
+      'down': MPArrowDownIcon
+    };
 
     this.state = {
       title: props.title,
       expanded: true,
-      animation: new Animated.Value()
-    }
+      animation: new Animated.Value(1)
+    };
+  }
 
+  componentWillUnmount(){
+    if(this.timer){
+      clearTimeout(this.timer);
+    }
   }
 
   toggle() {
+    let value = this.state.expanded ? 0 : 1;
 
-    let initialValue = this.state.expanded ? this.state.maxHeight + this.state.minHeight : this.state.minHeight, finalValue = this.state.expanded ? this.state.minHeight : this.state.maxHeight + this.state.minHeight;
-
-    this.setState({
-      expanded: !this.state.expanded
-    });
-
-    this.state.animation.setValue(initialValue);
-
-    Animated.spring(
+    Animated.timing(
       this.state.animation,
       {
-        toValue: finalValue
+        toValue: value,
+        duration: this.DELAY
       }
     ).start();
 
-    console.log(initialValue, finalValue);
-  }
-
-  _setMaxHeight(event) {
-
-    this.setState({
-      maxHeight: event.nativeEvent.layout.height
-    });
-
-  }
-
-  _setMinHeight(event) {
-    
-    this.setState({
-      minHeight: event.nativeEvent.layout.height
-    });
-  
+    this.timer = setTimeout(() => {
+      this.setState({
+        expanded: !this.state.expanded
+      });
+      clearTimeout(this.timer);
+    }, this.DELAY);
   }
 
   render() {
 
-    let icon = this.icons['down'];
-
-    if (this.state.expanded) {
-      icon = this.icons['up'];
-    }
+    let Icon = this.icons[this.state.expanded ? 'up' : 'down'];
 
     return (
-      <Animated.View style={[styles.container, { height: this.state.animation }]}>
+      <View style={styles.container}>
         <TouchableHighlight style={styles.button} onPress={this.toggle.bind(this)} underlayColor="#f1f1f1">
-          <View style={styles.titleContainer} onLayout={this._setMinHeight.bind(this)}>
+          <View style={styles.titleContainer}>
             <Text style={styles.title}>{this.state.title}</Text>
-              <Text>{icon}</Text>
+            <Icon />
           </View>
         </TouchableHighlight>
-        <View style={styles.body} onLayout={this._setMaxHeight.bind(this)}>
-          {this.props.children}
-        </View>
-      </Animated.View>
+        {this.state.expanded && (
+          <Animated.View style={[styles.body, {opacity: this.state.animation}]}>
+            {this.props.children}
+          </Animated.View>
+        )}
+      </View>
     );
   }
 
