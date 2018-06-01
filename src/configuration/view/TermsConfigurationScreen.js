@@ -1,6 +1,6 @@
 import React from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
-import { MPHeader, MPSelect, MPSwitch, MPFooter } from '../../components';
+import { MPHeader, MPSelect, MPFooter } from '../../components';
 import { connect } from 'react-redux';
 
 class TermsConfigurationScreenComponent extends React.Component {
@@ -74,12 +74,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#686868',
     fontFamily: 'montSerrat'
-  },
-  separator: {
-    borderBottomWidth: 0.5,
-    borderBottomColor: 'rgba(104, 104, 104, 0.8)',
-    marginHorizontal: 40,
-    marginVertical: 30
   }
 });
 
