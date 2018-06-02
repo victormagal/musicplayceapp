@@ -21,7 +21,7 @@ class MPGradientButtonComponent extends Component {
     let textStyle = {}
     {
       this.props.fontLoaded ?
-        textStyle = (selected ? {} : {color: "#E13223", fontFamily: 'montSerrat'}) : null;
+        textStyle = (selected ? {fontFamily: 'montSerrat'} : {color: "#E13223", fontFamily: 'montSerrat'}) : null;
     }
     let textSizeStyle = textSize != null ? {fontSize: textSize} : {};
 
