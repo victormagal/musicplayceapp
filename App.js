@@ -38,7 +38,7 @@ const HomeNavigation = createStackNavigator(
             }
         },
         registerSongs: {
-            screen: SaveDraftScreen,
+            screen: SongsScreensNavigation,
             navigationOptions: {
                 header: null
             }

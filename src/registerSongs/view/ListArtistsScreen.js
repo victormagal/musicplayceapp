@@ -1,10 +1,11 @@
 import React from 'react';
-import {StyleSheet, Text, View, TextInput, FlatList} from 'react-native';
+import {StyleSheet, Text, View, TextInput, FlatList, ScrollView} from 'react-native';
 import { Icon } from 'react-native-elements';
-import { MPArtistHorizontal } from '../../components';
+import { MPArtistHorizontal, MPHeader } from '../../components';
 import { TextField } from 'react-native-material-textfield';
+import { connect } from 'react-redux';
 
-class ListArtistsScreen extends React.Component {
+class ListArtistsScreenContainer extends React.Component {
   constructor(props){
     super(props);
     this.state = { text: "Almir Sater"};
@@ -72,24 +73,34 @@ class ListArtistsScreen extends React.Component {
   }
 
   renderItem = ({item}) => (
-    <MPArtistHorizontal artist={item.title} selected={item.selected} />
+    <MPArtistHorizontal style={{marginStart: 20, marginEnd: 20}} artist={item.title} selected={item.selected} />
   )
   
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.textTop}>Essa música tem outros autores?</Text>
-        <View style={ styles.textFieldWithButtonContainer}>
-            <TextField label="Pesquisar por nome"
-            value="Almir Sater"
-            labelFontSize={16} 
-            lineWidth={1}
-            containerStyle={{flex: 1}}/>
-            <Icon name='search' color='#e13223' size={20} containerStyle={ styles.textFieldIcon }/>
-        </View>
-        <FlatList data = {this.artistList.data}
-                keyExtractor={(item,index) => item.id} 
-                renderItem={this.renderItem} />
+        <MPHeader back={true} onBack={this.handleBackClick} title={"Co-autores"} />
+        {
+            this.props.fontLoaded ? (
+                <ScrollView style={styles.scroll}>
+                    <Text style={styles.textTop}>Essa música tem outros autores?</Text>
+                    <View style={ styles.textFieldWithButtonContainer}>
+                        <TextField label="Pesquisar por nome"
+                        value="Almir Sater"
+                        labelFontSize={16} 
+                        lineWidth={1}
+                        containerStyle={{flex: 1}}
+                        labelTextStyle={{ fontFamily: 'montSerrat' }}
+                        titleTextStyle={{ fontFamily: 'montSerrat' }}
+                        style={{}}/>
+                        <Icon name='search' color='#e13223' size={20} containerStyle={ styles.textFieldIcon }/>
+                    </View>
+                    <FlatList data = {this.artistList.data}
+                            keyExtractor={(item,index) => item.id} 
+                            renderItem={this.renderItem} />
+                </ScrollView>
+            ) : null
+        }
       </View>
     );
   }
@@ -97,65 +108,29 @@ class ListArtistsScreen extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
+    display: 'flex',
     flex: 1,
-    marginTop: 30,
-    marginBottom: 30,
-    marginStart: 40,
-    marginEnd: 40,
-    flexDirection: 'column'
+    backgroundColor: '#FCFCFC',
+    justifyContent: 'flex-end'
+  },
+  scroll: {
+      flex: 2,
   },
   textTop: {
     fontSize: 16,
     color: '#686868',
     height: 20,
     marginBottom: 20,
-  },
-  textInputContainer: {
-    height: 46,
-    flexDirection: 'row',
-    marginBottom: 30    ,
-    borderBottomWidth: 1,
-    borderColor: '#b1b1b1',
-    padding: 5
-  },
-  textInput: {
-    borderColor: 'transparent',
-    flex: 9
-  },
-  stretchedArtistCardContainer: {
-    flex: 1,
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    flexDirection: 'row',
-    backgroundColor: '#fff',
-    borderRadius: 4,
-    shadowColor: '#000',
-    shadowOffset: {width: 0, height: 4},
-    shadowOpacity: 0.9,
-    shadowRadius: 4,
-    height: 60,
-    marginBottom: 10,
-    overflow: 'hidden'
-  },
-  stretchedArtistImage: {
-    width: 60,
-    height: 60,
-  },
-  stretchedArtistText: {
-    color: "#000",
-    paddingStart: 20,
-    fontSize: 20,
-  },
-  stretchedArtistSelectedIcon: {
-      position: 'absolute',
-      right: 0,
-      top: 0,
-      overflow: 'visible'
+    marginTop: 30,
+    marginStart: 40,
+    fontFamily: 'montSerrat',
   },
   textFieldWithButtonContainer: {
     flexDirection: 'row',
     padding: 0,
-    marginBottom: 30
+    marginBottom: 30,
+    paddingStart :40,
+    paddingEnd: 40,
 },
 textFieldIcon: {
     alignSelf: 'flex-end',
@@ -163,4 +138,9 @@ textFieldIcon: {
 }
 });
 
+const mapStateToProps = ({ fontReducer }) => {
+    return { ...fontReducer };
+  };
+  
+const ListArtistsScreen = connect(mapStateToProps)(ListArtistsScreenContainer);
 export {ListArtistsScreen};

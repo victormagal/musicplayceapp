@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 class MPArtistHorizontal extends Component{
 
     render() {
-        let {artist, selected} = this.props;
+        let {artist, selected, style} = this.props;
         let borderStyle = {};
         let iconStyle = {};
 
@@ -23,7 +23,7 @@ class MPArtistHorizontal extends Component{
         }
 
         return (
-            <TouchableOpacity>
+            <TouchableOpacity style={style || {}}>
                 <View>
                     <View style={ [styles.stretchedArtistCardContainer, borderStyle] }>
                         <View style={ styles.stretchedArtistImage } backgroundColor={ '#f06' }></View>
@@ -41,7 +41,8 @@ class MPArtistHorizontal extends Component{
 MPArtistHorizontal.propTypes = {
     artist: PropTypes.string.isRequired,
     onPress: PropTypes.func.isRequired,
-    selected: PropTypes.bool
+    selected: PropTypes.bool,
+    style: PropTypes.any,
 };
 
 const styles = StyleSheet.create({
