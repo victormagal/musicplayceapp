@@ -19,7 +19,7 @@ class MPToggleListComponent extends React.Component {
 
     this.state = {
       title: props.title,
-      expanded: true,
+      expanded: false,
       animation: new Animated.Value(1)
     };
   }
@@ -53,16 +53,21 @@ class MPToggleListComponent extends React.Component {
 
     let Icon = this.icons[this.state.expanded ? 'up' : 'down'];
 
+    let fontFamilyStyle = {}
+    {
+      this.props.fontLoaded ? fontFamilyStyle = { fontFamily: 'montSerratMedium' } : null;
+    }
+
     return (
       <View style={styles.container}>
-        <TouchableHighlight style={styles.button} onPress={this.toggle.bind(this)} underlayColor="#f1f1f1">
-          <View style={styles.titleContainer}>
-            <Text style={styles.title}>{this.state.title}</Text>
+        <TouchableHighlight onPress={this.toggle.bind(this)} underlayColor="transparent">
+          <View style={styles.headerContainer}>
+            <Text style={[styles.title, fontFamilyStyle]}>{this.state.title}</Text>
             <Icon />
           </View>
         </TouchableHighlight>
         {this.state.expanded && (
-          <Animated.View style={[styles.body, {opacity: this.state.animation}]}>
+          <Animated.View style={[styles.content, {opacity: this.state.animation}]}>
             {this.props.children}
           </Animated.View>
         )}
@@ -74,22 +79,23 @@ class MPToggleListComponent extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#fff',
-    margin: 10,
-    overflow: 'hidden'
+    backgroundColor: '#FFFFFF',
+    paddingHorizontal: 20,
+    paddingVertical: 22,
+    overflow: 'hidden',
+    borderBottomWidth: 1,
+    borderBottomColor: '#DFDFDF'
   },
-  titleContainer: {
+  headerContainer: {
     flexDirection: 'row'
   },
   title: {
     flex: 1,
-    padding: 10,
-    color: '#2a2f43',
-    fontWeight: 'bold'
+    fontSize: 16,
+    color: '#000000'
   },
-  body: {
-    padding: 10,
-    paddingTop: 0
+  content: {
+    marginTop: 22
   }
 });
 

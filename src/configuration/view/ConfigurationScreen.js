@@ -87,7 +87,7 @@ class ConfigurationScreenComponent extends React.Component {
 			},
 			{
 				id: '03',
-				rota: 'editConfiguration',
+				rota: 'helpConfiguration',
 				name: 'Peça ajuda',
 				width: '9',
 				height: '19',
