@@ -1,10 +1,11 @@
 import React from 'react';
-import {StyleSheet, Text, View, TextInput, FlatList} from 'react-native';
+import { StyleSheet, Text, View, TextInput, FlatList, ScrollView } from 'react-native';
 import { Icon } from 'react-native-elements';
-import { MPArtistHorizontal } from '../../components';
+import { MPArtistHorizontal, MPHeader } from '../../components';
 import { TextField } from 'react-native-material-textfield';
+import { connect } from 'react-redux';
 
-class AddArtistScreen extends React.Component {
+class AddArtistScreenContainer extends React.Component {
   constructor(props){
     super(props);
   }
@@ -12,16 +13,27 @@ class AddArtistScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <MPArtistHorizontal artist={"Almir Sater"} selected={true} onPress={ () => {}} />
-        <Text style={styles.textTop}>Essa música tem outros autores?</Text>
-        <View style={ styles.textFieldWithButtonContainer}>
-            <TextField label="Pesquise pelo nome"
-            value=""
-            labelFontSize={16} 
-            lineWidth={1}
-            containerStyle={{flex: 1}}/>
-            <Icon name='search' color='#e13223' size={20} containerStyle={ styles.textFieldIcon }/>
-        </View>
+        <MPHeader back={true} onBack={this.handleBackClick} title={"Co-autores"} />
+        <ScrollView style={styles.scroll}>
+          <MPArtistHorizontal artist={"Almir Sater"} selected={true} onPress={ () => {}} />
+          {
+            this.props.fontLoaded ? (
+              <View style={{paddingStart: 20, paddingEnd: 20}}>
+                <Text style={styles.textTop}>Essa música tem outros autores?</Text>
+                <View style={ styles.textFieldWithButtonContainer}>
+                    <TextField label="Pesquise pelo nome"
+                    value=""
+                    labelFontSize={16} 
+                    lineWidth={1}
+                    containerStyle={{flex: 1}}
+                    labelTextStyle={{ fontFamily: 'montSerrat' }}
+                    titleTextStyle={{ fontFamily: 'montSerrat' }}/>
+                    <Icon name='search' color='#e13223' size={20} containerStyle={ styles.textFieldIcon }/>
+                </View>
+              </View>
+            ) : null
+          }
+        </ScrollView>
       </View>
     );
   }
@@ -29,18 +41,23 @@ class AddArtistScreen extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
+    display: 'flex',
     flex: 1,
-    marginTop: 30,
-    marginBottom: 30,
-    marginStart: 40,
-    marginEnd: 40,
-    flexDirection: 'column'
+    backgroundColor: '#FCFCFC',
+    justifyContent: 'flex-end'
+  },
+  scroll: {
+    flex: 2,
+    paddingTop: 30,
+    paddingStart: 20,
+    paddingEnd: 20,
   },
   textTop: {
     fontSize: 16,
     color: '#686868',
     height: 20,
     marginBottom: 20,
+    fontFamily: 'montSerrat'
   },
   textFieldWithButtonContainer: {
     flexDirection: 'row',
@@ -53,5 +70,9 @@ textFieldIcon: {
 }
   
 });
+const mapStateToProps = ({ fontReducer }) => {
+  return { ...fontReducer };
+};
 
+const AddArtistScreen = connect(mapStateToProps)(AddArtistScreenContainer);
 export {AddArtistScreen};
