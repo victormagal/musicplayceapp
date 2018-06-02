@@ -20,7 +20,7 @@ export const SongsScreensNavigation = createStackNavigator(
   {
     UploadMediaEmptyScreen: {
       // screen: TermsConfigurationScreen,
-      screen: AddArtistScreen,
+      screen: MusicDescriptionScreen,
       navigationOptions: {
         header: null
       }
