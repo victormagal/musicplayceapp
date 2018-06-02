@@ -1,10 +1,11 @@
 import React from 'react';
-import {StyleSheet, Text, View, TextInput, FlatList} from 'react-native';
+import {StyleSheet, Text, View, TextInput, FlatList, ScrollView } from 'react-native';
 import { Icon, Button } from 'react-native-elements'
-import { MPGradientButton, MPFolder } from '../../components';
+import { MPGradientButton, MPFolder, MPHeader } from '../../components';
 import { TextField } from 'react-native-material-textfield';
+import { connect } from 'react-redux';
 
-class FolderScreen extends React.Component {
+class FolderScreenContainer extends React.Component {
   constructor(props){
     super(props);
     this.state = { 
@@ -27,21 +28,30 @@ class FolderScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <MPFolder folderName={ this.state.item[0].title}
-            musicAmount={ this.state.item[0].subTitle }
-            selected={true}
-            onPress={() => {}} />
-        <MPFolder folderName={ this.state.item[1].title}
-            musicAmount={ this.state.item[1].subTitle }
-            onPress={() => {}} />
-        <View style={ styles.textFieldWithButtonContainer}>
-            <TextField label="Nome da nova pasta"
-            value="Falando de amor"
-            labelFontSize={16} 
-            lineWidth={0}
-            containerStyle={{flex: 1}}/>
-            <MPGradientButton title='Criar' onPress={() => {}} style={{alignSelf: 'flex-end', paddingBottom: 16}} />
-        </View>
+        <MPHeader back={true} onBack={this.handleBackClick} title={"Escolha a pasta"} />
+        <ScrollView style={ styles.scroll }>
+          <MPFolder folderName={ this.state.item[0].title}
+              musicAmount={ this.state.item[0].subTitle }
+              selected={true}
+              onPress={() => {}} />
+          <MPFolder folderName={ this.state.item[1].title}
+              musicAmount={ this.state.item[1].subTitle }
+              onPress={() => {}} />
+          { 
+            this.props.fontLoaded ? (
+              <View style={ styles.textFieldWithButtonContainer}>
+                  <TextField label="Nome da nova pasta"
+                  value="Falando de amor"
+                  labelFontSize={16} 
+                  lineWidth={0}
+                  containerStyle={{flex: 1}}
+                  labelTextStyle={{ fontFamily: 'montSerrat' }}
+                  titleTextStyle={{ fontFamily: 'montSerrat' }}/>
+                  <MPGradientButton title='Criar' onPress={() => {}} style={{alignSelf: 'flex-end', paddingBottom: 16}} />
+              </View>
+            ) : null
+          }
+        </ScrollView>
       </View>
     );
   }
@@ -49,54 +59,16 @@ class FolderScreen extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
+    display: 'flex',
     flex: 1,
-    marginTop: 30,
-    marginBottom: 30,
-    marginStart: 40,
-    marginEnd: 40,
-    flexDirection: 'column'
+    backgroundColor: '#FCFCFC',
+    justifyContent: 'flex-end'
   },
-  textTop: {
-    fontSize: 16,
-    color: '#686868',
-    height: 20,
-    marginBottom: 20,
-  },
-  stretchedArtistCardContainer: {
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    flexDirection: 'row',
-    backgroundColor: '#fff',
-    borderRadius: 4,
-    shadowColor: '#000',
-    shadowOffset: {width: 0, height: 4},
-    shadowOpacity: 0.9,
-    shadowRadius: 4,
-    height: 60,
-    marginBottom: 20,
-    overflow: 'hidden'
-  },
-  stretchedArtistImage: {
-    width: 60,
-    height: 60,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  stretchedArtistText: {
-    color: "#000",
-    paddingStart: 20,
-    fontSize: 20,
-  },
-  stretchedArtistSubText: {
-    color: "#c0c0c0",
-    paddingStart: 20,
-    fontSize: 10,
-  },
-  stretchedArtistSelectedIcon: {
-      position: 'absolute',
-      right: 0,
-      top: 0,
-      overflow: 'visible'
+  scroll: {
+    flex: 2,
+    paddingStart: 40,
+    paddingEnd: 40,
+    paddingTop: 30
   },
   textFieldWithButtonContainer: {
       flexDirection: 'row',
@@ -105,5 +77,9 @@ const styles = StyleSheet.create({
       padding: 0
   }
 });
+const mapStateToProps = ({ fontReducer }) => {
+  return { ...fontReducer };
+};
 
+const FolderScreen = connect(mapStateToProps)(FolderScreenContainer);
 export {FolderScreen};
