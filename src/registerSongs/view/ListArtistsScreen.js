@@ -80,9 +80,9 @@ class ListArtistsScreenContainer extends React.Component {
     return (
       <View style={styles.container}>
         <MPHeader back={true} onBack={this.handleBackClick} title={"Co-autores"} />
-        {
-            this.props.fontLoaded ? (
-                <ScrollView style={styles.scroll}>
+        <ScrollView style={styles.scroll}>
+            {   this.props.fontLoaded ? (
+                <View>
                     <Text style={styles.textTop}>Essa música tem outros autores?</Text>
                     <View style={ styles.textFieldWithButtonContainer}>
                         <TextField label="Pesquisar por nome"
@@ -95,12 +95,13 @@ class ListArtistsScreenContainer extends React.Component {
                         style={{}}/>
                         <Icon name='search' color='#e13223' size={20} containerStyle={ styles.textFieldIcon }/>
                     </View>
-                    <FlatList data = {this.artistList.data}
-                            keyExtractor={(item,index) => item.id} 
-                            renderItem={this.renderItem} />
-                </ScrollView>
-            ) : null
-        }
+                </View>
+                ) : null
+            }
+            <FlatList data = {this.artistList.data}
+                    keyExtractor={(item,index) => item.id} 
+                    renderItem={this.renderItem} />
+        </ScrollView>
       </View>
     );
   }
