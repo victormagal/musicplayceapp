@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet, Text, View, TextInput, FlatList, ScrollView} from 'react-native';
 import { Icon, Button } from 'react-native-elements';
-import { MPGradientButton, MPHeader } from '../../components';
+import { MPGradientButton, MPHeader, MPFooter } from '../../components';
 import { connect } from 'react-redux';
 
 class StylesScreenContainer extends React.Component {
@@ -123,6 +123,7 @@ class StylesScreenContainer extends React.Component {
         numColumns={3}
         columnWrapperStyle={{flexWrap: 'wrap', justifyContent: 'center'}}/>
       </ScrollView>
+      <MPFooter />
     </View>
     );
   }

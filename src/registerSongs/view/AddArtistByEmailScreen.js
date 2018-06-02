@@ -2,7 +2,7 @@ import React from 'react';
 import {StyleSheet, Text, View, TextInput, FlatList, ScrollView } from 'react-native';
 import { Icon } from 'react-native-elements'
 import { TextField } from 'react-native-material-textfield';
-import { MPArtistHorizontal, MPHeader } from '../../components';
+import { MPArtistHorizontal, MPHeader, MPFooter } from '../../components';
 import { connect } from 'react-redux';
 
 class AddArtistByEmailScreenContainer extends React.Component {
@@ -57,6 +57,7 @@ class AddArtistByEmailScreenContainer extends React.Component {
             ) : null
           }
         </ScrollView>
+        <MPFooter />
       </View>
     );
   }

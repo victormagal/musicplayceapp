@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, TextInput, FlatList, ScrollView } from 'react-native';
 import { Icon } from 'react-native-elements';
-import { MPArtistHorizontal, MPHeader } from '../../components';
+import { MPArtistHorizontal, MPHeader, MPFooter } from '../../components';
 import { TextField } from 'react-native-material-textfield';
 import { connect } from 'react-redux';
 
@@ -34,6 +34,7 @@ class AddArtistScreenContainer extends React.Component {
             ) : null
           }
         </ScrollView>
+        <MPFooter />
       </View>
     );
   }

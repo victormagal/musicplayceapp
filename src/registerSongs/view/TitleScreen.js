@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import {StyleSheet, Text, View, TextInput, ScrollView} from 'react-native';
 import { TextField } from 'react-native-material-textfield';
 import {updateSongRegisterData} from '../../state/action';
-import { MPHeader } from '../../components';
+import { MPHeader, MPFooter } from '../../components';
 
 class TitleScreenContainer extends React.Component {
 
@@ -30,9 +30,9 @@ class TitleScreenContainer extends React.Component {
                 labelTextStyle={{ fontFamily: 'montSerrat' }}
                 titleTextStyle={{ fontFamily: 'montSerrat' }}/>
             </ScrollView>
-
           ) : null
         }
+        <MPFooter/>
       </View>
     );
   }

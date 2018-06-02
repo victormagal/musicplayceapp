@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, TextInput, Picker, ScrollView } from 'react-nat
 import { TextField } from 'react-native-material-textfield';
 import { connect } from 'react-redux';
 import {updateSongRegisterData} from '../../state/action';
-import { MPHeader } from '../../components';
+import { MPHeader, MPFooter } from '../../components';
 
 class MusicLetterScreenContainer extends React.Component {
   constructor(props){
@@ -54,6 +54,7 @@ class MusicLetterScreenContainer extends React.Component {
             </ScrollView>
           ) : null
         }
+        <MPFooter/>
       </View>
     );
   }

@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet, ScrollView, Text, View, TextInput, Image, FlatList} from 'react-native';
-import { MPGradientButton, MPHeader } from '../../components';
+import { MPGradientButton, MPHeader, MPFooter } from '../../components';
 import { connect } from 'react-redux';
 
 class ConfirmationScreenContainer extends React.Component {
@@ -59,6 +59,7 @@ class ConfirmationScreenContainer extends React.Component {
               </ScrollView>
           ) : null
         }
+        <MPFooter />
       </View>
     );
   }

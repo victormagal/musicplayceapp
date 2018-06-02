@@ -2,7 +2,7 @@ import React from 'react';
 import {StyleSheet, ScrollView, Text, View, TextInput} from 'react-native';
 import { Icon } from 'react-native-elements'
 import { TextField } from 'react-native-material-textfield';
-import { MPHeader, MPTextField } from '../../components'
+import { MPHeader, MPTextField, MPFooter } from '../../components'
 import { connect } from 'react-redux';
 
 class RegisterArtistsScreenContainer extends React.Component {
@@ -32,6 +32,7 @@ class RegisterArtistsScreenContainer extends React.Component {
             </ScrollView>
           ) : null
         }
+        <MPFooter />
       </View>
     );
   }

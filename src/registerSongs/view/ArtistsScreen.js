@@ -3,7 +3,7 @@ import {StyleSheet, Text, View, TextInput, ScrollView } from 'react-native';
 import { Icon } from 'react-native-elements'
 import { TextField } from 'react-native-material-textfield';
 import { connect } from 'react-redux';
-import { MPHeader } from '../../components';
+import { MPHeader, MPFooter } from '../../components';
 
 class ArtistsScreenContainer extends React.Component {
   constructor(props){
@@ -36,6 +36,7 @@ class ArtistsScreenContainer extends React.Component {
             </ScrollView>
           ) : null
         }
+        <MPFooter />
       </View>
     );
   }

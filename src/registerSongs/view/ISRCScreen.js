@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View, TextInput, ScrollView } from 'react-native';
 import { TextField } from 'react-native-material-textfield';
 import { connect } from 'react-redux';
-import { MPHeader } from '../../components';
+import { MPHeader, MPFooter } from '../../components';
 
 class ISRCScreenContainer extends React.Component {
   constructor(props){
@@ -36,6 +36,7 @@ class ISRCScreenContainer extends React.Component {
             </ScrollView>
           ) : null
         }
+        <MPFooter/>
       </View>
     );
   }

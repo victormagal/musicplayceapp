@@ -1,7 +1,7 @@
 import React from 'react';
 import { Alert, StyleSheet, Text, View, TextInput, FlatList, ScrollView } from 'react-native';
 import { Icon } from 'react-native-elements'
-import { MPGradientButton, MPHeader } from '../../components'
+import { MPGradientButton, MPHeader, MPFooter } from '../../components'
 import { TextField } from 'react-native-material-textfield';
 import { connect } from 'react-redux';
 
@@ -128,6 +128,7 @@ class UploadMediaEmptyScreenContainer extends React.Component {
           ) : null
         }
         </ScrollView>
+        <MPFooter />
       </View>
     );
   }

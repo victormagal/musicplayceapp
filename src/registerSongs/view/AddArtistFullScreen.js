@@ -2,7 +2,7 @@ import React from 'react';
 import {StyleSheet, Text, View, TextInput, FlatList, ScrollView } from 'react-native';
 import { Icon } from 'react-native-elements'
 import { TextField } from 'react-native-material-textfield';
-import { MPArtistHorizontal, MPInvitation, MPHeader } from '../../components';
+import { MPArtistHorizontal, MPInvitation, MPHeader, MPFooter } from '../../components';
 import { connect } from 'react-redux';
 
 class AddArtistFullScreenContainer extends React.Component {
@@ -48,6 +48,7 @@ class AddArtistFullScreenContainer extends React.Component {
             ) : null
           }
         </ScrollView>
+        <MPFooter />        
       </View>
     );
   }
