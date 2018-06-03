@@ -1,7 +1,7 @@
 import React from 'react';
 import { FlatList, ScrollView, StyleSheet, View } from 'react-native';
 import { MPHeader, MPItemList, MPFooter } from '../../components';
-import { MPEditConfigIcon, MPNotificationConfigIcon, MPInviteConfigIcon, MPHelpConfigIcon, MPPasswordConfigIcon, MPChangePlanConfigIcon, MPPaymentConfigIcon, MPFeedbackConfigIcon, MPTermsConfigIcon, MPArrowRightIcon } from '../../assets/svg';
+import { MPEditConfigIcon, MPNotificationConfigIcon, MPInviteConfigIcon, MPHelpConfigIcon, MPPasswordConfigIcon, MPFeedbackConfigIcon, MPTermsConfigIcon, MPArrowRightIcon } from '../../assets/svg';
 import { connect } from 'react-redux';
 
 class ConfigurationScreenComponent extends React.Component {
@@ -45,27 +45,13 @@ class ConfigurationScreenComponent extends React.Component {
 			},
 			{
 				id: '05',
-				rota: 'editConfiguration',
-				title: 'Alterar plano',
-				icon: MPChangePlanConfigIcon,
-				iconNext: MPArrowRightIcon
-			},
-			{
-				id: '06',
-				rota: 'editConfiguration',
-				title: 'Alterar forma de pagamento',
-				icon: MPPaymentConfigIcon,
-				iconNext: MPArrowRightIcon
-			},
-			{
-				id: '07',
 				rota: 'feedbackConfiguration',
 				title: 'Enviar feedback',
 				icon: MPFeedbackConfigIcon,
 				iconNext: MPArrowRightIcon
 			},
 			{
-				id: '08',
+				id: '06',
 				rota: 'termsConfiguration',
 				title: 'Termos e condições',
 				icon: MPTermsConfigIcon,

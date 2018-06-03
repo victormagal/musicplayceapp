@@ -53,12 +53,8 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end'
   },
   scroll: {
-    flex: 2
-  },
-  container: {
-    marginTop: 30,
-    borderTopWidth: 0.5,
-    borderTopColor: 'rgba(104, 104, 104, 0.4)'
+    flex: 2,
+    paddingTop: 30
   },
   boxText: {
     marginHorizontal: 40,

@@ -12,7 +12,7 @@ class MPSelectComponent extends React.Component {
 
   render() {
     return (
-      <View style={styles.parent}>
+      <View>
         {
           this.props.fontLoaded ? (
             <View>

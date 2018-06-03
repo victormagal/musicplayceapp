@@ -1,6 +1,7 @@
 import React from 'react';
 import { FlatList, ScrollView, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 import { MPHeader, MPItemList, MPTextField, MPToggleList, MPFooter } from '../../components';
+import { MPArrowRightIcon } from '../../assets/svg/index';
 import { connect } from 'react-redux';
 
 class HelpConfigurationScreenComponent extends React.Component {
@@ -9,11 +10,9 @@ class HelpConfigurationScreenComponent extends React.Component {
     data: [
       {
         id: '00',
-        rota: 'editConfiguration',
-        name: 'Enviar por e-mail',
-        width: '20',
-        height: '20',
-        viewBox: '0 0 32 32'
+        rota: 'inviteConfiguration',
+        title: 'Não encontrei minha dúvida',
+        iconNext: MPArrowRightIcon
       }
     ]
   };
@@ -27,7 +26,7 @@ class HelpConfigurationScreenComponent extends React.Component {
           <MPTextField label={"Pesquisar"} />
           {
             this.props.fontLoaded ? (
-              <View>
+              <View style={styles.borda}>
                 <MPToggleList title="Como faço para me cadastrar?">
                   <Text style={styles.text}>O sistema é bem simples e intuitivo.</Text>
                   <TouchableHighlight onPress={() => {return false;}} underlayColor="transparent">
@@ -65,6 +64,7 @@ class HelpConfigurationScreenComponent extends React.Component {
                   <Text style={styles.text}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tempor eleifend consectetur. Duis eu dui mauris. Maecenas elementum nullam.</Text>
                 </MPToggleList>
                 <FlatList
+                  style={styles.lista}
                   data={this.list.data}
                   keyExtractor={item => item.id}
                   renderItem={({ item }) => {
@@ -91,8 +91,17 @@ const styles = StyleSheet.create({
     backgroundColor: '#FCFCFC',
     justifyContent: 'flex-end'
   },
+  borda: {
+    borderTopWidth: 1,
+    borderTopColor: '#DFDFDF',
+    marginTop: 30
+  },
   scroll: {
     flex: 2
+  },
+  lista: {
+    marginTop: 30,
+    marginBottom: 15
   },
   text: {
     fontSize: 16,

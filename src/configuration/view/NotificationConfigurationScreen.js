@@ -87,7 +87,8 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end'
   },
   scroll: {
-    flex: 2
+    flex: 2,
+    paddingTop: 30
   },
   boxText: {
     marginHorizontal: 40

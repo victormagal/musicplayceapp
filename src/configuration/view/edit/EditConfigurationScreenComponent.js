@@ -35,8 +35,7 @@ class EditConfigurationScreenComponent extends React.Component {
 		let { onBack } = this.props;
 		return (
 		  <View style={styles.parent}>
-        <View style={styles.container}>
-          <MPHeader style={styles.header} back={true} onBack={onBack} title={"Mantenha seus dados cadastrais atualizados"}/>
+          <MPHeader back={true} onBack={onBack} title={"Mantenha seus dados cadastrais atualizados"}/>
           <ScrollView style={styles.scroll}>
             <MPTitleFormContainer title={"Identificação"} textButton={"ALTERAR"} onPress={this.handleUpdateIdentificacao} />
             <MPTextField label={"Usuário"} value={this.state.form.username}/>
@@ -50,7 +49,6 @@ class EditConfigurationScreenComponent extends React.Component {
             <MPTextField label={"Nº de telefone"} value={this.state.form.phone}/>
           </ScrollView>
 					<MPFooter />
-        </View>
         <MPLoading visible={this.props.loading}/>
       </View>
 		);
@@ -60,19 +58,13 @@ class EditConfigurationScreenComponent extends React.Component {
 const styles = StyleSheet.create({
 	parent: {
     display: 'flex',
-    flex: 1
-	},
-  container: {
-    display: 'flex',
-    flex: 1,
-    backgroundColor: '#FCFCFC',
-    justifyContent: 'flex-end'
-  },
-	header: {
-		flex: 1
+		flex: 1,
+		backgroundColor: '#FCFCFC',
+		justifyContent: 'flex-end'
 	},
 	scroll: {
-		flex: 2
+		flex: 2,
+		paddingTop: 30,
 	},
 	separator: {
 		borderBottomWidth: 1,

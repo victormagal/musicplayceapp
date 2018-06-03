@@ -86,7 +86,8 @@ const styles = StyleSheet.create({
     borderBottomColor: '#DFDFDF'
   },
   headerContainer: {
-    flexDirection: 'row'
+    flexDirection: 'row',
+    alignItems: 'center'
   },
   title: {
     flex: 1,
