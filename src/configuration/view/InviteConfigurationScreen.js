@@ -11,28 +11,24 @@ class InviteConfigurationScreen extends React.Component {
         id: '00',
         rota: 'editConfiguration',
         title: 'Enviar por e-mail',
-        icon: MPEditConfigIcon,
         iconNext: MPArrowRightIcon
       },
       {
         id: '01',
         rota: 'editConfiguration',
         title: 'Enviar por Facebook',
-        icon: MPNotificationConfigIcon,
         iconNext: MPArrowRightIcon
       },
       {
         id: '02',
         rota: 'editConfiguration',
         title: 'Enviar por SMS',
-        icon: MPInviteConfigIcon,
         iconNext: MPArrowRightIcon
       },
       {
         id: '03',
         rota: 'editConfiguration',
         title: 'Copiar o link',
-        icon: MPHelpConfigIcon,
         iconNext: MPClipboardIcon
       }
     ]

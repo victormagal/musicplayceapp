@@ -17,9 +17,13 @@ class MPItemListComponent extends React.Component {
     return (
       <TouchableHighlight onPress={this.onPress.bind(this, item.rota)} underlayColor="transparent">
         <View style={styles.item}>
-          <View style={styles.boxIcon}>
-            <Icon />
-          </View>
+          {
+            item.icon ? (
+              <View style={styles.boxIcon}>
+                <Icon />
+              </View>
+            ) : null
+          }
           <View style={styles.boxText}>
             {
               this.props.fontLoaded ? (
@@ -45,6 +49,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
     marginVertical: 10,
     flexDirection: 'row',
+    display: 'flex',
     flex: 1,
     alignItems: 'center',
     justifyContent: 'space-around',
@@ -58,6 +63,7 @@ const styles = StyleSheet.create({
     }
   },
   boxIcon: {
+    display: 'flex',
     flex: 0.05,
     marginLeft: 12,
     paddingRight: 12,
@@ -75,6 +81,7 @@ const styles = StyleSheet.create({
     fontSize: 16
   },
   boxFoward: {
+    display: 'flex',
     flex: 0.05,
     paddingRight: 10,
     alignItems: 'flex-end'
