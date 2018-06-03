@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { Icon } from 'react-native-elements';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
-class MPInvitation extends Component{
+class MPInvitationComponent extends Component{
 
     render() {
         let {artistName, artistEmail, selected} = this.props;
@@ -24,18 +25,22 @@ class MPInvitation extends Component{
 
         return (
             <TouchableOpacity>
-                <View style={ styles.stretchedArtistCardContainer }>
-                    <View style={ [styles.stretchedArtistCardInnerContainer, borderStyle] }>
-                        <View>
-                            <Text style={ styles.stretchedArtistText}>{ artistName }</Text>
-                            <Text style={ styles.stretchedArtistEmail}>{ artistEmail }</Text>
+                {
+                    this.props.fontLoaded ? (
+                        <View style={ styles.stretchedArtistCardContainer }>
+                            <View style={ [styles.stretchedArtistCardInnerContainer, borderStyle] }>
+                                <View>
+                                    <Text style={ styles.stretchedArtistText}>{ artistName }</Text>
+                                    <Text style={ styles.stretchedArtistEmail}>{ artistEmail }</Text>
+                                </View>
+                                <Icon type='material-community' name='email-outline' color='#5994db' size={22} containerStyle={ styles.emailArtistIcon }/>
+                            </View>
+                            { selected &&
+                                <Text style={ styles.stretchedArtistConfirmationText }>Convite Enviado</Text>
+                            }
                         </View>
-                        <Icon type='material-community' name='email-outline' color='#5994db' size={22} containerStyle={ styles.emailArtistIcon }/>
-                    </View>
-                    { selected &&
-                        <Text style={ styles.stretchedArtistConfirmationText }>Convite Enviado</Text>
-                    }
-                </View>
+                    ) : null
+                }
                 { selected && 
                     <Icon name='check-circle' color='#f00' size={18} containerStyle={ iconStyle }/>
                 }
@@ -44,8 +49,9 @@ class MPInvitation extends Component{
     }
 }
 
-MPInvitation.propTypes = {
-    artist: PropTypes.string.isRequired,
+MPInvitationComponent.propTypes = {
+    artistName: PropTypes.string.isRequired,
+    artistEmail: PropTypes.string.isRequired,
     onPress: PropTypes.func.isRequired,
     selected: PropTypes.bool
 };
@@ -79,6 +85,7 @@ const styles = StyleSheet.create({
         color: "#000",
         paddingStart: 20,
         fontSize: 20,
+        fontFamily: 'montSerrat'
       },
       stretchedArtistConfirmationText: {
         color: '#fff',
@@ -86,11 +93,13 @@ const styles = StyleSheet.create({
         paddingStart: 10,
         paddingTop: 5,
         paddingBottom: 5,
+        fontFamily: 'montSerrat'
       },
       stretchedArtistEmail:{
         color: '#5994db',
         paddingStart: 20,
         fontSize: 14,
+        fontFamily: 'montSerrat'
       },
       emailArtistIcon: {
           start: 0,
@@ -99,4 +108,9 @@ const styles = StyleSheet.create({
           flex: 1,
       }
 });
+const mapStateToProps = ({ fontReducer }) => {
+    return { ...fontReducer };
+  };
+  
+const MPInvitation = connect(mapStateToProps)(MPInvitationComponent);
 export { MPInvitation };

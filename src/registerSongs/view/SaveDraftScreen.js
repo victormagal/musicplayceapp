@@ -1,7 +1,7 @@
 import React from 'react';
 import { ScrollView, StyleSheet, Text, View, TextInput } from 'react-native';
 import { Icon, Button } from 'react-native-elements';
-import { MPGradientButton, MPHeader } from '../../components';
+import { MPGradientButton, MPHeader, MPFooter } from '../../components';
 import { connect } from 'react-redux';
 
 class SaveDraftScreenContainer extends React.Component {
@@ -24,6 +24,7 @@ class SaveDraftScreenContainer extends React.Component {
           <MPGradientButton textSize={16} title="Salvar rascunho" onPress={ () => {} } style={[styles.buttonStyle, {marginBottom: 20}]} />
           <MPGradientButton textSize={16} title="Apagar música" onPress={ () => {} } style={styles.buttonStyle} />
         </ScrollView>
+        <MPFooter />
       </View>
     );
   }

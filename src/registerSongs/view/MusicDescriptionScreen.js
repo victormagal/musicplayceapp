@@ -1,8 +1,9 @@
 import React from 'react';
-import {StyleSheet, Text, View, TextInput} from 'react-native';
+import { StyleSheet, Text, View, TextInput, ScrollView } from 'react-native';
 import { TextField } from 'react-native-material-textfield';
 import { connect } from 'react-redux';
 import { updateSongRegisterData } from '../../state/action';
+import { MPHeader, MPFooter } from '../../components';
 
 class MusicDescriptionScreenContainer extends React.Component {
   constructor(props){
@@ -18,15 +19,25 @@ class MusicDescriptionScreenContainer extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.textTop}>Explique um pouquinho sobre sua música.</Text>
-        <TextField 
-        onChangeText={this.handleChangeDescription}
-        label='Descrição'
-        value={this.props.song.description}
-        labelFontSize={16}
-        multiline={true}
-        lineWidth={1}
-        baseColor={'#b1b1b1'}/>
+        <MPHeader back={true} onBack={this.handleBackClick} title={"Descrição"} />
+        {
+          this.props.fontLoaded ? (
+            <ScrollView style={styles.scroll}>
+              <Text style={styles.textTop}>Explique um pouquinho sobre sua música.</Text>
+              <TextField 
+              onChangeText={this.handleChangeDescription}
+              label='Descrição'
+              value={this.props.song.description}
+              labelFontSize={16}
+              multiline={true}
+              lineWidth={1}
+              baseColor={'#b1b1b1'}
+              labelTextStyle={{ fontFamily: 'montSerrat' }}
+              titleTextStyle={{ fontFamily: 'montSerrat' }}/>
+            </ScrollView>
+          ) : null
+        }
+        <MPFooter />
       </View>
     );
   }
@@ -34,18 +45,23 @@ class MusicDescriptionScreenContainer extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
+    display: 'flex',
     flex: 1,
-    marginTop: 30,
-    marginBottom: 30,
-    marginStart: 40,
-    marginEnd: 40,
-    flexDirection: 'column'
+    backgroundColor: '#FCFCFC',
+    justifyContent: 'flex-end'
+  },
+  scroll: {
+    flex: 2,
+    paddingTop: 30,
+    paddingStart: 40,
+    paddingEnd: 40
   },
   textTop: {
     fontSize: 16,
     color: '#686868',
     height: 20,
     marginBottom: 20,
+    fontFamily: 'montSerrat'
   },
   textInputContainer: {
     height: 46,
@@ -59,8 +75,8 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = ({songsReducer}) => {
-  return {...songsReducer}
+const mapStateToProps = ({fontReducer, songsReducer}) => {
+  return {...fontReducer, ...songsReducer}
 };
 
 const MusicDescriptionScreen = connect(mapStateToProps)(MusicDescriptionScreenContainer);

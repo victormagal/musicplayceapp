@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { Icon } from 'react-native-elements';
 import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
 
-class MPArtistHorizontal extends Component{
+class MPArtistHorizontalComponent extends Component{
 
     render() {
         let {artist, selected, style} = this.props;
@@ -27,7 +28,13 @@ class MPArtistHorizontal extends Component{
                 <View>
                     <View style={ [styles.stretchedArtistCardContainer, borderStyle] }>
                         <View style={ styles.stretchedArtistImage } backgroundColor={ '#f06' }></View>
-                        <Text style={ styles.stretchedArtistText}>{ artist }</Text>
+                        { 
+                            this.props.fontLoaded ? (
+                                <View>
+                                    <Text style={ styles.stretchedArtistText}>{ artist }</Text>
+                                </View>
+                            ) : null
+                        }
                     </View>
                     { selected && 
                     <Icon name='check-circle' color='#f00' size={18} containerStyle={ iconStyle || {} }/> 
@@ -38,7 +45,7 @@ class MPArtistHorizontal extends Component{
     }
 }
 
-MPArtistHorizontal.propTypes = {
+MPArtistHorizontalComponent.propTypes = {
     artist: PropTypes.string.isRequired,
     onPress: PropTypes.func.isRequired,
     selected: PropTypes.bool,
@@ -68,6 +75,7 @@ const styles = StyleSheet.create({
         color: "#000",
         paddingStart: 20,
         fontSize: 20,
+        fontFamily: 'montSerrat' 
       },
       stretchedArtistSelectedIcon: {
           position: 'absolute',
@@ -75,4 +83,10 @@ const styles = StyleSheet.create({
           top: 0,
       }
 });
+
+const mapStateToProps = ({fontReducer}) => {
+    return {...fontReducer};
+};
+
+const MPArtistHorizontal = connect(mapStateToProps)(MPArtistHorizontalComponent);
 export { MPArtistHorizontal };

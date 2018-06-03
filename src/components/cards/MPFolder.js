@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { Icon } from 'react-native-elements';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
-class MPFolder extends Component{
+class MPFolderContainer extends Component{
 
     render() {
         let {folderName, musicAmount, selected} = this.props;
@@ -30,10 +31,14 @@ class MPFolder extends Component{
                         <View style={ styles.chooseFolderImage }>
                             <Icon type='font-awesome' name='folder-open-o' color='#5994db' />
                         </View>
-                        <View style={ styles.chooseFolderTextContainer }>
-                            <Text style={ styles.chooseFolderText}>{ folderName }</Text>
-                            <Text style={ styles.chooseFolderSubText}>{ musicAmount }</Text>
-                        </View>
+                        {
+                            this.props.fontLoaded ? (
+                                <View style={ styles.chooseFolderTextContainer }>
+                                    <Text style={ styles.chooseFolderText}>{ folderName }</Text>
+                                    <Text style={ styles.chooseFolderSubText}>{ musicAmount }</Text>
+                                </View>
+                            ) : null
+                        }
                     </View>
                     { selected &&
                     <Icon name='check-circle' color='#f00' size={18} containerStyle={ iconStyle }/>
@@ -44,7 +49,7 @@ class MPFolder extends Component{
     }
 }
 
-MPFolder.propTypes = {
+MPFolderContainer.propTypes = {
     folderName: PropTypes.string.isRequired,
     musicAmount: PropTypes.string.isRequired,
     onPress: PropTypes.func.isRequired,
@@ -74,13 +79,13 @@ const styles = StyleSheet.create({
       },
       chooseFolderText: {
         color: "#000",
-        paddingStart: 20,
         fontSize: 20,
+        fontFamily: 'montSerrat',
       },
       chooseFolderSubText: {
         color: "#c0c0c0",
-        paddingStart: 20,
         fontSize: 10,
+        fontFamily: 'montSerrat',
       },
       chooseFolderSelectedIcon: {
           position: 'absolute',
@@ -88,4 +93,9 @@ const styles = StyleSheet.create({
           top: 0,
       },
 });
+const mapStateToProps = ({ fontReducer }) => {
+    return { ...fontReducer };
+  };
+  
+  const MPFolder = connect(mapStateToProps)(MPFolderContainer);
 export { MPFolder };

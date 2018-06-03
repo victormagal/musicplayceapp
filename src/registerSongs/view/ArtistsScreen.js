@@ -1,9 +1,11 @@
 import React from 'react';
-import {StyleSheet, Text, View, TextInput} from 'react-native';
+import {StyleSheet, Text, View, TextInput, ScrollView } from 'react-native';
 import { Icon } from 'react-native-elements'
 import { TextField } from 'react-native-material-textfield';
+import { connect } from 'react-redux';
+import { MPHeader, MPFooter } from '../../components';
 
-class ArtistsScreen extends React.Component {
+class ArtistsScreenContainer extends React.Component {
   constructor(props){
     super(props);
     this.state = { text: "Pesquise pelo nome"};
@@ -12,29 +14,29 @@ class ArtistsScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.textTop}>Essa música tem outros autores?</Text>
-
-        <View style={ styles.textFieldWithButtonContainer}>
-            <TextField label="Pesquise pelo nome"
-            value=""
-            baseColor="#b1b1b1"
-            labelFontSize={16} 
-            lineWidth={1}
-            containerStyle={{flex: 1}}/>
-            <Icon name='search' color='#e13223' size={20} containerStyle={ styles.textFieldIcon }/>
-        </View>
-
-        {/* <View style={ styles.textInputContainer}>
-          <TextInput style={styles.textInput}
-            onFocus={ () => this.setState({text: ""})}
-            onChangeText={ (text) => this.setState({text}) }
-            value={this.state.text}
-            underlineColorAndroid='transparent'/>
-          <Icon name='search' color='#f00' size={18}/>
-        </View> */}
-        <View style={styles.clickableTextContainer}>
-          <Text style={styles.clickableText}>Não, apenas eu</Text>
-        </View>
+        <MPHeader back={true} onBack={this.handleBackClick} title={"Co-autores"} />
+        {
+          this.props.fontLoaded ? (
+            <ScrollView style={styles.scroll}>
+              <Text style={styles.textTop}>Essa música tem outros autores?</Text>
+              <View style={ styles.textFieldWithButtonContainer}>
+                  <TextField label="Pesquise pelo nome"
+                  value=""
+                  baseColor="#b1b1b1"
+                  labelFontSize={16} 
+                  lineWidth={1}
+                  containerStyle={{flex: 1}}
+                  labelTextStyle={{ fontFamily: 'montSerrat' }}
+                  titleTextStyle={{ fontFamily: 'montSerrat' }}/>
+                  <Icon name='search' color='#e13223' size={20} containerStyle={ styles.textFieldIcon }/>
+              </View>
+              <View style={styles.clickableTextContainer}>
+                <Text style={styles.clickableText}>Não, apenas eu</Text>
+              </View>
+            </ScrollView>
+          ) : null
+        }
+        <MPFooter />
       </View>
     );
   }
@@ -42,18 +44,23 @@ class ArtistsScreen extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
+    display: 'flex',
     flex: 1,
-    marginTop: 30,
-    marginBottom: 30,
-    marginStart: 40,
-    marginEnd: 40,
-    flexDirection: 'column'
+    backgroundColor: '#FCFCFC',
+    justifyContent: 'flex-end'
+  },
+  scroll: {
+    flex: 2,
+    paddingStart: 40,
+    paddingEnd: 40,
+    paddingTop: 30 
   },
   textTop: {
     fontSize: 16,
     color: '#686868',
     height: 20,
     marginBottom: 20,
+    fontFamily: 'montSerrat'
   },
   textFieldWithButtonContainer: {
       flexDirection: 'row',
@@ -65,17 +72,20 @@ const styles = StyleSheet.create({
   },
   clickableTextContainer: {
     alignItems: 'center',
-    height: 20
   },
   clickableText: {
-    width: 100,
     borderBottomWidth: 1,
     borderColor: '#5994db',
     textAlign: 'center',
     color: '#5994db',
     fontSize: 14,
-    marginTop: 152
+    marginTop: 152,
+    fontFamily: 'montSerrat'
   }
 });
+const mapStateToProps = ({ fontReducer }) => {
+  return { ...fontReducer };
+};
 
+const ArtistsScreen = connect(mapStateToProps)(ArtistsScreenContainer);
 export {ArtistsScreen};

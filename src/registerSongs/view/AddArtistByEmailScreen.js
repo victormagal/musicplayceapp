@@ -1,10 +1,11 @@
 import React from 'react';
-import {StyleSheet, Text, View, TextInput, FlatList} from 'react-native';
+import {StyleSheet, Text, View, TextInput, FlatList, ScrollView } from 'react-native';
 import { Icon } from 'react-native-elements'
 import { TextField } from 'react-native-material-textfield';
-import { MPArtistHorizontal } from '../../components';
+import { MPArtistHorizontal, MPHeader, MPFooter } from '../../components';
+import { connect } from 'react-redux';
 
-class AddArtistByEmailScreen extends React.Component {
+class AddArtistByEmailScreenContainer extends React.Component {
   constructor(props){
     super(props);
     this.state = { 
@@ -21,28 +22,42 @@ class AddArtistByEmailScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <MPArtistHorizontal artist={"Almir Sater"} selected={true} />
-        <Text style={styles.textTop}>Essa música tem outros autores?</Text>
-        <View style={ styles.textFieldWithButtonContainer}>
-            <TextField label="Pesquisar por nome"
-            value="Roberto Carlos"
-            labelFontSize={16} 
-            lineWidth={1}
-            baseColor={"#b1b1b1"}
-            containerStyle={{flex: 1}}/>
-            <Icon name='search' color='#e13223' size={20} containerStyle={ styles.textFieldIcon }/>
-        </View>
-        <View style={ styles.textInputSubTextContainer}>
-            <Text style={ styles.textInputSubTextHeader}>Não encontrou o co-autor?</Text>
-            <Text style={ styles.textInputSubTextSuggestion}>Convide-o para se juntar ao MusicPlayce.</Text>
-        </View>
-        <TextField 
-        label='E-mail'
-        value={this.state.emailText}
-        labelFontSize={16}
-        lineWidth={1}
-        baseColor={'#b1b1b1'}
-        onChangeText={(emailText) => this.setState({emailText})}/>
+        <MPHeader back={true} onBack={this.handleBackClick} title={"Co-autores"} />
+        <ScrollView style={styles.scroll}>
+          <MPArtistHorizontal artist={"Almir Sater"} selected={true} onPress={() => {}} />
+          {
+            this.props.fontLoaded ? (
+              <View style={{paddingStart: 20, paddingEnd: 20}}>
+                <Text style={styles.textTop}>Essa música tem outros autores?</Text>
+                <View style={ styles.textFieldWithButtonContainer}>
+                    <TextField label="Pesquisar por nome"
+                    value="Roberto Carlos"
+                    labelFontSize={16} 
+                    lineWidth={1}
+                    baseColor={"#b1b1b1"}
+                    containerStyle={{flex: 1}}
+                    labelTextStyle={{ fontFamily: 'montSerrat' }}
+                    titleTextStyle={{ fontFamily: 'montSerrat' }}/>
+                    <Icon name='search' color='#e13223' size={20} containerStyle={ styles.textFieldIcon }/>
+                </View>
+                <View>
+                    <Text style={ styles.textInputSubTextHeader}>Não encontrou o co-autor?</Text>
+                    <Text style={ styles.textInputSubTextSuggestion}>Convide-o para se juntar ao MusicPlayce.</Text>
+                </View>
+                <TextField 
+                label='E-mail'
+                value={this.state.emailText}
+                labelFontSize={16}
+                lineWidth={1}
+                baseColor={'#b1b1b1'}
+                onChangeText={(emailText) => this.setState({emailText})}
+                labelTextStyle={{ fontFamily: 'montSerrat' }}
+                titleTextStyle={{ fontFamily: 'montSerrat' }}/>
+              </View>
+            ) : null
+          }
+        </ScrollView>
+        <MPFooter />
       </View>
     );
   }
@@ -50,18 +65,23 @@ class AddArtistByEmailScreen extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
+    display: 'flex',
     flex: 1,
-    marginTop: 30,
-    marginBottom: 30,
-    marginStart: 40,
-    marginEnd: 40,
-    flexDirection: 'column'
+    backgroundColor: '#FCFCFC',
+    justifyContent: 'flex-end'
+  },
+  scroll: {
+    flex: 2,
+    paddingTop: 30,
+    paddingStart: 20,
+    paddingEnd: 20,
   },
   textTop: {
     fontSize: 16,
     color: '#686868',
     height: 20,
     marginBottom: 20,
+    fontFamily: 'montSerrat'
   },
   textInputContainer: {
     height: 46,
@@ -75,47 +95,17 @@ const styles = StyleSheet.create({
     borderColor: 'transparent',
     flex: 9
   },
-  stretchedArtistCardContainer: {
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    flexDirection: 'row',
-    backgroundColor: '#fff',
-    borderRadius: 4,
-    shadowColor: '#000',
-    shadowOffset: {width: 0, height: 4},
-    shadowOpacity: 0.9,
-    shadowRadius: 4,
-    height: 60,
-    marginBottom: 20,
-    overflow: 'hidden'
-  },
-  stretchedArtistImage: {
-    width: 60,
-    height: 60,
-  },
-  stretchedArtistText: {
-    color: "#000",
-    paddingStart: 20,
-    fontSize: 20,
-  },
-  stretchedArtistSelectedIcon: {
-      position: 'absolute',
-      right: 0,
-      top: 0,
-      overflow: 'visible'
-  },
-  textInputSubTextContainer: {
-    
-  },
   textInputSubTextHeader: {
     fontWeight: 'bold',
     color: '#686868',
-    fontSize: 12
+    fontSize: 12,
+    fontFamily: 'montSerrat'
   },
   textInputSubTextSuggestion: {
     fontWeight: 'normal',
     fontSize: 12,
     color: '#686868',
+    fontFamily: 'montSerrat'
   },
   textFieldWithButtonContainer: {
     flexDirection: 'row',
@@ -128,4 +118,9 @@ textFieldIcon: {
 }
 });
 
+const mapStateToProps = ({ fontReducer }) => {
+  return { ...fontReducer };
+};
+
+const AddArtistByEmailScreen = connect(mapStateToProps)(AddArtistByEmailScreenContainer);
 export {AddArtistByEmailScreen};
