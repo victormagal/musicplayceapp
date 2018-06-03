@@ -10,49 +10,27 @@ class MPItemListComponent extends React.Component {
     this.props.navigation.navigate(rota);
   }
 
-  renderPaths(item) {
-    if (item.paths) {
-      return item.paths.map((p, index) => {
-        return <Path
-        key={index}
-        fill={p.fill}
-        stroke={p.stroke}
-        strokeWidth={p.strokeWidth}
-        strokeLinecap={p.strokeLinecap}
-        strokeLinejoin={p.strokeLinejoin}
-        d={p.d}
-        />
-      })
-    } else {
-      return false;
-    }
-  }
-
   render() {
     let { item } = this.props;
+    let Icon = item.icon;
+    let IconNext = item.iconNext;
     return (
       <TouchableHighlight onPress={this.onPress.bind(this, item.rota)} underlayColor="transparent">
         <View style={styles.item}>
-          {
-            item.paths ? (
-              <View style={styles.boxIcon}>
-                <Svg width={item.width} height={item.height} viewBox={item.viewBox}>
-                  {this.renderPaths(item)}
-                </Svg>
-              </View>
-            ) : null
-          }
+          <View style={styles.boxIcon}>
+            <Icon />
+          </View>
           <View style={styles.boxText}>
             {
               this.props.fontLoaded ? (
                 <Text style={styles.text}>
-                  {item.name}
+                  {item.title}
                 </Text>
               ) : null
             }
           </View>
           <View style={styles.boxFoward}>
-            <MPArrowRightIcon />
+            <IconNext />
           </View>
         </View>
       </TouchableHighlight>

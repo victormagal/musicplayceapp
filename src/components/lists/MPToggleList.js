@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 
 class MPToggleListComponent extends React.Component {
 
-
   DELAY = 150;
   timer = null;
 
