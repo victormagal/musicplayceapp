@@ -63,8 +63,7 @@ const styles = StyleSheet.create({
 		justifyContent: 'flex-end'
 	},
 	scroll: {
-		flex: 2,
-		paddingTop: 30,
+		flex: 2
 	},
 	separator: {
 		borderBottomWidth: 1,
