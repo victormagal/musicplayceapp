@@ -66,11 +66,11 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     flexDirection: 'row',
     height: 20,
-    marginHorizontal: 40
+    marginHorizontal: 40,
+    marginBottom: 30
   },
   clickableText: {
-    borderBottomWidth: 1,
-    borderColor: '#5994db',
+    textDecorationLine: 'underline',
     textAlign: 'center',
     color: '#5994db',
     fontSize: 14,

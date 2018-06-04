@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, TextInput, FlatList, ScrollView } from 'react-native';
 import { Icon } from 'react-native-elements';
-import { MPArtistHorizontal, MPHeader, MPFooter } from '../../components';
+import { MPArtistHorizontal, MPHeader, MPFooter, MPTextField } from '../../components';
 import { TextField } from 'react-native-material-textfield';
 import { connect } from 'react-redux';
 
@@ -26,19 +26,9 @@ class AddArtistScreenContainer extends React.Component {
           <MPArtistHorizontal artist={"Almir Sater"} selected={true} onPress={ () => {}} />
           {
             this.props.fontLoaded ? (
-              <View style={{paddingStart: 20, paddingEnd: 20}}>
+              <View>
                 <Text style={styles.textTop}>Essa música tem outros autores?</Text>
-                <View style={ styles.textFieldWithButtonContainer}>
-                    <TextField label="Pesquise pelo nome"
-                    value=""
-                    labelFontSize={16} 
-                    lineWidth={1}
-                    containerStyle={{flex: 1}}
-                    labelTextStyle={{ fontFamily: 'montSerrat' }}
-                    titleTextStyle={{ fontFamily: 'montSerrat' }}
-                    onFocus={ this.goToScreen.bind(this,'AddArtistByEmailScreen')}/>
-                    <Icon name='search' color='#e13223' size={20} containerStyle={ styles.textFieldIcon }/>
-                </View>
+                <MPTextField label={'Pesquise pelo nome:'} value={''} />
               </View>
             ) : null
           }
@@ -58,14 +48,11 @@ const styles = StyleSheet.create({
   },
   scroll: {
     flex: 2,
-    paddingStart: 20,
-    paddingEnd: 20,
   },
   textTop: {
     fontSize: 16,
     color: '#686868',
-    height: 20,
-    marginBottom: 20,
+    marginHorizontal: 40,
     fontFamily: 'montSerrat'
   },
   textFieldWithButtonContainer: {

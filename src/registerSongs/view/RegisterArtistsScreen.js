@@ -15,27 +15,19 @@ class RegisterArtistsScreenContainer extends React.Component {
     return (
       <View style={styles.container}>
         <MPHeader back={true} onBack={this.handleBackClick} title={"Intérpretes"} />
+        <ScrollView>
         {
           this.props.fontLoaded ? (
-            <ScrollView>
+            <View>
               <Text style={styles.textTop}>Essa música tem intérpretes?</Text>
-              <View style={ styles.textFieldWithButtonContainer}>
-                  <TextField label="Pesquise pelo nome"
-                  value=""
-                  baseColor="#b1b1b1"
-                  labelFontSize={16} 
-                  lineWidth={1}
-                  containerStyle={{flex: 1}}
-                  labelTextStyle={{ fontFamily: 'montSerrat' }}
-                  titleTextStyle={{ fontFamily: 'montSerrat' }}/>
-                  <Icon name='search' color='#e13223' size={20} containerStyle={ styles.textFieldIcon }/>
-              </View>
+              <MPTextField label={'Pesquise pelo nome:'} value={''} />
               <View style={styles.clickableTextContainer}>
                 <Text style={styles.clickableText}>Não, apenas eu</Text>
               </View>
-            </ScrollView>
+            </View>
           ) : null
         }
+        </ScrollView>
         <MPFooter />
       </View>
     );
@@ -49,33 +41,21 @@ const styles = StyleSheet.create({
     backgroundColor: '#FCFCFC',
     justifyContent: 'flex-end'
   },
+  scroll: {
+    flex: 2,
+  },
   textTop: {
     fontSize: 16,
     color: '#686868',
-    height: 20,
-    marginBottom: 20,
-    marginTop: 30,
-    marginStart: 40,
-    marginEnd: 40,
+    marginHorizontal: 40,
     fontFamily: 'montSerrat'
-  },
-  textFieldWithButtonContainer: {
-      flexDirection: 'row',
-      padding: 0,
-      marginStart: 40, 
-      marginEnd: 40,
-  },
-  textFieldIcon: {
-      alignSelf: 'flex-end',
-      paddingBottom: 16,
   },
   clickableTextContainer: {
     alignSelf: 'center',
     justifyContent: 'center',
   },
   clickableText: {
-    borderBottomWidth: 1,
-    borderColor: '#5994db',
+    textDecorationLine: 'underline',
     textAlign: 'center',
     color: '#5994db',
     fontSize: 14,

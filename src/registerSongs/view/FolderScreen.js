@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet, Text, View, TextInput, FlatList, ScrollView } from 'react-native';
 import { Icon, Button } from 'react-native-elements'
-import { MPGradientButton, MPFolder, MPHeader, MPFooter } from '../../components';
+import { MPGradientButton, MPFolder, MPHeader, MPFooter, MPTextField } from '../../components';
 import { TextField } from 'react-native-material-textfield';
 import { connect } from 'react-redux';
 
@@ -41,20 +41,7 @@ class FolderScreenContainer extends React.Component {
           <MPFolder folderName={ this.state.item[1].title}
               musicAmount={ this.state.item[1].subTitle }
               onPress={() => {}} />
-          { 
-            this.props.fontLoaded ? (
-              <View style={ styles.textFieldWithButtonContainer}>
-                  <TextField label="Nome da nova pasta"
-                  value="Falando de amor"
-                  labelFontSize={16} 
-                  lineWidth={0}
-                  containerStyle={{flex: 1}}
-                  labelTextStyle={{ fontFamily: 'montSerrat' }}
-                  titleTextStyle={{ fontFamily: 'montSerrat' }}/>
-                  <MPGradientButton title='Criar' onPress={() => {}} style={{alignSelf: 'flex-end', paddingBottom: 16}} />
-              </View>
-            ) : null
-          }
+          <MPTextField label={'Nome da nova pasta'} value={'Falando de amor'} />
         </ScrollView>
         <MPFooter />
       </View>
@@ -71,8 +58,6 @@ const styles = StyleSheet.create({
   },
   scroll: {
     flex: 2,
-    paddingStart: 40,
-    paddingEnd: 40,
   },
   textFieldWithButtonContainer: {
       flexDirection: 'row',

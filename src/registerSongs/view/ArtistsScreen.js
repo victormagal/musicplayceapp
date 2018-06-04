@@ -3,7 +3,7 @@ import {StyleSheet, Text, View, TextInput, ScrollView } from 'react-native';
 import { Icon } from 'react-native-elements'
 import { TextField } from 'react-native-material-textfield';
 import { connect } from 'react-redux';
-import { MPHeader, MPFooter } from '../../components';
+import { MPHeader, MPFooter, MPTextField } from '../../components';
 
 class ArtistsScreenContainer extends React.Component {
   constructor(props){
@@ -23,28 +23,19 @@ class ArtistsScreenContainer extends React.Component {
     return (
       <View style={styles.container}>
         <MPHeader back={true} onBack={this.handleBackClick} title={"Co-autores"} />
+        <ScrollView style={styles.scroll}>
         {
           this.props.fontLoaded ? (
-            <ScrollView style={styles.scroll}>
+            <View>
               <Text style={styles.textTop}>Essa música tem outros autores?</Text>
-              <View style={ styles.textFieldWithButtonContainer}>
-                  <TextField label="Pesquise pelo nome"
-                  value=""
-                  baseColor="#b1b1b1"
-                  labelFontSize={16} 
-                  lineWidth={1}
-                  containerStyle={{flex: 1}}
-                  labelTextStyle={{ fontFamily: 'montSerrat' }}
-                  titleTextStyle={{ fontFamily: 'montSerrat' }}
-                  onFocus={ this.goToScreen.bind( this, 'ListArtistsScreen')} />
-                  <Icon name='search' color='#e13223' size={20} containerStyle={ styles.textFieldIcon }/>
-              </View>
+              <MPTextField label={'Pesquise pelo nome:'} value={''} />
               <View style={styles.clickableTextContainer}>
                 <Text style={styles.clickableText}>Não, apenas eu</Text>
               </View>
-            </ScrollView>
+            </View>
           ) : null
         }
+        </ScrollView>
         <MPFooter />
       </View>
     );
@@ -60,23 +51,13 @@ const styles = StyleSheet.create({
   },
   scroll: {
     flex: 2,
-    paddingStart: 40,
-    paddingEnd: 40,
   },
   textTop: {
     fontSize: 16,
     color: '#686868',
     height: 20,
-    marginBottom: 20,
+    marginHorizontal: 40,
     fontFamily: 'montSerrat'
-  },
-  textFieldWithButtonContainer: {
-      flexDirection: 'row',
-      padding: 0,
-  },
-  textFieldIcon: {
-      alignSelf: 'flex-end',
-      paddingBottom: 16,
   },
   clickableTextContainer: {
     alignItems: 'center',
