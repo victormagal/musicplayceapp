@@ -42,6 +42,7 @@ export const saveProfile = (profile) => {
     dispatch(profileStartLoading());
     return Promise.resolve().then(() => {
         setTimeout(() => {
+          dispatch(saveProfileSucessfully());
           dispatch(profileFinishLoading());
         }, 3000);
     });

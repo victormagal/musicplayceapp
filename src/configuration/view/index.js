@@ -5,4 +5,5 @@ export * from './InviteConfigurationScreen';
 export * from './NotificationConfigurationScreen';
 export * from './TermsConfigurationScreen';
 export * from './HelpConfigurationScreen';
+export * from './MessageScreen';
 export * from './edit';

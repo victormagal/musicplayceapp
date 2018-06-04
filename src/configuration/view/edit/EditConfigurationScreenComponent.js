@@ -1,6 +1,6 @@
 import React from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
-import { MPHeader, MPTitleFormContainer, MPTextField, MPLoading, MPFooter } from '../../../components';
+import { MPHeader, MPTitleFormContainer, MPTextField, MPLoading, MPFooter, MPModal } from '../../../components';
 
 class EditConfigurationScreenComponent extends React.Component {
 	
@@ -49,7 +49,8 @@ class EditConfigurationScreenComponent extends React.Component {
             <MPTextField label={"Nº de telefone"} value={this.state.form.phone}/>
           </ScrollView>
 					<MPFooter />
-        <MPLoading visible={this.props.loading}/>
+          <MPLoading visible={this.props.loading}/>
+
       </View>
 		);
 	}

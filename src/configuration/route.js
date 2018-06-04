@@ -1,5 +1,15 @@
 import { createStackNavigator } from 'react-navigation';
-import { ConfigurationScreen, EditConfigurationScreen, InviteConfigurationScreen, ChangePasswordConfigurationScreen, FeedbackConfigurationScreen, NotificationConfigurationScreen, TermsConfigurationScreen, HelpConfigurationScreen } from './view';
+import {
+  ConfigurationScreen,
+  EditConfigurationScreen,
+  InviteConfigurationScreen,
+  ChangePasswordConfigurationScreen,
+  FeedbackConfigurationScreen,
+  NotificationConfigurationScreen,
+  TermsConfigurationScreen,
+  HelpConfigurationScreen,
+  MessageScreen
+} from './view';
 
 export const ConfigurationScreensNavigation = createStackNavigator(
   {
@@ -51,6 +61,13 @@ export const ConfigurationScreensNavigation = createStackNavigator(
       navigationOptions: {
         header: null
       }
-    }
+    },
+    messageConfiguration: {
+      screen: MessageScreen,
+      navigationOptions: {
+        header: null
+      }
+    },
+
   }
 );

@@ -1,7 +1,8 @@
-import {FETCHED_PROFILE, PROFILE_START_LOADING, PROFILE_FINISH_LOADING} from './profileAction';
+import {FETCHED_PROFILE, PROFILE_START_LOADING, PROFILE_FINISH_LOADING, SAVE_PROFILE_SUCCESS} from './profileAction';
 
 const profileReducer = (state, action) => {
   state = state || {
+      saveProfileSuccess: null,
       loading: false,
       profile: {
         name: '',
@@ -11,6 +12,8 @@ const profileReducer = (state, action) => {
         phone: ''
       }
     };
+
+  state.saveProfileSuccess = null;
 
   switch (action.type) {
     case FETCHED_PROFILE:
@@ -28,6 +31,12 @@ const profileReducer = (state, action) => {
         ...state,
         loading: false
       };
+
+    case SAVE_PROFILE_SUCCESS:
+      return {
+        ...state,
+        saveProfileSuccess: true
+      }
   }
 
   return state;
