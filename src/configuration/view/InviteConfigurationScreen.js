@@ -1,5 +1,6 @@
 import React from 'react';
 import { FlatList, ScrollView, StyleSheet, View } from 'react-native';
+import { MPEditConfigIcon, MPNotificationConfigIcon, MPInviteConfigIcon, MPHelpConfigIcon, MPArrowRightIcon, MPClipboardIcon } from '../../assets/svg';
 import { MPHeader, MPItemList, MPFooter } from '../../components';
 
 class InviteConfigurationScreen extends React.Component {
@@ -9,34 +10,26 @@ class InviteConfigurationScreen extends React.Component {
       {
         id: '00',
         rota: 'editConfiguration',
-        name: 'Enviar por e-mail',
-        width: '20',
-        height: '20',
-        viewBox: '0 0 32 32'
+        title: 'Enviar por e-mail',
+        iconNext: MPArrowRightIcon
       },
       {
         id: '01',
         rota: 'editConfiguration',
-        name: 'Enviar por Facebook',
-        width: '18',
-        height: '22',
-        viewBox: '0 0 26 32'
+        title: 'Enviar por Facebook',
+        iconNext: MPArrowRightIcon
       },
       {
         id: '02',
         rota: 'editConfiguration',
-        name: 'Enviar por SMS',
-        width: '23',
-        height: '20',
-        viewBox: '0 0 37 32'
+        title: 'Enviar por SMS',
+        iconNext: MPArrowRightIcon
       },
       {
         id: '03',
         rota: 'editConfiguration',
-        name: 'Copiar o link',
-        width: '9',
-        height: '19',
-        viewBox: '0 0 18 32'
+        title: 'Copiar o link',
+        iconNext: MPClipboardIcon
       }
     ]
   };

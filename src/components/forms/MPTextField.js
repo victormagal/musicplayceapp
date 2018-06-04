@@ -11,21 +11,19 @@ class MPTextFieldComponent extends React.Component {
       <View style={styles.parent}>
         {
           this.props.fontLoaded ? (
-            <View>
-              <TextField
-                lineWidth={0.5}
-                activeLineWidth={0.5}
-                disabledLineWidth={0.5}
-                multiline={multiline}
-                label={label}
-                value={value}
-                labelFontSize={12}
-                baseColor={'rgba(104, 104, 104, 0.8)'}
-                tintColor={'rgba(177, 177, 177, 0.8)'}
-                labelTextStyle={{ fontFamily: 'montSerrat' }}
-                style={{ fontFamily: 'montSerrat', fontSize: 16 }}
-              />
-            </View>
+            <TextField
+              lineWidth={0.5}
+              activeLineWidth={0.5}
+              disabledLineWidth={0.5}
+              multiline={multiline}
+              label={label}
+              value={value}
+              labelFontSize={12}
+              baseColor={'rgba(104, 104, 104, 0.8)'}
+              tintColor={'rgba(177, 177, 177, 0.8)'}
+              labelTextStyle={{ fontFamily: 'montSerrat' }}
+              style={{ fontFamily: 'montSerrat', fontSize: 16 }}
+            /> 
           ) : null
         }
       </View>
@@ -35,7 +33,6 @@ class MPTextFieldComponent extends React.Component {
 
 const styles = StyleSheet.create({
   parent: {
-    marginTop: 20,
     marginHorizontal: 40,
     display: 'flex',
     justifyContent: 'flex-end'

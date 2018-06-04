@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 
 class MPToggleListComponent extends React.Component {
 
-
   DELAY = 150;
   timer = null;
 
@@ -87,7 +86,8 @@ const styles = StyleSheet.create({
     borderBottomColor: '#DFDFDF'
   },
   headerContainer: {
-    flexDirection: 'row'
+    flexDirection: 'row',
+    alignItems: 'center'
   },
   title: {
     flex: 1,

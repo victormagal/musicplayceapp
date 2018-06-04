@@ -10,35 +10,17 @@ class MPItemListComponent extends React.Component {
     this.props.navigation.navigate(rota);
   }
 
-  renderPaths(item) {
-    if (item.paths) {
-      return item.paths.map((p, index) => {
-        return <Path
-        key={index}
-        fill={p.fill}
-        stroke={p.stroke}
-        strokeWidth={p.strokeWidth}
-        strokeLinecap={p.strokeLinecap}
-        strokeLinejoin={p.strokeLinejoin}
-        d={p.d}
-        />
-      })
-    } else {
-      return false;
-    }
-  }
-
   render() {
     let { item } = this.props;
+    let Icon = item.icon;
+    let IconNext = item.iconNext;
     return (
       <TouchableHighlight onPress={this.onPress.bind(this, item.rota)} underlayColor="transparent">
         <View style={styles.item}>
           {
-            item.paths ? (
+            item.icon ? (
               <View style={styles.boxIcon}>
-                <Svg width={item.width} height={item.height} viewBox={item.viewBox}>
-                  {this.renderPaths(item)}
-                </Svg>
+                <Icon />
               </View>
             ) : null
           }
@@ -46,13 +28,13 @@ class MPItemListComponent extends React.Component {
             {
               this.props.fontLoaded ? (
                 <Text style={styles.text}>
-                  {item.name}
+                  {item.title}
                 </Text>
               ) : null
             }
           </View>
           <View style={styles.boxFoward}>
-            <MPArrowRightIcon />
+            <IconNext />
           </View>
         </View>
       </TouchableHighlight>
@@ -65,8 +47,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     paddingVertical: 15,
     marginHorizontal: 20,
-    marginVertical: 10,
+    marginBottom: 20,
     flexDirection: 'row',
+    display: 'flex',
     flex: 1,
     alignItems: 'center',
     justifyContent: 'space-around',
@@ -80,6 +63,7 @@ const styles = StyleSheet.create({
     }
   },
   boxIcon: {
+    display: 'flex',
     flex: 0.05,
     marginLeft: 12,
     paddingRight: 12,
@@ -97,6 +81,7 @@ const styles = StyleSheet.create({
     fontSize: 16
   },
   boxFoward: {
+    display: 'flex',
     flex: 0.05,
     paddingRight: 10,
     alignItems: 'flex-end'

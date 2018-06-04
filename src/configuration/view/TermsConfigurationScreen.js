@@ -55,11 +55,6 @@ const styles = StyleSheet.create({
   scroll: {
     flex: 2
   },
-  container: {
-    marginTop: 30,
-    borderTopWidth: 0.5,
-    borderTopColor: 'rgba(104, 104, 104, 0.4)'
-  },
   boxText: {
     marginHorizontal: 40,
     marginTop: 30

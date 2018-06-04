@@ -12,7 +12,6 @@ class MPHeaderComponent extends React.Component {
       <View style={styles.parent}>
         <StatusBar barStyle="light-content"/>
         <View style={styles.header}>
-
           {back && (
             <TouchableOpacity onPress={onBack}>
               <Svg style={styles.back}  viewBox="0 0 10 12">
@@ -32,7 +31,6 @@ class MPHeaderComponent extends React.Component {
             />
           </Svg>
         </View>
-
         {
           title ? (
             this.props.fontLoaded ? (
@@ -56,7 +54,8 @@ MPHeaderComponent.propTypes = {
 const styles = StyleSheet.create({
   parent: {
     backgroundColor: 'black',
-    paddingBottom: 15
+    paddingBottom: 15,
+    marginBottom: 30
   },
   header: {
     display: 'flex',
@@ -79,7 +78,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
     fontSize: 20,
     color: 'white',
-    paddingHorizontal: 50,
+    paddingHorizontal: 40,
     textAlign: 'center'
   }
 });
