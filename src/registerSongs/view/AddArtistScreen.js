@@ -36,7 +36,7 @@ class AddArtistScreenContainer extends React.Component {
                     containerStyle={{flex: 1}}
                     labelTextStyle={{ fontFamily: 'montSerrat' }}
                     titleTextStyle={{ fontFamily: 'montSerrat' }}
-                    onFocus={ this.goToScreen.bind('AddArtistByEmailScreen')}/>
+                    onFocus={ this.goToScreen.bind(this,'AddArtistByEmailScreen')}/>
                     <Icon name='search' color='#e13223' size={20} containerStyle={ styles.textFieldIcon }/>
                 </View>
               </View>

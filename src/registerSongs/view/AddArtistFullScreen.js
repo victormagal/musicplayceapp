@@ -22,6 +22,14 @@ class AddArtistFullScreenContainer extends React.Component {
         }
     };
   }
+
+  goToScreen = (route) => {
+    this.props.navigation.navigate(route);
+  }
+
+  handleBackClick = () => {
+    this.props.navigation.pop();
+  };
   
   render() {
     return (
@@ -41,7 +49,8 @@ class AddArtistFullScreenContainer extends React.Component {
                     lineWidth={1}
                     containerStyle={{flex: 1}}
                     labelTextStyle={{ fontFamily: 'montSerrat' }}
-                    titleTextStyle={{ fontFamily: 'montSerrat' }}/>
+                    titleTextStyle={{ fontFamily: 'montSerrat' }}
+                    onFocus={ this.goToScreen.bind(this, 'UploadMediaFilledScreen')}/>
                     <Icon name='search' color='#e13223' size={20} containerStyle={ styles.textFieldIcon }/>
                 </View>
               </View>

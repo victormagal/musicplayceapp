@@ -18,6 +18,14 @@ class UploadMediaFilledScreenContainer extends React.Component {
       folderText: 'Falando de amor',
     }
   }
+
+  goToScreen = (route) => {
+    this.props.navigation.navigate(route);
+  }
+
+  handleBackClick = () => {
+    this.props.navigation.pop();
+  };
   
   render() {
     return (
@@ -131,7 +139,7 @@ class UploadMediaFilledScreenContainer extends React.Component {
                     </View>
                   </View>
                 </View>
-                <MPGradientButton title='Publicar' onPress={ () => {} } textSize={16} style={ {marginBottom: 20} } />
+                <MPGradientButton title='Publicar' onPress={ this.goToScreen.bind(this, 'ConfimationScreen') } textSize={16} style={ {marginBottom: 20} } />
                 <View style={styles.clickableTextContainer}>
                   <Text style={styles.clickableText}>Terminar depois</Text>
                 </View> 

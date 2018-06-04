@@ -61,7 +61,7 @@ class AddArtistByEmailScreenContainer extends React.Component {
                 onChangeText={(emailText) => this.setState({emailText})}
                 labelTextStyle={{ fontFamily: 'montSerrat' }}
                 titleTextStyle={{ fontFamily: 'montSerrat' }}
-                onFocus={ this.goToScreen.bind('AddArtistFullScreen')}/>
+                onFocus={ this.goToScreen.bind(this, 'AddArtistFullScreen')}/>
               </View>
             ) : null
           }
