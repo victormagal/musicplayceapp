@@ -37,28 +37,24 @@ class MPSwitchComponent extends React.Component {
     let { label } = this.props;
     return (
       <View style={styles.parent}>
-        {
-          this.props.fontLoaded ? (
-              <View style={styles.areaSwitch}>
-                <View style={styles.boxText}>
-                  <MPText style={styles.text}>{label}</MPText>
-                </View>
-                <TouchableWithoutFeedback onPress={this.handleToggleSwitch}>
-                  <LinearGradient
-                    colors={this.linearValues[this.state.switchValue]}
-                    start={[0.0, 0]}
-                    end={[1.0, 0]}
-                    style={styles.boxSwitch} >
-                      <Animated.View style={[styles.iconSwitch, {left: this.state.switchAnim}]}>
-                        <Svg width="10" height="10" viewBox="0 0 10 10">
-                          <Path fill="#E9E9E9" d="M1 0a1 1 0 0 1 1 1v8a1 1 0 0 1-2 0V1a1 1 0 0 1 1-1zm4 0a1 1 0 0 1 1 1v8a1 1 0 0 1-2 0V1a1 1 0 0 1 1-1zm4 0a1 1 0 0 1 1 1v8a1 1 0 0 1-2 0V1a1 1 0 0 1 1-1z"/>
-                        </Svg>
-                      </Animated.View>
-                  </LinearGradient>
-                </TouchableWithoutFeedback>
-              </View>
-            ) : null
-        }
+        <View style={styles.areaSwitch}>
+          <View style={styles.boxText}>
+            <MPText style={styles.text}>{label}</MPText>
+          </View>
+          <TouchableWithoutFeedback onPress={this.handleToggleSwitch}>
+            <LinearGradient
+              colors={this.linearValues[this.state.switchValue]}
+              start={[0.0, 0]}
+              end={[1.0, 0]}
+              style={styles.boxSwitch} >
+                <Animated.View style={[styles.iconSwitch, {left: this.state.switchAnim}]}>
+                  <Svg width="10" height="10" viewBox="0 0 10 10">
+                    <Path fill="#E9E9E9" d="M1 0a1 1 0 0 1 1 1v8a1 1 0 0 1-2 0V1a1 1 0 0 1 1-1zm4 0a1 1 0 0 1 1 1v8a1 1 0 0 1-2 0V1a1 1 0 0 1 1-1zm4 0a1 1 0 0 1 1 1v8a1 1 0 0 1-2 0V1a1 1 0 0 1 1-1z"/>
+                  </Svg>
+                </Animated.View>
+            </LinearGradient>
+          </TouchableWithoutFeedback>
+        </View>
       </View>
     );
   }
