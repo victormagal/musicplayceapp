@@ -1,17 +1,14 @@
 import React from 'react';
-import { View, StyleSheet, ActivityIndicator, Modal } from 'react-native';
+import { View, StyleSheet, ActivityIndicator, Modal, Text } from 'react-native';
 import PropTypes from 'prop-types';
 
 class MPLoading extends React.Component {
 
   render() {
     return (
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={this.props.visible}>
+        <Modal animationType="slide" transparent={true} visible={this.props.visible}>
           <View style={styles.container}>
-            <ActivityIndicator size="large" color="#bb1a1a" />
+            <ActivityIndicator size="large" color="#BB1A1A" />
           </View>
         </Modal>
     );
@@ -28,7 +25,10 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'center',
-    backgroundColor: '#00000077'
+    backgroundColor: '#FFFFFF'
+  },
+  text: {
+    color: '#000000'
   }
 });
 
