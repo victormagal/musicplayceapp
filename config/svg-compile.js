@@ -28,9 +28,11 @@ function buildSvg(filename, attrs, paths){
   let svgString = `export const MP${filename}Icon = () => (<Svg width='${width}' height='${height}' viewBox='${viewBox}'>`;
 
   for(let path of paths){
-    let {fill, d, stroke} = path['$'];
+    let attributes = path['$'];
+    let {fill, d, stroke} = attributes;
+
     if (d) {
-      svgString += `<Path fill='${fill}' d='${d}'/>`
+      svgString += buildPath(path);
     } else {
       for (let p of path.path) {
         let { d } = p['$'];
@@ -41,6 +43,43 @@ function buildSvg(filename, attrs, paths){
 
   svgString+= '</Svg>);';
   return svgString;
+}
+
+function buildPath(path){
+  let svgPathString = '';
+  let attributes = path['$'];
+  let {fill, d, stroke} = attributes;
+
+  let strokeWidth = attributes['stroke-width'];
+  let strokeMiterlimit = attributes['stroke-miterlimit'];
+  let strokeLinecap = attributes['stroke-linecap'];
+  let strokeLinejoin = attributes['stroke-linejoin'];
+
+  svgPathString += `<Path fill='${fill}' d='${d}'`;
+
+  if(stroke){
+    svgPathString += ` stroke='${stroke}'`;
+  }
+
+  if(strokeWidth){
+    svgPathString += ` strokeWidth='${strokeWidth}'`;
+  }
+
+  if(strokeMiterlimit){
+    svgPathString += ` strokeMiterlimit='${strokeMiterlimit}'`;
+  }
+
+  if(strokeLinecap){
+    svgPathString += ` strokeLinecap='${strokeLinecap}'`;
+  }
+
+  if(strokeLinejoin){
+    svgPathString += ` strokeLinejoin='${strokeLinejoin}'`;
+  }
+
+  svgPathString += '/>';
+  return svgPathString;
+
 }
 
 function finishBuildSvg(){
