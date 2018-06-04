@@ -72,8 +72,19 @@ class ListArtistsScreenContainer extends React.Component {
     }
   }
 
+  goToScreen = (route) => {
+    this.props.navigation.navigate(route);
+  }
+
+  handleBackClick = () => {
+    this.props.navigation.pop();
+  };
+
   renderItem = ({item}) => (
-    <MPArtistHorizontal style={{marginStart: 20, marginEnd: 20}} artist={item.title} selected={item.selected} />
+    <MPArtistHorizontal 
+        style={{marginStart: 20, marginEnd: 20}}
+        artist={item.title} 
+        selected={item.selected} />
   )
   
   render() {
@@ -92,7 +103,7 @@ class ListArtistsScreenContainer extends React.Component {
                         containerStyle={{flex: 1}}
                         labelTextStyle={{ fontFamily: 'montSerrat' }}
                         titleTextStyle={{ fontFamily: 'montSerrat' }}
-                        style={{}}/>
+                        onFocus={ this.goToScreen.bind('AddArtistScreen') } />
                         <Icon name='search' color='#e13223' size={20} containerStyle={ styles.textFieldIcon }/>
                     </View>
                 </View>

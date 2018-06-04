@@ -16,6 +16,10 @@ class MusicLetterScreenContainer extends React.Component {
     let song = {...this.props.song, letter  : value};
     this.props.dispatch(updateSongRegisterData(song));
   };
+
+  handleBackClick = () => {
+    this.props.navigation.pop();
+  };
   
   render() {
     return (

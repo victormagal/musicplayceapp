@@ -24,6 +24,10 @@ class FolderScreenContainer extends React.Component {
         ]
     };
   }
+
+  handleBackClick = () => {
+    this.props.navigation.pop();
+  };
   
   render() {
     return (

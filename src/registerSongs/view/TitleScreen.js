@@ -12,6 +12,10 @@ class TitleScreenContainer extends React.Component {
     this.props.dispatch(updateSongRegisterData(song));
   };
 
+  handleBackClick = () => {
+    this.props.navigation.pop();
+  };
+
   render() {
     return (
       <View style={styles.container}>

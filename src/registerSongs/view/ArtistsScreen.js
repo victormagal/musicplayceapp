@@ -10,6 +10,14 @@ class ArtistsScreenContainer extends React.Component {
     super(props);
     this.state = { text: "Pesquise pelo nome"};
   }
+
+  goToScreen = (route) => {
+    this.props.navigation.navigate(route);
+  }
+
+  handleBackClick = () => {
+    this.props.navigation.pop();
+  };
   
   render() {
     return (
@@ -27,7 +35,8 @@ class ArtistsScreenContainer extends React.Component {
                   lineWidth={1}
                   containerStyle={{flex: 1}}
                   labelTextStyle={{ fontFamily: 'montSerrat' }}
-                  titleTextStyle={{ fontFamily: 'montSerrat' }}/>
+                  titleTextStyle={{ fontFamily: 'montSerrat' }}
+                  onFocus={ this.goToScreen.bind( this, 'ListArtistsScreen')} />
                   <Icon name='search' color='#e13223' size={20} containerStyle={ styles.textFieldIcon }/>
               </View>
               <View style={styles.clickableTextContainer}>

@@ -9,6 +9,10 @@ class StylesScreenContainer extends React.Component {
     super(props);
   }
 
+  handleBackClick = () => {
+    this.props.navigation.pop();
+  };
+
   buttonList = {
       data: [
           {
