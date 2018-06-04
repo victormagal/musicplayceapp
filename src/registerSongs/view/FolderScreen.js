@@ -73,7 +73,6 @@ const styles = StyleSheet.create({
     flex: 2,
     paddingStart: 40,
     paddingEnd: 40,
-    paddingTop: 30
   },
   textFieldWithButtonContainer: {
       flexDirection: 'row',

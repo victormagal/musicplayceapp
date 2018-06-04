@@ -56,7 +56,6 @@ const styles = StyleSheet.create({
   },
   scroll: {
     flex: 2,
-    paddingTop: 30,
     paddingStart: 40,
     paddingEnd: 40
   },

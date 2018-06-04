@@ -81,7 +81,6 @@ const styles = StyleSheet.create({
   },
   scroll: {
     flex: 2,
-    paddingTop: 30,
     paddingStart: 20,
     paddingEnd: 20,
   },
