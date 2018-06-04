@@ -38,9 +38,10 @@ class ConfirmationScreenContainer extends React.Component {
     return (
       <View style={styles.container}>
         <MPHeader back={false} onBack={this.handleBackClick} title={""} />
+        <ScrollView style={styles.scroll}>
         {
           this.props.fontLoaded ? (
-            <ScrollView style={styles.scroll}>
+            <View>
               <Text style={styles.titleText}>Pronto! Tudo certo.</Text>
               <Text style={styles.subTitleText}>Que tal indicar sua música pra uma banda que você goste?</Text>
               <View style={{height: 152}}>
@@ -54,9 +55,10 @@ class ConfirmationScreenContainer extends React.Component {
                   <MPGradientButton textSize={16} title={"Convidar para o MusicPlayce"} onPress={() => {}} style={ styles.confirmationButtonTop } textSize={16} />
                   <MPGradientButton textSize={16} title={"Fechar"} onPress={() => {}} style={ styles.confirmationButtonBottom } textSize={16} />
               </View>
-              </ScrollView>
+            </View>
           ) : null
         }
+        </ScrollView>
         <MPFooter />
       </View>
     );
