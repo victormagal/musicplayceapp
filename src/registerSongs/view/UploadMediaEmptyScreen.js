@@ -23,15 +23,15 @@ class UploadMediaEmptyScreenContainer extends React.Component {
         {
           this.props.fontLoaded ? (
             <View>
-              <View style={ styles.topIndicator}>
+              {/* <View style={ styles.topIndicator}>
                 <View style={ styles.topIndicatorDone}></View>
                 <View style={ styles.topIndicatorLeft}></View>
-              </View>
-              <View style={{paddingStart: 50, paddingEnd: 50}}>
+              </View> */}
+              <View style={{paddingHorizontal: 50}}>
                 <Text style={styles.headerTitle}>Mostre pra todo mundo o que você faz de melhor.</Text>
                 <Text style={ styles.headerText}>Upload de melodia</Text>
               </View>
-              <View style={{paddingStart: 20, paddingEnd: 20, paddingBottom: 20}}>
+              <View style={{paddingHorizontal: 20, paddingBottom: 20}}>
                 <MPGradientButton iconName={'music-tone-alt'} iconType={'simple-line-icon'} title='Escolher o arquivo' onPress={ () => {} } textSize={16} style={ {marginBottom: 10} } />
                 <Text style={ styles.subText}>Você pode fazer upload de músicas em MP3 ou AAC.</Text>
                 <View style={ styles.textFieldsVerticalContainer }>

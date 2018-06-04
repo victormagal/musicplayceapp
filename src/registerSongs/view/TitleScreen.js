@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {StyleSheet, Text, View, TextInput, ScrollView} from 'react-native';
+import { StyleSheet, Text, View, TextInput, ScrollView } from 'react-native';
 import { TextField } from 'react-native-material-textfield';
-import {updateSongRegisterData} from '../../state/action';
-import { MPHeader, MPFooter } from '../../components';
+import { updateSongRegisterData } from '../../state/action';
+import { MPHeader, MPFooter, MPTextField } from '../../components';
 
 class TitleScreenContainer extends React.Component {
 
@@ -20,22 +20,16 @@ class TitleScreenContainer extends React.Component {
     return (
       <View style={styles.container}>
         <MPHeader back={true} onBack={this.handleBackClick} title={"Título da música"} />
+        <ScrollView style={styles.scroll}>
         {
           this.props.fontLoaded ? (
-            <ScrollView style={styles.scroll}>
+            <View>
               <Text style={styles.textTop}>Escreva o título da música.</Text>
-              <TextField
-                onChangeText={this.handleChangeName}
-                label='Título da música'
-                value={this.props.song.name}
-                labelFontSize={16}
-                lineWidth={1}
-                baseColor={'#b1b1b1'} 
-                labelTextStyle={{ fontFamily: 'montSerrat' }}
-                titleTextStyle={{ fontFamily: 'montSerrat' }}/>
-            </ScrollView>
-          ) : null
-        }
+              <MPTextField label={"Escreva o título da música:"} value={""} />
+            </View>
+            ) : null
+          }
+        </ScrollView>
         <MPFooter/>
       </View>
     );
@@ -50,15 +44,13 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end'
   },
   scroll: {
-    flex: 2,
-    paddingStart: 40,
-    paddingEnd: 40,
+    flex: 2
   },
   textTop: {
     fontSize: 16,
     color: '#686868',
     height: 20,
-    marginBottom: 20,
+    marginHorizontal: 40,
     fontFamily: 'montSerrat',
   },
   textInputContainer: {

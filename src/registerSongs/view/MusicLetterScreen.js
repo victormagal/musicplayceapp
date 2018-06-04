@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, TextInput, Picker, ScrollView } from 'react-nat
 import { TextField } from 'react-native-material-textfield';
 import { connect } from 'react-redux';
 import {updateSongRegisterData} from '../../state/action';
-import { MPHeader, MPFooter } from '../../components';
+import { MPHeader, MPFooter, MPTextField, MPSelect } from '../../components';
 
 class MusicLetterScreenContainer extends React.Component {
   constructor(props){
@@ -25,39 +25,21 @@ class MusicLetterScreenContainer extends React.Component {
     return (
       <View style={styles.container}>
         <MPHeader back={true} onBack={this.handleBackClick} title={"Letra da música"} />
+        <ScrollView style={styles.scroll}>
         {
           this.props.fontLoaded ? (
-            <ScrollView style={styles.scroll}>
-              <Text style={styles.textTop}>Pode colar a letra da música aqui:</Text>
-              <TextField 
-              label='Letra da Música'
-              onChangeText={this.handleChangeLetter}
-              value={this.props.song.letter}
-              labelFontSize={16}
-              multiline={true}
-              lineWidth={1}
-              baseColor={'#b1b1b1'} 
-              labelTextStyle={{ fontFamily: 'montSerrat' }}
-              titleTextStyle={{ fontFamily: 'montSerrat' }}/>
-              <View style={[styles.clickableTextContainer, {marginTop: 20}]}>
-                <Text style={{fontFamily: 'montSerrat'}}>ou </Text>
-                <Text style={styles.clickableText}>faça upload da letra(doc, tx ou rtf)</Text>
+              <View>
+                <Text style={styles.textTop}>Pode colar a letra da música aqui:</Text>
+                <MPTextField label={"Letra da música:"} value={""} />
+                <View style={styles.clickableTextContainer}>
+                  <Text style={{fontFamily: 'montSerrat'}}>ou </Text>
+                  <Text style={styles.clickableText}>faça upload da letra(doc, tx ou rtf)</Text>
+                </View>
+                <MPSelect style={{marginTop: 30}} />
               </View>
-              <View style={ styles.pickerContainer }>
-                <Picker
-                    selectedValue={this.state.language}
-                    onValueChange={(itemValue, itemIndex) => itemValue != 'default' ? this.setState({language: itemValue}) : {}}
-                    mode={'dropdown'}
-                    style={ {color: "#b1b1b1"} }>
-                    <Picker.Item label="Idioma" value="default" style={styles.notEnabled}  />
-                    <Picker.Item label="Português" value="pt" />
-                    <Picker.Item label="Inglês" value="en" />
-                    <Picker.Item label="Espanhol" value="es" />
-                </Picker>
-              </View>
-            </ScrollView>
           ) : null
         }
+        </ScrollView>
         <MPFooter/>
       </View>
     );
@@ -72,30 +54,19 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end'
   },
   scroll: {
-    flex: 2,
-    paddingStart: 40,
-    paddingEnd: 40
+    flex: 2
   },
   textTop: {
     fontSize: 16,
     color: '#686868',
-    marginBottom: 20,
+    marginHorizontal: 40,
     fontFamily: 'montSerrat'
-  },
-  textInputContainer: {
-    height: 46,
-    flexDirection: 'row',
-    borderBottomWidth: 1,
-    borderColor: '#b1b1b1',
-    padding: 5
-  },
-  textInput: {
-    borderColor: 'transparent',
   },
   clickableTextContainer: {
     alignItems: 'flex-start',
     flexDirection: 'row',
     height: 20,
+    marginHorizontal: 40
   },
   clickableText: {
     borderBottomWidth: 1,
@@ -112,7 +83,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
   },
   notEnabled: {
-    backgroundColor: '#686868',
+    backgroundColor: '#686868'
   }
 });
 
