@@ -9,6 +9,14 @@ class AddArtistScreenContainer extends React.Component {
   constructor(props){
     super(props);
   }
+
+  goToScreen = (route) => {
+    this.props.navigation.navigate(route);
+  }
+
+  handleBackClick = () => {
+    this.props.navigation.pop();
+  };
   
   render() {
     return (
@@ -27,7 +35,8 @@ class AddArtistScreenContainer extends React.Component {
                     lineWidth={1}
                     containerStyle={{flex: 1}}
                     labelTextStyle={{ fontFamily: 'montSerrat' }}
-                    titleTextStyle={{ fontFamily: 'montSerrat' }}/>
+                    titleTextStyle={{ fontFamily: 'montSerrat' }}
+                    onFocus={ this.goToScreen.bind('AddArtistByEmailScreen')}/>
                     <Icon name='search' color='#e13223' size={20} containerStyle={ styles.textFieldIcon }/>
                 </View>
               </View>
