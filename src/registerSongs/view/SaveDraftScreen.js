@@ -43,12 +43,9 @@ const styles = StyleSheet.create({
   textTop: {
     fontSize: 20,
     color: '#000000',
-    height: 22,
     marginBottom: 20,
-    fontFamily: 'montSerrat',
-    marginTop: 30,
-    marginStart: 25,
-    marginEnd: 25,
+    fontFamily: 'montSerratSemiBold',
+    marginHorizontal: 20
   },
   buttonStyle: {
     paddingStart: 100,
