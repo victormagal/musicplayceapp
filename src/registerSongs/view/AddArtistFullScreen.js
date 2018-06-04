@@ -2,7 +2,7 @@ import React from 'react';
 import {StyleSheet, Text, View, TextInput, FlatList, ScrollView } from 'react-native';
 import { Icon } from 'react-native-elements'
 import { TextField } from 'react-native-material-textfield';
-import { MPArtistHorizontal, MPInvitation, MPHeader, MPFooter } from '../../components';
+import { MPArtistHorizontal, MPInvitation, MPHeader, MPFooter, MPTextField } from '../../components';
 import { connect } from 'react-redux';
 
 class AddArtistFullScreenContainer extends React.Component {
@@ -40,19 +40,9 @@ class AddArtistFullScreenContainer extends React.Component {
           <MPInvitation artistName={"Roberto Carlos"} artistEmail={"robertocarlos@gmail.com"} selected={true} onPress={() => {}} />
           {
             this.props.fontLoaded ? (
-              <View style={{marginStart: 20, marginEnd: 20}}>
+              <View>
                 <Text style={styles.textTop}>Essa música tem outros autores?</Text>
-                <View style={ styles.textFieldWithButtonContainer}>
-                    <TextField label="Pesquisar por nome"
-                    value=""
-                    labelFontSize={16} 
-                    lineWidth={1}
-                    containerStyle={{flex: 1}}
-                    labelTextStyle={{ fontFamily: 'montSerrat' }}
-                    titleTextStyle={{ fontFamily: 'montSerrat' }}
-                    onFocus={ this.goToScreen.bind(this, 'UploadMediaFilledScreen')}/>
-                    <Icon name='search' color='#e13223' size={20} containerStyle={ styles.textFieldIcon }/>
-                </View>
+                <MPTextField label={'Pesquise pelo nome:'} value={''} />
               </View>
             ) : null
           }
@@ -72,15 +62,12 @@ const styles = StyleSheet.create({
   },
   scroll: {
     flex: 2,
-    paddingStart: 20,
-    paddingEnd: 20
   },
   textTop: {
     fontSize: 16,
     color: '#686868',
     height: 20,
-    marginBottom: 20,
-    marginTop: 20,
+    marginHorizontal: 40,
     fontFamily: 'montSerrat'
   },
   textFieldWithButtonContainer: {

@@ -37,7 +37,7 @@ class MPArtistHorizontalComponent extends Component{
                         }
                     </View>
                     { selected && 
-                    <Icon name='check-circle' color='#f00' size={18} containerStyle={ iconStyle || {} }/> 
+                    <Icon name='check-circle' color='#f00' size={18} containerStyle={ iconStyle }/> 
                     }
                 </View>
             </TouchableOpacity>
@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
       },
       stretchedArtistSelectedIcon: {
           position: 'absolute',
-          right: 0,
+          right: -20,
           top: 0,
       }
 });

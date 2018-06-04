@@ -61,11 +61,12 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         backgroundColor: '#e13223',
         borderRadius: 4,
+        marginHorizontal: 20,
         shadowColor: '#000',
         shadowOffset: {width: 0, height: 4},
         shadowOpacity: 0.9,
         shadowRadius: 4,
-        marginBottom: 10,
+        marginBottom: 20,
         padding: 0
       },
       stretchedArtistCardInnerContainer: {
@@ -89,11 +90,10 @@ const styles = StyleSheet.create({
       },
       stretchedArtistConfirmationText: {
         color: '#fff',
-        fontWeight: 'bold',
         paddingStart: 10,
         paddingTop: 5,
         paddingBottom: 5,
-        fontFamily: 'montSerrat'
+        fontFamily: 'montSerratBold'
       },
       stretchedArtistEmail:{
         color: '#5994db',
