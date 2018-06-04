@@ -2,6 +2,7 @@ import React from 'react';
 import {StyleSheet, ScrollView, Text, View, TextInput, Image, FlatList} from 'react-native';
 import { MPGradientButton, MPHeader, MPFooter } from '../../components';
 import { connect } from 'react-redux';
+import { MPArtist } from '../../components/';
 
 class ConfirmationScreenContainer extends React.Component {
   constructor(props){
@@ -30,10 +31,7 @@ class ConfirmationScreenContainer extends React.Component {
   }
 
   renderItem = ({item}) => (
-    <View style={ styles.simpleArtistCardContainer }>
-        <View style={ styles.simpleArtistCardImage } backgroundColor={ item.backgroundColor }></View>
-        <Text style={ styles.simpleArtistCardText }>{ item.title }</Text>
-    </View>
+    <MPArtist artist={item.title} backgroundColor={item.backgroundColor} onPress={() => {}} />
   )
   
   render() {
@@ -78,48 +76,20 @@ const styles = StyleSheet.create({
   titleText: {
     fontSize: 20,
     textAlign: 'center',
-    fontWeight: 'bold',
-    height: 22,
+    justifyContent: 'center',
     color: '#000',
     marginBottom: 10,
     marginTop: 70,
-    paddingStart: 64,
-    paddingEnd: 64, 
-    fontFamily: 'montSerrat'
+    fontFamily: 'montSerratBold'
   },
   subTitleText: {
     fontSize: 16,
     textAlign: 'center',
     alignContent: 'center',
-    fontWeight: 'normal',
-    height: 40,
     color: '#000',
     marginBottom: 20,
-    paddingStart: 45,
-    paddingEnd: 45,
+    marginHorizontal: 40,
     fontFamily: 'montSerrat'
-  },
-  simpleArtistCardContainer: {
-    width: 100,
-    height: 152,
-    flexDirection: 'column',
-    backgroundColor: '#fff',
-    borderRadius: 4,
-    marginEnd: 10
-  },
-  simpleArtistCardImage:{
-    width: 100,
-    height: 100,
-    borderRadius: 4,
-    backgroundColor: '#f60'
-  },
-  simpleArtistCardText: {
-    fontSize: 14,
-    color: '#000',
-    paddingTop: 10,
-    paddingStart: 10,
-    paddingEnd: 10,
-    paddingBottom: 26
   },
   confirmationButtonsContainer: {
     flex: 1,
