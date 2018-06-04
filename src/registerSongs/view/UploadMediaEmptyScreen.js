@@ -106,7 +106,7 @@ class UploadMediaEmptyScreenContainer extends React.Component {
                       <TextField
                       lineWidth={0}
                       label='Tem outros intérpretes?'
-                      value={this.props.song.interpreters}
+                      value={'*Opcional' || this.props.song.interpreters}
                       labelFontSize={12}
                       baseColor={'#000'}
                       textColor={'#686868'}
@@ -120,7 +120,7 @@ class UploadMediaEmptyScreenContainer extends React.Component {
                       <TextField
                       lineWidth={0}
                       label='Organize sua música em pastas'
-                      value={this.props.song.folders}
+                      value={'*Opcional' || this.props.song.folders}
                       labelFontSize={12}
                       baseColor={'#000'}
                       textColor={'#686868'}
