@@ -5,6 +5,8 @@ import {
 import {connect} from 'react-redux';
 import {LinearGradient} from 'expo';
 import Svg, { Path } from 'react-native-svg';
+import {MPText} from '../general/MPText';
+
 
 class MPSwitchComponent extends React.Component {
 
@@ -39,7 +41,7 @@ class MPSwitchComponent extends React.Component {
           this.props.fontLoaded ? (
               <View style={styles.areaSwitch}>
                 <View style={styles.boxText}>
-                  <Text style={styles.text}>{label}</Text>
+                  <MPText style={styles.text}>{label}</MPText>
                 </View>
                 <TouchableWithoutFeedback onPress={this.handleToggleSwitch}>
                   <LinearGradient
