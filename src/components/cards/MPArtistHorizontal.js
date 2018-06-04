@@ -60,10 +60,13 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         borderRadius: 4,
         marginHorizontal: 20,
-        shadowColor: '#000',
-        shadowOffset: {width: 0, height: 4},
-        shadowOpacity: 0.9,
-        shadowRadius: 4,
+        shadowColor: '#000000',
+        shadowOpacity: 0.15,
+        shadowRadius: 2,
+        shadowOffset: {
+        width: 1,
+        height: 1
+        },
         height: 60,
         marginBottom: 20,
         overflow: 'hidden'

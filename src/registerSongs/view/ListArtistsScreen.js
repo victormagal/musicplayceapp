@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet, Text, View, TextInput, FlatList, ScrollView} from 'react-native';
 import { Icon } from 'react-native-elements';
-import { MPArtistHorizontal, MPHeader, MPFooter } from '../../components';
+import { MPArtistHorizontal, MPHeader, MPFooter, MPTextField } from '../../components';
 import { TextField } from 'react-native-material-textfield';
 import { connect } from 'react-redux';
 
@@ -83,7 +83,6 @@ class ListArtistsScreenContainer extends React.Component {
 
   renderItem = ({item}) => (
     <MPArtistHorizontal 
-        style={{marginStart: 20, marginEnd: 20}}
         artist={item.title} 
         selected={item.selected}
         onPress={ this.goToScreen.bind(this,'AddArtistScreen') } />
@@ -95,18 +94,9 @@ class ListArtistsScreenContainer extends React.Component {
         <MPHeader back={true} onBack={this.handleBackClick} title={"Co-autores"} />
         <ScrollView style={styles.scroll}>
             {   this.props.fontLoaded ? (
-                <View>
+                <View style={{marginBottom: 30}}>
                     <Text style={styles.textTop}>Essa música tem outros autores?</Text>
-                    <View style={ styles.textFieldWithButtonContainer}>
-                        <TextField label="Pesquisar por nome"
-                        value="Almir Sater"
-                        labelFontSize={16} 
-                        lineWidth={1}
-                        containerStyle={{flex: 1}}
-                        labelTextStyle={{ fontFamily: 'montSerrat' }}
-                        titleTextStyle={{ fontFamily: 'montSerrat' }} />
-                        <Icon name='search' color='#e13223' size={20} containerStyle={ styles.textFieldIcon }/>
-                    </View>
+                    <MPTextField label={'Pesquise pelo nome:'} value={'Almir Sater'} />
                 </View>
                 ) : null
             }
@@ -133,23 +123,9 @@ const styles = StyleSheet.create({
   textTop: {
     fontSize: 16,
     color: '#686868',
-    height: 20,
-    marginBottom: 20,
-    marginTop: 30,
-    marginStart: 40,
+    marginHorizontal: 40,
     fontFamily: 'montSerrat',
-  },
-  textFieldWithButtonContainer: {
-    flexDirection: 'row',
-    padding: 0,
-    marginBottom: 30,
-    paddingStart :40,
-    paddingEnd: 40,
-},
-textFieldIcon: {
-    alignSelf: 'flex-end',
-    paddingBottom: 16,
-}
+  }
 });
 
 const mapStateToProps = ({ fontReducer }) => {
