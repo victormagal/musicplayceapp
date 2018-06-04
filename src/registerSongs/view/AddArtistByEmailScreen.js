@@ -18,6 +18,14 @@ class AddArtistByEmailScreenContainer extends React.Component {
         }
     };
   }
+
+  goToScreen = (route) => {
+    this.props.navigation.navigate(route);
+  }
+
+  handleBackClick = () => {
+    this.props.navigation.pop();
+  };
   
   render() {
     return (
@@ -52,7 +60,8 @@ class AddArtistByEmailScreenContainer extends React.Component {
                 baseColor={'#b1b1b1'}
                 onChangeText={(emailText) => this.setState({emailText})}
                 labelTextStyle={{ fontFamily: 'montSerrat' }}
-                titleTextStyle={{ fontFamily: 'montSerrat' }}/>
+                titleTextStyle={{ fontFamily: 'montSerrat' }}
+                onFocus={ this.goToScreen.bind(this, 'AddArtistFullScreen')}/>
               </View>
             ) : null
           }

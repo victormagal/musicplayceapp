@@ -10,6 +10,10 @@ class UploadMediaEmptyScreenContainer extends React.Component {
   goToScreen = (route) => {
     this.props.navigation.navigate(route);
   }
+
+  handleBackClick = () => {
+    this.props.navigation.pop();
+  };
   
   render() {
     return (
@@ -42,7 +46,8 @@ class UploadMediaEmptyScreenContainer extends React.Component {
                       baseColor={'#000'}
                       textColor={'#686868'}
                       labelTextStyle={{ fontFamily: 'montSerrat' }}
-                      titleTextStyle={{ fontFamily: 'montSerrat' }} />
+                      titleTextStyle={{ fontFamily: 'montSerrat' }}
+                      onFocus={ this.goToScreen.bind( this, 'TitleScreen')} />
                     </View>
                     <View style={ styles.textFieldsInnerContainer}>
                       <TextField
@@ -54,7 +59,8 @@ class UploadMediaEmptyScreenContainer extends React.Component {
                       baseColor={'#000'}
                       textColor={'#686868'}
                       labelTextStyle={{ fontFamily: 'montSerrat' }}
-                      titleTextStyle={{ fontFamily: 'montSerrat' }}/>
+                      titleTextStyle={{ fontFamily: 'montSerrat' }}
+                      onFocus={ this.goToScreen.bind( this, 'MusicLetterScreen')} />
                     </View>
                   </View>
                   <View style={  styles.textFieldsHorizontalContainer}>
@@ -67,18 +73,20 @@ class UploadMediaEmptyScreenContainer extends React.Component {
                       baseColor={'#000'}
                       textColor={'#686868'}
                       labelTextStyle={{ fontFamily: 'montSerrat' }}
-                      titleTextStyle={{ fontFamily: 'montSerrat' }}/>
+                      titleTextStyle={{ fontFamily: 'montSerrat' }}
+                      onFocus={ this.goToScreen.bind( this, 'StylesScreen')} />
                     </View>
                     <View style={ styles.textFieldsInnerContainer}>
                       <TextField
                       lineWidth={0}
                       label='Fale um pouquinho mais sobre a música'
-                      value={this.props.song.description}
+                      value={'*Opcional' || this.props.song.description}
                       labelFontSize={12}
                       baseColor={'#000'}
                       textColor={'#686868'}
                       labelTextStyle={{ fontFamily: 'montSerrat' }}
-                      titleTextStyle={{ fontFamily: 'montSerrat' }}/>
+                      titleTextStyle={{ fontFamily: 'montSerrat' }}
+                      onFocus={ this.goToScreen.bind( this, 'MusicDescriptionScreen')} />
                     </View>
                   </View>
                   <View style={  styles.textFieldsHorizontalContainer}>
@@ -91,18 +99,20 @@ class UploadMediaEmptyScreenContainer extends React.Component {
                       baseColor={'#000'}
                       textColor={'#686868'}
                       labelTextStyle={{ fontFamily: 'montSerrat' }}
-                      titleTextStyle={{ fontFamily: 'montSerrat' }}/>
+                      titleTextStyle={{ fontFamily: 'montSerrat' }}
+                      onFocus={ this.goToScreen.bind( this, 'ArtistsScreen')} />
                     </View>
                     <View style={ styles.textFieldsInnerContainer}>
                       <TextField
                       lineWidth={0}
                       label='Tem outros intérpretes?'
-                      value={this.props.song.interpreters}
+                      value={'*Opcional' || this.props.song.interpreters}
                       labelFontSize={12}
                       baseColor={'#000'}
                       textColor={'#686868'}
                       labelTextStyle={{ fontFamily: 'montSerrat' }}
-                      titleTextStyle={{ fontFamily: 'montSerrat' }}/>
+                      titleTextStyle={{ fontFamily: 'montSerrat' }}
+                      onFocus={ this.goToScreen.bind( this, 'RegisterArtistsScreen')} />
                     </View>
                   </View>
                   <View style={  styles.textFieldsHorizontalContainer}>
@@ -110,16 +120,17 @@ class UploadMediaEmptyScreenContainer extends React.Component {
                       <TextField
                       lineWidth={0}
                       label='Organize sua música em pastas'
-                      value={this.props.song.folders}
+                      value={'*Opcional' || this.props.song.folders}
                       labelFontSize={12}
                       baseColor={'#000'}
                       textColor={'#686868'}
                       labelTextStyle={{ fontFamily: 'montSerrat' }}
-                      titleTextStyle={{ fontFamily: 'montSerrat' }}/>
+                      titleTextStyle={{ fontFamily: 'montSerrat' }}
+                      onFocus={ this.goToScreen.bind( this, 'FolderScreen')} />
                     </View>
                   </View>
                 </View>
-                <MPGradientButton title='Publicar' onPress={ () => {} } textSize={16} style={ {marginBottom: 20} } />
+                <MPGradientButton title='Publicar' onPress={ this.goToScreen.bind('ConfirmationScreen') } textSize={16} style={ {marginBottom: 20} } />
                 <View style={styles.clickableTextContainer}>
                   <Text style={styles.clickableText} >Terminar depois</Text>
                 </View> 

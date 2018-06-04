@@ -7,6 +7,10 @@ import { connect } from 'react-redux';
 
 class RegisterArtistsScreenContainer extends React.Component {
   
+  handleBackClick = () => {
+    this.props.navigation.pop();
+  };
+  
   render() {
     return (
       <View style={styles.container}>

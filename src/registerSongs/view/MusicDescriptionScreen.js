@@ -15,6 +15,10 @@ class MusicDescriptionScreenContainer extends React.Component {
     let song = {...this.props.song, description  : value};
     this.props.dispatch(updateSongRegisterData(song));
   };
+
+  handleBackClick = () => {
+    this.props.navigation.pop();
+  };
   
   render() {
     return (

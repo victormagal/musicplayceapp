@@ -7,7 +7,7 @@ import {connect} from 'react-redux';
 class MPArtistHorizontalComponent extends Component{
 
     render() {
-        let {artist, selected, style} = this.props;
+        let {artist, selected, style, onPress} = this.props;
         let borderStyle = {};
         let iconStyle = {};
 
@@ -24,7 +24,7 @@ class MPArtistHorizontalComponent extends Component{
         }
 
         return (
-            <TouchableOpacity style={style || {}}>
+            <TouchableOpacity style={style || {}} onPress={ onPress }>
                 <View>
                     <View style={ [styles.stretchedArtistCardContainer, borderStyle] }>
                         <View style={ styles.stretchedArtistImage } backgroundColor={ '#f06' }></View>
