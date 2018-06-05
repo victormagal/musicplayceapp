@@ -5,8 +5,7 @@ import { Provider } from 'react-redux';
 import thunkMiddleware from 'redux-thunk'
 import { createStackNavigator } from 'react-navigation';
 import { Font, DangerZone } from 'expo';
-import { ProfileScreen } from './src/profile';
-import { HomeScreen } from './src/home';
+import { HomeScreen, ProfileScreen } from './src/modules';
 import { StylesScreen, SaveDraftScreen } from './src/registerSongs';
 import { ConfigurationScreensNavigation } from './src/configuration';
 import { SongsScreensNavigation } from './src/registerSongs';
@@ -51,7 +50,7 @@ const HomeNavigation = createStackNavigator(
         }
     },
     {
-        initialRouteName: 'configuration'
+        initialRouteName: 'home'
     }
 );
 

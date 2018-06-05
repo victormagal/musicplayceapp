@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {ProfileComponent} from './ProfileComponent';
-import {fetchProfile} from '../../state/action';
+import {fetchProfile} from '../../../state/action';
 
 class ProfileScreenContainer extends React.Component {
 
