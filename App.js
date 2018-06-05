@@ -50,7 +50,7 @@ const HomeNavigation = createStackNavigator(
         }
     },
     {
-        initialRouteName: 'registerSongs'
+        initialRouteName: 'home'
     }
 );
 
