@@ -34,7 +34,8 @@ class UploadMediaEmptyScreenContainer extends React.Component {
               <View>
                 <MPGradientButton title='Escolher o arquivo' onPress={ () => {} } textSize={16} style={ {marginBottom: 10, marginHorizontal: 20} } />
                 <Text style={ styles.subText}>Você pode fazer upload de músicas em MP3 ou AAC.</Text>
-                <View styles={styles.HorizontalContainer}>
+
+                <View style={ styles.horizontalContainer }>
                   <MPSongInfo title={'Qual é o título da música?'} info={''} onPess={() => {}} />
                   <MPSongInfo title={'Qual é a letra?'} info={''} onPess={() => {}} />
                   <MPSongInfo title={'Quais as categorias e estilos que combinam?'} info={''} onPess={() => {}} />
@@ -42,6 +43,10 @@ class UploadMediaEmptyScreenContainer extends React.Component {
                   <MPSongInfo title={'Tem outros autores?'} info={''} onPess={() => {}} />
                   <MPSongInfo title={'Tem intérpretes?'} info={'*Opcional'} onPess={() => {}} />
                 </View>
+                <View style={ {flex: 1, marginHorizontal: 10, alignItems: 'stretch'} }>
+                  <MPSongInfo title={'Tem intérpretes?'} info={'*Opcional'} onPess={() => {}} />
+                </View>
+
                 {/* <View style={ styles.textFieldsVerticalContainer }>
                   <View style={  styles.textFieldsHorizontalContainer}>
                     <View style={ styles.textFieldsInnerContainer}>
@@ -162,13 +167,13 @@ const styles = StyleSheet.create({
   scroll: {
     flex: 2,
   },
-  HorizontalContainer: {
-    display: 'flex',
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'flex-end', 
+  horizontalContainer: {
+    flex: 2,
     marginTop: 20,
+    marginHorizontal: 10,
+    flexDirection: 'row',
     flexWrap: 'wrap',
+    alignContent: 'space-between' 
   },
   topIndicator: {
     height: 7,

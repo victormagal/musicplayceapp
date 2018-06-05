@@ -49,6 +49,7 @@ MPSongInfoComponent.propTypes = {
 
 const styles = StyleSheet.create({
 	parent: {
+        flex: 1,
         backgroundColor: '#fff',
         borderRadius: 4,
         marginHorizontal: 10,
@@ -61,7 +62,9 @@ const styles = StyleSheet.create({
         height: 1
         },
         height: 78,
+        width: 170,
         marginBottom: 10,
+        flexGrow: 1,
       },
       titleText: {
         color: "#000",
