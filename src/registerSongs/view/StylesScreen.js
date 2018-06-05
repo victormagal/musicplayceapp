@@ -4,14 +4,6 @@ import {MPGradientButton, MPHeader, MPFooter, MPText} from '../../components';
 import {connect} from 'react-redux';
 
 class StylesScreenContainer extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-  handleBackClick = () => {
-    this.props.navigation.pop();
-  };
-
   buttonList = {
     data: [
       {
@@ -102,11 +94,35 @@ class StylesScreenContainer extends React.Component {
     ]
   };
 
-  renderItem = ({item}) => (
-    <View style={styles.buttonContainer}>
-      <MPGradientButton textSize={16} title={item.title} selected={item.selected} onPress={() => {}}/>
-    </View>
-  );
+  constructor(props){
+    super(props);
+
+    let source = this.buttonList.data;
+    let max = 8;
+    let result = [];
+    let count = 0;
+
+    do{
+
+      if(count % 2 === 0){
+        result.push(source.splice(0, max));
+      }else{
+        result.push(source.splice(0, 1));
+      }
+
+      count++;
+    }while(source.length > 0);
+
+    this.buttonList.data = result;
+  }
+
+  handleBackClick = () => {
+    this.props.navigation.pop();
+  };
+
+  renderItem = (item, index) => {
+    return (<MPGradientButton key={index} style={styles.button} textSize={16} title={item.title} selected={item.selected} onPress={() => {}}/>);
+  };
 
   render() {
     return (
@@ -116,12 +132,13 @@ class StylesScreenContainer extends React.Component {
           <View>
             <MPText style={styles.textTop}>Melhore a encontrabilidade do seu trabalho. Do que ela fala? Quais estilos
               combinam com sua musica?</MPText>
-          </View>
-          <FlatList data={this.buttonList.data}
-                    keyExtractor={(item, index) => item.id}
-                    renderItem={this.renderItem}
-                    numColumns={3}
-                    columnWrapperStyle={{marginStart: 10, alignContent: 'center', justifyContent: 'center'}}/>
+
+            {this.buttonList.data.map((list, firstIndex) =>
+              <View key={firstIndex} style={styles.buttonContainer}>
+                {list.map((item, secondIndex) => this.renderItem(item, secondIndex))}
+              </View>
+            )}
+         </View>
         </ScrollView>
         <MPFooter />
       </View>
@@ -131,7 +148,6 @@ class StylesScreenContainer extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    display: 'flex',
     flex: 1,
     backgroundColor: '#FCFCFC',
     justifyContent: 'center'
@@ -148,9 +164,14 @@ const styles = StyleSheet.create({
     marginHorizontal: 40,
     fontFamily: 'montSerrat'
   },
-  buttonContainer: {
+  button: {
     marginEnd: 10,
     marginBottom: 10,
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center'
   }
 });
 
