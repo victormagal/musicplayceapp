@@ -25,7 +25,7 @@ class TitleScreenContainer extends React.Component {
           this.props.fontLoaded ? (
             <View>
               <Text style={styles.textTop}>Escreva o título da música.</Text>
-              <MPTextField label={"Escreva o título da música:"} value={""} />
+              <MPTextField label={"Título da música"} value={""} />
             </View>
             ) : null
           }
@@ -49,19 +49,8 @@ const styles = StyleSheet.create({
   textTop: {
     fontSize: 16,
     color: '#686868',
-    height: 20,
     marginHorizontal: 40,
     fontFamily: 'montSerrat',
-  },
-  textInputContainer: {
-    height: 46,
-    flexDirection: 'row',
-    borderBottomWidth: 1,
-    borderColor: '#b1b1b1',
-    padding: 5
-  },
-  textInput: {
-    borderColor: 'transparent',
   }
 });
 

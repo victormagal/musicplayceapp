@@ -65,7 +65,6 @@ const styles = StyleSheet.create({
   clickableTextContainer: {
     alignItems: 'flex-start',
     flexDirection: 'row',
-    height: 20,
     marginHorizontal: 40,
     marginBottom: 30
   },

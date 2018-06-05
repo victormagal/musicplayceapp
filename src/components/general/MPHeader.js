@@ -54,12 +54,13 @@ MPHeaderComponent.propTypes = {
 const styles = StyleSheet.create({
   parent: {
     backgroundColor: 'black',
-    paddingBottom: 15
+    paddingBottom: 15,
+    marginBottom: 30,
   },
   header: {
     display: 'flex',
     flexDirection: 'row',
-    marginTop: 30
+    marginTop: 30,
   },
   back: {
     width: 10,

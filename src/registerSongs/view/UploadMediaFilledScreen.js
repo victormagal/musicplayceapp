@@ -35,16 +35,16 @@ class UploadMediaFilledScreenContainer extends React.Component {
         {
           this.props.fontLoaded ? (
             <View>
-              <View style={ styles.topIndicator}>
+              {/* <View style={ styles.topIndicator}>
                 <View style={ styles.topIndicatorDone}></View>
                 <View style={ styles.topIndicatorLeft}></View>
-              </View>
-              <View style={{paddingStart: 50, paddingEnd: 50}}>
+              </View> */}
+              <View>
                 <Text style={styles.headerTitle}>Mostre pra todo mundo o que você faz de melhor.</Text>
                 <Text style={ styles.headerText}>Melodia selecionada</Text>
               </View>
-              <View style={{paddingStart: 20, paddingEnd : 20, paddingBottom: 20}}>
-                <MPGradientButton iconName={'play-circle-o'} iconType={ 'font-awesome' } title='Nome da música.mp3' textSize={16} onPress={ () => {} } textSize={16} style={ {marginBottom: 10} } />
+              <View>
+                <MPGradientButton title='Nome da música.mp3' textSize={16} onPress={ () => {} } textSize={16} style={ {marginBottom: 10, marginHorizontal: 20} } />
                 <View style={styles.clickableTextContainer}>
                   <Text style={styles.clickableText}>Substituir arquivo</Text>
                 </View> 
@@ -139,7 +139,7 @@ class UploadMediaFilledScreenContainer extends React.Component {
                     </View>
                   </View>
                 </View>
-                <MPGradientButton title='Publicar' onPress={ this.goToScreen.bind(this, 'ConfimationScreen') } textSize={16} style={ {marginBottom: 20} } />
+                <MPGradientButton title='Publicar' onPress={ this.goToScreen.bind(this, 'ConfimationScreen') } textSize={16} style={ {marginBottom: 20, marginHorizontal: 30} } />
                 <View style={styles.clickableTextContainer}>
                   <Text style={styles.clickableText}>Terminar depois</Text>
                 </View> 
@@ -184,14 +184,12 @@ const styles = StyleSheet.create({
   },
   headerTitle: {
     fontSize: 16,
-    paddingStart : 50,
-    paddingEnd: 50,
+    marginHorizontal: 70,
     color: '#000',
     alignItems: 'center',
     textAlign: 'center',
     marginBottom: 20,
     fontFamily: 'montSerrat',
-    fontWeight: 'bold',
   },
   headerText: {
     fontSize: 16,
@@ -200,7 +198,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginBottom: 10,
     fontFamily: 'montSerrat',
-    fontWeight: 'bold'
   },
   subText: {
     fontSize: 12,
@@ -211,11 +208,9 @@ const styles = StyleSheet.create({
   },
   clickableTextContainer: {
     alignItems: 'center',
-    height: 20
   },
   clickableText: {
-    borderBottomWidth: 1,
-    borderColor: '#5994db',
+    textDecorationLine: 'underline',
     textAlign: 'center',
     color: '#5994db',
     fontSize: 14,

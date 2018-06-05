@@ -27,12 +27,12 @@ class UploadMediaEmptyScreenContainer extends React.Component {
                 <View style={ styles.topIndicatorDone}></View>
                 <View style={ styles.topIndicatorLeft}></View>
               </View> */}
-              <View style={{paddingHorizontal: 50}}>
+              <View>
                 <Text style={styles.headerTitle}>Mostre pra todo mundo o que você faz de melhor.</Text>
                 <Text style={ styles.headerText}>Upload de melodia</Text>
               </View>
-              <View style={{paddingHorizontal: 20, paddingBottom: 20}}>
-                <MPGradientButton iconName={'music-tone-alt'} iconType={'simple-line-icon'} title='Escolher o arquivo' onPress={ () => {} } textSize={16} style={ {marginBottom: 10} } />
+              <View>
+                <MPGradientButton title='Escolher o arquivo' onPress={ () => {} } textSize={16} style={ {marginBottom: 10, marginHorizontal: 20} } />
                 <Text style={ styles.subText}>Você pode fazer upload de músicas em MP3 ou AAC.</Text>
                 <View style={ styles.textFieldsVerticalContainer }>
                   <View style={  styles.textFieldsHorizontalContainer}>
@@ -130,7 +130,7 @@ class UploadMediaEmptyScreenContainer extends React.Component {
                     </View>
                   </View>
                 </View>
-                <MPGradientButton title='Publicar' onPress={ this.goToScreen.bind('ConfirmationScreen') } textSize={16} style={ {marginBottom: 20} } />
+                <MPGradientButton title='Publicar' onPress={ this.goToScreen.bind('ConfirmationScreen') } textSize={16} style={ {marginBottom: 20, marginHorizontal: 20} } />
                 <View style={styles.clickableTextContainer}>
                   <Text style={styles.clickableText} >Terminar depois</Text>
                 </View> 
@@ -175,14 +175,12 @@ const styles = StyleSheet.create({
   },
   headerTitle: {
     fontSize: 16,
-    paddingStart : 50,
-    paddingEnd: 50,
+    marginHorizontal: 70,
     color: '#000',
     alignItems: 'center',
     textAlign: 'center',
     marginBottom: 20,
     fontFamily: 'montSerrat',
-    fontWeight: 'bold'
   },
   headerText: {
     fontSize: 16,
@@ -191,7 +189,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginBottom: 10,
     fontFamily: 'montSerrat',
-    fontWeight: 'bold'
   },
   subText: {
     fontSize: 12,
@@ -202,11 +199,9 @@ const styles = StyleSheet.create({
   },
   clickableTextContainer: {
     alignItems: 'center',
-    height: 20
   },
   clickableText: {
-    borderBottomWidth: 1,
-    borderColor: '#5994db',
+    textDecorationLine: 'underline',
     textAlign: 'center',
     color: '#5994db',
     fontSize: 14,

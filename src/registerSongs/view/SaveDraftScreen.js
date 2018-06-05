@@ -48,8 +48,8 @@ const styles = StyleSheet.create({
     marginHorizontal: 20
   },
   buttonStyle: {
-    paddingStart: 100,
-    paddingEnd: 100
+    paddingStart: 99,
+    paddingEnd: 99
   }
 });
 

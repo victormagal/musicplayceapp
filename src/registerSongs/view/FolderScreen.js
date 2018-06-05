@@ -34,14 +34,20 @@ class FolderScreenContainer extends React.Component {
       <View style={styles.container}>
         <MPHeader back={true} onBack={this.handleBackClick} title={"Escolha a pasta"} />
         <ScrollView style={ styles.scroll }>
-          <MPFolder folderName={ this.state.item[0].title}
-              musicAmount={ this.state.item[0].subTitle }
-              selected={true}
-              onPress={() => {}} />
-          <MPFolder folderName={ this.state.item[1].title}
-              musicAmount={ this.state.item[1].subTitle }
-              onPress={() => {}} />
-          <MPTextField label={'Nome da nova pasta'} value={'Falando de amor'} />
+        {
+          this.props.fontLoaded ? (
+            <View>
+              <MPFolder folderName={ this.state.item[0].title}
+                  musicAmount={ this.state.item[0].subTitle }
+                  selected={true}
+                  onPress={() => {}} />
+              <MPFolder folderName={ this.state.item[1].title}
+                  musicAmount={ this.state.item[1].subTitle }
+                  onPress={() => {}} />
+              <MPTextField label={'Nome da nova pasta'} value={'Falando de amor'} />
+            </View>
+          ) : null
+        }
         </ScrollView>
         <MPFooter />
       </View>
