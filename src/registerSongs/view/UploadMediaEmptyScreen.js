@@ -1,7 +1,7 @@
 import React from 'react';
 import { Alert, StyleSheet, Text, View, TextInput, FlatList, ScrollView } from 'react-native';
 import { Icon } from 'react-native-elements'
-import { MPGradientButton, MPHeader, MPFooter } from '../../components'
+import { MPGradientButton, MPHeader, MPFooter, MPSongInfo } from '../../components'
 import { TextField } from 'react-native-material-textfield';
 import { connect } from 'react-redux';
 
@@ -22,7 +22,7 @@ class UploadMediaEmptyScreenContainer extends React.Component {
         <ScrollView style={styles.scroll}>
         {
           this.props.fontLoaded ? (
-            <View>
+            <View style={ {flex: 1}}>
               {/* <View style={ styles.topIndicator}>
                 <View style={ styles.topIndicatorDone}></View>
                 <View style={ styles.topIndicatorLeft}></View>
@@ -34,7 +34,15 @@ class UploadMediaEmptyScreenContainer extends React.Component {
               <View>
                 <MPGradientButton title='Escolher o arquivo' onPress={ () => {} } textSize={16} style={ {marginBottom: 10, marginHorizontal: 20} } />
                 <Text style={ styles.subText}>Você pode fazer upload de músicas em MP3 ou AAC.</Text>
-                <View style={ styles.textFieldsVerticalContainer }>
+                <View styles={styles.HorizontalContainer}>
+                  <MPSongInfo title={'Qual é o título da música?'} info={''} onPess={() => {}} />
+                  <MPSongInfo title={'Qual é a letra?'} info={''} onPess={() => {}} />
+                  <MPSongInfo title={'Quais as categorias e estilos que combinam?'} info={''} onPess={() => {}} />
+                  <MPSongInfo title={'Fale um pouquinho mais sobre sua música?'} info={'*Opcional'} onPess={() => {}} />
+                  <MPSongInfo title={'Tem outros autores?'} info={''} onPess={() => {}} />
+                  <MPSongInfo title={'Tem intérpretes?'} info={'*Opcional'} onPess={() => {}} />
+                </View>
+                {/* <View style={ styles.textFieldsVerticalContainer }>
                   <View style={  styles.textFieldsHorizontalContainer}>
                     <View style={ styles.textFieldsInnerContainer}>
                       <TextField
@@ -129,7 +137,7 @@ class UploadMediaEmptyScreenContainer extends React.Component {
                       onFocus={ this.goToScreen.bind( this, 'FolderScreen')} />
                     </View>
                   </View>
-                </View>
+                </View> */}
                 <MPGradientButton title='Publicar' onPress={ this.goToScreen.bind('ConfirmationScreen') } textSize={16} style={ {marginBottom: 20, marginHorizontal: 20} } />
                 <View style={styles.clickableTextContainer}>
                   <Text style={styles.clickableText} >Terminar depois</Text>
@@ -150,10 +158,17 @@ const styles = StyleSheet.create({
     display: 'flex',
     flex: 1,
     backgroundColor: '#FCFCFC',
-    justifyContent: 'flex-end'
   },
   scroll: {
     flex: 2,
+  },
+  HorizontalContainer: {
+    display: 'flex',
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'flex-end', 
+    marginTop: 20,
+    flexWrap: 'wrap',
   },
   topIndicator: {
     height: 7,

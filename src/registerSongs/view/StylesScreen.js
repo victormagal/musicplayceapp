@@ -125,7 +125,7 @@ class StylesScreenContainer extends React.Component {
         keyExtractor={(item,index) => item.id} 
         renderItem={this.renderItem}
         numColumns={3}
-        columnWrapperStyle={{flexWrap: 'wrap', justifyContent: 'center'}}/>
+        columnWrapperStyle={{ marginStart: 10, alignContent: 'center',justifyContent: 'center'}}/>
       </ScrollView>
       <MPFooter />
     </View>
