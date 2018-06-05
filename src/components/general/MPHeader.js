@@ -41,7 +41,7 @@ class MPHeader extends React.Component {
   }
 }
 
-MPHeaderComponent.propTypes = {
+MPHeader.propTypes = {
   title: PropTypes.string.isRequired,
   back: PropTypes.bool,
   onBack: PropTypes.func
