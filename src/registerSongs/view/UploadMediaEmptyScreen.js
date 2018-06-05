@@ -36,13 +36,13 @@ class UploadMediaEmptyScreenContainer extends React.Component {
                 <Text style={ styles.subText}>Você pode fazer upload de músicas em MP3 ou AAC.</Text>
 
                 <View style={ styles.horizontalContainer }>
-                  <MPSongInfo title={'Qual é o título da música?'} info={''} onPess={() => {}} />
-                  <MPSongInfo title={'Qual é a letra?'} info={''} onPess={() => {}} />
-                  <MPSongInfo title={'Quais as categorias e estilos que combinam?'} info={''} onPess={() => {}} />
-                  <MPSongInfo title={'Fale um pouquinho mais sobre sua música?'} info={'*Opcional'} onPess={() => {}} />
-                  <MPSongInfo title={'Tem outros autores?'} info={''} onPess={() => {}} />
-                  <MPSongInfo title={'Tem intérpretes?'} info={'*Opcional'} onPess={() => {}} />
-                  <MPSongInfo style={{alignSelf: 'stretch'}} title={'Tem intérpretes?'} info={'*Opcional'} onPess={() => {}} />
+                  <MPSongInfo title={'Qual é o título da música?'} info={''} onPress={this.goToScreen.bind(this, 'TitleScreen')}/>
+                  <MPSongInfo title={'Qual é a letra?'} info={''} onPress={this.goToScreen.bind(this, 'MusicLetterScreen')}/>
+                  <MPSongInfo title={'Quais as categorias e estilos que combinam?'} info={''} onPress={this.goToScreen.bind(this, 'StylesScreen')}/>
+                  <MPSongInfo title={'Fale um pouquinho mais sobre sua música?'} info={'*Opcional'} onPress={this.goToScreen.bind(this, 'MusicDescriptionScreen')}/>
+                  <MPSongInfo title={'Tem outros autores?'} info={''} onPress={this.goToScreen.bind(this, 'ArtistsScreen')}/>
+                  <MPSongInfo title={'Tem intérpretes?'} info={'*Opcional'} onPress={this.goToScreen.bind(this, 'RegisterArtistsScreen')}/>
+                  <MPSongInfo style={{alignSelf: 'stretch'}} title={'Tem intérpretes?'} info={'*Opcional'} onPress={this.goToScreen.bind(this, 'FolderScreen')}/>
                 </View>
 
                 {/* <View style={ styles.textFieldsVerticalContainer }>

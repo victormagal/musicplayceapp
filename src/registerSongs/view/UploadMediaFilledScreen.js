@@ -50,13 +50,13 @@ class UploadMediaFilledScreenContainer extends React.Component {
                 </View> 
 
                 <View style={ styles.horizontalContainer }>
-                  <MPSongInfo selected={true} title={'Qual é o título da música?'} info={'Camaro Amarelo'} onPess={() => {}} />
-                  <MPSongInfo selected={true} title={'Qual é a letra?'} info={'Você de lá e eu de cá, Olhando o céu...'} onPess={() => {}} />
-                  <MPSongInfo selected={true} title={'Quais as categorias e estilos que combinam?'} info={'Sertanejo, Galope, Amor, Balada'} onPess={() => {}} />
-                  <MPSongInfo selected={true} title={'Fale um pouquinho mais sobre sua música?'} info={'Escute essa música de tal jeito.'} onPess={() => {}} />
-                  <MPSongInfo selected={true} title={'Tem outros autores?'} info={'Almir Sater'} onPess={() => {}} />
-                  <MPSongInfo selected={true} title={'Tem intérpretes?'} info={'Não teve'} onPess={() => {}} />
-                  <MPSongInfo selected={true} style={{alignSelf: 'stretch'}} title={'Tem intérpretes?'} info={'Falando de amor'} onPess={() => {}} />
+                  <MPSongInfo selected={true} title={'Qual é o título da música?'} info={'Camaro Amarelo'} onPress={this.goToScreen.bind(this, 'TitleScreen')} />
+                  <MPSongInfo selected={true} title={'Qual é a letra?'} info={'Você de lá e eu de cá, Olhando o céu...'} onPress={this.goToScreen.bind(this, 'MusicLetterScreen')}/>
+                  <MPSongInfo selected={true} title={'Quais as categorias e estilos que combinam?'} info={'Sertanejo, Galope, Amor, Balada'} onPress={this.goToScreen.bind(this, 'StylesScreen')}/>
+                  <MPSongInfo selected={true} title={'Fale um pouquinho mais sobre sua música?'} info={'Escute essa música de tal jeito.'} onPress={this.goToScreen.bind(this, 'MusicDescriptionScreen')}/>
+                  <MPSongInfo selected={true} title={'Tem outros autores?'} info={'Almir Sater'} onPress={this.goToScreen.bind(this, 'ArtistsScreen')}/>
+                  <MPSongInfo selected={true} title={'Tem intérpretes?'} info={'Não teve'} onPress={this.goToScreen.bind(this, 'RegisterArtistsScreen')}/>
+                  <MPSongInfo selected={true} style={{alignSelf: 'stretch'}} title={'Tem intérpretes?'} info={'Falando de amor'} onPress={this.goToScreen.bind(this, 'FolderScreen')}/>
                 </View>
 
                 {/* <View style={ styles.textFieldsVerticalContainer }>
