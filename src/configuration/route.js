@@ -14,8 +14,8 @@ import {
 export const ConfigurationScreensNavigation = createStackNavigator(
   {
     configuration: {
-      // screen: EditConfigurationScreen,
-      screen: ConfigurationScreen,
+      screen: EditConfigurationScreen,
+      // screen: ConfigurationScreen,
       navigationOptions: {
         header: null
       }

@@ -1,4 +1,3 @@
-import Expo from "expo";
 import {LOAD_FONT} from './fontAction';
 
 const fontReducer = (state, action) => {

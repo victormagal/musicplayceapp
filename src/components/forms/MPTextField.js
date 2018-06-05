@@ -2,14 +2,28 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { TextField } from 'react-native-material-textfield';
 import { connect } from 'react-redux';
-import { MPText } from '../general/MPText';
+
 
 class MPTextFieldComponent extends React.Component {
 
-  renderText(text, style){
-    return (
-      <MPText style={style}>{text}</MPText>
-    )
+  getTextFieldStyle(){
+    let style = {fontSize: 16};
+
+    if(this.props.fontLoaded){
+      style['fontFamily'] = 'montSerrat';
+    }
+
+    return style;
+  }
+
+  getLabelStyle(){
+    let style = {};
+
+    if(this.props.fontLoaded){
+      style['fontFamily'] = 'montSerrat';
+    }
+
+    return style;
   }
 
   render() {
@@ -21,12 +35,13 @@ class MPTextFieldComponent extends React.Component {
           activeLineWidth={0.5}
           disabledLineWidth={0.5}
           multiline={multiline}
-          label={this.renderText(label, { fontFamily: 'montSerrat' })}
+          label={label}
           value={value}
           labelFontSize={12}
           baseColor={'rgba(104, 104, 104, 0.8)'}
           tintColor={'rgba(177, 177, 177, 0.8)'}
-          style={{ fontFamily: 'montSerrat', fontSize: 16 }}
+          labelTextStyle={this.getLabelStyle()}
+          style={this.getTextFieldStyle()}
         />
       </View>
     );

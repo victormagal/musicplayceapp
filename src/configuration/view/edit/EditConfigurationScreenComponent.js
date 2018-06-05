@@ -37,8 +37,6 @@ class EditConfigurationScreenComponent extends React.Component {
 		  <View style={styles.parent}>
           <MPHeader back={true} onBack={onBack} title={"Mantenha seus dados cadastrais atualizados"}/>
           <ScrollView style={styles.scroll}>
-            <Text>Identificação</Text>
-            <MPText style={styles.teste}>Identificação</MPText>
             <MPTitleFormContainer title={"Identificação"} textButton={"ALTERAR"} onPress={this.handleUpdateIdentificacao} />
             <MPTextField label={"Usuário"} value={this.state.form.username}/>
             <MPTextField label={"Nome"} value={this.state.form.name}/>
@@ -58,7 +56,6 @@ class EditConfigurationScreenComponent extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  teste: { fontSize: 16, fontFamily: 'montSerratMedium', color: 'black', alignSelf:'center'},
 	parent: {
     display: 'flex',
 		flex: 1,
