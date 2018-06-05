@@ -149,9 +149,7 @@ const styles = StyleSheet.create({
     color: '#686868',
     height: 60,
     marginBottom: 21,
-    marginStart: 40,
-    marginTop: 30,
-    marginEnd: 40,
+    marginHorizontal: 40,
     fontFamily: 'montSerrat'
   },
   buttonContainer: {
