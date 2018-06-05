@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, TextInput, FlatList, ScrollView } from 'react-native';
 import { Icon } from 'react-native-elements'
-import { MPGradientButton, MPHeader, MPFooter } from '../../components'
+import { MPGradientButton, MPHeader, MPFooter, MPSongInfo } from '../../components'
 import { TextField } from 'react-native-material-textfield';
 import { connect } from 'react-redux';
 
@@ -48,7 +48,18 @@ class UploadMediaFilledScreenContainer extends React.Component {
                 <View style={styles.clickableTextContainer}>
                   <Text style={styles.clickableText}>Substituir arquivo</Text>
                 </View> 
-                <View style={ styles.textFieldsVerticalContainer }>
+
+                <View style={ styles.horizontalContainer }>
+                  <MPSongInfo selected={true} title={'Qual é o título da música?'} info={'Camaro Amarelo'} onPess={() => {}} />
+                  <MPSongInfo selected={true} title={'Qual é a letra?'} info={'Você de lá e eu de cá, Olhando o céu...'} onPess={() => {}} />
+                  <MPSongInfo selected={true} title={'Quais as categorias e estilos que combinam?'} info={'Sertanejo, Galope, Amor, Balada'} onPess={() => {}} />
+                  <MPSongInfo selected={true} title={'Fale um pouquinho mais sobre sua música?'} info={'Escute essa música de tal jeito.'} onPess={() => {}} />
+                  <MPSongInfo selected={true} title={'Tem outros autores?'} info={'Almir Sater'} onPess={() => {}} />
+                  <MPSongInfo selected={true} title={'Tem intérpretes?'} info={'Não teve'} onPess={() => {}} />
+                  <MPSongInfo selected={true} style={{alignSelf: 'stretch'}} title={'Tem intérpretes?'} info={'Falando de amor'} onPess={() => {}} />
+                </View>
+
+                {/* <View style={ styles.textFieldsVerticalContainer }>
                   <View style={  styles.textFieldsHorizontalContainer}>
                     <View style={ styles.textFieldsInnerContainer}>
                       <TextField
@@ -138,7 +149,7 @@ class UploadMediaFilledScreenContainer extends React.Component {
                       <Icon name='check-circle' color='#f00' size={18} containerStyle={ styles.stretchedArtistSelectedIcon }/>
                     </View>
                   </View>
-                </View>
+                </View> */}
                 <MPGradientButton title='Publicar' onPress={ this.goToScreen.bind(this, 'ConfimationScreen') } textSize={16} style={ {marginBottom: 20, marginHorizontal: 30} } />
                 <View style={styles.clickableTextContainer}>
                   <Text style={styles.clickableText}>Terminar depois</Text>
@@ -164,23 +175,14 @@ const styles = StyleSheet.create({
   scroll: {
     flex: 2,
   },
-  topIndicator: {
-    height: 7,
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    alignContent: 'stretch',
-    backgroundColor: '#d8d8d8',
+  horizontalContainer: {
+    flex: 2,
+    marginTop: 20,
     marginBottom: 20,
-  },
-  topIndicatorDone: {
-    height: 7,
-    flex: 1,
-    backgroundColor: '#e13223',
-  },
-  topIndicatorLeft: {
-    height: 7,
-    flex: 0,
-    backgroundColor: '#d8d8d8',
+    marginHorizontal: 10,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    alignContent: 'space-between' 
   },
   headerTitle: {
     fontSize: 16,
@@ -215,37 +217,7 @@ const styles = StyleSheet.create({
     color: '#5994db',
     fontSize: 14,
     fontFamily: 'montSerrat'
-  },
-  textFieldsVerticalContainer: {
-    flex: 1,
-    flexDirection: 'column',
-    alignContent: 'stretch',
-    marginTop: 20,
-    marginBottom: 10
-  },
-  textFieldsHorizontalContainer:{
-    flexDirection: 'row',
-    alignContent: 'space-between',
-    flex: 1,
-  },
-  textFieldsInnerContainer: {
-    flex: 1,
-    backgroundColor: '#fff',
-    height: 78,
-    marginBottom: 10,
-    marginStart: 5,
-    marginEnd: 5,
-    borderRadius: 4,
-    borderWidth: 2,
-    borderColor: '#e13223',
-    padding: 10
-  },
-  stretchedArtistSelectedIcon: {
-    position: 'absolute',
-    right: 0,
-    top: 0,
-
-}
+  }
 });
 const mapStateToProps = ({ fontReducer, songsReducer }) => {
   return { ...fontReducer, ...songsReducer};

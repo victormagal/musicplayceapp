@@ -27,9 +27,6 @@ class MPArtistHorizontalComponent extends Component{
         return (
             <TouchableOpacity style={style || {}} onPress={ onPress }>
                 <View style={{paddingTop: 8}}>
-                    { selected && 
-                    <Icon name='check-circle' color='#f00' size={18} containerStyle={ iconStyle }/> 
-                    }
                     <View style={ [styles.stretchedArtistCardContainer, borderStyle] }>
                         <View style={ styles.stretchedArtistImage } backgroundColor={ '#f06' }></View>
                         { 
@@ -40,6 +37,9 @@ class MPArtistHorizontalComponent extends Component{
                             ) : null
                         }
                     </View>
+                    { selected && 
+                    <Icon name='check-circle' color='#f00' size={18} containerStyle={ iconStyle }/> 
+                    }
                 </View>
             </TouchableOpacity>
         );

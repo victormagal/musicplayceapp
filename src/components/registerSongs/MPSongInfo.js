@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
+import { Icon } from 'react-native-elements';
 
 class MPSongInfoComponent extends Component{
 
@@ -17,22 +18,27 @@ class MPSongInfoComponent extends Component{
             };
             iconStyle = {
                 position: 'absolute',
-                right: 0,
+                right: 2    ,
                 top: 0
             };
         }
 
         return (
-            <TouchableOpacity style={style || {}} onPress={ onPress }>
-                <View style={[styles.parent, borderStyle]}>
-                {
-                    this.props.fontLoaded ? (
-                        <View>
-                            <Text style={styles.titleText}>{ title }</Text>
-                            <Text style={styles.infoText}>{ info }</Text>
-                        </View>
-                    ) :null
-                }
+            <TouchableOpacity onPress={ onPress }>
+                <View style={{paddingTop: 8}}>
+                    <View style={[styles.parent, borderStyle, style]}>
+                    {
+                        this.props.fontLoaded ? (
+                            <View>
+                                <Text style={styles.titleText}>{ title }</Text>
+                                <Text style={styles.infoText}>{ info }</Text>
+                            </View>
+                        ) :null
+                    }
+                    </View>
+                    { selected && 
+                    <Icon name='check-circle' color='#f00' size={18} containerStyle={ iconStyle }/> 
+                    }
                 </View>
             </TouchableOpacity>
         );
@@ -63,7 +69,7 @@ const styles = StyleSheet.create({
         },
         height: 78,
         width: 170,
-        marginBottom: 10,
+        marginBottom: 2,
         flexGrow: 1,
       },
       titleText: {

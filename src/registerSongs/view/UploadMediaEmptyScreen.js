@@ -42,9 +42,7 @@ class UploadMediaEmptyScreenContainer extends React.Component {
                   <MPSongInfo title={'Fale um pouquinho mais sobre sua música?'} info={'*Opcional'} onPess={() => {}} />
                   <MPSongInfo title={'Tem outros autores?'} info={''} onPess={() => {}} />
                   <MPSongInfo title={'Tem intérpretes?'} info={'*Opcional'} onPess={() => {}} />
-                </View>
-                <View style={ {flex: 1, marginHorizontal: 10, alignItems: 'stretch'} }>
-                  <MPSongInfo title={'Tem intérpretes?'} info={'*Opcional'} onPess={() => {}} />
+                  <MPSongInfo style={{alignSelf: 'stretch'}} title={'Tem intérpretes?'} info={'*Opcional'} onPess={() => {}} />
                 </View>
 
                 {/* <View style={ styles.textFieldsVerticalContainer }>
@@ -170,28 +168,11 @@ const styles = StyleSheet.create({
   horizontalContainer: {
     flex: 2,
     marginTop: 20,
+    marginBottom: 20,
     marginHorizontal: 10,
     flexDirection: 'row',
     flexWrap: 'wrap',
     alignContent: 'space-between' 
-  },
-  topIndicator: {
-    height: 7,
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    alignContent: 'stretch',
-    backgroundColor: '#d8d8d8',
-    marginBottom: 20,
-  },
-  topIndicatorDone: {
-    height: 7,
-    flex: 1,
-    backgroundColor: '#e13223',
-  },
-  topIndicatorLeft: {
-    height: 7,
-    flex: 19,
-    backgroundColor: '#d8d8d8',
   },
   headerTitle: {
     fontSize: 16,
@@ -226,28 +207,6 @@ const styles = StyleSheet.create({
     color: '#5994db',
     fontSize: 14,
     fontFamily: 'montSerrat',
-  },
-  textFieldsVerticalContainer: {
-    flex: 1,
-    flexDirection: 'column',
-    alignContent: 'stretch',
-    marginTop: 20,
-    marginBottom: 10
-  },
-  textFieldsHorizontalContainer:{
-    flexDirection: 'row',
-    alignContent: 'space-between',
-    flex: 1,
-  },
-  textFieldsInnerContainer: {
-    flex: 1,
-    backgroundColor: '#fff',
-    height: 78,
-    marginBottom: 10,
-    marginStart: 5,
-    marginEnd: 5,
-    borderRadius: 4,
-    padding: 10
   }
 });
 
