@@ -18,13 +18,15 @@ class MPInvitationComponent extends Component{
             };
             iconStyle = {
                 position: 'absolute',
-                right: 0,
-                top: 0
+                right: 12,
+                top: 0,
+                zIndex: 99
             };
         }
 
         return (
             <TouchableOpacity>
+                <View style={{paddingTop: 8}}>
                 {
                     this.props.fontLoaded ? (
                         <View style={ styles.stretchedArtistCardContainer }>
@@ -44,6 +46,7 @@ class MPInvitationComponent extends Component{
                 { selected && 
                     <Icon name='check-circle' color='#f00' size={18} containerStyle={ iconStyle }/>
                 }
+                </View>
             </TouchableOpacity>
         );
     }
@@ -66,7 +69,7 @@ const styles = StyleSheet.create({
         shadowOffset: {width: 0, height: 4},
         shadowOpacity: 0.9,
         shadowRadius: 4,
-        marginBottom: 20,
+        marginBottom: 12,
         padding: 0
       },
       stretchedArtistCardInnerContainer: {

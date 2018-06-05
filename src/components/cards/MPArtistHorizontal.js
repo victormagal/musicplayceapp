@@ -18,14 +18,18 @@ class MPArtistHorizontalComponent extends Component{
             };
             iconStyle = {
                 position: 'absolute',
-                right: 0,
-                top: 0
+                right: 12,
+                top: 0,
+                zIndex: 99,
             };
         }
 
         return (
             <TouchableOpacity style={style || {}} onPress={ onPress }>
-                <View>
+                <View style={{paddingTop: 8}}>
+                    { selected && 
+                    <Icon name='check-circle' color='#f00' size={18} containerStyle={ iconStyle }/> 
+                    }
                     <View style={ [styles.stretchedArtistCardContainer, borderStyle] }>
                         <View style={ styles.stretchedArtistImage } backgroundColor={ '#f06' }></View>
                         { 
@@ -36,9 +40,6 @@ class MPArtistHorizontalComponent extends Component{
                             ) : null
                         }
                     </View>
-                    { selected && 
-                    <Icon name='check-circle' color='#f00' size={18} containerStyle={ iconStyle }/> 
-                    }
                 </View>
             </TouchableOpacity>
         );
@@ -68,7 +69,8 @@ const styles = StyleSheet.create({
         height: 1
         },
         height: 60,
-        marginBottom: 20,
+        marginBottom: 12,
+        zIndex: 1,
         overflow: 'hidden'
       },
       stretchedArtistImage: {
@@ -81,11 +83,6 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontFamily: 'montSerrat' 
       },
-      stretchedArtistSelectedIcon: {
-          position: 'absolute',
-          right: -20,
-          top: 0,
-      }
 });
 
 const mapStateToProps = ({fontReducer}) => {

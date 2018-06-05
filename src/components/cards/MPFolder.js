@@ -18,15 +18,16 @@ class MPFolderContainer extends Component{
             };
             iconStyle = {
                 position: 'absolute',
-                right: 0,
-                top: 0
+                right: 32,
+                top: 0,
+                zIndex: 99,
             };
         }
 
         return (
             <TouchableOpacity>
 
-                <View>
+                <View style={{paddingTop: 8}}>
                     <View style={ [styles.chooseFolderCardContainer, borderStyle] }>
                         <View style={ styles.chooseFolderImage }>
                             <Icon type='font-awesome' name='folder-open-o' color='#5994db' />
@@ -72,7 +73,7 @@ const styles = StyleSheet.create({
         },
         height: 60,
         marginHorizontal: 40,
-        marginBottom: 10,
+        marginBottom: 2,
         overflow: 'hidden'
       },
       chooseFolderImage: {
