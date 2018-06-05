@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, View, StyleSheet } from 'react-native';
-import { MPGradientButton } from '../../components';
+import { MPGradientButton, MPText } from '../../components';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
@@ -10,15 +10,9 @@ class MPTitleFormContainerComponent extends React.Component {
     let { title, textButton, onPress } = this.props;
 
     return (
-      <View style={styles.parent}>
-        {
-          this.props.fontLoaded ? (
-            <View style={styles.container}>
-              <Text style={styles.title}>{title}</Text>
-              <MPGradientButton style={styles.button} title={textButton} onPress={onPress} />
-            </View>
-          ) : null
-        }
+      <View style={styles.container}>
+          <MPText style={styles.title}>{title}</MPText>
+          <MPGradientButton style={styles.button} title={textButton} onPress={onPress} />
       </View>
     );
   }
@@ -29,15 +23,13 @@ MPTitleFormContainerComponent.propTypes = {
 };
 
 const styles = StyleSheet.create({
-  parent: {
-    marginHorizontal: 40,
-    backgroundColor: '#FCFCFC',
-  },
   container: {
     flex: 1,
     display: 'flex',
     flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'center',
+    marginHorizontal: 40,
+    backgroundColor: '#FCFCFC',
   },
   title: {
     fontSize: 16,
