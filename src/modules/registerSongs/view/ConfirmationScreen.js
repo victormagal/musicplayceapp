@@ -1,8 +1,7 @@
 import React from 'react';
 import {StyleSheet, ScrollView, Text, View, TextInput, Image, FlatList} from 'react-native';
-import { MPGradientButton, MPHeader, MPFooter } from '../../components';
+import {  MPGradientButton, MPHeader, MPFooter, MPArtist, MPText } from '../../../components';
 import { connect } from 'react-redux';
-import { MPArtist } from '../../components/';
 
 class ConfirmationScreenContainer extends React.Component {
   constructor(props){
@@ -32,18 +31,16 @@ class ConfirmationScreenContainer extends React.Component {
 
   renderItem = ({item}) => (
     <MPArtist artist={item.title} backgroundColor={item.backgroundColor} onPress={() => {}} />
-  )
+  );
   
   render() {
     return (
       <View style={styles.container}>
         <MPHeader back={false} onBack={this.handleBackClick} title={""} />
         <ScrollView style={styles.scroll}>
-        {
-          this.props.fontLoaded ? (
             <View>
-              <Text style={styles.titleText}>Pronto! Tudo certo.</Text>
-              <Text style={styles.subTitleText}>Que tal indicar sua música pra uma banda que você goste?</Text>
+              <MPText style={styles.titleText}>Pronto! Tudo certo.</MPText>
+              <MPText style={styles.subTitleText}>Que tal indicar sua música pra uma banda que você goste?</MPText>
               <View style={{height: 152}}>
                   <FlatList data = {this.artistList.data}
                       keyExtractor={(item,index) => item.id} 
@@ -52,12 +49,10 @@ class ConfirmationScreenContainer extends React.Component {
                       columnWrapperStyle={{flexWrap: 'wrap', justifyContent: 'center'}}/>
               </View>
               <View style={ styles.confirmationButtonsContainer }>
-                  <MPGradientButton textSize={16} title={"Convidar para o MusicPlayce"} onPress={() => {}} style={ styles.confirmationButtonTop } textSize={16} />
-                  <MPGradientButton textSize={16} title={"Fechar"} onPress={() => {}} style={ styles.confirmationButtonBottom } textSize={16} />
+                  <MPGradientButton textSize={16} title={"Convidar para o MusicPlayce"} onPress={() => {}} style={ styles.confirmationButtonTop } />
+                  <MPGradientButton textSize={16} title={"Fechar"} onPress={() => {}} style={ styles.confirmationButtonBottom } />
               </View>
             </View>
-          ) : null
-        }
         </ScrollView>
         <MPFooter />
       </View>
@@ -110,8 +105,8 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = ({ fontReducer }) => {
-  return { ...fontReducer };
+const mapStateToProps = () => {
+  return {  };
 };
 
 const ConfirmationScreen = connect(mapStateToProps)(ConfirmationScreenContainer);

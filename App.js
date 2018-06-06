@@ -6,9 +6,8 @@ import { Provider } from 'react-redux';
 import thunkMiddleware from 'redux-thunk'
 import {createStackNavigator} from 'react-navigation';
 import {Font, DangerZone} from 'expo';
-import {HomeScreen, ProfileScreen} from './src/modules';
+import {HomeScreen, ProfileScreen, SongsScreensNavigation} from './src/modules';
 import {ConfigurationScreensNavigation} from './src/configuration';
-import {SongsScreensNavigation} from './src/registerSongs';
 import {reducers} from './src/state/reducer';
 import {changeLanguage, loadFont} from './src/state/action';
 import { IndicateSongScreensNavigation } from './src/indicateSong';
