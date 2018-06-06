@@ -103,6 +103,5 @@ export const SongsScreensNavigation = createStackNavigator(
         header: null
       }
     }
-    
   }
 );

@@ -6,7 +6,7 @@ class MPLoading extends React.Component {
 
   render() {
     return (
-        <Modal animationType="none" transparent={true} visible={this.props.visible}>
+        <Modal animationType="none" transparent={true} visible={this.props.visible} onRequestClose={()=> {}}>
           <View style={styles.container}>
             <ActivityIndicator size="large" color="#BB1A1A" />
           </View>

@@ -3,6 +3,7 @@ import {StyleSheet, Text, View} from 'react-native';
 import {MPGradientButton, ProfileIndicatorCE, MPHeader} from '../../../../src/components';
 import {LinearGradient} from 'expo';
 
+
 class HomeScreen extends React.Component {
   
   goToProfile(){
