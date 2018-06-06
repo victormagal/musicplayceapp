@@ -69,7 +69,7 @@ class IndicateSongFullScreenContainer extends React.Component {
             <View>
               <Text style={ styles.headerText}>Com quem <Text style={ styles.headerTextCustom }>combina</Text> ?</Text>
               <MPSong />
-              <Text style={ styles.detailsText} onPress={this.goToScreen.bind(this, 'IndicateSongSearchScreen')}>Sabe aquela história de que todo artista tem de ir aonde o povo está? Vamos mostrar sua criação para o mundo. Aproveite para convocar seus seguidores ou você mesmo pode achar uma banda perfeita para esse hit.</Text>
+              <Text style={ styles.detailsText} onPress={this.goToScreen.bind(this, 'IndicateSongNotFoundScreen')}>Sabe aquela história de que todo artista tem de ir aonde o povo está? Vamos mostrar sua criação para o mundo. Aproveite para convocar seus seguidores ou você mesmo pode achar uma banda perfeita para esse hit.</Text>
               <MPTextField label={'Encontre um artista'} value={''} style={{marginHorizontal: 20}}/>
               <View>
                   <FlatList data = {this.artistList.data}
