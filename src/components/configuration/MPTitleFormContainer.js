@@ -1,13 +1,24 @@
 import React from 'react';
-import { Text, View, StyleSheet } from 'react-native';
-import { MPGradientButton, MPText } from '../../components';
+import { 
+  StyleSheet, 
+  Text, 
+  View
+} from 'react-native';
+import { 
+  MPGradientButton, 
+  MPText 
+} from '../../components';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 class MPTitleFormContainerComponent extends React.Component {
 
   render() {
-    let { title, textButton, onPress } = this.props;
+    let { 
+      title, 
+      textButton, 
+      onPress 
+    } = this.props;
 
     return (
       <View style={styles.container}>
