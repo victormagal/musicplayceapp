@@ -57,7 +57,7 @@ class UploadMediaFilledScreenContainer extends React.Component {
                             onPress={this.goToScreen.bind(this, 'ArtistsScreen')}/>
                 <MPSongInfo selected={true} title={'Tem intérpretes?'} info={'Não teve'}
                             onPress={this.goToScreen.bind(this, 'RegisterArtistsScreen')}/>
-                <MPSongInfo selected={true} style={{alignSelf: 'stretch'}} title={'Tem intérpretes?'}
+                <MPSongInfo selected={true} style={styles.lastBox} title={'Tem intérpretes?'}
                             info={'Falando de amor'} onPress={this.goToScreen.bind(this, 'FolderScreen')}/>
               </View>
 
@@ -125,6 +125,9 @@ const styles = StyleSheet.create({
     color: '#5994db',
     fontSize: 14,
     fontFamily: 'montSerrat'
+  },
+  lastBox: {
+    width: '96%'
   }
 });
 const mapStateToProps = ({songsReducer}) => {

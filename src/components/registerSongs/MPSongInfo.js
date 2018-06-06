@@ -19,18 +19,20 @@ class MPSongInfoComponent extends Component {
       };
       iconStyle = {
         position: 'absolute',
-        right: -7,
-        top: -7
+        right: 0,
+        top: 10
       };
     }
 
+    style = style || {};
+
     return (
-      <View style={styles.container}>
-        <TouchableOpacity onPress={ onPress }>
-            <View style={[styles.parent, borderStyle, style]}>
-              <MPText style={styles.titleText}>{ title }</MPText>
-              <MPText style={styles.infoText}>{ info }</MPText>
-            </View>
+      <View style={[styles.container, style ]}>
+        <TouchableOpacity onPress={onPress}>
+          <View style={[styles.parent, borderStyle]}>
+            <MPText style={styles.titleText}>{ title }</MPText>
+            <MPText style={styles.infoText}>{ info }</MPText>
+          </View>
         </TouchableOpacity>
         { selected && <Icon name='check-circle' color='#f00' size={18} containerStyle={ iconStyle }/> }
       </View>
@@ -50,14 +52,16 @@ const styles = StyleSheet.create({
   container: {
     marginHorizontal: '2%',
     marginBottom: 10,
-    height: 78,
-    width: '46%',
-    backgroundColor: '#fff',
+    height: 93,
+    width: '46%'
   },
   parent: {
-    height: '100%',
+    backgroundColor: '#fff',
+    marginTop: 18,
+    height: 78,
     borderRadius: 4,
     padding: 10,
+    marginRight: 7,
     justifyContent: 'center',
     shadowColor: '#000000',
     shadowOpacity: 0.15,

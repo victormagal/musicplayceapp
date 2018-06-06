@@ -25,7 +25,7 @@ function buildSvg(filename, attrs, paths){
   let names = filename.split('.')[0].split('-');
   filename = names.map(name => name.charAt(0).toUpperCase() + name.substring(1)).join('');
   let {width, height, viewBox} = attrs;
-  let svgString = `export const MP${filename}Icon = () => (<Svg width='${width}' height='${height}' viewBox='${viewBox}'>`;
+  let svgString = `export const MP${filename}Icon = (props) => (<Svg {...props} viewBox='${viewBox}'>`;
 
   for(let path of paths){
     let attributes = path['$'];
@@ -36,7 +36,15 @@ function buildSvg(filename, attrs, paths){
     } else {
       for (let p of path.path) {
         let { d } = p['$'];
-        svgString += `<Path fill='${fill}' stroke='${stroke}' d='${d}'/>`      
+        let fillInside = p['$'].fill || fill;
+
+        svgString += `<Path fill='${fillInside}' d='${d}'`;
+
+        if(stroke){
+          svgString += ` stroke='${stroke}' `;
+        }
+
+        svgString += '/>';
       }
     }
   }
