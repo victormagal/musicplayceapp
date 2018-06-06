@@ -1,25 +1,28 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { 
+  StyleSheet, 
+  View
+} from 'react-native';
 import { TextField } from 'react-native-material-textfield';
 import { connect } from 'react-redux';
 
 
 class MPTextFieldComponent extends React.Component {
 
-  getTextFieldStyle(){
-    let style = {fontSize: 16};
+  getTextFieldStyle() {
+    let style = { fontSize: 16 };
 
-    if(this.props.fontLoaded){
+    if (this.props.fontLoaded) {
       style['fontFamily'] = 'montSerrat';
     }
 
     return style;
   }
 
-  getLabelStyle(){
+  getLabelStyle() {
     let style = {};
 
-    if(this.props.fontLoaded){
+    if(this.props.fontLoaded) {
       style['fontFamily'] = 'montSerrat';
     }
 
@@ -27,7 +30,11 @@ class MPTextFieldComponent extends React.Component {
   }
 
   render() {
-    let { value, label, multiline } = this.props;
+    let { 
+      value, 
+      label, 
+      multiline 
+    } = this.props;
     return (
       <View style={styles.parent}>
         <TextField
