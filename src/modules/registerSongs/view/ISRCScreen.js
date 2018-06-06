@@ -1,10 +1,10 @@
 import React from 'react';
 import { StyleSheet, Text, View, TextInput, ScrollView } from 'react-native';
-import { TextField } from 'react-native-material-textfield';
 import { connect } from 'react-redux';
-import { MPHeader, MPFooter, MPTextField } from '../../components';
+import { MPHeader, MPFooter, MPTextField, MPText } from '../../../components';
 
 class ISRCScreenContainer extends React.Component {
+
   constructor(props){
     super(props);
     this.state = { text: ''};
@@ -15,18 +15,14 @@ class ISRCScreenContainer extends React.Component {
       <View style={styles.container}>
         <MPHeader back={true} onBack={this.handleBackClick} title={"Nº ISRC (código-padrão internacional de gravação)"} />
         <ScrollView style={styles.scroll}>
-        {
-          this.props.fontLoaded ? (
             <View>
-              <Text style={styles.textTop}>Informe o ISRC, caso a música já esteja registrada:</Text>
+              <MPText style={styles.textTop}>Informe o ISRC, caso a música já esteja registrada:</MPText>
               <MPTextField label={'Nº do ISRC'} value={''} />
               <View style={[styles.clickableTextContainer, {marginTop: 76}]}>
-                <Text style={[styles.clickableText, {marginBottom: 20}]}>A gravação ainda nao está registrada.</Text>
-                <Text style={styles.clickableText}>Eu não sei o que é ISRC.</Text>
+                <MPText style={[styles.clickableText, {marginBottom: 20}]}>A gravação ainda nao está registrada.</MPText>
+                <MPText style={styles.clickableText}>Eu não sei o que é ISRC.</MPText>
               </View>
             </View>
-          ) : null
-        }
         </ScrollView>
         <MPFooter/>
       </View>
@@ -62,8 +58,8 @@ const styles = StyleSheet.create({
     fontFamily: 'montSerrat'
   }
 });
-const mapStateToProps = ({ fontReducer }) => {
-  return { ...fontReducer };
+const mapStateToProps = () => {
+  return {  };
 };
 
 const ISRCScreen = connect(mapStateToProps)(ISRCScreenContainer);

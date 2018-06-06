@@ -1,11 +1,10 @@
 import React from 'react';
 import {StyleSheet, Text, View, TextInput, FlatList, ScrollView } from 'react-native';
-import { Icon } from 'react-native-elements'
-import { TextField } from 'react-native-material-textfield';
-import { MPArtistHorizontal, MPHeader, MPFooter, MPTextField } from '../../components';
+import { MPArtistHorizontal, MPHeader, MPFooter, MPTextField, MPText } from '../../../components';
 import { connect } from 'react-redux';
 
 class AddArtistByEmailScreenContainer extends React.Component {
+
   constructor(props){
     super(props);
     this.state = { 
@@ -19,10 +18,6 @@ class AddArtistByEmailScreenContainer extends React.Component {
     };
   }
 
-  goToScreen = (route) => {
-    this.props.navigation.navigate(route);
-  }
-
   handleBackClick = () => {
     this.props.navigation.pop();
   };
@@ -33,19 +28,15 @@ class AddArtistByEmailScreenContainer extends React.Component {
         <MPHeader back={true} onBack={this.handleBackClick} title={"Co-autores"} />
         <ScrollView style={styles.scroll}>
           <MPArtistHorizontal artist={"Almir Sater"} selected={true} onPress={() => {}} />
-          {
-            this.props.fontLoaded ? (
-              <View>
-                <Text style={styles.textTop}>Essa música tem outros autores?</Text>
-                <MPTextField label={'Pesquise pelo nome:'} value={'Roberto Carlos'} />
-                <View style={{marginHorizontal: 40}}>
-                    <Text style={ styles.textInputSubTextHeader}>Não encontrou o co-autor?</Text>
-                    <Text style={ styles.textInputSubTextSuggestion}>Convide-o para se juntar ao MusicPlayce.</Text>
-                </View>
-                <MPTextField label={'E-mail'} value={'robertocarlos@gmail.com'} />
+            <View>
+              <MPText style={styles.textTop}>Essa música tem outros autores?</MPText>
+              <MPTextField label={'Pesquise pelo nome:'} value={'Roberto Carlos'} />
+              <View style={{marginHorizontal: 40}}>
+                  <MPText style={ styles.textInputSubTextHeader}>Não encontrou o co-autor?</MPText>
+                  <MPText style={ styles.textInputSubTextSuggestion}>Convide-o para se juntar ao MusicPlayce.</MPText>
               </View>
-            ) : null
-          }
+              <MPTextField label={'E-mail'} value={'robertocarlos@gmail.com'} />
+            </View>
         </ScrollView>
         <MPFooter />
       </View>
@@ -83,8 +74,8 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = ({ fontReducer }) => {
-  return { ...fontReducer };
+const mapStateToProps = () => {
+  return {  };
 };
 
 const AddArtistByEmailScreen = connect(mapStateToProps)(AddArtistByEmailScreenContainer);

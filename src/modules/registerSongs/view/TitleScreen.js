@@ -1,9 +1,8 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { StyleSheet, Text, View, TextInput, ScrollView } from 'react-native';
-import { TextField } from 'react-native-material-textfield';
-import { updateSongRegisterData } from '../../state/action';
-import { MPHeader, MPFooter, MPTextField } from '../../components';
+import {connect} from 'react-redux';
+import {StyleSheet, Text, View, TextInput, ScrollView} from 'react-native';
+import {updateSongRegisterData} from '../../../state/action';
+import {MPHeader, MPFooter, MPTextField, MPText} from '../../../components';
 
 class TitleScreenContainer extends React.Component {
 
@@ -19,16 +18,12 @@ class TitleScreenContainer extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <MPHeader back={true} onBack={this.handleBackClick} title={"Título da música"} />
+        <MPHeader back={true} onBack={this.handleBackClick} title={"Título da música"}/>
         <ScrollView style={styles.scroll}>
-        {
-          this.props.fontLoaded ? (
-            <View>
-              <Text style={styles.textTop}>Escreva o título da música.</Text>
-              <MPTextField label={"Título da música"} value={""} />
-            </View>
-            ) : null
-          }
+          <View>
+            <MPText style={styles.textTop}>Escreva o título da música.</MPText>
+            <MPTextField label={"Título da música"} value={""}/>
+          </View>
         </ScrollView>
         <MPFooter/>
       </View>
@@ -54,8 +49,8 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = ({fontReducer, songsReducer}) => {
-  return {...fontReducer, ...songsReducer}
+const mapStateToProps = ({songsReducer}) => {
+  return {...songsReducer}
 };
 
 const TitleScreen = connect(mapStateToProps)(TitleScreenContainer);

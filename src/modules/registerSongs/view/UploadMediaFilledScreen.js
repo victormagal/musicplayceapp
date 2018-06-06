@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet, Text, View, TextInput, FlatList, ScrollView} from 'react-native';
-import {MPGradientButton, MPHeader, MPFooter, MPSongInfo, MPText} from '../../components'
+import {MPGradientButton, MPHeader, MPFooter, MPSongInfo, MPText} from '../../../components'
 import {connect} from 'react-redux';
 
 class UploadMediaFilledScreenContainer extends React.Component {
