@@ -1,10 +1,10 @@
 import React from 'react';
 import { View, StyleSheet, Text, StatusBar, TouchableOpacity } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { MPText } from '../general/MPText';
 
-class MPHeaderComponent extends React.Component {
+class MPHeader extends React.Component {
 
   render() {
     let { title, back, onBack } = this.props;
@@ -31,21 +31,17 @@ class MPHeaderComponent extends React.Component {
             />
           </Svg>
         </View>
-        {
-          title ? (
-            this.props.fontLoaded ? (
-              <Text style={styles.title}>
-                {title}
-              </Text>
-            ) : null
-          ) : null
-        }
+        { title && (
+          <MPText style={styles.title}>
+            {title}
+          </MPText>
+        )}
       </View>
     );
   }
 }
 
-MPHeaderComponent.propTypes = {
+MPHeader.propTypes = {
   title: PropTypes.string.isRequired,
   back: PropTypes.bool,
   onBack: PropTypes.func
@@ -83,9 +79,4 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = ({ fontReducer }) => {
-  return { ...fontReducer };
-};
-
-const MPHeader = connect(mapStateToProps)(MPHeaderComponent);
 export { MPHeader };
