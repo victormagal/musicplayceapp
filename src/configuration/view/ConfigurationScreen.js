@@ -89,6 +89,7 @@ const styles = StyleSheet.create({
 	parent: {
 		display: 'flex',
 		flex: 1,
+		backgroundColor: '#FCFCFC'
 	},
 	scroll: {
 		flex: 2

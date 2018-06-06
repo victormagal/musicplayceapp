@@ -1,6 +1,17 @@
 import React from 'react';
-import { ScrollView, StyleSheet, View, Text } from 'react-native';
-import { MPHeader, MPTitleFormContainer, MPTextField, MPLoading, MPFooter, MPText } from '../../../components';
+import { 
+	ScrollView, 
+	StyleSheet, 
+	View 
+} from 'react-native';
+import { 
+	MPHeader, 
+	MPTitleFormContainer, 
+	MPTextField,
+	MPLoading, 
+	MPFooter, 
+	MPText 
+} from '../../../components';
 
 class EditConfigurationScreenComponent extends React.Component {
 	
@@ -27,8 +38,8 @@ class EditConfigurationScreenComponent extends React.Component {
 		}
 	}
 
-	handleUpdateIdentificacao = () => {
-    this.props.onSave();
+	handleUpdateIdentificacao = (page) => {
+    this.props.onSave(page);
   };
 
 	render() {
@@ -37,15 +48,15 @@ class EditConfigurationScreenComponent extends React.Component {
 		  <View style={styles.parent}>
           <MPHeader back={true} onBack={onBack} title={"Mantenha seus dados cadastrais atualizados"}/>
           <ScrollView style={styles.scroll}>
-            <MPTitleFormContainer title={"Identificação"} textButton={"ALTERAR"} onPress={this.handleUpdateIdentificacao} />
-            <MPTextField label={"Usuário"} value={this.state.form.username}/>
+            <MPTitleFormContainer title={"Identificação"} textButton={"ALTERAR"} onPress={this.handleUpdateIdentificacao.bind(this, 'profile')} />
+						<MPTextField label={"Usuário"} value={this.state.form.username}/>
             <MPTextField label={"Nome"} value={this.state.form.name}/>
             <MPTextField label={"Sobrenome"} value={this.state.form.lastName}/>
             <View style={styles.separator}/>
-						<MPTitleFormContainer title={"Endereço de e-mail"} textButton={"ALTERAR"} onPress={this.handleUpdateIdentificacao} />
+						<MPTitleFormContainer title={"Endereço de e-mail"} textButton={"ALTERAR"} onPress={this.handleUpdateIdentificacao.bind(this, 'email')} />
             <MPTextField label={"E-mail"} value={this.state.form.email}/>
             <View style={styles.separator}/>
-						<MPTitleFormContainer title={"Telefone celular"} textButton={"ALTERAR"} onPress={this.handleUpdateIdentificacao} />
+						<MPTitleFormContainer title={"Telefone celular"} textButton={"ALTERAR"} onPress={this.handleUpdateIdentificacao.bind(this, 'phone')} />
             <MPTextField label={"Nº de telefone"} value={this.state.form.phone}/>
           </ScrollView>
 					<MPFooter />

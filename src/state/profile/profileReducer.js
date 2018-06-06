@@ -35,6 +35,7 @@ const profileReducer = (state, action) => {
     case SAVE_PROFILE_SUCCESS:
       return {
         ...state,
+        ...action.payload,
         saveProfileSuccess: true
       }
   }
