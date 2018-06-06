@@ -1,6 +1,5 @@
 import {createAction} from 'redux-actions';
 
-
 export const FETCHED_PROFILE = 'FETCHED_PROFILE';
 export const SAVE_PROFILE_SUCCESS = 'SAVE_PROFILE_SUCCESS';
 export const PROFILE_START_LOADING = 'PROFILE_START_LOADING';
@@ -13,7 +12,7 @@ export const fetchedProfile = createAction(FETCHED_PROFILE, (data) => {
   return {...data};
 });
 
-export const saveProfileSucessfully = createAction(SAVE_PROFILE_SUCCESS,  (data) => {
+export const saveProfileSucessfully = createAction(SAVE_PROFILE_SUCCESS, (data) => {
   return {...data};
 });
 
@@ -37,14 +36,14 @@ export const fetchProfile = () => {
     };
 };
 
-export const saveProfile = (profile) => {
+export const saveProfile = (data, page) => {
   return (dispatch, getState) => {
     dispatch(profileStartLoading());
     return Promise.resolve().then(() => {
         setTimeout(() => {
-          dispatch(saveProfileSucessfully());
+          dispatch(saveProfileSucessfully({page}));
           dispatch(profileFinishLoading());
-        }, 3000);
+        }, 1000);
     });
   };
 };

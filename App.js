@@ -10,6 +10,7 @@ import {HomeScreen, ProfileScreen, SongsScreensNavigation} from './src/modules';
 import {ConfigurationScreensNavigation} from './src/configuration';
 import {reducers} from './src/state/reducer';
 import {changeLanguage, loadFont} from './src/state/action';
+import { IndicateSongScreensNavigation } from './src/indicateSong';
 
 const {Localization} = DangerZone;
 const store = createStore(reducers, applyMiddleware(thunkMiddleware));
@@ -27,9 +28,10 @@ const HomeNavigation = createStackNavigator(
     profile: ProfileScreen,
     registerSongs: SongsScreensNavigation,
     configuration: ConfigurationScreensNavigation,
+    indicateSong: IndicateSongScreensNavigation,
   },
   {
-    initialRouteName: 'registerSongs',
+    initialRouteName: 'configuration',
     headerMode: 'none'
   }
 );

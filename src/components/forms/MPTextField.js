@@ -33,10 +33,11 @@ class MPTextFieldComponent extends React.Component {
     let { 
       value, 
       label, 
-      multiline 
+      multiline,
+      style
     } = this.props;
     return (
-      <View style={styles.parent}>
+      <View style={[styles.parent, style]}>
         <TextField
           lineWidth={0.5}
           activeLineWidth={0.5}
