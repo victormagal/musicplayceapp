@@ -8,16 +8,16 @@ export const applyStyle = (props, width, height) => {
 
   if(!isNaN(style)){
     style = Object.assign({}, StyleSheet.flatten([style]));
-
-    if(typeof style.width === 'undefined'){
-      style.width = width;
-    }
-
-    if(typeof style.height === 'undefined'){
-      style.height = height;
-    }
-    newProps.style = style;
   }
 
+  if(typeof style.width === 'undefined'){
+    newProps.width = '' + width;
+  }
+
+  if(typeof style.height === 'undefined'){
+    newProps.height = '' + height;
+  }
+
+  newProps.style = style;
   return newProps;
 };
