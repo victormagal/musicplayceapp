@@ -1,8 +1,8 @@
 import React from 'react';
 import {StyleSheet, ScrollView, Text, View} from 'react-native';
-import { MPHeader, MPTextField, MPFooter, MPGradientButton, MPArtist, MPSongRating } from '../../components'
+import { MPHeader, MPTextField, MPFooter, MPGradientButton, MPArtist, MPSongRating } from '../../../components'
 import { connect } from 'react-redux';
-import { MPPlusIcon, MPLogoIcon } from '../../assets/svg';
+import { MPPlusIcon, MPLogoIcon } from '../../../assets/svg';
 
 class IndicateSongFeedbackScreenContainer extends React.Component {
   

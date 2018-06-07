@@ -15,11 +15,13 @@ import {
   MessageNavigation, 
   ProfileScreen, 
   SongsScreensNavigation, 
-  SettingsNavigation 
+  SettingsNavigation,
+  IndicateSongScreensNavigation,
+  FeedScreensNavigation
 } from './src/modules';
 import { reducers } from './src/state/reducer';
 import { loadFont } from './src/state/action';
-import { IndicateSongScreensNavigation } from './src/indicateSong';
+
 
 const store = createStore(reducers, applyMiddleware(thunkMiddleware));
 
@@ -38,7 +40,8 @@ const HomeNavigation = createStackNavigator(
     registerSongs: SongsScreensNavigation,
     settings: SettingsNavigation,
     indicateSong: IndicateSongScreensNavigation,
-    message: MessageNavigation
+    message: MessageNavigation,
+    feed: FeedScreensNavigation,
   },
   {
     initialRouteName: 'settings',
