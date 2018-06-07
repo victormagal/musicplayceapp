@@ -25,7 +25,9 @@ function buildSvg(filename, attrs, paths){
   let names = filename.split('.')[0].split('-');
   filename = names.map(name => name.charAt(0).toUpperCase() + name.substring(1)).join('');
   let {width, height, viewBox} = attrs;
-  let svgString = `export const MP${filename}Icon = (props) => (<Svg {...props} height='${height}' width='${width}' viewBox='${viewBox}'>`;
+  let svgString = `export const MP${filename}Icon = (props) => { \n`
+  + ` let newProps = applyStyle(props, ${width}, ${height}); \n`
+  + ` return (<Svg {...newProps} viewBox='${viewBox}'>`;
 
   for(let path of paths){
     let attributes = path['$'];
@@ -49,7 +51,7 @@ function buildSvg(filename, attrs, paths){
     }
   }
 
-  svgString+= '</Svg>);';
+  svgString+= '</Svg>); \n};\n';
   return svgString;
 }
 
@@ -91,7 +93,11 @@ function buildPath(path){
 }
 
 function finishBuildSvg(){
-  let fileContent = [ "//Generated file", "import React from 'react';", "import Svg, { Path } from 'react-native-svg';", ""].concat(allSvgs).join('\n');
+  let fileContent = [ "//Generated file",
+    "import React from 'react';",
+    "import Svg, { Path } from 'react-native-svg';",
+    "import {applyStyle} from './applyStyle';", ""].concat(allSvgs).join('\n');
+
   fs.writeFileSync(SVG_DEST_PATH, fileContent, 'utf-8');
   console.log("File wrote successfully at ", SVG_DEST_PATH);
 }

@@ -1,9 +1,8 @@
 import React from 'react';
-import {StyleSheet, ScrollView, Text, View, TextInput} from 'react-native';
-import { Icon } from 'react-native-elements'
-import { TextField } from 'react-native-material-textfield';
-import { MPHeader, MPTextField, MPFooter } from '../../components'
+import {StyleSheet, ScrollView, Text, View} from 'react-native';
+import { MPHeader, MPTextField, MPFooter, MPGradientButton, MPArtist, MPSongRating } from '../../components'
 import { connect } from 'react-redux';
+import { MPPlusIcon, MPLogoIcon } from '../../assets/svg';
 
 class IndicateSongFeedbackScreenContainer extends React.Component {
   
@@ -23,7 +22,14 @@ class IndicateSongFeedbackScreenContainer extends React.Component {
         {
           this.props.fontLoaded ? (
             <View>
-              <Text style={{fontSize: 20, color: '#f00'}}>Feedback</Text>
+              <Text style={ styles.headerText }>Indicação feita!</Text>
+              <View style={ styles.partnershipContainer}>
+                <MPSongRating songName={'Tocando em Frente'} backgroundColor={'#f60'} onPress={() => {}} style={{}} />
+                <MPPlusIcon   style={ styles.partnershipIcon }/>
+                <MPArtist artist={'Bruno Caliman'} backgroundColor={'#6f0'} onPress={() => {}} style={{}} />
+              </View>
+              <Text style={ styles.infoText }><Text style={ styles.infoTextEmph }>203</Text> outras pessoas sugeriram esta parceria também!</Text>
+              <MPGradientButton title={'Fechar'} textSize={16} style={{marginHorizontal: 133}} onPress={()=>{}} />
             </View>
           ) : null
         }
@@ -44,6 +50,36 @@ const styles = StyleSheet.create({
   scroll: {
     flex: 2,
   },
+  headerText: {
+    fontSize: 20,
+    fontFamily: 'montSerratBold',
+    color: '#000',
+    textAlign: 'center',
+    marginTop: 90,
+    marginBottom: 20,
+  },
+  infoText: {
+    fontSize : 16,
+    color : '#000',
+    fontFamily: 'montSerrat',
+    marginHorizontal: 32,
+    textAlign: 'center',
+    marginBottom : 20,
+    marginTop: 22,
+  },
+  infoTextEmph: {
+    fontFamily: 'montSerratBold',
+  },
+  partnershipContainer: {
+    flexDirection: 'row',
+    alignContent: 'center',
+    justifyContent: 'center'
+  },
+  partnershipIcon: {
+    justifyContent: 'center',
+    alignSelf: 'center',
+    marginHorizontal: 20,
+  }
 });
 
 const mapStateToProps = ({ fontReducer }) => {

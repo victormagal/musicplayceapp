@@ -1,6 +1,5 @@
 import React, { Component } from 'react'; 
 import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
-import { Icon } from 'react-native-elements';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 
@@ -33,8 +32,8 @@ MPArtistComponent.propTypes = {
 
 const styles = StyleSheet.create({
 	simpleArtistCardContainer: {
+        flex: 1,
         width: 100,
-        height: 152,
         flexDirection: 'column',
         backgroundColor: '#fff',
         borderRadius: 4,

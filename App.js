@@ -31,7 +31,7 @@ const HomeNavigation = createStackNavigator(
     message: MessageNavigation
   },
   {
-    initialRouteName: 'settings',
+    initialRouteName: 'indicateSong',
     headerMode: 'none'
   }
 );

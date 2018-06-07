@@ -2,12 +2,17 @@ import React from 'react';
 import {StyleSheet, ScrollView, Text, View, TextInput, FlatList} from 'react-native';
 import { Icon } from 'react-native-elements'
 import { TextField } from 'react-native-material-textfield';
-import { MPHeader, MPTextField, MPFooter, MPArtist, MPSong } from '../../components'
+import { MPHeader, MPTextField, MPFooter, MPArtist, MPSong, MPGradientButton } from '../../components'
 import { connect } from 'react-redux';
 
 class IndicateSongFullScreenContainer extends React.Component {
     constructor(props){
         super(props);
+        this.state = {
+          textValue: '',
+          songHeader: true,
+          notFoundArtist: false,
+        }
 
         this.artistList = {
             data: [
@@ -56,9 +61,22 @@ class IndicateSongFullScreenContainer extends React.Component {
   }
   
   renderItem = ({item}) => (
-    <MPArtist artist={item.title} backgroundColor={item.backgroundColor} onPress={() => {}} style={{marginBottom: 10,}} />
+    <MPArtist artist={item.title} backgroundColor={item.backgroundColor} onPress={this.goToScreen.bind(this, 'IndicateSongFeedbackScreen')} style={{marginBottom: 10,}} />
   )
 
+  toggleState = (att) => {
+    this.setState({[att]: !this.state.songHeader});
+  }
+
+  checkArtistName = (value) => {
+    this.setState({textValue: value});
+    if(value == 'Madonna'){
+      this.setState({notFoundArtist: true});
+    }else{
+      this.setState({notFoundArtist: false});
+    }
+  }
+  
   render() {
     return (
       <View style={styles.container}>
@@ -67,10 +85,31 @@ class IndicateSongFullScreenContainer extends React.Component {
         {
           this.props.fontLoaded ? (
             <View>
-              <Text style={ styles.headerText}>Com quem <Text style={ styles.headerTextCustom }>combina</Text> ?</Text>
-              <MPSong />
-              <Text style={ styles.detailsText} onPress={this.goToScreen.bind(this, 'IndicateSongNotFoundScreen')}>Sabe aquela história de que todo artista tem de ir aonde o povo está? Vamos mostrar sua criação para o mundo. Aproveite para convocar seus seguidores ou você mesmo pode achar uma banda perfeita para esse hit.</Text>
-              <MPTextField label={'Encontre um artista'} value={''} style={{marginHorizontal: 20}}/>
+              { this.state.songHeader ? (
+                <View>
+                  <Text style={ styles.headerText}>Com quem <Text style={ styles.headerTextCustom }>combina</Text> ?</Text>
+                  <MPSong />
+                  <Text style={ styles.detailsText}>Sabe aquela história de que todo artista tem de ir aonde o povo está? Vamos mostrar sua criação para o mundo. Aproveite para convocar seus seguidores ou você mesmo pode achar uma banda perfeita para esse hit.</Text>
+                </View>
+              ) : null
+              }
+              <MPTextField label={'Encontre um artista'}
+                 value={this.state.textValue}
+                 style={{marginHorizontal: 20}}
+                 onFocus={this.toggleState.bind(this, 'songHeader')}
+                 onBlur={this.toggleState.bind(this, 'songHeader')}
+                 onChangeText={ this.checkArtistName }/>
+              {
+                this.state.notFoundArtist ? (
+                  <View>
+                    <Text style={ styles.textFieldSubText}><Text style={ styles.textFieldSubTextEmph}>"Madonna"</Text> ainda não está no MusicPlayce.</Text>
+                    <View style={styles.infoTextContainer}>
+                      <Text style={styles.infoText}>Quando <Text style={styles.infoTextEmph}>Madonna</Text> fizer o cadastro, vamos mostrar sua indicação!</Text>
+                      <MPGradientButton title={'Indicar'} textSize={16} style={{marginHorizontal: 113, marginTop: 10}} onPress={()=> {}} />
+                    </View>
+                  </View>
+                ) : null
+              }
               <View>
                   <FlatList data = {this.artistList.data}
                       keyExtractor={(item,index) => item.id} 
@@ -103,6 +142,7 @@ const styles = StyleSheet.create({
     color: '#000',
     fontFamily: 'montSerrat',
     marginHorizontal: 20,
+    marginTop: 30
   },
   headerTextCustom: {
       fontFamily: 'montSerratBold',
@@ -114,7 +154,32 @@ const styles = StyleSheet.create({
       marginHorizontal: 20,
       fontFamily: 'montSerrat',
       flexWrap: 'wrap',
-  }
+  },
+  textFieldSubText: {
+    fontSize: 12,
+    color: '#686868',
+    fontFamily: 'montSerratItalic',
+    marginHorizontal: 20,
+  },
+  textFieldSubTextEmph: {
+    fontFamily: 'montSerratBold',
+    color: '#000'
+  },
+  infoTextContainer: {
+    alignContent: 'center',
+    justifyContent: 'center',
+    marginHorizontal: 20,
+    marginTop: 20,
+  },
+  infoText: {
+    fontSize: 20, 
+    fontFamily: 'montSerrat',
+    color: '#000',
+    textAlign: 'center',
+  },
+  infoTextEmph: {
+    fontFamily: 'montSerratBold'
+  },
 });
 
 const mapStateToProps = ({ fontReducer }) => {
