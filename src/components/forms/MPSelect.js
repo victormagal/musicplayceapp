@@ -16,12 +16,13 @@ class MPSelectComponent extends React.Component {
   }
 
   render() {
+    let { label } = this.props;
     return (
       <View>
         <TouchableHighlight onPress={this.showActionSheet} underlayColor="transparent">
           <View style={styles.areaSelection}>
             <View style={styles.boxText}>
-              <MPText style={styles.text}>Assunto do feedback</MPText>
+              <MPText style={styles.text}>{label}</MPText>
             </View>
             <View style={styles.boxFoward}>
               <MPArrowDownIcon />

@@ -5,10 +5,6 @@ import {
   View
 } from 'react-native';
 import {
-  fetchProfile,
-  saveProfile
-} from '../../state/action';
-import {
   MPGradientButton,
   MPText
 } from '../../components';
@@ -25,7 +21,7 @@ class MPHelpSuccessComponent extends React.Component {
 
   render() {
     return (
-      <View>
+      <View style={styles.container}>
         <MPText style={styles.title}>Retornaremos em até 24 horas úteis. Obrigado pelo contato.</MPText>
         <MPGradientButton style={styles.button} textSize={16} title="Enviar outra dúvida" onPress={this.handleBack} />
         <MPGradientButton style={styles.button} textSize={16} title="Voltar para configurações" onPress={this.handleBack} />
@@ -36,6 +32,9 @@ class MPHelpSuccessComponent extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    marginVertical: 30
+  },
   title: {
     fontFamily: 'montSerrat',
     fontSize: 20,

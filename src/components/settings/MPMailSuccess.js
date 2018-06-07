@@ -5,10 +5,6 @@ import {
   View
 } from 'react-native';
 import {
-  fetchProfile,
-  saveProfile
-} from '../../state/action';
-import {
   MPGradientButton,
   MPText
 } from '../../components';
@@ -21,7 +17,7 @@ class MPMailSuccessComponent extends React.Component {
 
   render() {
     return (
-      <View>
+      <View style={styles.container}>
         <MPText style={styles.title}>E-mail atualizado com sucesso</MPText>
         <MPGradientButton style={styles.button} textSize={16} title="OK" onPress={this.handleBack} />
       </View>
@@ -30,6 +26,9 @@ class MPMailSuccessComponent extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    marginVertical: 30
+  },
   title: {
     fontFamily: 'montSerrat',
     fontSize: 20,

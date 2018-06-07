@@ -4,10 +4,6 @@ import {
   StyleSheet,
   View 
 } from 'react-native';
-import { 
-  fetchProfile,
-  saveProfile
-} from '../../state/action';
 import {
   MPGradientButton,
   MPText
@@ -21,7 +17,7 @@ class MPProfileSuccessComponent extends React.Component {
 
   render() {
     return (
-      <View>
+      <View style={styles.container}>
         <MPText style={styles.title}>Identificação atualizada com sucesso</MPText>
         <MPGradientButton style={styles.button} textSize={16} title="OK" onPress={this.handleOkClick} />
       </View>
@@ -30,6 +26,9 @@ class MPProfileSuccessComponent extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    marginVertical: 30
+  },
   title: {
     fontFamily: 'montSerrat',
     fontSize: 20,

@@ -5,10 +5,6 @@ import {
   View
 } from 'react-native';
 import {
-  fetchProfile,
-  saveProfile
-} from '../../state/action';
-import {
   MPGradientButton,
   MPText,
   MPMailSuccess
@@ -26,7 +22,7 @@ class MPMailComponent extends React.Component {
 
   render() {
     return (
-      <View>
+      <View style={styles.container}>
         <MPText style={styles.title}>Uma mensagem de confirmação foi enviada para o seu novo e-mail de cadastro</MPText>
         <MPText style={styles.subtitle}>Se você ainda não recebeu essa mensagem, clique em reenviar</MPText>
         <MPGradientButton style={styles.button} textSize={16} title="Cancelar" onPress={this.handleBack} />
@@ -38,6 +34,9 @@ class MPMailComponent extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    marginVertical: 30
+  },
   title: {
     fontFamily: 'montSerrat',
     fontSize: 20,

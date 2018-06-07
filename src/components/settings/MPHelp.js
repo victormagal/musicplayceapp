@@ -5,10 +5,6 @@ import {
   View
 } from 'react-native';
 import {
-  fetchProfile,
-  saveProfile
-} from '../../state/action';
-import {
   MPSelect,
   MPTextField,
   MPGradientButton,
@@ -27,9 +23,9 @@ class MPHelpComponent extends React.Component {
 
   render() {
     return (
-      <View>
-        <MPSelect />
-        <MPTextField label={"Envie sua mensagem"} value={""} multiline={true} />
+      <View style={styles.container}>
+        <MPSelect label={"Selecione"} />
+        <MPTextField label={"Envie sua mensagem"} value={""} />
         <MPGradientButton style={styles.button} textSize={16} title="Salvar" onPress={this.handleFoward} />
       </View>
     );
@@ -38,6 +34,9 @@ class MPHelpComponent extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    marginVertical: 30
+  },
   button: {
     marginHorizontal: 20,
     marginTop: 20

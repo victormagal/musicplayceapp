@@ -5,10 +5,6 @@ import {
   View
 } from 'react-native';
 import {
-  fetchProfile,
-  saveProfile
-} from '../../state/action';
-import {
   MPGradientButton,
   MPText,
   MPPhoneSuccess
@@ -26,7 +22,7 @@ class MPPhoneComponent extends React.Component {
 
   render() {
     return (
-      <View>
+      <View style={styles.container}>
         <MPText style={styles.title}>Enviamos um código via SMS para seu novo número</MPText>
         <MPText style={styles.subtitle}>Digite aqui o código enviado para o número: (21) 99999-9999</MPText>
         <MPGradientButton style={styles.button} textSize={16} title="Cancelar" onPress={this.handleBack} />
@@ -38,6 +34,9 @@ class MPPhoneComponent extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    marginVertical: 30
+  },
   title: {
     fontFamily: 'montSerrat',
     fontSize: 20,

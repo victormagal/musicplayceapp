@@ -5,10 +5,6 @@ import {
   View
 } from 'react-native';
 import {
-  fetchProfile,
-  saveProfile
-} from '../../state/action';
-import {
   MPGradientButton,
   MPText,
   MPPhoneSuccess
@@ -26,7 +22,7 @@ class MPPasswordComponent extends React.Component {
 
   render() {
     return (
-      <View>
+      <View style={styles.container}>
         <MPText style={styles.title}>Enviar nova senha para meus dispositivos autorizados.</MPText>
         <MPGradientButton style={styles.button} textSize={16} title="Enviar nova senha para mim" onPress={this.handleBack} />
         <MPGradientButton style={styles.button} textSize={16} title="Voltar para configurações" onPress={this.handleBack} />
@@ -37,6 +33,9 @@ class MPPasswordComponent extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    marginVertical: 30
+  },
   title: {
     fontFamily: 'montSerrat',
     fontSize: 20,

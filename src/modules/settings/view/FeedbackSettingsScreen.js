@@ -23,7 +23,7 @@ class FeedbackSettingsScreen extends React.Component {
         <MPHeader back={true} onBack={this.handleBack} title={"Alguma sugestão? Ajude-nos a melhorar a plataforma"} />
         <ScrollView style={styles.scroll}>
           <View style={styles.container}>
-            <MPSelect />
+            <MPSelect label={"Manolo"} />
             <MPTextField label={"Envie sua mensagem"} value={""} />
           </View>
         </ScrollView>

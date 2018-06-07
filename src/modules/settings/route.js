@@ -14,12 +14,12 @@ export const SettingsNavigation = createStackNavigator(
   {
     homeSettings: InitialSettingsScreen,
     editSettings: EditSettingsScreen,
+    notificationsSettings: NotificationSettingsScreen,
     inviteSettings: InviteSettingsScreen,
+    helpSettings: HelpSettingsScreen,
     passwordSettings: PasswordSettingsScreen,
     feedbackSettings: FeedbackSettingsScreen,
-    notificationsSettings: NotificationSettingsScreen,
-    termsSettings: TermsSettingsScreen,
-    helpSettings: HelpSettingsScreen
+    termsSettings: TermsSettingsScreen
   },
   {
     initialRouteName: 'homeSettings',
