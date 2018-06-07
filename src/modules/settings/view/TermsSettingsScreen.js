@@ -23,8 +23,10 @@ class TermsSettingsScreenContainer extends React.Component {
       <View style={styles.parent}>
         <MPHeader back={true} onBack={this.handleBack} title={"Termos e condições de uso"} />
         <ScrollView style={styles.scroll}>
-          <MPSelect />
           <View style={styles.container}>
+            <View style={styles.containerSelect}>
+              <MPSelect />
+            </View>
             <View style={styles.boxText}>
               <MPText style={styles.title}>Tópico 1 - Lorem ipsum</MPText>
               <MPText style={styles.paragraph}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer ipsum ante, viverra vitae orci non, tincidunt ullamcorper sapien. Ut non leo consectetur, iaculis nisl vel, facilisis ante. Sed fermentum odio ac egestas dapibus. Sed feugiat purus dui, in auctor justo mattis at.</MPText>
@@ -51,7 +53,7 @@ class TermsSettingsScreenContainer extends React.Component {
       </View>
     );
   }
-
+  
 }
 
 const styles = StyleSheet.create({
@@ -63,6 +65,15 @@ const styles = StyleSheet.create({
   },
   scroll: {
     flex: 2
+  },
+  containerSelect: {
+    borderBottomColor: 'rgba(0, 0, 0, 0.15)',
+    borderBottomWidth: 1,
+    paddingBottom: 30,
+    backgroundColor: '#FFFFFF'
+  },
+  container: {
+    marginVertical: 30
   },
   boxText: {
     marginHorizontal: 40,

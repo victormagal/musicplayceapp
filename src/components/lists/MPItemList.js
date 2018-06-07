@@ -1,7 +1,11 @@
 import React from 'react';
-import { Text, View, StyleSheet, TouchableHighlight } from 'react-native';
-import Svg, { Path } from 'react-native-svg';
-import { MPArrowRightIcon } from '../../assets/svg';
+import { 
+  Text, 
+  View, 
+  StyleSheet, 
+  TouchableHighlight 
+} from 'react-native';
+import { MPText } from '../../components';
 import { connect } from 'react-redux';
 
 class MPItemListComponent extends React.Component {
@@ -25,13 +29,9 @@ class MPItemListComponent extends React.Component {
             ) : null
           }
           <View style={styles.boxText}>
-            {
-              this.props.fontLoaded ? (
-                <Text style={styles.text}>
-                  {item.title}
-                </Text>
-              ) : null
-            }
+            <MPText style={styles.text}>
+              {item.title}
+            </MPText>
           </View>
           <View style={styles.boxFoward}>
             <IconNext />

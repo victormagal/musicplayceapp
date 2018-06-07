@@ -1,6 +1,15 @@
 import React from 'react';
-import { Animated, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
-import { MPArrowDownIcon, MPArrowUpIcon } from '../../assets/svg';
+import { 
+  Animated, 
+  StyleSheet, 
+  Text, 
+  TouchableHighlight, 
+  View 
+} from 'react-native';
+import { 
+  MPArrowDownIcon, 
+  MPArrowUpIcon 
+} from '../../assets/svg';
 import { connect } from 'react-redux';
 
 class MPToggleListComponent extends React.Component {

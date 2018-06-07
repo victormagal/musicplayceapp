@@ -12,7 +12,7 @@ import {
 	MPFooter
 } from '../../../../components';
 
-class ChangePasswordConfigurationScreenComponent extends React.Component {
+class PasswordSettingsScreenComponent extends React.Component {
 	
 	state = {
 		formLoaded: false,
@@ -42,17 +42,17 @@ class ChangePasswordConfigurationScreenComponent extends React.Component {
 	};
 
 	render() {
-
 		let { onBack } = this.props;
-
 		return (
 			<View style={styles.parent}>
 				<MPHeader back={true} onBack={onBack} title={"Troque sua senha de acesso"} />
 				<ScrollView style={styles.scroll}>
-					<MPTextField label={"Senha atual"} value={"Senha atual"} />
-					<MPTextField label={"Nova senha"} value={"Nova senha"} />
-					<MPTextField label={"Confirme a nova senha"} value={"Confirme a nova senha"} />
-					<MPGradientButton style={styles.button} textSize={16} title="Salvar" onPress={this.handleUpdateIdentificacao.bind(this, 'password')} />
+					<View style={styles.container}>
+						<MPTextField label={"Senha atual"} value={"Senha atual"} />
+						<MPTextField label={"Nova senha"} value={"Nova senha"} />
+						<MPTextField label={"Confirme a nova senha"} value={"Confirme a nova senha"} />
+						<MPGradientButton style={styles.button} textSize={16} title="Salvar" onPress={this.handleUpdateIdentificacao.bind(this, 'password')} />
+					</View>
 				</ScrollView>
 				<MPFooter />
 				<MPLoading visible={this.props.loading}/>
@@ -71,10 +71,14 @@ const styles = StyleSheet.create({
 	scroll: {
 		flex: 2
 	},
+	container: {
+		marginTop: 20,
+		marginBottom: 30
+	},
 	button: {
 		marginHorizontal: 100,
 		marginTop: 20
 	}
 });
 
-export { ChangePasswordConfigurationScreenComponent };
+export { PasswordSettingsScreenComponent };

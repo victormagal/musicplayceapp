@@ -1,22 +1,31 @@
 import 'babel-polyfill';
 import React from 'react';
 import fetch from 'cross-fetch';
-import { createStore, applyMiddleware } from 'redux';
+import { 
+  applyMiddleware, 
+  createStore
+} from 'redux';
 import { Provider } from 'react-redux';
 import thunkMiddleware from 'redux-thunk'
 import { createStackNavigator } from 'react-navigation';
-import { Font, DangerZone } from 'expo';
-import { HomeScreen, ProfileScreen, SongsScreensNavigation, SettingsNavigation, LoginScreensNavigation, MessageNavigation } from './src/modules';
+import { Font } from 'expo';
+import { 
+  HomeScreen, 
+  LoginScreensNavigation, 
+  MessageNavigation, 
+  ProfileScreen, 
+  SongsScreensNavigation, 
+  SettingsNavigation 
+} from './src/modules';
 import { reducers } from './src/state/reducer';
-import { changeLanguage, loadFont } from './src/state/action';
+import { loadFont } from './src/state/action';
 import { IndicateSongScreensNavigation } from './src/indicateSong';
 
-const {Localization} = DangerZone;
 const store = createStore(reducers, applyMiddleware(thunkMiddleware));
 
 if(typeof global.self === "undefined")
 {
-    global.self = global;
+  global.self = global;
 }
 
 global.fetch = fetch;
@@ -32,7 +41,7 @@ const HomeNavigation = createStackNavigator(
     message: MessageNavigation
   },
   {
-    initialRouteName: 'login',
+    initialRouteName: 'settings',
     headerMode: 'none'
   }
 );

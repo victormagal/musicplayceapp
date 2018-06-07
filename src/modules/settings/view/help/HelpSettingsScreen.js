@@ -4,12 +4,12 @@ import {
   fetchProfile,
   saveProfile
 } from '../../../../state/action';
-import { HelpConfigurationScreenComponent } from './HelpConfigurationScreenComponent';
+import { HelpSettingsScreenComponent } from './HelpSettingsScreenComponent';
 import {
   MPHelp
 } from '../../../../components';
 
-class HelpConfigurationScreenContainer extends React.Component {
+class HelpSettingsScreenContainer extends React.Component {
 
   pages = {
     'help': MPHelp
@@ -35,7 +35,7 @@ class HelpConfigurationScreenContainer extends React.Component {
 
   render() {
     return (
-      <HelpConfigurationScreenComponent
+      <HelpSettingsScreenComponent
         onSave={this.handleSaveClick}
         onBack={this.handleBackClick}
         profile={this.props.profile}
@@ -49,5 +49,5 @@ const mapStateToProps = ({ profileReducer }) => {
   return { ...profileReducer };
 };
 
-const HelpConfigurationScreen = connect(mapStateToProps)(HelpConfigurationScreenContainer);
-export { HelpConfigurationScreen };
+const HelpSettingsScreen = connect(mapStateToProps)(HelpSettingsScreenContainer);
+export { HelpSettingsScreen };

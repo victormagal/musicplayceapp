@@ -60,6 +60,7 @@ class InviteSettingsScreen extends React.Component {
         <MPHeader back={true} onBack={this.handleBack} title={"Convide seus amigos para o MusicPlayce"} />
         <ScrollView style={styles.scroll}>
           <FlatList
+            style={styles.container}
             data={this.list.data}
             keyExtractor={item => item.id}
             renderItem={({ item }) => {
@@ -84,6 +85,10 @@ const styles = StyleSheet.create({
   },
   scroll: {
     flex: 2
+  },
+  container: {
+    marginTop: 30,
+    marginBottom: 10
   }
 });
 

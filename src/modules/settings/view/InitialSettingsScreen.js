@@ -87,15 +87,17 @@ class InitialSettingsScreenContainer extends React.Component {
 			<View style={styles.parent}>
 				<MPHeader title={"Configure o MusicPlayce do seu jeitinho"} back={true} onBack={this.handleBack}/>
 				<ScrollView style={styles.scroll}>
-					<FlatList
-						data={this.list.data}
-						keyExtractor={item => item.id}
-						renderItem={({ item }) => {
-							return (
-								<MPItemList item={item} {...this.props} />
-							)
-						}}
-					/>
+					<View style={styles.container}>
+						<FlatList
+							data={this.list.data}
+							keyExtractor={item => item.id}
+							renderItem={({ item }) => {
+								return (
+									<MPItemList item={item} {...this.props} />
+								)
+							}}
+						/>
+					</View>
 				</ScrollView>
 				<MPFooter />
 			</View>
@@ -111,6 +113,10 @@ const styles = StyleSheet.create({
 	},
 	scroll: {
 		flex: 2
+	},
+	container: {
+		marginTop: 30,
+		marginBottom: 10
 	}
 });
 

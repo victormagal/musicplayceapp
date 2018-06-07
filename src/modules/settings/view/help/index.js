@@ -1,1 +1,1 @@
-export * from './HelpConfigurationScreen';
+export * from './HelpSettingsScreen';

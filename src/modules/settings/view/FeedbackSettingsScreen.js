@@ -22,8 +22,10 @@ class FeedbackSettingsScreen extends React.Component {
       <View style={styles.parent}>
         <MPHeader back={true} onBack={this.handleBack} title={"Alguma sugestão? Ajude-nos a melhorar a plataforma"} />
         <ScrollView style={styles.scroll}>
-          <MPSelect />
-          <MPTextField label={"Envie sua mensagem"} value={""} multiline={true} />
+          <View style={styles.container}>
+            <MPSelect />
+            <MPTextField label={"Envie sua mensagem"} value={""} />
+          </View>
         </ScrollView>
         <MPFooter />
       </View>
@@ -41,6 +43,9 @@ const styles = StyleSheet.create({
   },
   scroll: {
     flex: 2
+  },
+  container: {
+    marginVertical: 30
   }
 });
 

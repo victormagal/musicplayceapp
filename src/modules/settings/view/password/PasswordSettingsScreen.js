@@ -4,12 +4,12 @@ import {
   fetchProfile,
   saveProfile
 } from '../../../../state/action';
-import { ChangePasswordConfigurationScreenComponent } from './ChangePasswordConfigurationScreenComponent';
+import { PasswordSettingsScreenComponent } from './PasswordSettingsScreenComponent';
 import {
   MPPassword
 } from '../../../../components';
 
-class ChangePasswordConfigurationScreenContainer extends React.Component {
+class PasswordSettingsScreenContainer extends React.Component {
 
   pages = {
     'password': MPPassword
@@ -35,7 +35,7 @@ class ChangePasswordConfigurationScreenContainer extends React.Component {
 
   render() {
     return (
-      <ChangePasswordConfigurationScreenComponent
+      <PasswordSettingsScreenComponent
         onSave={this.handleSaveClick}
         onBack={this.handleBackClick}
         profile={this.props.profile}
@@ -49,5 +49,5 @@ const mapStateToProps = ({ profileReducer }) => {
   return { ...profileReducer };
 };
 
-const ChangePasswordConfigurationScreen = connect(mapStateToProps)(ChangePasswordConfigurationScreenContainer);
-export { ChangePasswordConfigurationScreen };
+const PasswordSettingsScreen = connect(mapStateToProps)(PasswordSettingsScreenContainer);
+export { PasswordSettingsScreen };
