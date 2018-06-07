@@ -1,44 +1,39 @@
 import React from 'react';
-import { StyleSheet, Text, View, TextInput, Picker, ScrollView } from 'react-native';
-import { TextField } from 'react-native-material-textfield';
-import { connect } from 'react-redux';
-import {updateSongRegisterData} from '../../state/action';
-import { MPHeader, MPFooter, MPTextField, MPSelect } from '../../components';
+import {StyleSheet, Text, View, TextInput, Picker, ScrollView} from 'react-native';
+import {connect} from 'react-redux';
+import {updateSongRegisterData} from '../../../state/action';
+import {MPHeader, MPFooter, MPTextField, MPSelect, MPText} from '../../../components';
 
 class MusicLetterScreenContainer extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
-    this.state = { text: '', language: 'default'};
+    this.state = {text: '', language: 'default'};
 
   }
 
   handleChangeLetter = (value) => {
-    let song = {...this.props.song, letter  : value};
+    let song = {...this.props.song, letter: value};
     this.props.dispatch(updateSongRegisterData(song));
   };
 
   handleBackClick = () => {
     this.props.navigation.pop();
   };
-  
+
   render() {
     return (
       <View style={styles.container}>
-        <MPHeader back={true} onBack={this.handleBackClick} title={"Letra da música"} />
+        <MPHeader back={true} onBack={this.handleBackClick} title={"Letra da música"}/>
         <ScrollView style={styles.scroll}>
-        {
-          this.props.fontLoaded ? (
-              <View>
-                <Text style={styles.textTop}>Pode colar a letra da música aqui:</Text>
-                <MPTextField label={"Letra da música:"} value={""} />
-                <View style={styles.clickableTextContainer}>
-                  <Text style={{fontFamily: 'montSerrat'}}>ou </Text>
-                  <Text style={styles.clickableText}>faça upload da letra(doc, tx ou rtf)</Text>
-                </View>
-                <MPSelect style={{marginTop: 30}} />
-              </View>
-          ) : null
-        }
+          <View>
+            <MPText style={styles.textTop}>Pode colar a letra da música aqui:</MPText>
+            <MPTextField label={"Letra da música:"} value={""}/>
+            <View style={styles.clickableTextContainer}>
+              <MPText style={{fontFamily: 'montSerrat'}}>ou </MPText>
+              <MPText style={styles.clickableText}>faça upload da letra(doc, tx ou rtf)</MPText>
+            </View>
+            <MPSelect style={{marginTop: 30}}/>
+          </View>
         </ScrollView>
         <MPFooter/>
       </View>
@@ -86,8 +81,8 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = ({fontReducer, songsReducer}) => {
-  return {...fontReducer, ...songsReducer}
+const mapStateToProps = ({songsReducer}) => {
+  return {...songsReducer}
 };
 
 const MusicLetterScreen = connect(mapStateToProps)(MusicLetterScreenContainer);

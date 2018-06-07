@@ -2,13 +2,12 @@ import React, {Component} from 'react';
 import { Alert, StyleSheet, Text, TouchableOpacity} from 'react-native';
 import {LinearGradient} from 'expo';
 import PropTypes from 'prop-types';
-import {Icon} from 'react-native-elements';
 import {MPText} from '../general/MPText';
 
 class MPGradientButtonComponent extends Component {
 
   render() {
-    let {style, title, selected, textSize, onPress, iconName, iconType} = this.props;
+    let {style, title, selected, textSize, onPress, icon} = this.props;
 
     if (selected == null) {
       selected = true;
@@ -20,6 +19,7 @@ class MPGradientButtonComponent extends Component {
     let linearColor = selected ? linearColorOptions[0] : linearColorOptions[1];
     let textStyle = (selected ? {fontFamily: 'montSerratSemiBold'} : {color: "#E13223", fontFamily: 'montSerratSemiBold'});
     let textSizeStyle = textSize != null ? {fontSize: textSize} : {};
+    let Icon = icon;
 
     return (
       <TouchableOpacity style={style || {}} onPress={onPress}>
@@ -29,14 +29,7 @@ class MPGradientButtonComponent extends Component {
           end={[1.0, 0]}
           style={[styles.linear, borderStyle]}
           selected={true}>
-          { (() => {
-            if (iconName != null && iconType != null) {
-              return (<Icon name={ iconName } type={iconType} color='#fff' size={20} containerStyle={ styles.icon }/>);
-            } else if (iconName != null) {
-              return (<Icon name={ iconName } color='#fff' size={20} containerStyle={ styles.icon }/>);
-            }
-          })()
-          }
+          {icon && <Icon style={styles.icon}/>}
           <MPText style={[styles.text, textStyle, textSizeStyle]}>
             {title}
           </MPText>
@@ -52,8 +45,7 @@ MPGradientButtonComponent.propTypes = {
   textSize: PropTypes.number,
   style: PropTypes.any,
   selected: PropTypes.bool,
-  iconName: PropTypes.string,
-  iconType: PropTypes.string,
+  icon: PropTypes.symbol
 };
 
 const styles = StyleSheet.create({

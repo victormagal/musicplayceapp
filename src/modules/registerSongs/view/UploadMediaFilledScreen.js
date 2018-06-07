@@ -1,7 +1,8 @@
 import React from 'react';
 import {StyleSheet, Text, View, TextInput, FlatList, ScrollView} from 'react-native';
-import {MPGradientButton, MPHeader, MPFooter, MPSongInfo, MPText} from '../../components'
 import {connect} from 'react-redux';
+import {MPGradientButton, MPHeader, MPFooter, MPSongInfo, MPText} from '../../../components';
+import {MPArrowLeftIcon} from '../../../assets/svg';
 
 class UploadMediaFilledScreenContainer extends React.Component {
   constructor(props) {
@@ -36,7 +37,7 @@ class UploadMediaFilledScreenContainer extends React.Component {
               <MPText style={ styles.headerText}>Melodia selecionada</MPText>
             </View>
             <View>
-              <MPGradientButton title='Nome da música.mp3' onPress={ () => {} } textSize={16} style={ {marginBottom: 10, marginHorizontal: 20} }/>
+              <MPGradientButton title='Nome da música.mp3' icon={MPArrowLeftIcon} onPress={ () => {} } textSize={16} style={ {marginBottom: 10, marginHorizontal: 20} }/>
               <View style={styles.clickableTextContainer}>
                 <MPText style={styles.clickableText}>Substituir arquivo</MPText>
               </View>

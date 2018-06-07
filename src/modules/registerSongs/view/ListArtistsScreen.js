@@ -1,8 +1,6 @@
 import React from 'react';
 import {StyleSheet, Text, View, TextInput, FlatList, ScrollView} from 'react-native';
-import { Icon } from 'react-native-elements';
-import { MPArtistHorizontal, MPHeader, MPFooter, MPTextField } from '../../components';
-import { TextField } from 'react-native-material-textfield';
+import { MPArtistHorizontal, MPHeader, MPFooter, MPTextField, MPText } from '../../../components';
 import { connect } from 'react-redux';
 
 class ListArtistsScreenContainer extends React.Component {
@@ -74,7 +72,7 @@ class ListArtistsScreenContainer extends React.Component {
 
   goToScreen = (route) => {
     this.props.navigation.navigate(route);
-  }
+  };
 
   handleBackClick = () => {
 
@@ -86,20 +84,17 @@ class ListArtistsScreenContainer extends React.Component {
         artist={item.title} 
         selected={item.selected}
         onPress={ this.goToScreen.bind(this,'AddArtistScreen') } />
-  )
+  );
   
   render() {
     return (
       <View style={styles.container}>
         <MPHeader back={true} onBack={this.handleBackClick} title={"Co-autores"} />
         <ScrollView style={styles.scroll}>
-            {   this.props.fontLoaded ? (
-                <View style={{marginBottom: 30}}>
-                    <Text style={styles.textTop}>Essa música tem outros autores?</Text>
-                    <MPTextField label={'Pesquise pelo nome:'} value={'Almir Sater'} />
-                </View>
-                ) : null
-            }
+          <View style={{marginBottom: 30}}>
+            <MPText style={styles.textTop}>Essa música tem outros autores?</MPText>
+            <MPTextField label={'Pesquise pelo nome:'} value={'Almir Sater'}/>
+          </View>
             <FlatList data = {this.artistList.data}
                     keyExtractor={(item,index) => item.id} 
                     renderItem={this.renderItem} />
@@ -128,9 +123,9 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = ({ fontReducer }) => {
-    return { ...fontReducer };
+const mapStateToProps = () => {
+    return {};
   };
-  
+
 const ListArtistsScreen = connect(mapStateToProps)(ListArtistsScreenContainer);
 export {ListArtistsScreen};

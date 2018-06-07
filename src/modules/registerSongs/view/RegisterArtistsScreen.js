@@ -1,8 +1,6 @@
 import React from 'react';
 import {StyleSheet, ScrollView, Text, View, TextInput} from 'react-native';
-import { Icon } from 'react-native-elements'
-import { TextField } from 'react-native-material-textfield';
-import { MPHeader, MPTextField, MPFooter } from '../../components'
+import { MPHeader, MPTextField, MPFooter, MPText } from '../../../components'
 import { connect } from 'react-redux';
 
 class RegisterArtistsScreenContainer extends React.Component {
@@ -16,17 +14,13 @@ class RegisterArtistsScreenContainer extends React.Component {
       <View style={styles.container}>
         <MPHeader back={true} onBack={this.handleBackClick} title={"Intérpretes"} />
         <ScrollView>
-        {
-          this.props.fontLoaded ? (
             <View>
-              <Text style={styles.textTop}>Essa música tem intérpretes?</Text>
+              <MPText style={styles.textTop}>Essa música tem intérpretes?</MPText>
               <MPTextField label={'Pesquise pelo nome:'} value={''} />
               <View style={styles.clickableTextContainer}>
-                <Text style={styles.clickableText}>Não, apenas eu</Text>
+                <MPText style={styles.clickableText}>Não, apenas eu</MPText>
               </View>
             </View>
-          ) : null
-        }
         </ScrollView>
         <MPFooter />
       </View>
@@ -64,8 +58,8 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = ({ fontReducer }) => {
-  return { ...fontReducer };
+const mapStateToProps = () => {
+  return { };
 };
 
 const RegisterArtistsScreen = connect(mapStateToProps)(RegisterArtistsScreenContainer);
