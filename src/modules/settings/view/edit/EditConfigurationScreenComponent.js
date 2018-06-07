@@ -11,7 +11,7 @@ import {
 	MPLoading, 
 	MPFooter, 
 	MPText 
-} from '../../../components';
+} from '../../../../components';
 
 class EditConfigurationScreenComponent extends React.Component {
 	
@@ -40,10 +40,12 @@ class EditConfigurationScreenComponent extends React.Component {
 
 	handleUpdateIdentificacao = (page) => {
     this.props.onSave(page);
-  };
+	};
 
 	render() {
+
 		let { onBack } = this.props;
+		
 		return (
 		  <View style={styles.parent}>
           <MPHeader back={true} onBack={onBack} title={"Mantenha seus dados cadastrais atualizados"}/>

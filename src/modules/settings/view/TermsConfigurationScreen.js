@@ -1,14 +1,27 @@
 import React from 'react';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
-import { MPHeader, MPSelect, MPFooter } from '../../components';
+import { 
+  ScrollView, 
+  StyleSheet, 
+  Text, 
+  View 
+} from 'react-native';
+import { 
+  MPHeader, 
+  MPSelect, 
+  MPFooter 
+} from '../../../components';
 import { connect } from 'react-redux';
 
 class TermsConfigurationScreenComponent extends React.Component {
 
+  handleBack = () => {
+    this.props.navigation.pop();
+  };
+
   render() {
     return (
       <View style={styles.parent}>
-        <MPHeader back={true} onBack={this.handleBackClick} title={"Termos e condições de uso"} />
+        <MPHeader back={true} onBack={this.handleBack} title={"Termos e condições de uso"} />
         <ScrollView style={styles.scroll}>
           <MPSelect />
           {

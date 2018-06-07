@@ -4,3 +4,6 @@ export * from './MPPhone';
 export * from './MPPhoneSuccess';
 export * from './MPMail';
 export * from './MPMailSuccess';
+export * from './MPPassword';
+export * from './MPHelp';
+export * from './MPHelpSuccess';

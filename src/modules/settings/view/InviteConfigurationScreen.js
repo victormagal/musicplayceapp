@@ -1,7 +1,23 @@
 import React from 'react';
-import { FlatList, ScrollView, StyleSheet, View } from 'react-native';
-import { MPEditConfigIcon, MPNotificationConfigIcon, MPInviteConfigIcon, MPHelpConfigIcon, MPArrowRightIcon, MPClipboardIcon } from '../../assets/svg';
-import { MPHeader, MPItemList, MPFooter } from '../../components';
+import { 
+  FlatList, 
+  ScrollView, 
+  StyleSheet, 
+  View 
+} from 'react-native';
+import { 
+  MPEditConfigIcon, 
+  MPNotificationConfigIcon, 
+  MPInviteConfigIcon, 
+  MPHelpConfigIcon, 
+  MPArrowRightIcon, 
+  MPClipboardIcon 
+} from '../../../assets/svg';
+import { 
+  MPHeader, 
+  MPItemList, 
+  MPFooter 
+} from '../../../components';
 
 class InviteConfigurationScreen extends React.Component {
 
@@ -34,14 +50,14 @@ class InviteConfigurationScreen extends React.Component {
     ]
   };
 
-  handleBackClick = () => {
+  handleBack = () => {
     this.props.navigation.pop();
   };
 
   render() {
     return (
       <View style={styles.parent}>
-        <MPHeader back={true} onBack={this.handleBackClick} title={"Convide seus amigos para o MusicPlayce"} />
+        <MPHeader back={true} onBack={this.handleBack} title={"Convide seus amigos para o MusicPlayce"} />
         <ScrollView style={styles.scroll}>
           <FlatList
             data={this.list.data}

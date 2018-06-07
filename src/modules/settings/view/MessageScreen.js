@@ -1,6 +1,10 @@
 import React from 'react';
-import { ScrollView, StyleSheet, View } from 'react-native';
-import { MPHeader } from '../../components';
+import { 
+  ScrollView, 
+  StyleSheet, 
+  View 
+} from 'react-native';
+import { MPHeader } from '../../../components';
 
 class MessageScreen extends React.Component {
 

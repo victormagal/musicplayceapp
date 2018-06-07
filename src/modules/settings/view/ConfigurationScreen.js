@@ -1,7 +1,25 @@
 import React from 'react';
-import { FlatList, ScrollView, StyleSheet, View } from 'react-native';
-import { MPHeader, MPItemList, MPFooter } from '../../components';
-import { MPEditConfigIcon, MPNotificationConfigIcon, MPInviteConfigIcon, MPHelpConfigIcon, MPPasswordConfigIcon, MPFeedbackConfigIcon, MPTermsConfigIcon, MPArrowRightIcon } from '../../assets/svg';
+import { 
+	FlatList, 
+	ScrollView, 
+	StyleSheet, 
+	View 
+} from 'react-native';
+import { 
+	MPHeader, 
+	MPItemList, 
+	MPFooter 
+} from '../../../components';
+import { 
+	MPEditConfigIcon, 
+	MPNotificationConfigIcon, 
+	MPInviteConfigIcon, 
+	MPHelpConfigIcon, 
+	MPPasswordConfigIcon, 
+	MPFeedbackConfigIcon, 
+	MPTermsConfigIcon, 
+	MPArrowRightIcon 
+} from '../../../assets/svg';
 import { connect } from 'react-redux';
 
 class ConfigurationScreenComponent extends React.Component {
