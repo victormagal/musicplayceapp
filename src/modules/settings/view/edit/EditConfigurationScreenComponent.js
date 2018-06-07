@@ -11,7 +11,7 @@ import {
 	MPLoading, 
 	MPFooter, 
 	MPText 
-} from '../../../components';
+} from '../../../../components';
 
 class EditConfigurationScreenComponent extends React.Component {
 	

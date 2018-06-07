@@ -1,6 +1,15 @@
 import React from 'react';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
-import { MPHeader, MPSelect, MPFooter } from '../../components';
+import { 
+  ScrollView, 
+  StyleSheet, 
+  Text, 
+  View 
+} from 'react-native';
+import { 
+  MPHeader, 
+  MPSelect, 
+  MPFooter 
+} from '../../../components';
 import { connect } from 'react-redux';
 
 class TermsConfigurationScreenComponent extends React.Component {

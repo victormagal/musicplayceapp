@@ -10,7 +10,7 @@ import {
 	MPTextField,
 	MPLoading, 
 	MPFooter
-} from '../../../components';
+} from '../../../../components';
 
 class ChangePasswordConfigurationScreenComponent extends React.Component {
 	

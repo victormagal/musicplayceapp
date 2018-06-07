@@ -3,11 +3,11 @@ import { connect } from 'react-redux';
 import {
   fetchProfile,
   saveProfile
-} from '../../../state/action';
+} from '../../../../state/action';
 import { ChangePasswordConfigurationScreenComponent } from './ChangePasswordConfigurationScreenComponent';
 import {
   MPPassword
-} from '../../../components';
+} from '../../../../components';
 
 class ChangePasswordConfigurationScreenContainer extends React.Component {
 

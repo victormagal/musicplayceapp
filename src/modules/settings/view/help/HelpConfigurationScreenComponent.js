@@ -13,8 +13,8 @@ import {
 	MPFooter,
 	MPText,
 	MPLoading
-} from '../../../components';
-import { MPArrowRightIcon } from '../../../assets/svg';
+} from '../../../../components';
+import { MPArrowRightIcon } from '../../../../assets/svg';
 
 class HelpConfigurationScreenComponent extends React.Component {
 	

@@ -3,14 +3,14 @@ import { connect } from 'react-redux';
 import { 
   fetchProfile, 
   saveProfile 
-} from '../../../state/action';
+} from '../../../../state/action';
 import { EditConfigurationScreenComponent } from './EditConfigurationScreenComponent';
 import { 
   MPGradientButton, 
   MPProfileSuccess,
   MPMail,
   MPPhone
-} from '../../../components';
+} from '../../../../components';
 
 class EditConfigurationScreenContainer extends React.Component {
 

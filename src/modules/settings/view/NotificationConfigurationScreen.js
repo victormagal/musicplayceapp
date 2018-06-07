@@ -1,6 +1,16 @@
 import React from 'react';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
-import { MPHeader, MPSelect, MPSwitch, MPFooter } from '../../components';
+import { 
+  ScrollView, 
+  StyleSheet, 
+  Text, 
+  View 
+} from 'react-native';
+import { 
+  MPHeader, 
+  MPSelect, 
+  MPSwitch, 
+  MPFooter 
+} from '../../../components';
 import { connect } from 'react-redux';
 
 class NotificationConfigurationScreenComponent extends React.Component {

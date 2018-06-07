@@ -3,11 +3,11 @@ import { connect } from 'react-redux';
 import {
   fetchProfile,
   saveProfile
-} from '../../../state/action';
+} from '../../../../state/action';
 import { HelpConfigurationScreenComponent } from './HelpConfigurationScreenComponent';
 import {
   MPHelp
-} from '../../../components';
+} from '../../../../components';
 
 class HelpConfigurationScreenContainer extends React.Component {
 

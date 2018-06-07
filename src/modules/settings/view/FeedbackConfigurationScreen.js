@@ -1,6 +1,15 @@
 import React from 'react';
-import { ScrollView, StyleSheet, View } from 'react-native';
-import { MPHeader, MPSelect, MPTextField, MPFooter } from '../../components';
+import { 
+  ScrollView, 
+  StyleSheet, 
+  View 
+} from 'react-native';
+import { 
+  MPHeader, 
+  MPSelect, 
+  MPTextField, 
+  MPFooter 
+} from '../../../components';
 
 class FeedbackConfigurationScreen extends React.Component {
 

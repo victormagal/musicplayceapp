@@ -1,7 +1,23 @@
 import React from 'react';
-import { FlatList, ScrollView, StyleSheet, View } from 'react-native';
-import { MPEditConfigIcon, MPNotificationConfigIcon, MPInviteConfigIcon, MPHelpConfigIcon, MPArrowRightIcon, MPClipboardIcon } from '../../assets/svg';
-import { MPHeader, MPItemList, MPFooter } from '../../components';
+import { 
+  FlatList, 
+  ScrollView, 
+  StyleSheet, 
+  View 
+} from 'react-native';
+import { 
+  MPEditConfigIcon, 
+  MPNotificationConfigIcon, 
+  MPInviteConfigIcon, 
+  MPHelpConfigIcon, 
+  MPArrowRightIcon, 
+  MPClipboardIcon 
+} from '../../../assets/svg';
+import { 
+  MPHeader, 
+  MPItemList, 
+  MPFooter 
+} from '../../../components';
 
 class InviteConfigurationScreen extends React.Component {
 
