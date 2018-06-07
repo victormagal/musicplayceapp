@@ -1,6 +1,5 @@
 import React, { Component } from 'react'; 
 import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
-import { Icon } from 'react-native-elements';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 
