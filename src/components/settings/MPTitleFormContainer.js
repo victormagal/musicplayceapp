@@ -39,8 +39,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    marginHorizontal: 40,
-    backgroundColor: '#FCFCFC',
+    marginHorizontal: 40
   },
   title: {
     fontSize: 16,

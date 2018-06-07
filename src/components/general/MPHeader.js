@@ -2,23 +2,27 @@ import React from 'react';
 import { View, StyleSheet, Text, StatusBar, TouchableOpacity } from 'react-native';
 import PropTypes from 'prop-types';
 import { MPText } from '../general/MPText';
-import {MPBackIcon, MPLogoIcon} from '../../assets/svg';
+import {MPBackIcon, MPBackBlackIcon, MPLogoIcon, MPLogoBlackIcon} from '../../assets/svg';
 
 class MPHeader extends React.Component {
 
   render() {
-    let { title, back, onBack } = this.props;
+    let { title, back, onBack, inverse } = this.props;
+    let logo = inverse ? <MPLogoBlackIcon style={styles.logo} /> :
+                         <MPLogoIcon style={styles.logo} />;
+    let backIcon = inverse ? <MPBackBlackIcon style={styles.back} /> : <MPBackIcon style={styles.back}/>;
+    let backgroundColor = inverse ? 'transparent' : 'black';
+
     return (
-      <View style={styles.parent}>
-        <StatusBar barStyle="light-content"/>
+      <View style={[styles.parent, {backgroundColor}]}>
+        <StatusBar barStyle={inverse ? "default" : "light-content" }/>
         <View style={styles.header}>
           {back && (
             <TouchableOpacity onPress={onBack}>
-              <MPBackIcon style={styles.back}/>
+              {backIcon}
             </TouchableOpacity>
           )}
-
-          <MPLogoIcon style={styles.logo} />
+          {logo}
         </View>
         { title && (
           <MPText style={styles.title}>
@@ -38,7 +42,6 @@ MPHeader.propTypes = {
 
 const styles = StyleSheet.create({
   parent: {
-    backgroundColor: 'black',
     paddingBottom: 15
   },
   header: {
