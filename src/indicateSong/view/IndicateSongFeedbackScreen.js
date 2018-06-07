@@ -29,7 +29,7 @@ class IndicateSongFeedbackScreenContainer extends React.Component {
                 <MPArtist artist={'Bruno Caliman'} backgroundColor={'#6f0'} onPress={() => {}} style={{}} />
               </View>
               <Text style={ styles.infoText }><Text style={ styles.infoTextEmph }>203</Text> outras pessoas sugeriram esta parceria também!</Text>
-              <MPGradientButton title={'Fechar'} textSize={16} style={{marginHorizontal: 133}} />
+              <MPGradientButton title={'Fechar'} textSize={16} style={{marginHorizontal: 133}} onPress={()=>{}} />
             </View>
           ) : null
         }

@@ -34,7 +34,10 @@ class MPTextFieldComponent extends React.Component {
       value, 
       label, 
       multiline,
-      style
+      style,
+      onFocus,
+      onBlur,
+      onChangeText
     } = this.props;
     return (
       <View style={[styles.parent, style]}>
@@ -50,6 +53,9 @@ class MPTextFieldComponent extends React.Component {
           tintColor={'rgba(177, 177, 177, 0.8)'}
           labelTextStyle={this.getLabelStyle()}
           style={this.getTextFieldStyle()}
+          onFocus={ onFocus }
+          onBlur={ onBlur }
+          onChangeText={ onChangeText } 
         />
       </View>
     );
