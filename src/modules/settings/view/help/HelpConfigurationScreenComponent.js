@@ -7,7 +7,6 @@ import {
 } from 'react-native';
 import { 
 	MPHeader,
-	MPItemList,
 	MPTextField,
 	MPToggleList,
 	MPFooter,

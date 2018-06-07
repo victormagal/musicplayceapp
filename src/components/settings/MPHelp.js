@@ -22,7 +22,7 @@ class MPHelpComponent extends React.Component {
   };
 
   handleFoward = () => {
-    this.props.navigation.replace('messageConfiguration', { component: MPHelpSuccess });
+    this.props.navigation.replace('message', { component: MPHelpSuccess });
   };
 
   render() {

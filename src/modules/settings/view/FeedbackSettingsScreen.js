@@ -11,7 +11,7 @@ import {
   MPFooter 
 } from '../../../components';
 
-class FeedbackConfigurationScreen extends React.Component {
+class FeedbackSettingsScreen extends React.Component {
 
   handleBack = () => {
     this.props.navigation.pop();
@@ -44,4 +44,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export { FeedbackConfigurationScreen };
+export { FeedbackSettingsScreen };

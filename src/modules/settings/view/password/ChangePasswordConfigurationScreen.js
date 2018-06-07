@@ -21,7 +21,7 @@ class ChangePasswordConfigurationScreenContainer extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.saveProfileSuccess) {
-      this.props.navigation.navigate('messageConfiguration', { component: this.pages[nextProps.page] });
+      this.props.navigation.navigate('message', { component: this.pages[nextProps.page] });
     }
   }
 

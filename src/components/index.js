@@ -4,5 +4,5 @@ export * from './forms';
 export * from './general';
 export * from './lists';
 export * from './profile';
-export * from './configuration';
+export * from './settings';
 export * from './registerSongs';

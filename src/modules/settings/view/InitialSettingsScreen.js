@@ -22,55 +22,55 @@ import {
 } from '../../../assets/svg';
 import { connect } from 'react-redux';
 
-class ConfigurationScreenComponent extends React.Component {
+class InitialSettingsScreenContainer extends React.Component {
 	
 	list = {
 		data: [
 			{
 				id: '00',
-				rota: 'editConfiguration',
+				rota: 'editSettings',
 				title: 'Editar dados cadastrais',
 				icon: MPEditConfigIcon,
 				iconNext: MPArrowRightIcon
 			},
 			{
 				id: '01',
-				rota: 'notificationConfiguration',
+				rota: 'notificationsSettings',
 				title: 'Personalizar notificações',
 				icon: MPNotificationConfigIcon,
 				iconNext: MPArrowRightIcon
 			},
 			{
 				id: '02',
-				rota: 'inviteConfiguration',
+				rota: 'inviteSettings',
 				title: 'Convide seus amigos',
 				icon: MPInviteConfigIcon,
 				iconNext: MPArrowRightIcon
 			},
 			{
 				id: '03',
-				rota: 'helpConfiguration',
+				rota: 'helpSettings',
 				title: 'Peça ajuda',
 				icon: MPHelpConfigIcon,
 				iconNext: MPArrowRightIcon
 			},
 			{
 				id: '04',
-				rota: 'changePasswordConfiguration',
+				rota: 'passwordSettings',
 				title: 'Troque sua senha',
 				icon: MPPasswordConfigIcon,
 				iconNext: MPArrowRightIcon
 			},
 			{
 				id: '05',
-				rota: 'feedbackConfiguration',
+				rota: 'feedbackSettings',
 				title: 'Enviar feedback',
 				icon: MPFeedbackConfigIcon,
 				iconNext: MPArrowRightIcon
 			},
 			{
 				id: '06',
-				rota: 'termsConfiguration',
+				rota: 'termsSettings',
 				title: 'Termos e condições',
 				icon: MPTermsConfigIcon,
 				iconNext: MPArrowRightIcon
@@ -78,14 +78,14 @@ class ConfigurationScreenComponent extends React.Component {
 		]
 	};
 
-	handleBackClick = () => {
+	handleBack = () => {
 		this.props.navigation.pop();
 	};
 	
 	render() {
 		return (
 			<View style={styles.parent}>
-				<MPHeader title={"Configure o MusicPlayce do seu jeitinho"} back={true} onBack={this.handleBackClick}/>
+				<MPHeader title={"Configure o MusicPlayce do seu jeitinho"} back={true} onBack={this.handleBack}/>
 				<ScrollView style={styles.scroll}>
 					<FlatList
 						data={this.list.data}
@@ -118,5 +118,5 @@ const mapStateToProps = () => {
 	return {};
 };
 
-const ConfigurationScreen = connect(mapStateToProps)(ConfigurationScreenComponent);
-export { ConfigurationScreen };
+const InitialSettingsScreen = connect(mapStateToProps)(InitialSettingsScreenContainer);
+export { InitialSettingsScreen };

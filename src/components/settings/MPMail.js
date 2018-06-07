@@ -11,26 +11,26 @@ import {
 import {
   MPGradientButton,
   MPText,
-  MPPhoneSuccess
+  MPMailSuccess
 } from '../../components';
 
-class MPPhoneComponent extends React.Component {
+class MPMailComponent extends React.Component {
 
   handleBack = () => {
     this.props.navigation.pop();
   };
-  
+
   handleFoward = () => {
-    this.props.navigation.replace('messageConfiguration', { component: MPPhoneSuccess });
+    this.props.navigation.replace('message', { component: MPMailSuccess });
   };
 
   render() {
     return (
       <View>
-        <MPText style={styles.title}>Enviamos um código via SMS para seu novo número</MPText>
-        <MPText style={styles.subtitle}>Digite aqui o código enviado para o número: (21) 99999-9999</MPText>
+        <MPText style={styles.title}>Uma mensagem de confirmação foi enviada para o seu novo e-mail de cadastro</MPText>
+        <MPText style={styles.subtitle}>Se você ainda não recebeu essa mensagem, clique em reenviar</MPText>
         <MPGradientButton style={styles.button} textSize={16} title="Cancelar" onPress={this.handleBack} />
-        <MPGradientButton style={styles.button} textSize={16} title="Reenviar SMS" onPress={this.handleFoward} />
+        <MPGradientButton style={styles.button} textSize={16} title="Reenviar" onPress={this.handleFoward} />
       </View>
     );
   }
@@ -63,5 +63,5 @@ const mapStateToProps = ({ fontReducer }) => {
   return { ...fontReducer };
 };
 
-const MPPhone = connect(mapStateToProps)(MPPhoneComponent);
-export { MPPhone };
+const MPMail = connect(mapStateToProps)(MPMailComponent);
+export { MPMail };

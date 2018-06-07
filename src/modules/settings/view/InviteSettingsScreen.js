@@ -19,31 +19,31 @@ import {
   MPFooter 
 } from '../../../components';
 
-class InviteConfigurationScreen extends React.Component {
+class InviteSettingsScreen extends React.Component {
 
   list = {
     data: [
       {
         id: '00',
-        rota: 'editConfiguration',
+        rota: 'homeSettings',
         title: 'Enviar por e-mail',
         iconNext: MPArrowRightIcon
       },
       {
         id: '01',
-        rota: 'editConfiguration',
+        rota: 'homeSettings',
         title: 'Enviar por Facebook',
         iconNext: MPArrowRightIcon
       },
       {
         id: '02',
-        rota: 'editConfiguration',
+        rota: 'homeSettings',
         title: 'Enviar por SMS',
         iconNext: MPArrowRightIcon
       },
       {
         id: '03',
-        rota: 'editConfiguration',
+        rota: 'homeSettings',
         title: 'Copiar o link',
         iconNext: MPClipboardIcon
       }
@@ -87,4 +87,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export { InviteConfigurationScreen };
+export { InviteSettingsScreen };

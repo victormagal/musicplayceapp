@@ -4,15 +4,14 @@ import {
   fetchProfile, 
   saveProfile 
 } from '../../../../state/action';
-import { EditConfigurationScreenComponent } from './EditConfigurationScreenComponent';
+import { EditSettingsScreenComponent } from './EditSettingsScreenComponent';
 import { 
-  MPGradientButton, 
   MPProfileSuccess,
   MPMail,
   MPPhone
 } from '../../../../components';
 
-class EditConfigurationScreenContainer extends React.Component {
+class EditSettingsScreenContainer extends React.Component {
 
   pages = {
     'profile': MPProfileSuccess,
@@ -26,7 +25,7 @@ class EditConfigurationScreenContainer extends React.Component {
 
   componentWillReceiveProps(nextProps){
     if(nextProps.saveProfileSuccess) {
-      this.props.navigation.navigate('messageConfiguration', { component: this.pages[nextProps.page] });
+      this.props.navigation.navigate('message', { component: this.pages[nextProps.page] });
     }
   }
 
@@ -40,7 +39,7 @@ class EditConfigurationScreenContainer extends React.Component {
 
   render() {
     return (
-      <EditConfigurationScreenComponent
+      <EditSettingsScreenComponent
         onSave={this.handleSaveClick}
         onBack={this.handleBackClick}
         profile={this.props.profile}
@@ -54,5 +53,5 @@ const mapStateToProps = ({ profileReducer }) => {
   return {...profileReducer };
 };
 
-const EditConfigurationScreen = connect(mapStateToProps)(EditConfigurationScreenContainer);
-export { EditConfigurationScreen };
+const EditSettingsScreen = connect(mapStateToProps)(EditSettingsScreenContainer);
+export { EditSettingsScreen };

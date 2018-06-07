@@ -1,1 +1,1 @@
-export * from './EditConfigurationScreen';
+export * from './EditSettingsScreen';

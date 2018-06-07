@@ -1,19 +1,19 @@
 import React from 'react';
 import { 
   ScrollView, 
-  StyleSheet, 
-  Text, 
+  StyleSheet,
   View 
 } from 'react-native';
 import { 
   MPHeader, 
   MPSelect, 
   MPSwitch, 
-  MPFooter 
+  MPFooter,
+  MPText
 } from '../../../components';
 import { connect } from 'react-redux';
 
-class NotificationConfigurationScreenComponent extends React.Component {
+class NotificationSettingsScreenContainer extends React.Component {
 
   handleBack = () => {
     this.props.navigation.pop();
@@ -24,64 +24,44 @@ class NotificationConfigurationScreenComponent extends React.Component {
       <View style={styles.parent}>
         <MPHeader back={true} onBack={this.handleBack} title={"Preferências de notificação"} />
         <ScrollView style={styles.scroll}>
-          {
-            this.props.fontLoaded ? (
-              <View style={styles.boxText}>
-                <Text style={styles.title}>Novos interessados</Text>
-                <Text style={styles.paragraph}>Fique sabendo quando entrarem em contato com você</Text>
-              </View>
-            ) : null
-          }
+          <View style={styles.boxText}>
+            <MPText style={styles.title}>Novos interessados</MPText>
+            <MPText style={styles.paragraph}>Fique sabendo quando entrarem em contato com você</MPText>
+          </View>
           <MPSwitch label={"E-mail"} />
           <MPSwitch label={"Celular / tablet"} />
           <MPSwitch label={"SMS"} />
           <View style={styles.separator} />
-          {
-            this.props.fontLoaded ? (
-              <View style={styles.boxText}>
-                <Text style={styles.title}>Indicaram sua música</Text>
-                <Text style={styles.paragraph}>Fique sabendo quando indicarem suas composições</Text>
-              </View>
-            ) : null
-          }
+          <View style={styles.boxText}>
+            <MPText style={styles.title}>Indicaram sua música</MPText>
+            <MPText style={styles.paragraph}>Fique sabendo quando indicarem suas composições</MPText>
+          </View>
           <MPSelect />
           <MPSwitch label={"E-mail"} />
           <MPSwitch label={"Celular / tablet"} />
           <MPSwitch label={"SMS"} />
           <View style={styles.separator} />
-          {
-            this.props.fontLoaded ? (
-              <View style={styles.boxText}>
-                <Text style={styles.title}>Indicaram para você</Text>
-                <Text style={styles.paragraph}>Fique sabendo quando indicarem músicas para você</Text>
-              </View>
-            ) : null
-          }
+          <View style={styles.boxText}>
+            <MPText style={styles.title}>Indicaram para você</MPText>
+            <MPText style={styles.paragraph}>Fique sabendo quando indicarem músicas para você</MPText>
+          </View>
           <MPSelect />
           <MPSwitch label={"E-mail"} />
           <MPSwitch label={"Celular / tablet"} />
           <MPSwitch label={"SMS"} />
           <View style={styles.separator} />
-          {
-            this.props.fontLoaded ? (
-              <View style={styles.boxText}>
-                <Text style={styles.title}>Promoções e dicas</Text>
-                <Text style={styles.paragraph}>Receba promoções e dicas para turbinar o seu perfil</Text>
-              </View>
-            ) : null
-          }
+          <View style={styles.boxText}>
+            <MPText style={styles.title}>Promoções e dicas</MPText>
+            <MPText style={styles.paragraph}>Receba promoções e dicas para turbinar o seu perfil</MPText>
+          </View>
           <MPSwitch label={"E-mail"} />
           <MPSwitch label={"Celular / tablet"} />
           <MPSwitch label={"SMS"} />
           <View style={styles.separator} />
-          {
-            this.props.fontLoaded ? (
-              <View style={styles.boxText}>
-                <Text style={styles.title}>Ajuda</Text>
-                <Text style={styles.paragraph}>Quando entrar em contato com a gente, como prefere receber nossas respostas e avisos importantes?</Text>
-              </View>
-            ) : null
-          }
+          <View style={styles.boxText}>
+            <MPText style={styles.title}>Ajuda</MPText>
+            <MPText style={styles.paragraph}>Quando entrar em contato com a gente, como prefere receber nossas respostas e avisos importantes?</MPText>
+          </View>
           <MPSwitch label={"E-mail"} />
           <MPSwitch label={"Celular / tablet"} />
           <MPSwitch label={"SMS"} />
@@ -129,5 +109,5 @@ const mapStateToProps = ({ fontReducer }) => {
   return { ...fontReducer };
 };
 
-const NotificationConfigurationScreen = connect(mapStateToProps)(NotificationConfigurationScreenComponent);
-export { NotificationConfigurationScreen };
+const NotificationSettingsScreen = connect(mapStateToProps)(NotificationSettingsScreenContainer);
+export { NotificationSettingsScreen };

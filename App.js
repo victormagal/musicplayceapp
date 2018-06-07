@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 import thunkMiddleware from 'redux-thunk'
 import { createStackNavigator } from 'react-navigation';
 import { Font, DangerZone } from 'expo';
-import { HomeScreen, ProfileScreen, SongsScreensNavigation, ConfigurationScreensNavigation } from './src/modules';
+import { HomeScreen, ProfileScreen, SongsScreensNavigation, SettingsNavigation, MessageNavigation } from './src/modules';
 import { reducers } from './src/state/reducer';
 import { changeLanguage, loadFont } from './src/state/action';
 import { IndicateSongScreensNavigation } from './src/indicateSong';
@@ -26,8 +26,9 @@ const HomeNavigation = createStackNavigator(
     home: HomeScreen,
     profile: ProfileScreen,
     registerSongs: SongsScreensNavigation,
-    settings: ConfigurationScreensNavigation,
+    settings: SettingsNavigation,
     indicateSong: IndicateSongScreensNavigation,
+    message: MessageNavigation
   },
   {
     initialRouteName: 'settings',

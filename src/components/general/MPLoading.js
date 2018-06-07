@@ -1,16 +1,21 @@
 import React from 'react';
-import { View, StyleSheet, ActivityIndicator, Modal, Text } from 'react-native';
+import { 
+  ActivityIndicator, 
+  StyleSheet, 
+  Modal,
+  View 
+} from 'react-native';
 import PropTypes from 'prop-types';
 
 class MPLoading extends React.Component {
 
   render() {
     return (
-        <Modal animationType="none" transparent={true} visible={this.props.visible} onRequestClose={()=> {}}>
-          <View style={styles.container}>
-            <ActivityIndicator size="large" color="#BB1A1A" />
-          </View>
-        </Modal>
+      <Modal animationType="none" transparent={true} visible={this.props.visible} onRequestClose={()=> {}}>
+        <View style={styles.container}>
+          <ActivityIndicator size="large" color="#BB1A1A" />
+        </View>
+      </Modal>
     );
   }
 }

@@ -1,7 +1,14 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
-import {MPGradientButton, ProfileIndicatorCE, MPHeader} from '../../../../src/components';
-import {LinearGradient} from 'expo';
+import {
+  StyleSheet, 
+  View
+} from 'react-native';
+import {
+  MPGradientButton, 
+  ProfileIndicatorCE, 
+  MPHeader
+} from '../../../../src/components';
+import { LinearGradient } from 'expo';
 
 
 class HomeScreen extends React.Component {
@@ -13,7 +20,7 @@ class HomeScreen extends React.Component {
 
   goToConfiguration(){
     let { navigate } = this.props.navigation;
-    navigate("configuration");
+    navigate("settings");
   };
   
   render() {

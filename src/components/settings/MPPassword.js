@@ -21,7 +21,7 @@ class MPPasswordComponent extends React.Component {
   };
 
   handleFoward = () => {
-    this.props.navigation.replace('messageConfiguration', { component: MPPhoneSuccess });
+    this.props.navigation.replace('message', { component: MPPhoneSuccess });
   };
 
   render() {

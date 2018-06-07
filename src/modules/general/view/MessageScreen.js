@@ -1,10 +1,11 @@
 import React from 'react';
 import { 
-  ScrollView, 
   StyleSheet, 
   View 
 } from 'react-native';
-import { MPHeader } from '../../../components';
+import { 
+  MPHeader
+ } from '../../../components';
 
 class MessageScreen extends React.Component {
 
@@ -27,4 +28,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export {MessageScreen};
+export { MessageScreen };
