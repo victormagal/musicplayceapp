@@ -59,6 +59,7 @@ export default class App extends React.Component {
       'montSerratSemiBold': require('./assets/fonts/Montserrat-SemiBold.ttf'),
       'montSerratBoldItalic': require('./assets/fonts/Montserrat-BoldItalic.ttf'),
       'montSerratItalic': require('./assets/fonts/Montserrat-Italic.ttf'),
+      'probaProRegular': require('./assets/fonts/ProbaPro-Regular.otf'),
     }).then(() => {
       store.dispatch(loadFont(true))
     });

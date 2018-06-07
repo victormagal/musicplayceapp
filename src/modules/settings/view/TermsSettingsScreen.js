@@ -25,7 +25,7 @@ class TermsSettingsScreenContainer extends React.Component {
         <ScrollView style={styles.scroll}>
           <View style={styles.container}>
             <View style={styles.containerSelect}>
-              <MPSelect label={"Selecione"} />
+              <MPSelect label={"Selecione um tópico"} />
             </View>
             <View style={styles.boxText}>
               <MPText style={styles.title}>Tópico 1 - Lorem ipsum</MPText>
@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
   paragraph: {
     fontSize: 16,
     color: '#686868',
-    fontFamily: 'montSerrat'
+    fontFamily: 'probaProRegular'
   }
 });
 

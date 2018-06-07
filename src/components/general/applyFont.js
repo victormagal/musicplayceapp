@@ -17,14 +17,12 @@ export const applyFont = (WrapperComponent) => {
               style[i] = StyleSheet.flatten([style]);
             }
 
-            console.log(style[i]);
             delete style[i]['fontFamily'];
           }
         } else {
           if (!isNaN(style)) {
             style = StyleSheet.flatten([style]);
           }
-          console.log(style);
           delete style.fontFamily;
         }
       }

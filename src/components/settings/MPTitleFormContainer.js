@@ -1,7 +1,6 @@
 import React from 'react';
 import { 
-  StyleSheet, 
-  Text, 
+  StyleSheet,
   View
 } from 'react-native';
 import { 
@@ -22,8 +21,8 @@ class MPTitleFormContainerComponent extends React.Component {
 
     return (
       <View style={styles.container}>
-          <MPText style={styles.title}>{title}</MPText>
-          <MPGradientButton style={styles.button} title={textButton} onPress={onPress} />
+        <MPText style={styles.title}>{title}</MPText>
+        <MPGradientButton style={styles.button} title={textButton} onPress={onPress} />
       </View>
     );
   }

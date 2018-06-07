@@ -15,7 +15,7 @@ class MPGradientButtonComponent extends Component {
 
     let borderStyle = selected ? {} : {borderWidth: 1, borderColor: '#E13223'};
 
-    let linearColorOptions = [['#bb1a1a', '#2E2C9D'], ['transparent', 'transparent']];
+    let linearColorOptions = [['#BB1A1A', '#2E2C9D'], ['transparent', 'transparent']];
     let linearColor = selected ? linearColorOptions[0] : linearColorOptions[1];
     let textStyle = (selected ? {fontFamily: 'montSerratSemiBold'} : {color: "#E13223", fontFamily: 'montSerratSemiBold'});
     let textSizeStyle = textSize != null ? {fontSize: textSize} : {};
@@ -50,8 +50,8 @@ MPGradientButtonComponent.propTypes = {
 
 const styles = StyleSheet.create({
   linear: {
-    paddingVertical: 13,
-    paddingHorizontal: 16,
+    paddingVertical: 5,
+    paddingHorizontal: 15,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
   text: {
     backgroundColor: 'transparent',
     fontSize: 10,
-    color: '#fff'
+    color: '#FFFFFF'
   },
   icon: {
     position: 'absolute',
