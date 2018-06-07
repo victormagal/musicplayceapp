@@ -6,10 +6,10 @@ import { Provider } from 'react-redux';
 import thunkMiddleware from 'redux-thunk'
 import { createStackNavigator } from 'react-navigation';
 import { Font, DangerZone } from 'expo';
-import { HomeScreen, ProfileScreen, SongsScreensNavigation, SettingsNavigation, LoginScreensNavigation, MessageNavigation } from './src/modules';
+import { HomeScreen, ProfileScreen, SongsScreensNavigation, SettingsNavigation, LoginScreensNavigation, MessageNavigation, IndicateSongScreensNavigation } from './src/modules';
 import { reducers } from './src/state/reducer';
 import { changeLanguage, loadFont } from './src/state/action';
-import { IndicateSongScreensNavigation } from './src/indicateSong';
+
 
 const {Localization} = DangerZone;
 const store = createStore(reducers, applyMiddleware(thunkMiddleware));
@@ -32,7 +32,7 @@ const HomeNavigation = createStackNavigator(
     message: MessageNavigation
   },
   {
-    initialRouteName: 'login',
+    initialRouteName: 'indicateSong',
     headerMode: 'none'
   }
 );

@@ -1,8 +1,6 @@
 import React from 'react';
 import {StyleSheet, ScrollView, Text, View, TextInput, FlatList} from 'react-native';
-import { Icon } from 'react-native-elements'
-import { TextField } from 'react-native-material-textfield';
-import { MPHeader, MPTextField, MPFooter, MPArtist, MPSong, MPGradientButton } from '../../components'
+import { MPHeader, MPTextField, MPFooter, MPArtist, MPSong, MPGradientButton } from '../../../components'
 import { connect } from 'react-redux';
 
 class IndicateSongFullScreenContainer extends React.Component {
