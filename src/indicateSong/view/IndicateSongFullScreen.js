@@ -56,7 +56,7 @@ class IndicateSongFullScreenContainer extends React.Component {
   }
   
   renderItem = ({item}) => (
-    <MPArtist artist={item.title} backgroundColor={item.backgroundColor} onPress={() => {}} style={{marginBottom: 10,}} />
+    <MPArtist artist={item.title} backgroundColor={item.backgroundColor} onPress={this.goToScreen.bind(this, 'IndicateSongFeedbackScreen')} style={{marginBottom: 10,}} />
   )
 
   render() {
@@ -69,8 +69,8 @@ class IndicateSongFullScreenContainer extends React.Component {
             <View>
               <Text style={ styles.headerText}>Com quem <Text style={ styles.headerTextCustom }>combina</Text> ?</Text>
               <MPSong />
-              <Text style={ styles.detailsText} onPress={this.goToScreen.bind(this, 'IndicateSongFeedbackScreen')}>Sabe aquela história de que todo artista tem de ir aonde o povo está? Vamos mostrar sua criação para o mundo. Aproveite para convocar seus seguidores ou você mesmo pode achar uma banda perfeita para esse hit.</Text>
-              <MPTextField label={'Encontre um artista'} value={''} style={{marginHorizontal: 20}}/>
+              <Text style={ styles.detailsText} onPress={this.goToScreen.bind(this, 'IndicateSongNotFoundScreen')}>Sabe aquela história de que todo artista tem de ir aonde o povo está? Vamos mostrar sua criação para o mundo. Aproveite para convocar seus seguidores ou você mesmo pode achar uma banda perfeita para esse hit.</Text>
+              <MPTextField label={'Encontre um artista'} value={''} style={{marginHorizontal: 20}} onFocus={this.goToScreen.bind(this, 'IndicateSongSearchScreen')}/>
               <View>
                   <FlatList data = {this.artistList.data}
                       keyExtractor={(item,index) => item.id} 
@@ -103,6 +103,7 @@ const styles = StyleSheet.create({
     color: '#000',
     fontFamily: 'montSerrat',
     marginHorizontal: 20,
+    marginTop: 30
   },
   headerTextCustom: {
       fontFamily: 'montSerratBold',

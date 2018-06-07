@@ -3,6 +3,7 @@ import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import { Icon } from 'react-native-elements';
+import { MPSongListIcon, MPPlayIcon, MPStarIcon } from '../../assets/svg';
 
 class MPSongRatingComponent extends Component{
 
@@ -14,15 +15,20 @@ class MPSongRatingComponent extends Component{
             {
                 this.props.fontLoaded ? (
                     <View style={ styles.simpleArtistCardContainer }>
-                        <View style={ styles.simpleArtistCardImage } backgroundColor={ backgroundColor }></View>
+                        <View>
+                            <View style={ styles.simpleArtistCardImage } backgroundColor={ backgroundColor }>
+                                <MPSongListIcon style={{position: 'absolute', top: 10, right: 10}} />
+                                <MPPlayIcon style={{ marginTop: 38, alignSelf: 'center'}} />
+                            </View>
+                        </View>
                         <View>
                             <Text style={ styles.simpleArtistCardText }>{ songName }</Text>
-                            <View style={{marginHorizontal : 10, marginBottom: 10, flexDirection: 'row'}}>
-                                <Icon name={'star'} type={'entypo'} color='#d8d8d8' size={12} containerStyle={ {marginEnd: 3} }/>
-                                <Icon name={'star'} type={'entypo'} color='#d8d8d8' size={12} containerStyle={ {marginEnd: 3} }/>
-                                <Icon name={'star'} type={'entypo'} color='#d8d8d8' size={12} containerStyle={ {marginEnd: 3} }/>
-                                <Icon name={'star'} type={'entypo'} color='#d8d8d8' size={12} containerStyle={ {marginEnd: 3} }/>
-                                <Icon name={'star'} type={'entypo'} color='#d8d8d8' size={12} containerStyle={ {marginEnd: 3} }/>
+                            <View style={{marginHorizontal : 10, marginBottom: 10, marginTop: 5, flexDirection: 'row'}}>
+                                <MPStarIcon style={{marginEnd: 3}} />
+                                <MPStarIcon style={{marginEnd: 3}} />
+                                <MPStarIcon style={{marginEnd: 3}} />
+                                <MPStarIcon style={{marginEnd: 3}} />
+                                <MPStarIcon style={{marginEnd: 3}} />
                             </View>
                         </View>
                         

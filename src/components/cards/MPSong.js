@@ -3,6 +3,7 @@ import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { Icon } from 'react-native-elements';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { MPPlayBlackIcon } from '../../assets/svg';
 
 class MPSongComponent extends Component{
 
@@ -16,7 +17,7 @@ class MPSongComponent extends Component{
                     this.props.fontLoaded ? (
                         <View>
                             <View style={ styles.songHeaderContainer }>
-                                <Icon name={'controller-play'} type={'entypo'} color='#000' size={24} containerStyle={ styles.songHeaderIcon }/>
+                                <MPPlayBlackIcon style={ styles.songHeaderIcon} />
                                 <Text style={ styles.songHeaderText}>Tocando em Frente</Text>
                             </View>
                             <Text style={ styles.songCardTitle}>COMPOSITORES</Text>
@@ -64,6 +65,8 @@ const styles = StyleSheet.create({
     },
     songHeaderIcon: {
         marginEnd: 14,
+        justifyContent: 'center',
+        alignSelf: 'center'
     },
     songCardTitle: {
         fontSize: 10,

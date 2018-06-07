@@ -88,6 +88,16 @@ export const MPPaymentConfigIcon = (props) => {
  return (<Svg {...newProps} viewBox='0 0 11 20'><Path fill='none' d='M0.909 13.682c0.285 2.394 1.83 3.591 4.635 3.591s4.285-0.985 4.443-2.955c0.128-1.575-0.67-2.733-2.395-3.475-2.588-1.114-5.655-1.525-6.358-3.945-0.705-2.418 1.5-4.171 4.311-4.171 2.491 0 4.415 1.611 4.443 3.16' stroke='#e13223' strokeWidth='0.9091' strokeMiterlimit='4' strokeLinecap='round' strokeLinejoin='miter'/><Path fill='#e13223' d='M5.909 0c0.251 0 0.455 0.204 0.455 0.455v19.091c0 0.251-0.204 0.455-0.455 0.455s-0.455-0.204-0.455-0.455v-19.091c0-0.251 0.204-0.455 0.455-0.455z'/></Svg>); 
 };
 
+export const MPPlayBlackIcon = (props) => { 
+ let newProps = applyStyle(props, 20, 22); 
+ return (<Svg {...newProps} viewBox='0 0 20 22'><Path fill='#000' d='M19.024 12.612l-16.317 8.838c-0.252 0.139-0.553 0.222-0.874 0.222-1.012 0-1.833-0.821-1.833-1.833v-17.677c0-0 0-0 0-0.001 0-1.013 0.821-1.833 1.833-1.833 0.32 0 0.621 0.082 0.883 0.226l-0.009-0.005 16.317 8.838c0.577 0.317 0.961 0.92 0.961 1.612s-0.384 1.296-0.951 1.608l-0.009 0.005z'/></Svg>); 
+};
+
+export const MPPlayIcon = (props) => { 
+ let newProps = applyStyle(props, 23, 24); 
+ return (<Svg {...newProps} viewBox='0 0 23 24'><Path fill='#000' d='M19.164 11.426l-13.781 7.465c-0.213 0.118-0.467 0.187-0.738 0.187-0.855 0-1.548-0.693-1.548-1.548v-14.93c0-0.855 0.693-1.548 1.548-1.548 0.27 0 0.525 0.069 0.746 0.191l-0.008-0.004 13.781 7.465c0.487 0.267 0.811 0.777 0.811 1.361s-0.324 1.094-0.803 1.357l-0.008 0.004z'/><Path fill='#fff' d='M19.164 11.426l-13.781 7.465c-0.213 0.118-0.467 0.187-0.738 0.187-0.855 0-1.548-0.693-1.548-1.548v-14.93c0-0.855 0.693-1.548 1.548-1.548 0.27 0 0.525 0.069 0.746 0.191l-0.008-0.004 13.781 7.465c0.487 0.267 0.811 0.777 0.811 1.361s-0.324 1.094-0.803 1.357l-0.008 0.004z'/></Svg>); 
+};
+
 export const MPPlusIcon = (props) => { 
  let newProps = applyStyle(props, 19, 20); 
  return (<Svg {...newProps} viewBox='0 0 19 20'><Path fill='#ccc' d='M19.048 7.132v4.868h-7.090v7.090h-4.825v-7.090h-7.133v-4.868h7.132v-7.132h4.826v7.132z'/></Svg>); 
@@ -101,6 +111,11 @@ export const MPProfileIcon = (props) => {
 export const MPSongListIcon = (props) => { 
  let newProps = applyStyle(props, 16, 14); 
  return (<Svg {...newProps} viewBox='0 0 16 14'><Path fill='#fff' d='M1 4c0.552 0 1 0.448 1 1s-0.448 1-1 1v0c-0.552 0-1-0.448-1-1s0.448-1 1-1v0zM1 8c0.552 0 1 0.448 1 1s-0.448 1-1 1v0c-0.552 0-1-0.448-1-1s0.448-1 1-1v0zM1 12c0.552 0 1 0.448 1 1s-0.448 1-1 1v0c-0.552 0-1-0.448-1-1s0.448-1 1-1v0zM4 4h12v1h-12v-1zM1 0c0.552 0 1 0.448 1 1s-0.448 1-1 1v0c-0.552 0-1-0.448-1-1s0.448-1 1-1v0zM4 0h8v1h-8v-1zM4 8h12v1h-12v-1zM4 12h12v1h-12v-1z'/></Svg>); 
+};
+
+export const MPStarIcon = (props) => { 
+ let newProps = applyStyle(props, 12, 12); 
+ return (<Svg {...newProps} viewBox='0 0 12 12'><Path fill='#d8d8d8' d='M6 9.95l-3.708 2.050 0.708-4.342-3-3.074 4.146-0.634 1.854-3.95 1.854 3.95 4.146 0.634-3 3.074 0.708 4.342z'/></Svg>); 
 };
 
 export const MPTermsConfigIcon = (props) => { 
