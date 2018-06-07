@@ -88,9 +88,19 @@ export const MPPaymentConfigIcon = (props) => {
  return (<Svg {...newProps} viewBox='0 0 11 20'><Path fill='none' d='M0.909 13.682c0.285 2.394 1.83 3.591 4.635 3.591s4.285-0.985 4.443-2.955c0.128-1.575-0.67-2.733-2.395-3.475-2.588-1.114-5.655-1.525-6.358-3.945-0.705-2.418 1.5-4.171 4.311-4.171 2.491 0 4.415 1.611 4.443 3.16' stroke='#e13223' strokeWidth='0.9091' strokeMiterlimit='4' strokeLinecap='round' strokeLinejoin='miter'/><Path fill='#e13223' d='M5.909 0c0.251 0 0.455 0.204 0.455 0.455v19.091c0 0.251-0.204 0.455-0.455 0.455s-0.455-0.204-0.455-0.455v-19.091c0-0.251 0.204-0.455 0.455-0.455z'/></Svg>); 
 };
 
+export const MPPlusIcon = (props) => { 
+ let newProps = applyStyle(props, 19, 20); 
+ return (<Svg {...newProps} viewBox='0 0 19 20'><Path fill='#ccc' d='M19.048 7.132v4.868h-7.090v7.090h-4.825v-7.090h-7.133v-4.868h7.132v-7.132h4.826v7.132z'/></Svg>); 
+};
+
 export const MPProfileIcon = (props) => { 
  let newProps = applyStyle(props, 18, 22); 
  return (<Svg {...newProps} viewBox='0 0 18 22'><Path fill='#e13223' d='M8.988 0c2.548 0 4.614 1.746 4.614 4.736 0 2.989-2.065 5.411-4.614 5.411-2.547 0-4.613-2.422-4.613-5.411 0-2.99 2.066-4.736 4.613-4.736zM8.988 22c-3.506 0-6.512-0.969-8.988-2.78 0.010-0.463 0.020-1.323 0.031-1.424 0.45-3.927 4.23-5.325 8.826-5.325 0.045 0 0.087 0.003 0.13 0.004s0.088-0.004 0.131-0.004c4.597 0 8.376 1.398 8.826 5.325 0.011 0.102 0.023 0.961 0.032 1.425-2.464 1.776-5.52 2.779-8.988 2.779z'/></Svg>); 
+};
+
+export const MPSongListIcon = (props) => { 
+ let newProps = applyStyle(props, 16, 14); 
+ return (<Svg {...newProps} viewBox='0 0 16 14'><Path fill='#fff' d='M1 4c0.552 0 1 0.448 1 1s-0.448 1-1 1v0c-0.552 0-1-0.448-1-1s0.448-1 1-1v0zM1 8c0.552 0 1 0.448 1 1s-0.448 1-1 1v0c-0.552 0-1-0.448-1-1s0.448-1 1-1v0zM1 12c0.552 0 1 0.448 1 1s-0.448 1-1 1v0c-0.552 0-1-0.448-1-1s0.448-1 1-1v0zM4 4h12v1h-12v-1zM1 0c0.552 0 1 0.448 1 1s-0.448 1-1 1v0c-0.552 0-1-0.448-1-1s0.448-1 1-1v0zM4 0h8v1h-8v-1zM4 8h12v1h-12v-1zM4 12h12v1h-12v-1z'/></Svg>); 
 };
 
 export const MPTermsConfigIcon = (props) => { 

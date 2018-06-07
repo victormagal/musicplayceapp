@@ -2,8 +2,9 @@ import React from 'react';
 import {StyleSheet, ScrollView, Text, View, TextInput} from 'react-native';
 import { Icon } from 'react-native-elements'
 import { TextField } from 'react-native-material-textfield';
-import { MPHeader, MPTextField, MPFooter, MPGradientButton, MPArtist } from '../../components'
+import { MPHeader, MPTextField, MPFooter, MPGradientButton, MPArtist, MPSongRating } from '../../components'
 import { connect } from 'react-redux';
+import { MPPlusIcon, MPLogoIcon } from '../../assets/svg';
 
 class IndicateSongFeedbackScreenContainer extends React.Component {
   
@@ -24,9 +25,9 @@ class IndicateSongFeedbackScreenContainer extends React.Component {
           this.props.fontLoaded ? (
             <View>
               <Text style={ styles.headerText }>Indicação feita!</Text>
+              <MPLogoIcon />
               <View style={ styles.partnershipContainer}>
-                <MPArtist artist={'Tocando em Frente'} backgroundColor={'#f60'} onPress={() => {}} style={{}} />
-                <Icon name={'plus'} type={'entypo'} color='#ccc' size={24} containerStyle={ {marginHorizontal: 20} }/>
+                <MPSongRating songName={'Tocando em Frente'} backgroundColor={'#f60'} onPress={() => {}} style={{}} />
                 <MPArtist artist={'Bruno Caliman'} backgroundColor={'#6f0'} onPress={() => {}} style={{}} />
               </View>
               <Text style={ styles.infoText }><Text style={ styles.infoTextEmph }>203</Text> outras pessoas sugeriram esta parceria também!</Text>

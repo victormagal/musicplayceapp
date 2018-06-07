@@ -30,7 +30,7 @@ const HomeNavigation = createStackNavigator(
     indicateSong: IndicateSongScreensNavigation,
   },
   {
-    initialRouteName: 'settings',
+    initialRouteName: 'indicateSong',
     headerMode: 'none'
   }
 );
