@@ -37,8 +37,7 @@ const styles = StyleSheet.create({
     shadowOffset: {
       width: 2,
       height: 0
-    },
-    marginTop: 30
+    }
   },
   button: {
     alignItems: 'center',

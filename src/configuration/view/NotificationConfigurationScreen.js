@@ -5,10 +5,14 @@ import { connect } from 'react-redux';
 
 class NotificationConfigurationScreenComponent extends React.Component {
 
+  handleBack = () => {
+    this.props.navigation.pop();
+  };
+
   render() {
     return (
       <View style={styles.parent}>
-        <MPHeader back={true} onBack={this.handleBackClick} title={"Preferências de notificação"} />
+        <MPHeader back={true} onBack={this.handleBack} title={"Preferências de notificação"} />
         <ScrollView style={styles.scroll}>
           {
             this.props.fontLoaded ? (

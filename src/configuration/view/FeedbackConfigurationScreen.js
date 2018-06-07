@@ -4,10 +4,14 @@ import { MPHeader, MPSelect, MPTextField, MPFooter } from '../../components';
 
 class FeedbackConfigurationScreen extends React.Component {
 
+  handleBack = () => {
+    this.props.navigation.pop();
+  };
+
   render() {
     return (
       <View style={styles.parent}>
-        <MPHeader back={true} onBack={this.handleBackClick} title={"Alguma sugestão? Ajude-nos a melhorar a plataforma"} />
+        <MPHeader back={true} onBack={this.handleBack} title={"Alguma sugestão? Ajude-nos a melhorar a plataforma"} />
         <ScrollView style={styles.scroll}>
           <MPSelect />
           <MPTextField label={"Envie sua mensagem"} value={""} multiline={true} />
