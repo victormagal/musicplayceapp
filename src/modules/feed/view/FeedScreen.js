@@ -8,9 +8,6 @@ class FeedScreenContainer extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-          textValue: '',
-          songHeader: true,
-          notFoundArtist: false,
           tabIndex: 0,
         }
 
@@ -22,18 +19,9 @@ class FeedScreenContainer extends React.Component {
   goToScreen = (route) => {
     this.props.navigation.navigate(route);
   }
-  
-  renderItem = ({item}) => (
-    <MPArtist artist={item.title} backgroundColor={item.backgroundColor} onPress={this.goToScreen.bind(this, 'IndicateSongFeedbackScreen')} style={{marginBottom: 10,}} />
-  )
-
-  toggleState = (att) => {
-    this.setState({[att]: !this.state.songHeader});
-  }
 
   changeTabIndex = (index) => {
     this.setState({tabIndex: index});
-    console.log(index)
   }
   
   render() {
@@ -45,26 +33,26 @@ class FeedScreenContainer extends React.Component {
           this.state.tabIndex == 0 ? (
             <View style={ styles.tabTitlesContainer }>
               <View style={ styles.selectedTitleContainer }>
-                <MPText style={ styles.selectedTitleText }>Para você</MPText>
+                <MPText style={ styles.selectedTitleText } onPress={ this.changeTabIndex.bind(this, 0)}>PARA VOCÊ</MPText>
               </View>
               <View style={ styles.notSeletecTitleContainer }>
-              <MPText style={ styles.notSeletecTitleText}>Seguindo</MPText>  
+                <MPText style={ styles.notSeletecTitleText} onPress={ this.changeTabIndex.bind(this, 1)}>SEGUINDO</MPText>  
               </View>
             </View>
           ) : (
             <View style={ styles.tabTitlesContainer }>
               <View style={ styles.notSeletecTitleContainer }>
-                <MPText style={ styles.notSeletecTitleText }>Para você</MPText>
+                <MPText style={ styles.notSeletecTitleText } onPress={ this.changeTabIndex.bind(this, 0)}>PARA VOCÊ</MPText>
               </View>
               <View style={ styles.seletecTitleContainer }>
-              <MPText style={ styles.seletecTitleText}>Seguindo</MPText>  
+                <MPText style={ styles.seletecTitleText} onPress={ this.changeTabIndex.bind(this, 1)}>SEGUINDO</MPText>  
               </View>
             </View>
           )
         }
-        <Swiper  style={ styles.swiperWrapper }
-          showsPagination={false}
+        <Swiper  showsPagination={false}
           onIndexChanged={ this.changeTabIndex }
+          index={this.tabIndex}
            loop={false}>
           <View style={ styles.slider1 }>
             <Text>slider 1</Text>
@@ -86,18 +74,20 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFF',
     justifyContent: 'flex-end'
   },
-  scroll: {
-    flex: 2,
-  },
   slider1: {
     flex: 1,
     backgroundColor: '#F60',
+    justifyContent: 'center',
+    alignContent: 'center',
   },
   slider2: {
     flex: 1,
     backgroundColor: '#6F0',
+    justifyContent: 'center',
+    alignContent: 'center',
   },
   tabTitlesContainer: {
+    display: 'flex',
     flexDirection: 'row',
   },
   selectedTitleContainer: {
@@ -118,12 +108,14 @@ const styles = StyleSheet.create({
     color: '#626262',
     fontSize: 12,
     textAlign: 'center',
+    alignSelf: 'center',
     fontFamily: 'montSerrat'
   },
   selectedTitleText:{
     color: '#000',
     fontSize: 12,
     textAlign: 'center',
+    alignSelf: 'center',
     fontFamily: 'montSerratBold',
   }
 });
