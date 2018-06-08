@@ -64,7 +64,6 @@ class MPTextFieldComponent extends React.Component {
 
 const styles = StyleSheet.create({
   parent: {
-    marginHorizontal: 40,
     display: 'flex',
     justifyContent: 'flex-end'
   }
