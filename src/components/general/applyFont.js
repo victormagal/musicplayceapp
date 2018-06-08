@@ -14,7 +14,7 @@ export const applyFont = (WrapperComponent) => {
         if (Array.isArray(style)) {
           for (let i in style) {
             if (!isNaN(style[i])) {
-              style[i] = StyleSheet.flatten([style]);
+              style[i] = StyleSheet.flatten([style[i]]);
             }
 
             delete style[i]['fontFamily'];
