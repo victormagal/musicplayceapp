@@ -74,6 +74,7 @@ class MPTextPasswordComponent extends React.Component {
       this.props.onChangeText && this.props.onChangeText(password);
       return;
     }
+
     this.props.onChangeText && this.props.onChangeText(value);
   };
 
@@ -108,7 +109,7 @@ class MPTextPasswordComponent extends React.Component {
           onBlur={ onBlur }
           onChangeText={ this.handleChangeText }
           {...textProps}/>
-        <TouchableOpacity style={{position: 'absolute', right: 0, bottom: 15}} onPress={this.handleToggleEye}>
+        <TouchableOpacity style={} onPress={this.handleToggleEye}>
           {inputIcon}
         </TouchableOpacity>
       </View>
@@ -120,6 +121,11 @@ const styles = StyleSheet.create({
   parent: {
     display: 'flex',
     justifyContent: 'flex-end'
+  },
+  eye:{
+    position: 'absolute',
+    right: 0,
+    bottom: 15
   }
 });
 
