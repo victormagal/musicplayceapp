@@ -19,8 +19,40 @@ class FeedScreenContainer extends React.Component {
               composerName: 'Rick Joe',
               songName: 'Música Xis',
               timeText: '1m',
-              type: '',
+              type: '1',
           },
+          {
+            id: '01',
+            artistName: 'Vitor e leo',
+            composerName: 'Rick Joe',
+            songName: 'Música Xis',
+            timeText: '15m',
+            type: '2',
+        },
+        {
+          id: '02',
+          artistName: 'Peter Jener',
+          composerName: 'Rick Joe',
+          songName: 'Música Xis',
+          timeText: '59m',
+          type: '3',
+        },
+        {
+          id: '03',
+          artistName: 'Ivete Sangalo',
+          composerName: 'Rick Joe',
+          songName: 'Camaro Amarelo',
+          timeText: '2h',
+          type: '4',
+        },
+        {
+          id: '04',
+          artistName: 'Vitor e leo',
+          composerName: 'Rick Joe',
+          songName: 'Camaro Amarelo',
+          timeText: '1d',
+          type: '5',
+        },
       ]
   }
   }
@@ -30,7 +62,7 @@ class FeedScreenContainer extends React.Component {
   };
 
   renderItem = ({item}) => (
-    <MPFeedNotification artistName={item.artistName} composerName={item.composerName} songName={item.songName} timeText={item.timeText}/>
+    <MPFeedNotification notificationType={item.type} artistName={item.artistName} composerName={item.composerName} songName={item.songName} timeText={item.timeText}/>
   )
 
   render() {
