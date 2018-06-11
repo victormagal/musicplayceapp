@@ -16,13 +16,13 @@ class MPArtistFullComponent extends Component{
             {
                 this.props.fontLoaded ? (
                     <View style={ styles.simpleArtistCardContainer }>
-                        <View style={{flex: 1}}>
+                        <View>
                             <View style={ styles.simpleArtistCardImage } backgroundColor={ backgroundColor }>
                                 <MPSongListIcon style={{position: 'absolute', top: 4, right: 4}} />
                                 <MPPlayIcon style={{ marginTop: 48, alignSelf: 'center'}} />
                             </View>
                         </View>
-                        <View style={ {backgroundColor: '#fff', flexDirection: 'column'} }>
+                        <View>
                             <MPText style={ styles.simpleArtistCardText }>{songName}</MPText>
                             <View style={{marginHorizontal : 10, marginBottom: 10, marginTop: 5, flexDirection: 'row'}}>
                                 <MPStarIcon style={{marginEnd: 3}} />
@@ -31,9 +31,9 @@ class MPArtistFullComponent extends Component{
                                 <MPStarIcon style={{marginEnd: 3}} />
                                 <MPStarIcon style={{marginEnd: 3}} />
                             </View>
-                            <View>
+                            <View style={{flexDirection: 'row', marginHorizontal: 10}}>
                                 <View style={{backgroundColor: '#6f0', borderRadius: 25, width:40, height: 40}}></View>
-                                <MPText>Adele</MPText>
+                                <MPText style={ { textAlign: 'center', alignContent: 'center'} }>Adele</MPText>
                             </View>
                         </View>
                         
@@ -54,7 +54,6 @@ MPArtistFullComponent.propTypes = {
 
 const styles = StyleSheet.create({
 	simpleArtistCardContainer: {
-        flex: 1,
         flexDirection: 'row',
         backgroundColor: '#fff',
         borderRadius: 4,
