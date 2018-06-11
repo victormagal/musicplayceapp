@@ -1,6 +1,6 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
-import {MPHeader, MPTextField, MPFooter, MPTabBar} from '../../../components'
+import {StyleSheet, Text, View, FlatList} from 'react-native';
+import {MPHeader, MPTextField, MPFooter, MPTabBar, MPText, MPFeedNotification} from '../../../components'
 import {connect} from 'react-redux';
 
 
@@ -11,12 +11,27 @@ class FeedScreenContainer extends React.Component {
       tabIndex: 0,
     }
 
+    this.artistList = {
+      data: [
+          {
+              id: '00',
+              artistName: 'Vitor e leo',
+              composerName: 'Rick Joe',
+              songName: 'Música Xis',
+              timeText: '1m',
+              type: '',
+          },
+      ]
+  }
   }
 
   handleBackClick = () => {
     this.props.navigation.pop();
   };
 
+  renderItem = ({item}) => (
+    <MPFeedNotification artistName={item.artistName} composerName={item.composerName} songName={item.songName} timeText={item.timeText}/>
+  )
 
   render() {
     return (
@@ -26,10 +41,9 @@ class FeedScreenContainer extends React.Component {
                      style={{backgroundColor: '#FFF', marginHorizontal: 20}}/>
         <MPTabBar firstTabTitle={'PARA VOCÊ'} secondTabTitle={"SEGUINDO"}>
           <View style={styles.firstSliderContainer}>
-            <View style={{marginHorizontal: 20, marginVertical: 12, flexDirection:'row',}}>
-              <View style={{width: 40, height: 40, backgroundColor: '#f60'}}></View>
-
-            </View>
+          <FlatList data = {this.artistList.data}
+                      keyExtractor={(item,index) => item.id} 
+                      renderItem={this.renderItem} />
           </View>
           <View style={styles.secondSliderContainer}>
             <Text>slider2</Text>
