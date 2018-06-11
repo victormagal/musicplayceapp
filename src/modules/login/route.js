@@ -1,11 +1,13 @@
 import { createStackNavigator } from 'react-navigation';
 import {
-  LoginScreen
+  LoginScreen,
+  RegisterScreen
 } from './view';
 
 export const LoginScreensNavigation = createStackNavigator(
   {
-    login: LoginScreen
+    login: LoginScreen,
+    register: RegisterScreen
   },
   {
     headerMode: 'none'
