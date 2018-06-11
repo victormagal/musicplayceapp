@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, View, ScrollView} from 'react-native';
-import {MPHeader, MPText, MPButton, MPTextField, MPGradientButton} from '../../../components';
+import {MPHeader, MPText, MPButton, MPTextField, MPTextPassword, MPGradientButton} from '../../../components';
 import {ForgotPasswordComponent} from './ForgotPasswordComponent';
 import {MPFacebookIcon, MPGoogleIcon} from '../../../assets/svg';
 import {LinearGradient} from 'expo';
@@ -87,8 +87,8 @@ class LoginScreen extends Component {
             </View>
           )}
 
-          <MPTextField label={"Usuário"} value={this.state.usuario} onChangeText={this.handleChangeText.bind(this, 'usuario')} textProps={inputTextProps} />
-          <MPTextField label={"Senha"} value={this.state.senha} onChangeText={this.handleChangeText.bind(this, 'senha')} textProps={inputTextProps} />
+          <MPTextField label={"Usuário"} value={this.state.form.usuario} onChangeText={this.handleChangeText.bind(this, 'usuario')} textProps={inputTextProps} />
+          <MPTextPassword label={"Senha"} value={this.state.form.senha} onChangeText={this.handleChangeText.bind(this, 'senha')} textProps={inputTextProps} />
 
           <View style={styles.signinContainer}>
             <MPGradientButton title={"Entrar"} textSize={16} style={styles.signinButton} onPress={this.handleSubmit}/>
