@@ -30,7 +30,7 @@ class MPGradientButtonComponent extends Component {
   }
 
   setupText(textSize, selected){
-    let newTextStyle = {...textStyle}
+    let newTextStyle = {...textStyle};
     newTextStyle.fontSize = textSize ? textSize : 12;
     newTextStyle.color = selected ? '#FFFFFF' : '#E13223';
 
