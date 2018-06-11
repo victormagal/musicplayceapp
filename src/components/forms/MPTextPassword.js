@@ -109,7 +109,7 @@ class MPTextPasswordComponent extends React.Component {
           onBlur={ onBlur }
           onChangeText={ this.handleChangeText }
           {...textProps}/>
-        <TouchableOpacity style={} onPress={this.handleToggleEye}>
+        <TouchableOpacity style={styles.eye} onPress={this.handleToggleEye}>
           {inputIcon}
         </TouchableOpacity>
       </View>

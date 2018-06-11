@@ -37,6 +37,10 @@ class RegisterScreen extends Component {
     this.setState({formVisible: !this.state.formVisible});
   };
 
+  handleRegister = () => {
+    this.props.navigation.navigate('registerSuccess');
+  };
+
   renderForm() {
     return this.state.formVisible &&  (
       <View style={styles.form}>
@@ -51,7 +55,7 @@ class RegisterScreen extends Component {
           <MPText style={styles.termsText}> termos e condições de uso</MPText> da Music Playce.
         </MPText>
 
-        <MPGradientButton title="Começar" textSize={16}/>
+        <MPGradientButton title="Começar" textSize={16} onPress={this.handleRegister}/>
 
         <MPText style={styles.copyright}>Copyright • Music Playce 2017</MPText>
       </View>
@@ -105,6 +109,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 40
   },
   form: {
+    marginTop: 10,
     paddingHorizontal: 40
   },
   logo: {
