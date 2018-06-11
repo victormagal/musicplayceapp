@@ -23,7 +23,7 @@ class FeedScreenContainer extends React.Component {
 
   changeTabIndex = (index) => {
     this.setState({tabIndex: index});
-  }
+  };
 
   render() {
     return (

@@ -44,7 +44,11 @@ const HomeNavigation = createStackNavigator(
     feed: FeedScreensNavigation,
   },
   {
+<<<<<<< HEAD
     initialRouteName: 'indicateSong',
+=======
+    initialRouteName: 'login',
+>>>>>>> 9a84de6bd8c8f6468e56e40704f58f5a924d7c67
     headerMode: 'none'
   }
 );
