@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {StyleSheet, Text, View, ScrollView} from 'react-native';
 import {MPHeader, MPText, MPButton, MPTextField, MPGradientButton} from '../../../components';
+import {ForgotPasswordComponent} from './ForgotPasswordComponent';
 import {MPFacebookIcon, MPGoogleIcon} from '../../../assets/svg';
 import {LinearGradient} from 'expo';
 
@@ -50,7 +51,7 @@ class LoginScreenComponent extends Component {
   };
 
   handleForgotPassword = () => {
-    this.props.navigation.navigate('message');
+    this.props.navigation.navigate('message', {component: ForgotPasswordComponent});
   };
 
   render() {
