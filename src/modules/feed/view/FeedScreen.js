@@ -17,9 +17,6 @@ class FeedScreenContainer extends React.Component {
     this.props.navigation.pop();
   };
 
-  goToScreen = (route) => {
-    this.props.navigation.navigate(route);
-  }
 
   render() {
     return (
@@ -27,7 +24,7 @@ class FeedScreenContainer extends React.Component {
         <MPHeader back={true} onBack={this.handleBackClick} title={""}/>
         <MPTextField label={'Pesquise pelo nome, músicas e temas'} value={''}
                      style={{backgroundColor: '#FFF', marginHorizontal: 20}}/>
-        <MPTabBar firstTab={'PARA VOCÊ'} secondTab={"SEGUINDO"}>
+        <MPTabBar firstTab={'PARA VOCÊ'} secondTab={"SEGUINDO"} style={{flex: 1}}>
           <View style={styles.slider1}><Text>slider1</Text></View>
           <View style={styles.slider2}><Text>slider2</Text></View>
         </MPTabBar>
@@ -42,16 +39,14 @@ const styles = StyleSheet.create({
     display: 'flex',
     flex: 1,
     backgroundColor: '#FFF',
-    justifyContent: 'flex-end'
   },
+
   slider1: {
-    flex: 1,
     backgroundColor: '#F60',
     justifyContent: 'center',
     alignContent: 'center',
   },
   slider2: {
-    flex: 1,
     backgroundColor: '#6F0',
     justifyContent: 'center',
     alignContent: 'center',

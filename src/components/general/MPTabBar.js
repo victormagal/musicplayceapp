@@ -4,26 +4,28 @@ import {
 } from 'react-native';
 import {connect} from 'react-redux';
 import {MPText} from '../general/MPText';
-import { Swiper } from 'react-native-swiper';
+import Swiper from 'react-native-swiper';
+
 
 class MPTabBarComponent extends React.Component {
-    state = {
-        tabIndex: 0,
-    }
+  state = {
+    tabIndex: 0,
+  };
 
-    changeTabIndex = (index) => {
-        this.setState({tabIndex: index});
-      }    
+  changeTabIndex = (index) => {
+    this.setState({tabIndex: index});
+  };
 
   render() {
-      let { firstTab, secondTab } = this.props
+    let {firstTab, secondTab} = this.props;
     return (
-      <View>
+      <View {...this.props}>
         {
           this.state.tabIndex == 0 ? (
               <View style={ styles.tabTitlesContainer }>
                 <View style={ styles.selectedTitleContainer }>
-                  <MPText style={ styles.selectedTitleText } onPress={ this.changeTabIndex.bind(this, 0)}>{firstTab}</MPText>
+                  <MPText style={ styles.selectedTitleText }
+                          onPress={ this.changeTabIndex.bind(this, 0)}>{firstTab}</MPText>
                 </View>
                 <View style={ styles.notSeletecTitleContainer }>
                   <MPText style={ styles.notSeletecTitleText}
@@ -33,7 +35,8 @@ class MPTabBarComponent extends React.Component {
             ) : (
               <View style={ styles.tabTitlesContainer }>
                 <View style={ styles.notSeletecTitleContainer }>
-                  <MPText style={ styles.notSeletecTitleText } onPress={ this.changeTabIndex.bind(this, 0)}>{ firstTab }</MPText>
+                  <MPText style={ styles.notSeletecTitleText }
+                          onPress={ this.changeTabIndex.bind(this, 0)}>{ firstTab }</MPText>
                 </View>
                 <View style={ styles.selectedTitleContainer }>
                   <MPText style={ styles.selectedTitleText}
@@ -46,7 +49,7 @@ class MPTabBarComponent extends React.Component {
                 onIndexChanged={ this.changeTabIndex }
                 index={this.tabIndex}
                 loop={false}>
-            {this.props.children}
+          {this.props.children}
         </Swiper>
       </View>
     );
@@ -54,38 +57,38 @@ class MPTabBarComponent extends React.Component {
 }
 
 const styles = StyleSheet.create({
-    tabTitlesContainer: {
-        display: 'flex',
-        flexDirection: 'row',
-      },
-      selectedTitleContainer: {
-        flex: 1,
-        alignContent: 'center',
-        paddingTop: 17,
-        paddingBottom: 17,
-        borderBottomWidth: 3,
-        borderColor: '#e13223',
-      },
-      notSeletecTitleContainer: {
-        flex: 1,
-        alignContent: 'center',
-        paddingTop: 17,
-        paddingBottom: 17
-      },
-      notSeletecTitleText: {
-        color: '#626262',
-        fontSize: 12,
-        textAlign: 'center',
-        alignSelf: 'center',
-        fontFamily: 'montSerrat'
-      },
-      selectedTitleText: {
-        color: '#000',
-        fontSize: 12,
-        textAlign: 'center',
-        alignSelf: 'center',
-        fontFamily: 'montSerratBold',
-      }
+  tabTitlesContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+  },
+  selectedTitleContainer: {
+    flex: 1,
+    alignContent: 'center',
+    paddingTop: 17,
+    paddingBottom: 17,
+    borderBottomWidth: 3,
+    borderColor: '#e13223',
+  },
+  notSeletecTitleContainer: {
+    flex: 1,
+    alignContent: 'center',
+    paddingTop: 17,
+    paddingBottom: 17
+  },
+  notSeletecTitleText: {
+    color: '#626262',
+    fontSize: 12,
+    textAlign: 'center',
+    alignSelf: 'center',
+    fontFamily: 'montSerrat'
+  },
+  selectedTitleText: {
+    color: '#000',
+    fontSize: 12,
+    textAlign: 'center',
+    alignSelf: 'center',
+    fontFamily: 'montSerratBold',
+  }
 });
 
 const mapStateToProps = ({fontReducer}) => {
