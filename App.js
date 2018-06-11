@@ -44,7 +44,7 @@ const HomeNavigation = createStackNavigator(
     feed: FeedScreensNavigation,
   },
   {
-    initialRouteName: 'feed',
+    initialRouteName: 'login',
     headerMode: 'none'
   }
 );

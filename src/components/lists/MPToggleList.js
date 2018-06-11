@@ -2,17 +2,16 @@ import React from 'react';
 import { 
   Animated, 
   StyleSheet, 
-  Text, 
-  TouchableHighlight, 
+  TouchableHighlight,
   View 
 } from 'react-native';
+import { MPText } from '../general/MPText';
 import { 
   MPArrowDownIcon, 
   MPArrowUpIcon 
 } from '../../assets/svg';
-import { connect } from 'react-redux';
 
-class MPToggleListComponent extends React.Component {
+class MPToggleList extends React.Component {
 
   DELAY = 150;
   timer = null;
@@ -70,7 +69,7 @@ class MPToggleListComponent extends React.Component {
       <View style={styles.container}>
         <TouchableHighlight onPress={this.toggle.bind(this)} underlayColor="transparent">
           <View style={styles.headerContainer}>
-            <Text style={[styles.title, fontFamilyStyle]}>{this.state.title}</Text>
+            <MPText style={styles.title}>{this.state.title}</MPText>
             <Icon />
           </View>
         </TouchableHighlight>
@@ -101,6 +100,7 @@ const styles = StyleSheet.create({
   title: {
     flex: 1,
     fontSize: 16,
+    fontFamily: 'montSerratMedium',
     color: '#000000'
   },
   content: {
@@ -108,9 +108,4 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = ({ fontReducer }) => {
-  return { ...fontReducer };
-};
-
-const MPToggleList = connect(mapStateToProps)(MPToggleListComponent);
 export { MPToggleList };

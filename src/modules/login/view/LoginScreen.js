@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
-import {connect} from 'react-redux';
 import {StyleSheet, Text, View, ScrollView} from 'react-native';
-import {MPHeader, MPText, MPButton, MPTextField, MPGradientButton} from '../../../components';
+import {MPHeader, MPText, MPButton, MPTextField, MPTextPassword, MPGradientButton} from '../../../components';
 import {ForgotPasswordComponent} from './ForgotPasswordComponent';
 import {MPFacebookIcon, MPGoogleIcon} from '../../../assets/svg';
 import {LinearGradient} from 'expo';
@@ -24,7 +23,7 @@ const GoogleIcon = (props) => {
   return BaseIcon(props, MPGoogleIcon);
 };
 
-class LoginScreenComponent extends Component {
+class LoginScreen extends Component {
 
   state = {
     error: false,
@@ -52,6 +51,10 @@ class LoginScreenComponent extends Component {
 
   handleForgotPassword = () => {
     this.props.navigation.navigate('message', {component: ForgotPasswordComponent});
+  };
+
+  handleRegister = () => {
+    this.props.navigation.navigate('register');
   };
 
   render() {
@@ -84,16 +87,16 @@ class LoginScreenComponent extends Component {
             </View>
           )}
 
-          <MPTextField label={"Usuário"} value={this.state.usuario} onChangeText={this.handleChangeText.bind(this, 'usuario')} textProps={inputTextProps} />
-          <MPTextField label={"Senha"} value={this.state.senha} onChangeText={this.handleChangeText.bind(this, 'senha')} textProps={inputTextProps} />
+          <MPTextField label={"Usuário"} value={this.state.form.usuario} onChangeText={this.handleChangeText.bind(this, 'usuario')} textProps={inputTextProps} />
+          <MPTextPassword label={"Senha"} value={this.state.form.senha} onChangeText={this.handleChangeText.bind(this, 'senha')} textProps={inputTextProps} />
 
           <View style={styles.signinContainer}>
             <MPGradientButton title={"Entrar"} textSize={16} style={styles.signinButton} onPress={this.handleSubmit}/>
             <MPText style={styles.forgotPassword} onPress={this.handleForgotPassword}>Esqueceu a senha?</MPText>
           </View>
 
-          <MPText style={styles.noAccount}>Não tem conta?</MPText>
-          <MPText style={styles.register}>Faça seu cadastro.</MPText>
+          <MPText style={styles.noAccount} onPress={this.handleRegister}>Não tem conta?</MPText>
+          <MPText style={styles.register} onPress={this.handleRegister}>Faça seu cadastro.</MPText>
 
         </LinearGradient>
       </ScrollView>
@@ -103,8 +106,8 @@ class LoginScreenComponent extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    display: 'flex',
-    flex: 1
+    flex: 1,
+    backgroundColor: 'white'
   },
   gradient: {
     flex: 1,
@@ -201,9 +204,4 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapToStateToProps = () => {
-  return {};
-};
-
-const LoginScreen = connect(mapToStateToProps)(LoginScreenComponent);
 export {LoginScreen}
