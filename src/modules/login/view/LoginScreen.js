@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View, ScrollView} from 'react-native';
 import {MPHeader, MPText, MPButton, MPTextField, MPGradientButton} from '../../../components';
 import {MPFacebookIcon, MPGoogleIcon} from '../../../assets/svg';
 import {LinearGradient} from 'expo';
@@ -24,9 +24,36 @@ const GoogleIcon = (props) => {
 };
 
 class LoginScreenComponent extends Component {
+
+  state = {
+    error: false,
+    form: {
+      usuario: '',
+      senha: ''
+    }
+  };
+
+  inputErrorProps = {error: 'Campo inválido', errorColor: '#e13223'};
+
+  handleChangeText(name, value){
+    let newState = {...this.state};
+    newState.form[name] = value;
+    this.setState({...newState, error: false});
+  }
+
+  handleSubmit = () => {
+    let {form} = this.state;
+
+    if(!form.usuario || !form.senha){
+      this.setState({error: true});
+    }
+  };
+
   render() {
+    let inputTextProps = this.state.error ? this.inputErrorProps : {};
+
     return (
-      <View style={styles.container}>
+      <ScrollView style={styles.container}>
         <LinearGradient
           colors={["#e1322373", "#ffffff8C"]}
           style={styles.gradient}
@@ -38,14 +65,25 @@ class LoginScreenComponent extends Component {
           <MPButton icon={FacebookIcon} title="Entre com Facebook" textSize={16} onPress={() => {}} style={styles.signinFB}/>
           <MPButton icon={GoogleIcon} title="Entre com Google+" textSize={16} onPress={() => {}} style={styles.signinGoogle}/>
 
-          <MPText style={styles.ouText}>ou</MPText>
-          <MPText style={styles.signinUser}>Entre com seu usuário</MPText>
+          {!this.state.error && (
+            <View>
+              <MPText style={styles.ouText}>ou</MPText>
+              <MPText style={styles.signinUser}>Entre com seu usuário</MPText>
+            </View>
+          )}
 
-          <MPTextField label={"Usuário"} value={''}/>
-          <MPTextField label={"Senha"} value={''}/>
+          {this.state.error && (
+            <View>
+              <MPText style={styles.deuRuimText}>Deu ruim! Confirme se o login e senha foram digitados corretamente.</MPText>
+              <MPText style={styles.confiraText}>Confira os dados do usuário</MPText>
+            </View>
+          )}
+
+          <MPTextField label={"Usuário"} value={this.state.usuario} onChangeText={this.handleChangeText.bind(this, 'usuario')} textProps={inputTextProps} />
+          <MPTextField label={"Senha"} value={this.state.senha} onChangeText={this.handleChangeText.bind(this, 'senha')} textProps={inputTextProps} />
 
           <View style={styles.signinContainer}>
-            <MPGradientButton title={"Entrar"} textSize={16} style={styles.signinButton} onPress={() => {}}/>
+            <MPGradientButton title={"Entrar"} textSize={16} style={styles.signinButton} onPress={this.handleSubmit}/>
             <MPText style={styles.forgotPassword}>Esqueceu a senha?</MPText>
           </View>
 
@@ -53,7 +91,7 @@ class LoginScreenComponent extends Component {
           <MPText style={styles.register}>Faça seu cadastro.</MPText>
 
         </LinearGradient>
-      </View>
+      </ScrollView>
     );
   }
 }
@@ -65,7 +103,7 @@ const styles = StyleSheet.create({
   },
   gradient: {
     flex: 1,
-    paddingHorizontal: 40
+    paddingHorizontal: 20
   },
   button: {
     width: 230,
@@ -134,6 +172,18 @@ const styles = StyleSheet.create({
     height: '100%',
     backgroundColor: '#fff',
     alignSelf: 'flex-end'
+  },
+  deuRuimText:{
+    fontFamily: 'montSerratMedium',
+    fontSize: 16,
+    marginTop: 40,
+    textAlign: 'center'
+  },
+  confiraText: {
+    marginTop: 20,
+    fontFamily: 'montSerrat',
+    fontSize: 12,
+    color: '#e13223'
   }
 });
 

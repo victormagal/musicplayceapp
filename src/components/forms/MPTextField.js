@@ -1,16 +1,16 @@
 import React from 'react';
-import { 
-  StyleSheet, 
+import {
+  StyleSheet,
   View
 } from 'react-native';
-import { TextField } from 'react-native-material-textfield';
-import { connect } from 'react-redux';
+import {TextField} from 'react-native-material-textfield';
+import {connect} from 'react-redux';
 
 
 class MPTextFieldComponent extends React.Component {
 
   getTextFieldStyle() {
-    let style = { fontSize: 16 };
+    let style = {fontSize: 16};
 
     if (this.props.fontLoaded) {
       style['fontFamily'] = 'montSerrat';
@@ -22,7 +22,7 @@ class MPTextFieldComponent extends React.Component {
   getLabelStyle() {
     let style = {};
 
-    if(this.props.fontLoaded) {
+    if (this.props.fontLoaded) {
       style['fontFamily'] = 'montSerrat';
     }
 
@@ -30,15 +30,17 @@ class MPTextFieldComponent extends React.Component {
   }
 
   render() {
-    let { 
-      value, 
-      label, 
+    let {
+      value,
+      label,
       multiline,
       style,
       onFocus,
       onBlur,
-      onChangeText
+      onChangeText,
+      textProps
     } = this.props;
+
     return (
       <View style={[styles.parent, style]}>
         <TextField
@@ -55,7 +57,8 @@ class MPTextFieldComponent extends React.Component {
           style={this.getTextFieldStyle()}
           onFocus={ onFocus }
           onBlur={ onBlur }
-          onChangeText={ onChangeText } 
+          onChangeText={ onChangeText }
+          {...textProps}
         />
       </View>
     );
@@ -69,9 +72,9 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = ({ fontReducer }) => {
-  return { ...fontReducer };
+const mapStateToProps = ({fontReducer}) => {
+  return {...fontReducer};
 };
 
 const MPTextField = connect(mapStateToProps)(MPTextFieldComponent);
-export { MPTextField };
+export {MPTextField};

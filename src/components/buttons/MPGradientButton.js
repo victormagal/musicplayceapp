@@ -6,6 +6,36 @@ import {MPText} from '../general/MPText';
 
 class MPGradientButtonComponent extends Component {
 
+  state = {
+    textStyleRef: null
+  };
+
+  constructor(props){
+    super(props);
+
+    let { selected, textSize} = this.props;
+    if (selected == null) {
+      selected = true;
+    }
+
+    this.state.textStyleRef = this.setupText(textSize, selected);
+  }
+
+  componentWillReceiveProps(newProps){
+    let { selected, textSize} = this.props;
+
+    if(newProps.textSize != textSize || newProps.selected != selected){
+      this.setState({textStyleRef: this.setupText(textSize, selected)});
+    }
+  }
+
+  setupText(textSize, selected){
+    textStyle.fontSize = textSize ? textSize : 12;
+    textStyle.color = selected ? '#FFFFFF' : '#E13223';
+
+    return StyleSheet.create({textStyle}).textStyle;
+  }
+
   render() {
     let {style, title, selected, textSize, onPress, icon} = this.props;
     if (selected == null) {
@@ -15,10 +45,6 @@ class MPGradientButtonComponent extends Component {
     let borderStyle = selected ? {} : {borderWidth: 1, borderColor: '#E13223'};
     let linearColorOptions = [['#BB1A1A', '#2E2C9D'], ['transparent', 'transparent']];
     let linearColor = selected ? linearColorOptions[0] : linearColorOptions[1];
-    textStyle.fontSize = textSize ? textSize : 12;
-    textStyle.color = selected ? '#FFFFFF' : '#E13223';
-
-    let textStyleRef = StyleSheet.create({textStyle}).textStyle;
 
     let Icon = icon;
 
@@ -31,7 +57,7 @@ class MPGradientButtonComponent extends Component {
           style={[styles.linear, borderStyle]}
           selected={true}>
           {icon && <Icon style={styles.icon}/>}
-          <MPText style={textStyleRef}>
+          <MPText style={this.state.textStyleRef}>
             {title}
           </MPText>
         </LinearGradient>
