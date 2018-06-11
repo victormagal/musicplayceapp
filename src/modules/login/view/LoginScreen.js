@@ -1,9 +1,23 @@
-import React, {Component} from 'react';
-import {StyleSheet, Text, View, ScrollView} from 'react-native';
-import {MPHeader, MPText, MPButton, MPTextField, MPTextPassword, MPGradientButton} from '../../../components';
-import {ForgotPasswordComponent} from './ForgotPasswordComponent';
-import {MPFacebookIcon, MPGoogleIcon} from '../../../assets/svg';
-import {LinearGradient} from 'expo';
+import React, { Component } from 'react';
+import {
+  ScrollView,
+  StyleSheet, 
+  View
+} from 'react-native';
+import {
+  MPButton, 
+  MPGradientButton,
+  MPHeader, 
+  MPText, 
+  MPTextField, 
+  MPTextPassword
+} from '../../../components';
+import { ForgotPasswordComponent } from './ForgotPasswordComponent';
+import {
+  MPFacebookIcon, 
+  MPGoogleIcon
+} from '../../../assets/svg';
+import { LinearGradient } from 'expo';
 
 
 const BaseIcon = (props, Icon) => (

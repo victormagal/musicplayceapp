@@ -1,8 +1,24 @@
-import React, {Component} from 'react';
-import { StyleSheet, Text, View, ScrollView, TouchableWithoutFeedback } from 'react-native';
-import { MPText, MPButton, MPTextField, MPGradientButton } from '../../../components';
-import {MPFacebookIcon, MPGoogleIcon, MPLogoRegisterIcon, MPArrowDownRedIcon, MPArrowUpRedIcon} from '../../../assets/svg';
-import {LinearGradient} from 'expo';
+import React, { Component } from 'react';
+import { 
+  ScrollView, 
+  StyleSheet, 
+  TouchableWithoutFeedback, 
+  View
+} from 'react-native';
+import { 
+  MPButton, 
+  MPGradientButton, 
+  MPText, 
+  MPTextField 
+} from '../../../components';
+import {
+  MPArrowDownRedIcon, 
+  MPArrowUpRedIcon,
+  MPFacebookIcon, 
+  MPGoogleIcon, 
+  MPLogoRegisterIcon 
+} from '../../../assets/svg';
+import { LinearGradient } from 'expo';
 
 
 const BaseIcon = (props, Icon) => (
@@ -41,50 +57,19 @@ class RegisterScreen extends Component {
     this.props.navigation.navigate('registerSuccess');
   };
 
-  renderForm() {
-    return this.state.formVisible &&  (
-      <View style={styles.form}>
-        <MPTextField label="Email"/>
-        <MPTextField label="Nome"/>
-        <MPTextField label="Sobrenome"/>
-        <MPTextField label="Usuário"/>
-        <MPTextField label="Senha"/>
-
-        <MPText style={styles.termsMessage}>
-          Ao criar sua conta você está aceitando os
-          <MPText style={styles.termsText}> termos e condições de uso</MPText> da Music Playce.
-        </MPText>
-
-        <MPGradientButton title="Começar" textSize={16} onPress={this.handleRegister}/>
-
-        <MPText style={styles.copyright}>Copyright • Music Playce 2017</MPText>
-      </View>
-    );
-  }
-
   render() {
 
     let IconRegister = this.state.formVisible ? this.icons.up : this.icons.down;
 
     return (
       <ScrollView style={styles.container}>
-        <LinearGradient
-          colors={["#e1322373", "#ffffff8C"]}
-          style={styles.gradient}
-          start={[0, 0]}
-          end={[0, 0.9]}>
-
+        <LinearGradient colors={["#e1322373", "#ffffff8C"]} style={styles.gradient} start={[0, 0]} end={[0, 0.9]}>
           <MPLogoRegisterIcon style={{marginTop: 100, alignSelf: 'center'}}/>
           <MPText style={styles.title}>O seu lugar de música</MPText>
-
           <MPText style={styles.register}>Crie sua conta</MPText>
-          <MPButton icon={FacebookIcon} title="Entre com Facebook" textSize={16} onPress={() => {
-          }} style={styles.signinFB}/>
-          <MPButton icon={GoogleIcon} title="Entre com Google+" textSize={16} onPress={() => {
-          }} style={styles.signinGoogle}/>
-
+          <MPButton icon={FacebookIcon} title="Entre com Facebook" textSize={16} onPress={() => {}} style={styles.signinFB}/>
+          <MPButton icon={GoogleIcon} title="Entre com Google+" textSize={16} onPress={() => {}} style={styles.signinGoogle}/>
           <MPText style={styles.ouText}>ou</MPText>
-
           <TouchableWithoutFeedback onPress={this.handleToggleRegisterForm}>
             <View>
               <MPText style={styles.fillForm}>Preencha o cadastro</MPText>
@@ -92,8 +77,19 @@ class RegisterScreen extends Component {
             </View>
           </TouchableWithoutFeedback>
         </LinearGradient>
-
-        {this.renderForm()}
+        <View style={styles.form}>
+          <MPTextField label="Email" />
+          <MPTextField label="Nome" />
+          <MPTextField label="Sobrenome" />
+          <MPTextField label="Usuário" />
+          <MPTextField label="Senha" />
+          <MPText style={styles.termsMessage}>
+            Ao criar sua conta você está aceitando os
+          <MPText style={styles.termsText}> termos e condições de uso</MPText> da Music Playce.
+        </MPText>
+          <MPGradientButton title="Começar" textSize={16} onPress={this.handleRegister} />
+          <MPText style={styles.copyright}>Copyright • Music Playce 2017</MPText>
+        </View>
       </ScrollView>
     );
   }

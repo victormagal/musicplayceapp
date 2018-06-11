@@ -1,6 +1,13 @@
-import React, {Component} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
-import {MPText, MPGradientButton, MPHeader} from '../../../components';
+import React, { Component } from 'react';
+import {
+  StyleSheet, 
+  View
+} from 'react-native';
+import {
+  MPGradientButton, 
+  MPHeader,
+  MPText
+} from '../../../components';
 
 
 class RegisterSuccessScreen extends Component {

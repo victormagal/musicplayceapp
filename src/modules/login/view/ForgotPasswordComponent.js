@@ -1,7 +1,14 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
-import {MPText, MPTextField, MPGradientButton} from '../../../components';
-import {ForgotPasswordSuccessComponent} from './ForgotPasswordSuccessComponent';
+import {
+  StyleSheet, 
+  View
+} from 'react-native';
+import {
+  MPGradientButton,
+  MPText, 
+  MPTextField
+} from '../../../components';
+import { ForgotPasswordSuccessComponent } from './ForgotPasswordSuccessComponent';
 
 
 class ForgotPasswordComponent extends Component {
@@ -126,4 +133,3 @@ const styles = StyleSheet.create({
 });
 
 export {ForgotPasswordComponent};
-

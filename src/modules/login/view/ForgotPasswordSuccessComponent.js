@@ -1,6 +1,12 @@
-import React, {Component} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
-import {MPText, MPGradientButton} from '../../../components';
+import React, { Component } from 'react';
+import {
+  StyleSheet, 
+  View
+} from 'react-native';
+import {
+  MPGradientButton,
+  MPText
+} from '../../../components';
 
 
 class ForgotPasswordSuccessComponent extends Component {
