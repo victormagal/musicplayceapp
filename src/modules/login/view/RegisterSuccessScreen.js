@@ -61,6 +61,8 @@ const styles = StyleSheet.create({
     color: '#686868'
   },
   continueButton: {
+    position: 'absolute',
+    bottom: 40,
     width: 154,
     alignSelf: 'center'
   }
