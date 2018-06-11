@@ -5,8 +5,11 @@ import {MPText, MPGradientButton} from '../../../components';
 
 class ForgotPasswordSuccessComponent extends Component {
 
-  render() {
+  handleBack = () => {
+    this.props.navigation.pop();
+  };
 
+  render() {
     return (
       <View style={styles.container}>
         <MPText style={styles.forgotTitle}> A ajuda está a caminho! Enviamos um link de redefinição de senha para você.</MPText>
@@ -15,7 +18,7 @@ class ForgotPasswordSuccessComponent extends Component {
           Acesse o link para re-definir sua senha.
         </MPText>
 
-        <MPGradientButton title="Ir para a página inicial" textSize={16}/>
+        <MPGradientButton title="Ir para a página inicial" textSize={16} onPress={this.handleBack}/>
       </View>
     );
   }
