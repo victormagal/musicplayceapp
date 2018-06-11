@@ -37,7 +37,7 @@ class UploadMediaFilledScreenContainer extends React.Component {
               <MPText style={ styles.headerText}>Melodia selecionada</MPText>
             </View>
             <View>
-              <MPGradientButton title='Nome da música.mp3' icon={MPArrowLeftIcon} onPress={ () => {} } textSize={16} style={ {marginBottom: 10, marginHorizontal: 20} }/>
+              <MPGradientButton title='Nome da música.mp3' onPress={ () => {} } textSize={16} style={ {marginBottom: 10, marginHorizontal: 20} }/>
               <View style={styles.clickableTextContainer}>
                 <MPText style={styles.clickableText}>Substituir arquivo</MPText>
               </View>
@@ -62,8 +62,7 @@ class UploadMediaFilledScreenContainer extends React.Component {
                             info={'Falando de amor'} onPress={this.goToScreen.bind(this, 'FolderScreen')}/>
               </View>
 
-              <MPGradientButton title='Publicar' onPress={ this.goToScreen.bind(this, 'ConfimationScreen') }
-                                textSize={16} style={ {marginBottom: 20, marginHorizontal: 30} }/>
+              <MPGradientButton title='Publicar' onPress={ this.goToScreen.bind(this, 'ConfimationScreen') } textSize={16} style={ {marginBottom: 20, marginHorizontal: 30} }/>
               <View style={styles.clickableTextContainer}>
                 <MPText style={styles.clickableText}>Terminar depois</MPText>
               </View>

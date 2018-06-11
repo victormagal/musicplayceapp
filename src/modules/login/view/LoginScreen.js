@@ -2,14 +2,15 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {StyleSheet, Text, View, ScrollView} from 'react-native';
 import {MPHeader, MPText, MPButton, MPTextField, MPGradientButton} from '../../../components';
+import {ForgotPasswordComponent} from './ForgotPasswordComponent';
 import {MPFacebookIcon, MPGoogleIcon} from '../../../assets/svg';
 import {LinearGradient} from 'expo';
 
 
 const BaseIcon = (props, Icon) => (
   <View {...props}>
-    <View style={{flexDirection:'row', height: 40, width: 48}}>
-      <Icon />
+    <View style={styles.iconContainer}>
+      <Icon style={styles.icon}/>
       <View style={styles.divider}/>
     </View>
   </View>
@@ -49,6 +50,10 @@ class LoginScreenComponent extends Component {
     }
   };
 
+  handleForgotPassword = () => {
+    this.props.navigation.navigate('message', {component: ForgotPasswordComponent});
+  };
+
   render() {
     let inputTextProps = this.state.error ? this.inputErrorProps : {};
 
@@ -84,7 +89,7 @@ class LoginScreenComponent extends Component {
 
           <View style={styles.signinContainer}>
             <MPGradientButton title={"Entrar"} textSize={16} style={styles.signinButton} onPress={this.handleSubmit}/>
-            <MPText style={styles.forgotPassword}>Esqueceu a senha?</MPText>
+            <MPText style={styles.forgotPassword} onPress={this.handleForgotPassword}>Esqueceu a senha?</MPText>
           </View>
 
           <MPText style={styles.noAccount}>Não tem conta?</MPText>
@@ -167,11 +172,20 @@ const styles = StyleSheet.create({
     fontFamily: 'montSerratMedium',
     alignSelf: 'center',
   },
+  iconContainer: {
+    flexDirection: 'row',
+    height: 40,
+    width: 48
+  },
+  icon:{
+    alignSelf: 'center',
+    width: 47,
+    height: 20
+  },
   divider: {
     width: 1,
     height: '100%',
-    backgroundColor: '#fff',
-    alignSelf: 'flex-end'
+    backgroundColor: '#fff'
   },
   deuRuimText:{
     fontFamily: 'montSerratMedium',
