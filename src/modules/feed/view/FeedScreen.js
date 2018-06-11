@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet, Text, View, FlatList} from 'react-native';
-import {MPHeader, MPTextField, MPFooter, MPTabBar, MPText, MPFeedNotification} from '../../../components'
+import {MPHeader, MPTextField, MPFooter, MPTabBar, MPText, MPFeedNotification, MPArtistFull} from '../../../components'
 import {connect} from 'react-redux';
 
 
@@ -73,12 +73,13 @@ class FeedScreenContainer extends React.Component {
                      style={{backgroundColor: '#FFF', marginHorizontal: 20}}/>
         <MPTabBar firstTabTitle={'PARA VOCÊ'} secondTabTitle={"SEGUINDO"}>
           <View style={styles.firstSliderContainer}>
-          <FlatList data = {this.artistList.data}
-                      keyExtractor={(item,index) => item.id} 
-                      renderItem={this.renderItem} />
+            <MPText style={{marginHorizontal: 20, marginBottom: 16}}>Talvez você goste dessas músicas:</MPText>
+            <MPArtistFull style={{backgroundColor: '#fff'}} songName={'Nome da música'} backgroundColor={'#f60'}/>
           </View>
           <View style={styles.secondSliderContainer}>
-            <Text>slider2</Text>
+            <FlatList data = {this.artistList.data}
+                      keyExtractor={(item,index) => item.id} 
+                      renderItem={this.renderItem} />
           </View>
         </MPTabBar>
         <MPFooter />
@@ -96,14 +97,11 @@ const styles = StyleSheet.create({
   firstSliderContainer: {
     flex:1,
     backgroundColor: '#FCFCFC',
-    justifyContent: 'center',
-    alignContent: 'center',
   },
   secondSliderContainer: {
     flex:1,
     backgroundColor: '#FCFCFC',
-    justifyContent: 'center',
-    alignContent: 'center',
+    
   },
 });
 
