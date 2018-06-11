@@ -24,9 +24,16 @@ class FeedScreenContainer extends React.Component {
         <MPHeader back={true} onBack={this.handleBackClick} title={""}/>
         <MPTextField label={'Pesquise pelo nome, músicas e temas'} value={''}
                      style={{backgroundColor: '#FFF', marginHorizontal: 20}}/>
-        <MPTabBar firstTab={'PARA VOCÊ'} secondTab={"SEGUINDO"} style={{flex: 1}}>
-          <View style={styles.slider1}><Text>slider1</Text></View>
-          <View style={styles.slider2}><Text>slider2</Text></View>
+        <MPTabBar firstTabTitle={'PARA VOCÊ'} secondTabTitle={"SEGUINDO"}>
+          <View style={styles.firstSliderContainer}>
+            <View style={{marginHorizontal: 20, marginVertical: 12, flexDirection:'row',}}>
+              <View style={{width: 40, height: 40, backgroundColor: '#f60'}}></View>
+
+            </View>
+          </View>
+          <View style={styles.secondSliderContainer}>
+            <Text>slider2</Text>
+          </View>
         </MPTabBar>
         <MPFooter />
       </View>
@@ -40,14 +47,15 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#FFF',
   },
-
-  slider1: {
-    backgroundColor: '#F60',
+  firstSliderContainer: {
+    flex:1,
+    backgroundColor: '#FCFCFC',
     justifyContent: 'center',
     alignContent: 'center',
   },
-  slider2: {
-    backgroundColor: '#6F0',
+  secondSliderContainer: {
+    flex:1,
+    backgroundColor: '#FCFCFC',
     justifyContent: 'center',
     alignContent: 'center',
   },

@@ -17,30 +17,30 @@ class MPTabBarComponent extends React.Component {
   };
 
   render() {
-    let {firstTab, secondTab} = this.props;
+    let {firstTabTitle, secondTabTitle} = this.props;
     return (
-      <View {...this.props}>
+      <View style={styles.parent} {...this.props}>
         {
           this.state.tabIndex == 0 ? (
               <View style={ styles.tabTitlesContainer }>
                 <View style={ styles.selectedTitleContainer }>
                   <MPText style={ styles.selectedTitleText }
-                          onPress={ this.changeTabIndex.bind(this, 0)}>{firstTab}</MPText>
+                          onPress={ this.changeTabIndex.bind(this, 0)}>{firstTabTitle}</MPText>
                 </View>
                 <View style={ styles.notSeletecTitleContainer }>
                   <MPText style={ styles.notSeletecTitleText}
-                          onPress={ this.changeTabIndex.bind(this, 1)}>{secondTab}</MPText>
+                          onPress={ this.changeTabIndex.bind(this, 1)}>{secondTabTitle}</MPText>
                 </View>
               </View>
             ) : (
               <View style={ styles.tabTitlesContainer }>
                 <View style={ styles.notSeletecTitleContainer }>
                   <MPText style={ styles.notSeletecTitleText }
-                          onPress={ this.changeTabIndex.bind(this, 0)}>{ firstTab }</MPText>
+                          onPress={ this.changeTabIndex.bind(this, 0)}>{ firstTabTitle }</MPText>
                 </View>
                 <View style={ styles.selectedTitleContainer }>
                   <MPText style={ styles.selectedTitleText}
-                          onPress={ this.changeTabIndex.bind(this, 1)}>{secondTab}</MPText>
+                          onPress={ this.changeTabIndex.bind(this, 1)}>{secondTabTitle}</MPText>
                 </View>
               </View>
             )
@@ -57,6 +57,9 @@ class MPTabBarComponent extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  parent:{
+      flex:1,
+  },
   tabTitlesContainer: {
     display: 'flex',
     flexDirection: 'row',
