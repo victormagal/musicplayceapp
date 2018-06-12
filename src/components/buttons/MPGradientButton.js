@@ -1,8 +1,11 @@
 import React, {Component} from 'react';
-import {Alert, StyleSheet, Text, TouchableOpacity} from 'react-native';
-import {LinearGradient} from 'expo';
+import { 
+  StyleSheet,
+  TouchableOpacity 
+} from 'react-native';
+import { LinearGradient } from 'expo';
 import PropTypes from 'prop-types';
-import {MPText} from '../general/MPText';
+import { MPText } from '../general/MPText';
 
 class MPGradientButtonComponent extends Component {
 
