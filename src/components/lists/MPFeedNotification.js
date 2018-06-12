@@ -3,7 +3,7 @@ import {
   StyleSheet, View,
 } from 'react-native';
 import {connect} from 'react-redux';
-import {MPText} from '../general/MPText';
+import {MPText} from '../../components';
 
 class MPFeedNotificationComponent extends React.Component {
   state = {
@@ -82,7 +82,9 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     marginEnd: 34,
     flex: 1,
-    alignContent: 'center'
+    alignSelf: 'center',
+    justifyContent: 'center',
+    lineHeight: 1.25,
   },
   notificationTextEmpth: {
     color:'#4a90e2',
@@ -93,7 +95,7 @@ const styles = StyleSheet.create({
     color: '#4a4a4a',
     textAlign: 'right',
     fontFamily: 'montSerratSemiBold',
-    alignSelf: 'flex-end',
+    alignSelf: 'center',
   }
 });
 
