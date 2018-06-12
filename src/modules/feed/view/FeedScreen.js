@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet, Text, View, FlatList} from 'react-native';
-import {MPHeader, MPTextField, MPFooter, MPTabBar, MPText, MPFeedNotification, MPArtistFull} from '../../../components'
+import {MPHeader, MPTextField, MPFooter, MPTabBar, MPText, MPFeedNotification, MPArtistFull, MPArtist} from '../../../components'
 import {connect} from 'react-redux';
 
 
@@ -9,6 +9,31 @@ class FeedScreenContainer extends React.Component {
     super(props);
     this.state = {
       tabIndex: 0,
+    }
+
+    this.topArtists = {
+      data: [
+          {
+              id: '00',
+              artistName: 'Michel Teló',
+              backgroundColor: '#f60',
+          },
+          {
+            id: '01',
+            artistName: 'Paula Fernandes',
+            backgroundColor: '#0f6',
+          },
+          {
+                id: '02',
+                artistName: 'Almir Sater',
+                backgroundColor: '#f06',
+            },
+            {
+              id: '03',
+              artistName: 'Michel Teló',
+              backgroundColor: '#06f',
+          },
+      ]
     }
 
     this.artistList = {
@@ -61,7 +86,11 @@ class FeedScreenContainer extends React.Component {
     this.props.navigation.pop();
   };
 
-  renderItem = ({item}) => (
+  renderItemTopArtists = ({item}) => (
+    <MPArtist artist={item.artistName} backgroundColor={item.backgroundColor} />
+  )
+
+  renderItemFeed = ({item}) => (
     <MPFeedNotification notificationType={item.type} artistName={item.artistName} composerName={item.composerName} songName={item.songName} timeText={item.timeText}/>
   )
 
@@ -75,13 +104,21 @@ class FeedScreenContainer extends React.Component {
           <View style={styles.firstSliderContainer}>
             <MPText style={{ fontFamily: 'probaProRegular', fontSize: 20,marginHorizontal: 20, marginBottom: 16, marginTop: 20}}>Talvez você goste dessas músicas:</MPText>
             <MPArtistFull artistName={'Adelle'} songName={'Nome da música'} backgroundColor={'#f60'}/>
-            <MPArtistFull artistName={'Freddie'} songName={'Nome da música'} backgroundColor={'#06f'}/>
-            <MPArtistFull artistName={'Bjork'} songName={'Nome da música'} backgroundColor={'#0f6'}/>
+            {/* <MPArtistFull artistName={'Freddie'} songName={'Nome da música'} backgroundColor={'#06f'}/>
+            <MPArtistFull artistName={'Bjork'} songName={'Nome da música'} backgroundColor={'#0f6'}/> */}
+            <View style={styles.topArtistsContainer}>
+              <MPText style={{fontSize: 20, fontFamily: 'probaProRegular', marginBottom: 16, color: '#000'}}>Artistas em alta</MPText>
+              <FlatList data = {this.topArtists.data}
+                        keyExtractor={(item,index) => item.id} 
+                        renderItem={this.renderItemTopArtists}
+                        // horizontal={true}
+                        />
+            </View>
           </View>
           <View style={styles.secondSliderContainer}>
             <FlatList data = {this.artistList.data}
                       keyExtractor={(item,index) => item.id} 
-                      renderItem={this.renderItem} />
+                      renderItem={this.renderItemFeed} />
           </View>
         </MPTabBar>
         <MPFooter />
@@ -103,8 +140,11 @@ const styles = StyleSheet.create({
   secondSliderContainer: {
     flex:1,
     backgroundColor: '#FCFCFC',
-    
   },
+  topArtistsContainer: {
+    backgroundColor: '#f3f3f3',
+    padding: 20,
+  }
 });
 
 const mapStateToProps = ({fontReducer}) => {

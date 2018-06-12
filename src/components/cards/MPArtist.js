@@ -36,6 +36,7 @@ const styles = StyleSheet.create({
 	simpleArtistCardContainer: {
         flex: 1,
         width: 100,
+        height: 152,
         flexDirection: 'column',
         backgroundColor: '#fff',
         borderRadius: 4,
