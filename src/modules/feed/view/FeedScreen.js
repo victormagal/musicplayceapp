@@ -9,6 +9,9 @@ class FeedScreenContainer extends React.Component {
     super(props);
     this.state = {
       tabIndex: 0,
+      textValue: '',
+      searching: false,
+      searchingNotFound: false,
     }
 
     this.topArtists = {
@@ -94,40 +97,91 @@ class FeedScreenContainer extends React.Component {
     <MPFeedNotification notificationType={item.type} artistName={item.artistName} composerName={item.composerName} songName={item.songName} timeText={item.timeText}/>
   )
 
+  checkArtistName = (value) => {
+    this.setState({textValue: value});
+    if(value == 'amorenanssoas'){
+      this.setState({searchingNotFound: true});
+    }else if (value != ''){
+      this.setState({searching: true, searchingNotFound: false});
+    }else if ( value == ''){
+      this.setState({searching: false, searchingNotFound: false})
+    } 
+  }
+
   render() {
     return (
       <View style={styles.container}>
         <MPHeader back={true} onBack={this.handleBackClick} title={""}/>
-        <MPTextField label={'Pesquise pelo nome, músicas e temas'} value={''}
-                     style={{backgroundColor: '#FFF', marginHorizontal: 20}}/>
-        <MPTabBar firstTabTitle={'PARA VOCÊ'} secondTabTitle={"SEGUINDO"}>
-          <View style={styles.firstSliderContainer}>
-            <ScrollView>
-              <MPText style={{ fontFamily: 'probaProRegular', fontSize: 20,marginHorizontal: 20, marginBottom: 16, marginTop: 20}}>Talvez você goste dessas músicas:</MPText>
-              <MPArtistFull artistName={'Adelle'} songName={'Nome da música'} backgroundColor={'#f60'}/>
-              <MPArtistFull artistName={'Freddie'} songName={'Nome da música'} backgroundColor={'#06f'}/>
-              <MPArtistFull artistName={'Bjork'} songName={'Nome da música'} backgroundColor={'#0f6'}/>
+        <MPTextField label={'Pesquise pelo nome, músicas e temas'} 
+                     value={this.state.textValue}
+                     style={{backgroundColor: '#FFF', marginHorizontal: 20}}
+                     onChangeText={this.checkArtistName}/>
+        {
+          this.state.searching == true && this.state.searchingNotFound == false && (
+            <ScrollView style={{flex: 2, backgroundColor: '#FCFCFC',}}>
+              <MPText style={ styles.searchTitle }>Resultados para <MPText style={ styles.searchTitleEmph}>"{ this.state.textValue }"</MPText></MPText>
               <View style={styles.topArtistsContainer}>
-                <MPText style={{fontSize: 20, fontFamily: 'probaProRegular', marginBottom: 16, color: '#000'}}>Artistas em alta</MPText>
+                <MPText style={ styles.searchArtistRollText}>Artistas com o nome <MPText style={ styles.searchArtistRollTextEmph}>"{this.state.textValue}"</MPText></MPText>
                 <FlatList data = {this.topArtists.data}
                           keyExtractor={(item,index) => item.id} 
                           renderItem={this.renderItemTopArtists}
                           horizontal={true}
                           />
               </View>
+              <MPText style={{marginHorizontal: 20, marginBottom: 16, fontSize: 20, fontFamily: 'probaProRegular', color: '#000', }}>Músicas relacionadas a busca <MPText style={{color: '#5994db'}}>{ this.state.textValue }</MPText></MPText>
               <MPArtistFull artistName={'Adelle'} songName={'Nome da música'} backgroundColor={'#f60'}/>
               <MPArtistFull artistName={'Freddie'} songName={'Nome da música'} backgroundColor={'#06f'}/>
               <MPArtistFull artistName={'Bjork'} songName={'Nome da música'} backgroundColor={'#0f6'}/>
             </ScrollView>
-          </View>
-          <View style={styles.secondSliderContainer}>
-            <ScrollView style={{flex: 2,}}>
-              <FlatList data = {this.artistList.data}
-                        keyExtractor={(item,index) => item.id} 
-                        renderItem={this.renderItemFeed} />
-            </ScrollView>
-          </View>
-        </MPTabBar>
+          )
+        }
+        {
+          this.state.searchingNotFound == true && (
+            <View style={{flex: 1, backgroundColor: '#FCFCFC',}}>
+              <MPText style={ styles.searchTitle }>Sem resultados para <MPText style={ styles.searchTitleEmph}>"{ this.state.textValue }"</MPText></MPText>
+              <MPText style={ styles.searchNotFoundTextTitle }>Idéias que podem ajudar na sua busca</MPText>
+              <MPText style={ styles.searchNotFoundText }>Amor</MPText>
+              <MPText style={ styles.searchNotFoundText }>Morena</MPText>
+              <MPText style={ styles.searchNotFoundText }>Pessoas</MPText>
+              <MPText style={ styles.searchNotFoundText }>Sertanejo</MPText>
+              <MPText style={ styles.searchNotFoundText }>Rock</MPText>
+              <MPText style={ styles.searchNotFoundText }>MPB</MPText>
+
+            </View>
+          )
+        }
+        {
+          this.state.searching == false && (
+            <MPTabBar firstTabTitle={'PARA VOCÊ'} secondTabTitle={"SEGUINDO"}>
+              <View style={styles.firstSliderContainer}>
+                <ScrollView style={{flex: 2,}}>
+                  <MPText style={{ fontFamily: 'probaProRegular', fontSize: 20,marginHorizontal: 20, marginBottom: 16, marginTop: 20}}>Talvez você goste dessas músicas:</MPText>
+                  <MPArtistFull artistName={'Adelle'} songName={'Nome da música'} backgroundColor={'#f60'}/>
+                  <MPArtistFull artistName={'Freddie'} songName={'Nome da música'} backgroundColor={'#06f'}/>
+                  <MPArtistFull artistName={'Bjork'} songName={'Nome da música'} backgroundColor={'#0f6'}/>
+                  <View style={styles.topArtistsContainer}>
+                    <MPText style={{fontSize: 20, fontFamily: 'probaProRegular', marginBottom: 16, color: '#000'}}>Artistas em alta</MPText>
+                    <FlatList data = {this.topArtists.data}
+                              keyExtractor={(item,index) => item.id} 
+                              renderItem={this.renderItemTopArtists}
+                              horizontal={true}
+                              />
+                  </View>
+                  <MPArtistFull artistName={'Adelle'} songName={'Nome da música'} backgroundColor={'#f60'}/>
+                  <MPArtistFull artistName={'Freddie'} songName={'Nome da música'} backgroundColor={'#06f'}/>
+                  <MPArtistFull artistName={'Bjork'} songName={'Nome da música'} backgroundColor={'#0f6'}/>
+                </ScrollView>
+              </View>
+              <View style={styles.secondSliderContainer}>
+                <ScrollView style={{flex: 2,}}>
+                  <FlatList data = {this.artistList.data}
+                            keyExtractor={(item,index) => item.id} 
+                            renderItem={this.renderItemFeed} />
+                </ScrollView>
+              </View>
+            </MPTabBar>
+          )
+        }
         <MPFooter />
       </View>
     );
@@ -152,6 +206,41 @@ const styles = StyleSheet.create({
     backgroundColor: '#f3f3f3',
     padding: 20,
     marginBottom: 20,
+  },
+  searchTitle:{
+    fontSize:14,
+    marginHorizontal: 20,
+    marginVertical: 20,
+    fontFamily: 'montSerratItalic',
+    color: '#000',
+  },
+  searchTitleEmph:{
+    fontFamily: 'montSerratBoldItalic',
+    color: '#5994db'
+  },
+  searchNotFoundTextTitle: {
+    fontSize: 20, 
+    fontFamily: 'probaProRegular', 
+    color: '#000', 
+    marginStart: 20, 
+    marginBottom: 20
+  },
+  searchNotFoundText: {
+    fontSize: 16, 
+    fontFamily: 'montSerrat', 
+    textDecorationLine: 'underline', 
+    color: '#5994db', 
+    marginBottom: 20, 
+    marginStart: 40,
+  },
+  searchArtistRollText: {
+    fontSize: 20, 
+    fontFamily: 'probaProRegular', 
+    marginBottom: 16, 
+    color: '#000'
+  },
+  searchArtistRollTextEmph: {
+    color: '#5994db'
   }
 });
 

@@ -6,4 +6,3 @@ export * from './lists';
 export * from './profile';
 export * from './settings';
 export * from './registerSongs';
-export * from './notifications';
