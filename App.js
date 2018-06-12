@@ -46,7 +46,7 @@ const HomeNavigation = createStackNavigator(
     notification: NotificationScreensNavigation
   },
   {
-    initialRouteName: 'feed',
+    initialRouteName: 'indicateSong',
     headerMode: 'none'
   }
 );

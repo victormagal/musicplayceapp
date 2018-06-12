@@ -118,12 +118,36 @@ class FeedScreenContainer extends React.Component {
                      onChangeText={this.checkArtistName}/>
         {
           this.state.searching == true && this.state.searchingNotFound == false && (
-            <View style={{flex: 1}}><MPText>Searching</MPText></View>
+            <View style={{flex: 1, backgroundColor: '#FCFCFC',}}>
+              <MPText style={ styles.searchTitle }>Resultados para <MPText style={ styles.searchTitleEmph}>"{ this.state.textValue }"</MPText></MPText>
+              <View style={styles.topArtistsContainer}>
+                    <MPText style={{fontSize: 20, fontFamily: 'probaProRegular', marginBottom: 16, color: '#000'}}>Artistas com o nome <MPText style={{color: '#5994db'}}>"{this.state.textValue}"</MPText></MPText>
+                    <FlatList data = {this.topArtists.data}
+                              keyExtractor={(item,index) => item.id} 
+                              renderItem={this.renderItemTopArtists}
+                              horizontal={true}
+                              />
+              </View>
+              <MPText style={{marginHorizontal: 20, marginBottom: 16, fontSize: 20, fontFamily: 'probaProRegular', color: '#000', }}>Músicas relacionadas a busca <MPText style={{color: '#5994db'}}>{ this.state.textValue }</MPText></MPText>
+              <MPArtistFull artistName={'Adelle'} songName={'Nome da música'} backgroundColor={'#f60'}/>
+              <MPArtistFull artistName={'Freddie'} songName={'Nome da música'} backgroundColor={'#06f'}/>
+              <MPArtistFull artistName={'Bjork'} songName={'Nome da música'} backgroundColor={'#0f6'}/>
+            </View>
           )
         }
         {
           this.state.searchingNotFound == true && (
-            <View style={{flex: 1}}><MPText>NotFound</MPText></View>
+            <View style={{flex: 1, backgroundColor: '#FCFCFC',}}>
+              <MPText style={ styles.searchTitle }>Sem resultados para <MPText style={ styles.searchTitleEmph}>"{ this.state.textValue }"</MPText></MPText>
+              <MPText style={ {fontSize: 20, fontFamily: 'probaProRegular', color: '#000', marginStart: 20, marginBottom: 20} }>Idéias que podem ajudar na sua busca</MPText>
+              <MPText style={ {fontSize: 16, fontFamily: 'montSerrat', textDecorationLine: 'underline', color: '#5994db', marginBottom: 20, marginStart: 40,} }>Amor</MPText>
+              <MPText style={ {fontSize: 16, fontFamily: 'montSerrat', textDecorationLine: 'underline', color: '#5994db', marginBottom: 20, marginStart: 40,} }>Morena</MPText>
+              <MPText style={ {fontSize: 16, fontFamily: 'montSerrat', textDecorationLine: 'underline', color: '#5994db', marginBottom: 20, marginStart: 40,} }>Pessoas</MPText>
+              <MPText style={ {fontSize: 16, fontFamily: 'montSerrat', textDecorationLine: 'underline', color: '#5994db', marginBottom: 20, marginStart: 40,} }>Sertanejo</MPText>
+              <MPText style={ {fontSize: 16, fontFamily: 'montSerrat', textDecorationLine: 'underline', color: '#5994db', marginBottom: 20, marginStart: 40,} }>Rock</MPText>
+              <MPText style={ {fontSize: 16, fontFamily: 'montSerrat', textDecorationLine: 'underline', color: '#5994db', marginBottom: 20, marginStart: 40,} }>MPB</MPText>
+
+            </View>
           )
         }
         {
@@ -182,6 +206,17 @@ const styles = StyleSheet.create({
     backgroundColor: '#f3f3f3',
     padding: 20,
     marginBottom: 20,
+  },
+  searchTitle:{
+    fontSize:14,
+    marginHorizontal: 20,
+    marginVertical: 20,
+    fontFamily: 'montSerratItalic',
+    color: '#000',
+  },
+  searchTitleEmph:{
+    fontFamily: 'montSerratBoldItalic',
+    color: '#5994db'
   }
 });
 
