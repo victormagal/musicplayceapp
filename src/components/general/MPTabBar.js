@@ -43,7 +43,10 @@ class MPTabBarComponent extends React.Component {
               </View>
             )
         }
-        <Swiper showsPagination={false} onIndexChanged={this.changeTabIndex} index={this.tabIndex} loop={false}>
+        <Swiper showsPagination={false} 
+          onIndexChanged={this.changeTabIndex} 
+          index={this.state.tabIndex} 
+          loop={false}>
           {this.props.children}
         </Swiper>
       </View>
