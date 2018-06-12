@@ -46,7 +46,7 @@ const HomeNavigation = createStackNavigator(
     notification: NotificationScreensNavigation
   },
   {
-    initialRouteName: 'notification',
+    initialRouteName: 'feed',
     headerMode: 'none'
   }
 );
