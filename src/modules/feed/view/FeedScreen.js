@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, View, FlatList} from 'react-native';
+import {StyleSheet, ScrollView, View, FlatList} from 'react-native';
 import {MPHeader, MPTextField, MPFooter, MPTabBar, MPText, MPFeedNotification, MPArtistFull, MPArtist} from '../../../components'
 import {connect} from 'react-redux';
 
@@ -102,23 +102,30 @@ class FeedScreenContainer extends React.Component {
                      style={{backgroundColor: '#FFF', marginHorizontal: 20}}/>
         <MPTabBar firstTabTitle={'PARA VOCÊ'} secondTabTitle={"SEGUINDO"}>
           <View style={styles.firstSliderContainer}>
-            <MPText style={{ fontFamily: 'probaProRegular', fontSize: 20,marginHorizontal: 20, marginBottom: 16, marginTop: 20}}>Talvez você goste dessas músicas:</MPText>
-            <MPArtistFull artistName={'Adelle'} songName={'Nome da música'} backgroundColor={'#f60'}/>
-            {/* <MPArtistFull artistName={'Freddie'} songName={'Nome da música'} backgroundColor={'#06f'}/>
-            <MPArtistFull artistName={'Bjork'} songName={'Nome da música'} backgroundColor={'#0f6'}/> */}
-            <View style={styles.topArtistsContainer}>
-              <MPText style={{fontSize: 20, fontFamily: 'probaProRegular', marginBottom: 16, color: '#000'}}>Artistas em alta</MPText>
-              <FlatList data = {this.topArtists.data}
-                        keyExtractor={(item,index) => item.id} 
-                        renderItem={this.renderItemTopArtists}
-                        // horizontal={true}
-                        />
-            </View>
+            <ScrollView>
+              <MPText style={{ fontFamily: 'probaProRegular', fontSize: 20,marginHorizontal: 20, marginBottom: 16, marginTop: 20}}>Talvez você goste dessas músicas:</MPText>
+              <MPArtistFull artistName={'Adelle'} songName={'Nome da música'} backgroundColor={'#f60'}/>
+              <MPArtistFull artistName={'Freddie'} songName={'Nome da música'} backgroundColor={'#06f'}/>
+              <MPArtistFull artistName={'Bjork'} songName={'Nome da música'} backgroundColor={'#0f6'}/>
+              <View style={styles.topArtistsContainer}>
+                <MPText style={{fontSize: 20, fontFamily: 'probaProRegular', marginBottom: 16, color: '#000'}}>Artistas em alta</MPText>
+                <FlatList data = {this.topArtists.data}
+                          keyExtractor={(item,index) => item.id} 
+                          renderItem={this.renderItemTopArtists}
+                          horizontal={true}
+                          />
+              </View>
+              <MPArtistFull artistName={'Adelle'} songName={'Nome da música'} backgroundColor={'#f60'}/>
+              <MPArtistFull artistName={'Freddie'} songName={'Nome da música'} backgroundColor={'#06f'}/>
+              <MPArtistFull artistName={'Bjork'} songName={'Nome da música'} backgroundColor={'#0f6'}/>
+            </ScrollView>
           </View>
           <View style={styles.secondSliderContainer}>
-            <FlatList data = {this.artistList.data}
-                      keyExtractor={(item,index) => item.id} 
-                      renderItem={this.renderItemFeed} />
+            <ScrollView style={{flex: 2,}}>
+              <FlatList data = {this.artistList.data}
+                        keyExtractor={(item,index) => item.id} 
+                        renderItem={this.renderItemFeed} />
+            </ScrollView>
           </View>
         </MPTabBar>
         <MPFooter />
@@ -144,6 +151,7 @@ const styles = StyleSheet.create({
   topArtistsContainer: {
     backgroundColor: '#f3f3f3',
     padding: 20,
+    marginBottom: 20,
   }
 });
 

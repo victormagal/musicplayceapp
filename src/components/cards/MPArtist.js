@@ -13,9 +13,7 @@ class MPArtistComponent extends Component{
             {
                 this.props.fontLoaded ? (
                     <View style={ styles.simpleArtistCardContainer }>
-                        <View>
-                            <View style={ styles.simpleArtistCardImage } backgroundColor={ backgroundColor }></View>
-                        </View>
+                        <View style={ styles.simpleArtistCardImage } backgroundColor={ backgroundColor }></View>
                         <Text style={ styles.simpleArtistCardText }>{ artist }</Text>
                     </View>
                 ) : null
@@ -36,11 +34,11 @@ const styles = StyleSheet.create({
 	simpleArtistCardContainer: {
         flex: 1,
         width: 100,
-        height: 152,
         flexDirection: 'column',
         backgroundColor: '#fff',
         borderRadius: 4,
         marginHorizontal: 5,
+        marginBottom: 5,
         shadowColor: '#000',
         shadowOffset: {width: 0, height: 4},
         shadowOpacity: 0.9,
