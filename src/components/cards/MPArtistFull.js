@@ -9,7 +9,7 @@ import { MPText } from '../../components';
 class MPArtistFullComponent extends Component{
 
     render() {
-        let {songName, backgroundColor, style, onPress} = this.props;
+        let {songName, artistName, backgroundColor, style, onPress} = this.props;
 
         return (
             <TouchableOpacity style={style || {}} onPress={ onPress }>
@@ -24,16 +24,16 @@ class MPArtistFullComponent extends Component{
                         </View>
                         <View>
                             <MPText style={ styles.simpleArtistCardText }>{songName}</MPText>
-                            <View style={{marginHorizontal : 10, marginBottom: 10, marginTop: 5, flexDirection: 'row'}}>
+                            <View style={ styles.starsContainer }>
                                 <MPStarIcon style={{marginEnd: 3}} />
                                 <MPStarIcon style={{marginEnd: 3}} />
                                 <MPStarIcon style={{marginEnd: 3}} />
                                 <MPStarIcon style={{marginEnd: 3}} />
                                 <MPStarIcon style={{marginEnd: 3}} />
                             </View>
-                            <View style={{flexDirection: 'row', marginHorizontal: 10}}>
-                                <View style={{backgroundColor: '#6f0', borderRadius: 25, width:40, height: 40}}></View>
-                                <MPText style={ { textAlign: 'center', alignContent: 'center'} }>Adele</MPText>
+                            <View style={{flexDirection: 'row', marginTop: 20, marginHorizontal: 10, alignContent: 'center'}}>
+                                <View style={ styles.roundImage }></View>
+                                <MPText style={ {fontSize: 11, color: '#000', fontFamily: 'probaProRegular', marginStart : 8, marginTop: 15 } }>{artistName}</MPText>
                             </View>
                         </View>
                         
@@ -77,7 +77,19 @@ const styles = StyleSheet.create({
         paddingStart: 10,
         paddingEnd: 10,
         fontFamily: 'montSerrat'
-      }
+      },
+      starsContainer: {
+          marginHorizontal : 10, 
+          marginBottom: 10, 
+          marginTop: 5, 
+          flexDirection: 'row'
+        },
+        roundImage: {
+            backgroundColor: '#6f0', 
+            borderRadius: 25, 
+            width:40, 
+            height: 40
+        },
 });
 
 const mapStateToProps = ({fontReducer}) => {

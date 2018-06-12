@@ -13,7 +13,9 @@ class MPArtistComponent extends Component{
             {
                 this.props.fontLoaded ? (
                     <View style={ styles.simpleArtistCardContainer }>
-                        <View style={ styles.simpleArtistCardImage } backgroundColor={ backgroundColor }></View>
+                        <View>
+                            <View style={ styles.simpleArtistCardImage } backgroundColor={ backgroundColor }></View>
+                        </View>
                         <Text style={ styles.simpleArtistCardText }>{ artist }</Text>
                     </View>
                 ) : null

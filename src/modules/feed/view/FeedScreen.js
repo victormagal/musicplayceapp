@@ -73,8 +73,10 @@ class FeedScreenContainer extends React.Component {
                      style={{backgroundColor: '#FFF', marginHorizontal: 20}}/>
         <MPTabBar firstTabTitle={'PARA VOCÊ'} secondTabTitle={"SEGUINDO"}>
           <View style={styles.firstSliderContainer}>
-            <MPText style={{marginHorizontal: 20, marginBottom: 16}}>Talvez você goste dessas músicas:</MPText>
-            <MPArtistFull style={{backgroundColor: '#fff'}} songName={'Nome da música'} backgroundColor={'#f60'}/>
+            <MPText style={{ fontFamily: 'probaProRegular', fontSize: 20,marginHorizontal: 20, marginBottom: 16, marginTop: 20}}>Talvez você goste dessas músicas:</MPText>
+            <MPArtistFull artistName={'Adelle'} songName={'Nome da música'} backgroundColor={'#f60'}/>
+            <MPArtistFull artistName={'Freddie'} songName={'Nome da música'} backgroundColor={'#06f'}/>
+            <MPArtistFull artistName={'Bjork'} songName={'Nome da música'} backgroundColor={'#0f6'}/>
           </View>
           <View style={styles.secondSliderContainer}>
             <FlatList data = {this.artistList.data}
