@@ -1,9 +1,8 @@
 import React from 'react';
 import { 
-  Text, 
-  View, 
   StyleSheet, 
-  TouchableHighlight 
+  TouchableHighlight, 
+  View
 } from 'react-native';
 import { MPText } from '../../components';
 import { connect } from 'react-redux';

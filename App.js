@@ -17,7 +17,8 @@ import {
   SongsScreensNavigation, 
   SettingsNavigation,
   IndicateSongScreensNavigation,
-  FeedScreensNavigation
+  FeedScreensNavigation,
+  NotificationScreensNavigation
 } from './src/modules';
 import { reducers } from './src/state/reducer';
 import { loadFont } from './src/state/action';
@@ -42,9 +43,10 @@ const HomeNavigation = createStackNavigator(
     indicateSong: IndicateSongScreensNavigation,
     message: MessageNavigation,
     feed: FeedScreensNavigation,
+    notification: NotificationScreensNavigation
   },
   {
-    initialRouteName: 'login',
+    initialRouteName: 'notification',
     headerMode: 'none'
   }
 );

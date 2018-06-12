@@ -54,7 +54,7 @@ class FeedScreenContainer extends React.Component {
           type: '5',
         },
       ]
-  }
+    }
   }
 
   handleBackClick = () => {
