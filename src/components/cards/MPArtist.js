@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
+import { MPPlusArtistIcon, MPPlusArtistAvatarIcon } from '../../assets/svg';
 
 class MPArtistComponent extends Component{
 
@@ -13,7 +14,11 @@ class MPArtistComponent extends Component{
             {
                 this.props.fontLoaded ? (
                     <View style={ styles.simpleArtistCardContainer }>
-                        <View style={ styles.simpleArtistCardImage } backgroundColor={ backgroundColor }></View>
+                        <View>
+                            <View style={ styles.simpleArtistCardImage } backgroundColor={ backgroundColor }></View>
+                            <MPPlusArtistIcon style={{position: 'absolute', left: 8, top: 8}} />
+                            <MPPlusArtistAvatarIcon style={{position: 'absolute', left: 23, top: 8}} />
+                        </View>
                         <Text style={ styles.simpleArtistCardText }>{ artist }</Text>
                     </View>
                 ) : null
@@ -38,6 +43,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         borderRadius: 4,
         marginHorizontal: 5,
+        marginBottom: 5,
         shadowColor: '#000',
         shadowOffset: {width: 0, height: 4},
         shadowOpacity: 0.9,
