@@ -23,7 +23,6 @@ import {
 import { reducers } from './src/state/reducer';
 import { loadFont } from './src/state/action';
 
-
 const store = createStore(reducers, applyMiddleware(thunkMiddleware));
 
 if(typeof global.self === "undefined")
