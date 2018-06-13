@@ -46,7 +46,7 @@ const HomeNavigation = createStackNavigator(
     notification: NotificationScreensNavigation
   },
   {
-    initialRouteName: 'registerSongs',
+    initialRouteName: 'notification',
     headerMode: 'none'
   }
 );
