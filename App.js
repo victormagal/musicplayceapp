@@ -14,7 +14,6 @@ import {
   LoginScreensNavigation, 
   MessageNavigation, 
   ProfileScreen, 
-  SongsScreensNavigation, 
   SettingsNavigation,
   IndicateSongScreensNavigation,
   FeedScreensNavigation,
@@ -46,7 +45,7 @@ const HomeNavigation = createStackNavigator(
     notification: NotificationScreensNavigation
   },
   {
-    initialRouteName: 'feed',
+    initialRouteName: 'notification',
     headerMode: 'none'
   }
 );

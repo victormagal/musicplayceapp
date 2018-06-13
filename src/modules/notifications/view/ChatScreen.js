@@ -1,6 +1,7 @@
 import React from 'react';
 import {
   StyleSheet,
+  Text,
   View
 } from 'react-native';
 import {
@@ -114,16 +115,16 @@ class ChatScreenContainer extends React.Component {
     return (
       <View style={styles.container}>
         <MPHeader back={true} onBack={this.handleBackClick} title={""} />
-          <GiftedChat
-            messages={this.state.messages}
-            onSend={messages => this.onSend(messages)}
-            renderBubble={this.renderBubble}
-            renderSend={this.renderSend}
-            renderInputToolbar={this.renderInputToolbar}
-            user={{
-              _id: 1,
-            }}
-          />
+        <GiftedChat
+          messages={this.state.messages}
+          onSend={messages => this.onSend(messages)}
+          renderBubble={this.renderBubble}
+          renderSend={this.renderSend}
+          renderInputToolbar={this.renderInputToolbar}
+          user={{
+            _id: 1,
+          }}
+        />
         <MPFooter />
       </View>
     );
