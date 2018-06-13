@@ -1,7 +1,21 @@
 import React from 'react';
-import {StyleSheet, ScrollView, View, FlatList} from 'react-native';
-import {MPHeader, MPTextField, MPFooter, MPTabBar, MPText, MPFeedNotification, MPArtistFull, MPArtist} from '../../../components'
-import {connect} from 'react-redux';
+import {
+  FlatList,
+  ScrollView, 
+  StyleSheet, 
+  View 
+} from 'react-native';
+import {
+  MPArtist,
+  MPArtistFull, 
+  MPFeedNotification, 
+  MPFooter, 
+  MPHeader, 
+  MPTabBar, 
+  MPText, 
+  MPTextField 
+} from '../../../components'
+import { connect } from 'react-redux';
 
 
 class FeedScreenContainer extends React.Component {
@@ -16,46 +30,46 @@ class FeedScreenContainer extends React.Component {
 
     this.topArtists = {
       data: [
-          {
-              id: '00',
-              artistName: 'Michel Teló',
-              backgroundColor: '#f60',
-          },
-          {
-            id: '01',
-            artistName: 'Paula Fernandes',
-            backgroundColor: '#0f6',
-          },
-          {
-                id: '02',
-                artistName: 'Almir Sater',
-                backgroundColor: '#f06',
-            },
-            {
-              id: '03',
-              artistName: 'Michel Teló',
-              backgroundColor: '#06f',
-          },
+        {
+          id: '00',
+          artistName: 'Michel Teló',
+          backgroundColor: '#f60'
+        },
+        {
+          id: '01',
+          artistName: 'Paula Fernandes',
+          backgroundColor: '#0f6'
+        },
+        {
+          id: '02',
+          artistName: 'Almir Sater',
+          backgroundColor: '#f06'
+        },
+        {
+          id: '03',
+          artistName: 'Michel Teló',
+          backgroundColor: '#06f'
+        }
       ]
     }
 
     this.artistList = {
       data: [
-          {
-              id: '00',
-              artistName: 'Vitor e leo',
-              composerName: 'Rick Joe',
-              songName: 'Música Xis',
-              timeText: '1m',
-              type: '1',
-          },
-          {
-            id: '01',
-            artistName: 'Vitor e leo',
-            composerName: 'Rick Joe',
-            songName: 'Música Xis',
-            timeText: '15m',
-            type: '2',
+        {
+          id: '00',
+          artistName: 'Vitor e leo',
+          composerName: 'Rick Joe',
+          songName: 'Música Xis',
+          timeText: '1m',
+          type: '1'
+        },
+        {
+          id: '01',
+          artistName: 'Vitor e leo',
+          composerName: 'Rick Joe',
+          songName: 'Música Xis',
+          timeText: '15m',
+          type: '2'
         },
         {
           id: '02',
@@ -63,7 +77,7 @@ class FeedScreenContainer extends React.Component {
           composerName: 'Rick Joe',
           songName: 'Música Xis',
           timeText: '59m',
-          type: '3',
+          type: '3'
         },
         {
           id: '03',
@@ -71,7 +85,7 @@ class FeedScreenContainer extends React.Component {
           composerName: 'Rick Joe',
           songName: 'Camaro Amarelo',
           timeText: '2h',
-          type: '4',
+          type: '4'
         },
         {
           id: '04',
@@ -79,8 +93,8 @@ class FeedScreenContainer extends React.Component {
           composerName: 'Rick Joe',
           songName: 'Camaro Amarelo',
           timeText: '1d',
-          type: '5',
-        },
+          type: '5'
+        }
       ]
     }
   }
@@ -112,21 +126,24 @@ class FeedScreenContainer extends React.Component {
     return (
       <View style={styles.container}>
         <MPHeader back={true} onBack={this.handleBackClick} title={""}/>
-        <MPTextField label={'Pesquise pelo nome, músicas e temas'} 
-                     value={this.state.textValue}
-                     style={{backgroundColor: '#FFF', marginHorizontal: 20}}
-                     onChangeText={this.checkArtistName}/>
+        <MPTextField 
+          value={this.state.textValue}
+          label={'Pesquise pelo nome, músicas e temas'} 
+          style={{backgroundColor: '#FFF', marginHorizontal: 20}}
+          onChangeText={this.checkArtistName}
+        />
         {
           this.state.searching == true && this.state.searchingNotFound == false && (
             <ScrollView style={{flex: 2, backgroundColor: '#FCFCFC',}}>
               <MPText style={ styles.searchTitle }>Resultados para <MPText style={ styles.searchTitleEmph}>"{ this.state.textValue }"</MPText></MPText>
               <View style={styles.topArtistsContainer}>
                 <MPText style={ styles.searchArtistRollText}>Artistas com o nome <MPText style={ styles.searchArtistRollTextEmph}>"{this.state.textValue}"</MPText></MPText>
-                <FlatList data = {this.topArtists.data}
-                          keyExtractor={(item,index) => item.id} 
-                          renderItem={this.renderItemTopArtists}
-                          horizontal={true}
-                          />
+                <FlatList 
+                  data = {this.topArtists.data}
+                  keyExtractor={(item) => item.id} 
+                  renderItem={this.renderItemTopArtists}
+                  horizontal={true}
+                />
               </View>
               <MPText style={{marginHorizontal: 20, marginBottom: 16, fontSize: 20, fontFamily: 'probaProRegular', color: '#000', }}>Músicas relacionadas a busca <MPText style={{color: '#5994db'}}>{ this.state.textValue }</MPText></MPText>
               <MPArtistFull artistName={'Adelle'} songName={'Nome da música'} backgroundColor={'#f60'}/>
@@ -146,7 +163,6 @@ class FeedScreenContainer extends React.Component {
               <MPText style={ styles.searchNotFoundText }>Sertanejo</MPText>
               <MPText style={ styles.searchNotFoundText }>Rock</MPText>
               <MPText style={ styles.searchNotFoundText }>MPB</MPText>
-
             </View>
           )
         }
@@ -161,11 +177,12 @@ class FeedScreenContainer extends React.Component {
                   <MPArtistFull artistName={'Bjork'} songName={'Nome da música'} backgroundColor={'#0f6'}/>
                   <View style={styles.topArtistsContainer}>
                     <MPText style={{fontSize: 20, fontFamily: 'probaProRegular', marginBottom: 16, color: '#000'}}>Artistas em alta</MPText>
-                    <FlatList data = {this.topArtists.data}
-                              keyExtractor={(item,index) => item.id} 
-                              renderItem={this.renderItemTopArtists}
-                              horizontal={true}
-                              />
+                    <FlatList 
+                      data = {this.topArtists.data}
+                      keyExtractor={(item) => item.id} 
+                      renderItem={this.renderItemTopArtists}
+                      horizontal={true}
+                    />
                   </View>
                   <MPArtistFull artistName={'Adelle'} songName={'Nome da música'} backgroundColor={'#f60'}/>
                   <MPArtistFull artistName={'Freddie'} songName={'Nome da música'} backgroundColor={'#06f'}/>
@@ -174,9 +191,11 @@ class FeedScreenContainer extends React.Component {
               </View>
               <View style={styles.secondSliderContainer}>
                 <ScrollView style={{flex: 2,}}>
-                  <FlatList data = {this.artistList.data}
-                            keyExtractor={(item,index) => item.id} 
-                            renderItem={this.renderItemFeed} />
+                  <FlatList 
+                    data = {this.artistList.data}
+                    keyExtractor={(item) => item.id} 
+                    renderItem={this.renderItemFeed} 
+                  />
                 </ScrollView>
               </View>
             </MPTabBar>

@@ -1,9 +1,10 @@
 import React from 'react';
 import {
-  StyleSheet, View,
+  StyleSheet, 
+  View,
 } from 'react-native';
-import {connect} from 'react-redux';
-import {MPText} from '../../components';
+import { connect } from 'react-redux';
+import { MPText } from '../../components';
 
 class MPFeedNotificationComponent extends React.Component {
   state = {
@@ -15,52 +16,60 @@ class MPFeedNotificationComponent extends React.Component {
   };
 
   render() {
-    let {artistName, composerName, songName, notificationType, timeText} = this.props;
+    let {
+      artistName, 
+      composerName, 
+      songName, 
+      notificationType, 
+      timeText
+    } = this.props;
     return (
-        <View style={styles.parent}>
-            <View style={{width: 40, height: 40, backgroundColor: '#f60', marginEnd: 10,}}></View>
-            {
-              this.props.notificationType == '1' && (
-                <MPText style={styles.notificationText}>
-                  <MPText style={ styles.notificationTextEmpth}>{songName}</MPText> de 
-                  <MPText style={ styles.notificationTextEmpth}> {composerName}</MPText> foi indicada para 
-                  <MPText style={ styles.notificationTextEmpth}> {artistName}</MPText>
-              </MPText>
-              )
-            }
-            {
-              this.props.notificationType == '2' && (
-                <MPText style={styles.notificationText}>
-                  <MPText style={ styles.notificationTextEmpth}>{composerName}</MPText> indicou  
-                  <MPText style={ styles.notificationTextEmpth}> {artistName}</MPText>
-              </MPText>
-              )
-            }
-            {
-              this.props.notificationType == '3' && (
-                <MPText style={styles.notificationText}>
-                  <MPText style={ styles.notificationTextEmpth}>{composerName}</MPText> começou a seguir   
-                  <MPText style={ styles.notificationTextEmpth}> {artistName}</MPText>
-              </MPText>
-              )
-            } 
-            {
-              this.props.notificationType == '4' && (
-                <MPText style={styles.notificationText}>
-                  <MPText style={ styles.notificationTextEmpth}>{artistName}</MPText> comentou em    
-                  <MPText style={ styles.notificationTextEmpth}> {songName}</MPText>
-              </MPText>
-              )
-            }
-            {
-              this.props.notificationType == '5' && (
-                <MPText style={styles.notificationText}>
-                  <MPText style={ styles.notificationTextEmpth}>{composerName}</MPText> postou uma música: 
-                  <MPText style={ styles.notificationTextEmpth}> {songName}</MPText>
-              </MPText>
-              )
-            }            
-            <MPText style={styles.notificationTimeLeft}>{timeText}</MPText>
+      <View style={styles.parent}>
+        <View style={{width: 40, height: 40, backgroundColor: '#f60', marginEnd: 10}}></View>
+        {
+          this.props.notificationType == '1' && (
+            <MPText style={styles.notificationText}>
+              <MPText style={styles.notificationTextEmpth}>{songName}</MPText> de
+              <MPText> </MPText>
+              <MPText style={styles.notificationTextEmpth}>{composerName}</MPText> foi indicada para 
+              <MPText> </MPText>
+              <MPText style={styles.notificationTextEmpth}>{artistName}</MPText>
+            </MPText>
+          )
+        }
+        {
+          this.props.notificationType == '2' && (
+            <MPText style={styles.notificationText}>
+              <MPText style={styles.notificationTextEmpth}>{composerName}</MPText> indicou  
+              <MPText style={styles.notificationTextEmpth}>{artistName}</MPText>
+            </MPText>
+          )
+        }
+        {
+          this.props.notificationType == '3' && (
+            <MPText style={styles.notificationText}>
+              <MPText style={styles.notificationTextEmpth}>{composerName}</MPText> começou a seguir   
+              <MPText style={styles.notificationTextEmpth}>{artistName}</MPText>
+            </MPText>
+          )
+        } 
+        {
+          this.props.notificationType == '4' && (
+            <MPText style={styles.notificationText}>
+              <MPText style={styles.notificationTextEmpth}>{artistName}</MPText> comentou em    
+              <MPText style={styles.notificationTextEmpth}>{songName}</MPText>
+            </MPText>
+          )
+        }
+        {
+          this.props.notificationType == '5' && (
+            <MPText style={styles.notificationText}>
+              <MPText style={styles.notificationTextEmpth}>{composerName}</MPText> postou uma música: 
+              <MPText style={styles.notificationTextEmpth}>{songName}</MPText>
+            </MPText>
+          )
+        }            
+        <MPText style={styles.notificationTimeLeft}>{timeText}</MPText>
       </View>
     );
   }

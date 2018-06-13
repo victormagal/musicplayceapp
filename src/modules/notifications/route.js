@@ -1,13 +1,13 @@
 import { createStackNavigator } from 'react-navigation';
-import { NotificationScreen } from './view';
+import { NotificationScreen, ChatScreen } from './view';
 
 export const NotificationScreensNavigation = createStackNavigator(
   {
-    notificationScreen: {
-      screen: NotificationScreen,
-      navigationOptions: {
-        header: null
-      }
-    },
+    notificationScreen: NotificationScreen,
+    chatScreen: ChatScreen
+  },
+  {
+    initialRouteName: 'chatScreen',
+    headerMode: 'none'
   }
 );
