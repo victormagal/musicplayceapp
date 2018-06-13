@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
         marginHorizontal: 5,
         shadowColor: '#000',
         shadowOffset: {width: 0, height: 4},
-        shadowOpacity: 0.9,
+        shadowOpacity: 0.15,
         shadowRadius: 4,
       },
       simpleArtistCardImage:{
