@@ -1,27 +1,33 @@
 import React from 'react';
 import {
   StyleSheet,
-  View
+  View,
+  Text,
+  TouchableWithoutFeedback,
+  Modal
 } from 'react-native';
 import {
   MPFooter,
-  MPHeader
+  MPHeader,
+  MPText
 } from '../../../components';
 import {
-  Bubble, 
+  Bubble,
   GiftedChat,
   InputToolbar,
   Send
 } from 'react-native-gifted-chat';
-import { MPSendMessageIcon } from '../../../assets/svg'
-import { connect } from 'react-redux';
+import {MPSendMessageIcon} from '../../../assets/svg'
+import {connect} from 'react-redux';
+import {LinearGradient} from 'expo';
 
 
 class ChatScreenContainer extends React.Component {
 
   state = {
-    messages: []
-  }
+    messages: [],
+    menuVisible: false
+  };
 
   componentWillMount() {
     this.setState({
@@ -49,45 +55,49 @@ class ChatScreenContainer extends React.Component {
     this.props.navigation.pop();
   };
 
+  handleToggleMenu = () => {
+    this.setState({menuVisible: !this.state.menuVisible});
+  };
+
   renderBubble = props => {
     return (
       <View>
-      {
-        this.props.fontLoaded ? (
-            <Bubble
-              {...props}
-              textStyle={{
-                left: {
-                  color: '#9B9B9B',
-                  fontFamily: 'probaProRegular',
-                  fontSize: 16
-                },
-                right: {
-                  color: '#424242',
-                  fontFamily: 'probaProRegular',
-                  fontSize: 16
-                }
-              }}
-              wrapperStyle={{
-                left: {
-                  backgroundColor: 'white',
-                  padding: 10,
-                  shadowColor: '#000000',
-                  shadowOpacity: 0.15,
-                  shadowRadius: 2,
-                  shadowOffset: {
-                    width: 1,
-                    height: 1
+        {
+          this.props.fontLoaded ? (
+              <Bubble
+                {...props}
+                textStyle={{
+                  left: {
+                    color: '#9B9B9B',
+                    fontFamily: 'probaProRegular',
+                    fontSize: 16
+                  },
+                  right: {
+                    color: '#424242',
+                    fontFamily: 'probaProRegular',
+                    fontSize: 16
                   }
-                },
-                right: {
-                  backgroundColor: '#DFDFDF',
-                  padding: 10
-                }
-              }}
-            />
-        ) : null
-      }
+                }}
+                wrapperStyle={{
+                  left: {
+                    backgroundColor: 'white',
+                    padding: 10,
+                    shadowColor: '#000000',
+                    shadowOpacity: 0.15,
+                    shadowRadius: 2,
+                    shadowOffset: {
+                      width: 1,
+                      height: 1
+                    }
+                  },
+                  right: {
+                    backgroundColor: '#DFDFDF',
+                    padding: 10
+                  }
+                }}
+              />
+            ) : null
+        }
       </View>
     )
   }
@@ -99,8 +109,8 @@ class ChatScreenContainer extends React.Component {
         containerStyle={{borderTopWidth: 0.5, borderTopColor: '#E6E6E6'}}
         placeholder="Digite sua mensagem"
       />
-    ) 
-  }
+    )
+  };
 
   renderSend = props => {
     return (
@@ -108,22 +118,46 @@ class ChatScreenContainer extends React.Component {
         <MPSendMessageIcon />
       </Send>
     );
-  }
+  };
 
   render() {
     return (
       <View style={styles.container}>
-        <MPHeader back={true} onBack={this.handleBackClick} title={""} />
-          <GiftedChat
-            messages={this.state.messages}
-            onSend={messages => this.onSend(messages)}
-            renderBubble={this.renderBubble}
-            renderSend={this.renderSend}
-            renderInputToolbar={this.renderInputToolbar}
-            user={{
-              _id: 1,
-            }}
-          />
+        <MPHeader back={true} onBack={this.handleBackClick} title={""}/>
+        <TouchableWithoutFeedback onPress={this.handleToggleMenu}>
+          <View>
+            <MPText>Fernanda</MPText>
+            <MPText>...</MPText>
+          </View>
+        </TouchableWithoutFeedback>
+        <GiftedChat
+          messages={this.state.messages}
+          onSend={messages => this.onSend(messages)}
+          renderBubble={this.renderBubble}
+          renderSend={this.renderSend}
+          renderInputToolbar={this.renderInputToolbar}
+          user={{
+            _id: 1,
+          }}
+        />
+
+        <Modal
+          animationType="none"
+          transparent={true}
+          visible={this.state.menuVisible}
+          onRequestClose={() => {}}>
+          <View style={{marginTop: 80, backgroundColor: '#00000077'}}>
+            <LinearGradient
+              colors={["#e13223", "#ffffff"]}
+              start={[0, 0]}
+              end={[0, 1]}>
+              <MPText>Lorem ipsum dolor sit amet, consectetur adipiscing elit</MPText>
+              <MPText>Lorem ipsum dolor sit amet, consectetur adipiscing elit</MPText>
+              <MPText>Lorem ipsum dolor sit amet, consectetur adipiscing elit</MPText>
+            </LinearGradient>
+          </View>
+        </Modal>
+
         <MPFooter />
       </View>
     );
@@ -133,14 +167,14 @@ class ChatScreenContainer extends React.Component {
 const styles = StyleSheet.create({
   container: {
     display: 'flex',
-    flex: 1,
-    backgroundColor: '#FFFFFF',
+    flex: 1
   }
 });
 
-const mapStateToProps = ({ fontReducer }) => {
-  return { ...fontReducer };
+
+const mapStateToProps = ({fontReducer}) => {
+  return {...fontReducer};
 };
 
 const ChatScreen = connect(mapStateToProps)(ChatScreenContainer);
-export { ChatScreen };
+export {ChatScreen};
