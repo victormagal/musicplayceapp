@@ -1,5 +1,5 @@
 import React, { Component } from 'react'; 
-import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { Image, View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import { Icon } from 'react-native-elements';
@@ -9,7 +9,7 @@ import { MPText } from '../../components';
 class MPArtistFullComponent extends Component{
 
     render() {
-        let {songName, artistName, backgroundColor, style, onPress} = this.props;
+        let {songName, imagePath, artistName, backgroundColor, style, onPress} = this.props;
 
         return (
             <TouchableOpacity style={style || {}} onPress={ onPress }>
@@ -17,7 +17,8 @@ class MPArtistFullComponent extends Component{
                 this.props.fontLoaded ? (
                     <View style={ styles.simpleArtistCardContainer }>
                         <View>
-                            <View style={ styles.simpleArtistCardImage } backgroundColor={ backgroundColor }>
+                            <View style={ styles.simpleArtistCardImage } >
+                                <Image source={imagePath} />
                                 <MPSongListIcon style={{position: 'absolute', top: 4, right: 4}} />
                                 <MPPlayIcon style={{ marginTop: 48, alignSelf: 'center'}} />
                             </View>
@@ -47,6 +48,7 @@ class MPArtistFullComponent extends Component{
 
 MPArtistFullComponent.propTypes = {
     songName: PropTypes.string.isRequired,
+    imagePath: PropTypes.any.isRequired,
     onPress: PropTypes.func.isRequired,
     backgroundColor: PropTypes.any,
     style: PropTypes.any,
@@ -68,7 +70,8 @@ const styles = StyleSheet.create({
         width: 120,
         height: 120,
         borderRadius: 4,
-        backgroundColor: '#f60'
+        backgroundColor: '#f60',
+        overflow: 'hidden'
       },
       simpleArtistCardText: {
         fontSize: 14,

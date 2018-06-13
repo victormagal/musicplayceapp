@@ -8,6 +8,8 @@ const images = {
     sergioReis60: require('./sergio-reis-60.png'),
     daftPunk100: require('./daft-punk-100.png'),
     bjork100: require('./bjork-100.png'),
+    daftPunk120: require('./daft-punk-120.png'),
+    bjork120: require('./bjork-120.png'),
 };
 
 export default images;
