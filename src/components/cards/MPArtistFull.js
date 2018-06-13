@@ -1,5 +1,5 @@
 import React, { Component } from 'react'; 
-import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { Image, View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import { Icon } from 'react-native-elements';
@@ -9,7 +9,7 @@ import { MPText } from '../../components';
 class MPArtistFullComponent extends Component{
 
     render() {
-        let {songName, artistName, backgroundColor, style, onPress} = this.props;
+        let {songName, imagePath, artistImagePath, artistName, style, onPress} = this.props;
 
         return (
             <TouchableOpacity style={style || {}} onPress={ onPress }>
@@ -17,7 +17,8 @@ class MPArtistFullComponent extends Component{
                 this.props.fontLoaded ? (
                     <View style={ styles.simpleArtistCardContainer }>
                         <View>
-                            <View style={ styles.simpleArtistCardImage } backgroundColor={ backgroundColor }>
+                            <View style={ styles.simpleArtistCardImage } >
+                                <Image source={imagePath} />
                                 <MPSongListIcon style={{position: 'absolute', top: 4, right: 4}} />
                                 <MPPlayIcon style={{ marginTop: 48, alignSelf: 'center'}} />
                             </View>
@@ -32,7 +33,9 @@ class MPArtistFullComponent extends Component{
                                 <MPStarIcon style={{marginEnd: 3}} />
                             </View>
                             <View style={{flexDirection: 'row', marginTop: 20, marginHorizontal: 10, alignContent: 'center'}}>
-                                <View style={ styles.roundImage }></View>
+                                <View style={ styles.roundImage }>
+                                    <Image source={artistImagePath}/>
+                                </View>
                                 <MPText style={ {fontSize: 11, color: '#000', fontFamily: 'probaProRegular', marginStart : 8, marginTop: 15 } }>{artistName}</MPText>
                             </View>
                         </View>
@@ -47,6 +50,8 @@ class MPArtistFullComponent extends Component{
 
 MPArtistFullComponent.propTypes = {
     songName: PropTypes.string.isRequired,
+    imagePath: PropTypes.any.isRequired,
+    artistImagePath: PropTypes.any.isRequired,
     onPress: PropTypes.func.isRequired,
     backgroundColor: PropTypes.any,
     style: PropTypes.any,
@@ -68,7 +73,8 @@ const styles = StyleSheet.create({
         width: 120,
         height: 120,
         borderRadius: 4,
-        backgroundColor: '#f60'
+        backgroundColor: '#f60',
+        overflow: 'hidden'
       },
       simpleArtistCardText: {
         fontSize: 14,
@@ -85,10 +91,10 @@ const styles = StyleSheet.create({
           flexDirection: 'row'
         },
         roundImage: {
-            backgroundColor: '#6f0', 
             borderRadius: 25, 
             width:40, 
-            height: 40
+            height: 40,
+            overflow: 'hidden',
         },
 });
 
