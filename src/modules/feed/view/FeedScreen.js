@@ -151,9 +151,9 @@ class FeedScreenContainer extends React.Component {
                 />
               </View>
               <MPText style={{marginHorizontal: 20, marginBottom: 16, fontSize: 20, fontFamily: 'probaProRegular', color: '#000', }}>Músicas relacionadas a busca <MPText style={{color: '#5994db'}}>{ this.state.textValue }</MPText></MPText>
-              <MPArtistFull artistName={'Adelle'} songName={'Nome da música'} imagePath={images.daftPunk120}/>
-              <MPArtistFull artistName={'Freddie'} songName={'Nome da música'} imagePath={images.bjork120}/>
-              <MPArtistFull artistName={'Bjork'} songName={'Nome da música'} imagePath={images.daftPunk120}/>
+              <MPArtistFull artistName={'Adelle'} songName={'Nome da música'} imagePath={images.daftPunk120} artistImagePath={images.adele40}/>
+              <MPArtistFull artistName={'Freddie'} songName={'Nome da música'} imagePath={images.bjork120} artistImagePath={images.freddieMercury40}/>
+              <MPArtistFull artistName={'Bjork'} songName={'Nome da música'} imagePath={images.daftPunk120} artistImagePath={images.freddieMercury40}/>
             </ScrollView>
           )
         }
@@ -177,9 +177,9 @@ class FeedScreenContainer extends React.Component {
               <View style={styles.firstSliderContainer}>
                 <ScrollView style={{flex: 2,}}>
                   <MPText style={{ fontFamily: 'probaProRegular', fontSize: 20,marginHorizontal: 20, marginBottom: 16, marginTop: 20}}>Talvez você goste dessas músicas:</MPText>
-                  <MPArtistFull artistName={'Adelle'} songName={'Nome da música'} imagePath={images.bjork120}/>
-                  <MPArtistFull artistName={'Freddie'} songName={'Nome da música'} imagePath={images.daftPunk120}/>
-                  <MPArtistFull artistName={'Bjork'} songName={'Nome da música'} imagePath={images.bjork120}/>
+                  <MPArtistFull artistName={'Adelle'} songName={'Nome da música'} imagePath={images.bjork120} artistImagePath={images.adele40}/>
+                  <MPArtistFull artistName={'Freddie'} songName={'Nome da música'} imagePath={images.daftPunk120} artistImagePath={images.freddieMercury40}/>
+                  <MPArtistFull artistName={'Bjork'} songName={'Nome da música'} imagePath={images.bjork120} artistImagePath={images.adele40}/>
                   <View style={styles.topArtistsContainer}>
                     <MPText style={{fontSize: 20, fontFamily: 'probaProRegular', marginBottom: 16, color: '#000'}}>Artistas em alta</MPText>
                     <FlatList 
@@ -189,9 +189,9 @@ class FeedScreenContainer extends React.Component {
                       horizontal={true}
                     />
                   </View>
-                  <MPArtistFull artistName={'Adelle'} songName={'Nome da música'} imagePath={images.daftPunk120}/>
-                  <MPArtistFull artistName={'Freddie'} songName={'Nome da música'} imagePath={images.daftPunk120}/>
-                  <MPArtistFull artistName={'Bjork'} songName={'Nome da música'} imagePath={images.bjork120}/>
+                  <MPArtistFull artistName={'Adelle'} songName={'Nome da música'} imagePath={images.daftPunk120} artistImagePath={images.freddieMercury40}/>
+                  <MPArtistFull artistName={'Freddie'} songName={'Nome da música'} imagePath={images.daftPunk120} artistImagePath={images.adele40}/>
+                  <MPArtistFull artistName={'Bjork'} songName={'Nome da música'} imagePath={images.bjork120} artistImagePath={images.adele40}/>
                 </ScrollView>
               </View>
               <View style={styles.secondSliderContainer}>

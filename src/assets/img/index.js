@@ -10,6 +10,8 @@ const images = {
     bjork100: require('./bjork-100.png'),
     daftPunk120: require('./daft-punk-120.png'),
     bjork120: require('./bjork-120.png'),
+    adele40: require('./adele-40.png'),
+    freddieMercury40: require('./freddie-mercury-40.png'),
 };
 
 export default images;

@@ -9,7 +9,7 @@ import { MPText } from '../../components';
 class MPArtistFullComponent extends Component{
 
     render() {
-        let {songName, imagePath, artistName, backgroundColor, style, onPress} = this.props;
+        let {songName, imagePath, artistImagePath, artistName, style, onPress} = this.props;
 
         return (
             <TouchableOpacity style={style || {}} onPress={ onPress }>
@@ -33,7 +33,9 @@ class MPArtistFullComponent extends Component{
                                 <MPStarIcon style={{marginEnd: 3}} />
                             </View>
                             <View style={{flexDirection: 'row', marginTop: 20, marginHorizontal: 10, alignContent: 'center'}}>
-                                <View style={ styles.roundImage }></View>
+                                <View style={ styles.roundImage }>
+                                    <Image source={artistImagePath}/>
+                                </View>
                                 <MPText style={ {fontSize: 11, color: '#000', fontFamily: 'probaProRegular', marginStart : 8, marginTop: 15 } }>{artistName}</MPText>
                             </View>
                         </View>
@@ -49,6 +51,7 @@ class MPArtistFullComponent extends Component{
 MPArtistFullComponent.propTypes = {
     songName: PropTypes.string.isRequired,
     imagePath: PropTypes.any.isRequired,
+    artistImagePath: PropTypes.any.isRequired,
     onPress: PropTypes.func.isRequired,
     backgroundColor: PropTypes.any,
     style: PropTypes.any,
@@ -88,10 +91,10 @@ const styles = StyleSheet.create({
           flexDirection: 'row'
         },
         roundImage: {
-            backgroundColor: '#6f0', 
             borderRadius: 25, 
             width:40, 
-            height: 40
+            height: 40,
+            overflow: 'hidden',
         },
 });
 
