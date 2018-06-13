@@ -22,6 +22,7 @@ import {
 } from './src/modules';
 import { reducers } from './src/state/reducer';
 import { loadFont } from './src/state/action';
+import { ConfirmationScreen } from './src/modules/registerSongs';
 
 const store = createStore(reducers, applyMiddleware(thunkMiddleware));
 
@@ -37,7 +38,7 @@ const HomeNavigation = createStackNavigator(
     login: LoginScreensNavigation,
     home: HomeScreen,
     profile: ProfileScreen,
-    registerSongs: SongsScreensNavigation,
+    registerSongs: ConfirmationScreen,
     settings: SettingsNavigation,
     indicateSong: IndicateSongScreensNavigation,
     message: MessageNavigation,
@@ -45,7 +46,7 @@ const HomeNavigation = createStackNavigator(
     notification: NotificationScreensNavigation
   },
   {
-    initialRouteName: 'notification',
+    initialRouteName: 'registerSongs',
     headerMode: 'none'
   }
 );

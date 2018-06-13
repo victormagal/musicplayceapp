@@ -1,13 +1,14 @@
 import React, { Component } from 'react'; 
-import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity, Image } from 'react-native';
 import { Icon } from 'react-native-elements';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
+import images from '../../assets/img';
 
 class MPArtistHorizontalComponent extends Component{
 
     render() {
-        let {artist, selected, style, onPress} = this.props;
+        let {artist, imagePath, selected, style, onPress} = this.props;
         let borderStyle = {};
         let iconStyle = {};
 
@@ -28,7 +29,7 @@ class MPArtistHorizontalComponent extends Component{
             <TouchableOpacity style={style || {}} onPress={ onPress }>
                 <View style={{paddingTop: 8}}>
                     <View style={ [styles.stretchedArtistCardContainer, borderStyle] }>
-                        <View style={ styles.stretchedArtistImage } backgroundColor={ '#f06' }></View>
+                        <Image source={imagePath} />
                         { 
                             this.props.fontLoaded ? (
                                 <View>
@@ -48,6 +49,7 @@ class MPArtistHorizontalComponent extends Component{
 
 MPArtistHorizontalComponent.propTypes = {
     artist: PropTypes.string.isRequired,
+    imagePath: PropTypes.any.isRequired,
     onPress: PropTypes.func.isRequired,
     selected: PropTypes.bool,
     style: PropTypes.any,

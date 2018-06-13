@@ -2,6 +2,7 @@ import React from 'react';
 import {StyleSheet, ScrollView, Text, View, TextInput, FlatList} from 'react-native';
 import { MPHeader, MPTextField, MPFooter, MPArtist, MPSong, MPGradientButton } from '../../../components'
 import { connect } from 'react-redux';
+import images from '../../../assets/img';
 
 class IndicateSongFullScreenContainer extends React.Component {
     constructor(props){
@@ -17,35 +18,35 @@ class IndicateSongFullScreenContainer extends React.Component {
                 {
                     id: '00',
                     title: 'David Burn',
-                    backgroundColor: '#6f0'
+                    imagePath: images.daftPunk100
                 },
                 {
                     id: '01',
                     title: 'Bjork',
-                    backgroundColor: '#f60'
+                    imagePath: images.bjork100
                 },
                 {
                     id: '02',
                     title: 'Daft Punk',
-                    backgroundColor: '#06f'
+                    imagePath: images.daftPunk100
                 },
 
                 {
                     id: '02',
                     title: 'Sergio Reis',
-                    backgroundColor: '#c30'
+                    imagePath: images.bjork100
                 },
 
                 {
                     id: '02',
                     title: 'Munhoz & Mariano',
-                    backgroundColor: '#03c'
+                    imagePath: images.daftPunk100
                 },
 
                 {
                     id: '02',
                     title: 'Samuel Rosa',
-                    backgroundColor: '#0c3'
+                    imagePath: images.bjork100
                 },
             ]
         }
@@ -59,7 +60,7 @@ class IndicateSongFullScreenContainer extends React.Component {
   }
   
   renderItem = ({item}) => (
-    <MPArtist artist={item.title} backgroundColor={item.backgroundColor} onPress={this.goToScreen.bind(this, 'IndicateSongFeedbackScreen')} style={{marginBottom: 10,}} />
+    <MPArtist artist={item.title} imagePath={item.imagePath} onPress={this.goToScreen.bind(this, 'IndicateSongFeedbackScreen')} style={{marginBottom: 10,}} />
   )
 
   toggleState = (att) => {
