@@ -2,6 +2,7 @@ import React from 'react';
 import {StyleSheet, ScrollView, Text, View, TextInput, Image, FlatList} from 'react-native';
 import {  MPGradientButton, MPHeader, MPFooter, MPArtist, MPText } from '../../../components';
 import { connect } from 'react-redux';
+import images from '../../../assets/img';
 
 class ConfirmationScreenContainer extends React.Component {
   constructor(props){
@@ -13,24 +14,24 @@ class ConfirmationScreenContainer extends React.Component {
             {
                 id: '00',
                 title: 'David Burn',
-                backgroundColor: '#6f0'
+                imagePath: images.daftPunk100
             },
             {
                 id: '01',
                 title: 'Bjork',
-                backgroundColor: '#f60'
+                imagePath: images.bjork100
             },
             {
                 id: '02',
                 title: 'Daft Punk',
-                backgroundColor: '#06f'
+                imagePath: images.daftPunk100
             },
         ]
     }
   }
 
   renderItem = ({item}) => (
-    <MPArtist artist={item.title} backgroundColor={item.backgroundColor} onPress={() => {}} />
+    <MPArtist artist={item.title} imagePath={item.imagePath} onPress={() => {}} />
   );
   
   render() {

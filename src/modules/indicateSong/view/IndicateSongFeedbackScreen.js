@@ -3,6 +3,7 @@ import {StyleSheet, ScrollView, Text, View} from 'react-native';
 import { MPHeader, MPTextField, MPFooter, MPGradientButton, MPArtist, MPSongRating } from '../../../components'
 import { connect } from 'react-redux';
 import { MPPlusIcon, MPLogoIcon } from '../../../assets/svg';
+import images from '../../../assets/img';
 
 class IndicateSongFeedbackScreenContainer extends React.Component {
   
@@ -24,9 +25,9 @@ class IndicateSongFeedbackScreenContainer extends React.Component {
             <View>
               <Text style={ styles.headerText }>Indicação feita!</Text>
               <View style={ styles.partnershipContainer}>
-                <MPSongRating songName={'Tocando em Frente'} backgroundColor={'#f60'} onPress={() => {}} style={{}} />
+                <MPSongRating songName={'Tocando em Frente'} imagePath={images.daftPunk100} onPress={() => {}} style={{}} />
                 <MPPlusIcon   style={ styles.partnershipIcon }/>
-                <MPArtist artist={'Bruno Caliman'} backgroundColor={'#6f0'} onPress={() => {}} style={{}} />
+                <MPArtist artist={'Bruno Caliman'} imagePath={images.bjork100} onPress={() => {}} style={{}} />
               </View>
               <Text style={ styles.infoText }><Text style={ styles.infoTextEmph }>203</Text> outras pessoas sugeriram esta parceria também!</Text>
               <MPGradientButton title={'Fechar'} textSize={16} style={{marginHorizontal: 133}} onPress={()=>{}} />

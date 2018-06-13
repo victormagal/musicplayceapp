@@ -1,5 +1,5 @@
 import React, { Component } from 'react'; 
-import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity, Image } from 'react-native';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import { MPPlusArtistIcon, MPPlusArtistAvatarIcon } from '../../assets/svg';
@@ -7,7 +7,7 @@ import { MPPlusArtistIcon, MPPlusArtistAvatarIcon } from '../../assets/svg';
 class MPArtistComponent extends Component{
 
     render() {
-        let {artist, backgroundColor, style, onPress} = this.props;
+        let {artist, imagePath, backgroundColor, style, onPress} = this.props;
 
         return (
             <TouchableOpacity style={style || {}} onPress={ onPress }>
@@ -15,7 +15,9 @@ class MPArtistComponent extends Component{
                 this.props.fontLoaded ? (
                     <View style={ styles.simpleArtistCardContainer }>
                         <View>
-                            <View style={ styles.simpleArtistCardImage } backgroundColor={ backgroundColor }></View>
+                            <View style={ styles.simpleArtistCardImage }>
+                                <Image source={ imagePath } />
+                            </View>
                             <MPPlusArtistIcon style={{position: 'absolute', left: 8, top: 8}} />
                             <MPPlusArtistAvatarIcon style={{position: 'absolute', left: 23, top: 8}} />
                         </View>
@@ -30,6 +32,7 @@ class MPArtistComponent extends Component{
 
 MPArtistComponent.propTypes = {
     artist: PropTypes.string.isRequired,
+    imagePath: PropTypes.any.isRequired,
     onPress: PropTypes.func.isRequired,
     backgroundColor: PropTypes.any,
     style: PropTypes.any,
@@ -51,10 +54,9 @@ const styles = StyleSheet.create({
         shadowRadius: 4,
       },
       simpleArtistCardImage:{
-        width: 100,
-        height: 100,
         borderRadius: 4,
-        backgroundColor: '#f60'
+        backgroundColor: '#f60',
+        overflow: 'hidden'
       },
       simpleArtistCardText: {
         fontSize: 14,

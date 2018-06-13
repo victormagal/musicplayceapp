@@ -6,6 +6,8 @@ const images = {
     munhozMariano60: require('./munhoz-mariano-60.png'),
     samuelRosa60: require('./samuel-rosa-60.png'),
     sergioReis60: require('./sergio-reis-60.png'),
+    daftPunk100: require('./daft-punk-100.png'),
+    bjork100: require('./bjork-100.png'),
 };
 
 export default images;

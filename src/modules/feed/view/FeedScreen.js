@@ -3,7 +3,7 @@ import {
   FlatList,
   ScrollView, 
   StyleSheet, 
-  View 
+  View,
 } from 'react-native';
 import {
   MPArtist,
@@ -16,6 +16,7 @@ import {
   MPTextField 
 } from '../../../components'
 import { connect } from 'react-redux';
+import images from '../../../assets/img';
 
 
 class FeedScreenContainer extends React.Component {
@@ -33,21 +34,25 @@ class FeedScreenContainer extends React.Component {
         {
           id: '00',
           artistName: 'Michel Teló',
+          imagePath: images.daftPunk100,
           backgroundColor: '#f60'
         },
         {
           id: '01',
           artistName: 'Paula Fernandes',
+          imagePath: images.bjork100,
           backgroundColor: '#0f6'
         },
         {
           id: '02',
           artistName: 'Almir Sater',
+          imagePath: images.daftPunk100,
           backgroundColor: '#f06'
         },
         {
           id: '03',
           artistName: 'Michel Teló',
+          imagePath: images.bjork100,
           backgroundColor: '#06f'
         }
       ]
@@ -104,7 +109,7 @@ class FeedScreenContainer extends React.Component {
   };
 
   renderItemTopArtists = ({item}) => (
-    <MPArtist artist={item.artistName} backgroundColor={item.backgroundColor} />
+    <MPArtist artist={item.artistName} imagePath={item.imagePath}/>
   )
 
   renderItemFeed = ({item}) => (
