@@ -64,8 +64,13 @@ function buildPath(path){
   let strokeMiterlimit = attributes['stroke-miterlimit'];
   let strokeLinecap = attributes['stroke-linecap'];
   let strokeLinejoin = attributes['stroke-linejoin'];
+  let fillOpacity = attributes["opacity"];
 
   svgPathString += `<Path fill='${fill}' d='${d}'`;
+
+  if(fillOpacity){
+    svgPathString += ` fillOpacity='${fillOpacity}'`;
+  }
 
   if(stroke){
     svgPathString += ` stroke='${stroke}'`;
