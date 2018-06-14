@@ -180,7 +180,7 @@ class ChatScreenContainer extends React.Component {
             <TouchableWithoutFeedback
               onPress={this.handleCloseMenu}>
               <View
-                style={{paddingTop: 98}}>
+                style={styles.hardCodedPadding}>
                 {this.renderMenuItem('Ver Perfil', 'profile', true)}
                 {this.renderMenuItem('Bloquear', 'block', true)}
                 {this.renderMenuItem('Apagar conversa', 'remove')}
@@ -199,6 +199,9 @@ const styles = StyleSheet.create({
   container: {
     display: 'flex',
     flex: 1
+  },
+  hardCodedPadding:{
+    paddingTop: 98
   },
   menuHeader: {
     height: 40,
