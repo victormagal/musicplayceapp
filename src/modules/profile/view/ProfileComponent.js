@@ -2,7 +2,7 @@ import React from 'react';
 import {Text, View, StyleSheet} from 'react-native';
 import {LinearGradient} from 'expo';
 import PropTypes from 'prop-types';
-import { MPAddChangePhoto, MPProfileInfo, MPText } from '../../../components/';
+import { MPAddChangePhoto, MPProfileInfo, MPText, MPShowLanguages, MPHeader, MPFooter } from '../../../components/';
 import {MPLocationPinIcon} from '../../../assets/svg';
 
 
@@ -15,9 +15,11 @@ class ProfileComponent extends React.Component {
                 <LinearGradient
                     colors={["rgba(1, 1, 1, 0.2)", "#e13223"]}
                     style={styles.gradient}>
-
+                    <MPHeader back={true} onBack={this.handleBackClick} title={""}/>
                     <MPAddChangePhoto hasPhoto={true} />
                     <MPProfileInfo profile={profile} />
+                    <MPShowLanguages languages={['Espanhol', 'Inglês', 'Português']} />
+                    <MPFooter />
                 </LinearGradient>
             </View>
         );
