@@ -24,7 +24,7 @@ export const ProfileScreensNavigation = createStackNavigator(
     UnpublishSongSuccessScreen: UnpublishSongSuccessScreen,
   },
   {
-    initialRouteName: 'UnpublishSongSuccessScreen',
+    initialRouteName: 'ProfileScreen',
     headerMode: 'none'
   }
 );

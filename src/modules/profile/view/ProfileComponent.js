@@ -2,6 +2,7 @@ import React from 'react';
 import {Text, View, StyleSheet} from 'react-native';
 import {LinearGradient} from 'expo';
 import PropTypes from 'prop-types';
+import { MPAddChangePhoto } from '../../../components/';
 
 
 class ProfileComponent extends React.Component {
@@ -14,9 +15,7 @@ class ProfileComponent extends React.Component {
                     colors={["rgba(1, 1, 1, 0.2)", "#e13223"]}
                     style={styles.gradient}>
 
-                    <View style={styles.cover}>
-
-                    </View>
+                    <MPAddChangePhoto hasPhoto={true} />
 
                     <View>
                         <Text style={styles.name}>{profile.name}</Text>
@@ -37,9 +36,6 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#000000'
     },
-    cover: {
-        height: 225
-    },
     name: {
         fontSize: 32,
         fontWeight: 'bold',
@@ -51,8 +47,6 @@ const styles = StyleSheet.create({
     },
     gradient: {
         flex: 1,
-        paddingLeft: 20,
-        paddingRight: 20,
     },
     button: {
         width: 230
