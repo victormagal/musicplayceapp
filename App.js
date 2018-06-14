@@ -13,7 +13,7 @@ import {
   HomeScreen, 
   LoginScreensNavigation, 
   MessageNavigation, 
-  ProfileScreen, 
+  ProfileScreensNavigation,
   SettingsNavigation,
   IndicateSongScreensNavigation,
   FeedScreensNavigation,
@@ -36,7 +36,7 @@ const HomeNavigation = createStackNavigator(
   {
     login: LoginScreensNavigation,
     home: HomeScreen,
-    profile: ProfileScreen,
+    profile: ProfileScreensNavigation,
     registerSongs: ConfirmationScreen,
     settings: SettingsNavigation,
     indicateSong: IndicateSongScreensNavigation,
@@ -45,7 +45,7 @@ const HomeNavigation = createStackNavigator(
     notification: NotificationScreensNavigation
   },
   {
-    initialRouteName: 'notification',
+    initialRouteName: 'profile',
     headerMode: 'none'
   }
 );

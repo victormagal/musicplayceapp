@@ -34,7 +34,7 @@ class HomeScreen extends React.Component {
 
           <View style={{flexDirection: 'row', flex: 1}}>
             <ProfileIndicatorCE style={{marginTop: 10, flex: 1}} title="Indicações Feitas" subtitle="Explore" count={4}/>
-            <ProfileIndicatorCE style={{marginTop: 10, flex: 1}} title="Seguidores" subtitle="Convide seus amigos"/>
+            <ProfileIndicatorCE style={{marginTop: 10, flex: 1}} title="Seguidores" subtitle="Convide seus amigos" count={1.3}/>
           </View>
         </LinearGradient>
       </View>
