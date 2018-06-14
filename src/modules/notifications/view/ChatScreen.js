@@ -201,14 +201,16 @@ const styles = StyleSheet.create({
     flex: 1
   },
   hardCodedPadding:{
-    paddingTop: 98
+    paddingTop: 104
   },
   menuHeader: {
     height: 40,
     paddingHorizontal: 20,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    backgroundColor: '#000'
+    backgroundColor: '#000',
+    borderTopColor: '#292929',
+    borderTopWidth: 1
   },
   menuText: {
     color: '#FFF',
