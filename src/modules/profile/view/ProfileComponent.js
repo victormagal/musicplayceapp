@@ -2,7 +2,8 @@ import React from 'react';
 import {Text, View, StyleSheet} from 'react-native';
 import {LinearGradient} from 'expo';
 import PropTypes from 'prop-types';
-import { MPAddChangePhoto } from '../../../components/';
+import { MPAddChangePhoto, MPProfileInfo, MPText } from '../../../components/';
+import {MPLocationPinIcon} from '../../../assets/svg';
 
 
 class ProfileComponent extends React.Component {
@@ -16,11 +17,7 @@ class ProfileComponent extends React.Component {
                     style={styles.gradient}>
 
                     <MPAddChangePhoto hasPhoto={true} />
-
-                    <View>
-                        <Text style={styles.name}>{profile.name}</Text>
-                        <Text style={styles.username}>@{profile.username}</Text>
-                    </View>
+                    <MPProfileInfo profile={profile} />
                 </LinearGradient>
             </View>
         );
@@ -35,15 +32,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#000000'
-    },
-    name: {
-        fontSize: 32,
-        fontWeight: 'bold',
-        color: '#fff'
-    },
-    username: {
-        fontSize: 14,
-        color: '#fff'
     },
     gradient: {
         flex: 1,

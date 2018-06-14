@@ -9,7 +9,8 @@ const profileReducer = (state, action) => {
         lastName: '',
         username: '',
         email: '',
-        phone: ''
+        phone: '',
+        location: '',
       }
     };
 

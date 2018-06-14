@@ -1,6 +1,6 @@
 //Generated file
 import React from 'react';
-import Svg, { Path } from 'react-native-svg';
+import Svg, { Path, LinearGradient, Defs, Stop  } from 'react-native-svg';
 import {applyStyle} from './applyStyle';
 
 export const MPArrowDownRedIcon = (props) => { 
@@ -96,6 +96,11 @@ export const MPInputEyeIcon = (props) => {
 export const MPInviteConfigIcon = (props) => { 
  let newProps = applyStyle(props, 23, 20); 
  return (<Svg {...newProps} viewBox='0 0 23 20'><Path fill='none' d='M8.5 0.5c-2.266 0-3.862 1.49-3.862 3.805 0 2.454 1.744 4.42 3.862 4.42 2.12 0 3.863-1.966 3.863-4.42 0-2.315-1.596-3.805-3.863-3.805zM16.495 17.212l-0.004-0.248c-0.004-0.256-0.008-0.462-0.014-0.668l0.002 0.078-0.005-0.137c-0.352-2.951-3.177-4.4-7.85-4.4l-0.057 0.002-0.077 0.002-0.057-0.002h-0.003l-0.055-0.001c-4.674 0-7.499 1.448-7.85 4.4-0.003 0.023-0.009 0.285-0.017 0.725l-0.004 0.251c2.246 1.51 4.926 2.287 7.996 2.286 3.016 0 5.742-0.794 7.995-2.288z' stroke='#e13223' strokeWidth='1' strokeMiterlimit='4' strokeLinecap='butt' strokeLinejoin='miter'/><Path fill='#e13223' d='M18.5 4c0.276 0 0.5 0.224 0.5 0.5v8c0 0.276-0.224 0.5-0.5 0.5s-0.5-0.224-0.5-0.5v-8c0-0.276 0.224-0.5 0.5-0.5z'/><Path fill='#e13223' d='M14.5 8h8c0.276 0 0.5 0.224 0.5 0.5s-0.224 0.5-0.5 0.5h-8c-0.276 0-0.5-0.224-0.5-0.5s0.224-0.5 0.5-0.5z'/></Svg>); 
+};
+
+export const MPLocationPinIcon = (props) => { 
+ let newProps = applyStyle(props, 9, 12); 
+ return (<Svg {...newProps} viewBox='0 0 9 12'><Path fill='#fff' d='M4.32 12c-0.54 0-4.32-4.091-4.32-7.637 0-2.41 1.934-4.363 4.32-4.363s4.32 1.954 4.32 4.363c0 3.546-3.78 7.637-4.32 7.637zM4.32 6.273c1.044 0 1.89-0.854 1.89-1.909s-0.846-1.909-1.89-1.909c-1.044 0-1.89 0.854-1.89 1.909s0.846 1.909 1.89 1.909z'/></Svg>); 
 };
 
 export const MPLogoBlackIcon = (props) => { 
