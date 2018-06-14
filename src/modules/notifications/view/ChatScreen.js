@@ -21,6 +21,7 @@ import {MPSendMessageIcon} from '../../../assets/svg'
 import {connect} from 'react-redux';
 import {LinearGradient} from 'expo';
 
+const linearMenuColor = ["#bb1a1a", "#2e2c9d"];
 
 class ChatScreenContainer extends React.Component {
 
@@ -58,6 +59,35 @@ class ChatScreenContainer extends React.Component {
   handleToggleMenu = () => {
     this.setState({menuVisible: !this.state.menuVisible});
   };
+
+  handleCloseMenu = () => {
+    this.setState({menuVisible: false});
+  };
+
+  handleMenuItemClick = (item) => {
+    console.log(item);
+    this.setState({menuVisible: false});
+  };
+
+  renderMenuItem(label, name, border){
+    let style = [styles.menuItemContainer];
+
+    if(border){
+      style.push(styles.menuBorder);
+    }
+
+    return (
+      <LinearGradient
+        colors={linearMenuColor}
+        start={[0, 0]}
+        end={[1, 0]}
+        style={style}>
+
+        <MPText style={styles.menuItem} onPress={this.handleMenuItemClick.bind(this, name)}>{label}</MPText>
+
+      </LinearGradient>
+    );
+  }
 
   renderBubble = props => {
     return (
@@ -100,7 +130,7 @@ class ChatScreenContainer extends React.Component {
         }
       </View>
     )
-  }
+  };
 
   renderInputToolbar = props => {
     return (
@@ -125,9 +155,9 @@ class ChatScreenContainer extends React.Component {
       <View style={styles.container}>
         <MPHeader back={true} onBack={this.handleBackClick} title={""}/>
         <TouchableWithoutFeedback onPress={this.handleToggleMenu}>
-          <View>
-            <MPText>Fernanda</MPText>
-            <MPText>...</MPText>
+          <View style={styles.menuHeader}>
+            <MPText style={styles.menuText}>Fernanda</MPText>
+            <MPText style={styles.menuText}>...</MPText>
           </View>
         </TouchableWithoutFeedback>
         <GiftedChat
@@ -146,15 +176,16 @@ class ChatScreenContainer extends React.Component {
           transparent={true}
           visible={this.state.menuVisible}
           onRequestClose={() => {}}>
-          <View style={{marginTop: 80, backgroundColor: '#00000077'}}>
-            <LinearGradient
-              colors={["#e13223", "#ffffff"]}
-              start={[0, 0]}
-              end={[0, 1]}>
-              <MPText>Lorem ipsum dolor sit amet, consectetur adipiscing elit</MPText>
-              <MPText>Lorem ipsum dolor sit amet, consectetur adipiscing elit</MPText>
-              <MPText>Lorem ipsum dolor sit amet, consectetur adipiscing elit</MPText>
-            </LinearGradient>
+          <View>
+            <TouchableWithoutFeedback
+              onPress={this.handleCloseMenu}>
+              <View
+                style={styles.hardCodedPadding}>
+                {this.renderMenuItem('Ver Perfil', 'profile', true)}
+                {this.renderMenuItem('Bloquear', 'block', true)}
+                {this.renderMenuItem('Apagar conversa', 'remove')}
+              </View>
+            </TouchableWithoutFeedback>
           </View>
         </Modal>
 
@@ -168,9 +199,40 @@ const styles = StyleSheet.create({
   container: {
     display: 'flex',
     flex: 1
+  },
+  hardCodedPadding:{
+    paddingTop: 104
+  },
+  menuHeader: {
+    height: 40,
+    paddingHorizontal: 20,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    backgroundColor: '#000',
+    borderTopColor: '#292929',
+    borderTopWidth: 1
+  },
+  menuText: {
+    color: '#FFF',
+    fontFamily: 'montSerrat',
+    fontSize: 16,
+    alignSelf: 'center'
+  },
+  menuItemContainer: {
+    display: 'flex',
+    height: 40,
+    justifyContent: 'center'
+  },
+  menuBorder: {
+    borderBottomColor: '#292929',
+    borderBottomWidth: 1
+  },
+  menuItem: {
+    paddingLeft: 20,
+    color: '#FFF',
+    fontFamily: 'montSerrat'
   }
 });
-
 
 const mapStateToProps = ({fontReducer}) => {
   return {...fontReducer};
