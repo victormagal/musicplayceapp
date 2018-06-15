@@ -7,11 +7,12 @@ import {MPBackIcon, MPBackBlackIcon, MPLogoIcon, MPLogoBlackIcon} from '../../as
 class MPHeader extends React.Component {
 
   render() {
-    let { title, back, onBack, inverse } = this.props;
+    let { title, back, onBack, inverse, transparent } = this.props;
     let logo = inverse ? <MPLogoBlackIcon style={styles.logo} /> :
                          <MPLogoIcon style={styles.logo} />;
     let backIcon = inverse ? <MPBackBlackIcon style={styles.back} /> : <MPBackIcon style={styles.back}/>;
-    let backgroundColor = inverse ? 'transparent' : 'black';
+    let backgroundColor = inverse || transparent ? 'transparent' : 'black';
+
 
     return (
       <View style={[styles.parent, {backgroundColor}]}>
@@ -37,6 +38,7 @@ class MPHeader extends React.Component {
 MPHeader.propTypes = {
   title: PropTypes.string,
   back: PropTypes.bool,
+  transparent: PropTypes.bool,
   onBack: PropTypes.func
 };
 

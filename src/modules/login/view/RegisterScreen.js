@@ -64,7 +64,7 @@ class RegisterScreen extends Component {
     return (
       <ScrollView style={styles.container}>
         <LinearGradient colors={["#e1322373", "#ffffff8C"]} style={styles.gradient} start={[0, 0]} end={[0, 0.9]}>
-          <MPLogoRegisterIcon style={{marginTop: 100, alignSelf: 'center'}}/>
+          <MPLogoRegisterIcon style={styles.logo}/>
           <MPText style={styles.title}>O seu lugar de música</MPText>
           <MPText style={styles.register}>Crie sua conta</MPText>
           <MPButton icon={FacebookIcon} title="Entre com Facebook" textSize={16} onPress={() => {}} style={styles.signinFB}/>

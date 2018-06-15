@@ -14,7 +14,7 @@ class ProfileComponent extends React.Component {
                 <LinearGradient
                     colors={["rgba(1, 1, 1, 0.2)", "#e13223"]}
                     style={styles.gradient}>
-                    <MPHeader back={true} onBack={this.handleBackClick} title={""}/>
+                    <MPHeader transparent={true} title={""}/>
                     {
                         profile.visiting ? (
                             <MPFollowButton isFollowing={profile.isFollowing} />

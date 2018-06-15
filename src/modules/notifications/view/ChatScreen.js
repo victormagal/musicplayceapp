@@ -65,7 +65,6 @@ class ChatScreenContainer extends React.Component {
   };
 
   handleMenuItemClick = (item) => {
-    console.log(item);
     this.setState({menuVisible: false});
   };
 
@@ -153,7 +152,7 @@ class ChatScreenContainer extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <MPHeader back={true} onBack={this.handleBackClick} title={""}/>
+        <MPHeader />
         <TouchableWithoutFeedback onPress={this.handleToggleMenu}>
           <View style={styles.menuHeader}>
             <MPText style={styles.menuText}>Fernanda</MPText>

@@ -1,0 +1,51 @@
+import React, {Component} from 'react';
+import { 
+  StyleSheet,
+  TouchableOpacity 
+} from 'react-native';
+import { LinearGradient } from 'expo';
+import PropTypes from 'prop-types';
+
+class MPCircleGradientButton extends Component {
+
+  render() {
+    let {style, onPress, icon} = this.props;
+    let Icon = icon;
+
+    return (
+      <TouchableOpacity style={[styles.container, style || {}]} onPress={onPress}>
+        <LinearGradient
+          colors={['#BB1A1A', '#2E2C9D']}
+          start={[0.0, 0]}
+          end={[1.0, 0]}
+          style={[styles.linear]}>
+          {icon && <Icon style={styles.icon}/>}
+        </LinearGradient>
+      </TouchableOpacity>
+    );
+  }
+}
+
+MPCircleGradientButton.propTypes = {
+  onPress: PropTypes.func.isRequired,
+  style: PropTypes.any,
+  icon: PropTypes.symbol
+};
+
+const styles = StyleSheet.create({
+  container: {
+    height: 44,
+    width: 44
+  },
+  linear: {
+    width: '100%',
+    height: '100%',
+    justifyContent: 'center',
+    borderRadius: 200
+  },
+  icon: {
+    alignSelf: 'center'
+  }
+});
+
+export {MPCircleGradientButton};

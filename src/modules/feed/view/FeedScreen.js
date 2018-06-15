@@ -1,21 +1,20 @@
 import React from 'react';
 import {
   FlatList,
-  ScrollView, 
-  StyleSheet, 
+  ScrollView,
+  StyleSheet,
   View,
 } from 'react-native';
 import {
   MPArtist,
-  MPArtistFull, 
-  MPFeedNotification, 
-  MPFooter, 
-  MPHeader, 
-  MPTabBar, 
-  MPText, 
-  MPTextField 
+  MPArtistFull,
+  MPFeedNotification,
+  MPHeader,
+  MPTabBar,
+  MPText,
+  MPTextField
 } from '../../../components'
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 import images from '../../../assets/img';
 
 
@@ -104,8 +103,12 @@ class FeedScreenContainer extends React.Component {
     }
   }
 
-  handleBackClick = () => {
-    this.props.navigation.pop();
+  handleNavigateMusic = () => {
+    this.props.navigation.navigate('player');
+  };
+
+  handleNavigateArtistProfile = () => {
+
   };
 
   renderItemTopArtists = ({item}) => (
@@ -113,54 +116,71 @@ class FeedScreenContainer extends React.Component {
   )
 
   renderItemFeed = ({item}) => (
-    <MPFeedNotification notificationType={item.type} artistName={item.artistName} composerName={item.composerName} songName={item.songName} timeText={item.timeText}/>
+    <MPFeedNotification notificationType={item.type} artistName={item.artistName} composerName={item.composerName}
+                        songName={item.songName} timeText={item.timeText}/>
   )
 
   checkArtistName = (value) => {
     this.setState({textValue: value});
-    if(value == 'amorenanssoas'){
+    if (value == 'amorenanssoas') {
       this.setState({searchingNotFound: true});
-    }else if (value != ''){
+    } else if (value != '') {
       this.setState({searching: true, searchingNotFound: false});
-    }else if ( value == ''){
+    } else if (value == '') {
       this.setState({searching: false, searchingNotFound: false})
-    } 
-  }
+    }
+  };
 
   render() {
     return (
       <View style={styles.container}>
-        <MPHeader inverse={true} back={true} onBack={this.handleBackClick} title=""/>
-        <MPTextField 
+        <MPHeader inverse={true}/>
+        <MPTextField
           value={this.state.textValue}
-          label={'Pesquise pelo nome, músicas e temas'} 
+          label={'Pesquise pelo nome, músicas e temas'}
           style={{backgroundColor: '#FFF', marginHorizontal: 20}}
           onChangeText={this.checkArtistName}
         />
         {
           this.state.searching == true && this.state.searchingNotFound == false && (
             <ScrollView style={{flex: 2, backgroundColor: '#FCFCFC',}}>
-              <MPText style={ styles.searchTitle }>Resultados para <MPText style={ styles.searchTitleEmph}>"{ this.state.textValue }"</MPText></MPText>
+              <MPText style={ styles.searchTitle }>Resultados para <MPText
+                style={ styles.searchTitleEmph}>"{ this.state.textValue }"</MPText></MPText>
               <View style={styles.topArtistsContainer}>
-                <MPText style={ styles.searchArtistRollText}>Artistas com o nome <MPText style={ styles.searchArtistRollTextEmph}>"{this.state.textValue}"</MPText></MPText>
-                <FlatList 
-                  data = {this.topArtists.data}
-                  keyExtractor={(item) => item.id} 
+                <MPText style={ styles.searchArtistRollText}>Artistas com o nome <MPText
+                  style={ styles.searchArtistRollTextEmph}>"{this.state.textValue}"</MPText></MPText>
+                <FlatList
+                  data={this.topArtists.data}
+                  keyExtractor={(item) => item.id}
                   renderItem={this.renderItemTopArtists}
                   horizontal={true}
                 />
               </View>
-              <MPText style={{marginHorizontal: 20, marginBottom: 16, fontSize: 20, fontFamily: 'probaProRegular', color: '#000', }}>Músicas relacionadas a busca <MPText style={{color: '#5994db'}}>{ this.state.textValue }</MPText></MPText>
-              <MPArtistFull artistName={'Adelle'} songName={'Nome da música'} imagePath={images.daftPunk120} artistImagePath={images.adele40} onPress={()=>{}}/>
-              <MPArtistFull artistName={'Freddie'} songName={'Nome da música'} imagePath={images.bjork120} artistImagePath={images.freddieMercury40} onPress={()=>{}}/>
-              <MPArtistFull artistName={'Bjork'} songName={'Nome da música'} imagePath={images.daftPunk120} artistImagePath={images.freddieMercury40} onPress={()=>{}}/>
+              <MPText style={{
+                marginHorizontal: 20,
+                marginBottom: 16,
+                fontSize: 20,
+                fontFamily: 'probaProRegular',
+                color: '#000',
+              }}>Músicas relacionadas a busca <MPText
+                style={{color: '#5994db'}}>{ this.state.textValue }</MPText></MPText>
+              <MPArtistFull artistName={'Adelle'} songName={'Nome da música'} imagePath={images.daftPunk120}
+                            artistImagePath={images.adele40} onPress={() => {
+              }}/>
+              <MPArtistFull artistName={'Freddie'} songName={'Nome da música'} imagePath={images.bjork120}
+                            artistImagePath={images.freddieMercury40} onPress={() => {
+              }}/>
+              <MPArtistFull artistName={'Bjork'} songName={'Nome da música'} imagePath={images.daftPunk120}
+                            artistImagePath={images.freddieMercury40} onPress={() => {
+              }}/>
             </ScrollView>
           )
         }
         {
           this.state.searchingNotFound == true && (
             <View style={{flex: 1, backgroundColor: '#FCFCFC',}}>
-              <MPText style={ styles.searchTitle }>Sem resultados para <MPText style={ styles.searchTitleEmph}>"{ this.state.textValue }"</MPText></MPText>
+              <MPText style={ styles.searchTitle }>Sem resultados para <MPText
+                style={ styles.searchTitleEmph}>"{ this.state.textValue }"</MPText></MPText>
               <MPText style={ styles.searchNotFoundTextTitle }>Idéias que podem ajudar na sua busca</MPText>
               <MPText style={ styles.searchNotFoundText }>Amor</MPText>
               <MPText style={ styles.searchNotFoundText }>Morena</MPText>
@@ -176,30 +196,51 @@ class FeedScreenContainer extends React.Component {
             <MPTabBar firstTabTitle={'PARA VOCÊ'} secondTabTitle={"SEGUINDO"}>
               <View style={styles.firstSliderContainer}>
                 <ScrollView style={{flex: 2,}}>
-                  <MPText style={{ fontFamily: 'probaProRegular', fontSize: 20,marginHorizontal: 20, marginBottom: 16, marginTop: 20}}>Talvez você goste dessas músicas:</MPText>
-                  <MPArtistFull artistName={'Adelle'} songName={'Nome da música'} imagePath={images.bjork120} artistImagePath={images.adele40} onPress={()=>{}}/>
-                  <MPArtistFull artistName={'Freddie'} songName={'Nome da música'} imagePath={images.daftPunk120} artistImagePath={images.freddieMercury40} onPress={()=>{}}/>
-                  <MPArtistFull artistName={'Bjork'} songName={'Nome da música'} imagePath={images.bjork120} artistImagePath={images.adele40} onPress={()=>{}}/>
+                  <MPText style={{
+                    fontFamily: 'probaProRegular',
+                    fontSize: 20,
+                    marginHorizontal: 20,
+                    marginBottom: 16,
+                    marginTop: 20
+                  }}>Talvez você goste dessas músicas:</MPText>
+                  <MPArtistFull artistName={'Adelle'} songName={'Nome da música'} imagePath={images.bjork120}
+                                artistImagePath={images.adele40}
+                                onPressArtist={this.handleNavigateArtistProfile}
+                                onPressMusic={this.handleNavigateMusic} />
+                  <MPArtistFull artistName={'Freddie'} songName={'Nome da música'} imagePath={images.daftPunk120}
+                                artistImagePath={images.freddieMercury40}
+                                onPressArtist={this.handleNavigateArtistProfile}
+                                onPressMusic={this.handleNavigateMusic} />
+                  <MPArtistFull artistName={'Bjork'} songName={'Nome da música'} imagePath={images.bjork120}
+                                onPressArtist={this.handleNavigateArtistProfile}
+                                onPressMusic={this.handleNavigateMusic} />
                   <View style={styles.topArtistsContainer}>
-                    <MPText style={{fontSize: 20, fontFamily: 'probaProRegular', marginBottom: 16, color: '#000'}}>Artistas em alta</MPText>
-                    <FlatList 
-                      data = {this.topArtists.data}
-                      keyExtractor={(item) => item.id} 
+                    <MPText style={{fontSize: 20, fontFamily: 'probaProRegular', marginBottom: 16, color: '#000'}}>Artistas
+                      em alta</MPText>
+                    <FlatList
+                      data={this.topArtists.data}
+                      keyExtractor={(item) => item.id}
                       renderItem={this.renderItemTopArtists}
                       horizontal={true}
                     />
                   </View>
-                  <MPArtistFull artistName={'Adelle'} songName={'Nome da música'} imagePath={images.daftPunk120} artistImagePath={images.freddieMercury40} onPress={()=>{}}/>
-                  <MPArtistFull artistName={'Freddie'} songName={'Nome da música'} imagePath={images.daftPunk120} artistImagePath={images.adele40} onPress={()=>{}}/>
-                  <MPArtistFull artistName={'Bjork'} songName={'Nome da música'} imagePath={images.bjork120} artistImagePath={images.adele40} onPress={()=>{}}/>
+                  <MPArtistFull artistName={'Adelle'} songName={'Nome da música'} imagePath={images.daftPunk120}
+                                artistImagePath={images.freddieMercury40} onPress={() => {
+                  }}/>
+                  <MPArtistFull artistName={'Freddie'} songName={'Nome da música'} imagePath={images.daftPunk120}
+                                artistImagePath={images.adele40} onPress={() => {
+                  }}/>
+                  <MPArtistFull artistName={'Bjork'} songName={'Nome da música'} imagePath={images.bjork120}
+                                artistImagePath={images.adele40} onPress={() => {
+                  }}/>
                 </ScrollView>
               </View>
               <View style={styles.secondSliderContainer}>
                 <ScrollView style={{flex: 2,}}>
-                  <FlatList 
-                    data = {this.artistList.data}
-                    keyExtractor={(item) => item.id} 
-                    renderItem={this.renderItemFeed} 
+                  <FlatList
+                    data={this.artistList.data}
+                    keyExtractor={(item) => item.id}
+                    renderItem={this.renderItemFeed}
                   />
                 </ScrollView>
               </View>
@@ -218,11 +259,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFF',
   },
   firstSliderContainer: {
-    flex:1,
+    flex: 1,
     backgroundColor: '#FCFCFC',
   },
   secondSliderContainer: {
-    flex:1,
+    flex: 1,
     backgroundColor: '#FCFCFC',
   },
   topArtistsContainer: {
@@ -230,36 +271,36 @@ const styles = StyleSheet.create({
     padding: 20,
     marginBottom: 20,
   },
-  searchTitle:{
-    fontSize:14,
+  searchTitle: {
+    fontSize: 14,
     marginHorizontal: 20,
     marginVertical: 20,
     fontFamily: 'montSerratItalic',
     color: '#000',
   },
-  searchTitleEmph:{
+  searchTitleEmph: {
     fontFamily: 'montSerratBoldItalic',
     color: '#5994db'
   },
   searchNotFoundTextTitle: {
-    fontSize: 20, 
-    fontFamily: 'probaProRegular', 
-    color: '#000', 
-    marginStart: 20, 
+    fontSize: 20,
+    fontFamily: 'probaProRegular',
+    color: '#000',
+    marginStart: 20,
     marginBottom: 20
   },
   searchNotFoundText: {
-    fontSize: 16, 
-    fontFamily: 'montSerrat', 
-    textDecorationLine: 'underline', 
-    color: '#5994db', 
-    marginBottom: 20, 
+    fontSize: 16,
+    fontFamily: 'montSerrat',
+    textDecorationLine: 'underline',
+    color: '#5994db',
+    marginBottom: 20,
     marginStart: 40,
   },
   searchArtistRollText: {
-    fontSize: 20, 
-    fontFamily: 'probaProRegular', 
-    marginBottom: 16, 
+    fontSize: 20,
+    fontFamily: 'probaProRegular',
+    marginBottom: 16,
     color: '#000'
   },
   searchArtistRollTextEmph: {

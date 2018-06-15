@@ -60,7 +60,10 @@ class LoginScreen extends Component {
 
     if(!form.usuario || !form.senha){
       this.setState({error: true});
+      return;
     }
+
+    this.props.navigation.navigate('home');
   };
 
   handleForgotPassword = () => {

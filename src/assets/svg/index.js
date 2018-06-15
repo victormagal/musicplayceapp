@@ -53,6 +53,11 @@ export const MPBackIcon = (props) => {
  return (<Svg {...newProps} viewBox='0 0 10 12'><Path fill='#FFF' d='M9.214 0c.434 0 .786.352.786.786l-.003 10.43a.783.783 0 0 1-1.194.666L.383 6.675a.784.784 0 0 1-.01-1.34L8.743.157A.783.783 0 0 1 9.214 0z'/></Svg>); 
 };
 
+export const MPBalloonTalkIcon = (props) => { 
+ let newProps = applyStyle(props, 24, 19); 
+ return (<Svg {...newProps} viewBox='0 0 24 19'><Path fill='#FFF' d='M8.795 13.558c-.817 0-1.605-.092-2.355-.253L3.015 16.73v-4.85C1.171 10.639 0 8.817 0 6.78 0 3.034 3.938 0 8.795 0c4.857 0 8.794 3.035 8.794 6.78 0 3.743-3.937 6.778-8.794 6.778zm8.333-11.305c1.1 1.291 1.744 2.85 1.744 4.526 0 3.916-3.51 7.186-8.145 7.91 1.312.602 2.84.953 4.478.953.817 0 1.604-.092 2.355-.253l3.424 3.425v-4.85C22.83 12.723 24 10.9 24 8.865c0-3.235-2.941-5.935-6.872-6.611z'/></Svg>); 
+};
+
 export const MPChangePlanConfigIcon = (props) => { 
  let newProps = applyStyle(props, 22, 20); 
  return (<Svg {...newProps} viewBox='0 0 22 20'><Path fill='#d8d8d8' d='M1.5 4h20c0.276 0 0.5 0.224 0.5 0.5s-0.224 0.5-0.5 0.5h-20c-0.276 0-0.5-0.224-0.5-0.5s0.224-0.5 0.5-0.5z'/><Path fill='none' d='M2 4.5h19c0.276 0 0.5 0.224 0.5 0.5s-0.224 0.5-0.5 0.5h-19c-0.276 0-0.5-0.224-0.5-0.5s0.224-0.5 0.5-0.5z' stroke='#e13223' strokeWidth='1' strokeMiterlimit='4' strokeLinecap='butt' strokeLinejoin='miter'/><Path fill='#d8d8d8' d='M0.5 15h10c0.276 0 0.5 0.224 0.5 0.5s-0.224 0.5-0.5 0.5h-10c-0.276 0-0.5-0.224-0.5-0.5s0.224-0.5 0.5-0.5z'/><Path fill='none' d='M1 15.5h9c0.276 0 0.5 0.224 0.5 0.5s-0.224 0.5-0.5 0.5h-9c-0.276 0-0.5-0.224-0.5-0.5s0.224-0.5 0.5-0.5z' stroke='#e13223' strokeWidth='1' strokeMiterlimit='4' strokeLinecap='butt' strokeLinejoin='miter'/><Path fill='none' d='M14 15.531c0.22 1.646 1.41 2.469 3.569 2.469s3.3-0.677 3.42-2.032c0.1-1.082-0.516-1.878-1.844-2.388-1.993-0.766-4.353-1.050-4.896-2.712-0.543-1.663 1.156-2.868 3.32-2.868 1.917 0 3.399 1.107 3.42 2.172' stroke='#e13223' strokeWidth='1' strokeMiterlimit='4' strokeLinecap='round' strokeLinejoin='miter'/><Path fill='#e13223' d='M17.5 6c0.276 0 0.5 0.224 0.5 0.5v13c0 0.276-0.224 0.5-0.5 0.5s-0.5-0.224-0.5-0.5v-13c0-0.276 0.224-0.5 0.5-0.5z'/></Svg>); 
@@ -101,6 +106,11 @@ export const MPFollowingIcon = (props) => {
 export const MPGoogleIcon = (props) => { 
  let newProps = applyStyle(props, 28, 18); 
  return (<Svg {...newProps} viewBox='0 0 28 18'><Path fill='#FFF' d='M8.974 7.312v3.51h4.891c-.376 2.116-2.204 3.657-4.891 3.657-2.961 0-5.367-2.515-5.367-5.484 0-2.97 2.406-5.48 5.367-5.48 1.335 0 2.53.462 3.472 1.362v.006l2.53-2.537C13.421.894 11.396 0 8.973 0 4.016 0 0 4.028 0 9s4.016 9 8.974 9c5.183 0 8.615-3.656 8.615-8.798 0-.657-.062-1.288-.174-1.89H8.974zM28 7.875h-2.804V5.062h-2.244v2.813h-2.804v2.25h2.804v2.813h2.244v-2.813H28v-2.25z'/></Svg>); 
+};
+
+export const MPHeartIcon = (props) => { 
+ let newProps = applyStyle(props, 22, 20); 
+ return (<Svg {...newProps} viewBox='0 0 22 20'><Path fill='none' d='M10.993 19.33l8.768-7.83c1.132-1.217 1.739-2.845 1.739-4.556 0-1.71-.607-3.338-1.743-4.56C18.636 1.147 17.147.5 15.544.5a5.623 5.623 0 0 0-4.182 1.85l-.365.403-.371-.399C9.5 1.144 8.006.5 6.44.5c-1.566 0-3.06.645-4.185 1.854-2.34 2.517-2.34 6.63-.033 9.114l8.77 7.861z' stroke='#FFF'/></Svg>); 
 };
 
 export const MPHelpConfigIcon = (props) => { 

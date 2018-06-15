@@ -10,15 +10,14 @@ import thunkMiddleware from 'redux-thunk'
 import { createBottomTabNavigator, createStackNavigator} from 'react-navigation';
 import { Font } from 'expo';
 import { 
-  HomeScreen, 
-  LoginScreensNavigation, 
+  LoginScreensNavigation,
   MessageNavigation, 
   ProfileScreensNavigation,
   SettingsNavigation,
   IndicateSongScreensNavigation,
   FeedScreensNavigation,
   NotificationScreensNavigation,
-  PlayerScreensNavigation
+  StartScreen
 } from './src/modules';
 import { reducers } from './src/state/reducer';
 import { loadFont } from './src/state/action';
@@ -55,24 +54,19 @@ const HomeTabBottomNavigation = createBottomTabNavigator({
     }
   }
 }, {
-  initialRouteName: 'profile',
+  initialRouteName: 'feed',
   tabBarComponent: MPTabBottomComponent
 });
 
-const HomeNavigation = createStackNavigator(
+const StartNavigation = createStackNavigator(
   {
-    home: HomeScreen,
-    profile: ProfileScreensNavigation,
-    registerSongs: ConfirmationScreen,
-    settings: SettingsNavigation,
-    indicateSong: IndicateSongScreensNavigation,
+    start: StartScreen,
+    login: LoginScreensNavigation,
+    home: HomeTabBottomNavigation,
     message: MessageNavigation,
-    feed: FeedScreensNavigation,
-    notification: NotificationScreensNavigation,
-    player: PlayerScreensNavigation
   },
   {
-    initialRouteName: 'player',
+    initialRouteName: 'start',
     headerMode: 'none'
   }
 );
@@ -96,7 +90,7 @@ export default class App extends React.Component {
   render() {
     return (
       <Provider store={store}>
-        <HomeTabBottomNavigation />
+        <StartNavigation />
       </Provider>
     );
   }
