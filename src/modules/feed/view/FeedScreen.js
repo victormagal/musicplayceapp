@@ -130,7 +130,7 @@ class FeedScreenContainer extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <MPHeader back={true} onBack={this.handleBackClick} title={""}/>
+        <MPHeader inverse={true} back={true} onBack={this.handleBackClick} title=""/>
         <MPTextField 
           value={this.state.textValue}
           label={'Pesquise pelo nome, músicas e temas'} 
@@ -206,7 +206,6 @@ class FeedScreenContainer extends React.Component {
             </MPTabBar>
           )
         }
-        <MPFooter />
       </View>
     );
   }
