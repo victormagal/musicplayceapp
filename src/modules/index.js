@@ -7,3 +7,4 @@ export * from './general';
 export * from './indicateSong';
 export * from './feed';
 export * from './notifications';
+export * from './player';

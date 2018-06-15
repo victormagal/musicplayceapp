@@ -7,7 +7,7 @@ import {
 } from 'redux';
 import { Provider } from 'react-redux';
 import thunkMiddleware from 'redux-thunk'
-import { createStackNavigator } from 'react-navigation';
+import { createBottomTabNavigator, createStackNavigator} from 'react-navigation';
 import { Font } from 'expo';
 import { 
   HomeScreen, 
@@ -17,11 +17,14 @@ import {
   SettingsNavigation,
   IndicateSongScreensNavigation,
   FeedScreensNavigation,
-  NotificationScreensNavigation
+  NotificationScreensNavigation,
+  PlayerScreensNavigation
 } from './src/modules';
 import { reducers } from './src/state/reducer';
 import { loadFont } from './src/state/action';
 import { ConfirmationScreen } from './src/modules/registerSongs';
+import { MPTabBottomComponent } from './src/components';
+import { MPTabConfigurationIcon, MPTabNotificationIcon, MPTabProfileIcon } from './src/assets/svg/custom';
 
 const store = createStore(reducers, applyMiddleware(thunkMiddleware));
 
@@ -32,9 +35,32 @@ if(typeof global.self === "undefined")
 
 global.fetch = fetch;
 
+const HomeTabBottomNavigation = createBottomTabNavigator({
+  feed: {
+    screen: FeedScreensNavigation,
+    navigationOptions: {
+      tabBarIcon: MPTabConfigurationIcon
+    }
+  },
+  notification: {
+    screen: NotificationScreensNavigation,
+    navigationOptions: {
+      tabBarIcon: MPTabNotificationIcon
+    }
+  },
+  profile: {
+    screen: ProfileScreensNavigation,
+    navigationOptions: {
+      tabBarIcon: MPTabProfileIcon
+    }
+  }
+}, {
+  initialRouteName: 'feed',
+  tabBarComponent: MPTabBottomComponent
+});
+
 const HomeNavigation = createStackNavigator(
   {
-    login: LoginScreensNavigation,
     home: HomeScreen,
     profile: ProfileScreensNavigation,
     registerSongs: ConfirmationScreen,
@@ -42,10 +68,11 @@ const HomeNavigation = createStackNavigator(
     indicateSong: IndicateSongScreensNavigation,
     message: MessageNavigation,
     feed: FeedScreensNavigation,
-    notification: NotificationScreensNavigation
+    notification: NotificationScreensNavigation,
+    player: PlayerScreensNavigation
   },
   {
-    initialRouteName: 'profile',
+    initialRouteName: 'player',
     headerMode: 'none'
   }
 );
@@ -69,7 +96,7 @@ export default class App extends React.Component {
   render() {
     return (
       <Provider store={store}>
-        <HomeNavigation />
+        <HomeTabBottomNavigation />
       </Provider>
     );
   }
