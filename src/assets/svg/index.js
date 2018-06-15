@@ -3,6 +3,16 @@ import React from 'react';
 import Svg, { Path, LinearGradient, Defs, Stop  } from 'react-native-svg';
 import {applyStyle} from './applyStyle';
 
+export const MPAddSongNoteIcon = (props) => { 
+ let newProps = applyStyle(props, 14, 14); 
+ return (<Svg {...newProps} viewBox='0 0 14 14'><Path fill='#e13223' d='M10.062 6.915c0.015 0.297-0.314 0.613-0.811 0.751-0.571 0.157-1.148 0.018-1.288-0.312s0.209-0.724 0.78-0.882c0.343-0.095 0.688-0.082 0.939 0.014v-3.364l-3.602 0.341-0.014 4.021c0.001 0.010 0.002 0.023 0.002 0.035s-0.001 0.025-0.002 0.037l0-0.002c-0.027 0.28-0.345 0.565-0.809 0.693-0.571 0.158-1.148 0.018-1.288-0.311s0.209-0.724 0.78-0.882c0.34-0.094 0.682-0.082 0.932 0.012v-4.44l4.382-0.439-0.001 4.728z'/></Svg>); 
+};
+
+export const MPAddSongPlusIcon = (props) => { 
+ let newProps = applyStyle(props, 12, 12); 
+ return (<Svg {...newProps} viewBox='0 0 12 12'><Path fill='#e13223' d='M6 6.8c1.325 0 2.4-1.075 2.4-2.4s-1.075-2.4-2.4-2.4v0c-1.325 0-2.4 1.075-2.4 2.4s1.075 2.4 2.4 2.4v0z'/></Svg>); 
+};
+
 export const MPArrowDownRedIcon = (props) => { 
  let newProps = applyStyle(props, 12, 10); 
  return (<Svg {...newProps} viewBox='0 0 12 10'><Path fill='#E13223' d='M12 .786A.786.786 0 0 0 11.214 0L.784.003a.783.783 0 0 0-.666 1.194l5.208 8.42a.784.784 0 0 0 1.34.01l5.178-8.371A.783.783 0 0 0 12 .786z'/></Svg>); 

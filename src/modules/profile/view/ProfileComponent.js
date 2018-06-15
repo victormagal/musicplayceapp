@@ -3,6 +3,7 @@ import {View, StyleSheet} from 'react-native';
 import {LinearGradient} from 'expo';
 import PropTypes from 'prop-types';
 import { MPProfileInfo, MPShowLanguages, MPHeader, MPFooter, MPFollowButton } from '../../../components/';
+import { MPAddSongButton } from '../../../components/profile/MPAddSongButton';
 
 
 class ProfileComponent extends React.Component {
@@ -21,6 +22,7 @@ class ProfileComponent extends React.Component {
                     <MPShowLanguages languages={['Espanhol', 'Inglês', 'Português']} />
                     <MPFooter />
                 </LinearGradient>
+                <MPAddSongButton isColored={false} />
             </View>
         );
     }
