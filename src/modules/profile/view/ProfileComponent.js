@@ -20,7 +20,6 @@ class ProfileComponent extends React.Component {
                     {/* <MPAddChangePhoto hasPhoto={true} /> */}
                     <MPProfileInfo profile={profile} />
                     <MPShowLanguages languages={['Espanhol', 'Inglês', 'Português']} />
-                    <MPFooter />
                 </LinearGradient>
                 <MPAddSongButton isColored={false} />
             </View>

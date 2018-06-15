@@ -188,8 +188,6 @@ class ChatScreenContainer extends React.Component {
             </TouchableWithoutFeedback>
           </View>
         </Modal>
-
-        <MPFooter />
       </View>
     );
   }
