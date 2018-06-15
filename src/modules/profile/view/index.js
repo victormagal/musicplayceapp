@@ -1,4 +1,5 @@
 export * from './ProfileScreen';
+export * from './ProfileEmptyScreen';
 export * from './DeleteSongScreen';
 export * from './DeleteSongSuccessScreen';
 export * from './EditDescriptionScreen';

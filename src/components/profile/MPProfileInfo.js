@@ -6,57 +6,45 @@ import { MPLocationPinIcon } from '../../assets/svg';
 import { ProfileIndicatorCE } from './ProfileIndicatorCE';
 
 class MPProfileInfoComponent extends Component{
-    constructor(props){
-        super(props);
-        this.artist = {
-            location: '',
-            data: [
-                {
-                    id: '00',
-                    title: 'Spotify',
-                },
-                {
-                    id: '00',
-                    title: 'YouTube',
-                },
-                {
-                    id: '00',
-                    title: 'Deezer',
-                },
-            ]
-        }
-    }
 
     renderItem = ({item}) => (
         <MPText style={{color: '#fff', textDecorationLine: 'underline', marginEnd: 20}}>{item.title}</MPText>
     )
 
     render() {
-        let { profile,  } = this.props;
+        let { profile } = this.props;
+       
         let underlineStyle = profile.location == '' ? {textDecorationLine: 'underline'}: {};
-        profile.location = profile.location == '' ? 'Informe sua localização' : profile.location;
+        let location = profile.location == '' ? 'Informe sua localização' : profile.location;
+
         return (
             <View style={ styles.parent }>
-                <MPText style={styles.name}>{profile.name}</MPText>
+                <MPText style={styles.name}>{profile.name} {profile.lastName}</MPText>
                 <MPText style={styles.username}>@{profile.username}</MPText>
                 <View style={{flexDirection: 'row', marginTop: 10,}}>
                     <MPLocationPinIcon/>
-                    <MPText style={ [styles.location, underlineStyle] }>teste</MPText>
+                    <MPText style={ [styles.location, underlineStyle] }>{location}</MPText>
                 </View>
-                <View>
-                    <FlatList data = {this.artist.data}
-                        keyExtractor={(item,index) => item.id} 
-                        renderItem={this.renderItem}
-                        horizontal={true}
-                        style={{ marginBottom: 20, }}/>
-                </View>
-                <MPText style={ styles.descriptionText}>Cantor, compositor e filósofo de ponto de ônibus.
-                Compositor de Hits. Ganhou em 2015 o Prêmio Som Libre de autor do ano.
-                 Os sonhos moram em casas com mais janelas do que paredes.</MPText>
-                <View style={{flexDirection: 'row', flex: 1}}>
-                    <ProfileIndicatorCE style={{ flex: 1}} title="Indicações Feitas" subtitle="Explore" count={43}/>
-                    <ProfileIndicatorCE style={{ flex: 1}} title="Seguidores" subtitle="Convide seus amigos" count={1.3}/>
-                </View>
+                {
+                    profile.sites != '' ? (
+                        <View>
+                            <FlatList data = {profile.sites}
+                                keyExtractor={(item,index) => item.id} 
+                                renderItem={this.renderItem}
+                                horizontal={true}
+                                style={{ marginBottom: 20, }}/>
+                        </View>
+                    ) : (
+                        <MPText style={{color: '#fff', textDecorationLine: 'underline', marginEnd: 20, marginBottom: 20}}>Insira aqui seu site</MPText>
+                    )
+                }
+                {
+                    profile.description != '' ? (
+                        <MPText style={ styles.descriptionText}>{profile.description}</MPText>
+                    ) : (
+                        <MPText style={ [styles.descriptionText, {textDecorationLine: 'underline'}]}>Fale sobre você, seu trabalho, qual seu objetivo com o MusicPlayce. Quanto tempo de experiência você tem? Já fez parceria com bandas? Já ganhou premiações? Tem fã clube?</MPText>
+                    )
+                }
             </View>
         )
     }
@@ -65,7 +53,6 @@ class MPProfileInfoComponent extends Component{
 const styles = StyleSheet.create({
     parent: {
         marginHorizontal: 20,
-        flex: 1,
     },
     name: {
         fontSize: 32,

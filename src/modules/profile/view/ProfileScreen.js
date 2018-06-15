@@ -12,8 +12,8 @@ class ProfileScreenContainer extends React.Component {
 
     render() {
         return (
-            <ProfileComponent profile={this.props.profile} {...this.props}/>
-        );
+            <ProfileComponent profile={this.props.profile} {...this.props} />
+        )
     }
 }
 
