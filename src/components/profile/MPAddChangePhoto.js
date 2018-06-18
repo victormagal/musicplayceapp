@@ -28,7 +28,7 @@ class MPAddChangePhotoComponent extends Component{
 
 const styles = StyleSheet.create({
     hasPhotoContainer: {
-        height: 255,
+        height: 225,
         justifyContent: 'flex-end',
         marginStart: 20,
         marginEnd: 206,

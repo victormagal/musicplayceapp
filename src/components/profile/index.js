@@ -4,3 +4,4 @@ export * from './MPProfileInfo';
 export * from './MPShowLanguages';
 export * from './MPFollowButton';
 export * from './MPAddSongButton';
+export * from './MPUploadFirstSong';
