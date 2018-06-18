@@ -3,14 +3,14 @@ import { View, StyleSheet, Text, TouchableOpacity, Image } from 'react-native';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import { Icon } from 'react-native-elements';
-import { MPSongListIcon, MPPlayIcon, MPStarIcon, MPSongMenuIcon, MPSongIndicateIcon, MPSongIndicateFullIcon } from '../../assets/svg';
+import { MPSongListIcon, MPPlayIcon, MPStarIcon, MPSongMenuIcon, MPSongIndicateIcon, MPSongIndicateFullIcon, MPAddSongWhiteNoteIcon } from '../../assets/svg';
 import images from '../../assets/img';
 import { MPText } from '../general';
 
 class MPSongRatingComponent extends Component{
 
     render() {
-        let {songName, backgroundColor, style, onPress, isAdded, indicateSong, indications} = this.props;
+        let {songName, backgroundColor, style, onPress, isAdded, indicateSong, indications, isNew} = this.props;
         return (
             <TouchableOpacity style={style || {}} onPress={ onPress }>
             {
@@ -40,7 +40,7 @@ class MPSongRatingComponent extends Component{
                             </View>
                         </View>
                         {
-                            indicateSong && indications == null &&(
+                            indicateSong && indications == null && isNew == null &&(
                                 <View style={ styles.indicateSongContainer }>
                                     <MPSongIndicateIcon />
                                     <MPText style={styles.indicateSongText}>INDIQUE</MPText>
@@ -48,10 +48,18 @@ class MPSongRatingComponent extends Component{
                             )
                         }
                         {
-                            indications != null && (
+                            indications != null && isNew == null && (
                                 <View style={styles.indicateSongContainer}>
                                     <MPSongIndicateFullIcon />
                                     <MPText style={styles.indicateSongText}>{ indications } INDICAÇÕES</MPText>
+                                </View>
+                            )
+                        }
+                        {
+                            isNew && (
+                                <View style={ styles.newSongContainer}>
+                                    <MPAddSongWhiteNoteIcon style={{alignSelf: 'center'}} />
+                                    <MPText style={ styles.newSongText}>NOVIDADE</MPText>
                                 </View>
                             )
                         }
@@ -110,6 +118,20 @@ const styles = StyleSheet.create({
         fontFamily: 'montSerratMedium',
         color: '#000',
         marginStart: 5
+    },
+    newSongContainer: {
+        backgroundColor: '#e13223',
+        borderRadius: 8,
+        flexDirection: 'row',
+        marginHorizontal: 10,
+        marginBottom: 10,
+        alignContent: 'center',
+        justifyContent: 'center',
+    },
+    newSongText: {
+        fontSize: 10,
+        fontFamily: 'montSerratMedium',
+        color : '#FFF', 
     }
 });
 
