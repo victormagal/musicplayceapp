@@ -112,7 +112,7 @@ class FeedScreenContainer extends React.Component {
   };
 
   renderItemTopArtists = ({item}) => (
-    <MPArtist artist={item.artistName} imagePath={item.imagePath} onPress={()=>{}}/>
+    <MPArtist artist={item.artistName} imagePath={item.imagePath} onPress={()=>{}} isFollowing={false}/>
   )
 
   renderItemFeed = ({item}) => (

@@ -3,12 +3,12 @@ import {View, StyleSheet, Image} from 'react-native';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {MPText} from '../general';
-import {MPPlusArtistIcon, MPPlusArtistAvatarIcon} from '../../assets/svg';
+import { MPLessArtistIcon, MPPlusArtistIcon, MPPlusArtistAvatarIcon} from '../../assets/svg';
 
 class MPArtistComponent extends Component {
 
   render() {
-    let {artist, imagePath, style} = this.props;
+    let {artist, imagePath, style, isFollowing} = this.props;
 
     return (
       <View style={style || {}}>
@@ -17,8 +17,21 @@ class MPArtistComponent extends Component {
             <View style={ styles.simpleArtistCardImage }>
               <Image source={ imagePath }/>
             </View>
-            <MPPlusArtistIcon style={styles.iconArtist}/>
-            <MPPlusArtistAvatarIcon style={styles.iconArtistAvatar}/>
+            {
+              this.props.isFollowing == true  && (
+                <View style={{position: 'absolute'}}>
+                  <MPLessArtistIcon style={styles.iconArtist}/>
+                  <MPPlusArtistAvatarIcon style={styles.iconArtistAvatar}/>      
+                </View>
+              )
+            }{
+              this.props.isFollowing == false && (
+                <View style={{position: 'absolute'}}>
+                  <MPPlusArtistIcon style={styles.iconArtist}/>
+                  <MPPlusArtistAvatarIcon style={styles.iconArtistAvatar}/>      
+                </View>
+              )
+            }
           </View>
           <MPText style={ styles.simpleArtistCardText }>{ artist }</MPText>
         </View>
