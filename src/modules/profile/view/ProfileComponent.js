@@ -58,7 +58,7 @@ class ProfileComponent extends React.Component {
                         </MPTabBar>
                     ) : null
                 }
-                <MPAddSongButton isColored={false} />
+                <MPAddSongButton isColored={true} />
             </ScrollView>
         );
     }

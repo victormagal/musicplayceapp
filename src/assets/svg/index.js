@@ -13,6 +13,16 @@ export const MPAddSongPlusIcon = (props) => {
  return (<Svg {...newProps} viewBox='0 0 12 12'><Path fill='#e13223' d='M6 6.8c1.325 0 2.4-1.075 2.4-2.4s-1.075-2.4-2.4-2.4v0c-1.325 0-2.4 1.075-2.4 2.4s1.075 2.4 2.4 2.4v0z'/></Svg>); 
 };
 
+export const MPAddSongWhiteNoteIcon = (props) => { 
+ let newProps = applyStyle(props, 14, 14); 
+ return (<Svg {...newProps} viewBox='0 0 14 14'><Path fill='#fff' d='M11.082 6.887c0.020 0.396-0.418 0.818-1.081 1.001-0.761 0.21-1.53 0.024-1.717-0.415s0.279-0.966 1.040-1.176c0.457-0.126 0.917-0.11 1.252 0.019v-4.486l-4.803 0.455-0.019 5.361c0.001 0.014 0.002 0.030 0.002 0.047s-0.001 0.033-0.002 0.049l0-0.002c-0.036 0.373-0.46 0.754-1.079 0.925-0.762 0.21-1.531 0.024-1.718-0.415s0.279-0.966 1.040-1.176c0.453-0.125 0.909-0.11 1.243 0.016v-5.92l5.842-0.585-0.001 6.303z'/></Svg>); 
+};
+
+export const MPAddSongWhitePlusIcon = (props) => { 
+ let newProps = applyStyle(props, 12, 12); 
+ return (<Svg {...newProps} viewBox='0 0 12 12'><Path fill='#fff' d='M6 7.091c1.807 0 3.273-1.465 3.273-3.273s-1.465-3.273-3.273-3.273v0c-1.807 0-3.273 1.465-3.273 3.273s1.465 3.273 3.273 3.273v0z'/></Svg>); 
+};
+
 export const MPArrowDownRedIcon = (props) => { 
  let newProps = applyStyle(props, 12, 10); 
  return (<Svg {...newProps} viewBox='0 0 12 10'><Path fill='#E13223' d='M12 .786A.786.786 0 0 0 11.214 0L.784.003a.783.783 0 0 0-.666 1.194l5.208 8.42a.784.784 0 0 0 1.34.01l5.178-8.371A.783.783 0 0 0 12 .786z'/></Svg>); 
