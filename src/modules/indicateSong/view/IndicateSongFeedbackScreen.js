@@ -25,7 +25,7 @@ class IndicateSongFeedbackScreenContainer extends React.Component {
             <View>
               <Text style={ styles.headerText }>Indicação feita!</Text>
               <View style={ styles.partnershipContainer}>
-                <MPSongRating songName={'Tocando em Frente'} imagePath={images.daftPunk100} onPress={() => {}} style={{}}  />
+                <MPSongRating songName={'Tocando em Frente'} imagePath={images.daftPunk100} onPress={() => {}} style={{}} indications={200} />
                 <MPPlusIcon   style={ styles.partnershipIcon }/>
                 <MPArtist artist={'Bruno Caliman'} imagePath={images.bjork100} onPress={() => {}} style={{}} />
               </View>

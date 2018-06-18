@@ -3,14 +3,14 @@ import { View, StyleSheet, Text, TouchableOpacity, Image } from 'react-native';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import { Icon } from 'react-native-elements';
-import { MPSongListIcon, MPPlayIcon, MPStarIcon, MPSongMenuIcon, MPSongIndicateIcon } from '../../assets/svg';
+import { MPSongListIcon, MPPlayIcon, MPStarIcon, MPSongMenuIcon, MPSongIndicateIcon, MPSongIndicateFullIcon } from '../../assets/svg';
 import images from '../../assets/img';
 import { MPText } from '../general';
 
 class MPSongRatingComponent extends Component{
 
     render() {
-        let {songName, backgroundColor, style, onPress, isAdded, indicateSong} = this.props;
+        let {songName, backgroundColor, style, onPress, isAdded, indicateSong, indications} = this.props;
         return (
             <TouchableOpacity style={style || {}} onPress={ onPress }>
             {
@@ -40,10 +40,18 @@ class MPSongRatingComponent extends Component{
                             </View>
                         </View>
                         {
-                            indicateSong && (
-                                <View style={{flexDirection: 'row', paddingHorizontal: 10, marginBottom: 10, alignContent: 'center', justifyContent: 'center',}}>
+                            indicateSong && indications == null &&(
+                                <View style={ styles.indicateSongContainer }>
                                     <MPSongIndicateIcon />
-                                    <MPText style={{fontSize:10, fontFamily: 'montSerratMedium', color: '#000', marginStart: 5}}>INDIQUE</MPText>
+                                    <MPText style={styles.indicateSongText}>INDIQUE</MPText>
+                                </View>
+                            )
+                        }
+                        {
+                            indications != null && (
+                                <View style={styles.indicateSongContainer}>
+                                    <MPSongIndicateFullIcon />
+                                    <MPText style={styles.indicateSongText}>{ indications } INDICAÇÕES</MPText>
                                 </View>
                             )
                         }
@@ -89,7 +97,20 @@ const styles = StyleSheet.create({
         paddingStart: 10,
         paddingEnd: 10,
         fontFamily: 'montSerrat'
-      }
+      },
+      indicateSongContainer: {
+        flexDirection: 'row',
+        paddingHorizontal: 10,
+        marginBottom: 10,
+        alignContent: 'center', 
+        justifyContent: 'center'
+     },
+     indicateSongText:{
+        fontSize: 9,
+        fontFamily: 'montSerratMedium',
+        color: '#000',
+        marginStart: 5
+    }
 });
 
 const mapStateToProps = ({fontReducer}) => {
