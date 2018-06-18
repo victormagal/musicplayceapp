@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {ProfileComponent} from './ProfileComponent';
 import {fetchProfile} from '../../../state/action';
+import images from '../../../assets/img';
 
 class ProfileEmptyScreenContainer extends React.Component {
     constructor(props){
@@ -23,6 +24,7 @@ class ProfileEmptyScreenContainer extends React.Component {
                 hasPhoto: true,
                 isFollowing: false,
                 sites: '',
+                // 
                 // sites: [
                 //     {
                 //         id: '00',

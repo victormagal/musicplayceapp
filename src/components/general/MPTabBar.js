@@ -19,10 +19,11 @@ class MPTabBarComponent extends React.Component {
   };
 
   render() {
-    let {firstTabTitle, secondTabTitle} = this.props;
+    let {firstTabTitle, secondTabTitle, secondLayout} = this.props;
     return (
       <View style={styles.parent} {...this.props}>
         {
+          !secondLayout &&(
           this.state.tabIndex == 0 ? (
               <View style={ styles.tabTitlesContainer }>
                 <TouchableHighlight underlayColor="transparent" onPress={ this.changeTabIndex.bind(this, 0)} style={ styles.selectedTitleContainer }>
@@ -42,6 +43,30 @@ class MPTabBarComponent extends React.Component {
                 </TouchableHighlight>
               </View>
             )
+          )
+        }
+        {
+          secondLayout && (
+            this.state.tabIndex == 0 ? (
+              <View style={ styles.secondTabTitlesContainer }>
+                <TouchableHighlight underlayColor="transparent" onPress={ this.changeTabIndex.bind(this, 0)} style={ [styles.secondSelectedTitleContainer, {marginEnd: 20}] }>
+                  <MPText style={ styles.selectedTitleText }>{firstTabTitle}</MPText>
+                </TouchableHighlight>
+                <TouchableHighlight underlayColor="transparent" onPress={ this.changeTabIndex.bind(this, 1)} style={ styles.secondNotSeletecTitleContainer }>
+                  <MPText style={ styles.notSeletecTitleText}>{secondTabTitle}</MPText>
+                </TouchableHighlight>
+              </View>
+            ) : (
+              <View style={ styles.secondTabTitlesContainer }>
+                <TouchableHighlight underlayColor="transparent" onPress={this.changeTabIndex.bind(this, 0)} style={ [styles.secondNotSeletecTitleContainer, {marginEnd: 20}] }>
+                  <MPText style={ styles.notSeletecTitleText }>{ firstTabTitle }</MPText>
+                </TouchableHighlight>
+                <TouchableHighlight underlayColor="transparent" onPress={this.changeTabIndex.bind(this, 1)} style={ styles.secondSelectedTitleContainer }>
+                  <MPText style={ styles.selectedTitleText}>{secondTabTitle}</MPText>
+                </TouchableHighlight>
+              </View>
+            )
+          )
         }
         <Swiper showsPagination={false} 
           onIndexChanged={this.changeTabIndex} 
@@ -62,6 +87,12 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
   },
+  secondTabTitlesContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    backgroundColor: '#FCFCFC'
+  },
   selectedTitleContainer: {
     flex: 1,
     alignContent: 'center',
@@ -77,6 +108,19 @@ const styles = StyleSheet.create({
     paddingBottom: 17,
     borderBottomWidth: 1,
     borderColor: '#d3d3d3',
+  },
+  secondSelectedTitleContainer: {
+    alignSelf: 'center',
+    paddingTop: 17,
+    paddingBottom: 17,
+    borderBottomWidth: 3,
+    borderColor: '#e13223',
+    backgroundColor: '#FCFCFC'
+  },
+  secondNotSeletecTitleContainer: {
+    paddingTop: 17,
+    paddingBottom: 17,
+    backgroundColor: '#FCFCFC'
   },
   notSeletecTitleText: {
     color: '#626262',

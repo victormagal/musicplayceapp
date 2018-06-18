@@ -22,7 +22,6 @@ class MPUploadFirstSongComponent extends Component{
 const styles = StyleSheet.create({
     parent: {
         padding: 40,
-        flex: 1,
         backgroundColor: '#FCFCFC',
         borderBottomWidth: 1,
         borderColor: '#FFF'

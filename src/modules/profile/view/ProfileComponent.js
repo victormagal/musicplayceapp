@@ -2,7 +2,7 @@ import React from 'react';
 import {View, StyleSheet, ScrollView} from 'react-native';
 import {LinearGradient} from 'expo';
 import PropTypes from 'prop-types';
-import { MPTabBar, MPProfileInfo, MPShowLanguages, MPHeader, MPFooter, MPFollowButton, ProfileIndicatorCE, MPAddSongButton, MPAddChangePhoto, MPText, MPUploadFirstSong } from '../../../components/';
+import { MPTabBar, MPProfileInfo, MPShowLanguages, MPHeader, MPFooter, MPFollowButton, ProfileIndicatorCE, MPAddSongButton, MPAddChangePhoto, MPText, MPUploadFirstSong, MPShowFollowers } from '../../../components/';
 import { MPProfileArrowIcon } from '../../../assets/svg/'
 
 
@@ -53,6 +53,7 @@ class ProfileComponent extends React.Component {
                         <MPTabBar firstTabTitle={'MINHAS MÚSICAS'} secondTabTitle={"MÚSICAS SALVAS"}>
                             <View style={{flex:1}}>
                                 <MPUploadFirstSong />
+                                <MPShowFollowers />
                             </View>
                             <View style={{flex:1}}></View>
                         </MPTabBar>

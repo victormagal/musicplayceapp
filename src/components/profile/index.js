@@ -5,3 +5,4 @@ export * from './MPShowLanguages';
 export * from './MPFollowButton';
 export * from './MPAddSongButton';
 export * from './MPUploadFirstSong';
+export * from './MPShowFollowers';
