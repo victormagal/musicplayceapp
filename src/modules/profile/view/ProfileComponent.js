@@ -7,14 +7,19 @@ import { MPProfileArrowIcon } from '../../../assets/svg/'
 
 
 class ProfileComponent extends React.Component {
-
-    toggleState = (att) => {
-        att = !profileOpen;
+    constructor(props){
+        super(props);
+        this.state = {
+            profileOption: false,
+        }
     }
+
+    toggleState = () => {
+        this.setState({[profileOption]: !this.state.profileOption});
+      }
 
     render() {
         let {profile} = this.props;
-        let profileOpen = false;
 
         return (
             <ScrollView style={styles.container}>
@@ -39,17 +44,21 @@ class ProfileComponent extends React.Component {
                             <MPShowLanguages languages={profile.languages} />
                         ) : null
                     }
-                    <View style={{alignSelf: 'center', justifyContent: 'center', marginBottom: 20,}} onPress={this.toggleState.bind(this, 'profileOpen')}>
+                    <View style={{alignSelf: 'center', justifyContent: 'center', marginBottom: 20,}} onPress={this.toggleState.bind(this)}>
                         <MPProfileArrowIcon />
                     </View>
                 </LinearGradient>
+                {
+                    this.state.profileOption ? (
+                        <MPTabBar firstTabTitle={'MINHAS MÚSICAS'} secondTabTitle={"MÚSICAS SALVAS"}>
+                            <View style={{flex:1}}>
+                                <MPUploadFirstSong />
+                            </View>
+                            <View style={{flex:1}}></View>
+                        </MPTabBar>
+                    ) : null
+                }
                 <MPAddSongButton isColored={false} />
-                <MPTabBar firstTabTitle={'MINHAS MÚSICAS'} secondTabTitle={"MÚSICAS SALVAS"}>
-                    <View style={{flex:1}}>
-                        <MPUploadFirstSong />
-                    </View>
-                    <View style={{flex:1}}></View>
-                </MPTabBar>
             </ScrollView>
         );
     }
