@@ -12,7 +12,7 @@ class MPUploadFirstSongComponent extends Component{
         return (
             <View style={ styles.parent }>
                 <MPText style={styles.titleText}>Faça upload do seu material e divulgue seu trabalho!</MPText>
-                <MPGradientButton textSize={16} style={{marginBottom: 82, marginHorizontal: 10}} title={'Cadastrar nova música'}/>
+                <MPGradientButton onPress={() => {}} textSize={16} style={{marginBottom: 82, marginHorizontal: 10}} title={'Cadastrar nova música'}/>
                 <MPText style={styles.emphText}>Faça upgrade para o plano premium e cadastre várias músicas</MPText>
             </View>
         )
@@ -23,7 +23,9 @@ const styles = StyleSheet.create({
     parent: {
         padding: 40,
         flex: 1,
-        backgroundColor: '#FCFCFC'
+        backgroundColor: '#FCFCFC',
+        borderBottomWidth: 1,
+        borderColor: '#FFF'
     },
     titleText: {
         fontSize: 16,
