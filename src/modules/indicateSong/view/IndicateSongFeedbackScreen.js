@@ -35,7 +35,6 @@ class IndicateSongFeedbackScreenContainer extends React.Component {
           ) : null
         }
         </ScrollView>
-        <MPFooter />
       </View>
     );
   }

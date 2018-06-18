@@ -5,7 +5,7 @@ import { IndicateSongFullScreen,
 export const IndicateSongScreensNavigation = createStackNavigator(
   {
     IndicateSongFullScreen: {
-      screen: IndicateSongFullScreen,
+      screen: IndicateSongFeedbackScreen,
       navigationOptions: {
         header: null
       }

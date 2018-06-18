@@ -1,15 +1,15 @@
 import React, { Component } from 'react'; 
-import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity, Image } from 'react-native';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import { Icon } from 'react-native-elements';
-import { MPSongListIcon, MPPlayIcon, MPStarIcon } from '../../assets/svg';
+import { MPSongListIcon, MPPlayIcon, MPStarIcon, MPSongMenuIcon } from '../../assets/svg';
+import images from '../../assets/img';
 
 class MPSongRatingComponent extends Component{
 
     render() {
-        let {songName, backgroundColor, style, onPress} = this.props;
-
+        let {songName, backgroundColor, style, onPress, isAdded} = this.props;
         return (
             <TouchableOpacity style={style || {}} onPress={ onPress }>
             {
@@ -17,8 +17,15 @@ class MPSongRatingComponent extends Component{
                     <View style={ styles.simpleArtistCardContainer }>
                         <View>
                             <View style={ styles.simpleArtistCardImage } backgroundColor={ backgroundColor }>
-                                <MPSongListIcon style={{position: 'absolute', top: 10, right: 10}} />
-                                <MPPlayIcon style={{ marginTop: 38, alignSelf: 'center'}} />
+                                <Image source={ images.daftPunk100 } />
+                                {
+                                    isAdded ? (
+                                        <MPSongMenuIcon style={{position: 'absolute', top: 8, right: 8}}/>
+                                    ) : (
+                                        <MPSongListIcon style={{position: 'absolute', top: 10, right: 10}}/>
+                                    )
+                                }
+                                <MPPlayIcon style={{position: 'absolute', top: 38, left: 38}} />
                             </View>
                         </View>
                         <View>
@@ -64,7 +71,8 @@ const styles = StyleSheet.create({
         width: 100,
         height: 100,
         borderRadius: 4,
-        backgroundColor: '#f60'
+        backgroundColor: '#f60',
+        overflow: 'hidden',
       },
       simpleArtistCardText: {
         fontSize: 14,
