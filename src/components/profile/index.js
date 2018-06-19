@@ -9,3 +9,4 @@ export * from './MPShowFollowers';
 export * from './MPShowAgencies';
 export * from './MPReportProfile';
 export * from './MPShowFolderSongs';
+export * from './MPGradientBorderButton';

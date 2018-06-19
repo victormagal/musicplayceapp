@@ -20,9 +20,9 @@ class MPSongRatingComponent extends Component{
     }
 
     render() {
-        let {songName, style, onPress, isAdded, indicateSong, indications, isNew} = this.props;
+        let {songName, style, isAdded, indicateSong, indications, isNew} = this.props;
         return (
-            <TouchableOpacity style={style || {}} onPress={ onPress }>
+            <TouchableOpacity style={style || {}} >
             {
                 this.state.menuOpen == false ? (
                     <View style={ styles.simpleArtistCardContainer }>
@@ -94,14 +94,11 @@ class MPSongRatingComponent extends Component{
 
 MPSongRatingComponent.propTypes = {
     songName: PropTypes.string.isRequired,
-    onPress: PropTypes.func.isRequired,
-    backgroundColor: PropTypes.any,
     style: PropTypes.any,
 };
 
 const styles = StyleSheet.create({
 	simpleArtistCardContainer: {
-        flex: 1,
         width: 100,
         flexDirection: 'column',
         backgroundColor: '#fff',
@@ -125,12 +122,14 @@ const styles = StyleSheet.create({
         paddingTop: 10,
         paddingStart: 10,
         paddingEnd: 10,
-        fontFamily: 'montSerrat'
+        fontFamily: 'montSerrat',
+        flexWrap: 'wrap',
       },
       indicateSongContainer: {
         flexDirection: 'row',
         paddingHorizontal: 10,
         marginBottom: 10,
+        height: 16,
         alignContent: 'center', 
         justifyContent: 'center'
      },
@@ -155,7 +154,6 @@ const styles = StyleSheet.create({
         color : '#FFF', 
     },
     menuContainer: {
-        flex: 1,
         width: 100,
         backgroundColor: '#000',
         paddingVertical: 43,

@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import { MPSongRating, MPText } from '../../components'
 import images from '../../assets/img';
 import { MPGradientButton } from '../buttons';
+import { MPGradientBorderButton } from './MPGradientBorderButton';
 
 class MPShowFolderShongsComponent extends Component{
 
@@ -40,7 +41,7 @@ class MPShowFolderShongsComponent extends Component{
                     {
                         edit ? (
                             <View style={ styles.topBarButton}>
-                                <MPGradientButton textSize={10} title={'Editar'} />
+                                <MPGradientBorderButton  onPress={() => {}}/>
                             </View>
                         ) : null
                     }
