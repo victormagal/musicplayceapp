@@ -2,10 +2,9 @@ import React, { Component } from 'react';
 import { View, StyleSheet, Text, TouchableOpacity, Image } from 'react-native';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import { Icon } from 'react-native-elements';
-import { MPSongListIcon, MPPlayIcon, MPStarIcon, MPSongMenuIcon, MPSongIndicateIcon, MPSongIndicateFullIcon, MPAddSongWhiteNoteIcon } from '../../assets/svg';
+import { MPSongListIcon, MPPlayIcon, MPSongMenuIcon, MPSongIndicateIcon, MPSongIndicateFullIcon, MPAddSongWhiteNoteIcon } from '../../assets/svg';
 import images from '../../assets/img';
-import { MPText } from '../general';
+import { MPText, MPShowRating } from '../../components'
 
 class MPSongRatingComponent extends Component{
     constructor(props){
@@ -20,7 +19,7 @@ class MPSongRatingComponent extends Component{
     }
 
     render() {
-        let {songName, style, isAdded, indicateSong, indications, isNew} = this.props;
+        let {songName, style, isAdded, indicateSong, indications, isNew, rating} = this.props;
         return (
             <TouchableOpacity style={style || {}} >
             {
@@ -43,13 +42,7 @@ class MPSongRatingComponent extends Component{
                         </View>
                         <View>
                             <MPText style={ styles.simpleArtistCardText }>{ songName }</MPText>
-                            <View style={{marginHorizontal : 10, marginBottom: 10, marginTop: 5, flexDirection: 'row'}}>
-                                <MPStarIcon style={{marginEnd: 3}} />
-                                <MPStarIcon style={{marginEnd: 3}} />
-                                <MPStarIcon style={{marginEnd: 3}} />
-                                <MPStarIcon style={{marginEnd: 3}} />
-                                <MPStarIcon style={{marginEnd: 3}} />
-                            </View>
+                            {/* <MPShowRating rating={3} /> */}
                         </View>
                         {
                             indicateSong && indications == null && isNew == null &&(

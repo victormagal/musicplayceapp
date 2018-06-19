@@ -12,7 +12,7 @@ class MPUpgradeButtonComponent extends Component{
         
         return (
             <View style={ styles.parent }>
-                <MPSongRating songName={song.songName} isAdded={true} indicateSong={true} style={styles.cardContainer} />
+                <MPSongRating songName={song.songName} rating={3} isAdded={true} indicateSong={true} style={styles.cardContainer} />
                 <View style={styles.upgradeContainer}>
                     <MPUpgradeNoteIcon  style={{alignSelf: 'center',}}/>
                     <MPText style={ styles.upgradeText}>Assine o plano premium para cadastrar mais músicas!</MPText>
