@@ -98,6 +98,7 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#FCFCFC',
         paddingVertical: 20,
+        height: 170
     }
 });
 

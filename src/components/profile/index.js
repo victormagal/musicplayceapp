@@ -7,3 +7,4 @@ export * from './MPAddSongButton';
 export * from './MPUploadFirstSong';
 export * from './MPShowFollowers';
 export * from './MPShowAgencies';
+export * from './MPReportProfile';
