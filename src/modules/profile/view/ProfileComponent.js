@@ -2,7 +2,7 @@ import React from 'react';
 import {View, StyleSheet, ScrollView} from 'react-native';
 import {LinearGradient} from 'expo';
 import PropTypes from 'prop-types';
-import { MPTabBar, MPProfileInfo, MPShowLanguages, MPHeader, MPFooter, MPFollowButton, ProfileIndicatorCE, MPAddSongButton, MPAddChangePhoto, MPText, MPUploadFirstSong, MPShowFollowers, MPShowAgencies, MPReportProfile } from '../../../components/';
+import { MPTabBar, MPProfileInfo, MPShowLanguages, MPHeader, MPFooter, MPFollowButton, ProfileIndicatorCE, MPAddSongButton, MPAddChangePhoto, MPText, MPUploadFirstSong, MPShowFollowers, MPShowAgencies, MPReportProfile, MPShowFolderSongs } from '../../../components/';
 import { MPProfileArrowIcon } from '../../../assets/svg/'
 import { MPUpgradeButton } from '../../../components/profile/MPUpgradeButton';
 
@@ -68,7 +68,9 @@ class ProfileComponent extends React.Component {
                                 <MPShowFollowers />
                                 <MPReportProfile />
                             </View>
-                            <View style={{flex:1}}></View>
+                            <View style={{flex:1}}>
+                                <MPShowFolderSongs folderName={'Inspirações rock'} edit={true}/>
+                            </View>
                         </MPTabBar>
                     ) : null
                 }
