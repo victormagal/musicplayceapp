@@ -17,16 +17,18 @@ class ProfileEmptyScreenContainer extends React.Component {
                 sites: '',
                 languages: '',
                 // languages: ['Espanhol', 'Inglês', 'Português'],
-                agencies: ['SOM LIVRE'],
+                // agencies: ['SOM LIVRE'],
+                agencies: '',
                 phone: '',
                 location: '',
                 description: '',
                 visiting: false,
                 hasPhoto: true,
                 isFollowing: false,
+                // isVerified: true,
                 sites: '',
-                isArtist: true,
-                // 
+                // isArtist: true,
+                // vip: true,
                 // sites: [
                 //     {
                 //         id: '00',

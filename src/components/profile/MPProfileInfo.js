@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {StyleSheet, View, Text, TouchableOpacity, FlatList} from 'react-native';
 import {connect} from 'react-redux';
 import { MPText } from '../general';
-import { MPLocationPinIcon } from '../../assets/svg';
+import { MPLocationPinIcon, MPVipIcon, MPVerifiedIcon } from '../../assets/svg';
 import { ProfileIndicatorCE } from './ProfileIndicatorCE';
 
 class MPProfileInfoComponent extends Component{
@@ -20,7 +20,11 @@ class MPProfileInfoComponent extends Component{
         return (
             <View style={ styles.parent }>
                 <MPText style={styles.name}>{profile.name} {profile.lastName}</MPText>
-                <MPText style={styles.username}>@{profile.username}</MPText>
+                <MPText style={styles.username}>@{profile.username}
+                { profile.isVerified ? (
+                        <MPVerifiedIcon style={{marginStart: 5}} />
+                    ) : null
+                }</MPText>
                 <View style={{flexDirection: 'row', marginTop: 10,}}>
                     <MPLocationPinIcon/>
                     <MPText style={ [styles.location, underlineStyle] }>{location}</MPText>
@@ -44,6 +48,14 @@ class MPProfileInfoComponent extends Component{
                     ) : (
                         <MPText style={ [styles.descriptionText, {textDecorationLine: 'underline'}]}>Fale sobre você, seu trabalho, qual seu objetivo com o MusicPlayce. Quanto tempo de experiência você tem? Já fez parceria com bandas? Já ganhou premiações? Tem fã clube?</MPText>
                     )
+                }
+                {
+                    profile.vip ? (
+                        <View style={styles.avaliadorContainer}>
+                            <MPVipIcon style={{alignSelf: 'flex-end'}} />
+                            <MPText style={styles.avaliadorText}>SUPER AVALIADOR</MPText>
+                        </View>
+                    ) : null
                 }
             </View>
         )
@@ -74,6 +86,18 @@ const styles = StyleSheet.create({
         fontFamily: 'montSerrat',
         color: '#FFF',
         marginBottom: 20
+    },
+    avaliadorContainer: {
+        position: 'absolute',
+        top: 80,
+        alignSelf: 'flex-end',
+        width: 70,
+    },
+    avaliadorText: {
+        color: '#fff',
+        fontFamily: 'montSerratMedium',
+        fontSize: 10,
+        textAlign: 'right'
     }
 });
 
