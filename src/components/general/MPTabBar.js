@@ -86,6 +86,7 @@ const styles = StyleSheet.create({
   tabTitlesContainer: {
     display: 'flex',
     flexDirection: 'row',
+    backgroundColor: '#fff'
   },
   secondTabTitlesContainer: {
     display: 'flex',

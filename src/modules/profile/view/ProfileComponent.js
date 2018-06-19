@@ -77,6 +77,7 @@ ProfileComponent.propTypes = {
 const styles = StyleSheet.create({
     container: {
         flex: 2,
+        backgroundColor: '#000',
     },
     gradient: {
         flex: 1,
