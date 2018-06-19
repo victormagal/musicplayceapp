@@ -8,20 +8,32 @@ import images from '../../assets/img';
 import { MPText } from '../general';
 
 class MPSongRatingComponent extends Component{
+    constructor(props){
+        super(props);
+        this.state = {
+            menuOpen: false,
+        }
+    }
+
+    toggleState = () => {
+        this.setState({[menuOpen]: !this.state.menuOpen});
+    }
 
     render() {
         let {songName, style, onPress, isAdded, indicateSong, indications, isNew} = this.props;
         return (
             <TouchableOpacity style={style || {}} onPress={ onPress }>
             {
-                this.props.fontLoaded ? (
+                this.state.menuOpen == false ? (
                     <View style={ styles.simpleArtistCardContainer }>
                         <View>
                             <View style={ styles.simpleArtistCardImage }>
                                 <Image source={ images.daftPunk100 } />
                                 {
                                     isAdded ? (
-                                        <MPSongMenuIcon style={{position: 'absolute', top: 8, right: 8}}/>
+                                        <View onPress={this.toggleState.bind(this)} style={{position: 'absolute', top: 0, right: 0, width: 20}} >
+                                            <MPSongMenuIcon style={{position: 'absolute', top: 8, right: 8}} />
+                                        </View>
                                     ) : (
                                         <MPSongListIcon style={{position: 'absolute', top: 10, right: 10}}/>
                                     )
@@ -30,7 +42,7 @@ class MPSongRatingComponent extends Component{
                             </View>
                         </View>
                         <View>
-                            <Text style={ styles.simpleArtistCardText }>{ songName }</Text>
+                            <MPText style={ styles.simpleArtistCardText }>{ songName }</MPText>
                             <View style={{marginHorizontal : 10, marginBottom: 10, marginTop: 5, flexDirection: 'row'}}>
                                 <MPStarIcon style={{marginEnd: 3}} />
                                 <MPStarIcon style={{marginEnd: 3}} />
@@ -64,7 +76,16 @@ class MPSongRatingComponent extends Component{
                             )
                         }
                     </View>
-                ) : null
+                ) : (
+                    <View style={ styles.menuContainer }>
+                        <MPText style={ styles.menuCloseText}>X</MPText>
+                        <MPText style={ styles.menuText }>EDITAR</MPText>
+                        <View style={ styles.menuSeparator }></View>
+                        <MPText style={ styles.menuText }>DESPUBLICAR</MPText>
+                        <View style={ styles.menuSeparator }></View>
+                        <MPText style={ styles.menuText }>EXCLUIR</MPText>
+                    </View>
+                )
             }
             </TouchableOpacity>
         );
@@ -132,6 +153,34 @@ const styles = StyleSheet.create({
         fontSize: 10,
         fontFamily: 'montSerratMedium',
         color : '#FFF', 
+    },
+    menuContainer: {
+        flex: 1,
+        width: 100,
+        backgroundColor: '#000',
+        paddingVertical: 43,
+        borderRadius: 4,
+    },
+    menuText: {
+        fontSize: 11,
+        fontFamily: 'montSerratMedium',
+        color : '#FFF',
+        textAlign: 'center'
+    },
+    menuSeparator: {
+        width: 20,
+        height: 1,
+        backgroundColor: '#FFF',
+        marginVertical: 20,
+        alignSelf: 'center'
+    },
+    menuCloseText: {
+        position: 'absolute',
+        top: 8,
+        right: 8,
+        fontSize: 13,
+        color: '#FFF',
+        fontFamily: 'montSerratBold',
     }
 });
 
