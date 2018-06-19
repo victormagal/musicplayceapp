@@ -4,6 +4,7 @@ import {LinearGradient} from 'expo';
 import PropTypes from 'prop-types';
 import { MPTabBar, MPProfileInfo, MPShowLanguages, MPHeader, MPFooter, MPFollowButton, ProfileIndicatorCE, MPAddSongButton, MPAddChangePhoto, MPText, MPUploadFirstSong, MPShowFollowers, MPShowAgencies, MPReportProfile } from '../../../components/';
 import { MPProfileArrowIcon } from '../../../assets/svg/'
+import { MPUpgradeButton } from '../../../components/profile/MPUpgradeButton';
 
 
 class ProfileComponent extends React.Component {
@@ -57,7 +58,13 @@ class ProfileComponent extends React.Component {
                     this.state.profileOption ? (
                         <MPTabBar firstTabTitle={'MINHAS MÚSICAS'} secondTabTitle={"MÚSICAS SALVAS"}>
                             <View style={{flex:1}}>
-                                <MPUploadFirstSong />
+                                {
+                                    profile.song == '' ? (
+                                        <MPUploadFirstSong />
+                                    ) : (
+                                        <MPUpgradeButton song={profile.song} />
+                                    )
+                                }
                                 <MPShowFollowers />
                                 <MPReportProfile />
                             </View>

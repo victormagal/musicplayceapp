@@ -10,14 +10,14 @@ import { MPText } from '../general';
 class MPSongRatingComponent extends Component{
 
     render() {
-        let {songName, backgroundColor, style, onPress, isAdded, indicateSong, indications, isNew} = this.props;
+        let {songName, style, onPress, isAdded, indicateSong, indications, isNew} = this.props;
         return (
             <TouchableOpacity style={style || {}} onPress={ onPress }>
             {
                 this.props.fontLoaded ? (
                     <View style={ styles.simpleArtistCardContainer }>
                         <View>
-                            <View style={ styles.simpleArtistCardImage } backgroundColor={ backgroundColor }>
+                            <View style={ styles.simpleArtistCardImage }>
                                 <Image source={ images.daftPunk100 } />
                                 {
                                     isAdded ? (

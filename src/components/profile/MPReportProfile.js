@@ -33,6 +33,7 @@ const styles = StyleSheet.create({
         fontFamily: 'montSerratMedium',
         color: '#686868',
         textDecorationLine: 'underline',
+        marginStart: 5,
     }
 });
 

@@ -27,6 +27,10 @@ class ProfileEmptyScreenContainer extends React.Component {
                 isFollowing: false,
                 // isVerified: true,
                 sites: '',
+                song: '',
+                song: {
+                    songName: 'Nome da Música'
+                }
                 // isArtist: true,
                 // vip: true,
                 // sites: [
