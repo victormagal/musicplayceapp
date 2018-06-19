@@ -17,6 +17,7 @@ class ProfileEmptyScreenContainer extends React.Component {
                 sites: '',
                 languages: '',
                 // languages: ['Espanhol', 'Inglês', 'Português'],
+                agencies: ['SOM LIVRE'],
                 phone: '',
                 location: '',
                 description: '',
@@ -24,6 +25,7 @@ class ProfileEmptyScreenContainer extends React.Component {
                 hasPhoto: true,
                 isFollowing: false,
                 sites: '',
+                isArtist: true,
                 // 
                 // sites: [
                 //     {

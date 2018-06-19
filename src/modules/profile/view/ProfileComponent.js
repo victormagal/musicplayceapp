@@ -2,7 +2,7 @@ import React from 'react';
 import {View, StyleSheet, ScrollView} from 'react-native';
 import {LinearGradient} from 'expo';
 import PropTypes from 'prop-types';
-import { MPTabBar, MPProfileInfo, MPShowLanguages, MPHeader, MPFooter, MPFollowButton, ProfileIndicatorCE, MPAddSongButton, MPAddChangePhoto, MPText, MPUploadFirstSong, MPShowFollowers } from '../../../components/';
+import { MPTabBar, MPProfileInfo, MPShowLanguages, MPHeader, MPFooter, MPFollowButton, ProfileIndicatorCE, MPAddSongButton, MPAddChangePhoto, MPText, MPUploadFirstSong, MPShowFollowers, MPShowAgencies } from '../../../components/';
 import { MPProfileArrowIcon } from '../../../assets/svg/'
 
 
@@ -24,7 +24,7 @@ class ProfileComponent extends React.Component {
         return (
             <ScrollView style={styles.container}>
                 <LinearGradient
-                    colors={["rgba(1, 1, 1, 0.2)", "#e13223"]}
+                    colors={["rgba(0, 0, 0, 0.2)", "#e13223"]}
                     style={styles.gradient}>
                     <MPHeader transparent={true} title={""}/>
                     {
@@ -42,6 +42,11 @@ class ProfileComponent extends React.Component {
                     {
                         profile.languages != '' ? (
                             <MPShowLanguages languages={profile.languages} />
+                        ) : null
+                    }
+                    {
+                        profile.agencies != '' ? (
+                            <MPShowAgencies agencies={profile.agencies} isArtist={profile.isArtist}/>
                         ) : null
                     }
                     <View style={{alignSelf: 'center', justifyContent: 'center', marginBottom: 20,}} onPress={this.toggleState.bind(this)}>
@@ -72,7 +77,6 @@ ProfileComponent.propTypes = {
 const styles = StyleSheet.create({
     container: {
         flex: 2,
-        backgroundColor: '#fff'
     },
     gradient: {
         flex: 1,
