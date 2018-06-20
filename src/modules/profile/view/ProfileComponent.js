@@ -86,9 +86,13 @@ class ProfileComponent extends React.Component {
               profile.mySongsFolder != '' ? (
                   <View>
                     <MPShowFolderSongs folderName={profile.mySongsFolder[0].folderName} edit={true}/>
-                    <View style={styles.whiteBackground}>
-                      <MPGradientButton title={'Cadastrar nova música'} textSize={16} onPress={ () => {} }/>
-                    </View>
+                    {
+                      !profile.visiting ? (
+                        <View style={styles.whiteBackground}>
+                          <MPGradientButton title={'Cadastrar nova música'} textSize={16} onPress={ () => {} }/>
+                        </View>
+                      ) : null
+                    }
                   </View>
                 ) : (
                   <View>
@@ -114,9 +118,13 @@ class ProfileComponent extends React.Component {
               profile.savedSongsFolder != '' ? (
                   <View>
                     <MPShowFolderSongs folderName={profile.savedSongsFolder[0].folderName} edit={true}/>
-                    <View style={styles.whiteBackground}>
-                      <MPGradientButton title={'Cadastrar nova música'} textSize={16} onPress={ () => {} }/>
-                    </View>
+                    {
+                      !profile.visiting ? (
+                        <View style={styles.whiteBackground}>
+                          <MPGradientButton title={'Cadastrar nova música'} textSize={16} onPress={ () => {} }/>
+                        </View>
+                      ) : null
+                    }
                   </View>
 
                 ) : (

@@ -30,16 +30,22 @@ class MPProfileInfoComponent extends Component{
                     <MPText style={ [styles.location, underlineStyle] }>{location}</MPText>
                 </View>
                 {
-                    profile.sites != '' ? (
+                    profile.isManager ? null : (
                         <View>
-                            <FlatList data = {profile.sites}
-                                keyExtractor={(item,index) => item.id} 
-                                renderItem={this.renderItem}
-                                horizontal={true}
-                                style={{ marginBottom: 20, }}/>
+                            {
+                                profile.sites != '' ? (
+                                    <View>
+                                        <FlatList data = {profile.sites}
+                                            keyExtractor={(item,index) => item.id} 
+                                            renderItem={this.renderItem}
+                                            horizontal={true}
+                                            style={{ marginBottom: 20, }}/>
+                                    </View>
+                                ) : (
+                                    <MPText style={{color: '#fff', textDecorationLine: 'underline', marginEnd: 20, marginBottom: 20}}>Insira aqui seu site</MPText>
+                                )
+                            }
                         </View>
-                    ) : (
-                        <MPText style={{color: '#fff', textDecorationLine: 'underline', marginEnd: 20, marginBottom: 20}}>Insira aqui seu site</MPText>
                     )
                 }
                 {

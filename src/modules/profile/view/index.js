@@ -2,6 +2,7 @@ export * from './ProfileScreen';
 export * from './ProfileEmptyScreen';
 export * from './ProfileNewScreen';
 export * from './ProfileFreemiumScreen';
+export * from './ManagerProfileScreen';
 export * from './DeleteSongScreen';
 export * from './DeleteSongSuccessScreen';
 export * from './EditDescriptionScreen';
