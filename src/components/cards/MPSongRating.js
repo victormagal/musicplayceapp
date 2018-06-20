@@ -20,11 +20,11 @@ class MPSongRatingComponent extends Component {
   };
 
   toggleState = () => {
-    this.setState({menuOpen: !this.state.menuOpen});
+    this.setState({[menuOpen]: !this.state.menuOpen});
   };
 
   render() {
-    let {songName, style, isAdded, indicateSong, indications, isNew, rating} = this.props;
+    let {songName, style, isAdded, indicateSong, indications, isNew, rating, isDraft} = this.props;
     return (
       <TouchableOpacity style={style || {}}>
         {
@@ -35,7 +35,7 @@ class MPSongRatingComponent extends Component {
                     <Image source={ images.daftPunk100 }/>
                     {
                       isAdded ? (
-                          <TouchableOpacity onPress={this.toggleState}
+                          <TouchableOpacity onPress={this.toggleState.bind(this)}
                                 style={{position: 'absolute', top: 0, right: 0, width: 20}}>
                             <MPSongMenuIcon style={{position: 'absolute', top: 8, right: 8}}/>
                           </TouchableOpacity>
@@ -43,12 +43,19 @@ class MPSongRatingComponent extends Component {
                           <MPSongListIcon style={{position: 'absolute', top: 10, right: 10}}/>
                         )
                     }
+                    {
+                      isDraft ? (
+                        <View style={ styles.draftContainer}>
+                          <MPText style={ styles.draftText}>RASCUNHO</MPText>
+                        </View>
+                      ) : null
+                    }
                     <MPPlayIcon style={{position: 'absolute', top: 38, left: 38}}/>
                   </View>
                 </View>
                 <View>
                   <MPText style={ styles.simpleArtistCardText }>{ songName }</MPText>
-                  <MPShowRating rating={3} />
+                  <MPShowRating rating={rating} />
                 </View>
                 {
                   indicateSong && indications == null && isNew == null && (
@@ -178,6 +185,23 @@ const styles = StyleSheet.create({
     fontSize: 13,
     color: '#FFF',
     fontFamily: 'montSerratBold',
+  },
+  draftContainer: {
+    position: 'absolute',
+    bottom: 11,
+    alignSelf: 'center',
+    backgroundColor: '#e13223',
+    borderWidth: 1,
+    borderColor: '#FFF',
+    borderRadius: 25,
+    paddingVertical: 2,
+    paddingHorizontal: 7,
+  },
+  draftText: {
+    color: '#FFF',
+    fontSize: 10,
+    textAlign: 'center',
+    fontFamily: 'montSerratMedium'
   }
 });
 

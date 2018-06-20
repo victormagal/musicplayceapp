@@ -2,6 +2,7 @@ import { createStackNavigator } from 'react-navigation';
 import { ProfileScreen,
         ProfileEmptyScreen,
         ProfileNewScreen,
+        ProfileFreemiumScreen,
         DeleteSongScreen,
         DeleteSongSuccessScreen,
         EditDescriptionScreen,
@@ -14,7 +15,7 @@ import { ProfileScreen,
 
 export const ProfileScreensNavigation = createStackNavigator(
   {
-    ProfileScreen: ProfileNewScreen,
+    ProfileScreen: ProfileFreemiumScreen,
     DeleteSongScreen: DeleteSongScreen,
     DeleteSongSuccessScreen: DeleteSongSuccessScreen,
     EditDescriptionScreen: EditDescriptionScreen,
