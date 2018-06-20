@@ -23,13 +23,13 @@ class MPAddSongButtonComponent extends Component{
                     {
                         isColored ? (
                             <View style={styles.buttonContainer}>
-                                <MPAddSongWhiteNoteIcon />
-                                <MPAddSongWhitePlusIcon />
+                                <MPAddSongWhiteNoteIcon style={{width: 30, height: 30}} />
+                                <MPAddSongWhitePlusIcon  style={{width: 30, height: 30}} />
                             </View>
                         ) : (
                             <View style={styles.buttonContainer}>
-                                <MPAddSongNoteIcon />
-                                <MPAddSongPlusIcon />
+                                <MPAddSongNoteIcon  style={{width: 30, height: 30}} />
+                                <MPAddSongPlusIcon  style={{width: 30, height: 30}} />
                             </View>
                         )
                     }
