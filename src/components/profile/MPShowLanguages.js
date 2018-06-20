@@ -26,6 +26,7 @@ const styles = StyleSheet.create({
     parent: {
         flexDirection: 'row',
         marginHorizontal : 20,
+        marginBottom: 20,
     },
     placeHolderText: {
         fontSize: 12,

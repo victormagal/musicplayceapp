@@ -68,24 +68,26 @@ const styles = StyleSheet.create({
     },
     name: {
         fontSize: 32,
-        fontWeight: 'bold',
+        fontFamily: 'montSerratBold',
         color: '#fff'
     },
     username: {
         fontSize: 14,
+        fontFamily: 'montSerrat',
         color: '#fff'
     },
     location: {
         fontSize: 14,
         color: '#fff',
         marginStart: 5,
-        marginBottom: 20,
+        marginBottom: 15,
+        fontFamily: 'montSerrat',
     },
     descriptionText: {
         fontSize: 12,
         fontFamily: 'montSerrat',
         color: '#FFF',
-        marginBottom: 20
+        marginBottom: 15
     },
     avaliadorContainer: {
         position: 'absolute',

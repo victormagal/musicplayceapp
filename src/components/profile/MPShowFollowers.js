@@ -71,34 +71,39 @@ class MPShowFollowersComponent extends Component{
             }
         
         return (
-            <MPTabBar firstTabTitle={'SEGUINDO'} secondTabTitle={'SEGUIDORES'} secondLayout={true}>
-                <View style={styles.sliderContainer}>
-                    <FlatList
-                    data={followerObj.following}
-                    keyExtractor={(item) => item.id}
-                    renderItem={this.renderArtists}
-                    horizontal={true}
-                    />
-                </View>
-                <View style={styles.sliderContainer}>
-                    <FlatList
-                    data={followerObj.followers}
-                    keyExtractor={(item) => item.id}
-                    renderItem={this.renderArtists}
-                    horizontal={true}
-                    />
-                </View>
-            </MPTabBar>
+            <View style={styles.parent}>
+                <MPTabBar firstTabTitle={'SEGUINDO'} secondTabTitle={'SEGUIDORES'} secondLayout={true}>
+                    <View style={styles.sliderContainer}>
+                        <FlatList
+                        data={followerObj.following}
+                        keyExtractor={(item) => item.id}
+                        renderItem={this.renderArtists}
+                        horizontal={true}
+                        />
+                    </View>
+                    <View style={styles.sliderContainer}>
+                        <FlatList
+                        data={followerObj.followers}
+                        keyExtractor={(item) => item.id}
+                        renderItem={this.renderArtists}
+                        horizontal={true}
+                        />
+                    </View>
+                </MPTabBar>
+            </View>
         )
     }
 }
 
 const styles = StyleSheet.create({
+    parent: {
+        flex:1,
+        paddingVertical: 30,
+        backgroundColor: '#FCFCFC',
+    },
     sliderContainer:{
         flex: 1,
-        backgroundColor: '#FCFCFC',
-        paddingVertical: 20,
-        height: 170
+        paddingTop: 20,
     }
 });
 
