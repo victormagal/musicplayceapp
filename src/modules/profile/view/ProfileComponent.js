@@ -80,16 +80,14 @@ class ProfileComponent extends React.Component {
           </LinearGradient>
         </View>
 
-        <MPTabBar firstTabTitle={'MINHAS MÚSICAS'} secondTabTitle={"MÚSICAS SALVAS"} style={{flex: 1}}>
+        <MPTabBar firstTabTitle={'MINHAS MÚSICAS'} secondTabTitle={"MÚSICAS SALVAS"} >
           <View>
-            <MPShowFollowers />
             {
               profile.mySongsFolder != '' ? (
                   <View>
                     <MPShowFolderSongs folderName={profile.mySongsFolder[0].folderName} edit={true}/>
-                    <MPShowFolderSongs folderName={profile.mySongsFolder[1].folderName} edit={true}/>
                     <View style={styles.whiteBackground}>
-                      <MPGradientButton title={'Cadastrar nova música'} textSize={16}/>
+                      <MPGradientButton title={'Cadastrar nova música'} textSize={16} onPress={ () => {} }/>
                     </View>
                   </View>
                 ) : (
@@ -116,9 +114,8 @@ class ProfileComponent extends React.Component {
               profile.savedSongsFolder != '' ? (
                   <View>
                     <MPShowFolderSongs folderName={profile.savedSongsFolder[0].folderName} edit={true}/>
-                    <MPShowFolderSongs folderName={profile.savedSongsFolder[1].folderName} edit={true}/>
                     <View style={styles.whiteBackground}>
-                      <MPGradientButton title={'Cadastrar nova música'} textSize={16}/>
+                      <MPGradientButton title={'Cadastrar nova música'} textSize={16} onPress={ () => {} }/>
                     </View>
                   </View>
 
@@ -154,13 +151,13 @@ ProfileComponent.propTypes = {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 3,
+    flex: 1,
   },
   linearContainer: {
     backgroundColor: '#000',
   },
   gradient: {
-    flex: 3,
+    flex: 1,
     alignContent: 'flex-start',
   },
   button: {
