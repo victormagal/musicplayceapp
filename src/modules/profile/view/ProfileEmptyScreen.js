@@ -16,6 +16,7 @@ class ProfileEmptyScreenContainer extends React.Component {
                 email: '',
                 sites: '',
                 languages: '',
+                visiting: false,
                 // languages: ['Espanhol', 'Inglês', 'Português'],
                 // agencies: ['SOM LIVRE'],
                 agencies: '',
@@ -23,14 +24,14 @@ class ProfileEmptyScreenContainer extends React.Component {
                 location: '',
                 description: '',
                 visiting: false,
-                hasPhoto: true,
+                hasPhoto: false,
                 isFollowing: false,
                 // isVerified: true,
                 sites: '',
                 song: '',
-                song: {
-                    songName: 'Nome da Música'
-                }
+                // song: {
+                //     songName: 'Nome da Música'
+                // }
                 // isArtist: true,
                 // vip: true,
                 // sites: [

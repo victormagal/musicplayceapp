@@ -35,23 +35,25 @@ class ProfileComponent extends React.Component {
                             <MPAddChangePhoto hasPhoto={profile.hasPhoto} />
                         )
                     }
-                    <MPProfileInfo profile={profile} />
-                    <View style={{flexDirection: 'row', marginBottom: 20, marginHorizontal: 20}}>
-                        <ProfileIndicatorCE style={{ flex: 1}} title="Indicações Feitas" subtitle="Explore" />
-                        <ProfileIndicatorCE style={{ flex: 1}} title="Seguidores" subtitle="Convide seus amigos"/>
-                    </View>
-                    {
-                        profile.languages != '' ? (
-                            <MPShowLanguages languages={profile.languages} />
-                        ) : null
-                    }
-                    {
-                        profile.agencies != '' ? (
-                            <MPShowAgencies agencies={profile.agencies} isArtist={profile.isArtist}/>
-                        ) : null
-                    }
-                    <View style={{alignSelf: 'center', justifyContent: 'center', marginBottom: 20,}} onPress={this.toggleState.bind(this)}>
-                        <MPProfileArrowIcon />
+                    <View style={{flex: 1}}>
+                        <MPProfileInfo profile={profile} />
+                        <View style={{flexDirection: 'row', marginBottom: 20, marginHorizontal: 20}}>
+                            <ProfileIndicatorCE style={{ flex: 1}} title="Indicações Feitas" subtitle="Explore" />
+                            <ProfileIndicatorCE style={{ flex: 1}} title="Seguidores" subtitle="Convide seus amigos"/>
+                        </View>
+                        {
+                            profile.languages != '' ? (
+                                <MPShowLanguages languages={profile.languages} />
+                            ) : null
+                        }
+                        {
+                            profile.agencies != '' ? (
+                                <MPShowAgencies agencies={profile.agencies} isArtist={profile.isArtist}/>
+                            ) : null
+                        }
+                        <View style={{alignSelf: 'center', justifyContent: 'center', marginBottom: 20}} onPress={this.toggleState.bind(this)}>
+                            <MPProfileArrowIcon />
+                        </View>
                     </View>
                 </LinearGradient>
                 {
@@ -66,7 +68,11 @@ class ProfileComponent extends React.Component {
                                     )
                                 }
                                 <MPShowFollowers />
-                                <MPReportProfile />
+                                {
+                                    profile.visiting ? (
+                                        <MPReportProfile />
+                                    ) : null
+                                }
                             </View>
                             <View style={{flex:1}}>
                                 <MPShowFolderSongs folderName={'Inspirações rock'} edit={true}/>
@@ -74,7 +80,7 @@ class ProfileComponent extends React.Component {
                         </MPTabBar>
                     ) : null
                 }
-                <MPAddSongButton isColored={true} />
+                <MPAddSongButton isColored={this.state.profileOption} />
             </ScrollView>
         );
     }
@@ -90,7 +96,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#000',
     },
     gradient: {
-        flex: 1,
+        flex: 2,
         alignContent: 'flex-start',
     },
     button: {

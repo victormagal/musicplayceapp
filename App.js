@@ -36,7 +36,7 @@ global.fetch = fetch;
 
 const HomeTabBottomNavigation = createBottomTabNavigator({
   feed: {
-    screen: IndicateSongScreensNavigation,
+    screen: FeedScreensNavigation,
     navigationOptions: {
       tabBarIcon: MPTabConfigurationIcon
     }

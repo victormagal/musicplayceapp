@@ -31,7 +31,7 @@ class MPFollowButtonComponent extends Component{
 
 const styles = StyleSheet.create({
     parent:{
-        height: 225,
+        height: 220,
         justifyContent: 'flex-end',
         marginStart: 20,
         marginEnd: 236,
