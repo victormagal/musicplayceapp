@@ -14,7 +14,7 @@ import { ProfileScreen,
 
 export const ProfileScreensNavigation = createStackNavigator(
   {
-    ProfileScreen: ProfileNewScreen,
+    ProfileScreen: ProfileEmptyScreen,
     DeleteSongScreen: DeleteSongScreen,
     DeleteSongSuccessScreen: DeleteSongSuccessScreen,
     EditDescriptionScreen: EditDescriptionScreen,

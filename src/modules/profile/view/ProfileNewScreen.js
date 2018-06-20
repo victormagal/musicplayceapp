@@ -58,7 +58,6 @@ class ProfileNewScreenContainer extends React.Component {
         let {dispatch} = this.props;
         dispatch(fetchProfile());
     }
-    
 
     render() {
         return (

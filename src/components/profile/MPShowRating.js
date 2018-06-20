@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {StyleSheet, View } from 'react-native';
 import {connect} from 'react-redux';
-import { MPFilledStartIcon,MPStarIcon } from '../../assets/svg';
+import { MPFilledStarIcon ,MPStarIcon } from '../../assets/svg';
 
 class MPShowRatingComponent extends Component{
 
@@ -24,7 +24,7 @@ class MPShowRatingComponent extends Component{
             {
                 rating == 1 && (
                     <View style={styles.ratingContainer}>
-                        <MPFilledStartIcon style={styles.ratingItem} />
+                        <MPFilledStarIcon style={styles.ratingItem} />
                         <MPStarIcon style={styles.ratingItem} />
                         <MPStarIcon style={styles.ratingItem} />
                         <MPStarIcon style={styles.ratingItem} />
@@ -35,8 +35,8 @@ class MPShowRatingComponent extends Component{
             {
                 rating == 2 && (
                     <View style={styles.ratingContainer}>
-                        <MPFilledStartIcon style={styles.ratingItem} />
-                        <MPFilledStartIcon style={styles.ratingItem} />
+                        <MPFilledStarIcon style={styles.ratingItem} />
+                        <MPFilledStarIcon style={styles.ratingItem} />
                         <MPStarIcon style={styles.ratingItem} />
                         <MPStarIcon style={styles.ratingItem} />
                         <MPStarIcon style={styles.ratingItem} />
@@ -46,9 +46,9 @@ class MPShowRatingComponent extends Component{
             {
                 rating == 3 && (
                     <View style={styles.ratingContainer}>
-                        <MPFilledStartIcon style={styles.ratingItem} />
-                        <MPFilledStartIcon style={styles.ratingItem} />
-                        <MPFilledStartIcon style={styles.ratingItem} />
+                        <MPFilledStarIcon style={styles.ratingItem} />
+                        <MPFilledStarIcon style={styles.ratingItem} />
+                        <MPFilledStarIcon style={styles.ratingItem} />
                         <MPStarIcon style={styles.ratingItem} />
                         <MPStarIcon style={styles.ratingItem} />
                     </View>
@@ -57,10 +57,10 @@ class MPShowRatingComponent extends Component{
             {
                 rating == 4 && (
                     <View style={styles.ratingContainer}>
-                        <MPFilledStartIcon style={styles.ratingItem} />
-                        <MPFilledStartIcon style={styles.ratingItem} />
-                        <MPFilledStartIcon style={styles.ratingItem} />
-                        <MPFilledStartIcon style={styles.ratingItem} />
+                        <MPFilledStarIcon style={styles.ratingItem} />
+                        <MPFilledStarIcon style={styles.ratingItem} />
+                        <MPFilledStarIcon style={styles.ratingItem} />
+                        <MPFilledStarIcon style={styles.ratingItem} />
                         <MPStarIcon style={styles.ratingItem} />
                     </View>
                 )
@@ -68,11 +68,11 @@ class MPShowRatingComponent extends Component{
             {
                 rating == 5 && (
                     <View style={styles.ratingContainer}>
-                        <MPFilledStartIcon style={styles.ratingItem} /> 
-                        <MPFilledStartIcon style={styles.ratingItem} />
-                        <MPFilledStartIcon style={styles.ratingItem} />
-                        <MPFilledStartIcon style={styles.ratingItem} />
-                        <MPFilledStartIcon style={styles.ratingItem} />
+                        <MPFilledStarIcon style={styles.ratingItem} /> 
+                        <MPFilledStarIcon style={styles.ratingItem} />
+                        <MPFilledStarIcon style={styles.ratingItem} />
+                        <MPFilledStarIcon style={styles.ratingItem} />
+                        <MPFilledStarIcon style={styles.ratingItem} />
                     </View>
                 )
             }

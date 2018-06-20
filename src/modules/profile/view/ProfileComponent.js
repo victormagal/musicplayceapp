@@ -2,28 +2,41 @@ import React from 'react';
 import {View, StyleSheet, ScrollView} from 'react-native';
 import {LinearGradient} from 'expo';
 import PropTypes from 'prop-types';
-import { MPTabBar, MPProfileInfo, MPShowLanguages, MPHeader, MPFooter, MPFollowButton, ProfileIndicatorCE, MPAddSongButton, MPAddChangePhoto, MPText, MPUploadFirstSong, MPShowFollowers, MPShowAgencies, MPReportProfile, MPShowFolderSongs, MPGradientButton } from '../../../components/';
+import { MPTabBar,
+    MPProfileInfo,
+    MPShowLanguages,
+    MPHeader,
+    MPFooter,
+    MPFollowButton,
+    ProfileIndicatorCE,
+    MPAddSongButton,
+    MPAddChangePhoto,
+    MPText,
+    MPUploadFirstSong,
+    MPShowFollowers,
+    MPShowAgencies,
+    MPReportProfile,
+    MPShowFolderSongs,
+    MPGradientButton } from '../../../components/';
 import { MPProfileArrowIcon } from '../../../assets/svg/'
 import { MPUpgradeButton } from '../../../components/profile/MPUpgradeButton';
 
 
 class ProfileComponent extends React.Component {
-    constructor(props){
-        super(props);
-        this.state = {
-            profileOption: true,
-        }
-    }
+  scrollViewRef = null;
 
-    toggleState = () => {
-        this.setState({[profileOption]: !this.state.profileOption});
-      }
+  constructor(props) {
+    super(props);
+    this.scrollViewRef = React.createRef();
+  }
 
-    render() {
-        let {profile} = this.props;
-
-        return (
-            <ScrollView style={styles.container}>
+  handleScrollEnd = () => {
+    this.scrollViewRef.current.scrollToEnd();
+  };
+  render(){
+    return (
+        <ScrollView style={styles.container} ref={this.scrollViewRef}>
+            <View style={styles.linearContainer}>
                 <LinearGradient
                     colors={["rgba(0, 0, 0, 0.2)", "#e13223"]}
                     style={styles.gradient}>
@@ -122,9 +135,9 @@ class ProfileComponent extends React.Component {
                     ) : null
                 }
                 <MPAddSongButton isColored={this.state.profileOption} />
-            </ScrollView>
-        );
-    }
+            </View>
+        </ScrollView>
+    )}
 }
 
 ProfileComponent.propTypes = {
@@ -135,6 +148,9 @@ const styles = StyleSheet.create({
     container: {
         flex: 3,
         backgroundColor: '#000',
+    },
+    linearContainer: {
+      backgroundColor: '#000',
     },
     gradient: {
         flex: 3,
@@ -149,6 +165,5 @@ const styles = StyleSheet.create({
         backgroundColor: '#FFF',
     }
 });
-
 
 export {ProfileComponent};
