@@ -2,7 +2,7 @@ import React from 'react';
 import {View, StyleSheet, ScrollView} from 'react-native';
 import {LinearGradient} from 'expo';
 import PropTypes from 'prop-types';
-import { MPTabBar, MPProfileInfo, MPShowLanguages, MPHeader, MPFooter, MPFollowButton, ProfileIndicatorCE, MPAddSongButton, MPAddChangePhoto, MPText, MPUploadFirstSong, MPShowFollowers, MPShowAgencies, MPReportProfile, MPShowFolderSongs } from '../../../components/';
+import { MPTabBar, MPProfileInfo, MPShowLanguages, MPHeader, MPFooter, MPFollowButton, ProfileIndicatorCE, MPAddSongButton, MPAddChangePhoto, MPText, MPUploadFirstSong, MPShowFollowers, MPShowAgencies, MPReportProfile, MPShowFolderSongs, MPGradientButton } from '../../../components/';
 import { MPProfileArrowIcon } from '../../../assets/svg/'
 import { MPUpgradeButton } from '../../../components/profile/MPUpgradeButton';
 
@@ -38,8 +38,8 @@ class ProfileComponent extends React.Component {
                     <View style={{flex: 1}}>
                         <MPProfileInfo profile={profile} />
                         <View style={{flexDirection: 'row', marginBottom: 20, marginHorizontal: 20}}>
-                            <ProfileIndicatorCE style={{ flex: 1}} title="Indicações Feitas" subtitle="Explore" />
-                            <ProfileIndicatorCE style={{ flex: 1}} title="Seguidores" subtitle="Convide seus amigos"/>
+                            <ProfileIndicatorCE style={{ flex: 1}} title="Indicações Feitas" subtitle="Explore" count={profile.indicationCount}/>
+                            <ProfileIndicatorCE style={{ flex: 1}} title="Seguidores" subtitle="Convide seus amigos" count={profile.followerCount}/>
                         </View>
                         {
                             profile.languages != '' ? (
@@ -61,10 +61,24 @@ class ProfileComponent extends React.Component {
                         <MPTabBar firstTabTitle={'MINHAS MÚSICAS'} secondTabTitle={"MÚSICAS SALVAS"}>
                             <View style={{flex:1}}>
                                 {
-                                    profile.song == '' ? (
-                                        <MPUploadFirstSong />
+                                    profile.mySongsFolder != '' ? (
+                                        <View>
+                                            <MPShowFolderSongs folderName={profile.mySongsFolder[0].folderName} edit={true}/>
+                                            <MPShowFolderSongs folderName={profile.mySongsFolder[1].folderName} edit={true}/>
+                                            <View style={styles.whiteBackground}>
+                                                <MPGradientButton title={'Cadastrar nova música'} textSize={16} />
+                                            </View>
+                                        </View>
                                     ) : (
-                                        <MPUpgradeButton song={profile.song} />
+                                        <View>
+                                        {
+                                            profile.song == '' ? (
+                                                <MPUploadFirstSong />
+                                            ) : (
+                                                <MPUpgradeButton song={profile.song} />
+                                            )
+                                        }
+                                        </View>
                                     )
                                 }
                                 <MPShowFollowers />
@@ -75,7 +89,34 @@ class ProfileComponent extends React.Component {
                                 }
                             </View>
                             <View style={{flex:1}}>
-                                <MPShowFolderSongs folderName={'Inspirações rock'} edit={true}/>
+                                {
+                                    profile.savedSongsFolder != '' ? (
+                                        <View>
+                                            <MPShowFolderSongs folderName={profile.savedSongsFolder[0].folderName} edit={true}/>
+                                            <MPShowFolderSongs folderName={profile.savedSongsFolder[1].folderName} edit={true}/>
+                                            <View style={styles.whiteBackground}>
+                                                <MPGradientButton title={'Cadastrar nova música'} textSize={16} />
+                                            </View>
+                                        </View>
+
+                                    ) : (
+                                        <View>
+                                        {
+                                            profile.song == '' ? (
+                                                <MPUploadFirstSong />
+                                            ) : (
+                                                <MPUpgradeButton song={profile.song} />
+                                            )
+                                        }
+                                        </View>
+                                    )
+                                }
+                                <MPShowFollowers />
+                                {
+                                    profile.visiting ? (
+                                        <MPReportProfile />
+                                    ) : null
+                                }
                             </View>
                         </MPTabBar>
                     ) : null
@@ -92,15 +133,20 @@ ProfileComponent.propTypes = {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 2,
+        flex: 3,
         backgroundColor: '#000',
     },
     gradient: {
-        flex: 2,
+        flex: 3,
         alignContent: 'flex-start',
     },
     button: {
         width: 230
+    },
+    whiteBackground: {
+        paddingVertical: 20,
+        paddingHorizontal: 50, 
+        backgroundColor: '#FFF',
     }
 });
 

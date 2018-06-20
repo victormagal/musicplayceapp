@@ -61,11 +61,12 @@ class MPShowFolderShongsComponent extends Component{
 
 const styles = StyleSheet.create({
     parent:{
-        flex: 1,
         backgroundColor: '#FCFCFC',
         paddingVertical: 30,
         paddingHorizontal: 20,
-        height: 300
+        height: 270,
+        borderBottomWidth: 1,
+        borderColor: '#fff',
     },
     topBarContainer: {
         flexDirection: 'row',
@@ -75,7 +76,7 @@ const styles = StyleSheet.create({
         fontFamily: 'montSerratMedium',
         color: '#000',
         alignSelf: 'center',
-        marginEnd: 138
+        marginEnd: 138,
     },
     topBarButton: {
         width: 64,

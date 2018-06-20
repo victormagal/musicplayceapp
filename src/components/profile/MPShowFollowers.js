@@ -71,7 +71,6 @@ class MPShowFollowersComponent extends Component{
             }
         
         return (
-            <View style={styles.parent}>
                 <MPTabBar firstTabTitle={'SEGUINDO'} secondTabTitle={'SEGUIDORES'} secondLayout={true}>
                     <View style={styles.sliderContainer}>
                         <FlatList
@@ -90,20 +89,15 @@ class MPShowFollowersComponent extends Component{
                         />
                     </View>
                 </MPTabBar>
-            </View>
         )
     }
 }
 
 const styles = StyleSheet.create({
-    parent: {
-        flex:1,
-        paddingVertical: 30,
-        backgroundColor: '#FCFCFC',
-    },
     sliderContainer:{
         flex: 1,
         paddingTop: 20,
+        backgroundColor: '#FCFCFC',
     }
 });
 
