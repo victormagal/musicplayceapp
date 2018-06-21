@@ -7,6 +7,10 @@ import { ProfileIndicatorCE } from './ProfileIndicatorCE';
 
 class MPProfileInfoComponent extends Component{
 
+    goToScreen = (rota) => {
+        this.props.navigation.navigate(rota);
+      }
+
     renderItem = ({item}) => (
         <MPText style={{color: '#fff', textDecorationLine: 'underline', marginEnd: 20}}>{item.title}</MPText>
     )
@@ -52,7 +56,7 @@ class MPProfileInfoComponent extends Component{
                     profile.description != '' ? (
                         <MPText style={ styles.descriptionText}>{profile.description}</MPText>
                     ) : (
-                        <MPText style={ [styles.descriptionText, {textDecorationLine: 'underline'}]}>Fale sobre você, seu trabalho, qual seu objetivo com o MusicPlayce. Quanto tempo de experiência você tem? Já fez parceria com bandas? Já ganhou premiações? Tem fã clube?</MPText>
+                        <MPText style={ [styles.descriptionText, {textDecorationLine: 'underline'}]} onPress={ this.goToScreen.bind(this, 'EditProfileDescription')}>Fale sobre você, seu trabalho, qual seu objetivo com o MusicPlayce. Quanto tempo de experiência você tem? Já fez parceria com bandas? Já ganhou premiações? Tem fã clube?</MPText>
                     )
                 }
                 {

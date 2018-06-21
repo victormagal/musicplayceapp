@@ -55,7 +55,7 @@ class ProfileComponent extends React.Component {
                 )
             }
             <View>
-              <MPProfileInfo profile={profile}/>
+              <MPProfileInfo profile={profile} {...this.props}/>
               <View style={{flexDirection: 'row', marginBottom: 20, marginHorizontal: 20}}>
                 <ProfileIndicatorCE style={{flex: 1}} title="Indicações Feitas" subtitle="Explore"
                                     count={profile.indicationCount}/>
