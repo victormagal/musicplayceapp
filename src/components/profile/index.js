@@ -11,3 +11,4 @@ export * from './MPReportProfile';
 export * from './MPShowFolderSongs';
 export * from './MPGradientBorderButton';
 export * from './MPShowRating';
+export * from './MPConfirmStopFollow';

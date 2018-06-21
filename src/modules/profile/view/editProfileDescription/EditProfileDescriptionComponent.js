@@ -34,7 +34,7 @@ class EditProfileDescriptionComponent extends React.Component {
 				<MPHeader back={true} onBack={onBack} title={"Fale de você e do seu trabalho"}/>
 				<ScrollView style={styles.scroll}>
 					<View style={styles.container}>
-						<MPText style={ styles.titleText}t>O que te inspira? Quais suas referências e estilos ? Aproveite para vender seu peixe, esse espaço é seu.</MPText>
+						<MPText style={ styles.titleText}>O que te inspira? Quais suas referências e estilos ? Aproveite para vender seu peixe, esse espaço é seu.</MPText>
 						<MPTextField label={"Envie sua mensagem"} style={styles.textFieldContainer} multiline={true} value={""} />
 					</View>
 				</ScrollView>

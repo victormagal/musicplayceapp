@@ -52,8 +52,10 @@ class ManagerProfileScreenContainer extends React.Component {
     }
 
     render() {
+        let newProps = {...this.props};
+        newProps.profile = this.state.profile;
         return (
-            <ProfileComponent profile={this.state.profile} />
+            <ProfileComponent {...newProps} />
         );
     }
 }

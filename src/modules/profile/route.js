@@ -10,7 +10,7 @@ import { ProfileScreen,
 
 export const ProfileScreensNavigation = createStackNavigator(
   {
-    ProfileScreen: ProfileEmptyScreen,
+    ProfileScreen: ManagerProfileScreen,
     EditProfileDescription: EditProfileDescriptionScreen,
   },
   {

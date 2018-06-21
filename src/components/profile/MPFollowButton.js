@@ -7,10 +7,10 @@ import { MPFollowingIcon, MPFollowIcon } from '../../assets/svg';
 class MPFollowButtonComponent extends Component{
 
     render() {
-        let { isFollowing } = this.props;
+        let { isFollowing, onPress } = this.props;
         
         return (
-            <TouchableOpacity style={styles.parent}>
+            <TouchableOpacity style={styles.parent} onPress = { onPress }>
             {
                 isFollowing ? (
                     <View style={styles.followingButtonContainer}>

@@ -18,11 +18,13 @@ import {
   MPShowAgencies,
   MPReportProfile,
   MPShowFolderSongs,
-  MPGradientButton
+  MPGradientButton,
+  MPConfirmStopFollow
 } from '../../../components/';
 import {MPProfileArrowIcon} from '../../../assets/svg/'
 import {MPUpgradeButton} from '../../../components/profile/MPUpgradeButton';
 import {connect} from 'react-redux';
+import {fetchProfile, saveProfile} from '../../../state/action';
 
 class ProfileComponent extends React.Component {
   scrollViewRef = null;
@@ -40,6 +42,14 @@ class ProfileComponent extends React.Component {
     this.scrollViewRef.current.scrollToEnd();
   };
 
+  toggleFollow = () => {
+    this.props.profile.isFollowing == true ? (
+      this.props.navigation.navigate('message', { component: MPConfirmStopFollow})
+    ) : (
+      this.props.dispatch(saveProfile({isFollowing: true}))
+    );
+  }
+
   render() {
 
     let {profile} = this.props;
@@ -53,7 +63,7 @@ class ProfileComponent extends React.Component {
             <MPHeader transparent={true} title={""}/>
             {
               profile.visiting ? (
-                  <MPFollowButton isFollowing={profile.isFollowing}/>
+                  <MPFollowButton isFollowing={profile.isFollowing} onPress={this.toggleFollow.bind(this)}/>
                 ) : (
                   <MPAddChangePhoto hasPhoto={profile.hasPhoto}/>
                 )
