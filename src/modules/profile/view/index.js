@@ -4,6 +4,7 @@ export * from './ProfileNewScreen';
 export * from './ProfileFreemiumScreen';
 export * from './ManagerProfileScreen';
 export * from './ArtistProfileScreen';
+export * from './ComposerProfileScreen';
 export * from './DeleteSongScreen';
 export * from './DeleteSongSuccessScreen';
 export * from './EditDescriptionScreen';
