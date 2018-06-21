@@ -16,9 +16,7 @@ class ProfileEmptyScreenContainer extends React.Component {
                 email: '',
                 sites: '',
                 languages: '',
-                visiting: true,
-                // languages: ['Espanhol', 'Inglês', 'Português'],
-                // agencies: ['SOM LIVRE'],
+                visiting: false,
                 agencies: '',
                 phone: '',
                 location: '',
@@ -29,28 +27,8 @@ class ProfileEmptyScreenContainer extends React.Component {
                 followerCount: '',
                 mySongsFolder: '',
                 savedSongsFolder: '',
-                // isVerified: true,
                 sites: '',
                 song: '',
-                // song: {
-                //     songName: 'Nome da Música'
-                // }
-                // isArtist: true,
-                // vip: true,
-                // sites: [
-                //     {
-                //         id: '00',
-                //         title: 'Spotify',
-                //     },
-                //     {
-                //         id: '01',
-                //         title: 'YouTube',
-                //     },
-                //     {
-                //         id: '02',
-                //         title: 'Deezer',
-                //     },
-                // ]
             }
         };
       }
