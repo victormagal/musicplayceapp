@@ -22,7 +22,7 @@ import {
 } from '../../../components/';
 import {MPProfileArrowIcon} from '../../../assets/svg/'
 import {MPUpgradeButton} from '../../../components/profile/MPUpgradeButton';
-
+import {connect} from 'react-redux';
 
 class ProfileComponent extends React.Component {
   scrollViewRef = null;
@@ -30,6 +30,10 @@ class ProfileComponent extends React.Component {
   constructor(props) {
     super(props);
     this.scrollViewRef = React.createRef();
+  }
+
+  goToScreen = (rota) =>{
+    this.props.navigation.navigate(rota)
   }
 
   handleScrollEnd = () => {
@@ -55,7 +59,7 @@ class ProfileComponent extends React.Component {
                 )
             }
             <View>
-              <MPProfileInfo profile={profile} {...this.props}/>
+              <MPProfileInfo profile={profile}/>
               <View style={{flexDirection: 'row', marginBottom: 20, marginHorizontal: 20}}>
                 <ProfileIndicatorCE style={{flex: 1}} title="Indicações Feitas" subtitle="Explore"
                                     count={profile.indicationCount}/>
@@ -73,7 +77,7 @@ class ProfileComponent extends React.Component {
                   ) : null
               }
               <TouchableOpacity style={{alignSelf: 'center', justifyContent: 'center', marginBottom: 20}}
-                                onPress={this.handleScrollEnd}>
+                                onPress={this.goToScreen.bind(this, 'EditProfileDescription')}>
                 <MPProfileArrowIcon />
               </TouchableOpacity>
             </View>

@@ -6,6 +6,7 @@ import {
 } from 'react-native';
 import { 
 	MPHeader, 
+	MPText,
 	MPTitleFormContainer, 
 	MPTextField,
 	MPLoading, 
@@ -21,15 +22,6 @@ class EditProfileDescriptionComponent extends React.Component {
 	constructor(props) {
 		super(props);
 	}
-	
-	// componentWillReceiveProps(props) {
-	// 	if (!this.state.formLoaded && props.profile.name) {
-	// 		let state = {...this.state};
-	// 		state.form = {...props.profile};
-	// 		state.formLoaded = true;
-	// 		this.setState(state);
-	// 	}
-	// }
 
 	handleUpdateIdentificacao = (page) => {
     this.props.onSave(page);
@@ -43,6 +35,7 @@ class EditProfileDescriptionComponent extends React.Component {
 				<ScrollView style={styles.scroll}>
 					<View style={styles.container}>
 						<MPText style={ styles.titleText}t>O que te inspira? Quais suas referências e estilos ? Aproveite para vender seu peixe, esse espaço é seu.</MPText>
+						<MPTextField label={"Envie sua mensagem"} style={styles.textFieldContainer} multiline={true} value={""} />
 					</View>
 				</ScrollView>
       </View>
@@ -66,8 +59,12 @@ const styles = StyleSheet.create({
     titleText: {
         fontSize: 16,
         fontFamily: 'probaProRegular',
-        color: '#686868',
-    }
+		color: '#686868',
+		marginHorizontal: 50,
+	},
+	textFieldContainer: {
+		marginHorizontal: 50,
+	}
 });
 
 export { EditProfileDescriptionComponent };
