@@ -4,6 +4,7 @@ import { ProfileScreen,
         ProfileNewScreen,
         ProfileFreemiumScreen,
         ManagerProfileScreen,
+        ArtistProfileScreen,
         DeleteSongScreen,
         DeleteSongSuccessScreen,
         EditDescriptionScreen,
@@ -16,7 +17,7 @@ import { ProfileScreen,
 
 export const ProfileScreensNavigation = createStackNavigator(
   {
-    ProfileScreen: ManagerProfileScreen,
+    ProfileScreen: ArtistProfileScreen,
     DeleteSongScreen: DeleteSongScreen,
     DeleteSongSuccessScreen: DeleteSongSuccessScreen,
     EditDescriptionScreen: EditDescriptionScreen,
