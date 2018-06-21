@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
     },
     avaliadorContainer: {
         position: 'absolute',
-        top: 80,
+        top: 60,
         alignSelf: 'flex-end',
         width: 70,
     },
