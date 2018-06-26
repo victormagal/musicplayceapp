@@ -124,7 +124,11 @@ function buildPath(path) {
   let strokeLinejoin = attributes['stroke-linejoin'];
   let fillOpacity = attributes["opacity"];
 
-  svgPathString += `<Path fill='${fill}' d='${d}'`;
+  svgPathString += `<Path d='${d}'`;
+
+  if(fill){
+    svgPathString += ` fill='${fill}'`;
+  }
 
   if (fillOpacity) {
     svgPathString += ` fillOpacity='${fillOpacity}'`;

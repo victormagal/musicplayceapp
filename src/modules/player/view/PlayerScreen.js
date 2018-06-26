@@ -5,7 +5,7 @@ import {
 } from 'react-native';
 import {
   MPHeader, MPText, MPGradientButton, MPIconButton, MPCircleGradientButton,
-  MPArtist
+  MPSongRating, MPGradientBorderButton
 } from '../../../components';
 import {
   MPStarIcon,
@@ -24,17 +24,17 @@ class PlayerScreen extends React.Component {
     data: [
       {
         id: '00',
-        artistName: 'Michel Teló',
+        songName: 'Michel Teló',
         imagePath: images.daftPunk100,
       },
       {
         id: '01',
-        artistName: 'Paula Fernandes',
+        songName: 'Paula Fernandes',
         imagePath: images.bjork100,
       },
       {
         id: '02',
-        artistName: 'Almir Sater',
+        songName: 'Almir Sater',
         imagePath: images.daftPunk100,
       }
     ]
@@ -44,22 +44,28 @@ class PlayerScreen extends React.Component {
     this.props.navigation.pop();
   };
 
-  renderItem = ({item}) => {
-    return <MPArtist artist={item.artistName} imagePath={item.imagePath} onPress={() => {
+  renderItem = ({item, index}) => {
+    let style = null;
+
+    if(index == 0){
+      style = styles.songCardFirst;
+    }
+
+    return <MPSongRating style={style} songName={item.songName} indicateSong={true} imagePath={item.imagePath} onPress={() => {
     }}/>
   };
 
   render() {
     return (
       <View style={styles.container}>
-        <LinearGradient
-          colors={['#000000', '#fcfcfc']}
-          start={[0, 0]}
-          end={[0, 0.7]}>
 
-          <MPHeader back={true} onBack={this.handleBack} transparent={true}/>
+        <MPHeader back={true} onBack={this.handleBack} />
 
-          <ScrollView>
+        <ScrollView>
+          <LinearGradient
+            colors={['#000000', '#fcfcfc']}
+            start={[0, 0]}
+            end={[0, 1]}>
 
             <View style={styles.musicContent}>
               <View style={styles.row}>
@@ -104,38 +110,64 @@ class PlayerScreen extends React.Component {
                 </View>
               </View>
             </View>
+          </LinearGradient>
 
-            <View style={[styles.seeLyricsContainer, styles.row]}>
-              <View style={[styles.row, styles.alignCenter]}>
-                <MPStarIcon />
-                <MPText style={styles.seeLyricsText}>ACOMPANHA A LETRA</MPText>
-              </View>
-              <MPArrowDownIcon style={styles.alignCenter}/>
+          <View style={[styles.seeLyricsContainer, styles.row]}>
+            <View style={[styles.row, styles.alignCenter]}>
+              <MPStarIcon />
+              <MPText style={styles.seeLyricsText}>ACOMPANHA A LETRA</MPText>
             </View>
+            <MPArrowDownIcon style={styles.alignCenter}/>
+          </View>
 
-            <View style={[styles.row, styles.tagContainer]}>
-              <View style={[styles.row, styles.tagContent]}>
-                <MPText style={styles.tagText}>#coraçãopartido</MPText>
-                <MPText style={styles.tagText}>#descobertas</MPText>
-                <MPText style={styles.tagText}>#paquera</MPText>
-                <MPText style={styles.tagText}>#balada</MPText>
-                <MPText style={styles.tagText}>#amor</MPText>
-              </View>
-              <MPCircleGradientButton icon={MPBalloonTalkIcon}/>
+          <View style={[styles.row, styles.tagContainer]}>
+            <View style={[styles.row, styles.tagContent]}>
+              <MPText style={styles.tagText}>#coraçãopartido</MPText>
+              <MPText style={styles.tagText}>#descobertas</MPText>
+              <MPText style={styles.tagText}>#paquera</MPText>
+              <MPText style={styles.tagText}>#balada</MPText>
+              <MPText style={styles.tagText}>#amor</MPText>
             </View>
+            <MPCircleGradientButton icon={MPBalloonTalkIcon}/>
+          </View>
 
-            <View>
-              <MPText>Outras de Almir Sater</MPText>
-              <FlatList
-                data={this.state.data}
-                keyExtractor={(item) => item.id}
-                renderItem={this.renderItem}
-                horizontal={true} />
+          <View>
+            <View style={[styles.sectionHeader, styles.row]}>
+              <MPText style={styles.sectionTitle}>Outras de Almir Sater</MPText>
+              <MPGradientBorderButton />
             </View>
+            <FlatList
+              data={this.state.data}
+              keyExtractor={(item) => item.id}
+              renderItem={this.renderItem}
+              horizontal={true}/>
+          </View>
 
-          </ScrollView>
+          <View>
+            <View style={[styles.sectionHeader, styles.row]}>
+              <MPText style={styles.sectionTitle}>Outras de Zé da Clave</MPText>
+              <MPGradientBorderButton />
+            </View>
+            <FlatList
+              data={this.state.data}
+              keyExtractor={(item) => item.id}
+              renderItem={this.renderItem}
+              horizontal={true}/>
+          </View>
 
-        </LinearGradient>
+          <View>
+            <View style={[styles.sectionHeader, styles.row]}>
+              <MPText style={styles.sectionTitle}>Outras de Santiago Silva</MPText>
+              <MPGradientBorderButton />
+            </View>
+            <FlatList
+              data={this.state.data}
+              keyExtractor={(item) => item.id}
+              renderItem={this.renderItem}
+              horizontal={true}/>
+          </View>
+
+        </ScrollView>
 
       </View>
     );
@@ -241,6 +273,7 @@ const styles = StyleSheet.create({
     paddingLeft: 10
   },
   tagContainer: {
+    backgroundColor: '#fff',
     padding: 20
   },
   tagContent: {
@@ -253,6 +286,21 @@ const styles = StyleSheet.create({
     textDecorationLine: 'underline',
     color: '#5994db',
     paddingRight: 10
+  },
+  sectionTitle: {
+    flex: 1,
+    fontFamily: 'montSerratMedium',
+    fontSize: 16,
+    fontWeight: '500',
+    color: '#000',
+  },
+  sectionHeader: {
+    paddingHorizontal: 20,
+    paddingTop: 20,
+    paddingBottom: 10
+  },
+  songCardFirst: {
+    paddingLeft: 20
   }
 });
 
