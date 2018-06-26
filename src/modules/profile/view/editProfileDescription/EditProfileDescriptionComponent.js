@@ -28,7 +28,7 @@ class EditProfileDescriptionComponent extends React.Component {
 	};
 
 	render() {
-		let { onBack } = this.props;
+		let { onBack, profile } = this.props;
 		return (
 		  <View style={styles.parent}>
 				<MPHeader back={true} onBack={onBack} title={"Fale de você e do seu trabalho"}/>

@@ -19,7 +19,9 @@ import {
   MPReportProfile,
   MPShowFolderSongs,
   MPGradientButton,
-  MPConfirmStopFollow
+  MPConfirmStopFollow,
+  MPConfirmExcludeSong,
+  MPConfirmUnpublishSong
 } from '../../../components/';
 import {MPProfileArrowIcon} from '../../../assets/svg/'
 import {MPUpgradeButton} from '../../../components/profile/MPUpgradeButton';
@@ -50,6 +52,18 @@ class ProfileComponent extends React.Component {
     );
   }
 
+  onEdit= () => {
+    this.props.navigation.navigate('message', {component: MPConfirmStopFollow})
+  }
+
+  excludeSong = () => {
+    this.props.navigation.navigate('message', {component: MPConfirmExcludeSong})
+  }
+
+  unpublishSong = () => {
+    this.props.navigation.navigate('message', {component: MPConfirmUnpublishSong})
+  }
+
   render() {
 
     let {profile} = this.props;
@@ -69,7 +83,7 @@ class ProfileComponent extends React.Component {
                 )
             }
             <View>
-              <MPProfileInfo profile={profile}/>
+              <MPProfileInfo {...this.props}/>
               <View style={{flexDirection: 'row', marginBottom: 20, marginHorizontal: 20}}>
                 <ProfileIndicatorCE style={{flex: 1}} title="Indicações Feitas" subtitle="Explore"
                                     count={profile.indicationCount}/>
@@ -99,7 +113,7 @@ class ProfileComponent extends React.Component {
             {
               profile.mySongsFolder != '' ? (
                   <View>
-                    <MPShowFolderSongs folderName={profile.mySongsFolder[0].folderName} edit={true}/>
+                    <MPShowFolderSongs folderName={profile.mySongsFolder[0].folderName} edit={true} onEdit={this.onEdit.bind(this)} excludeSong={this.excludeSong.bind(this)} unpublishSong={this.unpublishSong.bind(this)} />
                     {
                       !profile.visiting ? (
                         <View style={styles.whiteBackground}>
@@ -131,7 +145,7 @@ class ProfileComponent extends React.Component {
             {
               profile.savedSongsFolder != '' ? (
                   <View>
-                    <MPShowFolderSongs folderName={profile.savedSongsFolder[0].folderName} edit={true}/>
+                    <MPShowFolderSongs folderName={profile.savedSongsFolder[0].folderName} edit={true} onEdit={this.onEdit.bind(this)}  excludeSong={this.excludeSong.bind(this)} unpublishSong={this.unpublishSong.bind(this)} />
                     {
                       !profile.visiting ? (
                         <View style={styles.whiteBackground}>

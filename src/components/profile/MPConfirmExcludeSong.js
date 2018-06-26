@@ -10,25 +10,24 @@ import {
   MPHelpSuccess
 } from '../../components';
 import { saveProfile } from '../../state/action';
-
-class MPConfirmStopFollowComponent extends React.Component {
+import { MPExcludedSong } from '../../components';
+class MPConfirmExcludeSongComponent extends React.Component {
 
   handleBack = () => {
     this.props.navigation.pop();
   };
 
   handleFoward = () => {
-    this.props.dispatch(saveProfile({isFollowing: false}))
-    this.props.navigation.pop();
+    this.props.navigation.navigate('message', {component: MPExcludedSong})
   };
 
   render() {
     return (
       <View style={styles.container}>
-        <MPText style={ styles.title }>Parar de seguir{"\n"}Ivete Sangalo?</MPText>
-        <MPText style={ styles.subTitle }>As informações, troca de mensagens e indicações ficarão escondidas. Para reativá-la, basta segui-la novamente.</MPText>
-        <MPGradientButton style={ styles.button } title={'Parar de seguir'}   textSize={16} onPress={this.handleFoward.bind(this)}/>
-        <MPGradientButton style={ styles.button } title={'Continuar seguindo'} textSize={16} onPress={this.handleBack.bind(this)}/>
+        <MPText style={ styles.title }>Tem certeza que deseja excluir sua música?</MPText>
+        <MPText style={ styles.subTitle }>Não será possível resgatar as indicações e outras interações que você teve com essa música. Caso queira, poderá cadastrá-la novamente e recomeçar uma interação do zero.</MPText>
+        <MPGradientButton style={ styles.button } title={'Sim, excluir música'}   textSize={16} onPress={this.handleFoward.bind(this)}/>
+        <MPGradientButton style={ styles.button } title={'Não, manter ativa'} textSize={16} onPress={this.handleBack.bind(this)}/>
       </View>
     );
   }
@@ -65,5 +64,5 @@ const mapStateToProps = ({ fontReducer }) => {
   return { ...fontReducer };
 };
 
-const MPConfirmStopFollow = connect(mapStateToProps)(MPConfirmStopFollowComponent);
-export { MPConfirmStopFollow };
+const MPConfirmExcludeSong = connect(mapStateToProps)(MPConfirmExcludeSongComponent);
+export { MPConfirmExcludeSong };

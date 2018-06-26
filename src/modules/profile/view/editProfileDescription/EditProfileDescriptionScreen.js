@@ -43,7 +43,6 @@ class EditProfileDescriptionScreenContainer extends React.Component {
         onSave={this.handleSaveClick}
         onBack={this.handleBackClick}
         profile={this.props.profile}
-        loading={this.props.loading}
       />
     );
   }

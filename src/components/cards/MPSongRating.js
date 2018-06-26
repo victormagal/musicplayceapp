@@ -16,7 +16,7 @@ import {MPShowRating} from '../profile';
 
 class MPSongRatingComponent extends Component {
   state = {
-    menuOpen: false,
+    menuOpen: true,
   };
 
   toggleState = () => {
@@ -24,7 +24,7 @@ class MPSongRatingComponent extends Component {
   };
 
   render() {
-    let {songName, style, isAdded, indicateSong, indications, isNew, rating, isDraft} = this.props;
+    let {songName, style, isAdded, indicateSong, indications, isNew, rating, isDraft, onExclude, onUnpublish} = this.props;
     return (
       <TouchableOpacity style={style || {}}>
         {
@@ -87,9 +87,9 @@ class MPSongRatingComponent extends Component {
                 <MPText style={ styles.menuCloseText}>X</MPText>
                 <MPText style={ styles.menuText }>EDITAR</MPText>
                 <View style={ styles.menuSeparator }/>
-                <MPText style={ styles.menuText }>DESPUBLICAR</MPText>
+                <MPText style={ styles.menuText } onPress={onUnpublish}>DESPUBLICAR</MPText>
                 <View style={ styles.menuSeparator }/>
-                <MPText style={ styles.menuText }>EXCLUIR</MPText>
+                <MPText style={ styles.menuText } onPress={onExclude}>EXCLUIR</MPText>
               </View>
             )
         }
