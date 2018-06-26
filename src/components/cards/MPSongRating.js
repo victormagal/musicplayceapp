@@ -17,11 +17,34 @@ import {MPShowRating} from '../profile';
 class MPSongRatingComponent extends Component {
   state = {
     menuOpen: false,
+    isAdded: this.props.isAdded,
   };
 
   toggleState = () => {
     this.setState({menuOpen: !this.state.menuOpen});
   };
+
+  toggleAdded = () => {
+    this.setState({isAdded: !this.state.isAdded})
+  }
+
+  renderTopIcons(){
+    if(this.state.isAdded){
+      return (
+        <View style={styles.menuIconContainer} onPress={this.toggleState.bind(this)}>
+          <View  style={styles.menuIcon}>
+            <MPSongMenuIcon/>
+          </View>
+        </View>
+      )
+    }else{
+      return (
+        <View style={ styles.addSongIcon } onPress={this.toggleAdded.bind(this)}>
+          <MPSongListIcon/>
+        </View>
+      )
+    }
+  }
 
   render() {
     let {songName, style, isAdded, indicateSong, indications, isNew, rating, isDraft, onExclude, onUnpublish} = this.props;
@@ -33,28 +56,19 @@ class MPSongRatingComponent extends Component {
                 <View>
                   <View style={ styles.simpleArtistCardImage }>
                     <Image source={ images.daftPunk100 }/>
-                    {
-                      isAdded ? (
-                          <TouchableOpacity onPress={this.toggleState}
-                                style={{position: 'absolute', top: 0, right: 0, width: 20}}>
-                            <MPSongMenuIcon style={{position: 'absolute', top: 8, right: 8}}/>
-                          </TouchableOpacity>
-                        ) : (
-                          <MPSongListIcon style={{position: 'absolute', top: 10, right: 10}}/>
-                        )
-                    }
+                    <MPPlayIcon style={{position: 'absolute', top: 38, left: 38}}/>
+                    { this.renderTopIcons() }
                     {
                       isDraft ? (
-                        <View style={ styles.draftContainer}>
+                        <View style={ styles.draftContainer} >
                           <MPText style={ styles.draftText}>RASCUNHO</MPText>
                         </View>
                       ) : null
                     }
-                    <MPPlayIcon style={{position: 'absolute', top: 38, left: 38}}/>
                   </View>
                 </View>
                 <View>
-                  <MPText style={ styles.simpleArtistCardText }>{ songName }</MPText>
+                  <MPText style={ styles.simpleArtistCardText } onPress={this.toggleState.bind(this)}>{ songName }</MPText>
                   <MPShowRating rating={rating} />
                 </View>
                 {
@@ -84,7 +98,7 @@ class MPSongRatingComponent extends Component {
               </View>
             ) : (
               <View style={ styles.menuContainer }>
-                <MPText style={ styles.menuCloseText}>X</MPText>
+                <MPText style={ styles.menuCloseText} onPress={this.toggleState.bind(this)}>X</MPText>
                 <MPText style={ styles.menuText }>EDITAR</MPText>
                 <View style={ styles.menuSeparator }/>
                 <MPText style={ styles.menuText } onPress={onUnpublish}>DESPUBLICAR</MPText>
@@ -203,7 +217,26 @@ const styles = StyleSheet.create({
     fontSize: 10,
     textAlign: 'center',
     fontFamily: 'montSerratMedium'
+  },
+  menuIconContainer: {
+    backgroundColor: '#f60',
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    width: 20,
+    height: 30
+  },
+  menuIcon: {
+    position: 'absolute',
+    top: 8,
+    right: 8
+  },
+  addSongIcon: {
+    position: 'absolute',
+    top: 10,
+    right: 10
   }
+
 });
 
 const mapStateToProps = ({fontReducer}) => {

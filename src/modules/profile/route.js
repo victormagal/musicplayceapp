@@ -11,7 +11,7 @@ import { ProfileScreen,
 
 export const ProfileScreensNavigation = createStackNavigator(
   {
-    ProfileScreen: ManagerProfileScreen,
+    ProfileScreen: ComposerProfileScreen,
     EditProfileDescription: EditProfileDescriptionScreen,
     EditFolder: EditFolderScreen,
   },
