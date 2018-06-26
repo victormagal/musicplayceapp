@@ -16,3 +16,6 @@ export * from './MPConfirmExcludeSong';
 export * from './MPExcludedSong';
 export * from './MPConfirmUnpublishSong';
 export * from './MPUnpublishedSong';
+export * from './MPConfirmReportProfile';
+export * from './MPReportedProfile';
+

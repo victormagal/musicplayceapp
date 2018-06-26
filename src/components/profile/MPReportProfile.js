@@ -8,11 +8,12 @@ import { MPReportIcon } from '../../assets/svg';
 class MPReportProfileComponent extends Component{
 
     render() {
+        let { onPress } = this.props;
         return (
-            <View style={ styles.parent }>
+            <TouchableOpacity style={ styles.parent } onPress={onPress}>
                 <MPReportIcon style={{alignSelf: 'center'}} />
                 <MPText style={ styles.reportText }>Denunciar perfil</MPText>
-            </View>
+            </TouchableOpacity>
         )
     }
 }

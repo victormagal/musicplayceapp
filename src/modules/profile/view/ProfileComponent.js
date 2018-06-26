@@ -21,7 +21,8 @@ import {
   MPGradientButton,
   MPConfirmStopFollow,
   MPConfirmExcludeSong,
-  MPConfirmUnpublishSong
+  MPConfirmUnpublishSong,
+  MPConfirmReportProfile
 } from '../../../components/';
 import {MPProfileArrowIcon} from '../../../assets/svg/'
 import {MPUpgradeButton} from '../../../components/profile/MPUpgradeButton';
@@ -62,6 +63,10 @@ class ProfileComponent extends React.Component {
 
   unpublishSong = () => {
     this.props.navigation.navigate('message', {component: MPConfirmUnpublishSong})
+  }
+
+  reportProfile = () => {
+    this.props.navigation.navigate('message', {component: MPConfirmReportProfile})
   }
 
   render() {
@@ -137,7 +142,7 @@ class ProfileComponent extends React.Component {
             <MPShowFollowers />
             {
               profile.visiting ? (
-                  <MPReportProfile />
+                  <MPReportProfile onPress={ this.reportProfile.bind(this)} />
                 ) : null
             }
           </View>
@@ -170,7 +175,7 @@ class ProfileComponent extends React.Component {
             <MPShowFollowers />
             {
               profile.visiting ? (
-                  <MPReportProfile />
+                <MPReportProfile onPress={ this.reportProfile.bind(this)} />
                 ) : null
             }
           </View>
