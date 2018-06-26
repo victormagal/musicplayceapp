@@ -7,9 +7,9 @@ import {
 import {
     MPText,
   MPGradientButton,
-  MPHelpSuccess,
   MPTextField,
-  MPReportedProfile
+  MPReportedProfile,
+  MPCheckBox
 } from '../../components';
 import { saveProfile } from '../../state/action';
 
@@ -27,8 +27,12 @@ class MPConfirmReportProfileComponent extends React.Component {
     return (
       <View style={styles.container}>
         <MPText style={ styles.title }>O que está pegando?</MPText>
+        <View style={styles.checkboxContainer}>
+          <MPCheckBox checked={true} title={'É spam'} />
+          <MPCheckBox checked={true} title={'É impróprio'} />
+        </View>
         <MPText style={ styles.subTitle }>Descreva sua denúncia.</MPText>
-        <MPTextField label={"Texto da denúnca"} style={styles.textFieldContainer} multiline={true} value={"Inspirações rock"} style={{marginHorizontal: 40, marginBottom: 40}}/>
+        <MPTextField label={"Texto da denúnca"} multiline={true} style={{marginHorizontal: 40, marginBottom: 40}}/>
         <MPGradientButton style={ styles.button } title={'Fazer denúncia'}   textSize={16} onPress={this.handleFoward.bind(this)}/>
         <MPGradientButton style={ styles.button } title={'Cancelar'} textSize={16} onPress={this.handleBack.bind(this)}/>
       </View>
@@ -59,6 +63,11 @@ const styles = StyleSheet.create({
   },
   button: {
     marginHorizontal: 54,
+    marginBottom: 20,
+  },
+  checkboxContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
     marginBottom: 20,
   }
 });

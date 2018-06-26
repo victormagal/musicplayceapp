@@ -73,6 +73,11 @@ export const MPChangePlanConfigIcon = (props) => {
  return (<Svg {...newProps} viewBox='0 0 22 20'><Path fill='#d8d8d8' d='M1.5 4h20c0.276 0 0.5 0.224 0.5 0.5s-0.224 0.5-0.5 0.5h-20c-0.276 0-0.5-0.224-0.5-0.5s0.224-0.5 0.5-0.5z'/><Path fill='none' d='M2 4.5h19c0.276 0 0.5 0.224 0.5 0.5s-0.224 0.5-0.5 0.5h-19c-0.276 0-0.5-0.224-0.5-0.5s0.224-0.5 0.5-0.5z' stroke='#e13223' strokeWidth='1' strokeMiterlimit='4' strokeLinecap='butt' strokeLinejoin='miter'/><Path fill='#d8d8d8' d='M0.5 15h10c0.276 0 0.5 0.224 0.5 0.5s-0.224 0.5-0.5 0.5h-10c-0.276 0-0.5-0.224-0.5-0.5s0.224-0.5 0.5-0.5z'/><Path fill='none' d='M1 15.5h9c0.276 0 0.5 0.224 0.5 0.5s-0.224 0.5-0.5 0.5h-9c-0.276 0-0.5-0.224-0.5-0.5s0.224-0.5 0.5-0.5z' stroke='#e13223' strokeWidth='1' strokeMiterlimit='4' strokeLinecap='butt' strokeLinejoin='miter'/><Path fill='none' d='M14 15.531c0.22 1.646 1.41 2.469 3.569 2.469s3.3-0.677 3.42-2.032c0.1-1.082-0.516-1.878-1.844-2.388-1.993-0.766-4.353-1.050-4.896-2.712-0.543-1.663 1.156-2.868 3.32-2.868 1.917 0 3.399 1.107 3.42 2.172' stroke='#e13223' strokeWidth='1' strokeMiterlimit='4' strokeLinecap='round' strokeLinejoin='miter'/><Path fill='#e13223' d='M17.5 6c0.276 0 0.5 0.224 0.5 0.5v13c0 0.276-0.224 0.5-0.5 0.5s-0.5-0.224-0.5-0.5v-13c0-0.276 0.224-0.5 0.5-0.5z'/></Svg>); 
 };
 
+export const MPCheckboxIcon = (props) => { 
+ let newProps = applyStyle(props, 14, 10); 
+ return (<Svg {...newProps} viewBox='0 0 14 10'><Path fill='none' d='M1 5l4 4 8-8' stroke='#e13223' strokeWidth='2' strokeMiterlimit='4' strokeLinecap='round' strokeLinejoin='round'/></Svg>); 
+};
+
 export const MPClipboardIcon = (props) => { 
  let newProps = applyStyle(props, 18, 18); 
  return (<Svg {...newProps} viewBox='0 0 18 18'><Path fill='#2424d3' d='M7 7v10h10v-10h-10zM6 6h12v12h-12v-12z'/><Path fill='#2424d3' d='M1 1v10h10v-10h-10zM0 0h12v12h-12v-12z'/></Svg>); 
