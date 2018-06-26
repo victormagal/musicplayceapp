@@ -16,26 +16,26 @@ import {MPShowRating} from '../profile';
 
 class MPSongRatingComponent extends Component {
   state = {
-    menuOpen: true,
+    menuOpen: false,
   };
 
   toggleState = () => {
-    this.setState({[menuOpen]: !this.state.menuOpen});
+    this.setState({menuOpen: !this.state.menuOpen});
   };
 
   render() {
     let {songName, style, isAdded, indicateSong, indications, isNew, rating, isDraft, onExclude, onUnpublish} = this.props;
     return (
-      <TouchableOpacity style={style || {}}>
+      <View style={style || {}}>
         {
           this.state.menuOpen == false ? (
-              <View style={ styles.simpleArtistCardContainer }>
+              <View style={styles.simpleArtistCardContainer}>
                 <View>
                   <View style={ styles.simpleArtistCardImage }>
                     <Image source={ images.daftPunk100 }/>
                     {
                       isAdded ? (
-                          <TouchableOpacity onPress={this.toggleState.bind(this)}
+                          <TouchableOpacity onPress={this.toggleState}
                                 style={{position: 'absolute', top: 0, right: 0, width: 20}}>
                             <MPSongMenuIcon style={{position: 'absolute', top: 8, right: 8}}/>
                           </TouchableOpacity>
@@ -93,19 +93,20 @@ class MPSongRatingComponent extends Component {
               </View>
             )
         }
-      </TouchableOpacity>
+      </View>
     );
   }
 }
 
 MPSongRatingComponent.propTypes = {
   songName: PropTypes.string.isRequired,
-  style: PropTypes.any,
+  style: PropTypes.any
 };
 
 const styles = StyleSheet.create({
   simpleArtistCardContainer: {
     width: 100,
+    marginBottom: 5,
     flexDirection: 'column',
     backgroundColor: '#fff',
     borderRadius: 4,
@@ -123,21 +124,20 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   simpleArtistCardText: {
+    height: 40,
     fontSize: 14,
     color: '#000',
     paddingTop: 10,
     paddingStart: 10,
     paddingEnd: 10,
-    fontFamily: 'montSerrat',
+    fontFamily: 'probaProRegular',
     flexWrap: 'wrap',
   },
   indicateSongContainer: {
     flexDirection: 'row',
     paddingHorizontal: 10,
     marginBottom: 10,
-    height: 16,
-    alignContent: 'center',
-    justifyContent: 'center'
+    height: 16
   },
   indicateSongText: {
     fontSize: 9,
