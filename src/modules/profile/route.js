@@ -6,12 +6,14 @@ import { ProfileScreen,
         ManagerProfileScreen,
         ArtistProfileScreen,
         ComposerProfileScreen,
-        EditProfileDescriptionScreen} from './view';
+        EditProfileDescriptionScreen,
+        EditFolderScreen} from './view';
 
 export const ProfileScreensNavigation = createStackNavigator(
   {
-    ProfileScreen: ProfileEmptyScreen,
+    ProfileScreen: ProfileNewScreen,
     EditProfileDescription: EditProfileDescriptionScreen,
+    EditFolder: EditFolderScreen,
   },
   {
     initialRouteName: 'ProfileScreen',

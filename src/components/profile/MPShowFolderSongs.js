@@ -39,7 +39,7 @@ class MPShowFolderShongsComponent extends Component{
                 <View style={ styles.topBarContainer }>
                     <MPText style={ styles.topBarText}>{ folderName }</MPText>
                     {
-                        edit ? (
+                        edit == true ? (
                             <View style={ styles.topBarButton}>
                                 <MPGradientBorderButton  onPress={onEdit}/>
                             </View>
@@ -76,10 +76,11 @@ const styles = StyleSheet.create({
         fontFamily: 'montSerratMedium',
         color: '#000',
         alignSelf: 'center',
-        marginEnd: 138,
     },
     topBarButton: {
+        flex: 1,
         width: 64,
+        alignSelf: 'flex-end'
     },
     sliderContainer: {
         paddingTop: 10,

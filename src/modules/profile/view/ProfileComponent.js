@@ -83,7 +83,7 @@ class ProfileComponent extends React.Component {
                 )
             }
             <View>
-              <MPProfileInfo {...this.props}/>
+              <MPProfileInfo profile={profile} editDescription={this.goToScreen.bind(this, 'EditProfileDescription')}/>
               <View style={{flexDirection: 'row', marginBottom: 20, marginHorizontal: 20}}>
                 <ProfileIndicatorCE style={{flex: 1}} title="Indicações Feitas" subtitle="Explore"
                                     count={profile.indicationCount}/>
@@ -113,7 +113,7 @@ class ProfileComponent extends React.Component {
             {
               profile.mySongsFolder != '' ? (
                   <View>
-                    <MPShowFolderSongs folderName={profile.mySongsFolder[0].folderName} edit={true} onEdit={this.onEdit.bind(this)} excludeSong={this.excludeSong.bind(this)} unpublishSong={this.unpublishSong.bind(this)} />
+                    <MPShowFolderSongs edit={!profile.visiting} folderName={profile.mySongsFolder[0].folderName} onEdit={this.goToScreen.bind(this, 'EditFolder')} excludeSong={this.excludeSong.bind(this)} unpublishSong={this.unpublishSong.bind(this)} />
                     {
                       !profile.visiting ? (
                         <View style={styles.whiteBackground}>
@@ -145,7 +145,7 @@ class ProfileComponent extends React.Component {
             {
               profile.savedSongsFolder != '' ? (
                   <View>
-                    <MPShowFolderSongs folderName={profile.savedSongsFolder[0].folderName} edit={true} onEdit={this.onEdit.bind(this)}  excludeSong={this.excludeSong.bind(this)} unpublishSong={this.unpublishSong.bind(this)} />
+                    <MPShowFolderSongs edit={!profile.visiting} folderName={profile.savedSongsFolder[0].folderName} onEdit={this.goToScreen.bind(this, 'EditFolder')}  excludeSong={this.excludeSong.bind(this)} unpublishSong={this.unpublishSong.bind(this)} />
                     {
                       !profile.visiting ? (
                         <View style={styles.whiteBackground}>

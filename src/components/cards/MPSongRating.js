@@ -164,6 +164,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#000',
     paddingVertical: 43,
     borderRadius: 4,
+    marginHorizontal: 5,
   },
   menuText: {
     fontSize: 11,

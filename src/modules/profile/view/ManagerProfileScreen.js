@@ -28,7 +28,7 @@ class ManagerProfileScreenContainer extends React.Component {
                 vip: true,
                 mySongsFolder: [
                     {
-                        folderName: 'Músicas ROCK',
+                        folderName: 'teste ROCK',
                     },
                     {
                         folderName: 'Falando de amor',
