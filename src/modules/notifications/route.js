@@ -7,7 +7,7 @@ export const NotificationScreensNavigation = createStackNavigator(
     chatScreen: ChatScreen
   },
   {
-    initialRouteName: 'chatScreen',
+    initialRouteName: 'notificationScreen',
     headerMode: 'none'
   }
 );

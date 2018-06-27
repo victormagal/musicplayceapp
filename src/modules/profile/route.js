@@ -12,6 +12,7 @@ import { ProfileScreen,
 export const ProfileScreensNavigation = createStackNavigator(
   {
     ProfileScreen: ComposerProfileScreen,
+    ArtistProfileScreen: ArtistProfileScreen,
     EditProfileDescription: EditProfileDescriptionScreen,
     EditFolder: EditFolderScreen,
   },

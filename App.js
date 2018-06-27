@@ -48,7 +48,7 @@ const HomeTabBottomNavigation = createBottomTabNavigator({
     }
   },
   profile: {
-    screen: ProfileScreensNavigation,
+    screen: SettingsNavigation,
     navigationOptions: {
       tabBarIcon: MPTabProfileIcon
     }

@@ -5,13 +5,17 @@ import {
   TouchableHighlight,
   View
 } from 'react-native';
-import { MPText } from '../../components';
+import { MPText, MPUnblockProfile } from '../../components';
 import { connect } from 'react-redux';
 
 class MPMessageListComponent extends React.Component {
 
   onPress = (rota) => {
     this.props.navigation.navigate(rota);
+  }
+
+  unblockProfile = () => {
+    this.props.navigation.navigate('message', {component: MPUnblockProfile});
   }
 
   render() {
@@ -40,17 +44,19 @@ class MPMessageListComponent extends React.Component {
                 </MPText>
               </View>
             ) :
-            <View style={styles.boxTextBig}>
-              <View style={styles.titleBoxText}>
-                <MPText style={styles.title}>{item.name}</MPText>
-                <MPText style={styles.textTime}>
-                  {item.time}
+            <TouchableHighlight onPress={this.unblockProfile.bind(this)} underlayColor='transparent'>
+              <View style={styles.boxTextBig}>
+                <View style={styles.titleBoxText}>
+                  <MPText style={styles.title}>{item.name}</MPText>
+                  <MPText style={styles.textTime}>
+                    {item.time}
+                  </MPText>
+                </View>
+                <MPText style={styles.text}>
+                  {item.title}
                 </MPText>
               </View>
-              <MPText style={styles.text}>
-                {item.title}
-              </MPText>
-            </View>
+            </TouchableHighlight>
           }
         </View>
       </TouchableHighlight>

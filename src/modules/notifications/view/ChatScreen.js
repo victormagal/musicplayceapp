@@ -9,7 +9,11 @@ import {
 import {
   MPFooter,
   MPHeader,
-  MPText
+  MPText,
+  MPConfirmChatDelete,
+  MPChatDeleted,
+  MPBlockProfile,
+  MPUnblockProfile
 } from '../../../components';
 import {
   Bubble,
@@ -65,7 +69,14 @@ class ChatScreenContainer extends React.Component {
   };
 
   handleMenuItemClick = (item) => {
-    this.setState({menuVisible: false});
+    this.handleCloseMenu();
+    if(item == 'profile'){
+      this.props.navigation.navigate('ArtistProfileScreen');
+    }else if(item == 'block'){
+      this.props.navigation.navigate('message', {component: MPBlockProfile});
+    }else if(item == 'remove'){
+      this.props.navigation.navigate('message', {component: MPConfirmChatDelete});
+    }
   };
 
   renderMenuItem(label, name, border){
