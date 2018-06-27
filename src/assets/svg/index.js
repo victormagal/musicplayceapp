@@ -83,6 +83,11 @@ export const MPClipboardIcon = (props) => {
  return (<Svg {...newProps} viewBox='0 0 18 18'><Path d='M7 7v10h10v-10h-10zM6 6h12v12h-12v-12z' fill='#2424d3'/><Path d='M1 1v10h10v-10h-10zM0 0h12v12h-12v-12z' fill='#2424d3'/></Svg>); 
 };
 
+export const MPCloseIcon = (props) => { 
+ let newProps = applyStyle(props, 16, 16); 
+ return (<Svg {...newProps} viewBox='0 0 16 16'><Path d='M2.05 2.222l12 12m0-12l-12 12' fill='none' stroke='#FFF' strokeWidth='3' strokeLinecap='round' strokeLinejoin='round'/></Svg>); 
+};
+
 export const MPCommentWhiteIcon = (props) => { 
  let newProps = applyStyle(props, 14, 12); 
  return (<Svg {...newProps} viewBox='0 0 14 12'><Path d='M2.9 10.876l2.076-1.87.244.047A9.39 9.39 0 0 0 7 9.225c3.62 0 6.5-2 6.5-4.362C13.5 2.5 10.62.5 7 .5S.5 2.5.5 4.863c0 1.228.784 2.396 2.16 3.232l.24.146v2.635z' fill='none' stroke='#FFF'/></Svg>); 

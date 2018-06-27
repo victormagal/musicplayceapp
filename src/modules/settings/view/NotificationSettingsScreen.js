@@ -68,7 +68,6 @@ class NotificationSettingsScreenContainer extends React.Component {
             <MPSwitch label={"SMS"} />
           </View>
         </ScrollView>
-        <MPFooter />
       </View>
     );
   }

@@ -49,7 +49,6 @@ class TermsSettingsScreenContainer extends React.Component {
             </View>
           </View>
         </ScrollView>
-        <MPFooter />
       </View>
     );
   }

@@ -99,7 +99,6 @@ class InitialSettingsScreenContainer extends React.Component {
 						/>
 					</View>
 				</ScrollView>
-				<MPFooter />
 			</View>
 		);
 	}

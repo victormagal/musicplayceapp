@@ -198,7 +198,6 @@ class NotificationScreenContainer extends React.Component {
             />
           </View>
         </MPTabBar>
-        <MPFooter />
       </View>
     );
   }

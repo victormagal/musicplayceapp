@@ -7,7 +7,6 @@ import {
   MPProfileInfo,
   MPShowLanguages,
   MPHeader,
-  MPFooter,
   MPFollowButton,
   ProfileIndicatorCE,
   MPAddSongButton,
