@@ -28,22 +28,20 @@ class MPSongRatingComponent extends Component {
     this.setState({isAdded: !this.state.isAdded})
   }
 
-  renderTopIcons(){
-    if(this.state.isAdded){
+  renderTopIcons() {
+    if (this.state.isAdded) {
       return (
-        <View style={styles.menuIconContainer} onPress={this.toggleState.bind(this)}>
-          <View  style={styles.menuIcon}>
-            <MPSongMenuIcon/>
-          </View>
-        </View>
-      )
-    }else{
-      return (
-        <View style={ styles.addSongIcon } onPress={this.toggleAdded.bind(this)}>
-          <MPSongListIcon/>
-        </View>
+        <TouchableOpacity style={styles.menuIcon} onPress={this.toggleState}>
+          <MPSongMenuIcon/>
+        </TouchableOpacity>
       )
     }
+
+    return (
+      <TouchableOpacity style={ styles.addSongIcon } onPress={this.toggleAdded}>
+        <MPSongListIcon/>
+      </TouchableOpacity>
+    );
   }
 
   render() {
@@ -56,20 +54,24 @@ class MPSongRatingComponent extends Component {
                 <View>
                   <View style={ styles.simpleArtistCardImage }>
                     <Image source={ images.daftPunk100 }/>
-                    <MPPlayIcon style={{position: 'absolute', top: 38, left: 38}}/>
+
+                    <TouchableOpacity style={styles.playIcon} onPress={this.toggleState}>
+                      <MPPlayIcon />
+                    </TouchableOpacity>
                     { this.renderTopIcons() }
                     {
                       isDraft ? (
-                        <View style={ styles.draftContainer} >
-                          <MPText style={ styles.draftText}>RASCUNHO</MPText>
-                        </View>
-                      ) : null
+                          <View style={ styles.draftContainer}>
+                            <MPText style={ styles.draftText}>RASCUNHO</MPText>
+                          </View>
+                        ) : null
                     }
                   </View>
                 </View>
                 <View>
-                  <MPText style={ styles.simpleArtistCardText } onPress={this.toggleState.bind(this)}>{ songName }</MPText>
-                  <MPShowRating rating={rating} />
+                  <MPText style={ styles.simpleArtistCardText }
+                          onPress={this.toggleState.bind(this)}>{ songName }</MPText>
+                  <MPShowRating rating={rating}/>
                 </View>
                 {
                   indicateSong && indications == null && isNew == null && (
@@ -133,6 +135,7 @@ const styles = StyleSheet.create({
   simpleArtistCardImage: {
     width: 100,
     height: 100,
+    justifyContent: 'center',
     borderRadius: 4,
     backgroundColor: '#f60',
     overflow: 'hidden',
@@ -176,7 +179,7 @@ const styles = StyleSheet.create({
   menuContainer: {
     width: 100,
     backgroundColor: '#000',
-    paddingVertical: 43,
+    paddingVertical: 35,
     borderRadius: 4,
     marginHorizontal: 5,
   },
@@ -235,6 +238,10 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 10,
     right: 10
+  },
+  playIcon: {
+    position: 'absolute',
+    alignSelf: 'center'
   }
 
 });

@@ -13,7 +13,8 @@ import {
   MPSongListIcon,
   MPHeartIcon,
   MPArrowDownIcon,
-  MPBalloonTalkIcon
+  MPBalloonTalkIcon,
+  MPDetailPauseIcon
 } from '../../../assets/svg';
 import images from '../../../assets/img';
 
@@ -168,6 +169,10 @@ class PlayerScreen extends React.Component {
           </View>
 
         </ScrollView>
+
+        <View style={{height: 70, backgroundColor: '#fff', width: '100%', position: 'absolute', bottom: 0}}>
+          <MPDetailPauseIcon />
+        </View>
 
       </View>
     );

@@ -64,34 +64,18 @@ function buildSvg(filename, svg) {
     + ` let newProps = applyStyle(props, ${width}, ${height}); \n`
     + ` return (<Svg {...newProps} viewBox='${viewBox}'>`;
 
-  if (svg.defs) {
-    svgString += '<Defs>';
-
-    for (let item of svg.defs) {
-      let keys = Object.keys(item);
-
-      for (let key of keys) {
-        let elementName = key.replace(/\b\w/g, l => l.toUpperCase());
-        let elementAttrs = '';
-
-        let element = item[key][0];
-        elementAttrs = buildAttrs(element['$']);
-
-        svgString += `<${elementName} ${elementAttrs}>`;
-        svgString += buildDefChildren(element);
-        svgString += `</${elementName}>`;
-      }
-
-    }
-
-    svgString += '</Defs>';
-  }
-
   for (let path of paths) {
     let attributes = path['$'];
     let {fill, d, stroke} = attributes;
 
-    if (d) {
+    if (path.rect){
+
+      for(let rect of path.rect){
+        svgString += buildRect(rect, attributes);
+      }
+
+
+    } else if (d) {
       svgString += buildPath(path);
     } else {
       for (let p of path.path) {
@@ -110,6 +94,21 @@ function buildSvg(filename, svg) {
   }
 
   svgString += '</Svg>); \n};\n';
+  return svgString;
+}
+
+function buildRect(rect, attrs){
+  let {fill} = attrs;
+  let {width, height, rx, x} = rect['$'];
+  let svgString = '<Rect ';
+
+  svgString += fill ? ` fill='${fill}'` : '';
+  svgString += width ? ` width='${width}'` : '';
+  svgString += height ? ` height='${height}'` : '';
+  svgString += rx ? ` rx='${rx}'` : '';
+  svgString += x ? ` x='${x}'` : '';
+  svgString += '/>';
+
   return svgString;
 }
 
@@ -162,7 +161,7 @@ function buildPath(path) {
 function finishBuildSvg() {
   let fileContent = ["//Generated file",
     "import React from 'react';",
-    "import Svg, { Path, LinearGradient, Defs, Stop  } from 'react-native-svg';",
+    "import Svg, { Rect, Path, LinearGradient, Defs, Stop  } from 'react-native-svg';",
     "import {applyStyle} from './applyStyle';", ""].concat(allSvgs).join('\n');
 
   fs.writeFileSync(SVG_DEST_PATH, fileContent, 'utf-8');
