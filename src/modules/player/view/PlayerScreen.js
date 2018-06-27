@@ -1,8 +1,8 @@
 import React from 'react';
 import {LinearGradient} from 'expo';
-import { Slider } from 'react-native-elements'
+import {Slider} from 'react-native-elements'
 import {
-  Text, View, StyleSheet, TouchableOpacity, FlatList, ScrollView
+  Text, View, StyleSheet, TouchableOpacity, FlatList, ScrollView, Image
 } from 'react-native';
 import {
   MPHeader, MPText, MPGradientButton, MPIconButton, MPCircleGradientButton,
@@ -18,7 +18,8 @@ import {
   MPDetailPauseIcon,
   MPDetailHeartIcon,
   MPDetailPlayIcon,
-  MPDetailSliderThumbIcon
+  MPCommentWhiteIcon,
+  MPShareWhiteIcon
 } from '../../../assets/svg';
 import images from '../../../assets/img';
 
@@ -61,19 +62,35 @@ class PlayerScreen extends React.Component {
                          }}/>
   };
 
+  renderHeaderMenu() {
+    return [
+      <MPIconButton title="200" titleStyle={styles.headerMenuText} icon={MPCommentWhiteIcon}
+                    style={styles.headerMenuItem} />,
+      <MPIconButton title="600" titleStyle={styles.headerMenuText} icon={MPShareWhiteIcon}/>
+    ];
+  }
+
   render() {
     return (
       <View style={styles.container}>
 
-        <MPHeader back={true} onBack={this.handleBack}/>
+        <MPHeader back={true} onBack={this.handleBack} icons={this.renderHeaderMenu()}/>
 
         <ScrollView style={styles.scrollView}>
-          <LinearGradient
-            colors={['#000000', '#fcfcfc']}
-            start={[0, 0]}
-            end={[0, 1]}>
+          <View style={styles.coverContainer}>
+            <Image
+              source={require('../../../assets/img/fernandinho-cover.jpeg')}
+              style={styles.coverImage} />
+
+            <LinearGradient
+              style={styles.linearGradient}
+              colors={['#000000', '#000000D9']}
+              start={[0, 0.9]}
+              end={[0, 0]}>
+            </LinearGradient>
 
             <View style={styles.musicContent}>
+
               <View style={styles.row}>
                 <View style={styles.row}>
                   <MPStarIcon />
@@ -104,7 +121,8 @@ class PlayerScreen extends React.Component {
               <View style={[styles.row, styles.indicationContainer]}>
                 <View style={styles.row}>
                   <MPIconButton title="ADICIONAR À FILA" style={styles.iconButtonContainer}
-                                icon={MPSongListIcon} iconStyle={styles.iconButton} titleStyle={styles.iconButtonText}/>
+                                icon={MPSongListIcon} iconStyle={styles.iconButton}
+                                titleStyle={styles.iconButtonText}/>
 
                   <MPIconButton title="SALVAR" icon={MPHeartIcon} style={styles.iconButtonContainer}
                                 iconStyle={styles.iconButton} titleStyle={styles.iconButtonText}/>
@@ -116,7 +134,8 @@ class PlayerScreen extends React.Component {
                 </View>
               </View>
             </View>
-          </LinearGradient>
+
+          </View>
 
           <View style={[styles.seeLyricsContainer, styles.row]}>
             <View style={[styles.row, styles.alignCenter]}>
@@ -173,6 +192,7 @@ class PlayerScreen extends React.Component {
               horizontal={true}/>
           </View>
 
+
         </ScrollView>
 
         <View style={styles.player}>
@@ -210,7 +230,21 @@ const styles = StyleSheet.create({
   scrollView: {
     flex: 1
   },
+  coverContainer: {
+    height: 330
+  },
+  coverImage: {
+    width: '100%',
+    height: '100%'
+  },
+  linearGradient: {
+    position: 'absolute',
+    width: '100%',
+    height: '100%'
+  },
   musicContent: {
+    position: 'absolute',
+    width: '100%',
     paddingHorizontal: 20,
     marginTop: 17
   },
@@ -391,6 +425,15 @@ const styles = StyleSheet.create({
   playerPlayIcon: {
     alignSelf: 'center',
     width: 16
+  },
+  headerMenuItem: {
+    marginRight: 20
+  },
+  headerMenuText: {
+    fontFamily: 'probaProRegular',
+    fontSize: 12,
+    color: '#fff',
+    paddingTop: 5
   }
 });
 
