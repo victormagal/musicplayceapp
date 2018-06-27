@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 24 24">
+  <path fill="#000" style="fill: var(--color1, #000)" d="M20 10c0 4.418-3.582 8-8 8s-8-3.582-8-8c0-4.418 3.582-8 8-8s8 3.582 8 8z"/>
+  <path fill="#fff" style="fill: var(--color2, #fff)" d="M20 10c0 4.418-3.582 8-8 8s-8-3.582-8-8c0-4.418 3.582-8 8-8s8 3.582 8 8z"/>
+  <path fill="none" stroke="#e13223" stroke-width="1" stroke-miterlimit="4" stroke-linecap="butt" stroke-linejoin="miter" style="stroke: var(--color3, #e13223)" d="M19.5 10c0 4.142-3.358 7.5-7.5 7.5s-7.5-3.358-7.5-7.5c0-4.142 3.358-7.5 7.5-7.5s7.5 3.358 7.5 7.5z"/>
+</svg>

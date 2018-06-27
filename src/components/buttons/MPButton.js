@@ -6,13 +6,13 @@ import {MPText} from '../general/MPText';
 class MPButton extends Component {
 
   render() {
-    let {style, title, onPress, icon} = this.props;
+    let {style, title, onPress, icon, textStyle} = this.props;
     let Icon = icon;
 
     return (
-      <TouchableOpacity style={[style || {}, styles.container]} onPress={onPress}>
+      <TouchableOpacity style={[styles.container, style || {}]} onPress={onPress}>
         {icon && <Icon style={styles.icon}/>}
-        <MPText style={styles.text}>
+        <MPText style={[styles.text, textStyle || {}]}>
           {title}
         </MPText>
       </TouchableOpacity>
@@ -24,6 +24,7 @@ MPButton.propTypes = {
   title: PropTypes.string.isRequired,
   onPress: PropTypes.func.isRequired,
   style: PropTypes.any,
+  textStyle: PropTypes.any,
   icon: PropTypes.any
 };
 

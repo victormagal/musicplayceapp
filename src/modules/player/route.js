@@ -6,9 +6,12 @@ import {
 
 export const PlayerScreensNavigation = createStackNavigator(
   {
-    player: PlayerScreen,
+    player: PlayerScreen
   },
   {
-    headerMode: 'none'
+    headerMode: 'none',
+    navigationOptions: {
+      gesturesEnabled: false
+    }
   }
 );
