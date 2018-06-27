@@ -1,6 +1,6 @@
 //Generated file
 import React from 'react';
-import Svg, { Path, LinearGradient, Defs, Stop  } from 'react-native-svg';
+import Svg, { Rect, Path, LinearGradient, Defs, Stop  } from 'react-native-svg';
 import {applyStyle} from './applyStyle';
 
 export const MPAddSongNoteIcon = (props) => { 
@@ -75,7 +75,7 @@ export const MPChangePlanConfigIcon = (props) => {
 
 export const MPCheckboxIcon = (props) => { 
  let newProps = applyStyle(props, 14, 10); 
- return (<Svg {...newProps} viewBox='0 0 14 10'><Path fill='none' d='M1 5l4 4 8-8' stroke='#e13223' strokeWidth='2' strokeMiterlimit='4' strokeLinecap='round' strokeLinejoin='round'/></Svg>); 
+ return (<Svg {...newProps} viewBox='0 0 14 10'><Path d='M1 5l4 4 8-8' fill='none' stroke='#e13223' strokeWidth='2' strokeMiterlimit='4' strokeLinecap='round' strokeLinejoin='round'/></Svg>); 
 };
 
 export const MPClipboardIcon = (props) => { 
@@ -91,6 +91,16 @@ export const MPConfigurationSelectedIcon = (props) => {
 export const MPConfigurationIcon = (props) => { 
  let newProps = applyStyle(props, 20, 22); 
  return (<Svg {...newProps} viewBox='0 0 20 22'><Path d='M9 7h7v1h-7v-1z' fill='#999'/><Path d='M9 14h7v1h-7v-1z' fill='#999'/><Path d='M3 3h12v2h-12v-2z' fill='#999'/><Path d='M3 7h5v5h-5v-5z' fill='#999'/><Path d='M3 14h5v5h-5v-5z' fill='#999'/><Path d='M9 9h8v1h-8v-1z' fill='#999'/><Path d='M9 16h8v1h-8v-1z' fill='#999'/><Path d='M19 21v-20h-18v20h18zM20 22h-20v-22h20v22z' fill='#999'/><Path d='M9 11h7v1h-7v-1z' fill='#999'/><Path d='M9 18h7v1h-7v-1z' fill='#999'/></Svg>); 
+};
+
+export const MPDetailHeartIcon = (props) => { 
+ let newProps = applyStyle(props, 22, 20); 
+ return (<Svg {...newProps} viewBox='0 0 22 20'><Path d='M10.993 19.33l8.768-7.83c1.132-1.217 1.739-2.845 1.739-4.556 0-1.71-.607-3.338-1.743-4.56C18.636 1.147 17.147.5 15.544.5a5.623 5.623 0 0 0-4.182 1.85l-.365.403-.371-.399C9.5 1.144 8.006.5 6.44.5c-1.566 0-3.06.645-4.185 1.854-2.34 2.517-2.34 6.63-.033 9.114l8.77 7.861z' fill='none' stroke='#E13223'/></Svg>); 
+};
+
+export const MPDetailPauseIcon = (props) => { 
+ let newProps = applyStyle(props, 12, 20); 
+ return (<Svg {...newProps} viewBox='0 0 12 20'><Rect  fill='#E13223' width='3' height='20' rx='1.5'/><Rect  fill='#E13223' width='3' height='20' rx='1.5' x='9'/></Svg>); 
 };
 
 export const MPEditConfigIcon = (props) => { 
