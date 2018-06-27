@@ -1,11 +1,12 @@
 import React from 'react';
 import {LinearGradient} from 'expo';
+import { Slider } from 'react-native-elements'
 import {
   Text, View, StyleSheet, TouchableOpacity, FlatList, ScrollView
 } from 'react-native';
 import {
   MPHeader, MPText, MPGradientButton, MPIconButton, MPCircleGradientButton,
-  MPSongRating, MPGradientBorderButton
+  MPSongRating, MPGradientBorderButton, MPButton
 } from '../../../components';
 import {
   MPStarIcon,
@@ -14,7 +15,10 @@ import {
   MPHeartIcon,
   MPArrowDownIcon,
   MPBalloonTalkIcon,
-  MPDetailPauseIcon
+  MPDetailPauseIcon,
+  MPDetailHeartIcon,
+  MPDetailPlayIcon,
+  MPDetailSliderThumbIcon
 } from '../../../assets/svg';
 import images from '../../../assets/img';
 
@@ -48,21 +52,22 @@ class PlayerScreen extends React.Component {
   renderItem = ({item, index}) => {
     let style = null;
 
-    if(index == 0){
+    if (index == 0) {
       style = styles.songCardFirst;
     }
 
-    return <MPSongRating style={style} songName={item.songName} indicateSong={true} imagePath={item.imagePath} onPress={() => {
-    }}/>
+    return <MPSongRating style={style} songName={item.songName} indicateSong={true} imagePath={item.imagePath}
+                         onPress={() => {
+                         }}/>
   };
 
   render() {
     return (
       <View style={styles.container}>
 
-        <MPHeader back={true} onBack={this.handleBack} />
+        <MPHeader back={true} onBack={this.handleBack}/>
 
-        <ScrollView>
+        <ScrollView style={styles.scrollView}>
           <LinearGradient
             colors={['#000000', '#fcfcfc']}
             start={[0, 0]}
@@ -156,7 +161,7 @@ class PlayerScreen extends React.Component {
               horizontal={true}/>
           </View>
 
-          <View>
+          <View style={styles.lastSectionMargin}>
             <View style={[styles.sectionHeader, styles.row]}>
               <MPText style={styles.sectionTitle}>Outras de Santiago Silva</MPText>
               <MPGradientBorderButton />
@@ -170,8 +175,26 @@ class PlayerScreen extends React.Component {
 
         </ScrollView>
 
-        <View style={{height: 70, backgroundColor: '#fff', width: '100%', position: 'absolute', bottom: 0}}>
-          <MPDetailPauseIcon />
+        <View style={styles.player}>
+          <Slider style={styles.playerSlider} thumbStyle={styles.playerThumb}
+                  minimumTrackTintColor='#e13223' maximumTrackTintColor='#808080'/>
+
+          <View style={styles.playerContent}>
+            <TouchableOpacity style={styles.playerPlayIcon}>
+              <MPIconButton icon={MPDetailPlayIcon} iconSelected={MPDetailPauseIcon}/>
+            </TouchableOpacity>
+
+            <View style={styles.playerInfo}>
+              <MPText style={styles.playerSongName}>Tocando em frente</MPText>
+              <MPText style={styles.playerArtistName}>Almir Sater</MPText>
+            </View>
+
+            <TouchableOpacity style={styles.playerHeart}>
+              <MPDetailHeartIcon />
+            </TouchableOpacity>
+
+            <MPButton title="INDICAR" style={styles.playerIndicate} textStyle={styles.playerIndicateText}/>
+          </View>
         </View>
 
       </View>
@@ -183,6 +206,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fcfcfc'
+  },
+  scrollView: {
+    flex: 1
   },
   musicContent: {
     paddingHorizontal: 20,
@@ -304,8 +330,67 @@ const styles = StyleSheet.create({
     paddingTop: 20,
     paddingBottom: 10
   },
+  lastSectionMargin: {
+    marginBottom: 40
+  },
   songCardFirst: {
     paddingLeft: 20
+  },
+  player: {
+    backgroundColor: '#fff',
+    width: '100%',
+    height: 70
+  },
+  playerContent: {
+    flexDirection: 'row',
+    paddingHorizontal: 20,
+    height: 70
+  },
+  playerIndicate: {
+    alignSelf: 'center',
+    width: 80,
+    height: 24,
+    borderWidth: 1,
+    borderColor: '#e13223'
+  },
+  playerIndicateText: {
+    color: '#e13223',
+    fontFamily: 'montSerratMedium',
+    fontSize: 10
+  },
+  playerSongName: {
+    fontFamily: 'montSerrat',
+    fontSize: 14
+  },
+  playerArtistName: {
+    fontFamily: 'montSerratBold',
+    fontSize: 10,
+    color: '#ff0000'
+  },
+  playerHeart: {
+    marginRight: 8,
+    alignSelf: 'center'
+  },
+  playerInfo: {
+    alignSelf: 'center',
+    paddingLeft: 16,
+    flex: 1
+  },
+  playerSlider: {
+    position: 'absolute',
+    bottom: 50,
+    width: '100%'
+  },
+  playerThumb: {
+    width: 16,
+    height: 16,
+    backgroundColor: 'white',
+    borderWidth: 1,
+    borderColor: '#e13223'
+  },
+  playerPlayIcon: {
+    alignSelf: 'center',
+    width: 16
   }
 });
 

@@ -103,6 +103,16 @@ export const MPDetailPauseIcon = (props) => {
  return (<Svg {...newProps} viewBox='0 0 12 20'><Rect  fill='#E13223' width='3' height='20' rx='1.5'/><Rect  fill='#E13223' width='3' height='20' rx='1.5' x='9'/></Svg>); 
 };
 
+export const MPDetailPlayIcon = (props) => { 
+ let newProps = applyStyle(props, 16, 20); 
+ return (<Svg {...newProps} viewBox='0 0 16 20'><Path d='M1.257 0C.563 0 0 .587 0 1.31l.005 17.384c0 .235.06.472.186.686.364.614 1.135.804 1.724.425l13.474-8.681c.167-.104.314-.25.424-.436.363-.613.181-1.417-.408-1.796L2.01.26A1.22 1.22 0 0 0 1.257 0z' fill='#E13223'/></Svg>); 
+};
+
+export const MPDetailSliderThumbIcon = (props) => { 
+ let newProps = applyStyle(props, 24, 24); 
+ return (<Svg {...newProps} viewBox='0 0 24 24'><Path d='M20 10c0 4.418-3.582 8-8 8s-8-3.582-8-8c0-4.418 3.582-8 8-8s8 3.582 8 8z' fill='#000'/><Path d='M20 10c0 4.418-3.582 8-8 8s-8-3.582-8-8c0-4.418 3.582-8 8-8s8 3.582 8 8z' fill='#fff'/><Path d='M19.5 10c0 4.142-3.358 7.5-7.5 7.5s-7.5-3.358-7.5-7.5c0-4.142 3.358-7.5 7.5-7.5s7.5 3.358 7.5 7.5z' fill='none' stroke='#e13223' strokeWidth='1' strokeMiterlimit='4' strokeLinecap='butt' strokeLinejoin='miter'/></Svg>); 
+};
+
 export const MPEditConfigIcon = (props) => { 
  let newProps = applyStyle(props, 20, 20); 
  return (<Svg {...newProps} viewBox='0 0 20 20'><Path d='M19.5 8.232l-7.117-7.732h-10.278c-0.873 0-1.605 0.818-1.605 1.853v15.294c0 1.035 0.732 1.853 1.605 1.853h15.79c0.873 0 1.605-0.818 1.605-1.853v-9.415z' fill='none' stroke='#e13223' strokeWidth='1' strokeMiterlimit='4' strokeLinecap='butt' strokeLinejoin='miter'/><Path d='M7.825 14.5l11.462-11.6-2.31-2.2-11.477 11.47v2.33h2.325z' fill='none' stroke='#e13223' strokeWidth='1' strokeMiterlimit='4' strokeLinecap='butt' strokeLinejoin='miter'/></Svg>); 
