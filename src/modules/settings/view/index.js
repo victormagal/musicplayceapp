@@ -6,3 +6,5 @@ export * from './help';
 export * from './password';
 export * from './FeedbackSettingsScreen';
 export * from './TermsSettingsScreen';
+export * from './PaymentTypesScreen';
+export * from './AddChangePlanScreen';
