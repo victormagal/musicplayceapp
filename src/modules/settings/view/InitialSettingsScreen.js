@@ -18,7 +18,9 @@ import {
 	MPPasswordConfigIcon, 
 	MPFeedbackConfigIcon, 
 	MPTermsConfigIcon, 
-	MPArrowRightIcon 
+	MPArrowRightIcon, 
+	MPChangePlanIcon,
+	MPPaymentTypesIcon,
 } from '../../../assets/svg';
 import { connect } from 'react-redux';
 
@@ -63,13 +65,27 @@ class InitialSettingsScreenContainer extends React.Component {
 			},
 			{
 				id: '05',
+				rota: 'addChangePlanSettings',
+				title: 'Alterar plano',
+				icon: MPChangePlanIcon,
+				iconNext: MPArrowRightIcon
+			},
+			{
+				id: '06',
+				rota: 'paymentTypesSettings',
+				title: 'Alterar forma de pagamento',
+				icon: MPPaymentTypesIcon,
+				iconNext: MPArrowRightIcon
+			},
+			{
+				id: '07',
 				rota: 'feedbackSettings',
 				title: 'Enviar feedback',
 				icon: MPFeedbackConfigIcon,
 				iconNext: MPArrowRightIcon
 			},
 			{
-				id: '06',
+				id: '08',
 				rota: 'termsSettings',
 				title: 'Termos e condições',
 				icon: MPTermsConfigIcon,
@@ -99,7 +115,6 @@ class InitialSettingsScreenContainer extends React.Component {
 						/>
 					</View>
 				</ScrollView>
-				<MPFooter />
 			</View>
 		);
 	}

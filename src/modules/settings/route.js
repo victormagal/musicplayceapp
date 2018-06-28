@@ -8,6 +8,8 @@ import {
   PasswordSettingsScreen,
   FeedbackSettingsScreen,
   TermsSettingsScreen,
+  PaymentTypesScreen,
+  AddChangePlanScreen
 } from './view';
 
 export const SettingsNavigation = createStackNavigator(
@@ -19,7 +21,9 @@ export const SettingsNavigation = createStackNavigator(
     helpSettings: HelpSettingsScreen,
     passwordSettings: PasswordSettingsScreen,
     feedbackSettings: FeedbackSettingsScreen,
-    termsSettings: TermsSettingsScreen
+    termsSettings: TermsSettingsScreen,
+    paymentTypesSettings: PaymentTypesScreen,
+    addChangePlanSettings: AddChangePlanScreen,
   },
   {
     initialRouteName: 'homeSettings',

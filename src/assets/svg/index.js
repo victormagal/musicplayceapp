@@ -73,6 +73,11 @@ export const MPChangePlanConfigIcon = (props) => {
  return (<Svg {...newProps} viewBox='0 0 22 20'><Path d='M1.5 4h20c0.276 0 0.5 0.224 0.5 0.5s-0.224 0.5-0.5 0.5h-20c-0.276 0-0.5-0.224-0.5-0.5s0.224-0.5 0.5-0.5z' fill='#d8d8d8'/><Path d='M2 4.5h19c0.276 0 0.5 0.224 0.5 0.5s-0.224 0.5-0.5 0.5h-19c-0.276 0-0.5-0.224-0.5-0.5s0.224-0.5 0.5-0.5z' fill='none' stroke='#e13223' strokeWidth='1' strokeMiterlimit='4' strokeLinecap='butt' strokeLinejoin='miter'/><Path d='M0.5 15h10c0.276 0 0.5 0.224 0.5 0.5s-0.224 0.5-0.5 0.5h-10c-0.276 0-0.5-0.224-0.5-0.5s0.224-0.5 0.5-0.5z' fill='#d8d8d8'/><Path d='M1 15.5h9c0.276 0 0.5 0.224 0.5 0.5s-0.224 0.5-0.5 0.5h-9c-0.276 0-0.5-0.224-0.5-0.5s0.224-0.5 0.5-0.5z' fill='none' stroke='#e13223' strokeWidth='1' strokeMiterlimit='4' strokeLinecap='butt' strokeLinejoin='miter'/><Path d='M14 15.531c0.22 1.646 1.41 2.469 3.569 2.469s3.3-0.677 3.42-2.032c0.1-1.082-0.516-1.878-1.844-2.388-1.993-0.766-4.353-1.050-4.896-2.712-0.543-1.663 1.156-2.868 3.32-2.868 1.917 0 3.399 1.107 3.42 2.172' fill='none' stroke='#e13223' strokeWidth='1' strokeMiterlimit='4' strokeLinecap='round' strokeLinejoin='miter'/><Path d='M17.5 6c0.276 0 0.5 0.224 0.5 0.5v13c0 0.276-0.224 0.5-0.5 0.5s-0.5-0.224-0.5-0.5v-13c0-0.276 0.224-0.5 0.5-0.5z' fill='#e13223'/></Svg>); 
 };
 
+export const MPChangePlanIcon = (props) => { 
+ let newProps = applyStyle(props, 22, 20); 
+ return (<Svg {...newProps} viewBox='0 0 22 20'><Path d='M5.5 0l-4.5 4.5 4.5 4.5' fill='none' stroke='#e13223' strokeWidth='1' strokeMiterlimit='4' strokeLinecap='round' strokeLinejoin='miter'/><Path d='M6.5 11l4.5 4.5-4.5 4.5' fill='none' stroke='#e13223' strokeWidth='1' strokeMiterlimit='4' strokeLinecap='round' strokeLinejoin='miter'/><Path d='M1.5 4h20c0.276 0 0.5 0.224 0.5 0.5s-0.224 0.5-0.5 0.5h-20c-0.276 0-0.5-0.224-0.5-0.5s0.224-0.5 0.5-0.5z' fill='#d8d8d8'/><Path d='M2 4.5h19c0.276 0 0.5 0.224 0.5 0.5s-0.224 0.5-0.5 0.5h-19c-0.276 0-0.5-0.224-0.5-0.5s0.224-0.5 0.5-0.5z' fill='none' stroke='#e13223' strokeWidth='1' strokeMiterlimit='4' strokeLinecap='butt' strokeLinejoin='miter'/><Path d='M0.5 15h10c0.276 0 0.5 0.224 0.5 0.5s-0.224 0.5-0.5 0.5h-10c-0.276 0-0.5-0.224-0.5-0.5s0.224-0.5 0.5-0.5z' fill='#d8d8d8'/><Path d='M1 15.5h9c0.276 0 0.5 0.224 0.5 0.5s-0.224 0.5-0.5 0.5h-9c-0.276 0-0.5-0.224-0.5-0.5s0.224-0.5 0.5-0.5z' fill='none' stroke='#e13223' strokeWidth='1' strokeMiterlimit='4' strokeLinecap='butt' strokeLinejoin='miter'/><Path d='M14 15.531c0.22 1.646 1.409 2.469 3.569 2.469s3.3-0.677 3.421-2.032c0.098-1.082-0.517-1.878-1.845-2.389-1.993-0.766-4.353-1.049-4.896-2.712s1.156-2.868 3.32-2.868c1.917 0 3.399 1.107 3.421 2.172' fill='none' stroke='#e13223' strokeWidth='1' strokeMiterlimit='4' strokeLinecap='round' strokeLinejoin='miter'/><Path d='M17.5 6c0.276 0 0.5 0.224 0.5 0.5v13c0 0.276-0.224 0.5-0.5 0.5s-0.5-0.224-0.5-0.5v-13c0-0.276 0.224-0.5 0.5-0.5z' fill='#e13223'/></Svg>); 
+};
+
 export const MPCheckboxIcon = (props) => { 
  let newProps = applyStyle(props, 14, 10); 
  return (<Svg {...newProps} viewBox='0 0 14 10'><Path d='M1 5l4 4 8-8' fill='none' stroke='#e13223' strokeWidth='2' strokeMiterlimit='4' strokeLinecap='round' strokeLinejoin='round'/></Svg>); 
@@ -221,6 +226,11 @@ export const MPPasswordConfigIcon = (props) => {
 export const MPPaymentConfigIcon = (props) => { 
  let newProps = applyStyle(props, 11, 20); 
  return (<Svg {...newProps} viewBox='0 0 11 20'><Path d='M0.909 13.682c0.285 2.394 1.83 3.591 4.635 3.591s4.285-0.985 4.443-2.955c0.128-1.575-0.67-2.733-2.395-3.475-2.588-1.114-5.655-1.525-6.358-3.945-0.705-2.418 1.5-4.171 4.311-4.171 2.491 0 4.415 1.611 4.443 3.16' fill='none' stroke='#e13223' strokeWidth='0.9091' strokeMiterlimit='4' strokeLinecap='round' strokeLinejoin='miter'/><Path d='M5.909 0c0.251 0 0.455 0.204 0.455 0.455v19.091c0 0.251-0.204 0.455-0.455 0.455s-0.455-0.204-0.455-0.455v-19.091c0-0.251 0.204-0.455 0.455-0.455z' fill='#e13223'/></Svg>); 
+};
+
+export const MPPaymentTypesIcon = (props) => { 
+ let newProps = applyStyle(props, 12, 22); 
+ return (<Svg {...newProps} viewBox='0 0 12 22'><Path d='M1 15.050c0.314 2.634 2.013 3.95 5.098 3.95s4.714-1.084 4.887-3.25c0.141-1.731-0.738-3.005-2.636-3.822-2.846-1.225-6.218-1.678-6.994-4.339s1.651-4.588 4.742-4.588c2.739 0 4.856 1.772 4.887 3.476' fill='none' stroke='#e13223' strokeWidth='1' strokeMiterlimit='4' strokeLinecap='round' strokeLinejoin='miter'/><Path d='M6.5 0c0.276 0 0.5 0.224 0.5 0.5v21c0 0.276-0.224 0.5-0.5 0.5s-0.5-0.224-0.5-0.5v-21c0-0.276 0.224-0.5 0.5-0.5z' fill='#e13223'/></Svg>); 
 };
 
 export const MPPlayBlackIcon = (props) => { 

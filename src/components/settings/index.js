@@ -7,3 +7,4 @@ export * from './MPMailSuccess';
 export * from './MPPassword';
 export * from './MPHelp';
 export * from './MPHelpSuccess';
+export * from './MPRegisterPayment';
