@@ -7,12 +7,45 @@ import {
 import { 
   MPHeader, 
   MPFooter,
-  MPText
+  MPText,
+  MPPaymentTypes
 } from '../../../components';
 import { connect } from 'react-redux';
-import { MPRegisterPayment } from '../../../components/settings/MPRegisterPayment';
 
 class PaymentTypesScreenContainer extends React.Component {
+
+  state = {
+    cards: [
+      {
+        number: '1111 2222 3333 3535',
+        dueDate: '17/12',
+        cvv: '353',
+        cpf: '037.487.923-01',
+        isFavorite: true,
+      },
+      {
+        number: '1111 2222 3333 6578',
+        dueDate: '18/12',
+        cvv: '657',
+        cpf: '037.487.923-02',
+        isFavorite: false,
+      },
+      {
+        number: '1111 2222 3333 5565',
+        dueDate: '19/12',
+        cvv: '556',
+        cpf: '037.487.923-03',
+        isFavorite: false,
+      },
+      {
+        number: '1111 2222 3333 4465',
+        dueDate: '20/12',
+        cvv: '446',
+        cpf: '037.487.923-04',
+        isFavorite: false,
+      },
+    ]
+  }
 
   handleBack = () => {
     this.props.navigation.pop();
@@ -23,7 +56,7 @@ class PaymentTypesScreenContainer extends React.Component {
       <View style={styles.parent}>
         <MPHeader back={true} onBack={this.handleBack} title={"Mantenha sua carteira atualizada"} />
         <ScrollView style={styles.scroll}>
-          <MPRegisterPayment />
+          <MPPaymentTypes cards={this.state.cards} />
         </ScrollView>
       </View>
     );
