@@ -6,10 +6,9 @@ import {
 } from 'react-native';
 import { 
   MPHeader, 
-  MPFooter,
-  MPText,
   MPPaymentTypes,
-  MPCreditBonus
+  MPCreditBonus,
+  MPAddBonus
 } from '../../../components';
 import { connect } from 'react-redux';
 
@@ -45,7 +44,27 @@ class PaymentTypesScreenContainer extends React.Component {
         cpf: '037.487.923-04',
         isFavorite: false,
       },
-    ]
+    ],
+    // bonus = [
+    //   {
+    //     name: 'Lançamento',
+    //     dueDate: '15/09/2018',
+    //     value: '45,00',
+    //     valid: true,
+    //   },
+    //   {
+    //     name: 'Lançamento',
+    //     dueDate: '15/09/2018',
+    //     value: '45,00',
+    //     valid: false,
+    //   },
+    //   {
+    //     name: 'Lançamento',
+    //     dueDate: '15/09/2018',
+    //     value: '45,00',
+    //     valid: false,
+    //   },
+    // ]
   }
 
   handleBack = () => {
@@ -64,6 +83,7 @@ class PaymentTypesScreenContainer extends React.Component {
               <MPCreditBonus creditBonus={creditBonus} />
             ) : null
           }
+          <MPAddBonus />
         </ScrollView>
       </View>
     );

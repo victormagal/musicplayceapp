@@ -11,3 +11,4 @@ export * from './MPRegisterPayment';
 export * from './MPPaymentTypes';
 export * from './MPEditPayment';
 export * from './MPCreditBonus';
+export * from './MPAddBonus';
