@@ -33,7 +33,7 @@ class MPPaymentTypesComponent extends React.Component {
         {
           cards.length > 1 ? (
             <View>
-              <MPText style={styles.text}>Forma de pagamento principal</MPText>
+              <MPText style={styles.text}>Outras formas de pagamento</MPText>
               {
                 cards.map(card => {
                   if(!card.isFavorite){

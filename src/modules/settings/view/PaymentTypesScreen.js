@@ -2,13 +2,15 @@ import React from 'react';
 import { 
   ScrollView, 
   StyleSheet,
-  View 
+  View,
+  FlatList
 } from 'react-native';
 import { 
   MPHeader, 
   MPPaymentTypes,
   MPCreditBonus,
-  MPAddBonus
+  MPAddBonus,
+  MPShowBonuses
 } from '../../../components';
 import { connect } from 'react-redux';
 
@@ -45,31 +47,38 @@ class PaymentTypesScreenContainer extends React.Component {
         isFavorite: false,
       },
     ],
-    // bonus = [
-    //   {
-    //     name: 'Lançamento',
-    //     dueDate: '15/09/2018',
-    //     value: '45,00',
-    //     valid: true,
-    //   },
-    //   {
-    //     name: 'Lançamento',
-    //     dueDate: '15/09/2018',
-    //     value: '45,00',
-    //     valid: false,
-    //   },
-    //   {
-    //     name: 'Lançamento',
-    //     dueDate: '15/09/2018',
-    //     value: '45,00',
-    //     valid: false,
-    //   },
-    // ]
+    bonus: [
+      {
+        id: '00',
+        name: 'Lançamento',
+        dueDate: '15/09/2018',
+        value: '45,00',
+        valid: true,
+      },
+      {
+        id: '01',
+        name: 'Lançamento',
+        dueDate: '15/09/2018',
+        value: '45,00',
+        valid: false,
+      },
+      {
+        id: '02',
+        name: 'Lançamento',
+        dueDate: '15/09/2018',
+        value: '45,00',
+        valid: false,
+      },
+      ,
+      {
+        id: '02',
+        name: 'Lançamento',
+        dueDate: '15/09/2018',
+        value: '45,00',
+        valid: false,
+      },
+    ]
   }
-
-  handleBack = () => {
-    this.props.navigation.pop();
-  };
 
   render() {
     let creditBonus = 60;
@@ -84,6 +93,11 @@ class PaymentTypesScreenContainer extends React.Component {
             ) : null
           }
           <MPAddBonus />
+          {
+            this.state.bonus ? (
+              <MPShowBonuses bonus={this.state.bonus}/>
+            ) : null
+          }
         </ScrollView>
       </View>
     );

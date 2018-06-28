@@ -7,7 +7,8 @@ import {MPText} from '../general';
 class MPGradientBorderButton extends Component {
 
   render() {
-    let {onPress, style} = this.props;
+    let {onPress, style, title} = this.props;
+    let titleText = title ? title : 'Editar';
 
     return (
       <TouchableOpacity style={[styles.parent, style || {}]} onPress={ onPress }>
@@ -16,7 +17,7 @@ class MPGradientBorderButton extends Component {
           style={styles.outButton}
           selected={true}>
           <View style={ styles.inButton}>
-            <MPText style={styles.inText}>Editar</MPText>
+            <MPText style={styles.inText}>{titleText}</MPText>
           </View>
         </LinearGradient>
       </TouchableOpacity>
