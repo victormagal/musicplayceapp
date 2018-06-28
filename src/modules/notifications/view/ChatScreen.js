@@ -163,7 +163,7 @@ class ChatScreenContainer extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <MPHeader />
+        <MPHeader back={true} />
         <TouchableWithoutFeedback onPress={this.handleToggleMenu}>
           <View style={styles.menuHeader}>
             <MPText style={styles.menuText}>Fernanda</MPText>

@@ -88,6 +88,16 @@ export const MPClipboardIcon = (props) => {
  return (<Svg {...newProps} viewBox='0 0 18 18'><Path d='M7 7v10h10v-10h-10zM6 6h12v12h-12v-12z' fill='#2424d3'/><Path d='M1 1v10h10v-10h-10zM0 0h12v12h-12v-12z' fill='#2424d3'/></Svg>); 
 };
 
+export const MPCloseIcon = (props) => { 
+ let newProps = applyStyle(props, 16, 16); 
+ return (<Svg {...newProps} viewBox='0 0 16 16'><Path d='M2.05 2.222l12 12m0-12l-12 12' fill='none' stroke='#FFF' strokeWidth='3' strokeLinecap='round' strokeLinejoin='round'/></Svg>); 
+};
+
+export const MPCommentWhiteIcon = (props) => { 
+ let newProps = applyStyle(props, 14, 12); 
+ return (<Svg {...newProps} viewBox='0 0 14 12'><Path d='M2.9 10.876l2.076-1.87.244.047A9.39 9.39 0 0 0 7 9.225c3.62 0 6.5-2 6.5-4.362C13.5 2.5 10.62.5 7 .5S.5 2.5.5 4.863c0 1.228.784 2.396 2.16 3.232l.24.146v2.635z' fill='none' stroke='#FFF'/></Svg>); 
+};
+
 export const MPConfigurationSelectedIcon = (props) => { 
  let newProps = applyStyle(props, 20, 22); 
  return (<Svg {...newProps} viewBox='0 0 20 22'><Path d='M9 7h7v1h-7v-1z' fill='#e13223'/><Path d='M9 14h7v1h-7v-1z' fill='#e13223'/><Path d='M3 3h12v2h-12v-2z' fill='#e13223'/><Path d='M3 7h5v5h-5v-5z' fill='#e13223'/><Path d='M3 14h5v5h-5v-5z' fill='#e13223'/><Path d='M9 9h8v1h-8v-1z' fill='#e13223'/><Path d='M9 16h8v1h-8v-1z' fill='#e13223'/><Path d='M19 21v-20h-18v20h18zM20 22h-20v-22h20v22z' fill='#e13223'/><Path d='M9 11h7v1h-7v-1z' fill='#e13223'/><Path d='M9 18h7v1h-7v-1z' fill='#e13223'/></Svg>); 
@@ -281,6 +291,11 @@ export const MPReportIcon = (props) => {
 export const MPSendMessageIcon = (props) => { 
  let newProps = applyStyle(props, 29, 20); 
  return (<Svg {...newProps} viewBox='0 0 29 20'><Path d='M10.412 12.902l-2.285 4.312-0.003-5.517 15.539-8.115-13.252 9.32zM28.915 0.464c-0.192-0.281-0.511-0.464-0.873-0.464-0.077 0-0.153 0.008-0.225 0.024l0.007-0.001-26.99 5.742c-0.48 0.105-0.833 0.526-0.833 1.030 0 0.403 0.227 0.753 0.56 0.93l0.006 0.003 5.905 3.082 0.032 7.725c0.002 0.58 0.473 1.049 1.053 1.049 0.265 0 0.506-0.098 0.691-0.259l-0.001 0.001 5.455-4.731 3.964 2.057c0.141 0.075 0.308 0.119 0.485 0.119 0.362 0 0.681-0.182 0.87-0.46l0.002-0.004 9.892-14.664c0.113-0.165 0.18-0.369 0.18-0.589s-0.067-0.424-0.183-0.593l0.002 0.004z' fill='#bb1a1a'/></Svg>); 
+};
+
+export const MPShareWhiteIcon = (props) => { 
+ let newProps = applyStyle(props, 16, 12); 
+ return (<Svg {...newProps} viewBox='0 0 16 12'><Path fill='none' d='M5.55 8.044a.03.03 0 0 0 .002 0zm.006 0h.033c.027 0 .052-.014.07-.047.927-1.67 2.97-2.2 5.369-2.142l.488.011V7.95c0 .027.024.062.072.083a.083.083 0 0 0 .083-.016l3.576-3.687.004-.003c.025-.026.024-.078-.016-.117L11.633.524c-.024-.024-.05-.03-.097-.009-.024.01-.048.044-.048.073v2.069l-.474.025c-1.72.09-3.023.624-3.999 1.61A5.32 5.32 0 0 0 5.5 7.963c0 .037.025.071.056.082z' stroke='#FFF' /><Path fill='none' d='M5.825 2.5H.5v9h9V6.607L5.825 2.5z' stroke='#FFF' /></Svg>); 
 };
 
 export const MPSongIndicateFullIcon = (props) => { 

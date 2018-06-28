@@ -27,7 +27,6 @@ class FeedbackSettingsScreen extends React.Component {
             <MPTextField label={"Envie sua mensagem"} value={""} />
           </View>
         </ScrollView>
-        <MPFooter />
       </View>
     );
   }

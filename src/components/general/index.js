@@ -5,4 +5,5 @@ export * from './MPModal';
 export * from './MPText';
 export * from './MPTabBar';
 export * from './MPTabBottomComponent';
+export * from './MPFade';
 

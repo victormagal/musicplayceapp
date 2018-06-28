@@ -7,7 +7,7 @@ import {MPBackIcon, MPBackBlackIcon, MPLogoIcon, MPLogoBlackIcon} from '../../as
 class MPHeader extends React.Component {
 
   render() {
-    let { title, back, onBack, inverse, transparent } = this.props;
+    let { title, back, onBack, inverse, transparent, icons } = this.props;
     let logo = inverse ? <MPLogoBlackIcon style={styles.logo} /> :
                          <MPLogoIcon style={styles.logo} />;
     let backIcon = inverse ? <MPBackBlackIcon style={styles.back} /> : <MPBackIcon style={styles.back}/>;
@@ -24,6 +24,11 @@ class MPHeader extends React.Component {
             </TouchableOpacity>
           )}
           {logo}
+          {icons && (
+            <View style={styles.icons}>
+              {icons}
+            </View>
+          )}
         </View>
         { title && (
           <MPText style={styles.title}>
@@ -39,7 +44,8 @@ MPHeader.propTypes = {
   title: PropTypes.string,
   back: PropTypes.bool,
   transparent: PropTypes.bool,
-  onBack: PropTypes.func
+  onBack: PropTypes.func,
+  icons: PropTypes.any
 };
 
 const styles = StyleSheet.create({
@@ -69,6 +75,10 @@ const styles = StyleSheet.create({
     color: 'white',
     paddingHorizontal: 40,
     textAlign: 'center'
+  },
+  icons: {
+    flexDirection: 'row',
+    marginRight: 20
   }
 });
 

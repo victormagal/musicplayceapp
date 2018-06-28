@@ -33,11 +33,11 @@ class MPIconButton extends Component {
     let IconSelected = iconSelected;
 
     if(this.state.selected){
-      return <IconSelected style={iconStyle} />
+      return <IconSelected style={[styles.icon, iconStyle]} />
     }
 
     if(icon) {
-      return <Icon style={iconStyle}/>;
+      return <Icon style={[styles.icon, iconStyle]}/>;
     }
 
     return null;
@@ -62,7 +62,7 @@ class MPIconButton extends Component {
 
 MPIconButton.propTypes = {
   title: PropTypes.string.isRequired,
-  onPress: PropTypes.func.isRequired,
+  onPress: PropTypes.func,
   style: PropTypes.any,
   icon: PropTypes.any,
   iconSelected: PropTypes.any,
@@ -76,6 +76,9 @@ const styles = StyleSheet.create({
     fontFamily: 'montSerratMedium',
     color: '#fff',
     textAlign: 'center'
+  },
+  icon: {
+    alignSelf: 'center'
   }
 });
 

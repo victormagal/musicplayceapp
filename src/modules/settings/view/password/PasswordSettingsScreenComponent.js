@@ -54,7 +54,6 @@ class PasswordSettingsScreenComponent extends React.Component {
 						<MPGradientButton style={styles.button} textSize={16} title="Salvar" onPress={this.handleUpdateIdentificacao.bind(this, 'password')} />
 					</View>
 				</ScrollView>
-				<MPFooter />
 				<MPLoading visible={this.props.loading}/>
 			</View>
 		);

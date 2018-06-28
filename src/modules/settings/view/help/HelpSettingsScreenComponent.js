@@ -101,7 +101,6 @@ class HelpSettingsScreenComponent extends React.Component {
 						<MPLoading visible={this.props.loading} />
 					</View>
         </ScrollView>
-        <MPFooter />
       </View>
 		);
 	}

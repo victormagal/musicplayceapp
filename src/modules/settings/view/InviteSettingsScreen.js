@@ -70,7 +70,6 @@ class InviteSettingsScreen extends React.Component {
             }}
           />
         </ScrollView>
-        <MPFooter />
       </View>
     );
   }

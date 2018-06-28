@@ -60,7 +60,6 @@ class EditSettingsScreenComponent extends React.Component {
 						<MPTextField label={"Nº de telefone"} value={this.state.form.phone}/>
 					</View>
 				</ScrollView>
-				<MPFooter />
 				<MPLoading visible={this.props.loading}/>
       </View>
 		);
