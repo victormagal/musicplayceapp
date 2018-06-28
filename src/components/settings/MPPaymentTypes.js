@@ -55,7 +55,9 @@ class MPPaymentTypesComponent extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-      marginHorizontal: 40,
+      paddingHorizontal: 40,
+      paddingBottom: 30,
+      backgroundColor: '#fff'
   },
   button: {
     marginTop: 30,

@@ -8,7 +8,8 @@ import {
   MPHeader, 
   MPFooter,
   MPText,
-  MPPaymentTypes
+  MPPaymentTypes,
+  MPCreditBonus
 } from '../../../components';
 import { connect } from 'react-redux';
 
@@ -52,11 +53,17 @@ class PaymentTypesScreenContainer extends React.Component {
   };
 
   render() {
+    let creditBonus = 60;
     return (
       <View style={styles.parent}>
         <MPHeader back={true} onBack={this.handleBack} title={"Mantenha sua carteira atualizada"} />
         <ScrollView style={styles.scroll}>
           <MPPaymentTypes cards={this.state.cards} />
+          {
+            creditBonus ? (
+              <MPCreditBonus creditBonus={creditBonus} />
+            ) : null
+          }
         </ScrollView>
       </View>
     );
