@@ -1,6 +1,6 @@
 //Generated file
 import React from 'react';
-import Svg, { Rect, Path, LinearGradient, Defs, Stop  } from 'react-native-svg';
+import Svg, { Rect, Circle, Path, LinearGradient, Defs, Stop  } from 'react-native-svg';
 import {applyStyle} from './applyStyle';
 
 export const MPAddSongNoteIcon = (props) => { 
@@ -321,6 +321,11 @@ export const MPTermsConfigIcon = (props) => {
 export const MPUpgradeNoteIcon = (props) => { 
  let newProps = applyStyle(props, 40, 40); 
  return (<Svg {...newProps} viewBox='0 0 40 40'><Path d='M20 0.5c-10.77 0-19.5 8.73-19.5 19.5s8.73 19.5 19.5 19.5 19.5-8.73 19.5-19.5-8.73-19.5-19.5-19.5z' fill='none' stroke='#e13223' strokeWidth='1' strokeMiterlimit='4' strokeLinecap='butt' strokeLinejoin='miter'/><Path d='M28.694 25.548c0.050 0.974-1.029 2.013-2.659 2.462-1.873 0.517-3.764 0.060-4.224-1.021-0.46-1.080 0.686-2.376 2.559-2.892 1.124-0.31 2.255-0.27 3.080 0.046v-11.033l-11.813 1.12-0.047 13.187c0.007 0.075 0.007 0.152 0 0.228v0.002c-0.088 0.917-1.13 1.852-2.655 2.273-1.873 0.516-3.765 0.060-4.224-1.022-0.46-1.080 0.685-2.375 2.559-2.892 1.114-0.307 2.235-0.27 3.057 0.039v-14.56l14.37-1.44-0.003 15.504z' fill='#5994db'/></Svg>); 
+};
+
+export const MPValidatedRedIcon = (props) => { 
+ let newProps = applyStyle(props, 16, 16); 
+ return (<Svg {...newProps} viewBox='0 0 16 16'><Path d='M15.5 8c0 4.142-3.358 7.5-7.5 7.5s-7.5-3.358-7.5-7.5c0-4.142 3.358-7.5 7.5-7.5s7.5 3.358 7.5 7.5z' fill='none' stroke='#e13223' strokeWidth='1' strokeMiterlimit='4' strokeLinecap='butt' strokeLinejoin='miter'/><Path d='M4 8l2.667 3 5.333-6' fill='none' stroke='#e13223' strokeWidth='2' strokeMiterlimit='4' strokeLinecap='round' strokeLinejoin='round'/></Svg>); 
 };
 
 export const MPVerifiedIcon = (props) => { 

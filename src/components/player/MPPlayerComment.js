@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {StyleSheet, View, TouchableOpacity, Image} from 'react-native';
 import PropTypes from 'prop-types';
 import {MPText} from '../general/MPText';
+import {MPValidatedRedIcon} from '../../assets/svg';
 
 
 class MPPlayerComment extends Component{
@@ -18,7 +19,7 @@ class MPPlayerComment extends Component{
             style={styles.avatar}/>
 
           <View style={styles.commentContainer}>
-            <MPText style={styles.artistText}>David Burn</MPText>
+            <MPText style={styles.artistText}>David Burn <MPValidatedRedIcon /></MPText>
             <MPText style={styles.timeText}>HÁ 3 HORAS</MPText>
             <MPText style={styles.comment}>
               Nam dapibus nisl vitae elit fringilla rutrum. Aenean sollicitudin, erat a elementum rutrum, neque sem pretium metus.

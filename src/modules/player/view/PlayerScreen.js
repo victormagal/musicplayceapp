@@ -538,7 +538,11 @@ const styles = StyleSheet.create({
     paddingTop: 5
   },
   modalContent: {
-    flex: 1
+    position: 'absolute',
+    top: 68,
+    height: '100%',
+    width: '100%',
+    backgroundColor: '#fff'
   }
 });
 

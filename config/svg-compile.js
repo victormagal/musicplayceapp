@@ -21,39 +21,6 @@ for (let index in files) {
   });
 }
 
-function buildAttrs(e) {
-  let attrs = '';
-  let attrName = '';
-
-  for (var key in e) {
-    attrName = key.split('-').map((item, index) => {
-      item = index !== 0 ? item.replace(/\b\w/g, l => l.toUpperCase()) : item;
-      return item;
-    }).join('');
-
-    attrs += ` ${attrName}="${e[key]}" `;
-  }
-
-  return attrs;
-}
-
-function buildDefChildren(element) {
-  let elementString = '';
-
-  for (let key in element) {
-    if (key === '$') {
-      continue;
-    }
-    let elementName = key.replace(/\b\w/g, l => l.toUpperCase());
-
-    for (let child of element[key]) {
-      elementString += `<${elementName}  ${buildAttrs(child['$'])} />`;
-    }
-  }
-
-  return elementString;
-}
-
 function buildSvg(filename, svg) {
   let paths = svg.path || svg.g;
   let attrs = svg['$'];
@@ -69,15 +36,18 @@ function buildSvg(filename, svg) {
     let {fill, d, stroke} = attributes;
 
     if (path.rect){
-
       for(let rect of path.rect){
         svgString += buildRect(rect, attributes);
       }
+    }
 
+    if(path.circle){
+      for(let circle of path.circle){
+        svgString += buildCircle(circle);
+      }
+    }
 
-    } else if (d) {
-      svgString += buildPath(path);
-    } else {
+    if(path.path){
       for (let p of path.path) {
         let {d} = p['$'];
         let fillInside = p['$'].fill || fill;
@@ -90,6 +60,8 @@ function buildSvg(filename, svg) {
 
         svgString += '/>';
       }
+    }else if (d) {
+      svgString += buildPath(path);
     }
   }
 
@@ -111,6 +83,19 @@ function buildRect(rect, attrs){
 
   return svgString;
 }
+
+function buildCircle(circle){
+  let {cx, cy, r} = circle['$'];
+  let svgString = '<Circle ';
+
+  svgString += cx ? ` cx='${cx}'` : '';
+  svgString += cy ? ` cy='${cy}'` : '';
+  svgString += r ? ` r='${r}'` : '';
+  svgString += '/>';
+
+  return svgString;
+}
+
 
 function buildPath(path) {
   let svgPathString = '';
@@ -161,7 +146,7 @@ function buildPath(path) {
 function finishBuildSvg() {
   let fileContent = ["//Generated file",
     "import React from 'react';",
-    "import Svg, { Rect, Path, LinearGradient, Defs, Stop  } from 'react-native-svg';",
+    "import Svg, { Rect, Circle, Path, LinearGradient, Defs, Stop  } from 'react-native-svg';",
     "import {applyStyle} from './applyStyle';", ""].concat(allSvgs).join('\n');
 
   fs.writeFileSync(SVG_DEST_PATH, fileContent, 'utf-8');
