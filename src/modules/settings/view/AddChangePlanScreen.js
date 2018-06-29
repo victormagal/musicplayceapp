@@ -6,9 +6,8 @@ import {
 } from 'react-native';
 import { 
   MPHeader, 
-  MPFooter,
-  MPText,
-  MPAddChangePlan
+  MPAddChangePlan,
+  MPAddPayment
 } from '../../../components';
 import { connect } from 'react-redux';
 
@@ -18,12 +17,16 @@ class AddChangePlanScreenContainer extends React.Component {
     this.props.navigation.pop();
   };
 
+  addPlan(){
+    this.props.navigation.navigate('message', { component: MPAddPayment, title: 'Cadastre seu cartão, é 100% seguro' });
+  }
+
   render() {
     return (
       <View style={styles.parent}>
         <MPHeader back={true} onBack={this.handleBack} title={"Assine o plano para ter mais vantagens"} />
         <ScrollView style={styles.scroll}>
-          <MPAddChangePlan />
+          <MPAddChangePlan onPress={this.addPlan.bind(this)} />
         </ScrollView>
       </View>
     );

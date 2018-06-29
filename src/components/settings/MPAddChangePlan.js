@@ -21,6 +21,7 @@ class MPAddChangePlanComponent extends React.Component {
     this.setState({monthly: !this.state.monthly});
   }
   render() {
+      let {onPress} = this.props;
     let monthValue = '50,00';
     let yearValue = '550,00';
 
@@ -86,7 +87,7 @@ class MPAddChangePlanComponent extends React.Component {
                 )
             }
             </View>
-            <MPGradientButton style={{marginHorizontal: 80}} title={'Fazer upgrade'} textSize={16} />
+            <MPGradientButton style={{marginHorizontal: 80}} title={'Fazer upgrade'} textSize={16} onPress={onPress} />
         </View>
     );
   }

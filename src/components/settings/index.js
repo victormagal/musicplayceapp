@@ -19,3 +19,5 @@ export * from './MPChangeRemovePayment';
 export * from './MPConfirmRemovePayment';
 export * from './MPRemovedPayment';
 export * from './MPAddChangePlan';
+export * from './MPAddPayment';
+export * from './MPAddPlanSuccess';
