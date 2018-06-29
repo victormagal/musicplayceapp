@@ -12,7 +12,8 @@ import {
   MPAddBonus,
   MPShowBonuses,
   MPAddNewPayment,
-  MPChangeRemovePayment
+  MPChangeRemovePayment,
+  MPConfirmRemovePayment
 } from '../../../components';
 import { connect } from 'react-redux';
 
@@ -96,7 +97,10 @@ class PaymentTypesScreenContainer extends React.Component {
       <View style={styles.parent}>
         <MPHeader back={true} onBack={this.handleBack} title={"Mantenha sua carteira atualizada"} />
         <ScrollView style={styles.scroll}>
-          <MPPaymentTypes cards={this.state.cards} onAddPayment={this.addPayment.bind(this)} onEditPayment={this.editPayment.bind(this)} />
+          <MPPaymentTypes 
+            cards={this.state.cards}
+            onAddPayment={this.addPayment.bind(this)}
+            onEditPayment={this.editPayment.bind(this)} />
           {
             creditBonus ? (
               <MPCreditBonus creditBonus={creditBonus} />

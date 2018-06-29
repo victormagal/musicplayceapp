@@ -12,16 +12,21 @@ import {
 import { MPRegisterPayment } from './MPRegisterPayment';
 import { MPCheckBox } from '../forms';
 import { MPGradientBorderButton } from '../profile';
+import { MPConfirmRemovePayment } from './MPConfirmRemovePayment';
 
 class MPChangeRemovePaymentComponent extends React.Component {
 
+  removePayment(){
+    this.props.navigation.navigate('message', { component: MPConfirmRemovePayment, title: 'Remover cartão' });
+  }
+  
   render() {
-
+    let {onRemovePayment} = this.props;
     return (
         <View style={styles.container}>
             <MPRegisterPayment />
             <MPCheckBox style={{paddingHorizontal: 40, marginTop: 30}} title={'Esta é minha forma de pagamento preferida.'}/>
-            <MPGradientBorderButton title={'REMOVER CARTÃO'} style={{alignSelf: 'center', marginTop: 174}} />
+            <MPGradientBorderButton title={'REMOVER CARTÃO'} style={{alignSelf: 'center', marginTop: 174}} onPress={this.removePayment.bind(this)}/>
         </View>
     );
   }
