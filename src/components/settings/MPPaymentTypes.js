@@ -14,7 +14,7 @@ import {
 class MPPaymentTypesComponent extends React.Component {
 
   render() {
-    let {cards} = this.props;
+    let {cards, onAddPayment} = this.props;
 
     return (
       <View style={styles.container}>
@@ -46,7 +46,7 @@ class MPPaymentTypesComponent extends React.Component {
             </View>
           ) : null
         }
-        <MPGradientButton title={'Adicionar cartão'} style={styles.button} textSize={16}/>
+        <MPGradientButton title={'Adicionar cartão'} style={styles.button} textSize={16} onPress={onAddPayment}/>
       </View>
     );
   }

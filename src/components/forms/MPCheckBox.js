@@ -21,18 +21,18 @@ class MPCheckBoxComponent extends React.Component {
   }
 
   render() {
-      let { checked , title} = this.props;
+      let { checked , title, style} = this.props;
     return (
         <TouchableWithoutFeedback style={styles.parent} onPress={ this.toggleCheck.bind(this) }>
-          <View style={{flexDirection: 'row', marginEnd: 20}}>
-            <View style={{width: 20, height: 20, marginEnd: 10, padding: 2.5, borderColor: '#686868', borderWidth: 1, borderRadius: 3}}>
+          <View style={[{flexDirection: 'row'}, style || {}]}>
+            <View style={styles.container}>
             {
                 this.state.checked == true ? (
                     <MPCheckboxIcon/>      
                 ) : null
             }
             </View>
-            <MPText style={{fontSize: 16, color: '#686868', fontFamily: 'probaProRegular', justifyContent:'center', alignSelf: 'center',}}>{title}</MPText>
+            <MPText style={styles.text}>{title}</MPText>
           </View>
         </TouchableWithoutFeedback>
     );
@@ -46,6 +46,23 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginBottom: 20,
   },
+  text: {
+    fontSize: 16,
+    color: '#686868',
+    fontFamily: 'probaProRegular',
+    justifyContent:'center',
+    alignSelf: 'center',
+    flexWrap: 'wrap'
+  },
+  container: {
+    width: 20,
+    height: 20,
+    marginEnd: 10,
+    padding: 2.5,
+    borderColor: '#686868',
+    borderWidth: 1,
+    borderRadius: 3,
+  }
 });
 
 const mapStateToProps = ({ fontReducer }) => {

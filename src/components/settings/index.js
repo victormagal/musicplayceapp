@@ -14,3 +14,4 @@ export * from './MPCreditBonus';
 export * from './MPAddBonus';
 export * from './MPBonusInfo';
 export * from './MPShowBonuses';
+export * from './MPAddNewPayment';
