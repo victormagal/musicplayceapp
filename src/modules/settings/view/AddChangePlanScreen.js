@@ -7,7 +7,8 @@ import {
 import { 
   MPHeader, 
   MPFooter,
-  MPText
+  MPText,
+  MPAddChangePlan
 } from '../../../components';
 import { connect } from 'react-redux';
 
@@ -22,7 +23,7 @@ class AddChangePlanScreenContainer extends React.Component {
       <View style={styles.parent}>
         <MPHeader back={true} onBack={this.handleBack} title={"Assine o plano para ter mais vantagens"} />
         <ScrollView style={styles.scroll}>
-          
+          <MPAddChangePlan />
         </ScrollView>
       </View>
     );

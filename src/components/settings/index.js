@@ -18,3 +18,4 @@ export * from './MPAddNewPayment';
 export * from './MPChangeRemovePayment';
 export * from './MPConfirmRemovePayment';
 export * from './MPRemovedPayment';
+export * from './MPAddChangePlan';
