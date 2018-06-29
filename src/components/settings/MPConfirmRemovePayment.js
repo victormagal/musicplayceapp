@@ -9,8 +9,17 @@ import {
   MPTextField,
   MPGradientButton
 } from '../../components';
+import { MPRemovedPayment } from './MPRemovedPayment';
 
 class MPConfirmRemovePaymentComponent extends React.Component {
+
+  confirmRemove(){
+    this.props.navigation.navigate('message', { component: MPRemovedPayment, title: 'Remover cartão' });
+  }
+
+  handleBack = () => {
+    this.props.navigation.pop();
+  };
 
   render() {
 
@@ -19,8 +28,8 @@ class MPConfirmRemovePaymentComponent extends React.Component {
             <MPText style={styles.title}>Tem certeza que deseja remover o cartão:</MPText>
             <MPTextField style={{marginHorizontal:40}} label={'Cartão de crédito'} value={'1111 2222 3333 6578'} />
             <View style={{flex: 1,flexDirection: 'row', marginHorizontal: 40, marginTop: 30}}>
-                <MPGradientButton style={{flex: 1, marginEnd :20}} title={'Manter'} textSize={16}/>
-                <MPGradientButton style={{flex: 1}} title={'Excluir'} textSize={16}/>
+                <MPGradientButton style={{flex: 1, marginEnd :20}} title={'Manter'} textSize={16} onPress={this.handleBack.bind(this)}/>
+                <MPGradientButton style={{flex: 1}} title={'Excluir'} textSize={16} onPress={this.confirmRemove.bind(this)}/>
             </View>
         </View>
     );
