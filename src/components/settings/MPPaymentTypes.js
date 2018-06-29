@@ -14,7 +14,7 @@ import {
 class MPPaymentTypesComponent extends React.Component {
 
   render() {
-    let {cards, onAddPayment} = this.props;
+    let {cards, onAddPayment, onEditPayment} = this.props;
 
     return (
       <View style={styles.container}>
@@ -24,7 +24,7 @@ class MPPaymentTypesComponent extends React.Component {
               return(
                 <View>
                   <MPText style={styles.text}>Forma de pagamento principal</MPText>
-                  <MPEditPayment card={card} />
+                  <MPEditPayment card={card} editPayment={onEditPayment} />
                 </View>
               )
             }
@@ -38,7 +38,7 @@ class MPPaymentTypesComponent extends React.Component {
                 cards.map(card => {
                   if(!card.isFavorite){
                     return(
-                      <MPEditPayment card={card} />
+                      <MPEditPayment card={card} editPayment={onEditPayment} />
                     )
                   }
                 })

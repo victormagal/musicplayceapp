@@ -12,12 +12,12 @@ import {
 class MPEditPaymentComponent extends React.Component {
 
   render() {
-    let {card} = this.props;
+    let {card, editPayment} = this.props;
 
     return (
         <View style={styles.container}>
             <MPTextField label={'Cartão de crédito'} value={card.number} style={{flex: 4}}/>
-            <MPGradientBorderButton style={{flex: 1, alignSelf: 'center', marginTop: 30, marginStart: 16}} onPress={()=> {}}/>
+            <MPGradientBorderButton style={{flex: 1, alignSelf: 'center', marginTop: 30, marginStart: 16}} onPress={editPayment}/>
         </View>
     );
   }

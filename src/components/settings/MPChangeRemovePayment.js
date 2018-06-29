@@ -11,8 +11,9 @@ import {
 } from '../../components';
 import { MPRegisterPayment } from './MPRegisterPayment';
 import { MPCheckBox } from '../forms';
+import { MPGradientBorderButton } from '../profile';
 
-class MPAddNewPaymentComponent extends React.Component {
+class MPChangeRemovePaymentComponent extends React.Component {
 
   render() {
 
@@ -20,6 +21,7 @@ class MPAddNewPaymentComponent extends React.Component {
         <View style={styles.container}>
             <MPRegisterPayment />
             <MPCheckBox style={{paddingHorizontal: 40, marginTop: 30}} title={'Esta é minha forma de pagamento preferida.'}/>
+            <MPGradientBorderButton title={'REMOVER CARTÃO'} style={{alignSelf: 'center', marginTop: 174}} />
         </View>
     );
   }
@@ -28,7 +30,7 @@ class MPAddNewPaymentComponent extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+      flex: 1,
       backgroundColor: '#fff',
   },
 });
@@ -37,5 +39,5 @@ const mapStateToProps = ({ fontReducer }) => {
   return { ...fontReducer };
 };
 
-const MPAddNewPayment = connect(mapStateToProps)(MPAddNewPaymentComponent);
-export { MPAddNewPayment };
+const MPChangeRemovePayment = connect(mapStateToProps)(MPChangeRemovePaymentComponent);
+export { MPChangeRemovePayment };
