@@ -3,17 +3,19 @@ import {
   StyleSheet, 
   View 
 } from 'react-native';
-import { 
+import {
   MPHeader
  } from '../../../components';
 
 class MessageScreen extends React.Component {
 
   render() {
-    let Content = this.props.navigation.state.params.component || View;
+    let {component, title} =  this.props.navigation.state.params;
+    let Content = component || View;
+
     return (
       <View style={styles.parent}>
-        <MPHeader />
+        <MPHeader title={title}/>
         <Content {...this.props} />
       </View>
     );
