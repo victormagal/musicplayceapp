@@ -3,7 +3,7 @@ import {LinearGradient} from 'expo';
 import {Slider} from 'react-native-elements'
 import {
   Text, View, StyleSheet, TouchableOpacity, FlatList, ScrollView, Image,
-  TouchableWithoutFeedback
+  TouchableWithoutFeedback, Modal
 } from 'react-native';
 import {
   MPHeader, MPText, MPGradientButton, MPIconButton, MPCircleGradientButton,
@@ -14,14 +14,16 @@ import {
   MPPlayIcon,
   MPSongListIcon,
   MPHeartIcon,
-  MPArrowDownIcon,
   MPBalloonTalkIcon,
   MPDetailPauseIcon,
   MPDetailHeartIcon,
   MPDetailPlayIcon,
   MPCommentWhiteIcon,
   MPShareWhiteIcon,
-  MPCloseIcon
+  MPCloseIcon,
+  MPSongIcon,
+  MPTriangleUpIcon,
+  MPTriangleUpGrayIcon
 } from '../../../assets/svg';
 import images from '../../../assets/img';
 
@@ -32,6 +34,7 @@ class PlayerScreen extends React.Component {
     showPlayer: true,
     showComments: false,
     showLyrics: false,
+    playerVisible: false,
     data: [
       {
         id: '00',
@@ -51,6 +54,27 @@ class PlayerScreen extends React.Component {
     ],
     comments: [
       {}, {}, {}
+    ],
+    lyric: [
+      ['Ando devagar',
+        'Porque já tive pressa',
+        'E levo esse sorriso',
+        'Porque já chorei demais'],
+      ['Hoje me sinto mais forte',
+        'Mais feliz, quem sabe',
+        'Só levo a certeza',
+        'De que muito pouco sei',
+        'Ou nada sei'],
+      ['Conhecer as manhas',
+        'Mais feliz, quem sabe',
+        'Só levo a certeza',
+        'De que muito pouco sei',
+        'Ou nada sei'],
+      ['Conhecer as manhas',
+        'Mais feliz, quem sabe',
+        'Só levo a certeza',
+        'De que muito pouco sei',
+        'Ou nada sei']
     ]
   };
 
@@ -59,11 +83,15 @@ class PlayerScreen extends React.Component {
   };
 
   handleToggleComments = (visible) => {
-    this.setState({showComments: visible})
+    this.setState({showComments: visible, showLyrics: false, showPlayer: !visible})
   };
 
   handleToggleLyrics = (visible) => {
-    this.setState({showLyrics: visible})
+    this.setState({showLyrics: visible, showComments: false, showPlayer: !visible})
+  };
+
+  handleTogglePlayer = (visible) => {
+    this.setState({playerVisible: visible});
   };
 
   renderComment = () => {
@@ -72,10 +100,80 @@ class PlayerScreen extends React.Component {
     );
   };
 
+  renderPlayerModal = () => {
+    return (
+      <Modal
+        animationType="slide"
+        visible={this.state.playerVisible}
+        onRequestClose={() => this.handleTogglePlayer(false)}>
+
+        <MPHeader />
+
+      </Modal>
+    );
+  };
+
+  renderLyricsContent() {
+    return (
+      <MPFade style={styles.modalContent} visible={this.state.showLyrics}>
+        <View style={styles.flexOne}>
+          <View style={styles.coverCommentContainer}>
+            <Image
+              source={require('../../../assets/img/fernandinho-cover.jpeg')}
+              style={styles.coverImage}/>
+
+            <LinearGradient
+              style={styles.linearGradient}
+              colors={['#000000', '#000000D9']}
+              start={[0, 0.9]}
+              end={[0, 0]}>
+            </LinearGradient>
+
+            <View style={[styles.commentMusicContent, styles.row]}>
+              <MPPlayIcon style={styles.musicPlayIcon}/>
+              <MPText style={styles.musicTitleText}>Tocando em Frente</MPText>
+            </View>
+
+          </View>
+
+          <TouchableWithoutFeedback
+            onPress={this.handleToggleLyrics.bind(this, false)}>
+            <View style={[styles.seeLyricsContainer, styles.row]}>
+              <View style={[styles.row, styles.alignCenter]}>
+                <MPStarIcon />
+                <MPText style={styles.seeLyricsText}>ACOMPANHA A LETRA</MPText>
+              </View>
+              <MPTriangleUpIcon style={styles.alignCenter}/>
+            </View>
+          </TouchableWithoutFeedback>
+
+          <View style={styles.lyricsContent}>
+
+            <ScrollView style={styles.flexOne}>
+              <View style={styles.lyricsScrollContent}>
+                {this.state.lyric.map((p, index) => (
+                  <View style={index === 0 ? {} : styles.lyricParagraph} key={index}>
+                    {p.map((line, lineIndex) => (
+                      <MPText style={styles.lyricLine} key={lineIndex}>{line}</MPText>
+                    ))}
+                  </View>
+                ))}
+              </View>
+            </ScrollView>
+            <LinearGradient style={styles.lyricsGradientTop}
+                            colors={['#2b2a2a', 'rgba(65, 65, 65, 0)']}/>
+            <LinearGradient style={styles.lyricsGradientBottom}
+                            colors={['rgba(64, 64, 64, 0)','#404040']}/>
+          </View>
+        </View>
+      </MPFade>
+    );
+  }
+
   renderCommentContent() {
     return (
       <MPFade style={styles.modalContent} visible={this.state.showComments}>
-        <View>
+        <View style={{flex: 1}}>
           <View style={styles.coverCommentContainer}>
             <Image
               source={require('../../../assets/img/fernandinho-cover.jpeg')}
@@ -101,7 +199,7 @@ class PlayerScreen extends React.Component {
             </View>
             <View style={styles.divider}/>
 
-            <View style={{position: 'absolute', top: -20, right: 20}}>
+            <View style={styles.commentClose}>
               <MPCircleGradientButton icon={MPCloseIcon} onPress={this.handleToggleComments.bind(this, false)}/>
             </View>
           </View>
@@ -117,124 +215,126 @@ class PlayerScreen extends React.Component {
 
   renderMain() {
     return (
-      <ScrollView style={styles.scrollView}>
-        <View style={styles.coverContainer}>
-          <Image
-            source={require('../../../assets/img/fernandinho-cover.jpeg')}
-            style={styles.coverImage}/>
+      <MPFade style={styles.modalContent} visible={this.state.showPlayer}>
+        <ScrollView style={styles.flexOne}>
+          <View style={styles.coverContainer}>
+            <Image
+              source={require('../../../assets/img/fernandinho-cover.jpeg')}
+              style={styles.coverImage}/>
 
-          <LinearGradient
-            style={styles.linearGradient}
-            colors={['#000000', '#000000D9']}
-            start={[0, 0.9]}
-            end={[0, 0]}>
-          </LinearGradient>
+            <LinearGradient
+              style={styles.linearGradient}
+              colors={['#000000', '#000000D9']}
+              start={[0, 0.9]}
+              end={[0, 0]}>
+            </LinearGradient>
 
-          <View style={styles.musicContent}>
+            <View style={styles.musicContent}>
 
-            <View style={styles.row}>
               <View style={styles.row}>
-                <MPStarIcon />
-                <MPStarIcon />
-                <MPStarIcon />
-                <MPStarIcon />
-                <MPStarIcon />
+                <View style={styles.row}>
+                  <MPStarIcon />
+                  <MPStarIcon />
+                  <MPStarIcon />
+                  <MPStarIcon />
+                  <MPStarIcon />
+                </View>
+                <MPText style={styles.gradeText}>0.0</MPText>
               </View>
-              <MPText style={styles.gradeText}>0.0</MPText>
-            </View>
 
-            <MPText style={styles.timeTotalText}>5m32s</MPText>
+              <MPText style={styles.timeTotalText}>5m32s</MPText>
 
-            <View style={styles.row}>
-              <MPPlayIcon style={styles.musicPlayIcon}/>
-              <MPText style={styles.musicTitleText}>Tocando em Frente</MPText>
-            </View>
-
-            <MPText style={styles.musicUploadDate}>10/05/2018 às 13:49</MPText>
-            <MPText style={styles.musicMessage}>Escute esta música de tal tal jeito.</MPText>
-
-            <MPText style={styles.compositorTitle}>COMPOSITOR</MPText>
-            <MPText style={styles.compositorText}>Almir Sater</MPText>
-
-            <MPText style={styles.compositorTitle}>INTÉRPRETE</MPText>
-            <MPText style={styles.compositorText}>Santiago Silva</MPText>
-
-            <View style={[styles.row, styles.indicationContainer]}>
               <View style={styles.row}>
-                <MPIconButton title="ADICIONAR À FILA" style={styles.iconButtonContainer}
-                              icon={MPSongListIcon} iconStyle={styles.iconButton}
-                              titleStyle={styles.iconButtonText}/>
-
-                <MPIconButton title="SALVAR" icon={MPHeartIcon} style={styles.iconButtonContainer}
-                              iconStyle={styles.iconButton} titleStyle={styles.iconButtonText}/>
+                <MPPlayIcon style={styles.musicPlayIcon}/>
+                <MPText style={styles.musicTitleText}>Tocando em Frente</MPText>
               </View>
 
-              <View style={styles.totalIndicationsContainer}>
-                <MPGradientButton title="INDICAR"/>
-                <MPText style={styles.totalIndications}>200 indicações</MPText>
+              <MPText style={styles.musicUploadDate}>10/05/2018 às 13:49</MPText>
+              <MPText style={styles.musicMessage}>Escute esta música de tal tal jeito.</MPText>
+
+              <MPText style={styles.compositorTitle}>COMPOSITOR</MPText>
+              <MPText style={styles.compositorText}>Almir Sater</MPText>
+
+              <MPText style={styles.compositorTitle}>INTÉRPRETE</MPText>
+              <MPText style={styles.compositorText}>Santiago Silva</MPText>
+
+              <View style={[styles.row, styles.indicationContainer]}>
+                <View style={styles.row}>
+                  <MPIconButton title="ADICIONAR À FILA" style={styles.iconButtonContainer}
+                                icon={MPSongListIcon} iconStyle={styles.iconButton}
+                                titleStyle={styles.iconButtonText}/>
+
+                  <MPIconButton title="SALVAR" icon={MPHeartIcon} style={styles.iconButtonContainer}
+                                iconStyle={styles.iconButton} titleStyle={styles.iconButtonText}/>
+                </View>
+
+                <View style={styles.totalIndicationsContainer}>
+                  <MPGradientButton title="INDICAR"/>
+                  <MPText style={styles.totalIndications}>200 indicações</MPText>
+                </View>
               </View>
             </View>
           </View>
-        </View>
 
-        <TouchableWithoutFeedback
-          onPress={this.handleToggleLyrics.bind(this, true)}>
-          <View style={[styles.seeLyricsContainer, styles.row]}>
-            <View style={[styles.row, styles.alignCenter]}>
-              <MPStarIcon />
-              <MPText style={styles.seeLyricsText}>ACOMPANHA A LETRA</MPText>
+          <TouchableWithoutFeedback
+            onPress={this.handleToggleLyrics.bind(this, true)}>
+            <View style={[styles.seeLyricsContainer, styles.row]}>
+              <View style={[styles.row, styles.alignCenter]}>
+                <MPSongIcon />
+                <MPText style={styles.seeLyricsText}>ACOMPANHA A LETRA</MPText>
+              </View>
+              <MPTriangleUpIcon style={styles.alignCenter}/>
             </View>
-            <MPArrowDownIcon style={styles.alignCenter}/>
-          </View>
-        </TouchableWithoutFeedback>
+          </TouchableWithoutFeedback>
 
-        <View style={[styles.row, styles.tagContainer]}>
-          <View style={[styles.row, styles.tagContent]}>
-            <MPText style={styles.tagText}>#coraçãopartido</MPText>
-            <MPText style={styles.tagText}>#descobertas</MPText>
-            <MPText style={styles.tagText}>#paquera</MPText>
-            <MPText style={styles.tagText}>#balada</MPText>
-            <MPText style={styles.tagText}>#amor</MPText>
+          <View style={[styles.row, styles.tagContainer]}>
+            <View style={[styles.row, styles.tagContent]}>
+              <MPText style={styles.tagText}>#coraçãopartido</MPText>
+              <MPText style={styles.tagText}>#descobertas</MPText>
+              <MPText style={styles.tagText}>#paquera</MPText>
+              <MPText style={styles.tagText}>#balada</MPText>
+              <MPText style={styles.tagText}>#amor</MPText>
+            </View>
+            <MPCircleGradientButton icon={MPBalloonTalkIcon}/>
           </View>
-          <MPCircleGradientButton icon={MPBalloonTalkIcon}/>
-        </View>
 
-        <View>
-          <View style={[styles.sectionHeader, styles.row]}>
-            <MPText style={styles.sectionTitle}>Outras de Almir Sater</MPText>
-            <MPGradientBorderButton />
+          <View>
+            <View style={[styles.sectionHeader, styles.row]}>
+              <MPText style={styles.sectionTitle}>Outras de Almir Sater</MPText>
+              <MPGradientBorderButton />
+            </View>
+            <FlatList
+              data={this.state.data}
+              keyExtractor={(item) => item.id}
+              renderItem={this.renderItem}
+              horizontal={true}/>
           </View>
-          <FlatList
-            data={this.state.data}
-            keyExtractor={(item) => item.id}
-            renderItem={this.renderItem}
-            horizontal={true}/>
-        </View>
 
-        <View>
-          <View style={[styles.sectionHeader, styles.row]}>
-            <MPText style={styles.sectionTitle}>Outras de Zé da Clave</MPText>
-            <MPGradientBorderButton />
+          <View>
+            <View style={[styles.sectionHeader, styles.row]}>
+              <MPText style={styles.sectionTitle}>Outras de Zé da Clave</MPText>
+              <MPGradientBorderButton />
+            </View>
+            <FlatList
+              data={this.state.data}
+              keyExtractor={(item) => item.id}
+              renderItem={this.renderItem}
+              horizontal={true}/>
           </View>
-          <FlatList
-            data={this.state.data}
-            keyExtractor={(item) => item.id}
-            renderItem={this.renderItem}
-            horizontal={true}/>
-        </View>
 
-        <View style={styles.lastSectionMargin}>
-          <View style={[styles.sectionHeader, styles.row]}>
-            <MPText style={styles.sectionTitle}>Outras de Santiago Silva</MPText>
-            <MPGradientBorderButton />
+          <View style={styles.lastSectionMargin}>
+            <View style={[styles.sectionHeader, styles.row]}>
+              <MPText style={styles.sectionTitle}>Outras de Santiago Silva</MPText>
+              <MPGradientBorderButton />
+            </View>
+            <FlatList
+              data={this.state.data}
+              keyExtractor={(item) => item.id}
+              renderItem={this.renderItem}
+              horizontal={true}/>
           </View>
-          <FlatList
-            data={this.state.data}
-            keyExtractor={(item) => item.id}
-            renderItem={this.renderItem}
-            horizontal={true}/>
-        </View>
-      </ScrollView>
+        </ScrollView>
+      </MPFade>
     );
   }
 
@@ -264,14 +364,17 @@ class PlayerScreen extends React.Component {
       <View style={styles.container}>
 
         <MPHeader back={true} onBack={this.handleBack} icons={this.renderHeaderMenu()}/>
+
         {this.renderMain()}
         {this.renderCommentContent()}
+        {this.renderLyricsContent()}
 
         <View style={styles.player}>
           <Slider style={styles.playerSlider} thumbStyle={styles.playerThumb}
                   minimumTrackTintColor='#e13223' maximumTrackTintColor='#808080'/>
 
-          <View style={styles.playerContent}>
+          <TouchableOpacity style={styles.playerContent}
+                            onPress={this.handleTogglePlayer.bind(this, true)}>
             <TouchableOpacity style={styles.playerPlayIcon}>
               <MPIconButton icon={MPDetailPlayIcon} iconSelected={MPDetailPauseIcon}/>
             </TouchableOpacity>
@@ -286,9 +389,11 @@ class PlayerScreen extends React.Component {
             </TouchableOpacity>
 
             <MPButton title="INDICAR" style={styles.playerIndicate} textStyle={styles.playerIndicateText}/>
-          </View>
+            <MPTriangleUpGrayIcon style={styles.playerUp}/>
+          </TouchableOpacity>
         </View>
 
+        {this.renderPlayerModal()}
       </View>
     );
   }
@@ -303,7 +408,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#f1f1f1',
     height: 2
   },
-  scrollView: {
+  flexOne: {
     flex: 1
   },
   coverContainer: {
@@ -503,6 +608,10 @@ const styles = StyleSheet.create({
     fontSize: 10,
     color: '#ff0000'
   },
+  playerUp: {
+    marginLeft: 8,
+    alignSelf: 'center'
+  },
   playerHeart: {
     marginRight: 8,
     alignSelf: 'center'
@@ -538,11 +647,42 @@ const styles = StyleSheet.create({
     paddingTop: 5
   },
   modalContent: {
-    position: 'absolute',
-    top: 68,
-    height: '100%',
-    width: '100%',
+    flex: 1,
     backgroundColor: '#fff'
+  },
+  commentClose: {
+    position: 'absolute',
+    top: -20,
+    right: 20
+  },
+  lyricParagraph: {
+    marginTop: 20
+  },
+  lyricLine: {
+    fontFamily: 'montSerratLight',
+    paddingLeft: 20,
+    fontSize: 16,
+    lineHeight: 25,
+    color: '#fff'
+  },
+  lyricsScrollContent: {
+    paddingVertical: 20
+  },
+  lyricsContent: {
+    backgroundColor: '#404040',
+    flex: 1
+  },
+  lyricsGradientTop: {
+    height: 43,
+    width: '100%',
+    position: 'absolute',
+    top: 0
+  },
+  lyricsGradientBottom: {
+    height: 43,
+    width: '100%',
+    position: 'absolute',
+    bottom: 0
   }
 });
 

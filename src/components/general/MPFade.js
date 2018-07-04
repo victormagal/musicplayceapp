@@ -26,7 +26,7 @@ class MPFade extends React.Component {
     }
     Animated.timing(this.fadeAnimation, {
       toValue: nextProps.visible ? 1 : 0,
-      duration: 300,
+      duration: 10,
     }).start(() => {
       this.setState({ visible: nextProps.visible });
     });
@@ -44,7 +44,7 @@ class MPFade extends React.Component {
         {
           scale: this.fadeAnimation.interpolate({
             inputRange: [0, 1],
-            outputRange: [1.1, 1],
+            outputRange: [1, 1],
           }),
         },
       ],

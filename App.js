@@ -76,6 +76,7 @@ export default class App extends React.Component {
   componentWillMount() {
     Font.loadAsync({
       'montSerrat': require('./assets/fonts/Montserrat-Regular.ttf'),
+      'montSerratLight': require('./assets/fonts/Montserrat-Light.ttf'),
       'montSerratBold': require('./assets/fonts/Montserrat-Bold.ttf'),
       'montSerratMedium': require('./assets/fonts/Montserrat-Medium.ttf'),
       'montSerratSemiBold': require('./assets/fonts/Montserrat-SemiBold.ttf'),
