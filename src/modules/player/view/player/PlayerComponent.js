@@ -8,8 +8,8 @@ import {
 import {
   MPHeader, MPText, MPGradientButton, MPIconButton, MPCircleGradientButton,
   MPSongRating, MPGradientBorderButton, MPButton, MPPlayerComment, MPFade
-} from '../../../components';
-import {ModalPlayer} from './ModalPlayer';
+} from '../../../../components';
+import {ModalPlayer} from '../ModalPlayer';
 import {
   MPStarIcon,
   MPPlayIcon,
@@ -25,11 +25,11 @@ import {
   MPSongIcon,
   MPTriangleUpIcon,
   MPTriangleUpGrayIcon
-} from '../../../assets/svg';
-import images from '../../../assets/img';
+} from '../../../../assets/svg';
+import images from '../../../../assets/img';
 
 
-class PlayerScreen extends React.Component {
+class PlayerComponent extends React.Component {
 
   state = {
     showPlayer: true,
@@ -123,7 +123,7 @@ class PlayerScreen extends React.Component {
         <View style={styles.flexOne}>
           <View style={styles.coverCommentContainer}>
             <Image
-              source={require('../../../assets/img/fernandinho-cover.jpeg')}
+              source={require('../../../../assets/img/fernandinho-cover.jpeg')}
               style={styles.coverImage}/>
 
             <LinearGradient
@@ -180,7 +180,7 @@ class PlayerScreen extends React.Component {
         <View style={{flex: 1}}>
           <View style={styles.coverCommentContainer}>
             <Image
-              source={require('../../../assets/img/fernandinho-cover.jpeg')}
+              source={require('../../../../assets/img/fernandinho-cover.jpeg')}
               style={styles.coverImage}/>
 
             <LinearGradient
@@ -223,7 +223,7 @@ class PlayerScreen extends React.Component {
         <ScrollView style={styles.flexOne}>
           <View style={styles.coverContainer}>
             <Image
-              source={require('../../../assets/img/fernandinho-cover.jpeg')}
+              source={require('../../../../assets/img/fernandinho-cover.jpeg')}
               style={styles.coverImage}/>
 
             <LinearGradient
@@ -760,4 +760,4 @@ const styles = StyleSheet.create({
 });
 
 
-export {PlayerScreen};
+export {PlayerComponent};

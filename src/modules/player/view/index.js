@@ -1,2 +1,2 @@
-export * from './PlayerScreen';
-export * from './PlayerSaveSongScreen';
+export * from './player/PlayerScreen';
+export * from './saveSong/PlayerSaveSongScreen';
