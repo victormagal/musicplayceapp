@@ -9,6 +9,7 @@ import {
   MPHeader, MPText, MPGradientButton, MPIconButton, MPCircleGradientButton,
   MPSongRating, MPGradientBorderButton, MPButton, MPPlayerComment, MPFade
 } from '../../../components';
+import {ModalPlayer} from './ModalPlayer';
 import {
   MPStarIcon,
   MPPlayIcon,
@@ -94,23 +95,18 @@ class PlayerScreen extends React.Component {
     this.setState({playerVisible: visible});
   };
 
+  handleEnableLyricsPlayer = () => {
+    this.setState({playerVisible: false, showLyrics: true, showComments: false, showPlayer: false});
+  };
+
   renderComment = () => {
     return (
       <MPPlayerComment />
     );
   };
 
-  renderPlayerModal = () => {
-    return (
-      <Modal
-        animationType="slide"
-        visible={this.state.playerVisible}
-        onRequestClose={() => this.handleTogglePlayer(false)}>
-
-        <MPHeader />
-
-      </Modal>
-    );
+  renderModalPlayer = () => {
+    return <ModalPlayer visible={this.state.playerVisible} onCloseClick={this.handleTogglePlayer.bind(this, false)} onLyricsClick={this.handleEnableLyricsPlayer}/>;
   };
 
   renderLyricsContent() {
@@ -140,7 +136,7 @@ class PlayerScreen extends React.Component {
             onPress={this.handleToggleLyrics.bind(this, false)}>
             <View style={[styles.seeLyricsContainer, styles.row]}>
               <View style={[styles.row, styles.alignCenter]}>
-                <MPStarIcon />
+                <MPSongIcon />
                 <MPText style={styles.seeLyricsText}>ACOMPANHA A LETRA</MPText>
               </View>
               <MPTriangleUpIcon style={styles.alignCenter}/>
@@ -163,7 +159,7 @@ class PlayerScreen extends React.Component {
             <LinearGradient style={styles.lyricsGradientTop}
                             colors={['#2b2a2a', 'rgba(65, 65, 65, 0)']}/>
             <LinearGradient style={styles.lyricsGradientBottom}
-                            colors={['rgba(64, 64, 64, 0)','#404040']}/>
+                            colors={['rgba(64, 64, 64, 0)', '#404040']}/>
           </View>
         </View>
       </MPFade>
@@ -359,6 +355,34 @@ class PlayerScreen extends React.Component {
     ];
   }
 
+  renderDetailPlayer() {
+    return (
+      <View style={styles.player}>
+        <Slider style={styles.playerSlider} thumbStyle={styles.playerThumb}
+                minimumTrackTintColor='#e13223' maximumTrackTintColor='#808080'/>
+
+        <TouchableOpacity style={styles.playerContent}
+                          onPress={this.handleTogglePlayer.bind(this, true)}>
+          <TouchableOpacity style={styles.playerPlayIcon}>
+            <MPIconButton icon={MPDetailPlayIcon} iconSelected={MPDetailPauseIcon}/>
+          </TouchableOpacity>
+
+          <View style={styles.playerInfo}>
+            <MPText style={styles.playerSongName}>Tocando em frente</MPText>
+            <MPText style={styles.playerArtistName}>Almir Sater</MPText>
+          </View>
+
+          <TouchableOpacity style={styles.playerHeart}>
+            <MPDetailHeartIcon />
+          </TouchableOpacity>
+
+          <MPButton title="INDICAR" style={styles.playerIndicate} textStyle={styles.playerIndicateText}/>
+          <MPTriangleUpGrayIcon style={styles.playerUp}/>
+        </TouchableOpacity>
+      </View>
+    );
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -368,32 +392,8 @@ class PlayerScreen extends React.Component {
         {this.renderMain()}
         {this.renderCommentContent()}
         {this.renderLyricsContent()}
-
-        <View style={styles.player}>
-          <Slider style={styles.playerSlider} thumbStyle={styles.playerThumb}
-                  minimumTrackTintColor='#e13223' maximumTrackTintColor='#808080'/>
-
-          <TouchableOpacity style={styles.playerContent}
-                            onPress={this.handleTogglePlayer.bind(this, true)}>
-            <TouchableOpacity style={styles.playerPlayIcon}>
-              <MPIconButton icon={MPDetailPlayIcon} iconSelected={MPDetailPauseIcon}/>
-            </TouchableOpacity>
-
-            <View style={styles.playerInfo}>
-              <MPText style={styles.playerSongName}>Tocando em frente</MPText>
-              <MPText style={styles.playerArtistName}>Almir Sater</MPText>
-            </View>
-
-            <TouchableOpacity style={styles.playerHeart}>
-              <MPDetailHeartIcon />
-            </TouchableOpacity>
-
-            <MPButton title="INDICAR" style={styles.playerIndicate} textStyle={styles.playerIndicateText}/>
-            <MPTriangleUpGrayIcon style={styles.playerUp}/>
-          </TouchableOpacity>
-        </View>
-
-        {this.renderPlayerModal()}
+        {this.renderDetailPlayer()}
+        {this.renderModalPlayer()}
       </View>
     );
   }
@@ -450,6 +450,12 @@ const styles = StyleSheet.create({
     fontFamily: 'montSerratBold',
     fontSize: 12,
     color: '#fff'
+  },
+  modalGradeText: {
+    marginLeft: 10,
+    fontFamily: 'montSerratBold',
+    fontSize: 12,
+    color: '#000'
   },
   timeTotalText: {
     paddingVertical: 10,
@@ -683,6 +689,64 @@ const styles = StyleSheet.create({
     width: '100%',
     position: 'absolute',
     bottom: 0
+  },
+  playerModalMusicText: {
+    fontFamily: 'montSerrat',
+    fontSize: 12,
+    color: '#000'
+  },
+  modalMusicTitleText: {
+    marginTop: 20,
+    marginBottom: 20,
+    color: '#000',
+    alignSelf: 'center'
+  },
+  modalStarContainer: {
+    marginTop: 40,
+    alignSelf: 'center'
+  },
+  modalCompositorText :{
+    color: '#393939',
+    alignSelf: 'center'
+  },
+  modalTagContainer: {
+    paddingHorizontal: 50,
+    alignSelf: 'center'
+  },
+  modalPlayerHeart: {
+    marginBottom: 20
+  },
+  modalTotalIndications: {
+    marginTop: 10,
+    color: '#686868'
+  },
+  modalTagContent: {
+    flexWrap: 'wrap',
+    justifyContent: 'center'
+  },
+  modalPlayerMusicTextContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingHorizontal: 9,
+    paddingTop: 11
+  },
+  modalPlayerButtons: {
+    borderWidth: 1,
+    borderColor: '#f4f4f4',
+    borderRadius: 22,
+    width: 44,
+    height: 44,
+    justifyContent: 'center',
+    alignSelf: 'center'
+  },
+  modalPlayerButton: {
+    borderWidth: 1,
+    borderColor: '#f4f4f4',
+    marginRight: 10,
+    borderRadius: 32,
+    width: 64,
+    height: 64,
+    justifyContent: 'center'
   }
 });
 

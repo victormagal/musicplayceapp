@@ -48,7 +48,7 @@ class MPIconButton extends Component {
     titleStyle = titleStyle || {};
 
     return (
-      <TouchableOpacity style={[style || {}, styles.container]} onPress={this.handlePress}>
+      <TouchableOpacity style={style || {}} onPress={this.handlePress}>
         {this.renderIcon()}
         {title && (
           <MPText style={[styles.text, titleStyle]}>
@@ -61,7 +61,7 @@ class MPIconButton extends Component {
 }
 
 MPIconButton.propTypes = {
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string,
   onPress: PropTypes.func,
   style: PropTypes.any,
   icon: PropTypes.any,
