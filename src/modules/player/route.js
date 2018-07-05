@@ -1,12 +1,13 @@
 import { createStackNavigator } from 'react-navigation';
 import {
-  PlayerScreen
+  PlayerScreen, PlayerSaveSongScreen
 } from './view';
 
 
 export const PlayerScreensNavigation = createStackNavigator(
   {
-    player: PlayerScreen
+    player: PlayerScreen,
+    playerSaveSong: PlayerSaveSongScreen
   },
   {
     headerMode: 'none',

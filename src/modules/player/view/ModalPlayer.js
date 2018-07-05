@@ -25,9 +25,9 @@ import {
 class ModalPlayer extends React.Component {
 
   renderCloseIcon(){
-    let {onClose} = this.props;
+    let {onCloseClick} = this.props;
     return (
-      <MPIconButton icon={MPAddGrayIcon} onPress={onClose}/>
+      <MPIconButton icon={MPAddGrayIcon} onPress={onCloseClick}/>
     );
   }
 
@@ -59,7 +59,7 @@ class ModalPlayer extends React.Component {
         <View style={styles.divider}/>
 
         <TouchableWithoutFeedback
-          onPress={() => this.props.onLyricsClick()}>
+          onPress={this.props.onLyricsClick}>
           <View style={[styles.seeLyricsContainer, styles.row]}>
             <View style={[styles.row, styles.alignCenter]}>
               <MPSongRedIcon />
@@ -124,7 +124,8 @@ class ModalPlayer extends React.Component {
             </View>
           </View>
 
-          <TouchableOpacity style={[styles.playerHeart, styles.modalPlayerHeart]}>
+          <TouchableOpacity style={[styles.playerHeart, styles.modalPlayerHeart]}
+                            onPress={this.props.onSongSaveClick}>
             <MPPlayerHeartIcon />
           </TouchableOpacity>
 
@@ -331,7 +332,8 @@ const styles = StyleSheet.create({
 
 ModalPlayer.propTypes = {
   onCloseClick: PropTypes.func.isRequired,
-  onLyricsClick: PropTypes.func.isRequired
+  onLyricsClick: PropTypes.func.isRequired,
+  onSongSaveClick: PropTypes.func.isRequired
 };
 
 export {ModalPlayer};

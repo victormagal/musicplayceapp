@@ -99,6 +99,11 @@ class PlayerScreen extends React.Component {
     this.setState({playerVisible: false, showLyrics: true, showComments: false, showPlayer: false});
   };
 
+  handleSaveSong = () => {
+    this.setState({playerVisible: false});
+    this.props.navigation.navigate('playerSaveSong');
+  };
+
   renderComment = () => {
     return (
       <MPPlayerComment />
@@ -106,7 +111,10 @@ class PlayerScreen extends React.Component {
   };
 
   renderModalPlayer = () => {
-    return <ModalPlayer visible={this.state.playerVisible} onCloseClick={this.handleTogglePlayer.bind(this, false)} onLyricsClick={this.handleEnableLyricsPlayer}/>;
+    return <ModalPlayer visible={this.state.playerVisible}
+                        onCloseClick={this.handleTogglePlayer.bind(this, false)}
+                        onLyricsClick={this.handleEnableLyricsPlayer}
+                        onSongSaveClick={this.handleSaveSong}/>;
   };
 
   renderLyricsContent() {
@@ -261,7 +269,8 @@ class PlayerScreen extends React.Component {
                                 titleStyle={styles.iconButtonText}/>
 
                   <MPIconButton title="SALVAR" icon={MPHeartIcon} style={styles.iconButtonContainer}
-                                iconStyle={styles.iconButton} titleStyle={styles.iconButtonText}/>
+                                iconStyle={styles.iconButton} titleStyle={styles.iconButtonText}
+                                onPress={this.handleSaveSong}/>
                 </View>
 
                 <View style={styles.totalIndicationsContainer}>
@@ -372,7 +381,7 @@ class PlayerScreen extends React.Component {
             <MPText style={styles.playerArtistName}>Almir Sater</MPText>
           </View>
 
-          <TouchableOpacity style={styles.playerHeart}>
+          <TouchableOpacity style={styles.playerHeart} onPress={this.handleSaveSong}>
             <MPDetailHeartIcon />
           </TouchableOpacity>
 

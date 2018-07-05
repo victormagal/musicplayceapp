@@ -52,7 +52,7 @@ class MPIconButton extends Component {
         {this.renderIcon()}
         {title && (
           <MPText style={[styles.text, titleStyle]}>
-            {title.toUpperCase()}
+            {title}
           </MPText>
         )}
       </TouchableOpacity>

@@ -166,14 +166,10 @@ class NotificationScreenContainer extends React.Component {
     ]
   };
 
-  handleBackClick = () => {
-    this.props.navigation.pop();
-  };
-
   render() {
     return (
       <View style={styles.container}>
-        <MPHeader back={true} onBack={this.handleBackClick} title={""}/>
+        <MPHeader />
         <MPTabBar firstTabTitle={'ALERTAS'} secondTabTitle={"MENSAGENS"}>
           <View style={styles.firstSliderContainer}>
             <FlatList
