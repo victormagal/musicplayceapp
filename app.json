@@ -1,5 +1,15 @@
 {
   "expo": {
-    "sdkVersion": "27.0.0"
+    "name": "Musicplayce",
+    "icon": "./app-icon.png",
+    "version": "1.0.0",
+    "slug": "musicplayce",
+    "sdkVersion": "27.0.0",
+    "ios": {
+      "bundleIdentifier": "br.com.musicplayce.app"
+    },
+    "android": {
+      "package": "br.com.musicplayce.app"
+    }
   }
 }

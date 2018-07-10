@@ -1,0 +1,87 @@
+MacBook-Pro-2:musicplayce-app marcelomarra$ exp build:android
+[22:57:14] Making sure project is set up correctly...
+|[22:57:17] Warning: Not using the Expo fork of react-native. See https://docs.expo.io/.
+[22:57:20] Your project looks good!
+[22:57:20] Checking if current build exists...
+
+[22:57:21] No currently active or previous builds for this project.
+[22:57:22] Unable to find an existing exp instance for this directory, starting a new one...
+[22:57:23] Warning: Not using the Expo fork of react-native. See https://docs.expo.io/.
+[22:57:27] Starting Metro Bundler on port 19001.
+[22:57:28] Metro Bundler ready.
+[22:57:30] Tunnel ready.
+[22:57:30] Publishing to channel 'default'...
+[22:57:31] Warning: Not using the Expo fork of react-native. See https://docs.expo.io/.
+[22:57:34] Building iOS bundle
+[22:58:02] Building Android bundle
+Building JavaScript bundle [====================================================================================================] 100%[22:58:02] Finished building JavaScript bundle in 28349ms.
+[22:58:27] Finished building JavaScript bundle in 25238ms.
+[22:58:27] Analyzing assets
+[22:58:35] Finished building JavaScript bundle in 7593ms.
+[22:58:42] Uploading assets
+Building JavaScript bundle [====================================================================================================] 100%[22:58:42] Finished building JavaScript bundle in 7131ms.
+[22:58:45] No assets changed, skipped.
+[22:58:45] Uploading JavaScript bundles
+[22:58:50] Published
+[22:58:50] Your URL is
+
+https://exp.host/@marcelo.marra/musicplayce
+
+[22:58:50] Building...
+[22:58:50] Must specify a java package in order to build this experience for Android. Please specify one in app.json at "expo.android.package"
+MacBook-Pro-2:musicplayce-app marcelomarra$ exp build:android
+[23:02:48] Making sure project is set up correctly...
+|[23:02:51] Warning: Not using the Expo fork of react-native. See https://docs.expo.io/.
+[23:02:54] Your project looks good!
+[23:02:54] Checking if current build exists...
+
+[23:02:55] No currently active or previous builds for this project.
+[23:02:56] Unable to find an existing exp instance for this directory, starting a new one...
+[23:02:56] Error: Problems validating asset fields in app.json. See https://docs.expo.io/
+[23:02:56]  • Field: icon - image should be square, but the file at './app-icon.png' has dimensions 516x600.
+[23:02:56] Warning: Not using the Expo fork of react-native. See https://docs.expo.io/.
+[23:03:01] Starting Metro Bundler on port 19001.
+[23:03:01] Metro Bundler ready.
+[23:03:04] Tunnel ready.
+[23:03:04] Publishing to channel 'default'...
+[23:03:04] Error: Problems validating asset fields in app.json. See https://docs.expo.io/
+[23:03:04]  • Field: icon - image should be square, but the file at './app-icon.png' has dimensions 516x600.
+[23:03:04] Warning: Not using the Expo fork of react-native. See https://docs.expo.io/.
+[23:03:07] Couldn't publish because errors were found. (See logs above.) Please fix the errors and try again.
+MacBook-Pro-2:musicplayce-app marcelomarra$ exp build:android
+[23:08:16] Making sure project is set up correctly...
+|[23:08:18] Warning: Not using the Expo fork of react-native. See https://docs.expo.io/.
+[23:08:22] Your project looks good!
+[23:08:22] Checking if current build exists...
+
+[23:08:22] No currently active or previous builds for this project.
+[23:08:24] Unable to find an existing exp instance for this directory, starting a new one...
+[23:08:25] Warning: Not using the Expo fork of react-native. See https://docs.expo.io/.
+[23:08:29] Starting Metro Bundler on port 19001.
+[23:08:29] Metro Bundler ready.
+[23:08:34] Tunnel ready.
+[23:08:34] Publishing to channel 'default'...
+[23:08:36] Warning: Not using the Expo fork of react-native. See https://docs.expo.io/.
+[23:08:39] Building iOS bundle
+[23:08:49] Building Android bundle
+Building JavaScript bundle [====================================================================================================] 100%[23:08:49] Finished building JavaScript bundle in 10520ms.
+[23:08:58] Analyzing assets
+Building JavaScript bundle [====================================================================================================] 100%[23:08:58] Finished building JavaScript bundle in 8890ms.
+[23:09:06] Finished building JavaScript bundle in 7529ms.
+[23:09:13] Finished building JavaScript bundle in 7331ms.
+[23:09:13] Uploading assets
+[23:09:16] Uploading /app-icon.png
+[23:09:19] Uploading JavaScript bundles
+[23:09:24] Published
+[23:09:24] Your URL is
+
+https://exp.host/@marcelo.marra/musicplayce
+
+[23:09:24] Building...
+[23:09:25] Build started, it may take a few minutes to complete.
+[23:09:25] You can monitor the build at
+
+ https://expo.io/builds/17e029ea-5d3f-457d-8706-21b2eee6f85f
+
+|[23:09:25] Waiting for build to complete. You can press Ctrl+C to exit.
+[23:19:35] Successfully built standalone app: https://exp-shell-app-assets.s3-us-west-1.amazonaws.com/android%2F%40marcelo.marra%2Fmusicplayce-a8af2096-83e7-11e8-8c29-0a580a780416-signed.apk
