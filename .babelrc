@@ -2,7 +2,15 @@
   "presets": ["react-native", "babel-preset-expo", "babel-preset-env", "stage-0", "es2016"],
   "env": {
     "development": {
-      "plugins": ["transform-react-jsx-source"]
+      "plugins": [
+        "transform-react-jsx-source",
+        ["import", { "libraryName": "antd-mobile" }]
+      ]
+    },
+    "production": {
+      "plugins": [
+        ["import", { "libraryName": "antd-mobile" }]
+      ]
     }
   }
 }
