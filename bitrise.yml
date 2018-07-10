@@ -1,0 +1,114 @@
+---
+format_version: '5'
+default_step_lib_source: https://github.com/bitrise-io/bitrise-steplib.git
+project_type: other
+trigger_map:
+- push_branch: "*"
+  workflow: primary
+- pull_request_source_branch: "*"
+  workflow: primary
+workflows:
+  primary:
+    steps:
+    - activate-ssh-key:
+        run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
+    - git-clone@4.0.11: {}
+    - cache-pull@2.0.1: {}
+    - yarn@0.0.7:
+        inputs:
+        - command: install
+        title: Yarn Install
+    - yarn@0.0.7:
+        inputs:
+        - command: global add exp
+        title: Install Exp
+    - cache-push@2.0.5:
+        inputs:
+        - compress_archive: 'true'
+        - cache_paths: node_modules
+    - script@1.1.5:
+        title: Build Android and iOS
+        inputs:
+        - content: |-
+            #!/usr/bin/env bash
+            # fail if any commands fails
+            set -e
+            # debug log
+            set -x
+            exp login -u $EXPO_USERNAME --password=$EXPO_PASSWORD
+            #exp build:android
+            #exp build:ios
+
+            export ANDROID_APK_URL=`exp build:status | grep 'APK' | cut -c17-2000`
+            export IOS_IPA_URL=`exp build:status | grep 'IPA' | cut -c17-2000`
+            envman add --key ANDROID_APK_URL --value ${ANDROID_APK_URL}
+            envman add --key IOS_IPA_URL --value ${IOS_IPA_URL}
+    - file-downloader@1.0.1:
+        inputs:
+        - destination: "$BITRISE_APK_PATH"
+        - source: "$ANDROID_APK_URL"
+        title: Download Expo Android APK
+    - file-downloader@1.0.1:
+        inputs:
+        - destination: "$BITRISE_IPA_PATH"
+        - source: "$IOS_IPA_URL"
+        title: Download Expo iOS IPA
+    - sign-apk@1.2.1: {}
+    - deploy-to-bitrise-io@1.3.12:
+        title: Deploy Android APK to Bitrise.io
+        inputs:
+        - deploy_path: "$BITRISE_SIGNED_APK_PATH"
+    - create-install-page-qr-code@1.0.0:
+        title: Create Android install page QR code
+    - slack:
+        inputs:
+        - webhook_url: "$SLACK_WEBHOOK_URL"
+        - channel: "$SLACK_CHANNEL"
+        - message: 'Android - Baixe o aplicativo aqui (v$BITRISE_BUILD_NUMBER): $BITRISE_PUBLIC_INSTALL_PAGE_URL
+            .'
+        - message_on_error: Android - Erro
+        - title_link: "$BITRISE_PUBLIC_INSTALL_PAGE_URL"
+        - fields: |-
+            Branch|${BITRISE_GIT_BRANCH}
+            Workflow|${BITRISE_TRIGGERED_WORKFLOW_ID}
+            Build Number|$BITRISE_BUILD_NUMBER
+            Autor|$GIT_CLONE_COMMIT_AUTHOR_NAME
+        - buttons: |-
+            View App|${BITRISE_APP_URL}
+            View Build|${BITRISE_BUILD_URL}
+            View Commit|https://gitlab.com/dev_squad/musicplayce-app/commit/$BITRISE_GIT_COMMIT
+            Install Page|${BITRISE_PUBLIC_INSTALL_PAGE_URL}
+        - image_url: "$BITRISE_PUBLIC_INSTALL_PAGE_QR_CODE_IMAGE_URL"
+    - deploy-to-bitrise-io@1.3.12:
+        title: Deploy IOS IPA to Bitrise.io
+        inputs:
+        - deploy_path: "$BITRISE_IPA_PATH"
+    - create-install-page-qr-code@1.0.0:
+        title: Create iOS install page QR code
+    - slack:
+        inputs:
+        - webhook_url: "$SLACK_WEBHOOK_URL"
+        - channel: "$SLACK_CHANNEL"
+        - message: 'iOS - Baixe o aplicativo aqui (v$BITRISE_BUILD_NUMBER): $BITRISE_PUBLIC_INSTALL_PAGE_URL
+            .'
+        - message_on_error: iOS - Erro
+        - title_link: "$BITRISE_PUBLIC_INSTALL_PAGE_URL"
+        - fields: |-
+            Branch|${BITRISE_GIT_BRANCH}
+            Workflow|${BITRISE_TRIGGERED_WORKFLOW_ID}
+            Build Number|$BITRISE_BUILD_NUMBER
+            Autor|$GIT_CLONE_COMMIT_AUTHOR_NAME
+        - buttons: |-
+            View App|${BITRISE_APP_URL}
+            View Build|${BITRISE_BUILD_URL}
+            View Commit|https://gitlab.com/dev_squad/musicplayce-app/commit/$BITRISE_GIT_COMMIT
+            Install Page|${BITRISE_PUBLIC_INSTALL_PAGE_URL}
+        - image_url: "$BITRISE_PUBLIC_INSTALL_PAGE_QR_CODE_IMAGE_URL"
+app:
+  envs:
+  - opts:
+      is_expand: false
+    BITRISE_APK_PATH: android.apk
+  - opts:
+      is_expand: false
+    BITRISE_IPA_PATH: iOS.ipa
