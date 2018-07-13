@@ -6,7 +6,7 @@ import {
 import {
   MPGradientButton,
   MPText
-} from '../../../components';
+} from '../../../../components';
 
 
 class ForgotPasswordSuccessComponent extends Component {

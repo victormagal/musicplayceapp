@@ -99,6 +99,10 @@ class PlayerComponent extends React.Component {
     this.setState({playerVisible: false, showLyrics: true, showComments: false, showPlayer: false});
   };
 
+  handleIndicateSong = () => {
+    this.props.navigation.navigate('IndicateSongFullScreen');
+  };
+
   handleSaveSong = () => {
     this.setState({playerVisible: false});
     this.props.navigation.navigate('playerSaveSong');
@@ -274,7 +278,7 @@ class PlayerComponent extends React.Component {
                 </View>
 
                 <View style={styles.totalIndicationsContainer}>
-                  <MPGradientButton title="INDICAR"/>
+                  <MPGradientButton title="INDICAR" onPress={this.handleIndicateSong}/>
                   <MPText style={styles.totalIndications}>200 indicações</MPText>
                 </View>
               </View>
@@ -385,7 +389,9 @@ class PlayerComponent extends React.Component {
             <MPDetailHeartIcon />
           </TouchableOpacity>
 
-          <MPButton title="INDICAR" style={styles.playerIndicate} textStyle={styles.playerIndicateText}/>
+          <MPButton title="INDICAR" style={styles.playerIndicate} textStyle={styles.playerIndicateText}
+                    onPress={this.handleIndicateSong}/>
+
           <MPTriangleUpGrayIcon style={styles.playerUp}/>
         </TouchableOpacity>
       </View>

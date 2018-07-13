@@ -127,7 +127,7 @@ function buildPath(path) {
   }
 
   if (strokeMiterlimit) {
-    svgPathString += ` strokeMiterlimit='${strokeMiterlimit}'`;
+    svgPathString += ` strokeMiterlimit={${strokeMiterlimit}}`;
   }
 
   if (strokeLinecap) {

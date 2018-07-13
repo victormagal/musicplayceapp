@@ -36,7 +36,7 @@ class ProfileComponent extends React.Component {
     this.scrollViewRef = React.createRef();
   }
 
-  goToScreen = (rota) =>{
+  goToScreen = (rota) => {
     this.props.navigation.navigate(rota)
   }
 
@@ -45,14 +45,14 @@ class ProfileComponent extends React.Component {
   };
 
   toggleFollow = () => {
-    this.props.profile.isFollowing == true ? (
-      this.props.navigation.navigate('message', { component: MPConfirmStopFollow})
-    ) : (
+    if(this.props.profile.isFollowing){
+      this.props.navigation.navigate('message', {component: MPConfirmStopFollow})
+    }else{
       this.props.dispatch(saveProfile({isFollowing: true}))
-    );
-  }
+    }
+  };
 
-  onEdit= () => {
+  onEdit = () => {
     this.props.navigation.navigate('message', {component: MPConfirmStopFollow})
   }
 
@@ -78,7 +78,7 @@ class ProfileComponent extends React.Component {
           <LinearGradient
             colors={["rgba(0, 0, 0, 0.2)", "#e13223"]}
             style={styles.gradient}>
-            <MPHeader transparent={true} title={""}/>
+            <MPHeader transparent={true}/>
             {
               profile.visiting ? (
                   <MPFollowButton isFollowing={profile.isFollowing} onPress={this.toggleFollow.bind(this)}/>
@@ -88,22 +88,19 @@ class ProfileComponent extends React.Component {
             }
             <View>
               <MPProfileInfo profile={profile} editDescription={this.goToScreen.bind(this, 'EditProfileDescription')}/>
-              <View style={{flexDirection: 'row', marginBottom: 20, marginHorizontal: 20}}>
-                <ProfileIndicatorCE style={{flex: 1}} title="Indicações Feitas" subtitle="Explore"
+
+              <View style={styles.profileIndicatorContainer}>
+                <ProfileIndicatorCE style={styles.flexOne} title="Indicações Feitas" subtitle="Explore"
                                     count={profile.indicationCount}/>
-                <ProfileIndicatorCE style={{flex: 1}} title="Seguidores" subtitle="Convide seus amigos"
+                <ProfileIndicatorCE style={styles.flexOne} title="Seguidores" subtitle="Convide seus amigos"
                                     count={profile.followerCount}/>
               </View>
-              {
-                profile.languages != '' ? (
-                    <MPShowLanguages languages={profile.languages}/>
-                  ) : null
-              }
-              {
-                profile.agencies != '' ? (
-                    <MPShowAgencies agencies={profile.agencies} isArtist={profile.isArtist}/>
-                  ) : null
-              }
+              {profile.languages !== '' && (
+                <MPShowLanguages languages={profile.languages}/>
+              )}
+              {profile.agencies !== '' && (
+                <MPShowAgencies agencies={profile.agencies} isArtist={profile.isArtist}/>
+              )}
               <TouchableOpacity style={{alignSelf: 'center', justifyContent: 'center', marginBottom: 20}}
                                 onPress={this.goToScreen.bind(this, 'EditProfileDescription')}>
                 <MPProfileArrowIcon />
@@ -112,18 +109,22 @@ class ProfileComponent extends React.Component {
           </LinearGradient>
         </View>
 
-        <MPTabBar firstTabTitle={'MINHAS MÚSICAS'} secondTabTitle={"MÚSICAS SALVAS"} >
+        <MPTabBar firstTabTitle={'MINHAS MÚSICAS'} secondTabTitle={"MÚSICAS SALVAS"}>
           <View>
             {
               profile.mySongsFolder != '' ? (
                   <View>
-                    <MPShowFolderSongs edit={!profile.visiting} folderName={profile.mySongsFolder[0].folderName} onEdit={this.goToScreen.bind(this, 'EditFolder')} excludeSong={this.excludeSong.bind(this)} unpublishSong={this.unpublishSong.bind(this)} />
+                    <MPShowFolderSongs edit={!profile.visiting} folderName={profile.mySongsFolder[0].folderName}
+                                       onEdit={this.goToScreen.bind(this, 'EditFolder')}
+                                       excludeSong={this.excludeSong.bind(this)}
+                                       unpublishSong={this.unpublishSong.bind(this)}/>
                     {
                       !profile.visiting ? (
-                        <View style={styles.whiteBackground}>
-                          <MPGradientButton title={'Cadastrar nova música'} textSize={16} onPress={ () => {} }/>
-                        </View>
-                      ) : null
+                          <View style={styles.whiteBackground}>
+                            <MPGradientButton title={'Cadastrar nova música'} textSize={16} onPress={ () => {
+                            } }/>
+                          </View>
+                        ) : null
                     }
                   </View>
                 ) : (
@@ -141,7 +142,7 @@ class ProfileComponent extends React.Component {
             <MPShowFollowers />
             {
               profile.visiting ? (
-                  <MPReportProfile onPress={ this.reportProfile.bind(this)} />
+                  <MPReportProfile onPress={ this.reportProfile.bind(this)}/>
                 ) : null
             }
           </View>
@@ -149,13 +150,17 @@ class ProfileComponent extends React.Component {
             {
               profile.savedSongsFolder != '' ? (
                   <View>
-                    <MPShowFolderSongs edit={!profile.visiting} folderName={profile.savedSongsFolder[0].folderName} onEdit={this.goToScreen.bind(this, 'EditFolder')}  excludeSong={this.excludeSong.bind(this)} unpublishSong={this.unpublishSong.bind(this)} />
+                    <MPShowFolderSongs edit={!profile.visiting} folderName={profile.savedSongsFolder[0].folderName}
+                                       onEdit={this.goToScreen.bind(this, 'EditFolder')}
+                                       excludeSong={this.excludeSong.bind(this)}
+                                       unpublishSong={this.unpublishSong.bind(this)}/>
                     {
                       !profile.visiting ? (
-                        <View style={styles.whiteBackground}>
-                          <MPGradientButton title={'Cadastrar nova música'} textSize={16} onPress={ () => {} }/>
-                        </View>
-                      ) : null
+                          <View style={styles.whiteBackground}>
+                            <MPGradientButton title={'Cadastrar nova música'} textSize={16} onPress={ () => {
+                            } }/>
+                          </View>
+                        ) : null
                     }
                   </View>
 
@@ -174,7 +179,7 @@ class ProfileComponent extends React.Component {
             <MPShowFollowers />
             {
               profile.visiting ? (
-                <MPReportProfile onPress={ this.reportProfile.bind(this)} />
+                  <MPReportProfile onPress={ this.reportProfile.bind(this)}/>
                 ) : null
             }
           </View>
@@ -193,6 +198,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  flexOne: {
+    flex: 1
+  },
   linearContainer: {
     backgroundColor: '#000',
   },
@@ -207,6 +215,11 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
     paddingHorizontal: 50,
     backgroundColor: '#FFF',
+  },
+  profileIndicatorContainer: {
+    flexDirection: 'row',
+    marginBottom: 20,
+    marginHorizontal: 20
   }
 });
 

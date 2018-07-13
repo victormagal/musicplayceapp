@@ -18,7 +18,7 @@ class MPAddChangePhotoComponent extends Component{
                     </View>
                 ) : (
                     <View style={ styles.noPhotoContainer }>
-                        <View style={ styles.noPhotoIcon }></View>
+                        <View style={ styles.noPhotoIcon }/>
                         <MPText style={ styles.photoButtonText }>Adicionar foto</MPText>
                     </View>
                 )

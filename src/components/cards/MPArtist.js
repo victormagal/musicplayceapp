@@ -1,17 +1,16 @@
 import React, {Component} from 'react';
-import {View, StyleSheet, Image} from 'react-native';
+import {View, StyleSheet, Image, TouchableOpacity} from 'react-native';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
 import {MPText} from '../general';
 import { MPLessArtistIcon, MPPlusArtistIcon, MPPlusArtistAvatarIcon} from '../../assets/svg';
 
-class MPArtistComponent extends Component {
+class MPArtist extends Component {
 
   render() {
     let {artist, imagePath, style, isFollowing} = this.props;
 
     return (
-      <View style={style || {}}>
+      <TouchableOpacity style={style || {}}>
         <View style={ styles.simpleArtistCardContainer }>
           <View>
             <View style={ styles.simpleArtistCardImage }>
@@ -35,12 +34,12 @@ class MPArtistComponent extends Component {
           </View>
           <MPText style={ styles.simpleArtistCardText }>{ artist }</MPText>
         </View>
-      </View>
+      </TouchableOpacity>
     );
   }
 }
 
-MPArtistComponent.propTypes = {
+MPArtist.propTypes = {
   artist: PropTypes.string.isRequired,
   imagePath: PropTypes.any.isRequired,
   onPress: PropTypes.func.isRequired,
@@ -88,9 +87,4 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = ({fontReducer}) => {
-  return {...fontReducer};
-};
-
-const MPArtist = connect(mapStateToProps)(MPArtistComponent);
 export {MPArtist};

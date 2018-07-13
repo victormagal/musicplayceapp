@@ -15,7 +15,6 @@ class PlayerContainer extends React.Component {
 
   componentWillReceiveProps(nextProps){
     if(nextProps.saveSong.update){
-
       let timer = setTimeout(() => {
         this.props.dispatch(playerSongSaveReceived());
         clearTimeout(timer);

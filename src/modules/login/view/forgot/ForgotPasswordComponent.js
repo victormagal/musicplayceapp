@@ -1,81 +1,65 @@
 import React, {Component} from 'react';
 import {
-  StyleSheet, 
-  View
+  StyleSheet, View
 } from 'react-native';
 import {
-  MPGradientButton,
-  MPText, 
-  MPTextField
-} from '../../../components';
-import { ForgotPasswordSuccessComponent } from './ForgotPasswordSuccessComponent';
+  MPGradientButton, MPText, MPInput, MPForm, MPFormButton
+} from '../../../../components';
 
 
 class ForgotPasswordComponent extends Component {
 
   state = {
-    error: false,
     form: {
       email: ''
     }
   };
 
-  inputErrorProps = {error: 'Campo inválido', errorColor: '#e13223'};
-
-  handleLoginAgain = () => {
-    this.props.navigation.pop();
-  };
-
-  handleChangeEmail = (value) => {
+  handleChangeEmail = ({name, value}) => {
     let newState = {...this.state};
     newState.form.email = value;
-    this.setState({...newState, error: false});
+    this.setState({...newState});
   };
 
   handleSubmit = () => {
-    if (!this.state.form.email) {
-      this.setState({error: true});
-    }else{
-      this.props.navigation.replace('message', {component: ForgotPasswordSuccessComponent})
-    }
-  };
-
-  handleRegister = () => {
-
+    this.props.onSubmit(this.state.form);
   };
 
   render() {
-    let inputTextProps = this.state.error ? this.inputErrorProps : {};
-
     return (
       <View style={styles.container}>
         <MPText style={styles.forgotTitle}>Esqueceu a senha?</MPText>
 
-        {!this.state.error && (
-          <MPText style={styles.forgotText}>Digite o email ou celular cadastrado para enviarmos um link de redefinição
+        {!this.props.error && (
+          <MPText style={styles.forgotText}>Digite o email cadastrado para enviarmos um link de redefinição
             de senha.
           </MPText>
         )}
 
-        {this.state.error && (
+        {this.props.error && (
           <MPText style={styles.forgotTextError}>Não encontramos sua conta. Confira se e email foi digitado
             corretamente.
           </MPText>
         )}
 
-        <MPTextField label="E-mail ou celular" textProps={inputTextProps} onChangeText={this.handleChangeEmail}/>
-        <MPGradientButton title="Enviar" textSize={16} style={styles.enviarText} onPress={this.handleSubmit}/>
+        <MPForm>
+          <MPInput label="E-mail" name="email" value={this.state.form.email}
+                   validators={['required', 'email']} onChangeText={this.handleChangeEmail}/>
+          <MPFormButton>
+            <MPGradientButton title="Enviar" textSize={16} style={styles.enviarText} onPress={this.handleSubmit}/>
+          </MPFormButton>
+        </MPForm>
 
-        {this.state.error && (
+        {this.props.error && (
           <View style={{flex: 2}}>
             <MPText style={styles.remember}>Não tem conta?</MPText>
-            <MPText style={styles.tryAgain} onPress={this.handleRegister}>Faça seu cadastro</MPText>
+            <MPText style={styles.tryAgain} onPress={this.props.onRegister}>Faça seu cadastro</MPText>
           </View>
         )}
 
         <View style={{flex: 1}}>
           <MPText style={styles.remember}>Lembrou?</MPText>
-          <MPText style={styles.tryAgain} onPress={this.handleLoginAgain}>Tente fazer seu login novamente</MPText>
+          <MPText style={styles.tryAgain} onPress={this.props.onLoginAgain}>Tente fazer seu login novamente</MPText>
         </View>
       </View>
     );

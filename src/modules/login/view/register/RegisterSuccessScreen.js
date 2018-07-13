@@ -1,19 +1,18 @@
 import React, { Component } from 'react';
 import {
-  StyleSheet, 
-  View
+  StyleSheet, View
 } from 'react-native';
 import {
   MPGradientButton, 
   MPHeader,
   MPText
-} from '../../../components';
+} from '../../../../components';
 
 
 class RegisterSuccessScreen extends Component {
 
   handleContinue = () => {
-
+    this.props.navigation.popToTop();
   };
 
   handleBack = () => {
@@ -21,13 +20,15 @@ class RegisterSuccessScreen extends Component {
   };
 
   render() {
+    let {email} =  this.props.navigation.state.params;
+
     return (
       <View style={styles.parent}>
         <MPHeader back={true} onBack={this.handleBack}/>
         <View style={styles.container}>
         <MPText style={styles.title}>
           Enviamos um e-mail com link de verificação para
-          <MPText style={styles.email}> email@email.com</MPText>
+          <MPText style={styles.email}> {email}</MPText>
         </MPText>
         <MPText style={styles.clique}>Clique lá para ativar sua conta</MPText>
         <MPGradientButton title="Continuar" textSize={16} style={styles.continueButton} onPress={this.handleContinue}/>

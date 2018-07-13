@@ -11,17 +11,17 @@ import { createBottomTabNavigator, createStackNavigator} from 'react-navigation'
 import { Font } from 'expo';
 import { 
   LoginScreensNavigation,
-  MessageNavigation, 
   ProfileScreensNavigation,
   SettingsNavigation,
   IndicateSongScreensNavigation,
   FeedScreensNavigation,
   NotificationScreensNavigation,
-  StartScreen
+  PlayerScreensNavigation,
+  StartScreen,
+  MessageScreen
 } from './src/modules';
 import { reducers } from './src/state/reducer';
 import { loadFont } from './src/state/action';
-import { ConfirmationScreen } from './src/modules/registerSongs';
 import { MPTabBottomComponent } from './src/components';
 import { MPTabConfigurationIcon, MPTabNotificationIcon, MPTabProfileIcon } from './src/assets/svg/custom';
 
@@ -63,7 +63,10 @@ const StartNavigation = createStackNavigator(
     start: StartScreen,
     login: LoginScreensNavigation,
     home: HomeTabBottomNavigation,
-    message: MessageNavigation,
+    message: MessageScreen,
+    profile: ProfileScreensNavigation,
+    indicateSong: IndicateSongScreensNavigation,
+    player: PlayerScreensNavigation
   },
   {
     initialRouteName: 'start',
@@ -84,7 +87,7 @@ export default class App extends React.Component {
       'montSerratItalic': require('./assets/fonts/Montserrat-Italic.ttf'),
       'probaProRegular': require('./assets/fonts/ProbaPro-Regular.otf'),
     }).then(() => {
-      store.dispatch(loadFont(true))
+      store.dispatch(loadFont(true));
     });
   }
 

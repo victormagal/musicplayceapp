@@ -108,7 +108,7 @@ class FeedScreenContainer extends React.Component {
   };
 
   handleNavigateArtistProfile = () => {
-
+    this.props.navigation.navigate('ArtistProfileScreen');
   };
 
   renderItemTopArtists = ({item}) => (

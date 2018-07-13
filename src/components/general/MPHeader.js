@@ -7,16 +7,14 @@ import {MPBackIcon, MPBackBlackIcon, MPLogoIcon, MPLogoBlackIcon} from '../../as
 class MPHeader extends React.Component {
 
   render() {
-    let { title, back, onBack, inverse, transparent, icons } = this.props;
+    let { title, back, onBack, inverse, transparent, icons, style } = this.props;
     let logo = inverse ? <MPLogoBlackIcon style={styles.logo} /> :
                          <MPLogoIcon style={styles.logo} />;
     let backIcon = inverse ? <MPBackBlackIcon style={styles.back} /> : <MPBackIcon style={styles.back}/>;
     let backgroundColor = inverse || transparent ? 'transparent' : 'black';
 
-
     return (
-      <View style={[styles.parent, {backgroundColor}]}>
-        <StatusBar barStyle={inverse ? "default" : "light-content" }/>
+      <View style={[styles.parent, {backgroundColor}, style || {}]}>
         <View style={styles.header}>
           {back && (
             <TouchableOpacity onPress={onBack}>
@@ -45,7 +43,8 @@ MPHeader.propTypes = {
   back: PropTypes.bool,
   transparent: PropTypes.bool,
   onBack: PropTypes.func,
-  icons: PropTypes.any
+  icons: PropTypes.any,
+  style: PropTypes.any
 };
 
 const styles = StyleSheet.create({

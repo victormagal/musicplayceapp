@@ -6,6 +6,7 @@ import {
   View 
 } from 'react-native';
 import PropTypes from 'prop-types';
+import {MPText} from './MPText';
 
 class MPLoading extends React.Component {
 
@@ -13,7 +14,10 @@ class MPLoading extends React.Component {
     return (
       <Modal animationType="none" transparent={true} visible={this.props.visible} onRequestClose={()=> {}}>
         <View style={styles.container}>
-          <ActivityIndicator size="large" color="#BB1A1A" />
+          <View style={styles.content}>
+            <ActivityIndicator size="large" color="#BB1A1A" />
+            <MPText style={styles.text}>Aguarde...</MPText>
+          </View>
         </View>
       </Modal>
     );
@@ -32,8 +36,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: '#00000077'
   },
+  content: {
+    alignSelf: 'center'
+  },
   text: {
-    color: '#000000'
+    fontFamily: 'probaProRegular',
+    fontSize: 18,
+    color: '#fff'
   }
 });
 

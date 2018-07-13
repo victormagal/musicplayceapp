@@ -7,9 +7,11 @@ import { applyFont } from './applyFont';
 class MPTextComponent extends Component {
 
   render() {
+    let text = this.props.children;
+
     return (
       <Text {...this.props}>
-        {this.props.children}
+        {text}
       </Text>
     );
   }

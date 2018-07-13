@@ -1,56 +1,58 @@
 import React from 'react';
-import {StyleSheet, ScrollView, Text, View, TextInput, FlatList} from 'react-native';
-import { MPHeader, MPTextField, MPFooter, MPArtist, MPSong, MPGradientButton } from '../../../components'
-import { connect } from 'react-redux';
+import {StyleSheet, ScrollView, View, TextInput, FlatList} from 'react-native';
+import {MPHeader, MPTextField, MPFooter, MPArtist, MPSong, MPGradientButton, MPText} from '../../../components'
 import images from '../../../assets/img';
 
-class IndicateSongFullScreenContainer extends React.Component {
-    constructor(props){
-        super(props);
-        this.state = {
-          textValue: '',
-          songHeader: true,
-          notFoundArtist: false,
-        }
+class IndicateSongFullScreen extends React.Component {
 
-        this.artistList = {
-            data: [
-                {
-                    id: '00',
-                    title: 'David Burn',
-                    imagePath: images.daftPunk100
-                },
-                {
-                    id: '01',
-                    title: 'Bjork',
-                    imagePath: images.bjork100
-                },
-                {
-                    id: '02',
-                    title: 'Daft Punk',
-                    imagePath: images.daftPunk100
-                },
+  state = {
+    textValue: '',
+    songHeader: true,
+    notFoundArtist: false,
+  };
 
-                {
-                    id: '02',
-                    title: 'Sergio Reis',
-                    imagePath: images.bjork100
-                },
+  constructor(props) {
+    super(props);
 
-                {
-                    id: '02',
-                    title: 'Munhoz & Mariano',
-                    imagePath: images.daftPunk100
-                },
+    this.artistList = {
+      data: [
+        {
+          id: '00',
+          title: 'David Burn',
+          imagePath: images.daftPunk100
+        },
+        {
+          id: '01',
+          title: 'Bjork',
+          imagePath: images.bjork100
+        },
+        {
+          id: '02',
+          title: 'Daft Punk',
+          imagePath: images.daftPunk100
+        },
 
-                {
-                    id: '02',
-                    title: 'Samuel Rosa',
-                    imagePath: images.bjork100
-                },
-            ]
-        }
+        {
+          id: '02',
+          title: 'Sergio Reis',
+          imagePath: images.bjork100
+        },
+
+        {
+          id: '02',
+          title: 'Munhoz & Mariano',
+          imagePath: images.daftPunk100
+        },
+
+        {
+          id: '02',
+          title: 'Samuel Rosa',
+          imagePath: images.bjork100
+        },
+      ]
     }
+  }
+
   handleBackClick = () => {
     this.props.navigation.pop();
   };
@@ -58,9 +60,10 @@ class IndicateSongFullScreenContainer extends React.Component {
   goToScreen = (route) => {
     this.props.navigation.navigate(route);
   }
-  
+
   renderItem = ({item}) => (
-    <MPArtist artist={item.title} imagePath={item.imagePath} onPress={this.goToScreen.bind(this, 'IndicateSongFeedbackScreen')} style={{marginBottom: 10,}} />
+    <MPArtist artist={item.title} imagePath={item.imagePath}
+              onPress={this.goToScreen.bind(this, 'IndicateSongFeedbackScreen')} style={{marginBottom: 10,}}/>
   )
 
   toggleState = (att) => {
@@ -69,58 +72,50 @@ class IndicateSongFullScreenContainer extends React.Component {
 
   checkArtistName = (value) => {
     this.setState({textValue: value});
-    if(value == 'Madonna'){
+    if (value == 'Madonna') {
       this.setState({notFoundArtist: true});
-    }else{
+    } else {
       this.setState({notFoundArtist: false});
     }
   }
-  
+
   render() {
     return (
       <View style={styles.container}>
-        <MPHeader back={true} onBack={this.handleBackClick} title={""} />
+        <MPHeader back={true} onBack={this.handleBackClick}/>
         <ScrollView>
-        {
-          this.props.fontLoaded ? (
-            <View>
-              { this.state.songHeader ? (
                 <View>
-                  <Text style={ styles.headerText}>Com quem <Text style={ styles.headerTextCustom }>combina</Text> ?</Text>
-                  <MPSong />
-                  <Text style={ styles.detailsText}>Sabe aquela história de que todo artista tem de ir aonde o povo está? Vamos mostrar sua criação para o mundo. Aproveite para convocar seus seguidores ou você mesmo pode achar uma banda perfeita para esse hit.</Text>
-                </View>
-              ) : null
-              }
-              <MPTextField label={'Encontre um artista'}
-                 value={this.state.textValue}
-                 style={{marginHorizontal: 20}}
-                 onFocus={this.toggleState.bind(this, 'songHeader')}
-                 onBlur={this.toggleState.bind(this, 'songHeader')}
-                 onChangeText={ this.checkArtistName }/>
-              {
-                this.state.notFoundArtist ? (
+                  { this.state.songHeader && (
+                      <View>
+                        <MPText style={ styles.headerText}>Com quem <MPText style={ styles.headerTextCustom }>combina</MPText>?</MPText>
+                        <MPSong />
+                        <MPText style={ styles.detailsText}>Sabe aquela história de que todo artista tem de ir aonde o povo está? Vamos mostrar sua criação para o mundo. Aproveite para convocar seus seguidores ou você mesmo pode achar uma banda perfeita para esse hit.</MPText>
+                      </View>
+                  )}
+                  <MPTextField label={'Encontre um artista'}
+                               value={this.state.textValue}
+                               style={{marginHorizontal: 20}}
+                               onFocus={this.toggleState.bind(this, 'songHeader')}
+                               onBlur={this.toggleState.bind(this, 'songHeader')}
+                               onChangeText={ this.checkArtistName }/>
+                  {this.state.notFoundArtist && (
+                        <View>
+                          <MPText style={ styles.textFieldSubText}><MPText style={ styles.textFieldSubTextEmph}>"Madonna"</MPText>ainda não está no MusicPlayce.</MPText>
+                          <View style={styles.infoTextContainer}>
+                            <MPText style={styles.infoText}>Quando <MPText style={styles.infoTextEmph}>Madonna</MPText>fizer o cadastro, vamos mostrar sua indicação!</MPText>
+                            <MPGradientButton title={'Indicar'} textSize={16} style={{marginHorizontal: 113, marginTop: 10}} onPress={()=> {}} />
+                          </View>
+                        </View>
+                  )}
                   <View>
-                    <Text style={ styles.textFieldSubText}><Text style={ styles.textFieldSubTextEmph}>"Madonna"</Text> ainda não está no MusicPlayce.</Text>
-                    <View style={styles.infoTextContainer}>
-                      <Text style={styles.infoText}>Quando <Text style={styles.infoTextEmph}>Madonna</Text> fizer o cadastro, vamos mostrar sua indicação!</Text>
-                      <MPGradientButton title={'Indicar'} textSize={16} style={{marginHorizontal: 113, marginTop: 10}} onPress={()=> {}} />
-                    </View>
+                    <FlatList data = {this.artistList.data}
+                              keyExtractor={(item,index) => item.id}
+                              renderItem={this.renderItem}
+                              numColumns={3}
+                              columnWrapperStyle={{marginTop: 20,flexWrap: 'wrap', justifyContent: 'center'}}/>
                   </View>
-                ) : null
-              }
-              <View>
-                  <FlatList data = {this.artistList.data}
-                      keyExtractor={(item,index) => item.id} 
-                      renderItem={this.renderItem}
-                      numColumns={3}
-                      columnWrapperStyle={{marginTop: 20,flexWrap: 'wrap', justifyContent: 'center'}}/>
-              </View>
-            </View>
-          ) : null
-        }
+                </View>
         </ScrollView>
-        <MPFooter />
       </View>
     );
   }
@@ -131,7 +126,6 @@ const styles = StyleSheet.create({
     display: 'flex',
     flex: 1,
     backgroundColor: '#FCFCFC',
-    justifyContent: 'flex-end'
   },
   scroll: {
     flex: 2,
@@ -144,15 +138,15 @@ const styles = StyleSheet.create({
     marginTop: 30
   },
   headerTextCustom: {
-      fontFamily: 'montSerratBold',
-      color: '#e13223',
+    fontFamily: 'montSerratBold',
+    color: '#e13223',
   },
   detailsText: {
-      fontSize: 16,
-      color: "#686868",
-      marginHorizontal: 20,
-      fontFamily: 'montSerrat',
-      flexWrap: 'wrap',
+    fontSize: 16,
+    color: "#686868",
+    marginHorizontal: 20,
+    fontFamily: 'montSerrat',
+    flexWrap: 'wrap',
   },
   textFieldSubText: {
     fontSize: 12,
@@ -171,7 +165,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   infoText: {
-    fontSize: 20, 
+    fontSize: 20,
     fontFamily: 'montSerrat',
     color: '#000',
     textAlign: 'center',
@@ -181,9 +175,4 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = ({ fontReducer }) => {
-  return { ...fontReducer };
-};
-
-const IndicateSongFullScreen = connect(mapStateToProps)(IndicateSongFullScreenContainer);
 export {IndicateSongFullScreen};

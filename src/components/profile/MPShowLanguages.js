@@ -12,11 +12,7 @@ class MPShowLanguagesComponent extends Component{
         return (
             <View style={ styles.parent }>
                 <MPText style={ styles.placeHolderText}>Músicas em</MPText>
-                {
-                    languages.map( i => {
-                        return (<MPText style={styles.languageText}>{i}</MPText>)
-                    })
-                }
+                {languages.map(i => <MPText style={styles.languageText}>{i}</MPText>)}
             </View>
         )
     }

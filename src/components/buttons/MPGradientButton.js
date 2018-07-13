@@ -72,7 +72,7 @@ class MPGradientButtonComponent extends Component {
 
 MPGradientButtonComponent.propTypes = {
   title: PropTypes.string.isRequired,
-  onPress: PropTypes.func.isRequired,
+  onPress: PropTypes.func,
   textSize: PropTypes.number,
   style: PropTypes.any,
   selected: PropTypes.bool,

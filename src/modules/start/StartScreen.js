@@ -8,15 +8,15 @@ import { LinearGradient } from 'expo';
 class StartScreen extends Component {
 
   state = {
-    logged: true
+    logged: false
   };
 
   componentDidMount(){
     let timeOut = setTimeout(() => {
       if(this.state.logged){
-        this.props.navigation.navigate('home');
+        this.props.navigation.replace('home');
       }else{
-        this.props.navigation.navigate('login');
+        this.props.navigation.replace('login');
       }
       clearTimeout(timeOut);
     }, 800);
