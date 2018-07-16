@@ -53,16 +53,12 @@ class ArtistProfileScreenContainer extends React.Component {
     };
   }
 
-  componentDidMount() {
-    let {dispatch} = this.props;
-    dispatch(fetchProfile());
-  }
-
   render() {
     let newProps = {...this.props};
-    newProps.profile = this.state.profile;
+    delete newProps.profile;
+
     return (
-      <ProfileComponent {...newProps} />
+      <ProfileComponent {...newProps} profile={this.state.profile}/>
     );
   }
 }

@@ -36,6 +36,9 @@ class MPGradientButtonComponent extends Component {
     let newTextStyle = {...textStyle};
     newTextStyle.fontSize = textSize ? textSize : 12;
     newTextStyle.color = selected ? '#FFFFFF' : '#E13223';
+    if (this.props.icon){
+      newTextStyle.paddingLeft = 10;
+    }
 
     return StyleSheet.create({textStyle: newTextStyle}).textStyle;
   }
@@ -102,7 +105,7 @@ const styles = StyleSheet.create({
   },
   icon: {
     position: 'absolute',
-    left: 6
+    left: 4
   }
 });
 

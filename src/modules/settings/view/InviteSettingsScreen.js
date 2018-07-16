@@ -51,7 +51,11 @@ class InviteSettingsScreen extends React.Component {
   };
 
   handleBack = () => {
-    this.props.navigation.pop();
+    if(this.props.navigation.state && this.props.navigation.state.params && this.props.navigation.state.params.profile){
+      this.props.navigation.dangerouslyGetParent().goBack();
+    }else{
+      this.props.navigation.pop();
+    }
   };
 
   render() {

@@ -1,5 +1,6 @@
 import 'babel-polyfill';
 import React from 'react';
+import { NetInfo } from 'react-native';
 import fetch from 'cross-fetch';
 import { 
   applyMiddleware, 
@@ -12,16 +13,15 @@ import { Font } from 'expo';
 import { 
   LoginScreensNavigation,
   ProfileScreensNavigation,
-  SettingsNavigation,
   IndicateSongScreensNavigation,
   FeedScreensNavigation,
   NotificationScreensNavigation,
-  PlayerScreensNavigation,
+  SongsScreensNavigation,
   StartScreen,
   MessageScreen
 } from './src/modules';
 import { reducers } from './src/state/reducer';
-import { loadFont } from './src/state/action';
+import { loadFont, updateNetwork } from './src/state/action';
 import { MPTabBottomComponent } from './src/components';
 import { MPTabConfigurationIcon, MPTabNotificationIcon, MPTabProfileIcon } from './src/assets/svg/custom';
 
@@ -48,7 +48,7 @@ const HomeTabBottomNavigation = createBottomTabNavigator({
     }
   },
   profile: {
-    screen: SettingsNavigation,
+    screen: ProfileScreensNavigation,
     navigationOptions: {
       tabBarIcon: MPTabProfileIcon
     }
@@ -64,9 +64,8 @@ const StartNavigation = createStackNavigator(
     login: LoginScreensNavigation,
     home: HomeTabBottomNavigation,
     message: MessageScreen,
-    profile: ProfileScreensNavigation,
     indicateSong: IndicateSongScreensNavigation,
-    player: PlayerScreensNavigation
+    registerSong: SongsScreensNavigation
   },
   {
     initialRouteName: 'start',
@@ -90,6 +89,18 @@ export default class App extends React.Component {
       store.dispatch(loadFont(true));
     });
   }
+
+  componentDidMount(){
+    NetInfo.isConnected.addEventListener('connectionChange', this.handleConnectionChange);
+  }
+
+  componentWillUnmount(){
+    NetInfo.isConnected.removeEventListener('connectionChange', this.handleConnectionChange);
+  }
+
+  handleConnectionChange = (isConnected) => {
+    store.dispatch(updateNetwork(isConnected));
+  };
 
   render() {
     return (

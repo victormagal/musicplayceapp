@@ -9,14 +9,7 @@ const profileReducer = (state, action) => {
       createUserSuccess: false,
       createUserError: false,
       loading: false,
-      profile: {
-        name: '',
-        lastName: '',
-        username: '',
-        email: '',
-        phone: '',
-        location: '',
-      }
+      profile: null
     };
 
   state.saveProfileSuccess = null;
@@ -27,7 +20,7 @@ const profileReducer = (state, action) => {
     case FETCHED_PROFILE:
       return {
         ...state,
-        profile: {...action.payload}
+        profile: action.payload.profile
       };
     case PROFILE_START_LOADING:
       return {

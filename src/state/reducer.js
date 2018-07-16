@@ -1,7 +1,7 @@
 import {combineReducers} from 'redux';
 import languageReducer from './language/languageReducer';
 import profileReducer from './profile/profileReducer';
-import fontReducer from './font/fontReducer';
+import generalReducer from './general/generalReducer';
 import songsReducer from './songs/songsReducer';
 import playerReducer from './player/playerReducer';
 import authReducer from './auth/authReducer';
@@ -9,7 +9,8 @@ import authReducer from './auth/authReducer';
 export const reducers = combineReducers({
   languageReducer,
   profileReducer,
-  fontReducer,
+  generalReducer,
+  fontReducer: generalReducer,
   songsReducer,
   playerReducer,
   authReducer

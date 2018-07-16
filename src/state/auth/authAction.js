@@ -22,11 +22,9 @@ export const login = (user) => {
   return (dispatch) => {
     dispatch(authStartLoading());
     return AuthService.login(user).then(response => {
-      console.log(response);
       dispatch(loginSuccess(response));
       return response;
     }).catch(e => {
-      console.log(e);
       dispatch(loginError());
     });
   };

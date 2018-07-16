@@ -14,7 +14,7 @@ class ProfileIndicatorCE extends Component {
           {title}
         </MPText>
         <View style={styles.top}/>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={this.props.onEmptyClick}>
           <MPText style={styles.subtitle}>
             {subtitle}
           </MPText>
@@ -54,7 +54,8 @@ class ProfileIndicatorCE extends Component {
 ProfileIndicatorCE.propTypes = {
   style: PropTypes.any,
   title: PropTypes.string.isRequired,
-  subtitle: PropTypes.string.isRequired
+  subtitle: PropTypes.string.isRequired,
+  onEmptyClick : PropTypes.func
 };
 
 const styles = StyleSheet.create({

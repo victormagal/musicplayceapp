@@ -93,11 +93,15 @@ class InitialSettingsScreenContainer extends React.Component {
 			}
 		]
 	};
+
+  handleBack = () => {
+    this.props.navigation.pop();
+  };
 	
 	render() {
 		return (
 			<View style={styles.parent}>
-				<MPHeader title={"Configure o MusicPlayce do seu jeitinho"}/>
+				<MPHeader back={true} onBack={this.handleBack} title="Configure o MusicPlayce do seu jeitinho"/>
 				<ScrollView style={styles.scroll}>
 					<View style={styles.container}>
 						<FlatList

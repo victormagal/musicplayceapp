@@ -13,7 +13,7 @@ export const profileStartLoading = createAction(PROFILE_START_LOADING, () => nul
 export const profileFinishLoading = createAction(PROFILE_FINISH_LOADING, () => null);
 
 export const fetchedProfile = createAction(FETCHED_PROFILE, (data) => {
-  return {...data};
+  return {profile: data};
 });
 
 export const saveProfileSucessfully = createAction(SAVE_PROFILE_SUCCESS, (data) => {
@@ -39,18 +39,11 @@ export const fetchProfile = () => {
     return (dispatch, getState) => {
         dispatch(profileStartLoading());
         if(shouldFetchProfile(getState())) {
-            return Promise.resolve().then(() => {
-                dispatch(fetchedProfile({
-                    name: 'Jhonatas Martins',
-                    lastName: 'Santos',
-                    username: 'jhonatasmartins',
-                    email: 'jhonatasmartins@hotmail.com',
-                    phone: '61999999999'
-                }));
-                dispatch(profileFinishLoading());
-            });
+            return AuthService.me()
+                              .then(response => dispatch(fetchedProfile((response))));
         }
 
+        dispatch(profileFinishLoading());
         return Promise.resolve();
     };
 };
@@ -68,5 +61,5 @@ export const saveProfile = (data, page) => {
 };
 
 const shouldFetchProfile = (state) => {
-  return !state.profileReducer.profile.name;
+  return (!state.profileReducer.profile || !state.profileReducer.profile.name);
 };

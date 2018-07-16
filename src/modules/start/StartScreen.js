@@ -1,25 +1,21 @@
-import React, { Component } from 'react';
-import { StyleSheet, View } from 'react-native';
-import { MPText } from '../../components';
-import { MPLogoRegisterIcon } from '../../assets/svg';
-import { LinearGradient } from 'expo';
+import React, {Component} from 'react';
+import {StyleSheet, View} from 'react-native';
+import {MPText} from '../../components';
+import {MPLogoRegisterIcon} from '../../assets/svg';
+import {LinearGradient} from 'expo';
+import {StorageService} from '../../service';
 
 
 class StartScreen extends Component {
 
-  state = {
-    logged: false
-  };
-
-  componentDidMount(){
-    let timeOut = setTimeout(() => {
-      if(this.state.logged){
+  componentDidMount() {
+    StorageService.getToken().then(token => {
+      if (token) {
         this.props.navigation.replace('home');
-      }else{
+      } else {
         this.props.navigation.replace('login');
       }
-      clearTimeout(timeOut);
-    }, 800);
+    });
   }
 
   render() {

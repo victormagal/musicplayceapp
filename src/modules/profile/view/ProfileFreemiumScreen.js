@@ -18,7 +18,6 @@ class ProfileFreemiumScreenContainer extends React.Component {
                 agencies: '',
                 location: 'Itamaraju/BA',
                 description: 'Cantor, compositor e filósofo de ponto de ônibus. Compositor de Hits. Ganhou em 2015 o prêmio Som Livre de autor do ano. Os sonhos moram em casas com mais janelas do que paredes.',
-                visiting: false,
                 hasPhoto: true,
                 isFollowing: false,
                 indicationCount: 43,

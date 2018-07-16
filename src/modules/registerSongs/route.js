@@ -19,8 +19,7 @@ import { AddArtistByEmailScreen,
 export const SongsScreensNavigation = createStackNavigator(
   {
     UploadMediaEmptyScreen: {
-      // screen: TermsConfigurationScreen,
-      screen: UploadMediaFilledScreen,
+      screen: UploadMediaEmptyScreen,
       navigationOptions: {
         header: null
       }
