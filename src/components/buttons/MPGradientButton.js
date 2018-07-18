@@ -28,7 +28,7 @@ class MPGradientButtonComponent extends Component {
     let { selected, textSize} = this.props;
 
     if(newProps.textSize != textSize || newProps.selected != selected){
-      this.setState({textStyleRef: this.setupText(textSize, selected)});
+      this.setState({textStyleRef: this.setupText(newProps.textSize, newProps.selected)});
     }
   }
 
@@ -63,10 +63,10 @@ class MPGradientButtonComponent extends Component {
           end={[1.0, 0]}
           style={[styles.linear, borderStyle]}
           selected={true}>
-          {icon && <Icon style={styles.icon}/>}
           <MPText style={this.state.textStyleRef}>
             {title}
           </MPText>
+          {icon && <Icon style={styles.icon}/>}
         </LinearGradient>
       </TouchableOpacity>
     );
@@ -91,12 +91,11 @@ const textStyle = {
 
 const styles = StyleSheet.create({
   container: {
-    height: 40,
+    height: 40
   },
   linear: {
     paddingVertical: 5,
     paddingHorizontal: 15,
-    width: '100%',
     height: '100%',
     flexDirection: 'row',
     alignItems: 'center',

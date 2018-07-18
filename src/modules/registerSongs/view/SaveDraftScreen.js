@@ -1,7 +1,7 @@
 import React from 'react';
-import {ScrollView, StyleSheet, Text, View, TextInput} from 'react-native';
-import {MPGradientButton, MPHeader, MPFooter, MPText} from '../../../components';
 import {connect} from 'react-redux';
+import {StyleSheet, View, TextInput} from 'react-native';
+import {MPGradientButton, MPHeader, MPText} from '../../../components';
 
 class SaveDraftScreenContainer extends React.Component {
 
@@ -12,17 +12,12 @@ class SaveDraftScreenContainer extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <MPHeader back={false} onBack={this.handleBackClick} title={""}/>
-        <ScrollView style={styles.scroll}>
-          <View>
-            <Text style={styles.textTop}>Deseja salvar como rascunho?</Text>
-          </View>
-          <MPGradientButton textSize={16} title="Salvar rascunho" onPress={ () => {
-          } } style={[styles.buttonStyle, {marginBottom: 20}]}/>
-          <MPGradientButton textSize={16} title="Apagar música" onPress={ () => {
-          } } style={styles.buttonStyle}/>
-        </ScrollView>
-        <MPFooter />
+        <MPHeader />
+        <View style={styles.content}>
+          <MPText style={styles.textTop}>Deseja salvar como rascunho?</MPText>
+          <MPGradientButton style={styles.button} textSize={16} title="Salvar rascunho" />
+          <MPGradientButton style={styles.button} textSize={16} title="Apagar música" />
+        </View>
       </View>
     );
   }
@@ -33,21 +28,21 @@ const styles = StyleSheet.create({
     display: 'flex',
     flex: 1,
     backgroundColor: '#FCFCFC',
-    justifyContent: 'flex-end'
   },
-  scroll: {
-    flex: 2
+  content: {
+    flex: 2,
+    paddingTop: 30,
   },
   textTop: {
     fontSize: 20,
     color: '#000000',
-    marginBottom: 20,
-    fontFamily: 'montSerratSemiBold',
-    marginHorizontal: 20
+    fontFamily: 'montSerrat',
+    alignSelf: 'center'
   },
-  buttonStyle: {
-    paddingStart: 99,
-    paddingEnd: 99
+  button: {
+    width: 200,
+    marginTop: 20,
+    alignSelf: 'center'
   }
 });
 

@@ -1,4 +1,5 @@
-import {API} from './api';
+import {API, getIncludes} from './api';
+import {AuthService} from './AuthService';
 import axios from 'axios';
 
 
@@ -19,6 +20,18 @@ class UserService {
       .then(response => response.data);
   }
 
+  //TODO: refactor
+  static me() {
+    return AuthService.me()
+      .then(({data}) => {
+        let relations = getIncludes(data);
+        let {userProfile} = relations;
+        userProfile = {...data.attributes, ...userProfile[0]};
+        userProfile.songSaves = relations.songSaves;
+        userProfile.userFollowing = relations.userFollowing;
+        return userProfile;
+      });
+  }
 }
 
 export {UserService};

@@ -1,41 +1,53 @@
 import React from 'react';
-import {StyleSheet, Text, View, TextInput, Picker, ScrollView} from 'react-native';
+import {StyleSheet, View, ScrollView} from 'react-native';
 import {connect} from 'react-redux';
 import {updateSongRegisterData} from '../../../state/action';
-import {MPHeader, MPFooter, MPTextField, MPSelect, MPText} from '../../../components';
+import {MPHeader, MPSelect, MPText, MPIconButton, MPInput} from '../../../components';
 
 class MusicLetterScreenContainer extends React.Component {
+
   constructor(props) {
     super(props);
-    this.state = {text: '', language: 'default'};
-
+    this.state = {
+      letter: (props.song && props.song.letter) || '',
+      language: 'default'
+    };
   }
 
-  handleChangeLetter = (value) => {
-    let song = {...this.props.song, letter: value};
-    this.props.dispatch(updateSongRegisterData(song));
+  handleChangeLetter = ({value}) => {
+    this.setState({letter: value});
   };
 
   handleBackClick = () => {
     this.props.navigation.pop();
   };
 
+  handleSaveClick = () => {
+    let song = {...this.props.song, letter: this.state.letter};
+    this.props.dispatch(updateSongRegisterData(song));
+    this.handleBackClick();
+  };
+
+  renderHeaderMenuSave() {
+    return [
+      <MPIconButton title="Salvar" titleStyle={styles.headerMenuText} onPress={this.handleSaveClick}/>
+    ];
+  }
+
   render() {
     return (
       <View style={styles.container}>
-        <MPHeader back={true} onBack={this.handleBackClick} title={"Letra da música"}/>
-        <ScrollView style={styles.scroll}>
-          <View>
-            <MPText style={styles.textTop}>Pode colar a letra da música aqui:</MPText>
-            <MPTextField label={"Letra da música:"} value={""}/>
-            <View style={styles.clickableTextContainer}>
-              <MPText style={{fontFamily: 'montSerrat'}}>ou </MPText>
-              <MPText style={styles.clickableText}>faça upload da letra(doc, tx ou rtf)</MPText>
-            </View>
-            <MPSelect style={{marginTop: 30}}/>
+        <MPHeader back={true} onBack={this.handleBackClick} title="Letra da música"
+                  icons={this.renderHeaderMenuSave()}/>
+        <View style={styles.content}>
+          <MPText style={styles.textTop}>Pode colar a letra da música aqui:</MPText>
+          <MPInput label="Letra da música:" value={this.state.letter} onChangeText={this.handleChangeLetter}/>
+          <View style={styles.clickableTextContainer}>
+            <MPText style={{fontFamily: 'montSerrat'}}>ou </MPText>
+            <MPText style={styles.clickableText}>faça upload da letra(doc, tx ou rtf)</MPText>
           </View>
-        </ScrollView>
-        <MPFooter/>
+          <MPSelect style={styles.idioma} label="Idioma" />
+        </View>
       </View>
     );
   }
@@ -46,21 +58,19 @@ const styles = StyleSheet.create({
     display: 'flex',
     flex: 1,
     backgroundColor: '#FCFCFC',
-    justifyContent: 'flex-end'
   },
-  scroll: {
-    flex: 2
+  content: {
+    marginTop: 30,
+    marginHorizontal: 40
   },
   textTop: {
     fontSize: 16,
     color: '#686868',
-    marginHorizontal: 40,
     fontFamily: 'montSerrat'
   },
   clickableTextContainer: {
     alignItems: 'flex-start',
     flexDirection: 'row',
-    marginHorizontal: 40,
     marginBottom: 30
   },
   clickableText: {
@@ -78,6 +88,14 @@ const styles = StyleSheet.create({
   },
   notEnabled: {
     backgroundColor: '#686868'
+  },
+  headerMenuText: {
+    fontFamily: 'montSerrat',
+    fontSize: 14,
+    color: '#fff'
+  },
+  idioma: {
+    marginTop: 52
   }
 });
 

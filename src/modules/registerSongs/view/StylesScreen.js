@@ -1,146 +1,76 @@
 import React from 'react';
 import {StyleSheet, Text, View, TextInput, FlatList, ScrollView} from 'react-native';
-import {MPGradientButton, MPHeader, MPFooter, MPText} from '../../../components';
+import {MPGradientButton, MPHeader, MPText, MPIconButton, MPLoading} from '../../../components';
+import {updateSongRegisterData, fetchTags} from '../../../state/action';
 import {connect} from 'react-redux';
 
+
 class StylesScreenContainer extends React.Component {
-  buttonList = {
-    data: [
-      {
-        id: '00',
-        title: 'Rock',
-        selected: false,
-      },
-      {
-        id: '00',
-        title: 'Samba',
-        selected: false,
-      },
-      {
-        id: '00',
-        title: 'Sertanejo',
-        selected: true,
-      },
-      {
-        id: '00',
-        title: 'Funk',
-        selected: false,
-      },
-      {
-        id: '00',
-        title: 'Trance',
-        selected: false,
-      },
-      {
-        id: '00',
-        title: 'Galope',
-        selected: false,
-      },
-      {
-        id: '00',
-        title: 'Coração Partido',
-        selected: false,
-      },
-      {
-        id: '00',
-        title: 'Descobertas',
-        selected: false,
-      },
-      {
-        id: '00',
-        title: 'Amor',
-        selected: true,
-      },
-      {
-        id: '00',
-        title: 'Chifre',
-        selected: false,
-      },
-      {
-        id: '00',
-        title: 'Paquera',
-        selected: false,
-      },
-      {
-        id: '00',
-        title: 'Traição',
-        selected: false,
-      },
-      {
-        id: '00',
-        title: 'Balada',
-        selected: true,
-      },
-      {
-        id: '00',
-        title: 'Jesus',
-        selected: false,
-      },
-      {
-        id: '00',
-        title: 'Natureza',
-        selected: false,
-      },
-      {
-        id: '00',
-        title: 'Crescimento pessoal',
-        selected: false,
-      },
-      {
-        id: '00',
-        title: 'Outros temas',
-        selected: false,
-      }
-    ]
+
+  state = {
+    tags: []
   };
 
-  constructor(props){
-    super(props);
+  componentDidMount(){
+    this.props.dispatch(fetchTags());
+  }
 
-    let source = this.buttonList.data;
-    let max = 8;
-    let result = [];
-    let count = 0;
-
-    do{
-
-      if(count % 2 === 0){
-        result.push(source.splice(0, max));
-      }else{
-        result.push(source.splice(0, 1));
-      }
-
-      count++;
-    }while(source.length > 0);
-
-    this.buttonList.data = result;
+  componentWillReceiveProps(nextProps){
+    if(nextProps.tags && nextProps.tags && nextProps.tags.length !== this.state.tags.length){
+      this.setState({tags: nextProps.tags});
+    }
   }
 
   handleBackClick = () => {
     this.props.navigation.pop();
   };
 
+  handleToggleItem = (index) => {
+    let newState = {...this.state};
+    newState.tags[index].selected = !newState.tags[index].selected;
+    this.setState(newState);
+  };
+
+  handleSaveClick = () => {
+    let selecteds = this.state.tags.filter(item => item.selected);
+
+    if(selecteds.length > 0) {
+      let song = {...this.props.song};
+      song.tags = selecteds;
+      this.props.dispatch(updateSongRegisterData(song));
+      this.handleBackClick();
+    }
+
+    //TODO: show msg to choose at least one
+  };
+
+  renderHeaderMenuSave() {
+    return [
+      <MPIconButton title="Salvar" titleStyle={styles.headerMenuText} onPress={this.handleSaveClick}/>
+    ];
+  }
+
   renderItem = (item, index) => {
-    return (<MPGradientButton key={index} style={styles.button} textSize={16} title={item.title} selected={item.selected} onPress={() => {}}/>);
+    return (<MPGradientButton key={index} style={styles.button} textSize={16} title={item.name} selected={!!item.selected} onPress={this.handleToggleItem.bind(this, index)}/>);
   };
 
   render() {
     return (
       <View style={styles.container}>
-        <MPHeader back={true} onBack={this.handleBackClick} title={"Estilos e categorias"}/>
+        <MPHeader back={true} onBack={this.handleBackClick} title="Estilos e categorias" icons={this.renderHeaderMenuSave()}/>
         <ScrollView style={styles.scroll}>
           <View>
-            <MPText style={styles.textTop}>Melhore a encontrabilidade do seu trabalho. Do que ela fala? Quais estilos
-              combinam com sua musica?</MPText>
+            <MPText style={styles.textTop}>
+              Melhore a encontrabilidade do seu trabalho. Do que ela fala? Quais estilos combinam com sua musica?
+            </MPText>
 
-            {this.buttonList.data.map((list, firstIndex) =>
-              <View key={firstIndex} style={styles.buttonContainer}>
-                {list.map((item, secondIndex) => this.renderItem(item, secondIndex))}
-              </View>
-            )}
+            <View style={styles.buttonContainer}>
+              {this.state.tags.map((item, index) => this.renderItem(item, index))}
+            </View>
          </View>
         </ScrollView>
-        <MPFooter />
+
+        <MPLoading visible={this.props.loading} />
       </View>
     );
   }
@@ -153,6 +83,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   scroll: {
+    paddingTop: 30,
     flex: 2
   },
   textTop: {
@@ -172,11 +103,16 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'center'
+  },
+  headerMenuText: {
+    fontFamily: 'montSerrat',
+    fontSize: 14,
+    color: '#fff'
   }
 });
 
-const mapStateToProps = () => {
-  return {};
+const mapStateToProps = ({songsReducer, tagReducer}) => {
+  return {...tagReducer, song: songsReducer.song};
 };
 
 const StylesScreen = connect(mapStateToProps)(StylesScreenContainer);

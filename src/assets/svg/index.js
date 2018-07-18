@@ -168,6 +168,11 @@ export const MPFilledStarIcon = (props) => {
  return (<Svg {...newProps} viewBox='0 0 12 12'><Path d='M6 9.95l-3.708 2.050 0.708-4.342-3-3.074 4.146-0.634 1.854-3.95 1.854 3.95 4.146 0.634-3 3.074 0.708 4.342z' fill='#59dadb'/></Svg>); 
 };
 
+export const MPFolderIcon = (props) => { 
+ let newProps = applyStyle(props, 23, 18); 
+ return (<Svg {...newProps} viewBox='0 0 23 18'><Path d='M0 0h6.484l1.071 2.571h10.445v15.429h-18z' fill='#fff'/><Path d='M0.643 0.643v16.714h16.714v-14.143h-10.23l-1.071-2.571h-5.413z' fill='none' stroke='#5994db' strokeWidth='1.2857' strokeMiterlimit={4} strokeLinecap='butt' strokeLinejoin='miter'/><Path d='M5.143 5.143h18l-5.143 12.857h-18z' fill='#fff'/><Path d='M5.579 5.786l-4.629 11.571h16.613l4.629-11.571h-16.611z' fill='none' stroke='#5994db' strokeWidth='1.2857' strokeMiterlimit={4} strokeLinecap='butt' strokeLinejoin='miter'/></Svg>); 
+};
+
 export const MPFollowIcon = (props) => { 
  let newProps = applyStyle(props, 18, 14); 
  return (<Svg {...newProps} viewBox='0 0 18 14'><Path d='M5.923 0.5c-1.497 0-2.54 0.977-2.54 2.514 0 1.638 1.153 2.943 2.54 2.943 1.389 0 2.54-1.304 2.54-2.943 0.001-1.537-1.041-2.514-2.539-2.514zM11.342 11.969l-0.002-0.092c-0.003-0.181-0.006-0.325-0.010-0.468l0.001 0.058-0.002-0.083c-0.234-1.971-2.13-2.948-5.32-2.948l-0.096 0.003-0.043-0.002h-0.033c-3.19 0-5.087 0.976-5.32 2.948-0.005 0.154-0.009 0.359-0.012 0.564l-0 0.022c1.525 1.010 3.34 1.53 5.418 1.529 2.041 0 3.887-0.531 5.419-1.531z' fill='none' stroke='#fff' strokeWidth='1' strokeMiterlimit={4} strokeLinecap='butt' strokeLinejoin='miter'/><Path d='M14.5 2c0.276 0 0.5 0.224 0.5 0.5v6c0 0.276-0.224 0.5-0.5 0.5s-0.5-0.224-0.5-0.5v-6c0-0.276 0.224-0.5 0.5-0.5z' fill='#fff'/><Path d='M11.5 5h6c0.276 0 0.5 0.224 0.5 0.5s-0.224 0.5-0.5 0.5h-6c-0.276 0-0.5-0.224-0.5-0.5s0.224-0.5 0.5-0.5z' fill='#fff'/></Svg>); 
@@ -388,6 +393,11 @@ export const MPSongRedIcon = (props) => {
  return (<Svg {...newProps} viewBox='0 0 12 18'><Path d='M3.653 18c2.016 0 3.654-1.366 3.654-3.024V3.805a13.6 13.6 0 0 1 1.99.927 1.635 1.635 0 0 1 .227 2.634l.302.39.328.366c.1-.073 2.217-1.854 1.789-4.024C11.615 2.463 9.953 1.17 6.979.22L6.3 0v12.902c-.655-.585-1.613-.95-2.646-.95C1.638 11.951 0 13.316 0 14.975 0 16.634 1.638 18 3.653 18z' fill='#e13223'/></Svg>); 
 };
 
+export const MPSongUploadIcon = (props) => { 
+ let newProps = applyStyle(props, 39, 32); 
+ return (<Svg {...newProps} viewBox='0 0 39 32'><Path d='M16 0.571c-8.521 0-15.429 6.907-15.429 15.429s6.907 15.429 15.429 15.429 15.429-6.907 15.429-15.429-6.907-15.429-15.429-15.429z' fill='none' stroke='#fff' strokeWidth='1.1429' strokeMiterlimit={4} strokeLinecap='butt' strokeLinejoin='miter'/><Path d='M22.855 20.35c0.040 0.775-0.819 1.602-2.118 1.961-1.491 0.411-2.998 0.047-3.365-0.814-0.366-0.861 0.546-1.893 2.038-2.304 0.896-0.247 1.797-0.215 2.454 0.038v-8.789l-9.409 0.891-0.037 10.503c0.003 0.027 0.004 0.059 0.004 0.091s-0.001 0.064-0.004 0.095l0-0.004c-0.071 0.731-0.901 1.477-2.114 1.811-1.493 0.411-3 0.047-3.366-0.814s0.546-1.893 2.038-2.304c0.888-0.245 1.781-0.215 2.435 0.031v-11.598l11.446-1.146-0.002 12.35zM32 22.857c3.787 0 6.857-3.070 6.857-6.857s-3.070-6.857-6.857-6.857v0c-3.787 0-6.857 3.070-6.857 6.857s3.070 6.857 6.857 6.857v0z' fill='#fff'/><Path d='M32.889 11.278l2.311 2.862c0.158 0.194 0.253 0.445 0.253 0.718 0 0.631-0.512 1.143-1.143 1.143h-4.623c-0.631-0.001-1.141-0.512-1.141-1.143 0-0.273 0.096-0.523 0.255-0.72l-0.002 0.002 2.311-2.862c0.211-0.26 0.531-0.425 0.889-0.425s0.678 0.165 0.887 0.423l0.002 0.002z' fill='#e13223'/><Path d='M32 14.327v5.714' fill='none' stroke='#e13223' strokeWidth='2.2857' strokeMiterlimit={4} strokeLinecap='round' strokeLinejoin='round'/></Svg>); 
+};
+
 export const MPSongIcon = (props) => { 
  let newProps = applyStyle(props, 12, 18); 
  return (<Svg {...newProps} viewBox='0 0 12 18'><Path d='M3.653 18c2.016 0 3.654-1.366 3.654-3.024V3.805a13.6 13.6 0 0 1 1.99.927 1.635 1.635 0 0 1 .227 2.634l.302.39.328.366c.1-.073 2.217-1.854 1.789-4.024C11.615 2.463 9.953 1.17 6.979.22L6.3 0v12.902c-.655-.585-1.613-.95-2.646-.95C1.638 11.951 0 13.316 0 14.975 0 16.634 1.638 18 3.653 18z' fill='#FFF'/></Svg>); 
@@ -426,6 +436,11 @@ export const MPTriangleUpIcon = (props) => {
 export const MPUpgradeNoteIcon = (props) => { 
  let newProps = applyStyle(props, 40, 40); 
  return (<Svg {...newProps} viewBox='0 0 40 40'><Path d='M20 0.5c-10.77 0-19.5 8.73-19.5 19.5s8.73 19.5 19.5 19.5 19.5-8.73 19.5-19.5-8.73-19.5-19.5-19.5z' fill='none' stroke='#e13223' strokeWidth='1' strokeMiterlimit={4} strokeLinecap='butt' strokeLinejoin='miter'/><Path d='M28.694 25.548c0.050 0.974-1.029 2.013-2.659 2.462-1.873 0.517-3.764 0.060-4.224-1.021-0.46-1.080 0.686-2.376 2.559-2.892 1.124-0.31 2.255-0.27 3.080 0.046v-11.033l-11.813 1.12-0.047 13.187c0.007 0.075 0.007 0.152 0 0.228v0.002c-0.088 0.917-1.13 1.852-2.655 2.273-1.873 0.516-3.765 0.060-4.224-1.022-0.46-1.080 0.685-2.375 2.559-2.892 1.114-0.307 2.235-0.27 3.057 0.039v-14.56l14.37-1.44-0.003 15.504z' fill='#5994db'/></Svg>); 
+};
+
+export const MPValidatedFilledRedIcon = (props) => { 
+ let newProps = applyStyle(props, 16, 16); 
+ return (<Svg {...newProps} viewBox='0 0 16 16'><Path d='M16 8c0 4.418-3.582 8-8 8s-8-3.582-8-8c0-4.418 3.582-8 8-8s8 3.582 8 8z' fill='#e13223'/><Path d='M4 8l2.667 3 5.333-6' fill='#e13223' stroke='#fff' strokeWidth='2' strokeMiterlimit={4} strokeLinecap='round' strokeLinejoin='round'/></Svg>); 
 };
 
 export const MPValidatedRedIcon = (props) => { 

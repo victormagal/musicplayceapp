@@ -10,7 +10,7 @@ class MPFormButton extends React.Component {
 
   componentDidMount(){
     let button = React.Children.only(this.props.children);
-    this.defaultOnPress = button.props.onPress
+    this.defaultOnPress = button.props.onPress;
   }
 
   handlePress = (e) => {

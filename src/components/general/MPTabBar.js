@@ -53,6 +53,7 @@ class MPTabBarComponent extends React.Component {
 const styles = StyleSheet.create({
   parent:{
     flex: 1,
+    backgroundColor: 'white'
   },
   tabTitlesContainer: {
     display: 'flex',

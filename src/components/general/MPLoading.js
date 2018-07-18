@@ -40,6 +40,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center'
   },
   text: {
+    paddingTop: 15,
     fontFamily: 'probaProRegular',
     fontSize: 18,
     color: '#fff'

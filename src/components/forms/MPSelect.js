@@ -16,9 +16,9 @@ class MPSelectComponent extends React.Component {
   }
 
   render() {
-    let { label } = this.props;
+    let { label, style } = this.props;
     return (
-      <View>
+      <View style={style}>
         <TouchableHighlight onPress={this.showActionSheet} underlayColor="transparent">
           <View style={styles.areaSelection}>
             <View style={styles.boxText}>
@@ -42,14 +42,13 @@ class MPSelectComponent extends React.Component {
 
 const styles = StyleSheet.create({
   areaSelection: {
-    marginHorizontal: 40,
     paddingVertical: 5,
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
     borderBottomWidth: 0.5,
-    borderBottomColor: 'rgba(104, 104, 104, 0.8)'
+    borderBottomColor: '#b1b1b1'
   },
   boxText: {
     alignItems: 'flex-start',
@@ -61,8 +60,8 @@ const styles = StyleSheet.create({
     fontSize: 16
   },
   boxFoward: {
-    alignItems: 'flex-end',
-    flex: 0.1
+    flex: 0.1,
+    marginBottom: 15
   }
 });
 

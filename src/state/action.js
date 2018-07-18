@@ -4,3 +4,6 @@ export * from './general/generalAction';
 export * from './songs/songsAction';
 export * from './player/playerAction';
 export * from './auth/authAction';
+export * from './feed/feedAction';
+export * from './folder/folderAction';
+export * from './tag/tagAction';

@@ -2,21 +2,25 @@ import React, {Component} from 'react';
 import {View, StyleSheet, Text, TouchableOpacity} from 'react-native';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {Icon} from 'react-native-elements';
 import {MPText} from '../general/MPText';
+import {MPValidatedFilledRedIcon} from '../../assets/svg';
+
 
 class MPSongInfoComponent extends Component {
 
   render() {
-    let {title, info, selected, onPress, style} = this.props;
+    let {title, info, placeholder, selected, invalid, onPress, style} = this.props;
     let borderStyle = {};
     let iconStyle = {};
 
-    if (selected == true) {
+    if(selected || invalid){
       borderStyle = {
         borderColor: "#e13223",
         borderWidth: 2
       };
+    }
+
+    if (selected ) {
       iconStyle = {
         position: 'absolute',
         right: 0,
@@ -31,10 +35,10 @@ class MPSongInfoComponent extends Component {
         <TouchableOpacity onPress={onPress}>
           <View style={[styles.parent, borderStyle]}>
             <MPText style={styles.titleText}>{ title }</MPText>
-            <MPText style={styles.infoText}>{ info }</MPText>
+            <MPText style={styles.infoText}>{ info || placeholder }</MPText>
           </View>
         </TouchableOpacity>
-        { selected && <Icon name='check-circle' color='#f00' size={18} containerStyle={ iconStyle }/> }
+        { selected && <MPValidatedFilledRedIcon style={ iconStyle }/> }
       </View>
     );
   }
@@ -46,6 +50,8 @@ MPSongInfoComponent.propTypes = {
   info: PropTypes.string,
   selected: PropTypes.bool,
   style: PropTypes.any,
+  placeholder: PropTypes.string,
+  invalid: PropTypes.bool,
 };
 
 const styles = StyleSheet.create({
@@ -53,7 +59,7 @@ const styles = StyleSheet.create({
     marginHorizontal: '2%',
     marginBottom: 10,
     height: 93,
-    width: '46%'
+    width: '96%'
   },
   parent: {
     backgroundColor: '#fff',
@@ -75,7 +81,8 @@ const styles = StyleSheet.create({
     color: "#000",
     paddingStart: 10,
     fontSize: 12,
-    fontFamily: 'montSerratMedium'
+    fontFamily: 'montSerratMedium',
+    fontWeight: 500
   },
   infoText: {
     color: '#9b9b9b',

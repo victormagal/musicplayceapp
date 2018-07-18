@@ -6,4 +6,5 @@ export * from './MPText';
 export * from './MPTabBar';
 export * from './MPTabBottomComponent';
 export * from './MPFade';
+export * from './MPContainerLoading';
 

@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="23" height="18" viewBox="0 0 23 18">
+  <path fill="#fff" d="M0 0h6.484l1.071 2.571h10.445v15.429h-18z"/>
+  <path fill="none" stroke="#5994db" stroke-width="1.2857" stroke-miterlimit="4" stroke-linecap="butt" stroke-linejoin="miter" d="M0.643 0.643v16.714h16.714v-14.143h-10.23l-1.071-2.571h-5.413z"/>
+  <path fill="#fff"  d="M5.143 5.143h18l-5.143 12.857h-18z"/>
+  <path fill="none" stroke="#5994db" stroke-width="1.2857" stroke-miterlimit="4" stroke-linecap="butt" stroke-linejoin="miter" d="M5.579 5.786l-4.629 11.571h16.613l4.629-11.571h-16.611z"/>
+</svg>

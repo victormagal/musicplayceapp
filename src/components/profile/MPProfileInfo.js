@@ -32,16 +32,10 @@ class MPProfileInfoComponent extends Component {
         </View>
         {!profile.isManager && (
           <View>
-            {profile.sites && (
-              <View>
-                <FlatList data={profile.sites}
-                          keyExtractor={(item, index) => item.id}
-                          renderItem={this.renderItem}
-                          horizontal={true}
-                          style={{marginBottom: 20,}}/>
-              </View>
+            {profile.site && (
+              <MPText style={styles.itemStyle}>{profile.site}</MPText>
             )}
-            {!profile.sites && (
+            {!profile.site && (
               <MPText style={{color: '#fff', textDecorationLine: 'underline', marginEnd: 20, marginBottom: 20}}>Insira
                 aqui seu site</MPText>
             )}
@@ -109,7 +103,8 @@ const styles = StyleSheet.create({
   itemStyle: {
     color: '#fff',
     textDecorationLine: 'underline',
-    marginEnd: 20
+    marginEnd: 20,
+    marginBottom: 20
   }
 });
 

@@ -38,14 +38,26 @@ export const createUser = (user) => {
 export const fetchProfile = () => {
     return (dispatch, getState) => {
         dispatch(profileStartLoading());
-        if(shouldFetchProfile(getState())) {
-            return AuthService.me()
-                              .then(response => dispatch(fetchedProfile((response))));
+
+      if(shouldFetchProfile(getState())) {
+
+            return UserService.me()
+                              .then(response => dispatch(fetchedProfile((response))))
+              .catch((e) => {
+                console.log(e);
+              });
         }
 
         dispatch(profileFinishLoading());
         return Promise.resolve();
     };
+};
+
+export const fetchMySongs = () => {
+  //TODO re do right
+  return (dispatch) => {
+    UserService.songs().then(response => console.log('asdf', response));
+  };
 };
 
 export const saveProfile = (data, page) => {

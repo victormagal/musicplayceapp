@@ -25,10 +25,12 @@ class MPForm extends React.Component {
       let component = this.state.inputs[id];
 
       if(typeof component.props.valid !== 'undefined' && !component.props.valid) {
-        valid = false;
-        component.validate();
+        if(!component.props.validate()){
+          valid = false;
+        }
       }
     }
+
     return valid;
   };
 

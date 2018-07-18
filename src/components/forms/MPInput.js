@@ -53,7 +53,7 @@ class MPInputComponent extends React.Component {
   }
 
   validate(){
-    this.props.onBlur();
+    return this.props.validate();
   }
 
   handleToggleEye = () => {
