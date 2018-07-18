@@ -22,7 +22,7 @@ class PlayerSaveSongComponent extends React.Component {
 
   renderFolder = (item, index) => {
     return (
-      <View key={index}>
+      <View key={index} style={styles.folder}>
         <MPFolder folderName={item.title} selected={item.selected} musicAmount={item.total} onPress={this.handleSelectFolder.bind(this, index)}/>
       </View>
     )
@@ -53,6 +53,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fcfcfc'
+  },
+  folder:{
+    marginHorizontal: 30
   },
   folderList:{
     paddingTop: 20,

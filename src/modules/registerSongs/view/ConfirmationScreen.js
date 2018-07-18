@@ -37,7 +37,7 @@ class ConfirmationScreenContainer extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <MPHeader back={false} onBack={this.handleBackClick} title={""} />
+        <MPHeader back={false} inverse={true} />
         <ScrollView style={styles.scroll}>
             <View>
               <MPText style={styles.titleText}>Pronto! Tudo certo.</MPText>
@@ -55,7 +55,6 @@ class ConfirmationScreenContainer extends React.Component {
               </View>
             </View>
         </ScrollView>
-        <MPFooter />
       </View>
     );
   }

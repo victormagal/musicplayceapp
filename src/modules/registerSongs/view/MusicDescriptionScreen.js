@@ -2,34 +2,45 @@ import React from 'react';
 import {StyleSheet, Text, View, TextInput, ScrollView} from 'react-native';
 import {connect} from 'react-redux';
 import {updateSongRegisterData} from '../../../state/action';
-import {MPHeader, MPFooter, MPTextField, MPText} from '../../../components';
+import {MPHeader, MPFooter, MPInput, MPText, MPIconButton} from '../../../components';
 
 class MusicDescriptionScreenContainer extends React.Component {
+
   constructor(props) {
     super(props);
-    this.state = {text: ''};
+    this.state = {
+      description: (props.song && props.song.description) || ''
+    };
   }
 
-  handleChangeDescription = (value) => {
-    let song = {...this.props.song, description: value};
-    this.props.dispatch(updateSongRegisterData(song));
+  handleChangeDescription = ({value}) => {
+    this.setState({description: value});
   };
 
   handleBackClick = () => {
     this.props.navigation.pop();
   };
 
+  handleSaveClick = () => {
+    let song = {...this.props.song, description: this.state.description};
+    this.props.dispatch(updateSongRegisterData(song));
+    this.handleBackClick();
+  };
+
+  renderHeaderMenuSave() {
+    return [
+      <MPIconButton title="Salvar" titleStyle={styles.headerMenuText} onPress={this.handleSaveClick}/>
+    ];
+  }
+
   render() {
     return (
       <View style={styles.container}>
-        <MPHeader back={true} onBack={this.handleBackClick} title={"Descrição"}/>
-        <ScrollView style={styles.scroll}>
-          <View>
-            <MPText style={styles.textTop}>Explique um pouquinho sobre sua música.</MPText>
-            <MPTextField label={'Descrição'} value={''}/>
-          </View>
-        </ScrollView>
-        <MPFooter />
+        <MPHeader back={true} onBack={this.handleBackClick} title="Descrição" icons={this.renderHeaderMenuSave()}/>
+        <View style={styles.content}>
+          <MPText style={styles.textTop}>Explique um pouquinho sobre sua música.</MPText>
+          <MPInput label='Descrição' value={this.state.description} onChangeText={this.handleChangeDescription}/>
+        </View>
       </View>
     );
   }
@@ -39,18 +50,22 @@ const styles = StyleSheet.create({
   container: {
     display: 'flex',
     flex: 1,
-    backgroundColor: '#FCFCFC',
-    justifyContent: 'flex-end'
+    backgroundColor: '#FCFCFC'
   },
-  scroll: {
-    flex: 2,
+  content: {
+    marginTop: 30,
+    marginHorizontal: 40
   },
   textTop: {
     fontSize: 16,
     color: '#686868',
-    marginHorizontal: 40,
-    fontFamily: 'montSerrat'
+    fontFamily: 'probaProRegular'
   },
+  headerMenuText: {
+    fontFamily: 'montSerrat',
+    fontSize: 14,
+    color: '#fff'
+  }
 });
 
 const mapStateToProps = ({songsReducer}) => {

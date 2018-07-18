@@ -2,6 +2,9 @@ import {
   FETCHED_PROFILE, PROFILE_START_LOADING, PROFILE_FINISH_LOADING, SAVE_PROFILE_SUCCESS,
   PROFILE_CREATE_USER_SUCCESS, PROFILE_CREATE_USER_ERROR
 } from './profileAction';
+import {
+  AUTH_LOGOUT
+} from '../auth/authAction';
 
 const profileReducer = (state, action) => {
   state = state || {
@@ -9,7 +12,8 @@ const profileReducer = (state, action) => {
       createUserSuccess: false,
       createUserError: false,
       loading: false,
-      profile: null
+      profile: null,
+      user: null
     };
 
   state.saveProfileSuccess = null;
@@ -20,7 +24,7 @@ const profileReducer = (state, action) => {
     case FETCHED_PROFILE:
       return {
         ...state,
-        profile: action.payload.profile
+        ...action.payload
       };
     case PROFILE_START_LOADING:
       return {
@@ -52,6 +56,13 @@ const profileReducer = (state, action) => {
         ...state,
         loading: false,
         createUserError: true
+      };
+
+    case AUTH_LOGOUT:
+      return {
+        ...state,
+        loading: false,
+        profile: null
       };
   }
 

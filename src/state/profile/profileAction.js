@@ -13,7 +13,7 @@ export const profileStartLoading = createAction(PROFILE_START_LOADING, () => nul
 export const profileFinishLoading = createAction(PROFILE_FINISH_LOADING, () => null);
 
 export const fetchedProfile = createAction(FETCHED_PROFILE, (data) => {
-  return {profile: data};
+  return data;
 });
 
 export const saveProfileSucessfully = createAction(SAVE_PROFILE_SUCCESS, (data) => {
@@ -38,14 +38,26 @@ export const createUser = (user) => {
 export const fetchProfile = () => {
     return (dispatch, getState) => {
         dispatch(profileStartLoading());
-        if(shouldFetchProfile(getState())) {
-            return AuthService.me()
-                              .then(response => dispatch(fetchedProfile((response))));
+
+      if(shouldFetchProfile(getState())) {
+
+            return UserService.me()
+                              .then(response => dispatch(fetchedProfile((response))))
+              .catch((e) => {
+                console.log(e);
+              });
         }
 
         dispatch(profileFinishLoading());
         return Promise.resolve();
     };
+};
+
+export const fetchMySongs = () => {
+  //TODO re do right
+  return (dispatch) => {
+    UserService.songs().then(response => console.log('asdf', response));
+  };
 };
 
 export const saveProfile = (data, page) => {

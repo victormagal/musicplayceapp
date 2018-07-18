@@ -53,8 +53,7 @@ class AuthService {
   }
 
   static me(){
-    return axios.get(`${API_AUTH}/me`)
-                .then(response => response.data);
+    return axios.get(`${API_AUTH}/me`);
   }
 }
 

@@ -1,4 +1,4 @@
-export * from './RegisterArtistsScreen';
+export * from './InterpreterScreen';
 export * from './SaveDraftScreen';
 export * from './StylesScreen';
 export * from './MusicDescriptionScreen';
@@ -7,10 +7,6 @@ export * from './TitleScreen';
 export * from './MusicLetterScreen';
 export * from './ConfirmationScreen';
 export * from './ArtistsScreen';
-export * from './ListArtistsScreen';
-export * from './AddArtistScreen';
 export * from './AddArtistByEmailScreen';
-export * from './AddArtistFullScreen';
 export * from './FolderScreen';
-export * from './UploadMediaEmptyScreen';
-export * from './UploadMediaFilledScreen';
+export * from './RegisterSongScreen';

@@ -39,7 +39,7 @@ class MPInputComponent extends React.Component {
       style['fontFamily'] = 'montSerrat';
     }
 
-    return style;
+    return Object.assign({}, style);
   }
 
   getLabelStyle() {
@@ -49,11 +49,11 @@ class MPInputComponent extends React.Component {
       style['fontFamily'] = 'montSerrat';
     }
 
-    return style;
+    return Object.assign({}, style);
   }
 
   validate(){
-    this.props.onBlur();
+    return this.props.validate();
   }
 
   handleToggleEye = () => {

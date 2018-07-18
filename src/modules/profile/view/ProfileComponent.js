@@ -68,7 +68,10 @@ class ProfileComponent extends React.Component {
 
   renderHeaderMenuLeft() {
     return [
-      <MPIconButton key={Math.random()} title="Sair" titleStyle={styles.headerMenuText} />
+      <MPIconButton key={Math.random()}
+                    title="Sair"
+                    titleStyle={styles.headerMenuText}
+                    onPress={this.props.onLogoutClick} />
     ];
   }
 
@@ -156,8 +159,6 @@ class ProfileComponent extends React.Component {
                     {profile.song && <MPUpgradeButton song={profile.song}/>}
                   </View>
                 )}
-                <MPShowFollowers />
-                { profile.visiting && <MPReportProfile onPress={ this.reportProfile.bind(this)}/>}
               </View>
               <View>
                 {profile.savedSongsFolder && (
@@ -181,10 +182,12 @@ class ProfileComponent extends React.Component {
                     {profile.song && <MPUpgradeButton song={profile.song}/>}
                   </View>
                 )}
-                <MPShowFollowers />
-                {profile.visiting && <MPReportProfile onPress={this.reportProfile.bind(this)}/>}
               </View>
             </MPTabBar>
+
+            <MPShowFollowers />
+            { profile.visiting && <MPReportProfile onPress={ this.reportProfile.bind(this)}/>}
+
             <MPAddSongButton isColored={true}/>
           </View>
           )}

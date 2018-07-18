@@ -1,6 +1,6 @@
 import 'babel-polyfill';
 import React from 'react';
-import { NetInfo, AppRegistry } from 'react-native';
+import { NetInfo } from 'react-native';
 import fetch from 'cross-fetch';
 import { 
   applyMiddleware, 

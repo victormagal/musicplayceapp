@@ -7,8 +7,10 @@ export const AUTH_LOGIN_SUCCESS = 'AUTH_LOGIN_SUCCESS';
 export const AUTH_LOGIN_ERROR = 'AUTH_LOGIN_ERROR';
 export const AUTH_RECOVER_PASSWORD_SUCCESS = 'AUTH_RECOVER_PASSWORD_SUCCESS';
 export const AUTH_RECOVER_PASSWORD_ERROR = 'AUTH_RECOVER_PASSWORD_ERROR';
+export const AUTH_LOGOUT = 'AUTH_LOGOUT';
 
 export const authStartLoading = createAction(AUTH_START_LOADING, () => null);
+export const authLogout = createAction(AUTH_LOGOUT, () => null);
 
 export const loginSuccess = createAction(AUTH_LOGIN_SUCCESS, (data) => {
   return {...data};
@@ -27,6 +29,13 @@ export const login = (user) => {
     }).catch(e => {
       dispatch(loginError());
     });
+  };
+};
+
+export const logout = () => {
+  return (dispatch) => {
+    dispatch(authLogout());
+    AuthService.logout();
   };
 };
 

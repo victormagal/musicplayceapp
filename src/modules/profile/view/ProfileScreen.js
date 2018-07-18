@@ -1,7 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {ProfileComponent} from './ProfileComponent';
-import {fetchProfile} from '../../../state/action';
+import {fetchProfile, logout} from '../../../state/action';
+
 
 class ProfileScreenContainer extends React.Component {
 
@@ -15,7 +16,12 @@ class ProfileScreenContainer extends React.Component {
   };
 
   handleSongAddClick = () => {
-    this.props.navigation.dangerouslyGetParent().dangerouslyGetParent().navigate('UploadMediaEmptyScreen');
+    this.props.navigation.dangerouslyGetParent().dangerouslyGetParent().navigate('RegisterSongScreen');
+  };
+
+  handleLogout = () => {
+    this.props.dispatch(logout());
+    this.props.navigation.dangerouslyGetParent().dangerouslyGetParent().replace('login');
   };
 
   render() {
@@ -23,7 +29,8 @@ class ProfileScreenContainer extends React.Component {
       <ProfileComponent {...this.props}
                         me={true}
                         onSongAddClick={this.handleSongAddClick}
-                        onFollowersEmptyClick={this.handleFollowersEmptyClick}/>
+                        onFollowersEmptyClick={this.handleFollowersEmptyClick}
+                        onLogoutClick={this.handleLogout}/>
     )
   }
 }

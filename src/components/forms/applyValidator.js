@@ -21,9 +21,16 @@ export const applyValidator = (FormFieldComponent) => {
       }
     }
 
-    handleBlur = () => {
+    componentWillReceiveProps(nextProps){
+      if(nextProps.validators && nextProps.validators.includes('required') && !nextProps.value){
+        this.setState({valid: false});
+      }
+    }
+
+    handleValidate = () => {
+      let error = null;
+
       if(this.props.validators){
-        let error = null;
 
         for(let validator of this.props.validators){
           let res = validations[validator](this.props.value);
@@ -33,16 +40,22 @@ export const applyValidator = (FormFieldComponent) => {
           }
         }
 
-        let errorProps = error ? {error, errorColor: '#e13223'} : {};
+        let errorProps = error ? {error, errorColor: '#e13223'} : null;
         let valid = !error;
         this.setState({errorProps, valid});
       }
+
+      return !error;
+    };
+
+    handleBlur = () => {
+      this.handleValidate();
     };
 
     render(){
       let newProps = {...this.props, valid: this.state.valid};
       delete newProps.onBlur;
-      return <FormFieldComponent onBlur={this.handleBlur} {...newProps} textProps={this.state.errorProps}/>;
+      return <FormFieldComponent onBlur={this.handleBlur} validate={this.handleValidate} {...newProps} textProps={this.state.errorProps}/>;
     }
   }
 };

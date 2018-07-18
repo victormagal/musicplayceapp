@@ -17,7 +17,7 @@ class MPHeader extends React.Component {
       <View style={[styles.parent, {backgroundColor}, style || {}]}>
         <View style={styles.header}>
           {back && (
-            <TouchableOpacity onPress={onBack}>
+            <TouchableOpacity onPress={onBack} style={styles.backContainer}>
               {backIcon}
             </TouchableOpacity>
           )}
@@ -61,14 +61,17 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginTop: 30,
   },
+  backContainer: {
+    position: 'absolute',
+    left: 20
+  },
   back: {
     width: 10,
     height: 20,
-    marginLeft: 20
   },
   logo: {
     flex: 1,
-    width: 120,
+    width: 100,
     height: 20,
     alignSelf: 'center'
   },
@@ -81,10 +84,12 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   },
   icons: {
+    position: 'absolute',
     flexDirection: 'row',
-    marginRight: 20
+    right: 20
   },
   iconsLeft: {
+    position: 'absolute',
     flexDirection: 'row',
     marginLeft: 20
   }
