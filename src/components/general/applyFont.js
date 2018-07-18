@@ -27,7 +27,8 @@ export const applyFont = (WrapperComponent) => {
         }
       }
 
-      return <WrapperComponent style={style} {...newProps} />
+      newProps.style = style;
+      return <WrapperComponent {...newProps} />
     }
   }
 };

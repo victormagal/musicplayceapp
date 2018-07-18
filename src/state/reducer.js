@@ -7,6 +7,7 @@ import playerReducer from './player/playerReducer';
 import authReducer from './auth/authReducer';
 import folderReducer from './folder/folderReducer';
 import tagReducer from './tag/tagReducer';
+import artistReducer from './artist/artistReducer';
 
 
 export const reducers = combineReducers({
@@ -18,5 +19,6 @@ export const reducers = combineReducers({
   playerReducer,
   authReducer,
   folderReducer,
-  tagReducer
+  tagReducer,
+  artistReducer
 });

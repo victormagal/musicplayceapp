@@ -3,6 +3,7 @@ import {API, transformResponseData} from './api';
 
 const API_FOLDER = `${API}/song-folders`;
 
+//PLAYLIST
 class FolderService {
 
   static create(folder){

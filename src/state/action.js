@@ -7,3 +7,4 @@ export * from './auth/authAction';
 export * from './feed/feedAction';
 export * from './folder/folderAction';
 export * from './tag/tagAction';
+export * from './artist/artistAction';

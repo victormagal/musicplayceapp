@@ -12,7 +12,8 @@ const profileReducer = (state, action) => {
       createUserSuccess: false,
       createUserError: false,
       loading: false,
-      profile: null
+      profile: null,
+      user: null
     };
 
   state.saveProfileSuccess = null;
@@ -23,7 +24,7 @@ const profileReducer = (state, action) => {
     case FETCHED_PROFILE:
       return {
         ...state,
-        profile: action.payload.profile
+        ...action.payload
       };
     case PROFILE_START_LOADING:
       return {

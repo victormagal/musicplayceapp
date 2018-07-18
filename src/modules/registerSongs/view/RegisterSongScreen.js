@@ -2,15 +2,16 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Alert, StyleSheet, Text, View, TextInput, FlatList, ScrollView, TouchableOpacity } from 'react-native';
 import { MPGradientButton, MPHeader, MPSongInfo, MPText } from '../../../components'
+import {createSong} from '../../../state/action';
 import {MPSongUploadIcon} from '../../../assets/svg';
 
 
-class UploadMediaEmptyScreenContainer extends React.Component {
+class RegisterSongContainer extends React.Component {
 
   state = {
     cardErros: {
       name: false,
-      letter: false,
+      lyrics: false,
       coAuthors: false,
       tags: false
     },
@@ -54,8 +55,23 @@ class UploadMediaEmptyScreenContainer extends React.Component {
     this.setState({cardErros});
 
     if(valid){
-      this.goToScreen('ConfirmationScreen');
+      this.props.dispatch(createSong(this.props.song));
+      //this.goToScreen('ConfirmationScreen');
     }
+  };
+
+  handleChooseFileClick = () => {
+    DocumentPicker.show({
+      filetype: [DocumentPickerUtil.audio()],
+    },(error,res) => {
+      // Android
+      console.log(
+        res.uri,
+        res.type, // mime type
+        res.fileName,
+        res.fileSize
+      );
+    });
   };
 
   getProgressStyle(){
@@ -64,9 +80,9 @@ class UploadMediaEmptyScreenContainer extends React.Component {
     return Object.assign({}, style);
   }
 
-  getCategoriesString(){
-    if(this.props.song.tags){
-      return this.props.song.tags.map(i => i.name).slice(0, 2).join(", ");
+  getFilledString(key){
+    if(this.props.song[key]){
+      return this.props.song[key].map(i => i.name).slice(0, 2).join(", ");
     }
   }
 
@@ -84,41 +100,46 @@ class UploadMediaEmptyScreenContainer extends React.Component {
                 <MPText style={ styles.headerText}>Upload de melodia</MPText>
               </View>
               <View>
-                <MPGradientButton style={styles.uploadIcon} icon={MPSongUploadIcon} title='Escolher o arquivo'  textSize={16} />
+                <MPGradientButton style={styles.uploadIcon} icon={MPSongUploadIcon} title='Escolher o arquivo'
+                                  textSize={16} onPress={this.handleChooseFileClick}/>
                 <MPText style={ styles.subText}>Você pode fazer upload de músicas em MP3 ou AAC.</MPText>
 
                 <View style={ styles.horizontalContainer }>
                   <MPSongInfo style={styles.songItem} invalid={this.state.cardErros.name}
                               selected={!!this.props.song.name} title={'Qual é o título da música?'} info={this.props.song.name} onPress={this.goToScreen.bind(this, 'TitleScreen')}/>
 
-                  <MPSongInfo style={styles.songItem} invalid={this.state.cardErros.letter}
-                              selected={!!this.props.song.letter} title={'Qual é a letra?'}
-                              info={this.props.song.letter}  onPress={this.goToScreen.bind(this, 'MusicLetterScreen')}/>
+                  <MPSongInfo style={styles.songItem} invalid={this.state.cardErros.lyrics}
+                              selected={!!this.props.song.lyrics} title={'Qual é a letra?'}
+                              info={this.props.song.lyrics}  onPress={this.goToScreen.bind(this, 'MusicLetterScreen')}/>
 
                   <MPSongInfo style={styles.songItem} invalid={this.state.cardErros.tags}
-                              title={'Quais as categorias e estilos que combinam?'} info={this.getCategoriesString()}
+                              selected={this.props.song.tags && this.props.song.tags.length > 0}
+                              title={'Quais as categorias e estilos que combinam?'} info={this.getFilledString('tags')}
                               onPress={this.goToScreen.bind(this, 'StylesScreen')}/>
 
                   <MPSongInfo style={styles.songItem} title={'Fale um pouquinho mais sobre sua música?'}
-                              info={this.props.song.description} placeholder={'*Opcional'}
+                              selected={!!this.props.song.description} info={this.props.song.description} placeholder={'*Opcional'}
                               onPress={this.goToScreen.bind(this, 'MusicDescriptionScreen')}/>
 
                   <MPSongInfo style={styles.songItem} invalid={this.state.cardErros.coAuthors}
-                              title={'Tem outros autores?'} info={''}
+                              selected={this.props.song.coAuthors && this.props.song.coAuthors.length > 0}
+                              title={'Tem outros autores?'} info={this.getFilledString('coAuthors')}
                               onPress={this.goToScreen.bind(this, 'ArtistsScreen')}/>
 
-                  <MPSongInfo style={styles.songItem}
-                              title={'Tem intérpretes?'}
+                  <MPSongInfo title={'Tem intérpretes?'} style={styles.songItem}
+                              selected={this.props.song.interpreter_name !== ''}
+                              info={this.props.song.interpreter_name}
                               placeholder={'*Opcional'} onPress={this.goToScreen.bind(this, 'InterpreterScreen')}/>
                 </View>
 
                 <View style={ styles.horizontalFolder }>
                   <MPSongInfo title={(this.props.song.folder && 'Pasta') || 'Organize suas músicas em pastas'} placeholder={'*Opcional'}
+                              selected={this.props.song.folder && this.props.song.folder.name}
                               info={(this.props.song.folder && this.props.song.folder.name) || '' }
                               onPress={this.goToScreen.bind(this, 'FolderScreen')}/>
                 </View>
 
-                <MPGradientButton title='Publicar' onPress={this.handlePublishClick} textSize={16} style={ {marginBottom: 20, marginHorizontal: 20} } />
+                <MPGradientButton title='Publicar' onPress={this.handlePublishClick} textSize={16} style={styles.publishButton} />
                 <TouchableOpacity style={styles.clickableTextContainer} onPress={ this.goToScreen.bind(this, 'SaveDraftScreen') } t>
                   <MPText style={styles.clickableText} >Terminar depois</MPText>
                 </TouchableOpacity>
@@ -203,11 +224,15 @@ const styles = StyleSheet.create({
   progressContent:{
     height: 7,
     backgroundColor: '#e13223'
+  },
+  publishButton: {
+    marginBottom: 20,
+    marginHorizontal: 20
   }
 });
 
 const mapStateToProps = ({ songsReducer }) => {
   return {...songsReducer};
 };
-const UploadMediaEmptyScreen = connect(mapStateToProps)(UploadMediaEmptyScreenContainer);
-export {UploadMediaEmptyScreen};
+const RegisterSongScreen = connect(mapStateToProps)(RegisterSongContainer);
+export {RegisterSongScreen};

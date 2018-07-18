@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
   textTop: {
     fontSize: 16,
     color: '#686868',
-    fontFamily: 'montSerrat'
+    fontFamily: 'probaProRegular'
   },
   headerMenuText: {
     fontFamily: 'montSerrat',

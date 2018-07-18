@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
     paddingStart: 10,
     fontSize: 12,
     fontFamily: 'montSerratMedium',
-    fontWeight: 500
+    fontWeight: '500'
   },
   infoText: {
     color: '#9b9b9b',

@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
     height: 60,
     marginBottom: 21,
     marginHorizontal: 40,
-    fontFamily: 'montSerrat'
+    fontFamily: 'probaProRegular'
   },
   button: {
     marginEnd: 10,

@@ -32,7 +32,7 @@ class MPFolderContainer extends Component {
     }
 
     return (
-      <TouchableOpacity style={{padding: 10}} onPress={this.handlePress}>
+      <TouchableOpacity style={styles.paddingShadow} onPress={this.handlePress}>
 
         <Card containerStyle={[styles.container, borderStyle]}>
           <View style={[styles.chooseFolderCardContainer] }>
@@ -61,6 +61,9 @@ MPFolderContainer.propTypes = {
 };
 
 const styles = StyleSheet.create({
+  paddingShadow:{
+    padding: 10
+  },
   container: {
     backgroundColor: '#fff',
     borderRadius: 4,

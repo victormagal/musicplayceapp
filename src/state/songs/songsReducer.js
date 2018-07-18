@@ -4,11 +4,10 @@ const songsReducer = (state, action) => {
   state = state || {
       song: {
         name: '',
-        letter: '',
-        genres: '',
+        lyrics: '',
         description: '',
-        authors: '',
-        interpreters: '',
+        interpreter_name: '',
+        coAuthors: null,
         folder: null,
         tags: null,
       }

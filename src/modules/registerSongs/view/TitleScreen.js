@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {StyleSheet, Text, View, TextInput} from 'react-native';
 import {updateSongRegisterData} from '../../../state/action';
-import {MPHeader, MPInput, MPText, MPIconButton} from '../../../components';
+import {MPHeader, MPInput, MPText, MPIconButton, MPForm} from '../../../components';
 
 class TitleScreenContainer extends React.Component {
 
@@ -38,9 +38,10 @@ class TitleScreenContainer extends React.Component {
       <View style={styles.container}>
         <MPHeader back={true} onBack={this.handleBackClick} title="Título da música" icons={this.renderHeaderMenuSave()}/>
         <View style={styles.content}>
-          <MPText style={styles.textTop}>Escreva o título da música.</MPText>
+          <MPText style={styles.description}>Escreva o título da música.</MPText>
           <MPInput label="Título da música" name="title" value={this.state.title} onChangeText={this.handleChangeName} />
         </View>
+
       </View>
     );
   }
@@ -56,10 +57,10 @@ const styles = StyleSheet.create({
     marginTop: 30,
     marginHorizontal: 40
   },
-  textTop: {
+  description: {
+    fontFamily: 'probaProRegular',
     fontSize: 16,
-    color: '#686868',
-    fontFamily: 'montSerrat',
+    color: '#686868'
   },
   headerMenuText: {
     fontFamily: 'montSerrat',

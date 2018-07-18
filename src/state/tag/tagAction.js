@@ -17,7 +17,6 @@ export const fetchTags = () => {
 
     if(shouldFetchTags(getState())) {
       return TagService.tags().then(response => {
-        console.log(response);
         dispatch(fetchedTags(response));
       }).catch(_ => {
         dispatch(tagFinishLoading());

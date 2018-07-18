@@ -13,7 +13,7 @@ export const profileStartLoading = createAction(PROFILE_START_LOADING, () => nul
 export const profileFinishLoading = createAction(PROFILE_FINISH_LOADING, () => null);
 
 export const fetchedProfile = createAction(FETCHED_PROFILE, (data) => {
-  return {profile: data};
+  return data;
 });
 
 export const saveProfileSucessfully = createAction(SAVE_PROFILE_SUCCESS, (data) => {

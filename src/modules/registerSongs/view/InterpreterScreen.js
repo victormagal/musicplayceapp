@@ -7,7 +7,7 @@ import {updateSongRegisterData} from '../../../state/action';
 class InterpreterScreenContainer extends React.Component {
 
   state = {
-    search: ''
+    interpreter_name: ''
   };
 
   handleBackClick = () => {
@@ -15,14 +15,16 @@ class InterpreterScreenContainer extends React.Component {
   };
 
   handleSaveClick = () => {
-    //TODO: finish put interpreters in redux
-    let song = {...this.props.song};
-    this.props.dispatch(updateSongRegisterData(song));
-    this.handleBackClick();
+    if(this.state.interpreter_name) {
+      let song = {...this.props.song};
+      song.interpreter_name = this.state.interpreter_name;
+      this.props.dispatch(updateSongRegisterData(song));
+      this.handleBackClick();
+    }
   };
 
-  handleChangeSearch = ({value}) => {
-    this.setState({search: value});
+  handleChangeText= ({value}) => {
+    this.setState({interpreter_name: value});
   };
 
   renderHeaderMenuSave() {
@@ -36,8 +38,8 @@ class InterpreterScreenContainer extends React.Component {
       <View style={styles.container}>
         <MPHeader back={true} onBack={this.handleBackClick} title="Intérpretes" icons={this.renderHeaderMenuSave()}/>
         <View style={styles.content}>
-          <MPText style={styles.textTop}>Essa música tem intérpretes?</MPText>
-          <MPInput label='Pesquise pelo nome:' value={this.state.search} onChangeText={this.handleChangeSearch} />
+          <MPText style={styles.textTop}>Essa música tem intérprete?</MPText>
+          <MPInput label='Intérprete' value={this.state.interpreter_name} onChangeText={this.handleChangeText} />
           <View style={styles.clickableTextContainer}>
             <MPText style={styles.clickableText}>Não, apenas eu</MPText>
           </View>
@@ -61,7 +63,7 @@ const styles = StyleSheet.create({
   textTop: {
     fontSize: 16,
     color: '#686868',
-    fontFamily: 'montSerrat'
+    fontFamily: 'probaProRegular'
   },
   clickableTextContainer: {
     alignSelf: 'center',

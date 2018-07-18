@@ -9,13 +9,13 @@ class MusicLetterScreenContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      letter: (props.song && props.song.letter) || '',
+      lyrics: (props.song && props.song.lyrics) || '',
       language: 'default'
     };
   }
 
   handleChangeLetter = ({value}) => {
-    this.setState({letter: value});
+    this.setState({lyrics: value});
   };
 
   handleBackClick = () => {
@@ -23,7 +23,7 @@ class MusicLetterScreenContainer extends React.Component {
   };
 
   handleSaveClick = () => {
-    let song = {...this.props.song, letter: this.state.letter};
+    let song = {...this.props.song, lyrics: this.state.lyrics};
     this.props.dispatch(updateSongRegisterData(song));
     this.handleBackClick();
   };
@@ -41,9 +41,9 @@ class MusicLetterScreenContainer extends React.Component {
                   icons={this.renderHeaderMenuSave()}/>
         <View style={styles.content}>
           <MPText style={styles.textTop}>Pode colar a letra da música aqui:</MPText>
-          <MPInput label="Letra da música:" value={this.state.letter} onChangeText={this.handleChangeLetter}/>
+          <MPInput label="Letra da música:" value={this.state.lyrics} onChangeText={this.handleChangeLetter}/>
           <View style={styles.clickableTextContainer}>
-            <MPText style={{fontFamily: 'montSerrat'}}>ou </MPText>
+            <MPText style={styles.ouText}>ou </MPText>
             <MPText style={styles.clickableText}>faça upload da letra(doc, tx ou rtf)</MPText>
           </View>
           <MPSelect style={styles.idioma} label="Idioma" />
@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
   textTop: {
     fontSize: 16,
     color: '#686868',
-    fontFamily: 'montSerrat'
+    fontFamily: 'probaProRegular'
   },
   clickableTextContainer: {
     alignItems: 'flex-start',
@@ -96,6 +96,9 @@ const styles = StyleSheet.create({
   },
   idioma: {
     marginTop: 52
+  },
+  ouText: {
+    fontFamily: 'montSerrat'
   }
 });
 

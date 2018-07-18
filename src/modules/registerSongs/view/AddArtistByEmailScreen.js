@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet, Text, View, TextInput, FlatList, ScrollView } from 'react-native';
-import { MPArtistHorizontal, MPHeader, MPFooter, MPTextField, MPText } from '../../../components';
+import { MPArtistHorizontal, MPInvitation, MPHeader, MPFooter, MPTextField, MPText } from '../../../components';
 import { connect } from 'react-redux';
 
 class AddArtistByEmailScreenContainer extends React.Component {
@@ -28,6 +28,9 @@ class AddArtistByEmailScreenContainer extends React.Component {
         <MPHeader back={true} onBack={this.handleBackClick} title={"Co-autores"} />
         <ScrollView style={styles.scroll}>
           <MPArtistHorizontal artist={"Almir Sater"} selected={true} onPress={() => {}} />
+          <MPInvitation artistName={"Roberto Carlos"} artistEmail={"robertocarlos@gmail.com"} selected={true}
+                        onPress={() => {
+                        }}/>
             <View>
               <MPText style={styles.textTop}>Essa música tem outros autores?</MPText>
               <MPTextField label={'Pesquise pelo nome:'} value={'Roberto Carlos'} />

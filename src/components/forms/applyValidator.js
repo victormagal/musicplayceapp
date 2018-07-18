@@ -40,7 +40,7 @@ export const applyValidator = (FormFieldComponent) => {
           }
         }
 
-        let errorProps = error ? {error, errorColor: '#e13223'} : {};
+        let errorProps = error ? {error, errorColor: '#e13223'} : null;
         let valid = !error;
         this.setState({errorProps, valid});
       }

@@ -108,6 +108,11 @@ export const MPClipboardIcon = (props) => {
  return (<Svg {...newProps} viewBox='0 0 18 18'><Path d='M7 7v10h10v-10h-10zM6 6h12v12h-12v-12z' fill='#2424d3'/><Path d='M1 1v10h10v-10h-10zM0 0h12v12h-12v-12z' fill='#2424d3'/></Svg>); 
 };
 
+export const MPCloseFilledRedIcon = (props) => { 
+ let newProps = applyStyle(props, 16, 16); 
+ return (<Svg {...newProps} viewBox='0 0 16 16'><Path d='M16 8c0 4.418-3.582 8-8 8s-8-3.582-8-8c0-4.418 3.582-8 8-8s8 3.582 8 8z' fill='#e13223'/><Path d='M10.828 5.171c0.391 0.391 0.391 1.024 0 1.414l-4.243 4.243c-0.391 0.391-1.024 0.391-1.414 0s-0.391-1.024 0-1.414l4.243-4.243c0.391-0.391 1.024-0.391 1.414 0z' fill='#fff'/><Path d='M10.828 10.828c-0.391 0.391-1.024 0.391-1.414 0l-4.243-4.243c-0.391-0.391-0.391-1.024 0-1.414s1.024-0.391 1.414 0l4.243 4.243c0.391 0.391 0.391 1.024 0 1.414z' fill='#fff'/></Svg>); 
+};
+
 export const MPCloseIcon = (props) => { 
  let newProps = applyStyle(props, 16, 16); 
  return (<Svg {...newProps} viewBox='0 0 16 16'><Path d='M2.05 2.222l12 12m0-12l-12 12' fill='none' stroke='#FFF' strokeWidth='3' strokeLinecap='round' strokeLinejoin='round'/></Svg>); 
@@ -341,6 +346,11 @@ export const MPProfileIcon = (props) => {
 export const MPReportIcon = (props) => { 
  let newProps = applyStyle(props, 16, 16); 
  return (<Svg {...newProps} viewBox='0 0 16 16'><Path d='M8 16c-4.418 0-8-3.582-8-8s3.582-8 8-8v0c4.418 0 8 3.582 8 8s-3.582 8-8 8v0zM6.77 4.62v3.99c0 0.34 0.277 0.62 0.62 0.62h1.22c0.001 0 0.001 0 0.002 0 0.341 0 0.618-0.277 0.618-0.618 0-0.001 0-0.001 0-0.002v0-3.99c0-0.339-0.277-0.62-0.62-0.62h-1.22c-0.001 0-0.001 0-0.002 0-0.341 0-0.618 0.277-0.618 0.618 0 0.001 0 0.001 0 0.002v-0zM6.77 10.775v1.22c0 0.348 0.277 0.62 0.62 0.62h1.22c0.001 0 0.001 0 0.002 0 0.341 0 0.618-0.277 0.618-0.618 0-0.001 0-0.001 0-0.002v0-1.22c0-0.001 0-0.002 0-0.003 0-0.341-0.277-0.618-0.618-0.618-0.001 0-0.001 0-0.002 0h-1.22c-0.001 0-0.001 0-0.002 0-0.341 0-0.618 0.277-0.618 0.618 0 0.001 0 0.002 0 0.003v-0z' fill='#9b9b9b' fillOpacity='0.5'/></Svg>); 
+};
+
+export const MPSearchRedIcon = (props) => { 
+ let newProps = applyStyle(props, 19, 19); 
+ return (<Svg {...newProps} viewBox='0 0 19 19'><Path d='M18 6.5c0 3.038-2.462 5.5-5.5 5.5s-5.5-2.462-5.5-5.5c0-3.038 2.462-5.5 5.5-5.5s5.5 2.462 5.5 5.5z' fill='none' stroke='#e13223' strokeWidth='2' strokeMiterlimit={4} strokeLinecap='butt' strokeLinejoin='miter'/><Path d='M8.188 10.697l-6.999 6.998' fill='none' stroke='#e13223' strokeWidth='2' strokeMiterlimit={4} strokeLinecap='butt' strokeLinejoin='miter'/></Svg>); 
 };
 
 export const MPSendMessageIcon = (props) => { 
