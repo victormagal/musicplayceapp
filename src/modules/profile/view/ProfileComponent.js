@@ -62,13 +62,13 @@ class ProfileComponent extends React.Component {
 
   renderHeaderMenuRight() {
     return [
-      <MPIconButton icon={MPSettingsIcon} onPress={this.goToScreen.bind(this, 'settings')}/>
+      <MPIconButton key={Math.random()} icon={MPSettingsIcon} onPress={this.goToScreen.bind(this, 'settings')}/>
     ];
   }
 
   renderHeaderMenuLeft() {
     return [
-      <MPIconButton title="Sair" titleStyle={styles.headerMenuText} />
+      <MPIconButton key={Math.random()} title="Sair" titleStyle={styles.headerMenuText} />
     ];
   }
 
@@ -88,16 +88,15 @@ class ProfileComponent extends React.Component {
         {this.renderHeader()}
         <ScrollView style={styles.flexOne} ref={this.scrollViewRef}>
 
-          {!profile && (
+          {!profile ? (
             <View style={styles.containerLoading}>
               <View style={styles.contentLoading}>
                   <ActivityIndicator size="large" color="#BB1A1A" />
                   <MPText style={styles.textLoading}>Carregando perfil...</MPText>
               </View>
             </View>
-          )}
-          s
-          {profile && (
+          )
+          : (
           <View>
             <View style={styles.linearContainer}>
               <LinearGradient
@@ -197,7 +196,7 @@ class ProfileComponent extends React.Component {
 
 
 ProfileComponent.propTypes = {
-  profile: PropTypes.object.isRequired,
+  profile: PropTypes.object,
   me: PropTypes.bool,
   onFollowersEmptyClick: PropTypes.func,
   onSongAddClick: PropTypes.func
