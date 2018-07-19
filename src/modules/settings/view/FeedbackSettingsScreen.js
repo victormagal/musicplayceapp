@@ -58,8 +58,9 @@ class FeedbackSettingsScreenContainer extends React.Component {
     const color = isDisabled ? 'rgba(0,0,0,1)' : 'rgba(255,255,255,1)';
     return [
       <TouchableOpacity setOpacity={1}
+                        key={Math.random()}
                         disabled={isDisabled}
-                        onPress={() => this.handleSendPress()} style={{ marginTop: 3 }}>
+                        onPress={this.handleSendPress}>
         <MPText style={[styles.headerText, { color }]}>
           Enviar
         </MPText>
@@ -121,8 +122,9 @@ const styles = StyleSheet.create({
     marginTop: 10
   },
   headerText: {
-    fontFamily: 'montSerrat',
-    fontSize: 11
+    fontWeight: "500",
+    fontFamily: 'montSerratMedium',
+    fontSize: 12
   }
 });
 
