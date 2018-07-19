@@ -38,7 +38,7 @@ class MPForm extends React.Component {
     let children = null;
     let parentProps = {register: this._register, unregister: this._unregister, onSubmit: this._handleSubmit};
 
-    if(child.type === 'RCTView' && child.props.children){
+    if(((child.type && child.type.name === 'View') || child.type === 'RCTView') && child.props.children){
       children = React.Children.map(child.props.children, (child, i) => React.cloneElement(child, {id: parseInt(`${index}${i}`), ...parentProps}));
       parentProps.children = children;
     }

@@ -59,11 +59,16 @@ const styles = StyleSheet.create({
   header: {
     display: 'flex',
     flexDirection: 'row',
+    paddingTop: 10,
     marginTop: 30,
   },
   backContainer: {
     position: 'absolute',
-    left: 20
+    top: 2,
+    paddingLeft: 20,
+    paddingRight: 20,
+    paddingTop: 10,
+    paddingBottom: 10
   },
   back: {
     width: 10,
@@ -85,13 +90,12 @@ const styles = StyleSheet.create({
   },
   icons: {
     position: 'absolute',
-    flexDirection: 'row',
-    right: 20
+    right: 20,
+    top: 12
   },
   iconsLeft: {
     position: 'absolute',
-    flexDirection: 'row',
-    marginLeft: 20
+    left: 10
   }
 });
 

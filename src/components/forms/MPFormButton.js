@@ -14,7 +14,7 @@ class MPFormButton extends React.Component {
   }
 
   handlePress = (e) => {
-    if(this.props.children.props.onPress()){
+    if(this.props.onSubmit()){
       this.defaultOnPress && this.defaultOnPress();
     }
   };

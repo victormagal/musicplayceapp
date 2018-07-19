@@ -68,7 +68,7 @@ class ProfileComponent extends React.Component {
 
   renderHeaderMenuLeft() {
     return [
-      <MPIconButton title="Sair" titleStyle={styles.headerMenuText} onPress={this.props.onLogoutClick}/>
+      <MPIconButton style={styles.logout} title="Sair" titleStyle={styles.headerMenuText} onPress={this.props.onLogoutClick}/>
     ];
   }
 
@@ -87,7 +87,6 @@ class ProfileComponent extends React.Component {
       <View style={styles.container}>
         {this.renderHeader()}
         <ScrollView style={styles.flexOne} ref={this.scrollViewRef}>
-
           {!profile && (
             <View style={styles.containerLoading}>
               <View style={styles.contentLoading}>
@@ -96,6 +95,7 @@ class ProfileComponent extends React.Component {
               </View>
             </View>
           )}
+
           {profile && (
           <View>
             <View style={styles.linearContainer}>
@@ -245,6 +245,9 @@ const styles = StyleSheet.create({
     fontFamily: 'probaProRegular',
     fontSize: 18,
     color: '#000',
+  },
+  logout: {
+    padding: 10
   }
 });
 
