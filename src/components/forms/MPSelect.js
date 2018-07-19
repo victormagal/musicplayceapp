@@ -10,13 +10,17 @@ import ActionSheet from 'react-native-actionsheet';
 import { connect } from 'react-redux';
 
 class MPSelectComponent extends React.Component {
+  state = {
+    selectedOption: null
+  };
 
   showActionSheet = () => {
     this.ActionSheet.show()
   }
 
   render() {
-    let { label, style } = this.props;
+    let { label, style, options } = this.props;
+    const { selectedOption } = this.state;
     return (
       <View style={style}>
         <TouchableHighlight onPress={this.showActionSheet} underlayColor="transparent">
@@ -27,13 +31,18 @@ class MPSelectComponent extends React.Component {
             <View style={styles.boxFoward}>
               <MPArrowDownIcon />
             </View>
+            { selectedOption !== null &&
+              <View style={styles.boxText}>
+                <MPText style={styles.text}>{options[selectedOption]}</MPText>
+              </View>
+            }
           </View>
         </TouchableHighlight>
         <ActionSheet
           ref={o => this.ActionSheet = o}
-          options={['Interface', 'Navegação', 'Experiência', 'Fechar']}
+          options={options}
           cancelButtonIndex={3}
-          onPress={(index) => { return false; }}
+          onPress={(selectedOption) => this.setState({ selectedOption }) }
         />
       </View>
     );

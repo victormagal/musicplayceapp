@@ -7,8 +7,7 @@ import {
 import { 
   MPHeader, 
   MPSelect, 
-  MPTextField, 
-  MPFooter 
+  MPTextField
 } from '../../../components';
 
 class FeedbackSettingsScreen extends React.Component {
@@ -23,7 +22,8 @@ class FeedbackSettingsScreen extends React.Component {
         <MPHeader back={true} onBack={this.handleBack} title={"Alguma sugestão? Ajude-nos a melhorar a plataforma"} />
         <ScrollView style={styles.scroll}>
           <View style={styles.container}>
-            <MPSelect label={"Assunto do feedback"} />
+            <MPSelect label={"Assunto do feedback"}
+                      options={['Interface', 'Navegação', 'Experiência', 'Fechar']} />
             <MPTextField label={"Envie sua mensagem"} value={""} />
           </View>
         </ScrollView>
