@@ -33,13 +33,13 @@ class StorageService {
           StorageService.setToken(response);
           return response.access_token;
         }).catch(e => {
-          console.log(e.response);
+          console.log('StorageService refreshToken :: Error', e);
           return null;
         });
       }
 
       return token.access_token;
-    });
+    }).catch(e => console.log('StorageService getItem :: Error', e));
   }
 }
 
