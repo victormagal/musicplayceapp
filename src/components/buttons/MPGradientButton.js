@@ -79,7 +79,7 @@ MPGradientButtonComponent.propTypes = {
   textSize: PropTypes.number,
   style: PropTypes.any,
   selected: PropTypes.bool,
-  icon: PropTypes.symbol
+  icon: PropTypes.any
 };
 
 const textStyle = {

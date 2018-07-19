@@ -165,14 +165,20 @@ class FeedScreenContainer extends React.Component {
               }}>Músicas relacionadas a busca <MPText
                 style={{color: '#5994db'}}>{ this.state.textValue }</MPText></MPText>
               <MPArtistFull artistName={'Adelle'} songName={'Nome da música'} imagePath={images.daftPunk120}
-                            artistImagePath={images.adele40} onPress={() => {
-              }}/>
+                            artistImagePath={images.adele40}
+                            onPressArtist={this.handleNavigateArtistProfile}
+                            onPressMusic={this.handleNavigateMusic}
+              />
               <MPArtistFull artistName={'Freddie'} songName={'Nome da música'} imagePath={images.bjork120}
-                            artistImagePath={images.freddieMercury40} onPress={() => {
-              }}/>
+                            artistImagePath={images.freddieMercury40}
+                            onPressArtist={this.handleNavigateArtistProfile}
+                            onPressMusic={this.handleNavigateMusic}
+              />
               <MPArtistFull artistName={'Bjork'} songName={'Nome da música'} imagePath={images.daftPunk120}
-                            artistImagePath={images.freddieMercury40} onPress={() => {
-              }}/>
+                            artistImagePath={images.freddieMercury40}
+                            onPressArtist={this.handleNavigateArtistProfile}
+                            onPressMusic={this.handleNavigateMusic}
+              />
             </ScrollView>
           )
         }
@@ -212,6 +218,7 @@ class FeedScreenContainer extends React.Component {
                                 onPressArtist={this.handleNavigateArtistProfile}
                                 onPressMusic={this.handleNavigateMusic} />
                   <MPArtistFull artistName={'Bjork'} songName={'Nome da música'} imagePath={images.bjork120}
+                                artistImagePath={images.adele40}
                                 onPressArtist={this.handleNavigateArtistProfile}
                                 onPressMusic={this.handleNavigateMusic} />
                   <View style={styles.topArtistsContainer}>
@@ -225,14 +232,20 @@ class FeedScreenContainer extends React.Component {
                     />
                   </View>
                   <MPArtistFull artistName={'Adelle'} songName={'Nome da música'} imagePath={images.daftPunk120}
-                                artistImagePath={images.freddieMercury40} onPress={() => {
-                  }}/>
+                                artistImagePath={images.freddieMercury40}
+                                onPressArtist={this.handleNavigateArtistProfile}
+                                onPressMusic={this.handleNavigateMusic}
+                  />
                   <MPArtistFull artistName={'Freddie'} songName={'Nome da música'} imagePath={images.daftPunk120}
-                                artistImagePath={images.adele40} onPress={() => {
-                  }}/>
+                                artistImagePath={images.adele40}
+                                onPressArtist={this.handleNavigateArtistProfile}
+                                onPressMusic={this.handleNavigateMusic}
+                  />
                   <MPArtistFull artistName={'Bjork'} songName={'Nome da música'} imagePath={images.bjork120}
-                                artistImagePath={images.adele40} onPress={() => {
-                  }}/>
+                                artistImagePath={images.adele40}
+                                onPressArtist={this.handleNavigateArtistProfile}
+                                onPressMusic={this.handleNavigateMusic}
+                  />
                 </ScrollView>
               </View>
               <View style={styles.secondSliderContainer}>

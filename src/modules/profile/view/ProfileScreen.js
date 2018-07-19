@@ -26,7 +26,8 @@ class ProfileScreenContainer extends React.Component {
 
   render() {
     return (
-      <ProfileComponent {...this.props} me={true}
+      <ProfileComponent {...this.props}
+                        me={true}
                         onSongAddClick={this.handleSongAddClick}
                         onFollowersEmptyClick={this.handleFollowersEmptyClick}
                         onLogoutClick={this.handleLogout}/>
