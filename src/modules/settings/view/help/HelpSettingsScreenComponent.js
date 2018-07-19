@@ -9,7 +9,6 @@ import {
 	MPHeader,
 	MPTextField,
 	MPToggleList,
-	MPFooter,
 	MPText,
 	MPLoading
 } from '../../../../components';
@@ -24,15 +23,14 @@ class HelpSettingsScreenComponent extends React.Component {
 	
 	constructor(props) {
 		super(props);
-		
-		if (props.profile.name) {
+		if (props.profile && props.profile.name) {
 			this.state.form = {...props.profile};
 			this.state.formLoaded = true;
 		}
 	}
 	
 	componentWillReceiveProps(props) {
-		if (!this.state.formLoaded && props.profile.name) {
+		if (!this.state.formLoaded && props.profile && props.profile.name) {
 			let state = {...this.state};
 			state.form = {...props.profile};
 			state.formLoaded = true;
@@ -45,9 +43,7 @@ class HelpSettingsScreenComponent extends React.Component {
 	};
 
 	render() {
-
-		let { onBack } = this.props;
-
+		const { onBack, faqs } = this.props;
 		return (
 			<View style={styles.parent}>
         <MPHeader back={true} onBack={onBack} title={"Pesquise sua dúvida ou consulte na lista abaixo"} />
@@ -55,42 +51,11 @@ class HelpSettingsScreenComponent extends React.Component {
           <View style={styles.container}>
 						<MPTextField label={"Pesquisar"} />
 						<View style={styles.borda}>
-							<MPToggleList title="Como faço para me cadastrar?">
-								<MPText style={styles.text}>O sistema é bem simples e intuitivo.</MPText>
-								<TouchableHighlight onPress={() => { return false; }} underlayColor="transparent">
-									<MPText style={styles.link}>Clique para fazer o preenchimento do cadastro desde o começo</MPText>
-								</TouchableHighlight>
-							</MPToggleList>
-							<MPToggleList title="Como encontrar outros usuários?">
-								<MPText style={styles.text}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin nullam.</MPText>
-							</MPToggleList>
-							<MPToggleList title="Existe algum custo de intermediação?">
-								<MPText style={styles.text}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tempor eleifend consectetur. Duis eu dui mauris. Maecenas elementum nullam.</MPText>
-							</MPToggleList>
-							<MPToggleList title="Posso subir quantos trabalhos?">
-								<MPText style={styles.text}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tempor eleifend consectetur. Duis eu dui mauris. Maecenas elementum nullam.</MPText>
-							</MPToggleList>
-							<MPToggleList title="Posso interagir com qualquer usuário?">
-								<MPText style={styles.text}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tempor eleifend consectetur. Duis eu dui mauris. Maecenas elementum nullam.</MPText>
-							</MPToggleList>
-							<MPToggleList title="Como faço para me cadastrar?">
-								<MPText style={styles.text}>O sistema é bem simples e intuitivo.</MPText>
-								<TouchableHighlight onPress={() => { return false; }} underlayColor="transparent">
-									<MPText style={styles.link}>Clique para fazer o preenchimento do cadastro desde o começo</MPText>
-								</TouchableHighlight>
-							</MPToggleList>
-							<MPToggleList title="Como encontrar outros usuários?">
-								<MPText style={styles.text}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin nullam.</MPText>
-							</MPToggleList>
-							<MPToggleList title="Existe algum custo de intermediação?">
-								<MPText style={styles.text}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tempor eleifend consectetur. Duis eu dui mauris. Maecenas elementum nullam.</MPText>
-							</MPToggleList>
-							<MPToggleList title="Posso subir quantos trabalhos?">
-								<MPText style={styles.text}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tempor eleifend consectetur. Duis eu dui mauris. Maecenas elementum nullam.</MPText>
-							</MPToggleList>
-							<MPToggleList title="Posso interagir com qualquer usuário?">
-								<MPText style={styles.text}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tempor eleifend consectetur. Duis eu dui mauris. Maecenas elementum nullam.</MPText>
-							</MPToggleList>
+              { !!faqs && faqs.map(faq => (
+                <MPToggleList key={faq.id} title={faq.attributes.question}>
+                  <MPText style={styles.text}>{faq.attributes.answer}</MPText>
+                </MPToggleList>
+              ))}
 							<TouchableHighlight underlayColor="transparent" onPress={this.handleUpdateIdentificacao.bind(this, 'help')}>
 								<View style={styles.item}>
 									<MPText style={styles.textItem}>Não encontrei minha dúvida</MPText>

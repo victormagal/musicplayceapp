@@ -8,6 +8,7 @@ import authReducer from './auth/authReducer';
 import folderReducer from './folder/folderReducer';
 import tagReducer from './tag/tagReducer';
 import artistReducer from './artist/artistReducer';
+import helpReducer from './help/helpReducer';
 
 
 export const reducers = combineReducers({
@@ -20,5 +21,6 @@ export const reducers = combineReducers({
   authReducer,
   folderReducer,
   tagReducer,
-  artistReducer
+  artistReducer,
+  helpReducer
 });

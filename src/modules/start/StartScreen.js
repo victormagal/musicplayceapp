@@ -15,7 +15,7 @@ class StartScreen extends Component {
       } else {
         this.props.navigation.replace('login');
       }
-    });
+    }).catch(e => console.log('StartScreen componentDidMount :: Error', e));
   }
 
   render() {

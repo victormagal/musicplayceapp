@@ -98,8 +98,8 @@ class ProfileComponent extends React.Component {
                   <MPText style={styles.textLoading}>Carregando perfil...</MPText>
               </View>
             </View>
-          )
-          : (
+          )}
+          {profile && (
           <View>
             <View style={styles.linearContainer}>
               <LinearGradient

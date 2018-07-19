@@ -2,7 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import {
   fetchProfile,
-  saveProfile
+  saveProfile,
+  fetchFAQHelp
 } from '../../../../state/action';
 import { HelpSettingsScreenComponent } from './HelpSettingsScreenComponent';
 import {
@@ -17,6 +18,7 @@ class HelpSettingsScreenContainer extends React.Component {
 
   componentDidMount() {
     this.props.dispatch(fetchProfile());
+    this.props.dispatch(fetchFAQHelp());
   }
 
   componentWillReceiveProps(nextProps) {
@@ -39,14 +41,15 @@ class HelpSettingsScreenContainer extends React.Component {
         onSave={this.handleSaveClick}
         onBack={this.handleBackClick}
         profile={this.props.profile}
-        loading={this.props.loading}
+        loading={this.props.faqLoading}
+        faqs={this.props.faqs}
       />
     );
   }
 }
 
-const mapStateToProps = ({ profileReducer }) => {
-  return { ...profileReducer };
+const mapStateToProps = ({ profileReducer, helpReducer }) => {
+  return { ...profileReducer, ...helpReducer };
 };
 
 const HelpSettingsScreen = connect(mapStateToProps)(HelpSettingsScreenContainer);
