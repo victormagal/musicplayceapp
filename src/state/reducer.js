@@ -9,7 +9,7 @@ import folderReducer from './folder/folderReducer';
 import tagReducer from './tag/tagReducer';
 import artistReducer from './artist/artistReducer';
 import helpReducer from './help/helpReducer';
-
+import feedbackReducer from './feedback/feedbackReducer';
 
 export const reducers = combineReducers({
   languageReducer,
@@ -22,5 +22,6 @@ export const reducers = combineReducers({
   folderReducer,
   tagReducer,
   artistReducer,
-  helpReducer
+  helpReducer,
+  feedbackReducer
 });
