@@ -96,7 +96,6 @@ class ProfileComponent extends React.Component {
               </View>
             </View>
           )}
-          s
           {profile && (
           <View>
             <View style={styles.linearContainer}>

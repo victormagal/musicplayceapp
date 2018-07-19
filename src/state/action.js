@@ -8,3 +8,4 @@ export * from './feed/feedAction';
 export * from './folder/folderAction';
 export * from './tag/tagAction';
 export * from './artist/artistAction';
+export * from './help/helpAction';
