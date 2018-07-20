@@ -1,21 +1,50 @@
 import {createAction} from 'redux-actions';
 import {SongService} from '../../service';
 
-export const UPDATE_SONG_REGISTER_DATA = 'UPDATE_SONG_REGISTER_DATA';
 
-export const updateSongRegisterData = createAction(UPDATE_SONG_REGISTER_DATA, (data) => {
+export const SONG_START_LOADING = 'SONG_START_LOADING';
+export const SONG_FINISH_LOADING = 'SONG_FINISH_LOADING';
+export const SONG_REGISTER_CLEAR = 'SONG_REGISTER_CLEAR';
+export const SONG_REGISTER_DATA = 'UPDATE_SONG_REGISTER_DATA';
+export const SONG_CREATE_SUCCESS = 'SONG_CREATE_SUCCESS';
+export const SONG_CREATE_ERROR = 'SONG_CREATE_ERROR';
+export const FETCHED_ARTIST_SONGS = 'FETCHED_ARTIST_SONGS';
+
+
+export const updateSongRegisterData = createAction(SONG_REGISTER_DATA, (data) => {
     return {...data};
 });
+
+export const songStartLoading = createAction(SONG_START_LOADING);
+export const songFinishLoading = createAction(SONG_FINISH_LOADING);
+export const songRegisterClear = createAction(SONG_REGISTER_CLEAR);
+export const songCreateSuccess = createAction(SONG_CREATE_SUCCESS);
+export const songCreateError = createAction(SONG_CREATE_ERROR);
+export const fetchedArtistSongs = createAction(FETCHED_ARTIST_SONGS, data => data);
 
 export const createSong = (song) => {
   return (dispatch, getState) => {
     let {profile} = getState().profileReducer;
     song.artist_id = profile.id;
-    SongService.create(song).then(response => {
-      console.log(response);
+    song.path = 'mock/path.mp3';
+
+    dispatch(songStartLoading());
+    return SongService.create(song).then(response => {
+      dispatch(songCreateSuccess(response));
     }).catch(e => {
-      console.log(e);
-      console.log(e.response);
+      dispatch(songCreateError(e.response));
+    });
+  };
+};
+
+export const fetchArtistSongs = (artist) => {
+  return (dispatch) => {
+    dispatch(songStartLoading());
+
+    return SongService.artistSongs(artist).then(response => {
+      dispatch(fetchedArtistSongs(response));
+    }).catch(e => {
+      dispatch(songFinishLoading(e.response));
     });
   };
 };

@@ -108,6 +108,8 @@ class ArtistsScreenContainer extends React.Component {
   }
 
   render() {
+    let hasSelected = Object.keys(this.state.artistsSelectedTemp).length > 0;
+
     return (
       <View style={styles.container}>
         <MPHeader back={true} onBack={this.handleBackClick} title="Co-autores" icons={this.renderHeaderMenuSave()}/>
@@ -140,7 +142,7 @@ class ArtistsScreenContainer extends React.Component {
               </View>
             )}
 
-            {!this.state.search && (
+            {!this.state.search && !hasSelected && (
               <TouchableOpacity style={styles.clickableTextContainer} onPress={this.handleBackClick}>
                 <MPText style={styles.clickableText}>Não, apenas eu</MPText>
               </TouchableOpacity>

@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Alert, StyleSheet, Text, View, TextInput, FlatList, ScrollView, TouchableOpacity } from 'react-native';
 import { MPGradientButton, MPHeader, MPSongInfo, MPText } from '../../../components'
-import {createSong} from '../../../state/action';
 import {MPSongUploadIcon} from '../../../assets/svg';
 
 
@@ -55,8 +54,15 @@ class RegisterSongContainer extends React.Component {
     this.setState({cardErros});
 
     if(valid){
-      this.props.dispatch(createSong(this.props.song));
+      //TODO: dispatch if it is saved publish song
+      //this.props.dispatch(createSong(this.props.song));
       //this.goToScreen('ConfirmationScreen');
+    }
+  };
+
+  handleFinishLaterClick = () => {
+    if(this.validate()){
+      this.goToScreen('SaveDraftScreen');
     }
   };
 
@@ -73,6 +79,21 @@ class RegisterSongContainer extends React.Component {
       );
     });
   };
+
+  validate(){
+    let {cardErros} = this.state;
+    let valid = true;
+
+    for(let key in this.state.cardErros){
+      cardErros[key] = !this.props.song[key];
+      if(cardErros[key]){
+        valid = false;
+      }
+    }
+
+    this.setState({cardErros});
+    return valid;
+  }
 
   getProgressStyle(){
     let style = StyleSheet.flatten(styles.progressContent);
@@ -140,7 +161,7 @@ class RegisterSongContainer extends React.Component {
                 </View>
 
                 <MPGradientButton title='Publicar' onPress={this.handlePublishClick} textSize={16} style={styles.publishButton} />
-                <TouchableOpacity style={styles.clickableTextContainer} onPress={ this.goToScreen.bind(this, 'SaveDraftScreen') } t>
+                <TouchableOpacity style={styles.clickableTextContainer} onPress={this.handleFinishLaterClick}>
                   <MPText style={styles.clickableText} >Terminar depois</MPText>
                 </TouchableOpacity>
               </View>

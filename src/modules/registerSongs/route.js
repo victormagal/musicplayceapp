@@ -1,4 +1,3 @@
-import { createStackNavigator } from 'react-navigation';
 import {
     ArtistsScreen,
     ConfirmationScreen,
@@ -13,8 +12,7 @@ import {
     RegisterSongScreen,
 } from './view';
 
-export const SongsScreensNavigation = createStackNavigator(
-  {
+export const SongsScreens = {
     RegisterSongScreen: RegisterSongScreen,
     TitleScreen:TitleScreen,
     MusicLetterScreen: MusicLetterScreen,
@@ -25,8 +23,4 @@ export const SongsScreensNavigation = createStackNavigator(
     FolderScreen: FolderScreen,
     ConfirmationScreen: ConfirmationScreen,
     SaveDraftScreen: SaveDraftScreen
-  }, {
-    initialRouteName: 'RegisterSongScreen',
-    headerMode: 'none'
-  }
-);
+};
