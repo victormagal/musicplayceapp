@@ -31,8 +31,10 @@ class MPPhoneComponent extends React.Component {
         <MPText style={styles.subtitle}>
           Digite aqui o código enviado para o número: { data }
         </MPText>
-        <MPGradientButton style={styles.button} textSize={16} title="Cancelar" onPress={this.handleBack} />
-        <MPGradientButton style={styles.button} textSize={16} title="Reenviar SMS" onPress={this.handleFoward} />
+        <View style={{ flexDirection: 'row' }}>
+          <MPGradientButton style={styles.button} textSize={16} title="Cancelar" onPress={this.handleBack} />
+          <MPGradientButton style={styles.button} textSize={16} title="Reenviar SMS" onPress={this.handleFoward} />
+        </View>
       </View>
     );
   }
@@ -59,6 +61,7 @@ const styles = StyleSheet.create({
     marginVertical: 20
   },
   button: {
+    flex: 1,
     marginHorizontal: 20,
     marginTop: 20
   }

@@ -10,13 +10,15 @@ import {
   MPMail,
   MPPhone
 } from '../../../../components';
+import {MPPhoneSuccess} from "../../../../components/settings";
 
 class EditSettingsScreenContainer extends React.Component {
 
   sections = {
     'profile': MPProfileSuccess,
     'email': MPMail,
-    'cell_phone': MPPhone
+    //'cell_phone': MPPhone
+    'cell_phone': MPPhoneSuccess
   };
 
   componentDidMount(){
