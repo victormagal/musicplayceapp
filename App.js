@@ -16,7 +16,6 @@ import {
   IndicateSongScreensNavigation,
   FeedScreensNavigation,
   NotificationScreensNavigation,
-  SongsScreensNavigation,
   StartScreen,
   MessageScreen
 } from './src/modules';
@@ -64,8 +63,7 @@ const StartNavigation = createStackNavigator(
     login: LoginScreensNavigation,
     home: HomeTabBottomNavigation,
     message: MessageScreen,
-    indicateSong: IndicateSongScreensNavigation,
-    registerSong: SongsScreensNavigation
+    indicateSong: IndicateSongScreensNavigation
   },
   {
     initialRouteName: 'start',

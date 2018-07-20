@@ -12,7 +12,7 @@ class LoginScreenContainer extends Component {
 
   componentWillReceiveProps(nextProps){
     if(nextProps.loginSuccess){
-      this.props.navigation.replace('home');
+      this.props.navigation.dangerouslyGetParent().replace('home');
     }
   }
 

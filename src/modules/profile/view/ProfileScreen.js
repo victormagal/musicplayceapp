@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {ProfileComponent} from './ProfileComponent';
-import {fetchProfile, logout} from '../../../state/action';
+import {fetchProfile, fetchArtistSongs, logout} from '../../../state/action';
 
 
 class ProfileScreenContainer extends React.Component {
@@ -9,6 +9,17 @@ class ProfileScreenContainer extends React.Component {
   componentDidMount() {
     let {dispatch} = this.props;
     dispatch(fetchProfile());
+    this.setup(this.props);
+  }
+
+  componentWillReceiveProps(nextProps){
+    this.setup(nextProps);
+  }
+
+  setup(props){
+    if(props.profile && !props.mySongs){
+      this.props.dispatch(fetchArtistSongs(props.profile.id));
+    }
   }
 
   handleFollowersEmptyClick = () => {

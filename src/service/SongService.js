@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {API} from './api';
+import {API, transformResponseData} from './api';
 
 const API_SONG = `${API}/songs`;
 
@@ -9,16 +9,16 @@ class SongService {
     song = {...song};
     song.title = song.name;
 
-    let relationship = {};
+    let relationships = {};
 
     if(song.coAuthors){
-      relationship['coAuthors'] = {
+      relationships['coAuthors'] = {
         data : song.coAuthors.map(a => { return {id: a.id, type: "coAuthors"}})
       };
     }
 
     if(song.tags){
-      relationship['tags'] = {
+      relationships['tags'] = {
         data : song.tags.map(a => { return {id: a.id, type: "tags"}})
       };
     }
@@ -30,12 +30,22 @@ class SongService {
     let data = {
       data: {
         type: "songs",
-        attributes: song
+        attributes: song,
+        relationships
       }
     };
 
     return axios.post(API_SONG, data)
                 .then(response => response.data);
+  }
+
+  static artistSongs(artist){
+    return axios.get(`${API}/song-artist/${artist}`)
+      .then(response => {
+        console.log(response);
+        let {data, meta} = response.data;
+        return {data: transformResponseData(data), pagination: meta.pagination};
+      });
   }
 
 }

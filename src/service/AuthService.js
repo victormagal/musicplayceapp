@@ -8,7 +8,7 @@ const API_AUTH = `${API}/auth`;
 
 class AuthService {
 
-  static login(user){
+  static login(user) {
     let params = {
       data: {
         type: "login",
@@ -17,17 +17,17 @@ class AuthService {
     };
 
     return axios.post(`${API_AUTH}/login`, params)
-                .then(response => {
-                  StorageService.setToken(response.data);
-                  return response.data;
-                });
+      .then(response => {
+        StorageService.setToken(response.data);
+        return response.data;
+      });
   }
 
-  static logout(){
+  static logout() {
     StorageService.clear();
   }
 
-  static recoverPassword(user){
+  static recoverPassword(user) {
     let params = {
       data: {
         type: "recoverPassword",
@@ -36,23 +36,18 @@ class AuthService {
     };
 
     return axios.post(`${API_AUTH}/password/email`, params)
-                .then(response => response.data);
+      .then(response => response.data);
   }
 
-  static refreshToken(token){
-    let params = {
-      data : {
-        type: "refresh",
-        attributes: { token }
+  static refreshToken(token) {
+    return axios.post(`${API_AUTH}/refresh`, null, {
+      headers: {
+        'Authorization': `Bearer ${token}`
       }
-    };
-
-    return axios.post(`${API_AUTH}/refresh`, params)
-                .then(response => response.data)
-                .catch((e) => null);
+    }).then(response => response.data);
   }
 
-  static me(){
+  static me() {
     return axios.get(`${API_AUTH}/me`);
   }
 }

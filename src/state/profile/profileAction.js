@@ -1,5 +1,5 @@
 import {createAction} from 'redux-actions';
-import {UserService, AuthService} from '../../service';
+import {UserService} from '../../service';
 
 
 export const FETCHED_PROFILE = 'FETCHED_PROFILE';
