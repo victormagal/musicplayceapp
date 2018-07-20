@@ -40,15 +40,15 @@ export const fetchProfile = () => {
         dispatch(profileStartLoading());
 
       if(shouldFetchProfile(getState())) {
-
-            return UserService.me()
-                              .then(response => dispatch(fetchedProfile((response))))
+            return UserService.me().then(response => {
+              dispatch(fetchedProfile(response));
+              dispatch(profileFinishLoading());
+            })
               .catch((e) => {
                 console.log(e);
+                dispatch(profileFinishLoading());
               });
         }
-
-        dispatch(profileFinishLoading());
         return Promise.resolve();
     };
 };
@@ -60,14 +60,19 @@ export const fetchMySongs = () => {
   };
 };
 
-export const saveProfile = (data, page) => {
-  return (dispatch, getState) => {
+export const saveProfile = (data, section) => {
+  return (dispatch) => {
     dispatch(profileStartLoading());
-    return Promise.resolve().then(() => {
-        setTimeout(() => {
-          dispatch(saveProfileSucessfully({page}));
-          dispatch(profileFinishLoading());
-        }, 1000);
+
+    UserService.updateUser(data).then((response) => {
+      const responseData = response.data.attributes;
+
+      dispatch(saveProfileSucessfully({ section, responseData }));
+      dispatch(profileFinishLoading());
+
+    }).catch(e => {
+      console.log('error', e);
+      dispatch(profileFinishLoading());
     });
   };
 };

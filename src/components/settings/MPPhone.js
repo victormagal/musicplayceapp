@@ -21,10 +21,16 @@ class MPPhoneComponent extends React.Component {
   };
 
   render() {
+    const { navigation } = this.props;
+    const { data } = navigation.state.params;
     return (
       <View style={styles.container}>
-        <MPText style={styles.title}>Enviamos um código via SMS para seu novo número</MPText>
-        <MPText style={styles.subtitle}>Digite aqui o código enviado para o número: (21) 99999-9999</MPText>
+        <MPText style={styles.title}>
+          Enviamos um código via SMS para seu novo número
+        </MPText>
+        <MPText style={styles.subtitle}>
+          Digite aqui o código enviado para o número: { data }
+        </MPText>
         <MPGradientButton style={styles.button} textSize={16} title="Cancelar" onPress={this.handleBack} />
         <MPGradientButton style={styles.button} textSize={16} title="Reenviar SMS" onPress={this.handleFoward} />
       </View>

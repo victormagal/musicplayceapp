@@ -13,10 +13,10 @@ import {
 
 class EditSettingsScreenContainer extends React.Component {
 
-  pages = {
+  sections = {
     'profile': MPProfileSuccess,
     'email': MPMail,
-    'phone': MPPhone
+    'cell_phone': MPPhone
   };
 
   componentDidMount(){
@@ -25,7 +25,9 @@ class EditSettingsScreenContainer extends React.Component {
 
   componentWillReceiveProps(nextProps){
     if(nextProps.saveProfileSuccess) {
-      this.props.navigation.navigate('message', { component: this.pages[nextProps.page] });
+      this.props.navigation.navigate('message', {
+                                     component: this.sections[nextProps.section],
+                                     data: nextProps.responseData[nextProps.section] });
     }
   }
 
@@ -33,16 +35,29 @@ class EditSettingsScreenContainer extends React.Component {
     this.props.navigation.pop();
   };
 
-  handleSaveClick = (page) => {
-    this.props.dispatch(saveProfile({}, page));
+  handleSaveClick = (formData, section) => {
+    let dataToMaintain = [];
+    switch(section) {
+      case 'profile':
+        dataToMaintain = ['email', 'cell_phone'];
+        break;
+      case 'email':
+        dataToMaintain = ['name', 'username', 'last_name', 'cell_phone'];
+        break;
+      case 'cell_phone':
+        dataToMaintain = ['name', 'username', 'last_name', 'email'];
+    }
+    dataToMaintain.forEach(attribute => formData[attribute] = this.props.user[attribute]);
+
+    this.props.dispatch(saveProfile(formData, section));
   };
 
   render() {
     return (
       <EditSettingsScreenComponent
-        onSave={this.handleSaveClick}
+        onSave={(formData, section) => this.handleSaveClick(formData, section)}
         onBack={this.handleBackClick}
-        profile={this.props.profile}
+        profile={this.props.user}
         loading={this.props.loading}
       />
     );

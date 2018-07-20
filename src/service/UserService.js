@@ -4,6 +4,7 @@ import axios from 'axios';
 
 
 const API_USER = `${API}/users`;
+const API_CURRENT_USER = `${API}/auth/users/me`;
 
 
 class UserService {
@@ -17,6 +18,18 @@ class UserService {
     };
 
     return axios.post(API_USER, data)
+      .then(response => response.data);
+  }
+
+  static updateUser(user) {
+    let data = {
+      data: {
+        type: "update_user",
+        attributes: user
+      }
+    };
+
+    return axios.put(API_CURRENT_USER, data)
       .then(response => response.data);
   }
 

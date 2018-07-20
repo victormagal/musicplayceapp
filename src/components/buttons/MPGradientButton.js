@@ -44,19 +44,20 @@ class MPGradientButtonComponent extends Component {
   }
 
   render() {
-    let {style, title, selected, onPress, icon} = this.props;
+    let {style, title, selected, onPress, icon, disabled} = this.props;
     if (selected == null) {
       selected = true;
     }
 
     let borderStyle = selected ? {} : {borderWidth: 1, borderColor: '#E13223'};
-    let linearColorOptions = [['#BB1A1A', '#2E2C9D'], ['transparent', 'transparent']];
+    const gradient = disabled ? ['#A9A9A9', '#CCC'] : ['#BB1A1A', '#2E2C9D'];
+    let linearColorOptions = [gradient, ['transparent', 'transparent']];
     let linearColor = selected ? linearColorOptions[0] : linearColorOptions[1];
 
     let Icon = icon;
 
     return (
-      <TouchableOpacity style={[styles.container, style || {}]} onPress={onPress}>
+      <TouchableOpacity style={[styles.container, style || {}]} onPress={onPress} disabled={disabled}>
         <LinearGradient
           colors={linearColor}
           start={[0.0, 0]}
