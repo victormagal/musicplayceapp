@@ -1,5 +1,5 @@
 import {createAction} from 'redux-actions';
-import {UserService, AuthService} from '../../service';
+import {UserService} from '../../service';
 
 
 export const FETCHED_PROFILE = 'FETCHED_PROFILE';
@@ -53,15 +53,8 @@ export const fetchProfile = () => {
     };
 };
 
-export const fetchMySongs = () => {
-  //TODO re do right
-  return (dispatch) => {
-    UserService.songs().then(response => console.log('asdf', response));
-  };
-};
-
 export const saveProfile = (data, page) => {
-  return (dispatch, getState) => {
+  return (dispatch) => {
     dispatch(profileStartLoading());
     return Promise.resolve().then(() => {
         setTimeout(() => {

@@ -6,7 +6,7 @@
     "slug": "musicplayce",
     "sdkVersion": "27.0.0",
     "ios": {
-      "bundleIdentifier": "br.com.musicplayce.app",
+      "bundleIdentifier": "br.com.musicplayce.appp",
       "publishBundlePath": "ios/musicplayce/Supporting/shell-app.bundle",
       "publishManifestPath": "ios/musicplayce/Supporting/shell-app-manifest.json"
     },
