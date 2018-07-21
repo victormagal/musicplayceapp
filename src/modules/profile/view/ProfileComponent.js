@@ -1,6 +1,7 @@
 import React from 'react';
 import {View, StyleSheet, ScrollView, TouchableOpacity, ActivityIndicator} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
+import Swiper from 'react-native-swiper';
 import PropTypes from 'prop-types';
 import {
   MPTabBar, MPProfileInfo, MPShowLanguages, MPHeader,
@@ -10,7 +11,7 @@ import {
   MPText
 } from '../../../components/';
 import {
-  MPProfileArrowIcon, MPSettingsIcon
+  MPProfileArrowIcon, MPSettingsIcon, MPSongAddIcon
 } from '../../../assets/svg/'
 import {MPUpgradeButton} from '../../../components/profile/MPUpgradeButton';
 import {saveProfile} from '../../../state/action';
@@ -18,6 +19,10 @@ import {saveProfile} from '../../../state/action';
 
 class ProfileComponent extends React.Component {
   scrollViewRef = null;
+
+  state = {
+    tabIndex: 0
+  };
 
   constructor(props) {
     super(props);
@@ -60,6 +65,10 @@ class ProfileComponent extends React.Component {
 
   };
 
+  handleChangeTab = (index) => {
+    this.setState({tabIndex: index});
+  };
+
   renderHeaderMenuRight() {
     return [
       <MPIconButton key={Math.random()} icon={MPSettingsIcon} onPress={this.goToScreen.bind(this, 'settings')}/>
@@ -85,7 +94,7 @@ class ProfileComponent extends React.Component {
   }
 
   render() {
-    let {profile} = this.props;
+    let {profile, mySongs} = this.props;
 
     return (
       <View style={styles.container}>
@@ -134,55 +143,64 @@ class ProfileComponent extends React.Component {
             </View>
 
 
-            <MPTabBar firstTabTitle="MINHAS MÚSICAS" secondTabTitle="MÚSICAS SALVAS">
-              <View>
-                {profile.mySongsFolder && (
-                  <View>
-                    <MPShowFolderSongs edit={!profile.visiting} folderName={profile.mySongsFolder[0].folderName}
-                                       onEdit={this.goToScreen.bind(this, 'EditFolder')}
-                                       excludeSong={this.excludeSong.bind(this)}
-                                       unpublishSong={this.unpublishSong.bind(this)}/>
-                    {!profile.visiting && (
-                      <View style={styles.whiteBackground}>
-                        <MPGradientButton title={'Cadastrar nova música'} textSize={16}
-                                          icon={MPSettingsIcon}
-                                          onPress={this.props.onSongAddClick}/>
-                      </View>
-                    )}
-                  </View>
-                )}
+            <View>
+              <MPTabBar
+                titles={['MINHAS MÚSICAS', 'MÚSICAS SALVAS']} onTabChange={this.handleChangeTab}
+                index={this.state.tabIndex}/>
 
-                {!profile.mySongsFolder && (
-                  <View>
-                    {!profile.song && <MPUploadFirstSong onPress={this.props.onSongAddClick} />}
-                    {profile.song && <MPUpgradeButton song={profile.song}/>}
-                  </View>
-                )}
-              </View>
-              <View>
-                {profile.savedSongsFolder && (
-                  <View>
-                    <MPShowFolderSongs edit={!profile.visiting} folderName={profile.savedSongsFolder[0].folderName}
-                                       onEdit={this.goToScreen.bind(this, 'EditFolder')}
-                                       excludeSong={this.excludeSong.bind(this)}
-                                       unpublishSong={this.unpublishSong.bind(this)}/>
-                    {!profile.visiting && (
-                      <View style={styles.whiteBackground}>
-                        <MPGradientButton icon={MPSettingsIcon} title={'Cadastrar nova música'} textSize={16}
-                                          onPress={this.props.onSongAddClick}/>
-                      </View>
-                    )}
-                  </View>
-                )}
+              {this.state.tabIndex === 0 && (
+                <View>
+                  {mySongs && (
+                    <View>
+                      <MPShowFolderSongs folderName='Outras'
+                                         songs={mySongs.data}
+                                         excludeSong={this.excludeSong.bind(this)}
+                                         unpublishSong={this.unpublishSong.bind(this)}/>
+                      {!profile.visiting && (
+                        <View style={styles.whiteBackground}>
+                          <MPGradientButton title={'Cadastrar nova música'} textSize={16}
+                                            icon={MPSongAddIcon}
+                                            onPress={this.props.onSongAddClick}/>
+                        </View>
+                      )}
+                    </View>
+                  )}
 
-                {!profile.savedSongsFolder && (
-                  <View>
-                    {!profile.song && <MPUploadFirstSong onPress={this.props.onSongAddClick}  />}
-                    {profile.song && <MPUpgradeButton song={profile.song}/>}
-                  </View>
-                )}
-              </View>
-            </MPTabBar>
+                  {!mySongs && (
+                    <View>
+                      {(!mySongs || mySongs.data.length === 0) && <MPUploadFirstSong onPress={this.props.onSongAddClick} />}
+                      {profile.song && <MPUpgradeButton song={profile.song}/>}
+                    </View>
+                  )}
+                </View>
+              )}
+              {this.state.tabIndex === 1 && (
+                <View>
+                  {profile.songSaves && (
+                    <View>
+                      <MPShowFolderSongs folderName='Outras'
+                                         songs={profile.songSaves}
+                                         excludeSong={this.excludeSong.bind(this)}
+                                         unpublishSong={this.unpublishSong.bind(this)}/>
+                      {!profile.visiting && (
+                        <View style={styles.whiteBackground}>
+                          <MPGradientButton title='Cadastrar nova música' textSize={16}
+                                            icon={MPSongAddIcon}
+                                            onPress={this.props.onSongAddClick}/>
+                        </View>
+                      )}
+                    </View>
+                  )}
+
+                  {!profile.songSaves && (
+                    <View>
+                      {!profile.song && <MPUploadFirstSong onPress={this.props.onSongAddClick} />}
+                      {profile.song && <MPUpgradeButton song={profile.song}/>}
+                    </View>
+                  )}
+                </View>
+              )}
+            </View>
 
             <MPShowFollowers />
             { profile.visiting && <MPReportProfile onPress={ this.reportProfile.bind(this)}/>}

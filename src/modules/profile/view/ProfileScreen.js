@@ -46,8 +46,8 @@ class ProfileScreenContainer extends React.Component {
   }
 }
 
-const mapStateToProps = ({profileReducer}) => {
-  return {...profileReducer};
+const mapStateToProps = ({profileReducer, songsReducer}) => {
+  return {...profileReducer, mySongs: songsReducer.mySongs};
 };
 
 const ProfileScreen = connect(mapStateToProps)(ProfileScreenContainer);

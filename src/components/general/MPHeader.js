@@ -14,7 +14,7 @@ class MPHeader extends React.Component {
     let backgroundColor = inverse || transparent ? 'transparent' : 'black';
 
     return (
-      <View style={[styles.parent, {backgroundColor}, style || {}]}>
+      <View style={[{backgroundColor}, style || {}]}>
         <View style={styles.header}>
           {back && (
             <TouchableOpacity onPress={onBack} style={styles.backContainer}>
@@ -53,13 +53,10 @@ MPHeader.propTypes = {
 };
 
 const styles = StyleSheet.create({
-  parent: {
-    paddingBottom: 15
-  },
   header: {
     display: 'flex',
     flexDirection: 'row',
-    paddingTop: 10,
+    height: 42,
     ...Platform.select({
         ios: {
           marginTop: 18,
@@ -85,7 +82,8 @@ const styles = StyleSheet.create({
   },
   title: {
     fontFamily: 'Montserrat-Regular',
-    marginTop: 20,
+    paddingTop: 10,
+    paddingBottom: 20,
     fontSize: 20,
     color: 'white',
     paddingHorizontal: 40,
