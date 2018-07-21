@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, StyleSheet, ScrollView, TouchableOpacity, ActivityIndicator} from 'react-native';
-import {LinearGradient} from 'expo';
+import LinearGradient from 'react-native-linear-gradient';
 import PropTypes from 'prop-types';
 import {
   MPTabBar, MPProfileInfo, MPShowLanguages, MPHeader,
@@ -232,7 +232,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 20
   },
   headerMenuText: {
-    fontFamily: 'montSerrat',
+    fontFamily: 'Montserrat-Regular',
     fontSize: 14,
     color: '#fff'
   },
@@ -244,7 +244,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center'
   },
   textLoading: {
-    fontFamily: 'probaProRegular',
+    fontFamily: 'ProbaPro-Regular',
     fontSize: 18,
     color: '#000',
   },

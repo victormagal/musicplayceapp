@@ -62,7 +62,7 @@ class MPToggleList extends React.Component {
 
     let fontFamilyStyle = {}
     {
-      this.props.fontLoaded ? fontFamilyStyle = { fontFamily: 'montSerratMedium' } : null;
+      this.props.fontLoaded ? fontFamilyStyle = { fontFamily: 'Montserrat-Medium' } : null;
     }
 
     return (
@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
   title: {
     flex: 1,
     fontSize: 16,
-    fontFamily: 'montSerratMedium',
+    fontFamily: 'Montserrat-Medium',
     color: '#000000'
   },
   content: {

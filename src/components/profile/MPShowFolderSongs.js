@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     },
     topBarText: {
         fontSize: 16,
-        fontFamily: 'montSerratMedium',
+        fontFamily: 'Montserrat-Medium',
         color: '#000',
         alignSelf: 'center',
     },

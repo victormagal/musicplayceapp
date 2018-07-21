@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     marginVertical: 30
   },
   title: {
-    fontFamily: 'montSerrat',
+    fontFamily: 'Montserrat-Regular',
     fontSize: 20,
     textAlign: 'center',
     color: 'black',

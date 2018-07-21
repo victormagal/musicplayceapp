@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
   },
   text: {
     color: '#9B9B9B',
-    fontFamily: 'probaProRegular',
+    fontFamily: 'ProbaPro-Regular',
     fontSize: 16
   },
   boxFoward: {
@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
   },
   textTime: {
     color: '#4A4A4A',
-    fontFamily: 'montSerratSemiBold',
+    fontFamily: 'Montserrat-SemiBold',
     fontSize: 11
   },
 });

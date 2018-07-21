@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     paddingStart: 10,
     paddingEnd: 10,
     paddingBottom: 26,
-    fontFamily: 'montSerrat'
+    fontFamily: 'Montserrat-Regular'
   },
   iconArtist: {
     position: 'absolute',

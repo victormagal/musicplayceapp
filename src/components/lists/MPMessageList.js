@@ -93,18 +93,18 @@ const styles = StyleSheet.create({
     marginBottom: 5
   },
   title: {
-    fontFamily: 'montSerratMedium',
+    fontFamily: 'Montserrat-Medium',
     color: '#000000',
     fontSize: 16
   },
   text: {
     color: '#9B9B9B',
-    fontFamily: 'probaProRegular',
+    fontFamily: 'ProbaPro-Regular',
     fontSize: 16
   },
   textTime: {
     color: '#4A4A4A',
-    fontFamily: 'montSerratSemiBold',
+    fontFamily: 'Montserrat-SemiBold',
     fontSize: 11,
     alignSelf: 'flex-end'
   },

@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
   },
   bannerText: {
       fontSize: 16,
-      fontFamily: 'montSerratMedium',
+      fontFamily: 'Montserrat-Medium',
       color : '#000',
       textAlign: 'center',
       paddingVertical: 15,
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
       color: '#e13223',
   },
   creditText: {
-    fontFamily: 'probaProRegular',
+    fontFamily: 'ProbaPro-Regular',
     fontSize: 16,
     color : '#686868',
     textAlign: 'center',

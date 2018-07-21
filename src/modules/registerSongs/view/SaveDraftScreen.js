@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
   textTop: {
     fontSize: 20,
     color: '#000000',
-    fontFamily: 'montSerrat',
+    fontFamily: 'Montserrat-Regular',
     alignSelf: 'center'
   },
   button: {

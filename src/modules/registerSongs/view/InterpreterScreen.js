@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
   textTop: {
     fontSize: 16,
     color: '#686868',
-    fontFamily: 'probaProRegular'
+    fontFamily: 'ProbaPro-Regular'
   },
   clickableTextContainer: {
     alignSelf: 'center',
@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
     color: '#5994db',
     fontSize: 14,
     marginTop: 152,
-    fontFamily: 'montSerrat'
+    fontFamily: 'Montserrat-Regular'
   }
 });
 

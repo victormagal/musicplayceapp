@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 16,
-    fontFamily: 'montSerratMedium',
+    fontFamily: 'Montserrat-Medium',
     color: 'black',
     flex: 0.7
   },

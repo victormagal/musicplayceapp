@@ -50,13 +50,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: 40
   },
   title: {
-    fontFamily: 'montSerrat',
+    fontFamily: 'Montserrat-Regular',
     lineHeight: 26,
     fontSize: 24,
     textAlign: 'center'
   },
   email: {
-    fontFamily: 'montSerratBold',
+    fontFamily: 'Montserrat-Bold',
     lineHeight: 26,
     fontSize: 24,
     color: '#e13223'
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
   clique:{
     textAlign: 'center',
     marginTop: 20,
-    fontFamily: 'probaProRegular',
+    fontFamily: 'ProbaPro-Regular',
     fontSize: 16,
     color: '#686868'
   },

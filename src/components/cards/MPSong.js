@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
   },
   songHeaderText: {
     fontSize: 24,
-    fontFamily: 'montSerrat',
+    fontFamily: 'Montserrat-Regular',
     color: '#000',
   },
   songHeaderIcon: {
@@ -65,14 +65,14 @@ const styles = StyleSheet.create({
   },
   songCardTitle: {
     fontSize: 10,
-    fontFamily: 'montSerrat',
+    fontFamily: 'Montserrat-Regular',
     color: '#919191',
     letterSpacing: 1
   },
   songCardText: {
     fontSize: 15,
     color: '#000',
-    fontFamily: 'montSerratMedium',
+    fontFamily: 'Montserrat-Medium',
   },
   songCardArtist: {
     textDecorationLine: 'underline',

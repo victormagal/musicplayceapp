@@ -73,7 +73,7 @@ MPIconButton.propTypes = {
 const styles = StyleSheet.create({
   text: {
     fontWeight: "500",
-    fontFamily: 'montSerratMedium',
+    fontFamily: 'Montserrat-Medium',
     color: '#fff',
     textAlign: 'center'
   },

@@ -85,12 +85,12 @@ const styles = StyleSheet.create({
   chooseFolderText: {
     color: "#000",
     fontSize: 16,
-    fontFamily: 'montSerrat',
+    fontFamily: 'Montserrat-Regular',
   },
   chooseFolderSubText: {
     color: "#c0c0c0",
     fontSize: 10,
-    fontFamily: 'montSerrat',
+    fontFamily: 'Montserrat-Regular',
   },
 });
 const mapStateToProps = ({fontReducer}) => {

@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 40,
     fontSize: 24,
     color : '#000',
-    fontFamily: 'montSerrat',
+    fontFamily: 'Montserrat-Regular',
     textAlign: 'center',
   },
   button: {

@@ -9,7 +9,7 @@ import {
 import {
   MPFacebookIcon, MPGoogleIcon
 } from '../../../../assets/svg';
-import {LinearGradient} from 'expo';
+import LinearGradient from 'react-native-linear-gradient';
 
 
 const BaseIcon = (props, Icon) => (
@@ -52,9 +52,7 @@ class LoginComponent extends Component {
     return (
       <LinearGradient
         colors={["#e1322373", "#ffffff8C"]}
-        style={styles.gradient}
-        start={[0, 0]}
-        end={[0, 1]}>
+        style={styles.gradient}>
 
         <MPHeader style={styles.header} inverse={true}/>
 
@@ -126,7 +124,7 @@ const styles = StyleSheet.create({
     marginBottom: 10
   },
   title: {
-    fontFamily: 'montSerrat',
+    fontFamily: 'Montserrat-Regular',
     fontSize: 24,
     marginTop: 30,
     textAlign: 'center',
@@ -151,20 +149,20 @@ const styles = StyleSheet.create({
   },
   ouText: {
     fontSize: 16,
-    fontFamily: 'montSerrat',
+    fontFamily: 'Montserrat-Regular',
     alignSelf: 'center',
     marginTop: 20
   },
   signinUser: {
     fontSize: 16,
     fontWeight: '500',
-    fontFamily: 'montSerratMedium',
+    fontFamily: 'Montserrat-Medium',
     alignSelf: 'center',
     marginTop: 20
   },
   forgotPassword: {
     width: '45%',
-    fontFamily: 'probaProRegular',
+    fontFamily: 'ProbaPro-Regular',
     alignSelf: 'center',
     color: '#5994db',
     fontSize: 16,
@@ -172,7 +170,7 @@ const styles = StyleSheet.create({
   },
   noAccount: {
     marginTop: 30,
-    fontFamily: 'montSerrat',
+    fontFamily: 'Montserrat-Regular',
     fontSize: 16,
     alignSelf: 'center',
   },
@@ -180,7 +178,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#4a90e2',
     textDecorationLine: 'underline',
-    fontFamily: 'montSerratMedium',
+    fontFamily: 'Montserrat-Medium',
     alignSelf: 'center'
   },
   iconContainer: {
@@ -199,14 +197,14 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff'
   },
   deuRuimText: {
-    fontFamily: 'montSerratMedium',
+    fontFamily: 'Montserrat-Medium',
     fontSize: 16,
     marginTop: 40,
     textAlign: 'center'
   },
   confiraText: {
     marginTop: 20,
-    fontFamily: 'montSerrat',
+    fontFamily: 'Montserrat-Regular',
     fontSize: 12,
     color: '#e13223'
   }

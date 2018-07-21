@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     reportText: {
         alignSelf: 'center',
         fontSize: 12,
-        fontFamily: 'montSerratMedium',
+        fontFamily: 'Montserrat-Medium',
         color: '#686868',
         textDecorationLine: 'underline',
         marginStart: 5,

@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet, View, StatusBar} from 'react-native';
 import {MPText} from '../../components';
 import {MPLogoRegisterIcon} from '../../assets/svg';
-import {LinearGradient} from 'expo';
+import LinearGradient from 'react-native-linear-gradient';
 import {StorageService} from '../../service';
 
 
@@ -21,7 +21,9 @@ class StartScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <LinearGradient colors={["#e1322373", "#ffffff8C"]} style={styles.gradient} start={[0, 0]} end={[0, 1]}>
+        <LinearGradient colors={["#e1322373", "#ffffff8C"]} style={styles.gradient}>
+          <StatusBar translucent={true} backgroundColor='#e1322373' barStyle='light-content'/>
+
           <MPLogoRegisterIcon style={styles.logo}/>
           <MPText style={styles.title}>O seu lugar de música</MPText>
         </LinearGradient>
@@ -44,7 +46,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center'
   },
   title: {
-    fontFamily: 'probaProRegular',
+    fontFamily: 'ProbaPro-Regular',
     fontSize: 18,
     marginTop: 20,
     color: '#000',

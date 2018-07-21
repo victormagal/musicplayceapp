@@ -95,12 +95,12 @@ const styles = StyleSheet.create({
 	},
 	text: {
 		fontSize: 16,
-		fontFamily: 'montSerrat',
+		fontFamily: 'Montserrat-Regular',
 		color: '#686868'
 	},
 	link: {
 		fontSize: 16,
-		fontFamily: 'montSerrat',
+		fontFamily: 'Montserrat-Regular',
 		color: '#5994DB',
 		textDecorationLine: 'underline'
 	},
@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
 	},
 	textItem: {
 		color: 'black',
-		fontFamily: 'montSerrat',
+		fontFamily: 'Montserrat-Regular',
 		fontSize: 16
 	}
 });

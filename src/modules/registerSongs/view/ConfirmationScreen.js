@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
     color: '#000',
     marginBottom: 10,
     marginTop: 70,
-    fontFamily: 'montSerratBold'
+    fontFamily: 'Montserrat-Bold'
   },
   subTitleText: {
     fontSize: 16,
@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
     color: '#000',
     marginBottom: 20,
     marginHorizontal: 40,
-    fontFamily: 'montSerrat'
+    fontFamily: 'Montserrat-Regular'
   },
   confirmationButtonsContainer: {
     flex: 1,

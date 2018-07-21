@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
   text: {
     marginTop: 30,
     fontSize: 16,
-    fontFamily: 'montSerratMedium',
+    fontFamily: 'Montserrat-Medium',
     color: '#000',
   }
 });

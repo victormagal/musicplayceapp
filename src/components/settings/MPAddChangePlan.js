@@ -10,7 +10,7 @@ import {
   MPTextField,
   MPGradientButton
 } from '../../components';
-import {LinearGradient} from 'expo';
+import LinearGradient from 'react-native-linear-gradient';
 
 class MPAddChangePlanComponent extends React.Component {
   state = {
@@ -119,27 +119,27 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     padding: 10,
     color : '#e13223',
-    fontFamily: 'montSerrat',
+    fontFamily: 'Montserrat-Regular',
     fontSize: 14
   },
   selectedButton: {
     flex: 1,
     textAlign: 'center',
     color : '#FFF',
-    fontFamily: 'montSerratBold',
+    fontFamily: 'Montserrat-Bold',
     fontSize: 14,
     padding: 10,
   },
   topTitle: {
       marginHorizontal: 44, 
       marginBottom: 10,
-      fontFamily: 'montSerratMedium',
+      fontFamily: 'Montserrat-Medium',
       fontSize: 16,
       color: '#000',
   },
   topSubTitle: {
       marginHorizontal: 20,
-      fontFamily: 'probaProRegular',
+      fontFamily: 'ProbaPro-Regular',
       fontSize: 14,
       color : '#686868',
       textAlign: 'center',
@@ -147,19 +147,19 @@ const styles = StyleSheet.create({
   bottomTitle: {
     fontSize: 16,
     marginHorizontal: 36,
-    fontFamily: 'montSerratMedium',
+    fontFamily: 'Montserrat-Medium',
     color: '#686868',
   },
   bottomTitleEmph: {
     fontSize: 36,
-    fontFamily: 'montSerratMedium',
+    fontFamily: 'Montserrat-Medium',
     color: '#5994db',
   },
   bottomSubTitle: {
     marginHorizontal: 69,
     fontSize: 16,
     color: '#686868',
-    fontFamily: 'montSerrat',
+    fontFamily: 'Montserrat-Regular',
     marginBottom: 20,
   }
 });

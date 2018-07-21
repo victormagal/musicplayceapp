@@ -26,13 +26,13 @@ const styles = StyleSheet.create({
     },
     placeHolderText: {
         fontSize: 12,
-        fontFamily: 'montSerratMedium',
+        fontFamily: 'Montserrat-Medium',
         color : '#000',
         marginEnd: 12,
     },
     languageText: {
         fontSize: 12,
-        fontFamily: 'montSerrat',
+        fontFamily: 'Montserrat-Regular',
         color : '#FFF',
         marginEnd: 12,
     }

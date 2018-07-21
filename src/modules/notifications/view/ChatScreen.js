@@ -23,7 +23,7 @@ import {
 } from 'react-native-gifted-chat';
 import {MPSendMessageIcon} from '../../../assets/svg'
 import {connect} from 'react-redux';
-import {LinearGradient} from 'expo';
+import LinearGradient from 'react-native-linear-gradient';
 
 const linearMenuColor = ["#bb1a1a", "#2e2c9d"];
 
@@ -89,8 +89,8 @@ class ChatScreenContainer extends React.Component {
     return (
       <LinearGradient
         colors={linearMenuColor}
-        start={[0, 0]}
-        end={[1, 0]}
+        start={{x:0, y:0}}
+        end={{x:1, y:0}}
         style={style}>
 
         <MPText style={styles.menuItem} onPress={this.handleMenuItemClick.bind(this, name)}>{label}</MPText>
@@ -109,12 +109,12 @@ class ChatScreenContainer extends React.Component {
                 textStyle={{
                   left: {
                     color: '#9B9B9B',
-                    fontFamily: 'probaProRegular',
+                    fontFamily: 'ProbaPro-Regular',
                     fontSize: 16
                   },
                   right: {
                     color: '#424242',
-                    fontFamily: 'probaProRegular',
+                    fontFamily: 'ProbaPro-Regular',
                     fontSize: 16
                   }
                 }}
@@ -222,7 +222,7 @@ const styles = StyleSheet.create({
   },
   menuText: {
     color: '#FFF',
-    fontFamily: 'montSerrat',
+    fontFamily: 'Montserrat-Regular',
     fontSize: 16,
     alignSelf: 'center'
   },
@@ -238,7 +238,7 @@ const styles = StyleSheet.create({
   menuItem: {
     paddingLeft: 20,
     color: '#FFF',
-    fontFamily: 'montSerrat'
+    fontFamily: 'Montserrat-Regular'
   }
 });
 

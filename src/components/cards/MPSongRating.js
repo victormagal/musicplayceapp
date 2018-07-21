@@ -147,7 +147,7 @@ const styles = StyleSheet.create({
     paddingTop: 10,
     paddingStart: 10,
     paddingEnd: 10,
-    fontFamily: 'probaProRegular',
+    fontFamily: 'ProbaPro-Regular',
     flexWrap: 'wrap',
   },
   indicateSongContainer: {
@@ -158,7 +158,7 @@ const styles = StyleSheet.create({
   },
   indicateSongText: {
     fontSize: 9,
-    fontFamily: 'montSerratMedium',
+    fontFamily: 'Montserrat-Medium',
     color: '#000',
     marginStart: 5
   },
@@ -173,7 +173,7 @@ const styles = StyleSheet.create({
   },
   newSongText: {
     fontSize: 10,
-    fontFamily: 'montSerratMedium',
+    fontFamily: 'Montserrat-Medium',
     color: '#FFF',
   },
   menuContainer: {
@@ -185,7 +185,7 @@ const styles = StyleSheet.create({
   },
   menuText: {
     fontSize: 11,
-    fontFamily: 'montSerratMedium',
+    fontFamily: 'Montserrat-Medium',
     color: '#FFF',
     textAlign: 'center'
   },
@@ -202,7 +202,7 @@ const styles = StyleSheet.create({
     right: 8,
     fontSize: 13,
     color: '#FFF',
-    fontFamily: 'montSerratBold',
+    fontFamily: 'Montserrat-Bold',
   },
   draftContainer: {
     position: 'absolute',
@@ -219,7 +219,7 @@ const styles = StyleSheet.create({
     color: '#FFF',
     fontSize: 10,
     textAlign: 'center',
-    fontFamily: 'montSerratMedium'
+    fontFamily: 'Montserrat-Medium'
   },
   menuIconContainer: {
     backgroundColor: '#f60',

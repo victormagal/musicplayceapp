@@ -93,13 +93,13 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 16,
     color: '#000000',
-    fontFamily: 'montSerratMedium',
+    fontFamily: 'Montserrat-Medium',
     marginBottom: 5
   },
   paragraph: {
     fontSize: 16,
     color: '#686868',
-    fontFamily: 'montSerrat'
+    fontFamily: 'Montserrat-Regular'
   },
   separator: {
     borderBottomWidth: 0.5,

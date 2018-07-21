@@ -201,7 +201,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     textAlign: 'center',
     marginBottom: 20,
-    fontFamily: 'montSerrat',
+    fontFamily: 'Montserrat-Regular',
   },
   headerText: {
     fontSize: 16,
@@ -209,7 +209,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     textAlign: 'center',
     marginBottom: 10,
-    fontFamily: 'montSerrat',
+    fontFamily: 'Montserrat-Regular',
   },
   subText: {
     marginTop: 10,
@@ -217,7 +217,7 @@ const styles = StyleSheet.create({
     color: '#686868',
     alignItems: 'center',
     textAlign: 'center',
-    fontFamily: 'montSerrat',
+    fontFamily: 'Montserrat-Regular',
   },
   songItem: {
     width: '46%'
@@ -232,7 +232,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#5994db',
     fontSize: 14,
-    fontFamily: 'montSerrat',
+    fontFamily: 'Montserrat-Regular',
   },
   uploadIcon: {
     marginHorizontal: 40
