@@ -151,7 +151,7 @@ const styles = StyleSheet.create({
   textFieldSubText: {
     fontSize: 12,
     color: '#686868',
-    fontFamily: 'montSerratItalic',
+    fontFamily: 'Montserrat-Italic',
     marginHorizontal: 20,
   },
   textFieldSubTextEmph: {

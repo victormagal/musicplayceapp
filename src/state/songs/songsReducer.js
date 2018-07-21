@@ -70,7 +70,6 @@ const songsReducer = (state, action) => {
       };
 
     case FETCHED_ARTIST_SONGS:
-      console.log(FETCHED_ARTIST_SONGS, action.payload);
       return {
         ...state,
         mySongs: action.payload,
