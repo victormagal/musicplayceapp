@@ -58,12 +58,12 @@ const styles = StyleSheet.create({
     marginHorizontal: 40
   },
   description: {
-    fontFamily: 'probaProRegular',
+    fontFamily: 'ProbaPro-Regular',
     fontSize: 16,
     color: '#686868'
   },
   headerMenuText: {
-    fontFamily: 'montSerrat',
+    fontFamily: 'Montserrat-Regular',
     fontSize: 14,
     color: '#fff'
   }

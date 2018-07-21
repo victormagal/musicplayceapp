@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
-import {LinearGradient} from 'expo';
+import LinearGradient from 'react-native-linear-gradient';
 import {MPText} from '../general';
 
 
@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
   inText: {
     color: '#000',
     fontSize: 10,
-    fontFamily: 'montSerratMedium',
+    fontFamily: 'Montserrat-Medium',
     textAlign: 'center',
   }
 });

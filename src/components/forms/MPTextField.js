@@ -13,7 +13,7 @@ class MPTextFieldComponent extends React.Component {
     let style = {fontSize: 16};
 
     if (this.props.fontLoaded) {
-      style['fontFamily'] = 'montSerrat';
+      style['fontFamily'] = 'Montserrat-Regular';
     }
 
     return style;
@@ -23,7 +23,7 @@ class MPTextFieldComponent extends React.Component {
     let style = {};
 
     if (this.props.fontLoaded) {
-      style['fontFamily'] = 'montSerrat';
+      style['fontFamily'] = 'Montserrat-Regular';
     }
 
     return style;

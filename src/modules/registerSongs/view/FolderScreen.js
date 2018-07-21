@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
     bottom: 14
   },
   headerMenuText: {
-    fontFamily: 'montSerrat',
+    fontFamily: 'Montserrat-Regular',
     fontSize: 14,
     color: '#fff'
   }

@@ -40,14 +40,14 @@ const styles = StyleSheet.create({
     marginVertical: 30
   },
   title: {
-    fontFamily: 'montSerrat',
+    fontFamily: 'Montserrat-Regular',
     fontSize: 20,
     textAlign: 'center',
     color: 'black',
     marginHorizontal: 40
   },
   subtitle: {
-    fontFamily: 'montSerrat',
+    fontFamily: 'Montserrat-Regular',
     fontSize: 16,
     textAlign: 'center',
     color: '#686868',

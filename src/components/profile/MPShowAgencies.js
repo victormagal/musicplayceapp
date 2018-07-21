@@ -39,14 +39,14 @@ const styles = StyleSheet.create({
     },
     placeHolderText: {
         fontSize: 11,
-        fontFamily: 'montSerratMedium',
+        fontFamily: 'Montserrat-Medium',
         color : '#000',
         marginEnd: 12,
         alignSelf: 'center'
     },
     languageText: {
         fontSize: 12,
-        fontFamily: 'montSerrat',
+        fontFamily: 'Montserrat-Regular',
         color : '#FFF',
         textDecorationLine:'underline',
         alignSelf: 'center'

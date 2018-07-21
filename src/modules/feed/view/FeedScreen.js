@@ -160,7 +160,7 @@ class FeedScreenContainer extends React.Component {
                 marginHorizontal: 20,
                 marginBottom: 16,
                 fontSize: 20,
-                fontFamily: 'probaProRegular',
+                fontFamily: 'ProbaPro-Regular',
                 color: '#000',
               }}>Músicas relacionadas a busca <MPText
                 style={{color: '#5994db'}}>{ this.state.textValue }</MPText></MPText>
@@ -203,7 +203,7 @@ class FeedScreenContainer extends React.Component {
               <View style={styles.firstSliderContainer}>
                 <ScrollView style={{flex: 2,}}>
                   <MPText style={{
-                    fontFamily: 'probaProRegular',
+                    fontFamily: 'ProbaPro-Regular',
                     fontSize: 20,
                     marginHorizontal: 20,
                     marginBottom: 16,
@@ -222,7 +222,7 @@ class FeedScreenContainer extends React.Component {
                                 onPressArtist={this.handleNavigateArtistProfile}
                                 onPressMusic={this.handleNavigateMusic} />
                   <View style={styles.topArtistsContainer}>
-                    <MPText style={{fontSize: 20, fontFamily: 'probaProRegular', marginBottom: 16, color: '#000'}}>Artistas
+                    <MPText style={{fontSize: 20, fontFamily: 'ProbaPro-Regular', marginBottom: 16, color: '#000'}}>Artistas
                       em alta</MPText>
                     <FlatList
                       data={this.topArtists.data}
@@ -297,14 +297,14 @@ const styles = StyleSheet.create({
   },
   searchNotFoundTextTitle: {
     fontSize: 20,
-    fontFamily: 'probaProRegular',
+    fontFamily: 'ProbaPro-Regular',
     color: '#000',
     marginStart: 20,
     marginBottom: 20
   },
   searchNotFoundText: {
     fontSize: 16,
-    fontFamily: 'montSerrat',
+    fontFamily: 'Montserrat-Regular',
     textDecorationLine: 'underline',
     color: '#5994db',
     marginBottom: 20,
@@ -312,7 +312,7 @@ const styles = StyleSheet.create({
   },
   searchArtistRollText: {
     fontSize: 20,
-    fontFamily: 'probaProRegular',
+    fontFamily: 'ProbaPro-Regular',
     marginBottom: 16,
     color: '#000'
   },

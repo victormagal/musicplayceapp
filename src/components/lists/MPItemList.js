@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
   },
   text: {
     color: 'black',
-    fontFamily: 'montSerrat',
+    fontFamily: 'Montserrat-Regular',
     fontSize: 16
   },
   boxFoward: {

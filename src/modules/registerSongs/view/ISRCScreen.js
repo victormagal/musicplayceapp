@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
   textTop: {
     fontSize: 16,
     color: '#686868',
-    fontFamily: 'montSerrat',
+    fontFamily: 'Montserrat-Regular',
     marginHorizontal: 40
   },
   clickableTextContainer: {
@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#5994db',
     fontSize: 14,
-    fontFamily: 'montSerrat'
+    fontFamily: 'Montserrat-Regular'
   }
 });
 const mapStateToProps = () => {

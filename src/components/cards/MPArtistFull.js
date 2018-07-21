@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
     paddingTop: 10,
     paddingStart: 10,
     paddingEnd: 10,
-    fontFamily: 'montSerrat'
+    fontFamily: 'Montserrat-Regular'
   },
   starsContainer: {
     marginHorizontal: 10,
@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
   artistName: {
     fontSize: 11,
     color: '#000',
-    fontFamily: 'probaProRegular',
+    fontFamily: 'ProbaPro-Regular',
     marginStart: 8,
     marginTop: 15
   },

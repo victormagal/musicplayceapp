@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 16,
     fontWeight: "500",
-    fontFamily: 'montSerratMedium',
+    fontFamily: 'Montserrat-Medium',
     color: '#fff'
   },
   icon: {

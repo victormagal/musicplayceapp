@@ -3,7 +3,7 @@ import {
   StyleSheet,
   TouchableOpacity 
 } from 'react-native';
-import { LinearGradient } from 'expo';
+import LinearGradient from 'react-native-linear-gradient';
 import PropTypes from 'prop-types';
 import { MPText } from '../general/MPText';
 
@@ -60,8 +60,8 @@ class MPGradientButtonComponent extends Component {
       <TouchableOpacity style={[styles.container, style || {}]} onPress={onPress} disabled={disabled}>
         <LinearGradient
           colors={linearColor}
-          start={[0.0, 0]}
-          end={[1.0, 0]}
+          start={{x: 0, y: 0}}
+          end={{x: 1, y:0}}
           style={[styles.linear, borderStyle]}
           selected={true}>
           <MPText style={this.state.textStyleRef}>
@@ -84,7 +84,7 @@ MPGradientButtonComponent.propTypes = {
 };
 
 const textStyle = {
-  fontFamily: 'montSerratSemiBold',
+  fontFamily: 'Montserrat-SemiBold',
   backgroundColor: 'transparent',
   fontSize: 10,
   color: '#FFFFFF'

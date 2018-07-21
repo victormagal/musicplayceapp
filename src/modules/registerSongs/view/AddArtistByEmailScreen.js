@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
     color: '#686868',
     height: 20,
     marginHorizontal: 40,
-    fontFamily: 'montSerrat'
+    fontFamily: 'Montserrat-Regular'
   },
   textInputSubTextHeader: {
     color: '#686868',

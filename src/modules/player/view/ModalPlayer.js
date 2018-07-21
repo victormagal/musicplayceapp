@@ -1,5 +1,5 @@
 import React from 'react';
-import {LinearGradient} from 'expo';
+import LinearGradient from 'react-native-linear-gradient';
 import {Slider} from 'react-native-elements'
 import PropTypes from 'prop-types';
 import {
@@ -89,8 +89,8 @@ class ModalPlayer extends React.Component {
           <LinearGradient
             style={styles.linearGradient}
             colors={['#ffffff', 'rgba(255, 255, 255, 0)']}
-            start={[0, 0]}
-            end={[0, 1]}>
+            start={{x:0, y:0}}
+            end={{x:0, y:1}}>
           </LinearGradient>
 
           <View style={styles.modalStarContainer}>
@@ -162,37 +162,37 @@ const styles = StyleSheet.create({
   },
   gradeText: {
     marginLeft: 10,
-    fontFamily: 'montSerratBold',
+    fontFamily: 'Montserrat-Bold',
     fontSize: 12,
     color: '#fff'
   },
   modalGradeText: {
     marginLeft: 10,
-    fontFamily: 'montSerratBold',
+    fontFamily: 'Montserrat-Bold',
     fontSize: 12,
     color: '#000'
   },
   musicTitleText: {
     marginLeft: 10,
-    fontFamily: 'montSerrat',
+    fontFamily: 'Montserrat-Regular',
     fontSize: 24,
     color: '#fff'
   },
   compositorTitle: {
     marginTop: 15,
-    fontFamily: 'montSerrat',
+    fontFamily: 'Montserrat-Regular',
     fontSize: 10,
     color: '#919191'
   },
   compositorText: {
-    fontFamily: 'montSerratMedium',
+    fontFamily: 'Montserrat-Medium',
     fontSize: 15,
     fontWeight: '500',
     color: '#fff',
     textDecorationLine: 'underline'
   },
   totalIndications: {
-    fontFamily: 'montSerratMedium',
+    fontFamily: 'Montserrat-Medium',
     fontSize: 10,
     color: '#fff',
     alignSelf: 'center'
@@ -204,7 +204,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff'
   },
   seeLyricsText: {
-    fontFamily: 'montSerratMedium',
+    fontFamily: 'Montserrat-Medium',
     fontSize: 12,
     fontWeight: '500',
     color: '#5f5f5f',
@@ -219,7 +219,7 @@ const styles = StyleSheet.create({
     flex: 3
   },
   tagText: {
-    fontFamily: 'montSerrat',
+    fontFamily: 'Montserrat-Regular',
     fontSize: 14,
     textDecorationLine: 'underline',
     color: '#5994db',
@@ -234,7 +234,7 @@ const styles = StyleSheet.create({
   },
   playerIndicateText: {
     color: '#e13223',
-    fontFamily: 'montSerratMedium',
+    fontFamily: 'Montserrat-Medium',
     fontSize: 10
   },
   playerHeart: {
@@ -261,7 +261,7 @@ const styles = StyleSheet.create({
     width: 16
   },
   playerModalMusicText: {
-    fontFamily: 'montSerrat',
+    fontFamily: 'Montserrat-Regular',
     fontSize: 12,
     color: '#000'
   },

@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     flex: 1
   },
   forgotTitle: {
-    fontFamily: 'montSerrat',
+    fontFamily: 'Montserrat-Regular',
     fontSize: 24,
     color: '#000',
     textAlign: 'center',
@@ -81,14 +81,14 @@ const styles = StyleSheet.create({
     marginBottom: 20
   },
   forgotText: {
-    fontFamily: 'probaProRegular',
+    fontFamily: 'ProbaPro-Regular',
     fontSize: 16,
     lineHeight: 20,
     color: '#686868',
     textAlign: 'center'
   },
   forgotTextError: {
-    fontFamily: 'probaProRegular',
+    fontFamily: 'ProbaPro-Regular',
     fontSize: 16,
     lineHeight: 20,
     color: '#e13223',
@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
   remember: {
     marginTop: 30,
     lineHeight: 20,
-    fontFamily: 'montSerrat',
+    fontFamily: 'Montserrat-Regular',
     fontSize: 16,
     alignSelf: 'center',
   },
@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#4a90e2',
     textDecorationLine: 'underline',
-    fontFamily: 'montSerratMedium',
+    fontFamily: 'Montserrat-Medium',
     alignSelf: 'center',
   },
 });

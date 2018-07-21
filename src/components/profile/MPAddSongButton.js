@@ -1,9 +1,8 @@
 import React, {Component} from 'react';
 import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
 import {connect} from 'react-redux';
-import { MPText } from '../general';
-import { LinearGradient } from 'expo';
-import { MPFollowingIcon, MPFollowIcon, MPAddSongNoteIcon, MPAddSongPlusIcon, MPAddSongWhiteNoteIcon, MPAddSongWhitePlusIcon } from '../../assets/svg';
+import LinearGradient from 'react-native-linear-gradient';
+import {  MPAddSongNoteIcon, MPAddSongPlusIcon, MPAddSongWhiteNoteIcon, MPAddSongWhitePlusIcon } from '../../assets/svg';
 
 class MPAddSongButtonComponent extends Component{
 
@@ -16,8 +15,8 @@ class MPAddSongButtonComponent extends Component{
             <TouchableOpacity style={[styles.parent]}>
                 <LinearGradient
                     colors={linearColor}
-                    start={[0.0, 0]}
-                    end={[1.0, 0]}
+                    start={{x:0, y: 0}}
+                    end={{x: 1, y:0}}
                     style={[styles.linear]}
                     selected={true}>
                     {

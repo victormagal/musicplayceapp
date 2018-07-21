@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Text, StatusBar, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Platform, Text, StatusBar, TouchableOpacity } from 'react-native';
 import PropTypes from 'prop-types';
 import { MPText } from '../general/MPText';
 import {MPBackIcon, MPBackBlackIcon, MPLogoIcon, MPLogoBlackIcon} from '../../assets/svg';
@@ -60,7 +60,10 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     paddingTop: 10,
-    marginTop: 30,
+    ...Platform.select({
+        ios: {
+          marginTop: 18,
+        }})
   },
   backContainer: {
     position: 'absolute',
@@ -81,7 +84,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center'
   },
   title: {
-    fontFamily: 'montSerrat',
+    fontFamily: 'Montserrat-Regular',
     marginTop: 20,
     fontSize: 20,
     color: 'white',

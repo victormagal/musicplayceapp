@@ -81,13 +81,13 @@ const styles = StyleSheet.create({
     color: "#000",
     paddingStart: 10,
     fontSize: 12,
-    fontFamily: 'montSerratMedium',
+    fontFamily: 'Montserrat-Medium',
     fontWeight: '500'
   },
   infoText: {
     color: '#9b9b9b',
     fontSize: 10,
-    fontFamily: 'montSerrat',
+    fontFamily: 'Montserrat-Regular',
     paddingStart: 10,
   }
 });

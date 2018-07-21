@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center'
   },
   textLoading: {
-    fontFamily: 'probaProRegular',
+    fontFamily: 'ProbaPro-Regular',
     fontSize: 18,
     color: '#000',
   }

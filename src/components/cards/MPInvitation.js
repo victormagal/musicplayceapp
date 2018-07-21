@@ -89,20 +89,20 @@ const styles = StyleSheet.create({
         color: "#000",
         paddingStart: 20,
         fontSize: 20,
-        fontFamily: 'montSerrat'
+        fontFamily: 'Montserrat-Regular'
       },
       stretchedArtistConfirmationText: {
         color: '#fff',
         paddingStart: 10,
         paddingTop: 5,
         paddingBottom: 5,
-        fontFamily: 'montSerratBold'
+        fontFamily: 'Montserrat-Bold'
       },
       stretchedArtistEmail:{
         color: '#5994db',
         paddingStart: 20,
         fontSize: 14,
-        fontFamily: 'montSerrat'
+        fontFamily: 'Montserrat-Regular'
       },
       emailArtistIcon: {
           start: 0,

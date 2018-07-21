@@ -155,14 +155,14 @@ const styles = StyleSheet.create({
       fontSize: 12,
       textAlign: 'center',
       alignSelf: 'center',
-      fontFamily: 'montSerrat'
+      fontFamily: 'Montserrat-Regular'
     },
     selectedTitleText: {
       color: '#000',
       fontSize: 12,
       textAlign: 'center',
       alignSelf: 'center',
-      fontFamily: 'montSerratBold',
+      fontFamily: 'Montserrat-Bold',
     }
 });
 

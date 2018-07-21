@@ -1,5 +1,5 @@
 import React from 'react';
-import {LinearGradient} from 'expo';
+import LinearGradient from 'react-native-linear-gradient';
 import {Slider} from 'react-native-elements'
 import {
   Text, View, StyleSheet, TouchableOpacity, FlatList, ScrollView, Image,
@@ -133,8 +133,8 @@ class PlayerComponent extends React.Component {
             <LinearGradient
               style={styles.linearGradient}
               colors={['#000000', '#000000D9']}
-              start={[0, 0.9]}
-              end={[0, 0]}>
+              start={{x: 0, y: 0.9}}
+              end={{x:0, y:0}}>
             </LinearGradient>
 
             <View style={[styles.commentMusicContent, styles.row]}>
@@ -190,8 +190,8 @@ class PlayerComponent extends React.Component {
             <LinearGradient
               style={styles.linearGradient}
               colors={['#000000', '#000000D9']}
-              start={[0, 0.9]}
-              end={[0, 0]}>
+              start={{x:0, y:0.9}}
+              end={{x:0, y:0}}>
             </LinearGradient>
 
             <View style={[styles.commentMusicContent, styles.row]}>
@@ -233,8 +233,8 @@ class PlayerComponent extends React.Component {
             <LinearGradient
               style={styles.linearGradient}
               colors={['#000000', '#000000D9']}
-              start={[0, 0.9]}
-              end={[0, 0]}>
+              start={{x:0, y:0.9}}
+              end={{x:0, y:0}}>
             </LinearGradient>
 
             <View style={styles.musicContent}>
@@ -462,19 +462,19 @@ const styles = StyleSheet.create({
   },
   gradeText: {
     marginLeft: 10,
-    fontFamily: 'montSerratBold',
+    fontFamily: 'Montserrat-Bold',
     fontSize: 12,
     color: '#fff'
   },
   modalGradeText: {
     marginLeft: 10,
-    fontFamily: 'montSerratBold',
+    fontFamily: 'Montserrat-Bold',
     fontSize: 12,
     color: '#000'
   },
   timeTotalText: {
     paddingVertical: 10,
-    fontFamily: 'montSerratBold',
+    fontFamily: 'Montserrat-Bold',
     fontSize: 10,
     color: '#fff'
   },
@@ -483,31 +483,31 @@ const styles = StyleSheet.create({
   },
   musicTitleText: {
     marginLeft: 10,
-    fontFamily: 'montSerrat',
+    fontFamily: 'Montserrat-Regular',
     fontSize: 24,
     color: '#fff'
   },
   musicUploadDate: {
     paddingVertical: 10,
-    fontFamily: 'montSerratMedium',
+    fontFamily: 'Montserrat-Medium',
     fontSize: 10,
     fontWeight: '500',
     color: '#fff'
   },
   musicMessage: {
-    fontFamily: 'montSerratMedium',
+    fontFamily: 'Montserrat-Medium',
     fontSize: 15,
     fontWeight: '500',
     color: '#fff'
   },
   compositorTitle: {
     marginTop: 15,
-    fontFamily: 'montSerrat',
+    fontFamily: 'Montserrat-Regular',
     fontSize: 10,
     color: '#919191'
   },
   compositorText: {
-    fontFamily: 'montSerratMedium',
+    fontFamily: 'Montserrat-Medium',
     fontSize: 15,
     fontWeight: '500',
     color: '#fff',
@@ -534,7 +534,7 @@ const styles = StyleSheet.create({
     width: 102
   },
   totalIndications: {
-    fontFamily: 'montSerratMedium',
+    fontFamily: 'Montserrat-Medium',
     fontSize: 10,
     color: '#fff',
     alignSelf: 'center'
@@ -546,7 +546,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#404040'
   },
   seeLyricsText: {
-    fontFamily: 'montSerratMedium',
+    fontFamily: 'Montserrat-Medium',
     fontSize: 12,
     fontWeight: '500',
     color: '#fff',
@@ -560,7 +560,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffffff'
   },
   leaveCommentText: {
-    fontFamily: 'montSerratMedium',
+    fontFamily: 'Montserrat-Medium',
     fontSize: 12,
     fontWeight: '500',
     color: '#393939'
@@ -574,7 +574,7 @@ const styles = StyleSheet.create({
     flex: 3
   },
   tagText: {
-    fontFamily: 'montSerrat',
+    fontFamily: 'Montserrat-Regular',
     fontSize: 14,
     textDecorationLine: 'underline',
     color: '#5994db',
@@ -582,7 +582,7 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     flex: 1,
-    fontFamily: 'montSerratMedium',
+    fontFamily: 'Montserrat-Medium',
     fontSize: 16,
     fontWeight: '500',
     color: '#000',
@@ -617,15 +617,15 @@ const styles = StyleSheet.create({
   },
   playerIndicateText: {
     color: '#e13223',
-    fontFamily: 'montSerratMedium',
+    fontFamily: 'Montserrat-Medium',
     fontSize: 10
   },
   playerSongName: {
-    fontFamily: 'montSerrat',
+    fontFamily: 'Montserrat-Regular',
     fontSize: 14
   },
   playerArtistName: {
-    fontFamily: 'montSerratBold',
+    fontFamily: 'Montserrat-Bold',
     fontSize: 10,
     color: '#ff0000'
   },
@@ -662,7 +662,7 @@ const styles = StyleSheet.create({
     marginRight: 20
   },
   headerMenuText: {
-    fontFamily: 'probaProRegular',
+    fontFamily: 'ProbaPro-Regular',
     fontSize: 12,
     color: '#fff',
     paddingTop: 5
@@ -706,7 +706,7 @@ const styles = StyleSheet.create({
     bottom: 0
   },
   playerModalMusicText: {
-    fontFamily: 'montSerrat',
+    fontFamily: 'Montserrat-Regular',
     fontSize: 12,
     color: '#000'
   },

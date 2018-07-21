@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     flex: 1
   },
   forgotTitle: {
-    fontFamily: 'montSerrat',
+    fontFamily: 'Montserrat-Regular',
     fontSize: 24,
     lineHeight: 26,
     color: '#000',
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
   },
   forgotText: {
     marginBottom: 20,
-    fontFamily: 'probaProRegular',
+    fontFamily: 'ProbaPro-Regular',
     fontSize: 16,
     lineHeight: 20,
     color: '#686868',

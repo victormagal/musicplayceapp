@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
   photoButtonText: {
     color: '#fff',
     fontSize: 12,
-    fontFamily: 'montSerrat',
+    fontFamily: 'Montserrat-Regular',
     paddingLeft: 20
   },
   noPhotoContainer: {

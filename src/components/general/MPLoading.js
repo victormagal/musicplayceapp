@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
   },
   text: {
     paddingTop: 15,
-    fontFamily: 'probaProRegular',
+    fontFamily: 'ProbaPro-Regular',
     fontSize: 18,
     color: '#fff'
   }

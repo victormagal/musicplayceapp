@@ -184,7 +184,7 @@ const styles = StyleSheet.create({
   textTop: {
     fontSize: 16,
     color: '#686868',
-    fontFamily: 'probaProRegular'
+    fontFamily: 'ProbaPro-Regular'
   },
   clickableTextContainer: {
     alignItems: 'center',
@@ -196,10 +196,10 @@ const styles = StyleSheet.create({
     color: '#5994db',
     fontSize: 14,
     marginTop: 152,
-    fontFamily: 'montSerrat'
+    fontFamily: 'Montserrat-Regular'
   },
   headerMenuText: {
-    fontFamily: 'montSerrat',
+    fontFamily: 'Montserrat-Regular',
     fontSize: 14,
     color: '#fff'
   },

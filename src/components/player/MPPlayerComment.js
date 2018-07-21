@@ -60,29 +60,29 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
   },
   artistText: {
-    fontFamily: 'montSerratBold',
+    fontFamily: 'Montserrat-Bold',
     fontSize: 16,
     color: '#e13223'
   },
   timeText: {
-    fontFamily: 'probaProRegular',
+    fontFamily: 'ProbaPro-Regular',
     fontSize: 10,
     color: '#4a4a4a'
   },
   comment: {
-    fontFamily: 'probaProRegular',
+    fontFamily: 'ProbaPro-Regular',
     fontSize: 15,
     paddingTop: 10,
     color: '#686868'
   },
   commentLike: {
     paddingTop: 10,
-    fontFamily: 'montSerrat',
+    fontFamily: 'Montserrat-Regular',
     fontSize: 14,
     color: '#5994db'
   },
   countCommentLike: {
-    fontFamily: 'montSerrat',
+    fontFamily: 'Montserrat-Regular',
     fontSize: 11,
     color: '#686868'
   }
