@@ -2,49 +2,39 @@ import React from 'react';
 import {
   StyleSheet, TouchableHighlight, View
 } from 'react-native';
-import { connect } from 'react-redux';
 import { MPText } from '../general/MPText';
-import Swiper from 'react-native-swiper';
 
 
-class MPTabBarComponent extends React.Component {
+class MPTabBar extends React.Component {
   state = {
-    tabIndex: 0,
+    selected: 0,
   };
 
+  componentWillReceiveProps(nextProps){
+    if(typeof nextProps.index !== 'undefined'){
+      this.setState({selected: nextProps.index});
+    }
+  }
+
   changeTabIndex = (index) => {
-    this.setState({tabIndex: index});
+    this.setState({selected: index});
+    this.props.onTabChange && this.props.onTabChange(index);
   };
 
   render() {
-    let {firstTabTitle, secondTabTitle, secondLayout} = this.props;
+    let {titles} = this.props;
     return (
-      <View style={styles.parent} {...this.props}>
-        {this.state.tabIndex == 0 ? (
-            <View style={ styles.tabTitlesContainer }>
-              <TouchableHighlight underlayColor="transparent" onPress={ this.changeTabIndex.bind(this, 0)} style={ styles.selectedTitleContainer }>
-                <MPText style={ styles.selectedTitleText }>{firstTabTitle}</MPText>
-              </TouchableHighlight>
-              <TouchableHighlight underlayColor="transparent" onPress={ this.changeTabIndex.bind(this, 1)} style={ styles.notSeletecTitleContainer }>
-                <MPText style={ styles.notSeletecTitleText}>{secondTabTitle}</MPText>
-              </TouchableHighlight>
-            </View>
-          ) : (
-            <View style={ styles.tabTitlesContainer }>
-              <TouchableHighlight underlayColor="transparent" onPress={this.changeTabIndex.bind(this, 0)} style={ styles.notSeletecTitleContainer }>
-                <MPText style={ styles.notSeletecTitleText }>{ firstTabTitle }</MPText>
-              </TouchableHighlight>
-              <TouchableHighlight underlayColor="transparent" onPress={this.changeTabIndex.bind(this, 1)} style={ styles.selectedTitleContainer }>
-                <MPText style={ styles.selectedTitleText}>{secondTabTitle}</MPText>
-              </TouchableHighlight>
-            </View>
-        )}
-        <Swiper showsPagination={false}
-          onIndexChanged={this.changeTabIndex}
-          index={this.state.tabIndex}
-          loop={false}>
-          {this.props.children}
-        </Swiper>
+      <View style={styles.parent}>
+        <View style={ styles.tabTitlesContainer }>
+          {titles.map((title, index) =>
+            <TouchableHighlight key={index} underlayColor="transparent" onPress={this.changeTabIndex.bind(this, index)}
+                                style={this.state.selected === index ? styles.selectedTitleContainer : styles.notSeletecTitleContainer }>
+              <MPText style={this.state.selected === index ? styles.selectedTitleText : styles.notSeletecTitleText}>
+                {title}
+              </MPText>
+            </TouchableHighlight>
+          )}
+        </View>
       </View>
     );
   }
@@ -52,7 +42,7 @@ class MPTabBarComponent extends React.Component {
 
 const styles = StyleSheet.create({
   parent:{
-    flex: 1,
+    height: 48,
     backgroundColor: 'white'
   },
   tabTitlesContainer: {
@@ -82,20 +72,15 @@ const styles = StyleSheet.create({
     fontSize: 12,
     textAlign: 'center',
     alignSelf: 'center',
-    fontFamily: 'montSerrat'
+    fontFamily: 'Montserrat-Regular'
   },
   selectedTitleText: {
     color: '#000',
     fontSize: 12,
     textAlign: 'center',
     alignSelf: 'center',
-    fontFamily: 'montSerratBold',
+    fontFamily: 'Montserrat-Bold',
   }
 });
 
-const mapStateToProps = ({fontReducer}) => {
-  return {...fontReducer};
-};
-
-const MPTabBar = connect(mapStateToProps)(MPTabBarComponent);
 export {MPTabBar};

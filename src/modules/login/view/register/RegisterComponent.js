@@ -9,7 +9,7 @@ import {
 import {
   MPArrowDownRedIcon, MPArrowUpRedIcon, MPFacebookIcon, MPGoogleIcon, MPLogoRegisterIcon
 } from '../../../../assets/svg';
-import { LinearGradient } from 'expo';
+import LinearGradient from 'react-native-linear-gradient';
 
 
 const BaseIcon = (props, Icon) => (
@@ -73,7 +73,7 @@ class RegisterComponent extends Component {
     return (
       <View style={styles.container}>
         <ScrollView style={styles.container} ref={this.scrollViewRef}>
-          <LinearGradient colors={["#e1322373", "#ffffff8C"]} style={styles.gradient} start={[0, 0]} end={[0, 1]}>
+          <LinearGradient colors={["#e1322373", "#ffffff8C"]} style={styles.gradient} start={{x:0, y:0}} end={{x:0, y:1}}>
             <MPLogoRegisterIcon style={styles.logo}/>
             <MPText style={styles.title}>O seu lugar de música</MPText>
             <MPText style={styles.register}>Crie sua conta</MPText>
@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center'
   },
   title: {
-    fontFamily: 'probaProRegular',
+    fontFamily: 'ProbaPro-Regular',
     fontSize: 18,
     marginTop: 20,
     color: '#000',
@@ -159,14 +159,14 @@ const styles = StyleSheet.create({
   },
   ouText: {
     fontSize: 16,
-    fontFamily: 'montSerrat',
+    fontFamily: 'Montserrat-Regular',
     alignSelf: 'center',
     marginTop: 20
   },
   fillForm: {
     fontSize: 16,
     fontWeight: '500',
-    fontFamily: 'montSerratMedium',
+    fontFamily: 'Montserrat-Medium',
     alignSelf: 'center',
     marginTop: 20
   },
@@ -176,7 +176,7 @@ const styles = StyleSheet.create({
   },
   register: {
     marginTop: 144,
-    fontFamily: 'montSerratBold',
+    fontFamily: 'Montserrat-Bold',
     fontSize: 24,
     alignSelf: 'center',
   },
@@ -197,13 +197,13 @@ const styles = StyleSheet.create({
   },
   termsMessage: {
     fontSize: 16,
-    fontFamily: 'probaProRegular',
+    fontFamily: 'ProbaPro-Regular',
     textAlign: 'center',
     marginTop: 30,
     marginBottom: 30
   },
   termsText: {
-    fontFamily: 'probaProRegular',
+    fontFamily: 'ProbaPro-Regular',
     color: '#5994db',
     fontSize: 16,
     textDecorationLine: 'underline'
@@ -211,14 +211,14 @@ const styles = StyleSheet.create({
   copyright: {
     marginTop: 40,
     marginBottom: 45,
-    fontFamily: 'probaProRegular',
+    fontFamily: 'ProbaPro-Regular',
     fontSize: 14,
     color: '#4a4a4a8C',
     alignSelf: 'center'
   },
   deuRuimText: {
     marginTop: 20,
-    fontFamily: 'montSerrat',
+    fontFamily: 'Montserrat-Regular',
     fontSize: 12,
     color: '#e13223'
   }

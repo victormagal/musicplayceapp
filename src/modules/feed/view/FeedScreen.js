@@ -12,10 +12,13 @@ import {
   MPHeader,
   MPTabBar,
   MPText,
-  MPTextField
+  MPTextField,
+  MPIconButton
 } from '../../../components'
 import {connect} from 'react-redux';
+import Swiper from 'react-native-swiper';
 import images from '../../../assets/img';
+import {MPSearchRedIcon, MPCloseFilledRedIcon} from '../../../assets/svg';
 
 
 class FeedScreenContainer extends React.Component {
@@ -111,14 +114,30 @@ class FeedScreenContainer extends React.Component {
     this.props.navigation.navigate('ArtistProfileScreen');
   };
 
+  handleSearchChange = (value) => {
+    this.setState({textValue: value});
+
+    if(value.length >= 3){
+      this.checkArtistName(value);
+    }
+  };
+
+  handleClearClick = () => {
+    this.setState({textValue: ''});
+  };
+
+  handleChangeTab = (index) => {
+    this.setState({tabIndex: index});
+  };
+
   renderItemTopArtists = ({item}) => (
     <MPArtist artist={item.artistName} imagePath={item.imagePath} onPress={()=>{}} isFollowing={false}/>
-  )
+  );
 
   renderItemFeed = ({item}) => (
     <MPFeedNotification notificationType={item.type} artistName={item.artistName} composerName={item.composerName}
                         songName={item.songName} timeText={item.timeText}/>
-  )
+  );
 
   checkArtistName = (value) => {
     this.setState({textValue: value});
@@ -135,12 +154,14 @@ class FeedScreenContainer extends React.Component {
     return (
       <View style={styles.container}>
         <MPHeader inverse={true}/>
-        <MPTextField
-          value={this.state.textValue}
-          label={'Pesquise pelo nome, músicas e temas'}
-          style={{backgroundColor: '#FFF', marginHorizontal: 20}}
-          onChangeText={this.checkArtistName}
-        />
+        <View style={styles.content}>
+          <MPTextField label='Pesquise pelo nome, músicas e temas' value={this.state.textValue} onChangeText={this.handleSearchChange}/>
+          {this.state.textValue.length < 3 && <MPSearchRedIcon style={styles.searchIcon} />}
+          {this.state.textValue.length >= 3 && (
+            <MPIconButton style={styles.searchIcon} icon={MPCloseFilledRedIcon} onPress={this.handleClearClick}/>
+          )}
+        </View>
+
         {
           this.state.searching == true && this.state.searchingNotFound == false && (
             <ScrollView style={{flex: 2, backgroundColor: '#FCFCFC',}}>
@@ -160,7 +181,7 @@ class FeedScreenContainer extends React.Component {
                 marginHorizontal: 20,
                 marginBottom: 16,
                 fontSize: 20,
-                fontFamily: 'probaProRegular',
+                fontFamily: 'ProbaPro-Regular',
                 color: '#000',
               }}>Músicas relacionadas a busca <MPText
                 style={{color: '#5994db'}}>{ this.state.textValue }</MPText></MPText>
@@ -199,67 +220,78 @@ class FeedScreenContainer extends React.Component {
         }
         {
           this.state.searching == false && (
-            <MPTabBar firstTabTitle={'PARA VOCÊ'} secondTabTitle={"SEGUINDO"}>
-              <View style={styles.firstSliderContainer}>
-                <ScrollView style={{flex: 2,}}>
-                  <MPText style={{
-                    fontFamily: 'probaProRegular',
+            <View style={styles.tabContainer}>
+              <MPTabBar
+                titles={['PARA VOCÊ','SEGUINDO']} onTabChange={this.handleChangeTab}
+                index={this.state.tabIndex}/>
+              <Swiper
+                showsPagination={false}
+                loop={false}
+                index={this.state.tabIndex}
+                onIndexChanged={this.handleChangeTab}>
+
+                <View style={styles.firstSliderContainer}>
+                  <ScrollView style={{flex: 2,}}>
+                    <MPText style={{
+                    fontFamily: 'ProbaPro-Regular',
                     fontSize: 20,
                     marginHorizontal: 20,
                     marginBottom: 16,
                     marginTop: 20
                   }}>Talvez você goste dessas músicas:</MPText>
-                  <MPArtistFull artistName={'Adelle'} songName={'Nome da música'} imagePath={images.bjork120}
-                                artistImagePath={images.adele40}
-                                onPressArtist={this.handleNavigateArtistProfile}
-                                onPressMusic={this.handleNavigateMusic} />
-                  <MPArtistFull artistName={'Freddie'} songName={'Nome da música'} imagePath={images.daftPunk120}
-                                artistImagePath={images.freddieMercury40}
-                                onPressArtist={this.handleNavigateArtistProfile}
-                                onPressMusic={this.handleNavigateMusic} />
-                  <MPArtistFull artistName={'Bjork'} songName={'Nome da música'} imagePath={images.bjork120}
-                                artistImagePath={images.adele40}
-                                onPressArtist={this.handleNavigateArtistProfile}
-                                onPressMusic={this.handleNavigateMusic} />
-                  <View style={styles.topArtistsContainer}>
-                    <MPText style={{fontSize: 20, fontFamily: 'probaProRegular', marginBottom: 16, color: '#000'}}>Artistas
+                    <MPArtistFull artistName={'Adelle'} songName={'Nome da música'} imagePath={images.bjork120}
+                                  artistImagePath={images.adele40}
+                                  onPressArtist={this.handleNavigateArtistProfile}
+                                  onPressMusic={this.handleNavigateMusic} />
+                    <MPArtistFull artistName={'Freddie'} songName={'Nome da música'} imagePath={images.daftPunk120}
+                                  artistImagePath={images.freddieMercury40}
+                                  onPressArtist={this.handleNavigateArtistProfile}
+                                  onPressMusic={this.handleNavigateMusic} />
+                    <MPArtistFull artistName={'Bjork'} songName={'Nome da música'} imagePath={images.bjork120}
+                                  artistImagePath={images.adele40}
+                                  onPressArtist={this.handleNavigateArtistProfile}
+                                  onPressMusic={this.handleNavigateMusic} />
+                    <View style={styles.topArtistsContainer}>
+                      <MPText style={{fontSize: 20, fontFamily: 'ProbaPro-Regular', marginBottom: 16, color: '#000'}}>Artistas
                       em alta</MPText>
-                    <FlatList
-                      data={this.topArtists.data}
-                      keyExtractor={(item) => item.id}
-                      renderItem={this.renderItemTopArtists}
-                      horizontal={true}
+                      <FlatList
+                        data={this.topArtists.data}
+                        keyExtractor={(item) => item.id}
+                        renderItem={this.renderItemTopArtists}
+                        horizontal={true}
+                      />
+                    </View>
+                    <MPArtistFull artistName={'Adelle'} songName={'Nome da música'} imagePath={images.daftPunk120}
+                                  artistImagePath={images.freddieMercury40}
+                                  onPressArtist={this.handleNavigateArtistProfile}
+                                  onPressMusic={this.handleNavigateMusic}
                     />
-                  </View>
-                  <MPArtistFull artistName={'Adelle'} songName={'Nome da música'} imagePath={images.daftPunk120}
-                                artistImagePath={images.freddieMercury40}
-                                onPressArtist={this.handleNavigateArtistProfile}
-                                onPressMusic={this.handleNavigateMusic}
-                  />
-                  <MPArtistFull artistName={'Freddie'} songName={'Nome da música'} imagePath={images.daftPunk120}
-                                artistImagePath={images.adele40}
-                                onPressArtist={this.handleNavigateArtistProfile}
-                                onPressMusic={this.handleNavigateMusic}
-                  />
-                  <MPArtistFull artistName={'Bjork'} songName={'Nome da música'} imagePath={images.bjork120}
-                                artistImagePath={images.adele40}
-                                onPressArtist={this.handleNavigateArtistProfile}
-                                onPressMusic={this.handleNavigateMusic}
-                  />
-                </ScrollView>
-              </View>
-              <View style={styles.secondSliderContainer}>
-                <ScrollView style={{flex: 2,}}>
-                  <FlatList
-                    data={this.artistList.data}
-                    keyExtractor={(item) => item.id}
-                    renderItem={this.renderItemFeed}
-                  />
-                </ScrollView>
-              </View>
-            </MPTabBar>
+                    <MPArtistFull artistName={'Freddie'} songName={'Nome da música'} imagePath={images.daftPunk120}
+                                  artistImagePath={images.adele40}
+                                  onPressArtist={this.handleNavigateArtistProfile}
+                                  onPressMusic={this.handleNavigateMusic}
+                    />
+                    <MPArtistFull artistName={'Bjork'} songName={'Nome da música'} imagePath={images.bjork120}
+                                  artistImagePath={images.adele40}
+                                  onPressArtist={this.handleNavigateArtistProfile}
+                                  onPressMusic={this.handleNavigateMusic}
+                    />
+                  </ScrollView>
+                </View>
+                <View style={styles.secondSliderContainer}>
+                  <ScrollView style={{flex: 2,}}>
+                    <FlatList
+                      data={this.artistList.data}
+                      keyExtractor={(item) => item.id}
+                      renderItem={this.renderItemFeed}
+                    />
+                  </ScrollView>
+                </View>
+              </Swiper>
+            </View>
           )
         }
+
       </View>
     );
   }
@@ -270,6 +302,10 @@ const styles = StyleSheet.create({
     display: 'flex',
     flex: 1,
     backgroundColor: '#FFF',
+  },
+  content: {
+    marginTop: 0,
+    marginHorizontal: 20
   },
   firstSliderContainer: {
     flex: 1,
@@ -288,23 +324,23 @@ const styles = StyleSheet.create({
     fontSize: 14,
     marginHorizontal: 20,
     marginVertical: 20,
-    fontFamily: 'montSerratItalic',
+    fontFamily: 'Montserrat-Italic',
     color: '#000',
   },
   searchTitleEmph: {
-    fontFamily: 'montSerratBoldItalic',
+    fontFamily: 'Montserrat-BoldItalic',
     color: '#5994db'
   },
   searchNotFoundTextTitle: {
     fontSize: 20,
-    fontFamily: 'probaProRegular',
+    fontFamily: 'ProbaPro-Regular',
     color: '#000',
     marginStart: 20,
     marginBottom: 20
   },
   searchNotFoundText: {
     fontSize: 16,
-    fontFamily: 'montSerrat',
+    fontFamily: 'Montserrat-Regular',
     textDecorationLine: 'underline',
     color: '#5994db',
     marginBottom: 20,
@@ -312,12 +348,21 @@ const styles = StyleSheet.create({
   },
   searchArtistRollText: {
     fontSize: 20,
-    fontFamily: 'probaProRegular',
+    fontFamily: 'ProbaPro-Regular',
     marginBottom: 16,
     color: '#000'
   },
   searchArtistRollTextEmph: {
     color: '#5994db'
+  },
+  searchIcon: {
+    position: 'absolute',
+    right: 0,
+    bottom: 15
+  },
+  tabContainer: {
+    flex: 1,
+    marginTop: 20
   }
 });
 

@@ -1,5 +1,17 @@
 import React, {Component} from 'react';
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Platform} from 'react-native';
+
+const fontNames = {
+  'Montserrat-Regular': 'montSerrat',
+  'Montserrat-Light': 'montSerratLight',
+  'Montserrat-Bold': 'montSerratBold',
+  'Montserrat-Medium': 'montSerratMedium',
+  'Montserrat-SemiBold': 'montSerratSemiBold',
+  'Montserrat-BoldItalic': 'montSerratBoldItalic',
+  'Montserrat-Italic': 'montSerratItalic',
+  'Montserrat-Black': 'montSerratBlack',
+  'ProbaPro-Regular': 'probaProRegular'
+};
 
 export const applyFont = (WrapperComponent) => {
   return class extends Component {
@@ -9,21 +21,22 @@ export const applyFont = (WrapperComponent) => {
       delete newProps.style;
 
       style = style || {};
-
-      if (!this.props.fontLoaded && style) {
-        if (Array.isArray(style)) {
-          for (let i in style) {
-            if (!isNaN(style[i])) {
-              style[i] = StyleSheet.flatten([style[i]]);
-            }
-
-            delete style[i]['fontFamily'];
+      if (Array.isArray(style)) {
+        for (let i in style) {
+          if (!isNaN(style[i])) {
+            style[i] = StyleSheet.flatten([style[i]]);
           }
-        } else {
-          if (!isNaN(style)) {
-            style = StyleSheet.flatten([style]);
+          let fontName = style[i]['fontFamily'];
+          if(Platform.OS !== 'ios' && fontName){
+            style[i] = {...style[i], fontFamily: fontNames[fontName]}
           }
-          delete style.fontFamily;
+        }
+      } else {
+        if (!isNaN(style)) {
+          style = StyleSheet.flatten([style]);
+        }
+        if(Platform.OS !== 'ios' && style.fontFamily){
+          style = {...style, fontFamily: fontNames[style.fontFamily]};
         }
       }
 

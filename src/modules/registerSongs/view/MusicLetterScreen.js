@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
   textTop: {
     fontSize: 16,
     color: '#686868',
-    fontFamily: 'probaProRegular'
+    fontFamily: 'ProbaPro-Regular'
   },
   clickableTextContainer: {
     alignItems: 'flex-start',
@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#5994db',
     fontSize: 14,
-    fontFamily: 'montSerrat'
+    fontFamily: 'Montserrat-Regular'
   },
   pickerContainer: {
     height: 46,
@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#686868'
   },
   headerMenuText: {
-    fontFamily: 'montSerrat',
+    fontFamily: 'Montserrat-Regular',
     fontSize: 14,
     color: '#fff'
   },
@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
     marginTop: 52
   },
   ouText: {
-    fontFamily: 'montSerrat'
+    fontFamily: 'Montserrat-Regular'
   }
 });
 

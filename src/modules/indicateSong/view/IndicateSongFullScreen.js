@@ -133,29 +133,29 @@ const styles = StyleSheet.create({
   headerText: {
     fontSize: 24,
     color: '#000',
-    fontFamily: 'montSerrat',
+    fontFamily: 'Montserrat-Regular',
     marginHorizontal: 20,
     marginTop: 30
   },
   headerTextCustom: {
-    fontFamily: 'montSerratBold',
+    fontFamily: 'Montserrat-Bold',
     color: '#e13223',
   },
   detailsText: {
     fontSize: 16,
     color: "#686868",
     marginHorizontal: 20,
-    fontFamily: 'montSerrat',
+    fontFamily: 'Montserrat-Regular',
     flexWrap: 'wrap',
   },
   textFieldSubText: {
     fontSize: 12,
     color: '#686868',
-    fontFamily: 'montSerratItalic',
+    fontFamily: 'Montserrat-Italic',
     marginHorizontal: 20,
   },
   textFieldSubTextEmph: {
-    fontFamily: 'montSerratBold',
+    fontFamily: 'Montserrat-Bold',
     color: '#000'
   },
   infoTextContainer: {
@@ -166,12 +166,12 @@ const styles = StyleSheet.create({
   },
   infoText: {
     fontSize: 20,
-    fontFamily: 'montSerrat',
+    fontFamily: 'Montserrat-Regular',
     color: '#000',
     textAlign: 'center',
   },
   infoTextEmph: {
-    fontFamily: 'montSerratBold'
+    fontFamily: 'Montserrat-Bold'
   },
 });
 

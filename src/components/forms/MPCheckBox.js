@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 16,
     color: '#686868',
-    fontFamily: 'probaProRegular',
+    fontFamily: 'ProbaPro-Regular',
     justifyContent:'center',
     alignSelf: 'center',
     flexWrap: 'wrap'

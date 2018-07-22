@@ -3,7 +3,7 @@ import {
   StyleSheet,
   TouchableOpacity 
 } from 'react-native';
-import { LinearGradient } from 'expo';
+import LinearGradient from 'react-native-linear-gradient';
 import PropTypes from 'prop-types';
 
 class MPCircleGradientButton extends Component {
@@ -16,8 +16,8 @@ class MPCircleGradientButton extends Component {
       <TouchableOpacity style={[styles.container, style || {}]} onPress={onPress}>
         <LinearGradient
           colors={['#BB1A1A', '#2E2C9D']}
-          start={[0.0, 0]}
-          end={[1.0, 0]}
+          start={{x:0, y:0}}
+          end={{x:1, y:0}}
           style={[styles.linear]}>
           {icon && <Icon style={styles.icon}/>}
         </LinearGradient>

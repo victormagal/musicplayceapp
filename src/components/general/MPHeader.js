@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Text, StatusBar, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Platform, Text, StatusBar, TouchableOpacity } from 'react-native';
 import PropTypes from 'prop-types';
 import { MPText } from '../general/MPText';
 import {MPBackIcon, MPBackBlackIcon, MPLogoIcon, MPLogoBlackIcon} from '../../assets/svg';
@@ -14,7 +14,7 @@ class MPHeader extends React.Component {
     let backgroundColor = inverse || transparent ? 'transparent' : 'black';
 
     return (
-      <View style={[styles.parent, {backgroundColor}, style || {}]}>
+      <View style={[{backgroundColor}, style || {}]}>
         <View style={styles.header}>
           {back && (
             <TouchableOpacity onPress={onBack} style={styles.backContainer}>
@@ -53,14 +53,14 @@ MPHeader.propTypes = {
 };
 
 const styles = StyleSheet.create({
-  parent: {
-    paddingBottom: 15
-  },
   header: {
     display: 'flex',
     flexDirection: 'row',
-    paddingTop: 10,
-    marginTop: 30,
+    height: 42,
+    ...Platform.select({
+        ios: {
+          marginTop: 18,
+        }})
   },
   backContainer: {
     position: 'absolute',
@@ -81,8 +81,9 @@ const styles = StyleSheet.create({
     alignSelf: 'center'
   },
   title: {
-    fontFamily: 'montSerrat',
-    marginTop: 20,
+    fontFamily: 'Montserrat-Regular',
+    paddingTop: 10,
+    paddingBottom: 20,
     fontSize: 20,
     color: 'white',
     paddingHorizontal: 40,

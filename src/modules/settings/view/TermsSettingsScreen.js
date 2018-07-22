@@ -81,13 +81,13 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 20,
     color: '#000000',
-    fontFamily: 'montSerratMedium',
+    fontFamily: 'Montserrat-Medium',
     marginBottom: 5
   },
   paragraph: {
     fontSize: 16,
     color: '#686868',
-    fontFamily: 'probaProRegular'
+    fontFamily: 'ProbaPro-Regular'
   }
 });
 

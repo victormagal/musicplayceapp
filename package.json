@@ -1,48 +1,47 @@
 {
-  "name": "MusicPlayCE",
-  "version": "0.1.0",
+  "name": "musicplayce",
+  "version": "0.0.1",
   "private": true,
-  "devDependencies": {
-    "babel-preset-es2016": "^6.24.1",
-    "babel-preset-react-native-stage-0": "^1.0.1",
-    "babel-preset-stage-0": "^6.24.1",
-    "jest-expo": "~27.0.0",
-    "react-native-scripts": "1.14.0",
-    "react-test-renderer": "16.3.1",
-    "xml2js": "^0.4.19"
-  },
-  "main": "./node_modules/react-native-scripts/build/bin/crna-entry.js",
   "scripts": {
-    "start": "react-native-scripts start",
-    "eject": "react-native-scripts eject",
-    "android": "react-native-scripts android",
-    "ios": "react-native-scripts ios",
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "android": "react-native run-android",
+    "ios": "react-native run-ios",
+    "build:android" : "react-native run-android --variant=release",
+    "build:ios" : "react-native run-ios --configuration Release",
     "test": "jest"
   },
-  "jest": {
-    "preset": "jest-expo"
+  "rnpm": {
+    "assets": [
+      "./assets/fonts/"
+    ]
   },
   "dependencies": {
     "axios": "^0.18.0",
-    "babel-polyfill": "^6.26.0",
-    "babel-preset-env": "^1.7.0",
-    "cross-fetch": "^2.2.0",
-    "expo": "^27.0.1",
     "prop-types": "^15.6.1",
-    "react": "16.3.1",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-27.0.0.tar.gz",
+    "react": "16.4.1",
+    "react-native": "0.56.0",
     "react-native-actionsheet": "^2.4.2",
-    "react-native-document-picker": "^2.1.0",
     "react-native-elements": "^0.19.1",
     "react-native-gifted-chat": "^0.4.3",
+    "react-native-linear-gradient": "^2.4.0",
     "react-native-material-textfield": "^0.12.0",
-    "react-native-svg": "^6.3.1",
+    "react-native-svg": "^6.4.1",
     "react-native-swiper": "^1.5.13",
+    "react-native-vector-icons": "^4.6.0",
     "react-navigation": "^2.0.1",
     "react-redux": "^5.0.7",
     "redux": "^4.0.0",
     "redux-actions": "^2.3.2",
     "redux-thunk": "^2.3.0",
     "validator": "^10.4.0"
+  },
+  "devDependencies": {
+    "babel-jest": "23.4.0",
+    "babel-preset-react-native": "5.0.2",
+    "jest": "23.4.1",
+    "react-test-renderer": "16.4.1"
+  },
+  "jest": {
+    "preset": "react-native"
   }
 }

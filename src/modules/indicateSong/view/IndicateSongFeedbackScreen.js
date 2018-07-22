@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
   },
   headerText: {
     fontSize: 20,
-    fontFamily: 'montSerratBold',
+    fontFamily: 'Montserrat-Bold',
     color: '#000',
     textAlign: 'center',
     marginTop: 90,
@@ -61,14 +61,14 @@ const styles = StyleSheet.create({
   infoText: {
     fontSize : 16,
     color : '#000',
-    fontFamily: 'montSerrat',
+    fontFamily: 'Montserrat-Regular',
     marginHorizontal: 32,
     textAlign: 'center',
     marginBottom : 20,
     marginTop: 22,
   },
   infoTextEmph: {
-    fontFamily: 'montSerratBold',
+    fontFamily: 'Montserrat-Bold',
   },
   partnershipContainer: {
     flexDirection: 'row',

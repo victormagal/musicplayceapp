@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     },
     titleText: {
         fontSize: 16,
-        fontFamily: 'probaProRegular',
+        fontFamily: 'ProbaPro-Regular',
         color : '#777777',
         textAlign: 'center',
         marginBottom: 10,
@@ -38,13 +38,13 @@ const styles = StyleSheet.create({
     },
     languageText: {
         fontSize: 12,
-        fontFamily: 'montSerrat',
+        fontFamily: 'Montserrat-Regular',
         color : '#FFF',
         marginEnd: 12,
     },
     emphText: {
         fontSize: 14,
-        fontFamily: 'montSerratMedium',
+        fontFamily: 'Montserrat-Medium',
         color: '#5994db',
         textAlign: 'center',
         textDecorationLine: 'underline',

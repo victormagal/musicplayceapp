@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
     marginTop: 30,
     fontSize: 20,
     color : '#000',
-    fontFamily: 'montSerrat',
+    fontFamily: 'Montserrat-Regular',
     textAlign: 'center',
   },
   button: {

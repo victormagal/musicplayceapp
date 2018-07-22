@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
     },
     upgradeText:{
         fontSize: 16,
-        fontFamily: 'probaProRegular',
+        fontFamily: 'ProbaPro-Regular',
         color: '#777777',
         textAlign: 'center',
         flexWrap: 'wrap',

@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     color: "#000",
     fontSize: 20,
     paddingStart: 20,
-    fontFamily: 'probaProRegular',
+    fontFamily: 'ProbaPro-Regular',
     alignSelf: 'center'
   },
 });

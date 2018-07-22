@@ -15,22 +15,25 @@ generated file will be at
 
     rootFolder/src/assets/svg/index.js
 
-#### Run
-If you want to use xcode or Android Studio  
-you must start expo tunnel
+### Run
   
-    $ exp start  
+    $ npm start  
 
-### `Build for IOS`
+#### `Run IOS`
 
-At first in IOS you must execute pod install
-
-    $ cd ios
-    $ pod install
+    $ npm run ios
     
-### `Build for Android`
+#### `Run Android`
 
-Just click on button Run in Android Studio
+    $ npm run android
 
 
-#### TODO: Generate release versions
+### Build
+
+#### Android
+
+    $ npm run build:android  
+    
+#### IOS
+
+    $ npm run build:ios  

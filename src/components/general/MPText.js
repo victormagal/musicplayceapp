@@ -17,9 +17,5 @@ class MPTextComponent extends Component {
   }
 }
 
-const mapStateToProps = ({fontReducer}) => {
-  return {...fontReducer};
-};
-
-const MPText = connect(mapStateToProps)(applyFont(MPTextComponent));
+const MPText = applyFont(MPTextComponent);
 export { MPText };

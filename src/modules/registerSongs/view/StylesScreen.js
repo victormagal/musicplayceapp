@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
     height: 60,
     marginBottom: 21,
     marginHorizontal: 40,
-    fontFamily: 'probaProRegular'
+    fontFamily: 'ProbaPro-Regular'
   },
   button: {
     marginEnd: 10,
@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   headerMenuText: {
-    fontFamily: 'montSerrat',
+    fontFamily: 'Montserrat-Regular',
     fontSize: 14,
     color: '#fff'
   }

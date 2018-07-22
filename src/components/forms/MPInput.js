@@ -36,7 +36,7 @@ class MPInputComponent extends React.Component {
     let style = {fontSize: 16, paddingRight: 30};
 
     if (this.props.fontLoaded) {
-      style['fontFamily'] = 'montSerrat';
+      style['fontFamily'] = 'Montserrat-Regular';
     }
 
     return Object.assign({}, style);
@@ -46,7 +46,7 @@ class MPInputComponent extends React.Component {
     let style = {};
 
     if (this.props.fontLoaded) {
-      style['fontFamily'] = 'montSerrat';
+      style['fontFamily'] = 'Montserrat-Regular';
     }
 
     return Object.assign({}, style);

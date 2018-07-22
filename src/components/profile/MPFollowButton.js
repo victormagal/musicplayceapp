@@ -64,13 +64,13 @@ const styles = StyleSheet.create({
     followingText: {
         color : '#e13223',
         fontSize: 12,
-        fontFamily: 'montSerrat',
+        fontFamily: 'Montserrat-Regular',
         marginStart: 10,
     },
     followText: {
         color : '#fff',
         fontSize: 12,
-        fontFamily: 'montSerrat',
+        fontFamily: 'Montserrat-Regular',
         marginStart: 5,
     }
 });

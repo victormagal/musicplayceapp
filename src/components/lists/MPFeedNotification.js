@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
   notificationText: {
     fontSize: 16,
     color: '#9b9b9b',
-    fontFamily: 'probaProRegular',
+    fontFamily: 'ProbaPro-Regular',
     textAlign: 'left',
     flexWrap: 'wrap',
     marginEnd: 34,
@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
     fontSize: 11,
     color: '#4a4a4a',
     textAlign: 'right',
-    fontFamily: 'montSerratSemiBold',
+    fontFamily: 'Montserrat-SemiBold',
     alignSelf: 'center',
   }
 });

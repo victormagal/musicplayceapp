@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
       marginTop: 30,
       marginHorizontal: 40,
       fontSize: 16,
-      fontFamily: 'probaProRegular',
+      fontFamily: 'ProbaPro-Regular',
       color: '#686868',
   }
 });

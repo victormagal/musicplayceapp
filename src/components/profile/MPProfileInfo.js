@@ -67,12 +67,12 @@ const styles = StyleSheet.create({
   },
   name: {
     fontSize: 32,
-    fontFamily: 'montSerratBold',
+    fontFamily: 'Montserrat-Bold',
     color: '#fff'
   },
   username: {
     fontSize: 14,
-    fontFamily: 'montSerrat',
+    fontFamily: 'Montserrat-Regular',
     color: '#fff'
   },
   location: {
@@ -80,11 +80,11 @@ const styles = StyleSheet.create({
     color: '#fff',
     marginStart: 5,
     marginBottom: 15,
-    fontFamily: 'montSerrat',
+    fontFamily: 'Montserrat-Regular',
   },
   descriptionText: {
     fontSize: 12,
-    fontFamily: 'montSerrat',
+    fontFamily: 'Montserrat-Regular',
     color: '#FFF',
     marginBottom: 15
   },
@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
   },
   avaliadorText: {
     color: '#fff',
-    fontFamily: 'montSerratMedium',
+    fontFamily: 'Montserrat-Medium',
     fontSize: 10,
     textAlign: 'right'
   },

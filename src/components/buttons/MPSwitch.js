@@ -3,7 +3,7 @@ import {
   Animated, StyleSheet, View, Text, TouchableWithoutFeedback
 } from 'react-native';
 import {connect} from 'react-redux';
-import {LinearGradient} from 'expo';
+import LinearGradient from 'react-native-linear-gradient';
 import Svg, { Path } from 'react-native-svg';
 import {MPText} from '../general/MPText';
 
@@ -44,8 +44,8 @@ class MPSwitchComponent extends React.Component {
           <TouchableWithoutFeedback onPress={this.handleToggleSwitch}>
             <LinearGradient
               colors={this.linearValues[this.state.switchValue]}
-              start={[0.0, 0]}
-              end={[1.0, 0]}
+              start={{x:0, y: 0}}
+              end={{x:1, y:0}}
               style={styles.boxSwitch} >
                 <Animated.View style={[styles.iconSwitch, {left: this.state.switchAnim}]}>
                   <Svg width="10" height="10" viewBox="0 0 10 10">
@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 14,
-    fontFamily: 'montSerratMedium',
+    fontFamily: 'Montserrat-Medium',
     color: '#000000'
   },
   boxSwitch: {

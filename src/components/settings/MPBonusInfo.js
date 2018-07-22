@@ -62,23 +62,23 @@ const styles = StyleSheet.create({
   },
   title:{
     fontSize: 16,
-    fontFamily: 'montSerrat',
+    fontFamily: 'Montserrat-Regular',
     color : '#000',
     marginBottom: 5,
   },
   titleEmph: {
-    fontFamily: 'montSerratBold',
+    fontFamily: 'Montserrat-Bold',
     color: '#5994db',
   },
   date:{
     fontSize: 14,
-    fontFamily: 'probaProRegular',
+    fontFamily: 'ProbaPro-Regular',
     color: '#686868',
     marginBottom: 10,
   },
   bonus:{
     fontSize: 16, 
-    fontFamily: 'montSerrat',
+    fontFamily: 'Montserrat-Regular',
     color: '#000',
   },
   textDisabled: {

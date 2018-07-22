@@ -62,18 +62,18 @@ const styles = StyleSheet.create({
     color: '#686868',
     height: 20,
     marginHorizontal: 40,
-    fontFamily: 'montSerrat'
+    fontFamily: 'Montserrat-Regular'
   },
   textInputSubTextHeader: {
     color: '#686868',
     fontSize: 12,
-    fontFamily: 'montSerratBoldItalic'
+    fontFamily: 'Montserrat-BoldItalic'
   },
   textInputSubTextSuggestion: {
     fontWeight: 'normal',
     fontSize: 12,
     color: '#686868',
-    fontFamily: 'montSerratItalic'
+    fontFamily: 'Montserrat-Italic'
   },
 });
 

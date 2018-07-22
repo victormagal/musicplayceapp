@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
       marginHorizontal : 40,
       marginTop: 30,
       fontSize : 16,
-      fontFamily: 'montSerratMedium',
+      fontFamily: 'Montserrat-Medium',
       color : '#000',
       textAlign: 'center',
   },

@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
       flexWrap: 'wrap',
       color: '#686868',
       fontSize: 16,
-      fontFamily: 'probaProRegular',
+      fontFamily: 'ProbaPro-Regular',
   }
 });
 
