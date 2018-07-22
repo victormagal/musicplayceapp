@@ -15,17 +15,25 @@ generated file will be at
 
     rootFolder/src/assets/svg/index.js
 
-#### Run
+### Run
   
     $ npm start  
 
-### `Run IOS`
+#### `Run IOS`
 
     $ npm run ios
     
-### `Run Android`
+#### `Run Android`
 
     $ npm run android
 
 
-#### TODO: Generate release versions
+### Build
+
+#### Android
+
+    $ npm run build:android  
+    
+#### IOS
+
+    $ npm run build:ios  
