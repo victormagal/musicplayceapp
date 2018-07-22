@@ -28,7 +28,7 @@ class MPItemListComponent extends React.Component {
             ) : null
           }
           <View style={styles.boxText}>
-            <MPText style={styles.text}>
+            <MPText numberOfLines={1} style={styles.text}>
               {item.title}
             </MPText>
           </View>
@@ -63,8 +63,8 @@ const styles = StyleSheet.create({
   },
   boxIcon: {
     display: 'flex',
-    flex: 0.05,
-    marginLeft: 12,
+    flex: 0,
+    width: 37,
     paddingRight: 12,
     borderRightWidth: 2,
     borderRightColor: '#F6F6F6',
@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
   },
   boxText: {
     marginLeft: 10,
-    flex: 0.9
+    flex: 1
   },
   text: {
     color: 'black',

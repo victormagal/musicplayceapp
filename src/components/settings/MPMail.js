@@ -24,9 +24,11 @@ class MPMailComponent extends React.Component {
     return (
       <View style={styles.container}>
         <MPText style={styles.title}>Uma mensagem de confirmação foi enviada para o seu novo e-mail de cadastro</MPText>
-        <MPText style={styles.subtitle}>Se você ainda não recebeu essa mensagem, clique em reenviar</MPText>
-        <MPGradientButton style={styles.button} textSize={16} title="Cancelar" onPress={this.handleBack} />
-        <MPGradientButton style={styles.button} textSize={16} title="Reenviar" onPress={this.handleFoward} />
+        <MPText style={styles.subtitle}>Se você ainda não recebeu essa mensagem, clique em reenviar.</MPText>
+        <View style={{ flexDirection: 'row' }}>
+          <MPGradientButton style={styles.button} textSize={16} title="OK" onPress={this.handleFoward} />
+          <MPGradientButton style={styles.button} textSize={16} title="Reenviar" onPress={console.log()} />
+        </View>
       </View>
     );
   }
@@ -53,6 +55,7 @@ const styles = StyleSheet.create({
     marginVertical: 20
   },
   button: {
+    flex: 1,
     marginHorizontal: 20,
     marginTop: 20
   }

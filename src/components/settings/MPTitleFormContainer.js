@@ -16,13 +16,17 @@ class MPTitleFormContainerComponent extends React.Component {
     let { 
       title, 
       textButton, 
-      onPress 
+      onPress,
+      disabledButton
     } = this.props;
 
     return (
       <View style={styles.container}>
         <MPText style={styles.title}>{title}</MPText>
-        <MPGradientButton style={styles.button} title={textButton} onPress={onPress} />
+        <MPGradientButton style={styles.button}
+                          title={textButton}
+                          onPress={onPress}
+                          disabled={disabledButton} />
       </View>
     );
   }
@@ -37,17 +41,17 @@ const styles = StyleSheet.create({
     flex: 1,
     display: 'flex',
     flexDirection: 'row',
-    alignItems: 'center',
-    marginHorizontal: 40
+    alignItems: 'center'
   },
   title: {
     fontSize: 16,
     fontFamily: 'montSerratMedium',
     color: 'black',
-    flex: 0.7
+    flex: 1
   },
   button: {
-    flex: 0.3
+    flex: 0,
+    width: 90
   }
 });
 

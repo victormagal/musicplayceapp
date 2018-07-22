@@ -11,8 +11,10 @@ import {
 	MPLoading, 
 	MPFooter
 } from '../../../../components';
+import {connect} from "react-redux";
+import withFixedBottom from "../../../../connectors/withFixedBottom";
 
-class EditSettingsScreenComponent extends React.Component {
+class EditSettingsScreenComponentForm extends React.Component {
 	
 	state = {
 		formLoaded: false,
@@ -22,42 +24,59 @@ class EditSettingsScreenComponent extends React.Component {
 	constructor(props) {
 		super(props);
 		
-		if (props.profile.name) {
-			this.state.form = {...props.profile};
-			this.state.formLoaded = true;
-		}
-	}
-	
-	componentWillReceiveProps(props) {
-		if (!this.state.formLoaded && props.profile.name) {
-			let state = {...this.state};
-			state.form = {...props.profile};
-			state.formLoaded = true;
-			this.setState(state);
+		if (props.profile) {
+			this.state.form = { ...props.profile };
 		}
 	}
 
-	handleUpdateIdentificacao = (page) => {
-    this.props.onSave(page);
+  onChangeValue = ({ field, value }) => {
+	  let { form } = this.state;
+	  form[field] = value;
+	  this.setState({ form });
+  }
+
+	handleUpdateIdentificacao = (section) => {
+    this.props.onSave(this.state.form, section);
 	};
 
 	render() {
 		let { onBack } = this.props;
+		const { form } = this.state;
+		const isProfileDisabled = form.username === '' || form.name === '' || form.username === '';
 		return (
 		  <View style={styles.parent}>
 				<MPHeader back={true} onBack={onBack} title={"Mantenha seus dados cadastrais atualizados"}/>
 				<ScrollView style={styles.scroll}>
 					<View style={styles.container}>
-						<MPTitleFormContainer title={"Identificação"} textButton={"ALTERAR"} onPress={this.handleUpdateIdentificacao.bind(this, 'profile')} />
-						<MPTextField label={"Usuário"} value={this.state.form.username}/>
-						<MPTextField label={"Nome"} value={this.state.form.name}/>
-						<MPTextField label={"Sobrenome"} value={this.state.form.lastName}/>
+						<MPTitleFormContainer title={"Identificação"}
+                                  textButton={"ALTERAR"}
+                                  disabledButton={isProfileDisabled}
+                                  onPress={() => this.handleUpdateIdentificacao('profile')} />
+						<MPTextField label={"Usuário"}
+                         value={form.username}
+                         onChangeText={(value) => this.onChangeValue({ field: 'username', value })} />
+						<MPTextField label={"Nome"}
+                         value={form.name}
+                         onChangeText={(value) => this.onChangeValue({ field: 'name', value })} />
+						<MPTextField label={"Sobrenome"}
+                         value={form.last_name}
+                         onChangeText={(value) => this.onChangeValue({ field: 'last_name', value })} />
 						<View style={styles.separator}/>
-						<MPTitleFormContainer title={"Endereço de e-mail"} textButton={"ALTERAR"} onPress={this.handleUpdateIdentificacao.bind(this, 'email')} />
-						<MPTextField label={"E-mail"} value={this.state.form.email}/>
+						<MPTitleFormContainer title={"Endereço de e-mail"}
+                                  textButton={"ALTERAR"}
+                                  disabledButton={form.email === ''}
+                                  onPress={() => this.handleUpdateIdentificacao('email')} />
+						<MPTextField label={"E-mail"}
+                         value={form.email}
+                         onChangeText={(value) => this.onChangeValue({ field: 'email', value })} />
 						<View style={styles.separator}/>
-						<MPTitleFormContainer title={"Telefone celular"} textButton={"ALTERAR"} onPress={this.handleUpdateIdentificacao.bind(this, 'phone')} />
-						<MPTextField label={"Nº de telefone"} value={this.state.form.phone}/>
+						<MPTitleFormContainer title={"Telefone celular"}
+                                  textButton={"ALTERAR"}
+                                  disabledButton={form.cell_phone === ''}
+                                  onPress={() => this.handleUpdateIdentificacao('cell_phone')} />
+						<MPTextField label={"Nº de telefone"}
+                         value={form.cell_phone || ''}
+                         onChangeText={(value) => this.onChangeValue({ field: 'cell_phone', value })} />
 					</View>
 				</ScrollView>
 				<MPLoading visible={this.props.loading}/>
@@ -77,14 +96,15 @@ const styles = StyleSheet.create({
 		flex: 2
 	},
 	container: {
-		marginVertical: 30
+		marginVertical: 30,
+    marginHorizontal: 20
 	},
 	separator: {
 		borderBottomWidth: 1,
 		borderBottomColor: '#D8D8D8',
-		marginHorizontal: 40,
 		marginVertical: 30
 	}
 });
 
+const EditSettingsScreenComponent = withFixedBottom()(EditSettingsScreenComponentForm);
 export { EditSettingsScreenComponent };
