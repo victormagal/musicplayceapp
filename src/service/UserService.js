@@ -33,6 +33,21 @@ class UserService {
         return {user: {id, ...attributes}, profile: userProfile};
       });
   }
+
+  static indications(){
+    return axios.get(`${API_USER}/me/indications`).then(response => {
+      let {attributes} = response.data.data;
+      return {...attributes};
+    });
+
+  }
+
+  static followers(){
+    return axios.get(`${API_USER}/me/followers`).then(response => {
+      let {attributes} = response.data.data;
+      return {...attributes};
+    });
+  }
 }
 
 export {UserService};

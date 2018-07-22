@@ -60,6 +60,7 @@
 		CFB98A1DE5BF4647914C8638 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4BA7B5F4EF2B475E9C4700A0 /* Octicons.ttf */; };
 		E4237FB6CB7349E38B1E7DE5 /* montSerratBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BEAEB7E3307B4BA9AA976F05 /* montSerratBold.ttf */; };
 		ED2541BADB1449FD99188509 /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 409198991D2C4320B5DB15FC /* MaterialCommunityIcons.ttf */; };
+		8A4332D76A2A4D20AE1EDEE7 /* montSerratBlack.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1891D8F853AC466FADE491EF /* montSerratBlack.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -426,6 +427,7 @@
 		DFC0D294FDF6478B8FFCCF15 /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
 		E7E02ECF5E6142EB9F32396A /* RNSVG.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNSVG.xcodeproj; path = "../node_modules/react-native-svg/ios/RNSVG.xcodeproj"; sourceTree = "<group>"; };
 		F82B3C87A8F44D26849768D7 /* libRNVectorIcons.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNVectorIcons.a; sourceTree = "<group>"; };
+		1891D8F853AC466FADE491EF /* montSerratBlack.ttf */ = {isa = PBXFileReference; name = "montSerratBlack.ttf"; path = "../assets/fonts/montSerratBlack.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -632,6 +634,7 @@
 				6E31EDAE72764D11B1B852D8 /* montSerratMedium.ttf */,
 				402053CE24284B4A83454372 /* montSerratSemiBold.ttf */,
 				88F358E32781466B9811327E /* probaProRegular.otf */,
+				1891D8F853AC466FADE491EF /* montSerratBlack.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -1274,6 +1277,7 @@
 				AA23A242AFB947BBBC5D2212 /* montSerratMedium.ttf in Resources */,
 				163A253558264BAF94FAF7CB /* montSerratSemiBold.ttf in Resources */,
 				379D3EC9B4C144FB9D4F7782 /* probaProRegular.otf in Resources */,
+				8A4332D76A2A4D20AE1EDEE7 /* montSerratBlack.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

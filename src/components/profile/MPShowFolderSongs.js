@@ -1,20 +1,18 @@
 import React, {Component} from 'react';
 import {StyleSheet, View, FlatList} from 'react-native';
-import {connect} from 'react-redux';
 import {MPSongRating, MPText} from '../../components'
-import images from '../../assets/img';
-import {MPGradientButton} from '../buttons';
 import {MPGradientBorderButton} from './MPGradientBorderButton';
 
-class MPShowFolderShongsComponent extends Component {
+
+class MPShowFolderSongs extends Component {
 
   renderSongs = ({item}) => (
-    <MPSongRating songName={item.name} indicateSong={true} isAdded={true} onExclude={this.props.excludeSong}
-                  onUnpublish={this.props.unpublishSong}/>
-  )
+    <MPSongRating song={item} indicateSong={true} isAdded={true} onExclude={this.props.excludeSong}
+                  onUnpublish={this.props.unpublishSong} onIndicateClick={this.props.onIndicateClick}/>
+  );
 
   render() {
-    let {folderName, edit, onEdit, songs, excludeSong, unpublishSong} = this.props;
+    let {folderName, edit, onEdit, songs} = this.props;
 
     return (
       <View style={ styles.parent }>
@@ -68,10 +66,5 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = ({fontReducer}) => {
-  return {...fontReducer};
-};
-
-const MPShowFolderSongs = connect(mapStateToProps)(MPShowFolderShongsComponent);
 export {MPShowFolderSongs};
 

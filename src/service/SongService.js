@@ -42,7 +42,6 @@ class SongService {
   static artistSongs(artist){
     return axios.get(`${API}/song-artist/${artist}`)
       .then(response => {
-        console.log(response);
         let {data, meta} = response.data;
         return {data: transformResponseData(data), pagination: meta.pagination};
       });
