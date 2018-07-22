@@ -1,17 +1,12 @@
 import React from 'react';
-import {
-  FlatList,
-  StyleSheet, 
-  View
-} from 'react-native';
-import {
-  MPFooter, 
-  MPHeader,
-  MPNotificationList, 
-  MPMessageList,
-  MPTabBar
-} from '../../../components';
 import { connect } from 'react-redux';
+import {
+  FlatList, StyleSheet, View
+} from 'react-native';
+import Swiper from 'react-native-swiper';
+import {
+  MPHeader, MPNotificationList, MPMessageList, MPTabBar
+} from '../../../components';
 
 
 class NotificationScreenContainer extends React.Component {
@@ -21,8 +16,11 @@ class NotificationScreenContainer extends React.Component {
     this.state = {
       tabIndex: 0,
     }
-
   }
+
+  handleChangeTab = (index) => {
+    this.setState({tabIndex: index});
+  };
 
   listNotifications = {
     data: [
@@ -170,7 +168,13 @@ class NotificationScreenContainer extends React.Component {
     return (
       <View style={styles.container}>
         <MPHeader />
-        <MPTabBar firstTabTitle={'ALERTAS'} secondTabTitle={"MENSAGENS"}>
+        <MPTabBar titles={['ALERTAS', 'MENSAGENS']}
+                  onTabChange={this.handleChangeTab} index={this.state.tabIndex}/>
+        <Swiper
+          showsPagination={false}
+          loop={false}
+          index={this.state.tabIndex}
+          onIndexChanged={this.handleChangeTab}>
           <View style={styles.firstSliderContainer}>
             <FlatList
               data={this.listNotifications.data}
@@ -193,7 +197,7 @@ class NotificationScreenContainer extends React.Component {
               }}
             />
           </View>
-        </MPTabBar>
+        </Swiper>
       </View>
     );
   }
@@ -215,8 +219,8 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = ({fontReducer}) => {
-  return {...fontReducer};
+const mapStateToProps = () => {
+  return {};
 };
 
 const NotificationScreen = connect(mapStateToProps)(NotificationScreenContainer);

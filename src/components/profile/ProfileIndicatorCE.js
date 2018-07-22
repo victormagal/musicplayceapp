@@ -6,12 +6,12 @@ import PropTypes from 'prop-types';
 class ProfileIndicatorCE extends Component {
 
   renderEmpty() {
-    let {style, title, subtitle} = this.props;
+    let {style, titlePlural, subtitle} = this.props;
 
     return (
       <View style={style}>
         <MPText style={styles.titleEmpty}>
-          {title}
+          {titlePlural}
         </MPText>
         <View style={styles.top}/>
         <TouchableOpacity onPress={this.props.onEmptyClick}>
@@ -24,7 +24,9 @@ class ProfileIndicatorCE extends Component {
   }
 
   renderIndicator() {
-    let {style, title, count} = this.props;
+    let {style, title, titlePlural, count} = this.props;
+
+    let label = count === 1 ? title : titlePlural;
 
     return (
       <View style={style}>
@@ -32,8 +34,8 @@ class ProfileIndicatorCE extends Component {
 
         <TouchableOpacity>
           <View style={{flexDirection: 'row'}}>
-            <MPText style={styles.count}>{count}K</MPText>
-            <MPText style={styles.title} numberOfLines={2}>{title.toUpperCase()}</MPText>
+            <MPText style={styles.count}>{count}</MPText>
+            <MPText style={styles.title} numberOfLines={2}>{label.toUpperCase()}</MPText>
           </View>
         </TouchableOpacity>
       </View>
@@ -54,6 +56,7 @@ class ProfileIndicatorCE extends Component {
 ProfileIndicatorCE.propTypes = {
   style: PropTypes.any,
   title: PropTypes.string.isRequired,
+  titlePlural: PropTypes.string.isRequired,
   subtitle: PropTypes.string.isRequired,
   onEmptyClick : PropTypes.func
 };
@@ -66,26 +69,30 @@ const styles = StyleSheet.create({
   },
   count: {
     fontSize: 24,
+    fontFamily: 'Montserrat-Black',
     fontWeight: "900",
     color: "#ffffff",
-    marginRight: 4
+    marginRight: 4,
+    width: 40,
   },
   titleEmpty: {
     color: '#000000',
+    fontFamily: 'Montserrat-Medium',
     fontWeight: "500",
     fontSize: 11,
-    marginBottom: 11
+    marginBottom: 11,
   },
   title: {
     color: '#000000',
     fontWeight: "500",
     fontSize: 11,
-    marginBottom: 11,
-    width: 100
+    width: 100,
+    fontFamily: 'Montserrat-Medium'
   },
   subtitle: {
     fontSize: 12,
     fontWeight: "bold",
+    fontFamily: 'Montserrat-Bold',
     color: "#ffffff",
     textDecorationLine: "underline",
     marginTop: 9

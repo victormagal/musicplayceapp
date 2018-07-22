@@ -9,6 +9,7 @@ const fontNames = {
   'Montserrat-SemiBold': 'montSerratSemiBold',
   'Montserrat-BoldItalic': 'montSerratBoldItalic',
   'Montserrat-Italic': 'montSerratItalic',
+  'Montserrat-Black': 'montSerratBlack',
   'ProbaPro-Regular': 'probaProRegular'
 };
 

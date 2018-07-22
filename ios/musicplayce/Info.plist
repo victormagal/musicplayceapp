@@ -58,6 +58,7 @@
 		<string>montSerratMedium.ttf</string>
 		<string>montSerratSemiBold.ttf</string>
 		<string>probaProRegular.otf</string>
+		<string>montSerratBlack.ttf</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>

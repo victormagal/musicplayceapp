@@ -51,11 +51,17 @@ class ProfileComponent extends React.Component {
 
   excludeSong = () => {
     this.props.navigation.navigate('message', {component: MPConfirmExcludeSong})
-  }
+  };
 
   unpublishSong = () => {
     this.props.navigation.navigate('message', {component: MPConfirmUnpublishSong})
-  }
+  };
+
+  handleIndicateSong = (song) => {
+    console.log('song to indicate => ', song);
+    this.props.navigation.navigate('IndicateSongFullScreen');
+
+  };
 
   reportProfile = () => {
     this.props.navigation.navigate('message', {component: MPConfirmReportProfile})
@@ -94,7 +100,10 @@ class ProfileComponent extends React.Component {
   }
 
   render() {
-    let {profile, mySongs} = this.props;
+    let {profile, mySongs, myFollowers, myIndications} = this.props;
+    let followers = (myFollowers && myFollowers.followers) || [];
+    let countFollowers =  (myFollowers && myFollowers.count);
+    let countIndications =  (myIndications && myIndications.count);
 
     return (
       <View style={styles.container}>
@@ -120,10 +129,10 @@ class ProfileComponent extends React.Component {
                   <MPProfileInfo profile={profile} editDescription={this.goToScreen.bind(this, 'EditProfileDescription')}/>
 
                   <View style={styles.profileIndicatorContainer}>
-                    <ProfileIndicatorCE style={styles.flexOne} title="Indicações Feitas" subtitle="Explore"
-                                        count={profile.indicationCount}/>
-                    <ProfileIndicatorCE style={styles.flexOne} title="Seguidores" subtitle="Convide seus amigos"
-                                        count={profile.followerCount}
+                    <ProfileIndicatorCE style={styles.flexOne} title="Indicação Feita" titlePlural="Indicações Feitas" subtitle="Explore"
+                                        count={countIndications}/>
+                    <ProfileIndicatorCE style={styles.flexOne} title="Seguidor" titlePlural="Seguidores"  subtitle="Convide seus amigos"
+                                        count={countFollowers}
                                         onEmptyClick={this.props.onFollowersEmptyClick}/>
                   </View>
                   {profile.languages && (
@@ -154,6 +163,7 @@ class ProfileComponent extends React.Component {
                     <View>
                       <MPShowFolderSongs folderName='Outras'
                                          songs={mySongs.data}
+                                         onIndicateClick={this.handleIndicateSong}
                                          excludeSong={this.excludeSong.bind(this)}
                                          unpublishSong={this.unpublishSong.bind(this)}/>
                       {!profile.visiting && (
@@ -180,6 +190,7 @@ class ProfileComponent extends React.Component {
                     <View>
                       <MPShowFolderSongs folderName='Outras'
                                          songs={profile.songSaves}
+                                         onIndicateClick={this.handleIndicateSong}
                                          excludeSong={this.excludeSong.bind(this)}
                                          unpublishSong={this.unpublishSong.bind(this)}/>
                       {!profile.visiting && (
@@ -202,7 +213,7 @@ class ProfileComponent extends React.Component {
               )}
             </View>
 
-            <MPShowFollowers />
+            <MPShowFollowers followers={followers} />
             { profile.visiting && <MPReportProfile onPress={ this.reportProfile.bind(this)}/>}
 
             <MPAddSongButton isColored={true}/>

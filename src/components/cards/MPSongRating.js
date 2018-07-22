@@ -1,20 +1,16 @@
 import React, {Component} from 'react';
 import {View, StyleSheet, Text, TouchableOpacity, Image} from 'react-native';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
 import {
-  MPSongListIcon,
-  MPPlayIcon,
-  MPSongMenuIcon,
-  MPSongIndicateIcon,
-  MPSongIndicateFullIcon,
-  MPAddSongWhiteNoteIcon
+  MPSongListIcon, MPPlayIcon, MPSongMenuIcon, MPSongIndicateIcon,
+  MPSongIndicateFullIcon, MPAddSongWhiteNoteIcon
 } from '../../assets/svg';
 import images from '../../assets/img';
 import {MPText} from '../general';
 import {MPShowRating} from '../profile';
 
-class MPSongRatingComponent extends Component {
+
+class MPSongRating extends Component {
   state = {
     menuOpen: false,
     isAdded: this.props.isAdded,
@@ -26,7 +22,7 @@ class MPSongRatingComponent extends Component {
 
   toggleAdded = () => {
     this.setState({isAdded: !this.state.isAdded})
-  }
+  };
 
   renderTopIcons() {
     if (this.state.isAdded) {
@@ -45,7 +41,8 @@ class MPSongRatingComponent extends Component {
   }
 
   render() {
-    let {songName, style, isAdded, indicateSong, indications, isNew, rating, isDraft, onExclude, onUnpublish} = this.props;
+    let {song, style, isAdded, indicateSong, indications, isNew, rating, isDraft, onExclude, onUnpublish} = this.props;
+
     return (
       <View style={style || {}}>
         {
@@ -59,26 +56,24 @@ class MPSongRatingComponent extends Component {
                       <MPPlayIcon />
                     </TouchableOpacity>
                     { this.renderTopIcons() }
-                    {
-                      isDraft ? (
-                          <View style={ styles.draftContainer}>
-                            <MPText style={ styles.draftText}>RASCUNHO</MPText>
-                          </View>
-                        ) : null
-                    }
+                    {!song.published_at && (
+                      <View style={ styles.draftContainer}>
+                        <MPText style={ styles.draftText}>RASCUNHO</MPText>
+                      </View>
+                    )}
                   </View>
                 </View>
                 <View>
                   <MPText style={ styles.simpleArtistCardText }
-                          onPress={this.toggleState.bind(this)}>{ songName }</MPText>
+                          onPress={this.toggleState.bind(this)}>{ song.name }</MPText>
                   <MPShowRating rating={rating}/>
                 </View>
                 {
                   indicateSong && indications == null && isNew == null && (
-                    <View style={ styles.indicateSongContainer }>
+                    <TouchableOpacity style={ styles.indicateSongContainer } onPress={() => this.props.onIndicateClick(song)}>
                       <MPSongIndicateIcon />
                       <MPText style={styles.indicateSongText}>INDIQUE</MPText>
-                    </View>
+                    </TouchableOpacity>
                   )
                 }
                 {
@@ -114,8 +109,9 @@ class MPSongRatingComponent extends Component {
   }
 }
 
-MPSongRatingComponent.propTypes = {
-  songName: PropTypes.string.isRequired,
+MPSongRating.propTypes = {
+  song: PropTypes.object.isRequired,
+  onIndicateClick: PropTypes.any,
   style: PropTypes.any
 };
 
@@ -246,9 +242,4 @@ const styles = StyleSheet.create({
 
 });
 
-const mapStateToProps = ({fontReducer}) => {
-  return {...fontReducer};
-};
-
-const MPSongRating = connect(mapStateToProps)(MPSongRatingComponent);
 export {MPSongRating};

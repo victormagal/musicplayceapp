@@ -1,6 +1,6 @@
 import {
-  FETCHED_PROFILE, PROFILE_START_LOADING, PROFILE_FINISH_LOADING, SAVE_PROFILE_SUCCESS,
-  PROFILE_CREATE_USER_SUCCESS, PROFILE_CREATE_USER_ERROR
+  FETCHED_PROFILE, FETCHED_MY_FOLLOWERS, FETCHED_MY_INDICATIONS, PROFILE_START_LOADING, PROFILE_FINISH_LOADING,
+  SAVE_PROFILE_SUCCESS, PROFILE_CREATE_USER_SUCCESS, PROFILE_CREATE_USER_ERROR
 } from './profileAction';
 import {
   AUTH_LOGOUT
@@ -13,7 +13,9 @@ const profileReducer = (state, action) => {
       createUserError: false,
       loading: false,
       profile: null,
-      user: null
+      user: null,
+      myFollowers: null,
+      myIndications: null
     };
 
   state.saveProfileSuccess = null;
@@ -58,11 +60,24 @@ const profileReducer = (state, action) => {
         createUserError: true
       };
 
+    case FETCHED_MY_FOLLOWERS:
+      return {
+        ...state,
+        myFollowers: action.payload
+      };
+
+    case FETCHED_MY_INDICATIONS:
+      return {
+        ...state,
+        myIndications: action.payload
+      };
+
     case AUTH_LOGOUT:
       return {
         ...state,
         loading: false,
-        profile: null
+        profile: null,
+        user: null
       };
   }
 

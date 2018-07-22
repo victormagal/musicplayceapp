@@ -132,12 +132,12 @@ class FeedScreenContainer extends React.Component {
 
   renderItemTopArtists = ({item}) => (
     <MPArtist artist={item.artistName} imagePath={item.imagePath} onPress={()=>{}} isFollowing={false}/>
-  )
+  );
 
   renderItemFeed = ({item}) => (
     <MPFeedNotification notificationType={item.type} artistName={item.artistName} composerName={item.composerName}
                         songName={item.songName} timeText={item.timeText}/>
-  )
+  );
 
   checkArtistName = (value) => {
     this.setState({textValue: value});
