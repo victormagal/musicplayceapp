@@ -6,7 +6,8 @@ import {
   SONG_CREATE_SUCCESS,
   SONG_CREATE_ERROR,
   FETCHED_ARTIST_SONGS,
-  FETCHED_SONG
+  FETCHED_SONG,
+  FETCHED_SONG_LYRICS
 } from './songsAction';
 
 const defaultSong = {
@@ -78,11 +79,18 @@ const songsReducer = (state, action) => {
       };
 
     case FETCHED_SONG:
-    return {
-      ...state,
-      song: action.payload,
-      loading: false
-    };
+      return {
+        ...state,
+        song: action.payload,
+        loading: false
+      };
+
+    case FETCHED_SONG_LYRICS:
+      return {
+        ...state,
+        songLyrics: action.payload,
+        loading: false
+      };
 
 
   }
