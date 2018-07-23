@@ -81,7 +81,7 @@ class ProfileComponent extends React.Component {
 
   renderHeaderMenuRight() {
     return [
-      <MPIconButton key={Math.random()} icon={MPSettingsIcon} onPress={this.goToScreen.bind(this, 'settings')}/>
+      <MPIconButton key={Math.random()} icon={MPSettingsIcon} onPress={() => this.goToScreen('settings')}/>
     ];
   }
 
@@ -127,12 +127,14 @@ class ProfileComponent extends React.Component {
                 colors={["rgba(0, 0, 0, 0.2)", "#e13223"]}
                 style={styles.gradient}>
                 {profile.visiting ?
-                  <MPFollowButton isFollowing={profile.isFollowing} onPress={this.toggleFollow.bind(this)}/>
+                  <MPFollowButton isFollowing={profile.isFollowing} onPress={() => this.toggleFollow()}/>
                   :
-                  <MPAddChangePhoto onPressPhoto={this.handleClickPhoto} hasPhoto={profile.hasPhoto}/>
+                  <MPAddChangePhoto
+                    onPressPhoto={this.handleClickPhoto}
+                    hasPhoto={profile.cover_picture_url || profile.picture_url }/>
                 }
                 <View>
-                  <MPProfileInfo profile={profile} editDescription={this.goToScreen.bind(this, 'EditProfileDescription')}/>
+                  <MPProfileInfo profile={profile} editDescription={() => this.goToScreen('EditProfileDescription')}/>
 
                   <View style={styles.profileIndicatorContainer}>
                     <ProfileIndicatorCE style={styles.flexOne} title="Indicação Feita" titlePlural="Indicações Feitas" subtitle="Explore"
@@ -170,8 +172,8 @@ class ProfileComponent extends React.Component {
                       <MPShowFolderSongs folderName='Outras'
                                          songs={mySongs.data}
                                          onIndicateClick={this.handleIndicateSong}
-                                         excludeSong={this.excludeSong.bind(this)}
-                                         unpublishSong={this.unpublishSong.bind(this)}/>
+                                         excludeSong={() => this.excludeSong()}
+                                         unpublishSong={() => this.unpublishSong()}/>
                       {!profile.visiting && (
                         <View style={styles.whiteBackground}>
                           <MPGradientButton title={'Cadastrar nova música'} textSize={16}
@@ -201,8 +203,8 @@ class ProfileComponent extends React.Component {
                       <MPShowFolderSongs folderName='Outras'
                                          songs={profile.songSaves}
                                          onIndicateClick={this.handleIndicateSong}
-                                         excludeSong={this.excludeSong.bind(this)}
-                                         unpublishSong={this.unpublishSong.bind(this)}/>
+                                         excludeSong={() => this.excludeSong()}
+                                         unpublishSong={() => this.unpublishSong()}/>
                       {!profile.visiting && (
                         <View style={styles.whiteBackground}>
                           <MPGradientButton title='Cadastrar nova música' textSize={16}
@@ -224,7 +226,7 @@ class ProfileComponent extends React.Component {
             </View>
 
             <MPShowFollowers followers={followers} />
-            { profile.visiting && <MPReportProfile onPress={ this.reportProfile.bind(this)}/>}
+            { profile.visiting && <MPReportProfile onPress={ () => this.reportProfile()}/>}
 
             <MPAddSongButton isColored={true}/>
           </View>
