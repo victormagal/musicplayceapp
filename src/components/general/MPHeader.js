@@ -63,8 +63,6 @@ const styles = StyleSheet.create({
         }})
   },
   backContainer: {
-    position: 'absolute',
-    top: 2,
     paddingLeft: 20,
     paddingRight: 20,
     paddingTop: 10,
@@ -90,13 +88,11 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   },
   icons: {
-    position: 'absolute',
-    right: 20,
-    top: 12
+    paddingRight: 20,
+    paddingTop: 12
   },
   iconsLeft: {
-    position: 'absolute',
-    left: 10
+    paddingLeft: 10
   }
 });
 
