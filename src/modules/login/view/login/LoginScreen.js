@@ -1,18 +1,22 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {
-  ScrollView, StyleSheet, View
-} from 'react-native';
 import {LoginComponent} from './LoginComponent';
 import {ForgotPasswordMessage} from '../forgot/ForgotPasswordMessage';
 import {login} from '../../../../state/action';
+import {fetchProfile} from "../../../../state/profile/profileAction";
 
 
 class LoginScreenContainer extends Component {
 
   componentWillReceiveProps(nextProps){
     if(nextProps.loginSuccess){
-      this.props.navigation.replace('home');
+      this.props.dispatch(fetchProfile()).then(response => {
+        if (response && response.payload.user.accepted_terms_at === null) {
+          this.props.navigation.replace('termsAndConditions');
+        } else {
+          this.props.navigation.replace('home');
+        }
+      });
     }
   }
 

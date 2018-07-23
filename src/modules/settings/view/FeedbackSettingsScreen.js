@@ -19,22 +19,12 @@ class FeedbackSettingsScreenContainer extends React.Component {
   state = {
     message: '',
     selectedOption: null,
-    options: ['Interface', 'Navegação', 'Experiência', 'Fechar']
+    options: ['Interface', 'Navegação', 'Experiência']
   };
 
   handleBack = () => {
     this.props.navigation.pop();
   };
-
-  handleChangeOption = (indexValue) => {
-    const { options } = this.state;
-    if (indexValue !== options.length-1) {
-      this.setState({ selectedOption: indexValue });
-    } else {
-      //do nothing, just close
-      console.log()
-    }
-  }
 
   handleSendPress = () => {
     const { feedbackSaveSuccess, dispatch } = this.props;
@@ -82,7 +72,8 @@ class FeedbackSettingsScreenContainer extends React.Component {
             <MPSelect label={"Assunto do feedback"}
                       value={selectedOption}
                       options={options}
-                      onChangeOption={(indexValue) => this.handleChangeOption(indexValue)} />
+                      style={{ borderBottomColor: 'rgba(0, 0, 0, 0.15)', borderBottomWidth: 1 }}
+                      onChangeOption={(selectedOption) => this.setState({ selectedOption })} />
             <MPTextField label={"Envie sua mensagem"}
                          value={message}
                          multiline={true}
@@ -117,13 +108,13 @@ const styles = StyleSheet.create({
   },
   errorText: {
     color: 'rgba(255,0,0,1)',
-    fontFamily: 'montSerrat',
+    fontFamily: 'Montserrat',
     fontSize: 12,
     marginTop: 10
   },
   headerText: {
     fontWeight: "500",
-    fontFamily: 'montSerratMedium',
+    fontFamily: 'Montserrat-Medium',
     fontSize: 12
   }
 });

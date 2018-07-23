@@ -1,5 +1,5 @@
 import {createAction} from 'redux-actions';
-import {FeedbackService} from '../../service';
+import {FeedbackService} from '../../../service/index';
 
 
 export const FEEDBACK_START_LOADING = 'FEEDBACK_START_LOADING';

@@ -8,8 +8,9 @@ import authReducer from './auth/authReducer';
 import folderReducer from './folder/folderReducer';
 import tagReducer from './tag/tagReducer';
 import artistReducer from './artist/artistReducer';
-import helpReducer from './help/helpReducer';
-import feedbackReducer from './feedback/feedbackReducer';
+import helpReducer from './settings/help/helpReducer';
+import feedbackReducer from './settings/feedback/feedbackReducer';
+import termsReducer from './settings/termsAndConditions/termsReducer';
 
 export const reducers = combineReducers({
   languageReducer,
@@ -23,5 +24,6 @@ export const reducers = combineReducers({
   tagReducer,
   artistReducer,
   helpReducer,
-  feedbackReducer
+  feedbackReducer,
+  termsReducer
 });

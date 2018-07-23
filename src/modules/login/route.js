@@ -1,11 +1,13 @@
 import {
   LoginScreen,
   RegisterScreen,
-  RegisterSuccessScreen
+  RegisterSuccessScreen,
+  TermsScreen
 } from './view';
 
 export const LoginScreens = {
   login: LoginScreen,
   register: RegisterScreen,
-  registerSuccess: RegisterSuccessScreen
+  registerSuccess: RegisterSuccessScreen,
+  termsAndConditions: TermsScreen
 };
