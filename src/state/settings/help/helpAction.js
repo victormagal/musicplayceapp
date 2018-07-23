@@ -1,5 +1,5 @@
 import {createAction} from 'redux-actions';
-import {HelpService} from '../../service';
+import {HelpService} from '../../../service/index';
 
     export const FAQ_FETCHED = 'FAQ_FETCHED';
     export const FAQ_FETCH_ERROR = 'FAQ_FETCH_ERROR';
