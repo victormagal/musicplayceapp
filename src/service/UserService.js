@@ -30,7 +30,7 @@ class UserService {
     };
 
     return axios.put(API_CURRENT_USER, data)
-      .then(response => response.data);
+                .then(response => response.data);
   }
 
   //TODO: refactor

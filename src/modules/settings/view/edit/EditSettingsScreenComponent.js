@@ -14,7 +14,7 @@ import {
 import {connect} from "react-redux";
 import withFixedBottom from "../../../../connectors/withFixedBottom";
 
-class EditSettingsScreenComponentForm extends React.Component {
+class EditSettingsScreenComponent extends React.Component {
 	
 	state = {
 		formLoaded: false,
@@ -106,5 +106,4 @@ const styles = StyleSheet.create({
 	}
 });
 
-const EditSettingsScreenComponent = withFixedBottom()(EditSettingsScreenComponentForm);
 export { EditSettingsScreenComponent };

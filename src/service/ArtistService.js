@@ -20,6 +20,18 @@ class ArtistService {
       });
   }
 
+  static update(id, artist){
+    let data = {
+      data: {
+        type: "artists",
+        attributes: artist
+      }
+    };
+
+    return axios.put(`${API_ARTIST}/${id}`, data)
+      .then(response => response.data);
+  }
+
 }
 
 export {ArtistService};

@@ -1,31 +1,18 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { 
-  fetchProfile, 
-  saveProfile 
+  updateArtist,
 } from '../../../../state/action';
 import { EditProfileDescriptionComponent } from './EditProfileDescriptionComponent';
 import { 
-  MPProfileSuccess,
-  MPMail,
-  MPPhone
+  MPProfileSuccess
 } from '../../../../components';
 
 class EditProfileDescriptionScreenContainer extends React.Component {
 
-  pages = {
-    'profile': MPProfileSuccess,
-    'email': MPMail,
-    'phone': MPPhone
-  };
-
-  componentDidMount(){
-    this.props.dispatch(fetchProfile());
-  }
-
   componentWillReceiveProps(nextProps){
-    if(nextProps.saveProfileSuccess) {
-      this.props.navigation.navigate('message', { component: this.pages[nextProps.page] });
+    if(nextProps.artistSaveSuccess) {
+      this.props.navigation.navigate('message', { component: MPProfileSuccess });
     }
   }
 
@@ -33,8 +20,10 @@ class EditProfileDescriptionScreenContainer extends React.Component {
     this.props.navigation.pop();
   };
 
-  handleSaveClick = (page) => {
-    this.props.dispatch(saveProfile({}, page));
+  handleSaveClick = (params) => {
+    let profile = {...this.props.profile};
+    profile.description = params.description;
+    this.props.dispatch(updateArtist(this.props.profile.id, profile));
   };
 
   render() {
@@ -42,14 +31,13 @@ class EditProfileDescriptionScreenContainer extends React.Component {
       <EditProfileDescriptionComponent
         onSave={this.handleSaveClick}
         onBack={this.handleBackClick}
-        profile={this.props.profile}
       />
     );
   }
 }
 
-const mapStateToProps = ({ profileReducer }) => {
-  return {...profileReducer };
+const mapStateToProps = ({ profileReducer, artistReducer }) => {
+  return {...profileReducer, ...artistReducer};
 };
 
 const EditProfileDescriptionScreen = connect(mapStateToProps)(EditProfileDescriptionScreenContainer);

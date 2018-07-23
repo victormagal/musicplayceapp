@@ -1,10 +1,12 @@
 import {
-  ARTIST_START_LOADING, ARTIST_FINISH_LOADING, FETCHED_ARTISTS
+  ARTIST_START_LOADING, ARTIST_FINISH_LOADING, FETCHED_ARTISTS,
+  ARTIST_SAVE_SUCCESS, ARTIST_SAVE_ERROR
 } from './artistAction';
 
 const artistReducer = (state, action) => {
   state = state || {
     loading: false,
+    artistSaveSuccess: false,
     artists: {
       data: [],
       pagination: null
@@ -31,6 +33,14 @@ const artistReducer = (state, action) => {
         loading: false,
         artists: action.payload
       };
+
+    case ARTIST_SAVE_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        artistSaveSuccess: true
+      };
+
   }
 
   return state;

@@ -8,5 +8,6 @@ export * from './feed/feedAction';
 export * from './folder/folderAction';
 export * from './tag/tagAction';
 export * from './artist/artistAction';
-export * from './help/helpAction';
-export * from './feedback/feedbackAction';
+export * from './settings/help/helpAction';
+export * from './settings/feedback/feedbackAction';
+export * from './settings/termsAndConditions/termsAction';

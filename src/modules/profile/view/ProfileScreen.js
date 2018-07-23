@@ -27,7 +27,7 @@ class ProfileScreenContainer extends React.Component {
   };
 
   handleSongAddClick = () => {
-    this.props.navigation.dangerouslyGetParent().dangerouslyGetParent().navigate('RegisterSongScreen');
+    this.props.navigation.navigate('RegisterSongScreen');
   };
 
   handleLogout = () => {
