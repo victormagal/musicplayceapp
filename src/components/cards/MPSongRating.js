@@ -56,7 +56,7 @@ class MPSongRating extends Component {
                       <MPPlayIcon />
                     </TouchableOpacity>
                     { this.renderTopIcons() }
-                    {!song.published_at && (
+                    {song && !song.published_at && (
                       <View style={ styles.draftContainer}>
                         <MPText style={ styles.draftText}>RASCUNHO</MPText>
                       </View>
@@ -65,7 +65,7 @@ class MPSongRating extends Component {
                 </View>
                 <View>
                   <MPText style={ styles.simpleArtistCardText }
-                          onPress={this.toggleState.bind(this)}>{ song.name }</MPText>
+                          onPress={this.toggleState.bind(this)}>{ song && song.name || '' }</MPText>
                   <MPShowRating rating={rating}/>
                 </View>
                 {

@@ -71,6 +71,10 @@ class ProfileComponent extends React.Component {
 
   };
 
+  handleBack = () => {
+    this.props.navigation.goBack();
+  }
+
   handleChangeTab = (index) => {
     this.setState({tabIndex: index});
   };
@@ -94,9 +98,9 @@ class ProfileComponent extends React.Component {
   renderHeader(){
     if(this.props.me){
       return <MPHeader iconsLeft={this.renderHeaderMenuLeft()} icons={this.renderHeaderMenuRight()}/>
+    } else {
+      return <MPHeader back={true} onBack={this.handleBack} icons={[<View key={Math.random()} />]}/>;
     }
-
-    return <MPHeader />;
   }
 
   render() {
@@ -104,7 +108,7 @@ class ProfileComponent extends React.Component {
     let followers = (myFollowers && myFollowers.followers) || [];
     let countFollowers =  (myFollowers && myFollowers.count);
     let countIndications =  (myIndications && myIndications.count);
-
+    console.log('props', this.props);
     return (
       <View style={styles.container}>
         {this.renderHeader()}
@@ -122,9 +126,11 @@ class ProfileComponent extends React.Component {
               <LinearGradient
                 colors={["rgba(0, 0, 0, 0.2)", "#e13223"]}
                 style={styles.gradient}>
-                {profile.visiting && <MPFollowButton isFollowing={profile.isFollowing} onPress={this.toggleFollow.bind(this)}/>}
-                {!profile.visiting && <MPAddChangePhoto onPressPhoto={this.handleClickPhoto} hasPhoto={profile.hasPhoto}/> }
-
+                {profile.visiting ?
+                  <MPFollowButton isFollowing={profile.isFollowing} onPress={this.toggleFollow.bind(this)}/>
+                  :
+                  <MPAddChangePhoto onPressPhoto={this.handleClickPhoto} hasPhoto={profile.hasPhoto}/>
+                }
                 <View>
                   <MPProfileInfo profile={profile} editDescription={this.goToScreen.bind(this, 'EditProfileDescription')}/>
 
@@ -159,7 +165,7 @@ class ProfileComponent extends React.Component {
 
               {this.state.tabIndex === 0 && (
                 <View>
-                  {mySongs && (
+                  {mySongs ? (
                     <View>
                       <MPShowFolderSongs folderName='Outras'
                                          songs={mySongs.data}
@@ -174,14 +180,18 @@ class ProfileComponent extends React.Component {
                         </View>
                       )}
                     </View>
-                  )}
-
-                  {!mySongs && (
-                    <View>
-                      {(!mySongs || mySongs.data.length === 0) && <MPUploadFirstSong onPress={this.props.onSongAddClick} />}
-                      {profile.song && <MPUpgradeButton song={profile.song}/>}
-                    </View>
-                  )}
+                  )
+                  :
+                  (
+                  <View>
+                    { (!mySongs || mySongs.data.length === 0) &&
+                      <MPUploadFirstSong onPress={this.props.onSongAddClick} />
+                    }
+                    { profile.song !== '' &&
+                      <MPUpgradeButton song={profile.song}/>
+                    }
+                  </View>
+                )}
                 </View>
               )}
               {this.state.tabIndex === 1 && (
