@@ -9,6 +9,7 @@ export const SONG_REGISTER_DATA = 'UPDATE_SONG_REGISTER_DATA';
 export const SONG_CREATE_SUCCESS = 'SONG_CREATE_SUCCESS';
 export const SONG_CREATE_ERROR = 'SONG_CREATE_ERROR';
 export const FETCHED_ARTIST_SONGS = 'FETCHED_ARTIST_SONGS';
+export const FETCHED_SONG = 'FETCHED_SONG';
 
 
 export const updateSongRegisterData = createAction(SONG_REGISTER_DATA, (data) => {
@@ -21,6 +22,7 @@ export const songRegisterClear = createAction(SONG_REGISTER_CLEAR);
 export const songCreateSuccess = createAction(SONG_CREATE_SUCCESS);
 export const songCreateError = createAction(SONG_CREATE_ERROR);
 export const fetchedArtistSongs = createAction(FETCHED_ARTIST_SONGS, data => data);
+export const fetchedSong = createAction(FETCHED_SONG, data => data);
 
 export const createSong = (song) => {
   return (dispatch, getState) => {
@@ -33,6 +35,18 @@ export const createSong = (song) => {
       dispatch(songCreateSuccess(response));
     }).catch(e => {
       dispatch(songCreateError(e.response));
+    });
+  };
+};
+
+export const getSong = (song) => {
+  return (dispatch) => {
+    dispatch(songStartLoading);
+
+    return SongService.getSong(song).then(response => {
+      dispatch(fetchedSong(response));
+    }).catch(e => {
+      dispatch(songFinishLoading(e.response));
     });
   };
 };

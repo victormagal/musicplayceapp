@@ -39,6 +39,14 @@ class SongService {
                 .then(response => response.data);
   }
 
+  static getSong(song){
+    return axios.get(`${API_SONG}/${song.id}`).
+      then(response => {
+        let {data, meta} = response.data;
+        return transformResponseData(data);
+      });
+  }
+
   static artistSongs(artist){
     return axios.get(`${API}/song-artist/${artist}`)
       .then(response => {

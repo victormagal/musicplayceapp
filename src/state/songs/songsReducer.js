@@ -5,7 +5,8 @@ import {
   SONG_FINISH_LOADING,
   SONG_CREATE_SUCCESS,
   SONG_CREATE_ERROR,
-  FETCHED_ARTIST_SONGS
+  FETCHED_ARTIST_SONGS,
+  FETCHED_SONG
 } from './songsAction';
 
 const defaultSong = {
@@ -75,6 +76,13 @@ const songsReducer = (state, action) => {
         mySongs: action.payload,
         loading: false
       };
+
+    case FETCHED_SONG:
+    return {
+      ...state,
+      song: action.payload,
+      loading: false
+    };
 
 
   }
