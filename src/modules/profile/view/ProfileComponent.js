@@ -102,7 +102,7 @@ class ProfileComponent extends React.Component {
   }
 
   render() {
-    let {profile, mySongs, myFollowers, myIndications} = this.props;
+    let {profile, mySongs, myFollowers, myIndications, song} = this.props;
     let followers = (myFollowers && myFollowers.followers) || [];
     let countFollowers =  (myFollowers && myFollowers.count);
     let countIndications =  (myIndications && myIndications.count);
@@ -186,8 +186,8 @@ class ProfileComponent extends React.Component {
                     { (!mySongs || mySongs.data.length === 0) &&
                       <MPUploadFirstSong onPress={this.props.onSongAddClick} />
                     }
-                    { profile.song !== '' &&
-                      <MPUpgradeButton song={profile.song}/>
+                    { song && song.name !== '' &&
+                      <MPUpgradeButton song={song}/>
                     }
                   </View>
                 )}
@@ -215,8 +215,8 @@ class ProfileComponent extends React.Component {
 
                   {!profile.songSaves && (
                     <View>
-                      {!profile.song && <MPUploadFirstSong onPress={this.props.onSongAddClick} />}
-                      {profile.song && <MPUpgradeButton song={profile.song}/>}
+                      {!(song && song.name) && <MPUploadFirstSong onPress={this.props.onSongAddClick} />}
+                      {song && song.name && <MPUpgradeButton song={song}/>}
                     </View>
                   )}
                 </View>

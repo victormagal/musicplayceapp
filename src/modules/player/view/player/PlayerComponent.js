@@ -361,10 +361,10 @@ class PlayerComponent extends React.Component {
 
   renderHeaderMenu() {
     return [
-      <MPIconButton title="200" titleStyle={styles.headerMenuText} icon={MPCommentWhiteIcon}
+      <MPIconButton key={1} title="200" titleStyle={styles.headerMenuText} icon={MPCommentWhiteIcon}
                     style={styles.headerMenuItem}
                     onPress={this.handleToggleComments.bind(this, true)}/>,
-      <MPIconButton title="600" titleStyle={styles.headerMenuText} icon={MPShareWhiteIcon}/>
+      <MPIconButton  key={2} title="600" titleStyle={styles.headerMenuText} icon={MPShareWhiteIcon}/>
     ];
   }
 
@@ -680,7 +680,7 @@ const styles = StyleSheet.create({
     marginTop: 20
   },
   lyricLine: {
-    fontFamily: 'montSerratLight',
+    fontFamily: 'Montserrat-Light',
     paddingLeft: 20,
     fontSize: 16,
     lineHeight: 25,

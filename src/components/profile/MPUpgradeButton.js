@@ -1,19 +1,18 @@
 import React, {Component} from 'react';
 import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
-import {connect} from 'react-redux';
 import { MPSongRating, MPText } from '../../components';
 import { MPUpgradeNoteIcon } from '../../assets/svg';
 import { MPGradientButton } from '../buttons';
 
-class MPUpgradeButtonComponent extends Component{
+
+class MPUpgradeButton extends Component{
 
     render() {
         let { song } = this.props;
         
         return (
             <View style={ styles.parent }>
-                <MPSongRating songName={song && song.songName || ''}
-                              isDraft={song && song.isDraft}
+                <MPSongRating isDraft={song && song.isDraft}
                               rating={3} isAdded={true}
                               indicateSong={true}
                               song={song}
@@ -56,10 +55,5 @@ const styles = StyleSheet.create({
     }
 });
 
-const mapStateToProps = ({fontReducer}) => {
-    return {...fontReducer};
-};
-
-const MPUpgradeButton = connect(mapStateToProps)(MPUpgradeButtonComponent);
 export { MPUpgradeButton };
 
