@@ -53,22 +53,26 @@ class IndicateSongFullScreen extends React.Component {
     }
   }
 
+  componentDidMount(){
+    console.log(this.props.navigation);
+  }
+
   handleBackClick = () => {
     this.props.navigation.pop();
   };
 
   goToScreen = (route) => {
     this.props.navigation.navigate(route);
-  }
+  };
 
   renderItem = ({item}) => (
     <MPArtist artist={item.title} imagePath={item.imagePath}
               onPress={this.goToScreen.bind(this, 'IndicateSongFeedbackScreen')} style={{marginBottom: 10,}}/>
-  )
+  );
 
   toggleState = (att) => {
     this.setState({[att]: !this.state.songHeader});
-  }
+  };
 
   checkArtistName = (value) => {
     this.setState({textValue: value});

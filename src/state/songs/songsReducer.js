@@ -5,6 +5,12 @@ import {
   SONG_FINISH_LOADING,
   SONG_CREATE_SUCCESS,
   SONG_CREATE_ERROR,
+  SONG_REMOVE_SUCCESS,
+  SONG_REMOVE_ERROR,
+  SONG_PUBLISH_SUCCESS,
+  SONG_PUBLISH_ERROR,
+  SONG_UNPUBLISH_SUCCESS,
+  SONG_UNPUBLISH_ERROR,
   FETCHED_ARTIST_SONGS,
   FETCHED_SONG,
   FETCHED_SONG_LYRICS
@@ -22,8 +28,6 @@ const defaultSong = {
 
 const songsReducer = (state, action) => {
   state = state || {
-      songCreateSuccess: false,
-      songCreateError: false,
       loading: false,
       song: {...defaultSong},
       mySongs: null
@@ -31,6 +35,9 @@ const songsReducer = (state, action) => {
 
   state.songCreateSuccess = false;
   state.songCreateError = false;
+  state.songRemoveSuccess = false;
+  state.songPublishSuccess = false;
+  state.songUnpublishSuccess = false;
 
   switch (action.type) {
     case SONG_REGISTER_DATA:
@@ -48,9 +55,11 @@ const songsReducer = (state, action) => {
     case SONG_START_LOADING:
       return {
         ...state,
-       loading: true
+        loading: true
       };
 
+    case SONG_PUBLISH_ERROR:
+    case SONG_UNPUBLISH_ERROR:
     case SONG_FINISH_LOADING:
       return {
         ...state,
@@ -68,8 +77,38 @@ const songsReducer = (state, action) => {
       return {
         ...state,
         songCreateError: true,
+        loading: false,
+        mySongs: null
+      };
+
+    case SONG_REMOVE_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        songRemoveSuccess: true,
+        mySongs: null
+      };
+
+    case SONG_REMOVE_ERROR:
+      return {
+        ...state,
         loading: false
       };
+
+    case SONG_PUBLISH_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        songPublishSuccess: true
+      };
+
+    case SONG_UNPUBLISH_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        songUnpublishSuccess: true
+      };
+
 
     case FETCHED_ARTIST_SONGS:
       return {

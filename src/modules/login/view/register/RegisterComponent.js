@@ -101,13 +101,18 @@ class RegisterComponent extends Component {
               <MPInput label="Sobrenome" name="last_name" value={this.state.form.last_name} validators={['required']} onChangeText={this.handleChange}/>
               <MPInput label="Usuário" name="username" value={this.state.form.username} validators={['required']} onChangeText={this.handleChange}/>
               <MPInput label="Senha" name="password" value={this.state.form.password} validators={['required']} secureTextEntry={true} onChangeText={this.handleChange}/>
+
               <MPText style={styles.termsMessage}>
                 Ao criar sua conta você está aceitando os
                 <MPText style={styles.termsText}> termos e condições de uso</MPText> da Music Playce.
               </MPText>
-              <MPFormButton>
-                <MPGradientButton title="Começar" textSize={16} onPress={this.handleRegister} />
-              </MPFormButton>
+
+              <View>
+                <MPFormButton>
+                  <MPGradientButton title="Começar" textSize={16} onPress={this.handleRegister} />
+                </MPFormButton>
+              </View>
+
               <MPText style={styles.copyright}>Copyright • Music Playce 2018</MPText>
             </MPForm>
 

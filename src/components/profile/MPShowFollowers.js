@@ -15,7 +15,7 @@ class MPShowFollowers extends Component {
   };
 
   renderArtists = ({item}) => (
-    <MPArtist artist={item.artistName} imagePath={item.imagePath} onPress={()=>{}} isFollowing={item.isFollowing}/>
+    <MPArtist artist={item.name} imagePath={item.imagePath} onPress={()=>{}} isFollowing={item.isFollowing}/>
   );
 
   render() {
