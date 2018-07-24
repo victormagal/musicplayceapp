@@ -23,6 +23,12 @@ class SongService {
       };
     }
 
+    if(song.folder){
+      relationships['folder'] = {
+        data: song.folder
+      };
+    }
+
     delete song.coAuthors;
     delete song.folder;
     delete song.tags;
@@ -39,11 +45,53 @@ class SongService {
                 .then(response => response.data);
   }
 
+  static update(song) {
+    song = {...song};
+    song.title = song.name;
+
+    //TODO: update relationship
+    delete song.coAuthors;
+    delete song.folder;
+    delete song.tags;
+
+    let data = {
+      data: {
+        type: "songs",
+        song_id: song.id,
+        attributes: song
+      }
+    };
+
+    return axios.put(`${API_SONG}/${song.id}`, data)
+                .then(response => response.data);
+  }
+
+  static delete(id){
+    return axios.delete(`${API_SONG}/${id}`).then(response => response.data);
+  }
+
+  static publish(id){
+    return axios.post(`${API_SONG}/${id}/publish`).then(response => response.data);
+  }
+
+  static unpublish(id){
+    return axios.post(`${API_SONG}/${id}/unpublish`).then(response => response.data);
+  }
+
   static getSong(song){
     return axios.get(`${API_SONG}/${song.id}`).
       then(response => {
-        return response.data;
+        let {data} = response.data;
+        return transformResponseData(data);
       });
+  }
+
+  static getSongLyrics(song){
+    return axios.get(`${API_SONG}/${song.id}/lyrics`).
+      then(response =>{
+        let {data} = response.data;
+        return {data : transformResponseData(data)}
+      })
   }
 
   static artistSongs(artist){

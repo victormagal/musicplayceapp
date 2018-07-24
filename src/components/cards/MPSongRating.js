@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {View, StyleSheet, Text, TouchableOpacity, Image} from 'react-native';
+import {Card} from 'react-native-elements';
 import PropTypes from 'prop-types';
 import {
   MPSongListIcon, MPPlayIcon, MPSongMenuIcon, MPSongIndicateIcon,
@@ -41,27 +42,30 @@ class MPSongRating extends Component {
   }
 
   render() {
-    let {song, style, isAdded, indicateSong, indications, isNew, rating, isDraft, onExclude, onUnpublish} = this.props;
+    let {
+      song, style, isAdded, indicateSong, indications,
+      isNew, rating, isDraft, onExclude, onUnpublish, onEditClick
+    } = this.props;
 
     return (
       <View style={style || {}}>
-        {
-          this.state.menuOpen == false ? (
-              <View style={styles.simpleArtistCardContainer}>
-                <View>
-                  <View style={ styles.simpleArtistCardImage }>
-                    <Image source={ images.daftPunk100 }/>
 
-                    <TouchableOpacity style={styles.playIcon} onPress={this.toggleState}>
-                      <MPPlayIcon />
-                    </TouchableOpacity>
-                    { this.renderTopIcons() }
-                    {song && !song.published_at && (
-                      <View style={ styles.draftContainer}>
-                        <MPText style={ styles.draftText}>RASCUNHO</MPText>
-                      </View>
-                    )}
-                  </View>
+        <Card containerStyle={[styles.simpleArtistCardContainer]}>
+          {!this.state.menuOpen && (
+            <View>
+              <View>
+                <View style={ styles.simpleArtistCardImage }>
+                  <Image source={ images.daftPunk100 }/>
+
+                  <TouchableOpacity style={styles.playIcon} onPress={this.toggleState}>
+                    <MPPlayIcon />
+                  </TouchableOpacity>
+                  { this.renderTopIcons() }
+                  {song && !song.published_at && (
+                    <View style={ styles.draftContainer}>
+                      <MPText style={ styles.draftText}>RASCUNHO</MPText>
+                    </View>
+                  )}
                 </View>
                 <View>
                   <MPText style={ styles.simpleArtistCardText }
@@ -70,7 +74,8 @@ class MPSongRating extends Component {
                 </View>
                 {
                   indicateSong && indications == null && isNew == null && (
-                    <TouchableOpacity style={ styles.indicateSongContainer } onPress={() => this.props.onIndicateClick(song)}>
+                    <TouchableOpacity style={ styles.indicateSongContainer }
+                                      onPress={() => this.props.onIndicateClick(song)}>
                       <MPSongIndicateIcon />
                       <MPText style={styles.indicateSongText}>INDIQUE</MPText>
                     </TouchableOpacity>
@@ -84,26 +89,64 @@ class MPSongRating extends Component {
                     </View>
                   )
                 }
-                {
-                  isNew && (
-                    <View style={ styles.newSongContainer}>
-                      <MPAddSongWhiteNoteIcon style={{alignSelf: 'center'}}/>
-                      <MPText style={ styles.newSongText}>NOVIDADE</MPText>
-                    </View>
-                  )
-                }
+                {isNew && (
+                  <View style={ styles.newSongContainer}>
+                    <MPAddSongWhiteNoteIcon style={{alignSelf: 'center'}}/>
+                    <MPText style={ styles.newSongText}>NOVIDADE</MPText>
+                  </View>
+                )}
               </View>
-            ) : (
-              <View style={ styles.menuContainer }>
-                <MPText style={ styles.menuCloseText} onPress={this.toggleState.bind(this)}>X</MPText>
-                <MPText style={ styles.menuText }>EDITAR</MPText>
-                <View style={ styles.menuSeparator }/>
-                <MPText style={ styles.menuText } onPress={onUnpublish}>DESPUBLICAR</MPText>
-                <View style={ styles.menuSeparator }/>
-                <MPText style={ styles.menuText } onPress={onExclude}>EXCLUIR</MPText>
+              <View>
+                <MPText style={ styles.simpleArtistCardText }
+                        onPress={this.toggleState.bind(this)}>{ song.name }</MPText>
+                <MPShowRating rating={rating}/>
               </View>
-            )
-        }
+              {
+                indicateSong && indications == null && isNew == null && (
+                  <TouchableOpacity style={ styles.indicateSongContainer }
+                                    onPress={() => this.props.onIndicateClick(song)}>
+                    <MPSongIndicateIcon />
+                    <MPText style={styles.indicateSongText}>INDIQUE</MPText>
+                  </TouchableOpacity>
+                )
+              }
+              {
+                indications != null && isNew == null && (
+                  <View style={styles.indicateSongContainer}>
+                    <MPSongIndicateFullIcon />
+                    <MPText style={styles.indicateSongText}>{ indications } INDICAÇÕES</MPText>
+                  </View>
+                )
+              }
+              {
+                isNew && (
+                  <View style={ styles.newSongContainer}>
+                    <MPAddSongWhiteNoteIcon style={{alignSelf: 'center'}}/>
+                    <MPText style={ styles.newSongText}>NOVIDADE</MPText>
+                  </View>
+                )
+              }
+            </View>
+          )}
+
+          {this.state.menuOpen && (
+            <View style={ styles.menuContainer }>
+              <MPText style={ styles.menuCloseText} onPress={this.toggleState.bind(this)}>X</MPText>
+
+              <MPText style={[styles.menuText, styles.menuTextFirst]} onPress={() => onEditClick(song)}>EDITAR</MPText>
+              <View style={ styles.menuSeparator }/>
+
+              {song.published_at && (
+                <View>
+                  <MPText style={ styles.menuText } onPress={() => onUnpublish(song)}>DESPUBLICAR</MPText>
+                  <View style={ styles.menuSeparator }/>
+                </View>
+              )}
+
+              <MPText style={ styles.menuText } onPress={() => onExclude(song)}>EXCLUIR</MPText>
+            </View>
+          )}
+        </Card>
       </View>
     );
   }
@@ -117,24 +160,22 @@ MPSongRating.propTypes = {
 
 const styles = StyleSheet.create({
   simpleArtistCardContainer: {
+    backgroundColor: '#fff',
+    borderRadius: 4,
+    margin: 0,
+    padding: 0,
+    height: 190,
+    overflow: 'hidden',
     width: 100,
     marginBottom: 5,
     flexDirection: 'column',
-    backgroundColor: '#fff',
-    borderRadius: 4,
-    marginHorizontal: 5,
-    shadowColor: '#000',
-    shadowOffset: {width: 0, height: 4},
-    shadowOpacity: 0.15,
-    shadowRadius: 4,
+    marginHorizontal: 5
   },
   simpleArtistCardImage: {
     width: 100,
     height: 100,
     justifyContent: 'center',
-    borderRadius: 4,
     backgroundColor: '#f60',
-    overflow: 'hidden',
   },
   simpleArtistCardText: {
     height: 40,
@@ -173,11 +214,10 @@ const styles = StyleSheet.create({
     color: '#FFF',
   },
   menuContainer: {
-    width: 100,
     backgroundColor: '#000',
-    paddingVertical: 35,
     borderRadius: 4,
-    marginHorizontal: 5,
+    width: 100,
+    height: '100%'
   },
   menuText: {
     fontSize: 11,
@@ -185,11 +225,14 @@ const styles = StyleSheet.create({
     color: '#FFF',
     textAlign: 'center'
   },
+  menuTextFirst: {
+    marginTop: 43
+  },
   menuSeparator: {
     width: 20,
     height: 1,
     backgroundColor: '#FFF',
-    marginVertical: 20,
+    marginVertical: 18,
     alignSelf: 'center'
   },
   menuCloseText: {

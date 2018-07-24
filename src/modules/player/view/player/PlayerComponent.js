@@ -354,7 +354,7 @@ class PlayerComponent extends React.Component {
       style = styles.songCardFirst;
     }
 
-    return <MPSongRating style={style} songName={item.songName} indicateSong={true} imagePath={item.imagePath}
+    return <MPSongRating key={index} style={style} song={item} indicateSong={true} imagePath={item.imagePath}
                          onPress={() => {
                          }}/>
   };

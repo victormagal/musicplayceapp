@@ -8,13 +8,18 @@ class MPArtist extends Component {
 
   render() {
     let {artist, imagePath, style, isFollowing} = this.props;
+    if(typeof imagePath == 'string'){
+      image = {uri : imagePath};
+    }else{
+      image = imagePath;
+    }
 
     return (
       <TouchableOpacity style={style || {}}>
         <View style={ styles.simpleArtistCardContainer }>
           <View>
             <View style={ styles.simpleArtistCardImage }>
-              <Image source={ imagePath }/>
+              <Image style={ styles.simpleArtistCardImage } source={ image }/>
             </View>
             {
               this.props.isFollowing == true  && (
@@ -62,6 +67,8 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
   },
   simpleArtistCardImage: {
+    width: 100,
+    height: 100,
     borderRadius: 4,
     backgroundColor: '#f60',
     overflow: 'hidden'

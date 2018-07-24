@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Alert, StyleSheet, Text, View, TextInput, FlatList, ScrollView, TouchableOpacity } from 'react-native';
-import { MPGradientButton, MPHeader, MPSongInfo, MPText } from '../../../components'
+import { MPGradientButton, MPHeader, MPSongInfo, MPText, MPLoading } from '../../../components'
+import { updateSongRegisterData, publishSong } from '../../../state/action'
 import {MPSongUploadIcon} from '../../../assets/svg';
 
 
@@ -17,6 +18,15 @@ class RegisterSongContainer extends React.Component {
     progressContentWidth: 0
   };
 
+  constructor(props){
+    super(props);
+    if(this.props.navigation.state && this.props.navigation.state.params) {
+      let {song} = this.props.navigation.state.params;
+      this.props.dispatch(updateSongRegisterData(song));
+      console.log(song);
+    }
+  }
+
   componentWillReceiveProps(nextProps){
     let songKeys = Object.keys(nextProps.song);
     let total = songKeys.length;
@@ -27,9 +37,12 @@ class RegisterSongContainer extends React.Component {
         count++;
       }
     }
-
     let width = (count * 100) / total;
     this.setState({progressContentWidth: `${Math.ceil(width)}%`});
+
+    if(nextProps.songPublishSuccess){
+      this.goToScreen('ConfirmationScreen');
+    }
   }
 
   goToScreen = (route) => {
@@ -54,9 +67,7 @@ class RegisterSongContainer extends React.Component {
     this.setState({cardErros});
 
     if(valid){
-      //TODO: dispatch if it is saved publish song
-      //this.props.dispatch(createSong(this.props.song));
-      //this.goToScreen('ConfirmationScreen');
+      this.props.dispatch(publishSong(this.props.song));
     }
   };
 
@@ -67,17 +78,7 @@ class RegisterSongContainer extends React.Component {
   };
 
   handleChooseFileClick = () => {
-    DocumentPicker.show({
-      filetype: [DocumentPickerUtil.audio()],
-    },(error,res) => {
-      // Android
-      console.log(
-        res.uri,
-        res.type, // mime type
-        res.fileName,
-        res.fileSize
-      );
-    });
+    //TODO:
   };
 
   validate(){
@@ -95,11 +96,11 @@ class RegisterSongContainer extends React.Component {
     return valid;
   }
 
-  getProgressStyle(){
-    let style = StyleSheet.flatten(styles.progressContent);
+  getProgressStyle = () => {
+    let style = {...StyleSheet.flatten(styles.progressContent)};
     style.width = this.state.progressContentWidth;
-    return Object.assign({}, style);
-  }
+    return style;
+  };
 
   getFilledString(key){
     if(this.props.song[key]){
@@ -155,18 +156,20 @@ class RegisterSongContainer extends React.Component {
 
                 <View style={ styles.horizontalFolder }>
                   <MPSongInfo title={(this.props.song.folder && 'Pasta') || 'Organize suas músicas em pastas'} placeholder={'*Opcional'}
-                              selected={this.props.song.folder && this.props.song.folder.name}
+                              selected={this.props.song.folder && typeof this.props.song.folder.name !== 'undefined'}
                               info={(this.props.song.folder && this.props.song.folder.name) || '' }
                               onPress={this.goToScreen.bind(this, 'FolderScreen')}/>
                 </View>
 
                 <MPGradientButton title='Publicar' onPress={this.handlePublishClick} textSize={16} style={styles.publishButton} />
+
                 <TouchableOpacity style={styles.clickableTextContainer} onPress={this.handleFinishLaterClick}>
                   <MPText style={styles.clickableText} >Terminar depois</MPText>
                 </TouchableOpacity>
               </View>
             </View>
         </ScrollView>
+        <MPLoading visible={this.props.loading}/>
       </View>
     );
   }
@@ -255,5 +258,6 @@ const styles = StyleSheet.create({
 const mapStateToProps = ({ songsReducer }) => {
   return {...songsReducer};
 };
+
 const RegisterSongScreen = connect(mapStateToProps)(RegisterSongContainer);
 export {RegisterSongScreen};

@@ -45,22 +45,20 @@ class ProfileComponent extends React.Component {
     }
   };
 
-  onEdit = () => {
-    this.props.navigation.navigate('message', {component: MPConfirmStopFollow})
+  handleEditSong = (song) => {
+    this.props.navigation.navigate('RegisterSongScreen', {song});
   };
 
-  excludeSong = () => {
-    this.props.navigation.navigate('message', {component: MPConfirmExcludeSong})
+  handleRemoveSong = (song) => {
+    this.props.navigation.navigate('message', {component: MPConfirmExcludeSong, song});
   };
 
-  unpublishSong = () => {
-    this.props.navigation.navigate('message', {component: MPConfirmUnpublishSong})
+  handleUnpublishSong = (song) => {
+    this.props.navigation.navigate('message', {component: MPConfirmUnpublishSong, song});
   };
 
   handleIndicateSong = (song) => {
-    console.log('song to indicate => ', song);
-    this.props.navigation.navigate('IndicateSongFullScreen');
-
+    this.props.navigation.navigate('IndicateSongFullScreen', {song});
   };
 
   reportProfile = () => {
@@ -170,8 +168,9 @@ class ProfileComponent extends React.Component {
                       <MPShowFolderSongs folderName='Outras'
                                          songs={mySongs.data}
                                          onIndicateClick={this.handleIndicateSong}
-                                         excludeSong={this.excludeSong.bind(this)}
-                                         unpublishSong={this.unpublishSong.bind(this)}/>
+                                         onRemoveClick={this.handleRemoveSong}
+                                         onUnpublishClick={this.handleUnpublishSong}
+                                         onEditClick={this.handleEditSong}/>
                       {!profile.visiting && (
                         <View style={styles.whiteBackground}>
                           <MPGradientButton title={'Cadastrar nova música'} textSize={16}
@@ -201,8 +200,9 @@ class ProfileComponent extends React.Component {
                       <MPShowFolderSongs folderName='Outras'
                                          songs={profile.songSaves}
                                          onIndicateClick={this.handleIndicateSong}
-                                         excludeSong={this.excludeSong.bind(this)}
-                                         unpublishSong={this.unpublishSong.bind(this)}/>
+                                         onRemoveClick={this.handleRemoveSong}
+                                         onUnpublishClick={this.handleUnpublishSong}/>
+
                       {!profile.visiting && (
                         <View style={styles.whiteBackground}>
                           <MPGradientButton title='Cadastrar nova música' textSize={16}

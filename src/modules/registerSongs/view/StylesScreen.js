@@ -46,7 +46,7 @@ class StylesScreenContainer extends React.Component {
 
   renderHeaderMenuSave() {
     return [
-      <MPIconButton title="Salvar" titleStyle={styles.headerMenuText} onPress={this.handleSaveClick}/>
+      <MPIconButton key={1} title="Salvar" titleStyle={styles.headerMenuText} onPress={this.handleSaveClick}/>
     ];
   }
 

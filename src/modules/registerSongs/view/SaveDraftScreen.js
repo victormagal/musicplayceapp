@@ -2,8 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {StyleSheet, View, TextInput} from 'react-native';
 import {MPGradientButton, MPHeader, MPText, MPLoading} from '../../../components';
-import {songRegisterClear, createSong} from '../../../state/action';
-
+import {songRegisterClear, createSong, updateSong} from '../../../state/action';
 
 
 class SaveDraftScreenContainer extends React.Component {
@@ -19,7 +18,11 @@ class SaveDraftScreenContainer extends React.Component {
   }
 
   handleSaveDraftClick = () => {
-    this.props.dispatch(createSong(this.props.song));
+    if(this.props.song.id){
+      this.props.dispatch(updateSong(this.props.song));
+    }else {
+      this.props.dispatch(createSong(this.props.song));
+    }
   };
 
   handleRemoveSongClick = () => {
