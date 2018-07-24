@@ -19,7 +19,7 @@ export const fetchFeeds = (text) => {
     return FeedService.feeds(text).then(response => {
       dispatch(fetchedFeedSearch(response));
     }).catch(e => {
-      dispatch(feedFinishLoading(e.response));
+      dispatch(feedFinishLoading());
     })
   };
 };

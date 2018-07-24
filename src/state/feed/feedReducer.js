@@ -1,13 +1,15 @@
 import {
     FEED_START_LOADING,
-    FEED_FINISH_LOADING
+    FEED_FINISH_LOADING,
+    FETCHED_FEED_SEARCH
   } from './feedAction';
   
   const feedsReducer = (state, action) => {
     state = state || {
         loading: false,
+        searching: false,
+        searchingNotFound: false,
         feed: {
-            data: [],
         }
       };
   
@@ -16,6 +18,7 @@ import {
         return {
           ...state,
           loading: true,
+          searching: true,
         };
   
       case FEED_FINISH_LOADING:
@@ -24,16 +27,16 @@ import {
           loading: false,
         };
   
-      case SONG_START_LOADING:
+      case FETCHED_FEED_SEARCH:
         return {
           ...state,
+          loading: false,
           feed: action.payload,
-         loading: true
         }; 
     }
   
     return state;
   };
   
-  export default songsReducer;
+  export default feedsReducer;
   

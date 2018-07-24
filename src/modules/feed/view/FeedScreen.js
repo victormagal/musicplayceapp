@@ -13,13 +13,14 @@ import {
   MPTabBar,
   MPText,
   MPTextField,
-  MPIconButton
+  MPIconButton,
+  MPLoading
 } from '../../../components'
 import {connect} from 'react-redux';
 import Swiper from 'react-native-swiper';
 import images from '../../../assets/img';
 import {MPSearchRedIcon, MPCloseFilledRedIcon} from '../../../assets/svg';
-
+import {  fetchFeeds } from '../../../state/action';
 
 class FeedScreenContainer extends React.Component {
   constructor(props) {
@@ -29,9 +30,10 @@ class FeedScreenContainer extends React.Component {
       textValue: '',
       searching: false,
       searchingNotFound: false,
+      feed: {},
     }
 
-    this.topArtists = {
+    this.artists = {
       data: [
         {
           id: '00',
@@ -60,7 +62,7 @@ class FeedScreenContainer extends React.Component {
       ]
     }
 
-    this.artistList = {
+    this.songs = {
       data: [
         {
           id: '00',
@@ -106,6 +108,17 @@ class FeedScreenContainer extends React.Component {
     }
   }
 
+  componentWillReceiveProps(nextProps){
+    if(nextProps.feed.data){
+      this.setState({feed: nextProps.feed.data});
+      this.setState({searchingNotFound: false});
+
+      if(nextProps.feed.data.artists.length == 0 && nextProps.feed.data.songs.length == 0 && this.state.searching){
+        this.setState({searchingNotFound: true});
+      }
+    }
+  }
+
   handleNavigateMusic = () => {
     this.props.navigation.navigate('player');
   };
@@ -118,7 +131,12 @@ class FeedScreenContainer extends React.Component {
     this.setState({textValue: value});
 
     if(value.length >= 3){
-      this.checkArtistName(value);
+      this.props.dispatch(fetchFeeds(value));
+      this.setState({searching: true});
+    }
+
+    if(value == ""){
+      this.setState({searching: false, searchingNotFound: false});
     }
   };
 
@@ -139,21 +157,11 @@ class FeedScreenContainer extends React.Component {
                         songName={item.songName} timeText={item.timeText}/>
   );
 
-  checkArtistName = (value) => {
-    this.setState({textValue: value});
-    if (value == 'amorenanssoas') {
-      this.setState({searchingNotFound: true});
-    } else if (value != '') {
-      this.setState({searching: true, searchingNotFound: false});
-    } else if (value == '') {
-      this.setState({searching: false, searchingNotFound: false})
-    }
-  };
-
   render() {
     return (
       <View style={styles.container}>
-        <MPHeader inverse={true}/>
+        <MPHeader inverse={true} />
+        <MPLoading visible={this.props.loading} />
         <View style={styles.content}>
           <MPTextField label='Pesquise pelo nome, músicas e temas' value={this.state.textValue} onChangeText={this.handleSearchChange}/>
           {this.state.textValue.length < 3 && <MPSearchRedIcon style={styles.searchIcon} />}
@@ -171,7 +179,7 @@ class FeedScreenContainer extends React.Component {
                 <MPText style={ styles.searchArtistRollText}>Artistas com o nome <MPText
                   style={ styles.searchArtistRollTextEmph}>"{this.state.textValue}"</MPText></MPText>
                 <FlatList
-                  data={this.topArtists.data}
+                  data={this.artists.data}
                   keyExtractor={(item) => item.id}
                   renderItem={this.renderItemTopArtists}
                   horizontal={true}
@@ -255,7 +263,7 @@ class FeedScreenContainer extends React.Component {
                       <MPText style={{fontSize: 20, fontFamily: 'ProbaPro-Regular', marginBottom: 16, color: '#000'}}>Artistas
                       em alta</MPText>
                       <FlatList
-                        data={this.topArtists.data}
+                        data={this.artists.data}
                         keyExtractor={(item) => item.id}
                         renderItem={this.renderItemTopArtists}
                         horizontal={true}
@@ -281,7 +289,7 @@ class FeedScreenContainer extends React.Component {
                 <View style={styles.secondSliderContainer}>
                   <ScrollView style={{flex: 2,}}>
                     <FlatList
-                      data={this.artistList.data}
+                      data={this.songs.data}
                       keyExtractor={(item) => item.id}
                       renderItem={this.renderItemFeed}
                     />
@@ -366,8 +374,8 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = ({fontReducer}) => {
-  return {...fontReducer};
+const mapStateToProps = ({feedsReducer}) => {
+  return {...feedsReducer};
 };
 
 const FeedScreen = connect(mapStateToProps)(FeedScreenContainer);
