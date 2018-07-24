@@ -77,7 +77,7 @@ class FolderScreenContainer extends React.Component {
 
   renderHeaderMenuSave() {
     return [
-      <MPIconButton title="Salvar" titleStyle={styles.headerMenuText} onPress={this.handleSaveClick}/>
+      <MPIconButton key={1} title="Salvar" titleStyle={styles.headerMenuText} onPress={this.handleSaveClick}/>
     ];
   }
 
@@ -92,10 +92,13 @@ class FolderScreenContainer extends React.Component {
           <View style={styles.inputFolderContainer}>
             <MPForm>
               <MPInput label="Nome da nova pasta" validators={['required']} value={this.state.folderName} onChangeText={this.handleChangeText} />
-              <MPFormButton>
-                <MPGradientButton style={styles.inputButtonAdd} title="Criar"
-                                  onPress={this.handleCreateFolder}/>
-              </MPFormButton>
+
+              <View>
+                <MPFormButton>
+                  <MPGradientButton style={styles.inputButtonAdd} title="Criar"
+                                    onPress={this.handleCreateFolder}/>
+                </MPFormButton>
+              </View>
             </MPForm>
           </View>
         </View>

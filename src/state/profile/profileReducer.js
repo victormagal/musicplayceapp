@@ -6,6 +6,7 @@ import {
   AUTH_LOGOUT
 } from '../auth/authAction';
 
+
 const profileReducer = (state, action) => {
   state = state || {
       saveProfileSuccess: null,
@@ -71,7 +72,7 @@ const profileReducer = (state, action) => {
         ...state,
         myIndications: action.payload
       };
-
+      
     case AUTH_LOGOUT:
       return {
         ...state,

@@ -46,22 +46,20 @@ class ProfileComponent extends React.Component {
     }
   };
 
-  onEdit = () => {
-    this.props.navigation.navigate('message', {component: MPConfirmStopFollow})
+  handleEditSong = (song) => {
+    this.props.navigation.navigate('RegisterSongScreen', {song});
   };
 
-  excludeSong = () => {
-    this.props.navigation.navigate('message', {component: MPConfirmExcludeSong})
+  handleRemoveSong = (song) => {
+    this.props.navigation.navigate('message', {component: MPConfirmExcludeSong, song});
   };
 
-  unpublishSong = () => {
-    this.props.navigation.navigate('message', {component: MPConfirmUnpublishSong})
+  handleUnpublishSong = (song) => {
+    this.props.navigation.navigate('message', {component: MPConfirmUnpublishSong, song});
   };
 
   handleIndicateSong = (song) => {
-    console.log('song to indicate => ', song);
-    this.props.navigation.navigate('IndicateSongFullScreen');
-
+    this.props.navigation.navigate('IndicateSongFullScreen', {song});
   };
 
   reportProfile = () => {
@@ -247,14 +245,14 @@ class ProfileComponent extends React.Component {
                   unpublishSong={() => this.unpublishSong()}
                 />
                 { me &&
-                <View style={styles.whiteBackground}>
-                  <MPGradientButton
-                    title={'Cadastrar nova música'}
-                    textSize={16}
-                    icon={MPSongAddIcon}
-                    onPress={this.props.onSongAddClick}
-                  />
-                </View>
+                  <View style={styles.whiteBackground}>
+                    <MPGradientButton
+                      title={'Cadastrar nova música'}
+                      textSize={16}
+                      icon={MPSongAddIcon}
+                      onPress={this.props.onSongAddClick}
+                    />
+                  </View>
                 }
               </View>
               :
@@ -279,22 +277,26 @@ class ProfileComponent extends React.Component {
                                    onIndicateClick={this.handleIndicateSong}
                                    excludeSong={() => this.excludeSong()}
                                    unpublishSong={() => this.unpublishSong()}/>
-                {!profile.visiting && (
+                { me &&
                   <View style={styles.whiteBackground}>
-                    <MPGradientButton title='Cadastrar nova música' textSize={16}
-                                      icon={MPSongAddIcon}
-                                      onPress={this.props.onSongAddClick}/>
+                    <MPGradientButton
+                      title='Cadastrar nova música'
+                      textSize={16}
+                      icon={MPSongAddIcon}
+                      onPress={this.props.onSongAddClick}
+                    />
                   </View>
-                )}
+                }
               </View>
             )}
-
-            {!profile.songSaves && (
-              <View>
-                {!profile.song && <MPUploadFirstSong onPress={this.props.onSongAddClick} />}
-                {profile.song && <MPUpgradeButton song={profile.song}/>}
-              </View>
-            )}
+            <View>
+              { (me && (!mySongs || mySongs.data.length === 0)) &&
+              <MPUploadFirstSong onPress={this.props.onSongAddClick} />
+              }
+              { (me && profile.song) &&
+              <MPUpgradeButton song={profile.song}/>
+              }
+            </View>
           </View>
         )
     }

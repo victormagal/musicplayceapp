@@ -16,20 +16,16 @@ class MPArtist extends Component {
             <View style={ styles.simpleArtistCardImage }>
               <Image source={ imagePath }/>
             </View>
-            {
-              this.props.isFollowing == true  && (
-                <View style={{position: 'absolute'}}>
-                  <MPLessArtistIcon style={styles.iconArtist}/>
-                  <MPPlusArtistAvatarIcon style={styles.iconArtistAvatar}/>      
-                </View>
-              )
-            }{
-              this.props.isFollowing == false && (
-                <View style={{position: 'absolute'}}>
-                  <MPPlusArtistIcon style={styles.iconArtist}/>
-                  <MPPlusArtistAvatarIcon style={styles.iconArtistAvatar}/>      
-                </View>
-              )
+            { isFollowing  ?
+              <View style={{position: 'absolute'}}>
+                <MPLessArtistIcon style={styles.iconArtist}/>
+                <MPPlusArtistAvatarIcon style={styles.iconArtistAvatar}/>
+              </View>
+            :
+              <View style={{position: 'absolute'}}>
+                <MPPlusArtistIcon style={styles.iconArtist}/>
+                <MPPlusArtistAvatarIcon style={styles.iconArtistAvatar}/>
+              </View>
             }
           </View>
           <MPText style={ styles.simpleArtistCardText }>{ artist }</MPText>
@@ -41,7 +37,7 @@ class MPArtist extends Component {
 
 MPArtist.propTypes = {
   artist: PropTypes.string.isRequired,
-  imagePath: PropTypes.any.isRequired,
+  imagePath: PropTypes.any,
   onPress: PropTypes.func.isRequired,
   backgroundColor: PropTypes.any,
   style: PropTypes.any,
@@ -62,6 +58,8 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
   },
   simpleArtistCardImage: {
+    width: 100,
+    height: 100,
     borderRadius: 4,
     backgroundColor: '#f60',
     overflow: 'hidden'

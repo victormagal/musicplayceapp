@@ -20,6 +20,10 @@ class MPForm extends React.Component {
   };
 
   _handleSubmit = () => {
+    return this._valid();
+  };
+
+  _valid = () => {
     let valid = true;
     for(let id of Object.keys(this.state.inputs)){
       let component = this.state.inputs[id];
@@ -34,15 +38,33 @@ class MPForm extends React.Component {
     return valid;
   };
 
-  renderChildren(child, index){
-    let children = null;
-    let parentProps = {register: this._register, unregister: this._unregister, onSubmit: this._handleSubmit};
+  hasText(children){
+    let has = false;
 
-    if(child.props.children){
-      children = React.Children.map(child.props.children, (child, i) => React.cloneElement(child, {id: parseInt(`${index}${i}`), ...parentProps}));
-      parentProps.children = children;
+    if(typeof children === 'string'){
+      has = true;
     }
 
+    if(Array.isArray(children)) {
+      for (let child of children) {
+        if (typeof child === 'string') {
+          has = true;
+          break;
+        }
+      }
+    }
+
+    return has;
+  }
+
+  renderChildren(child, index){
+    let children = null;
+    let parentProps = {register: this._register, unregister: this._unregister, onSubmit: this._handleSubmit, isValid: this._valid};
+
+    if(child.props.children && !this.hasText(child.props.children)){
+      children = React.Children.map(child.props.children, (c, i) => React.cloneElement(c, {id: parseInt(`${index}${i}`), ...parentProps}));
+      parentProps.children = children;
+    }
     return React.cloneElement(child, {id: index, ...parentProps});
   }
 

@@ -32,6 +32,7 @@ export const createUser = (user) => {
       dispatch(createUserSuccess());
       return response;
     }).catch(e => {
+      console.log(e);
       dispatch(createUserError());
     });
   };
@@ -75,13 +76,6 @@ export const fetchMyFollowers = () => {
       .catch((e) => {
         console.log(e);
       });
-  };
-};
-
-export const fetchMySongs = () => {
-  //TODO re do right
-  return (dispatch) => {
-    UserService.songs().then(response => console.log('asdf', response));
   };
 };
 
