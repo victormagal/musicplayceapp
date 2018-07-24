@@ -112,6 +112,7 @@ class FeedScreenContainer extends React.Component {
     if(nextProps.feed.data){
       this.setState({feed: nextProps.feed.data});
       this.setState({searchingNotFound: false});
+      console.log(nextProps.feed.data);
 
       if(nextProps.feed.data.artists.length == 0 && nextProps.feed.data.songs.length == 0 && this.state.searching){
         this.setState({searchingNotFound: true});
@@ -152,6 +153,10 @@ class FeedScreenContainer extends React.Component {
     <MPArtist artist={item.artistName} imagePath={item.imagePath} onPress={()=>{}} isFollowing={false}/>
   );
 
+  renderSearchArtists = ({item}) => (
+    <MPArtist artist={item.name} imagePath={item.cover_picture_url} onPress={()=>{}} isFollowing={false}/>
+  );
+
   renderItemFeed = ({item}) => (
     <MPFeedNotification notificationType={item.type} artistName={item.artistName} composerName={item.composerName}
                         songName={item.songName} timeText={item.timeText}/>
@@ -175,39 +180,41 @@ class FeedScreenContainer extends React.Component {
             <ScrollView style={{flex: 2, backgroundColor: '#FCFCFC',}}>
               <MPText style={ styles.searchTitle }>Resultados para <MPText
                 style={ styles.searchTitleEmph}>"{ this.state.textValue }"</MPText></MPText>
-              <View style={styles.topArtistsContainer}>
-                <MPText style={ styles.searchArtistRollText}>Artistas com o nome <MPText
-                  style={ styles.searchArtistRollTextEmph}>"{this.state.textValue}"</MPText></MPText>
-                <FlatList
-                  data={this.artists.data}
-                  keyExtractor={(item) => item.id}
-                  renderItem={this.renderItemTopArtists}
-                  horizontal={true}
-                />
-              </View>
-              <MPText style={{
-                marginHorizontal: 20,
-                marginBottom: 16,
-                fontSize: 20,
-                fontFamily: 'ProbaPro-Regular',
-                color: '#000',
-              }}>Músicas relacionadas a busca <MPText
-                style={{color: '#5994db'}}>{ this.state.textValue }</MPText></MPText>
-              <MPArtistFull artistName={'Adelle'} songName={'Nome da música'} imagePath={images.daftPunk120}
+                {
+                  this.state.feed.artists && this.state.feed.artists.length > 0 &&
+                  <View style={styles.topArtistsContainer}>
+                    <MPText style={ styles.searchArtistRollText}>Artistas com o nome <MPText
+                      style={ styles.searchArtistRollTextEmph}>"{this.state.textValue}"</MPText></MPText>
+                    <FlatList
+                      data={this.state.feed.artists}
+                      keyExtractor={(item) => item.id}
+                      renderItem={this.renderSearchArtists}
+                      horizontal={true}
+                    />
+                  </View>
+                }
+                {
+                  this.state.feed.songs && this.state.feed.songs.length > 0 &&
+                  <View>
+                    <MPText style={{
+                      marginHorizontal: 20,
+                      marginBottom: 16,
+                      fontSize: 20,
+                      fontFamily: 'ProbaPro-Regular',
+                      color: '#000',
+                    }}>Músicas relacionadas a busca <MPText
+                      style={{color: '#5994db'}}>{ this.state.textValue }</MPText></MPText>
+                      {
+                        this.state.feed.songs.map(song => (
+                          <MPArtistFull key={song.id} artistName={"Adelle"} songName={song.name} imagePath={images.daftPunk120}
                             artistImagePath={images.adele40}
                             onPressArtist={this.handleNavigateArtistProfile}
                             onPressMusic={this.handleNavigateMusic}
-              />
-              <MPArtistFull artistName={'Freddie'} songName={'Nome da música'} imagePath={images.bjork120}
-                            artistImagePath={images.freddieMercury40}
-                            onPressArtist={this.handleNavigateArtistProfile}
-                            onPressMusic={this.handleNavigateMusic}
-              />
-              <MPArtistFull artistName={'Bjork'} songName={'Nome da música'} imagePath={images.daftPunk120}
-                            artistImagePath={images.freddieMercury40}
-                            onPressArtist={this.handleNavigateArtistProfile}
-                            onPressMusic={this.handleNavigateMusic}
-              />
+                          />
+                        ))
+                      }
+                  </View>
+                }
             </ScrollView>
           )
         }
