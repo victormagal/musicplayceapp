@@ -21,7 +21,7 @@ class MPUpgradeButtonComponent extends Component{
                 <View style={styles.upgradeContainer}>
                     <MPUpgradeNoteIcon  style={{alignSelf: 'center',}}/>
                     <MPText style={ styles.upgradeText}>Assine o plano premium para cadastrar mais músicas!</MPText>
-                    <MPGradientButton title={'Fazer upgrade'} textSize={16} onPress={ () => {}}/>
+                    <MPGradientButton title={'Fazer upgrade'} textSize={14} onPress={() => console.log()} />
                 </View>
             </View>
         )

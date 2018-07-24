@@ -8,27 +8,29 @@ import {MPCameraIcon, MPPlusPhotoIcon} from '../../assets/svg';
 class MPAddChangePhotoComponent extends Component {
 
   render() {
-    let {hasPhoto} = this.props;
+    const { hasPhoto, onPressPhoto } = this.props;
+
+    if (hasPhoto) {
+      return (
+        <View style={[ styles.container, { justifyContent: 'flex-end' } ]}>
+          <TouchableOpacity style={styles.photoButtonContainer} onPress={onPressPhoto}>
+            <MPCameraIcon />
+            <MPText style={ styles.photoButtonText }>Alterar foto</MPText>
+          </TouchableOpacity>
+        </View>
+      )
+    }
 
     return (
-      hasPhoto ? (
-          <View style={ styles.hasPhotoContainer }>
-            <View style={ styles.photoButtonContainer }>
-              <MPText style={ styles.photoButtonText }>Alterar foto</MPText>
-            </View>
+      <View style={[ styles.container, { justifyContent: 'center' } ]}>
+        <TouchableOpacity style={styles.noPhotoContent} onPress={onPressPhoto}>
+          <View style={styles.noPhotoIconContainer}>
+            <MPCameraIcon style={styles.noPhotoIcon} />
           </View>
-        ) : (
-          <View style={ styles.noPhotoContainer }>
-            <TouchableOpacity onPress={this.props.onPressPhoto}>
-              <View style={ styles.noPhotoIconContainer }>
-                <MPCameraIcon style={styles.noPhotoIcon} />
-              </View>
-              <MPPlusPhotoIcon style={styles.noPhotoIconAdd} />
-            </TouchableOpacity>
-
-            <MPText style={ styles.photoButtonText }>Adicionar foto</MPText>
-          </View>
-        )
+          <MPPlusPhotoIcon style={styles.noPhotoIconAdd} />
+          <MPText style={ styles.photoButtonText }>Adicionar foto</MPText>
+        </TouchableOpacity>
+      </View>
     )
   }
 }
@@ -38,42 +40,41 @@ MPAddChangePhotoComponent.propTypes = {
 };
 
 const styles = StyleSheet.create({
-  hasPhotoContainer: {
+  container: {
     height: 220,
-    justifyContent: 'flex-end',
-    marginStart: 20,
-    marginEnd: 206,
-    marginBottom: 20,
-  },
-  photoButtonContainer: {
-    borderWidth: 1,
-    borderColor: '#fff',
-    borderRadius: 14,
-    paddingVertical: 8,
-    paddingHorizontal: 12,
-  },
-  photoButtonText: {
-    color: '#fff',
-    fontSize: 12,
-    fontFamily: 'Montserrat-Regular',
-    paddingLeft: 20
-  },
-  noPhotoContainer: {
-    height: 220,
-    alignContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'row',
+    flexDirection: 'column',
     marginHorizontal: 20,
     marginBottom: 20
   },
+  photoButtonContainer: {
+    borderWidth: 1,
+    borderColor: '#FFF',
+    borderRadius: 16,
+    padding: 8,
+    width: 150,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  photoButtonText: {
+    color: '#FFF',
+    fontSize: 14,
+    fontFamily: 'Montserrat-Regular',
+    paddingLeft: 10
+  },
+  noPhotoContent: {
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
   noPhotoIconContainer: {
+    flex: 0,
     width: 66,
     height: 66,
-    borderColor: '#fff',
-    borderWidth: 1,
     borderRadius: 33,
-    flexDirection: 'row',
-    justifyContent: 'center'
+    borderWidth: 1,
+    marginRight: 10,
+    justifyContent: 'center',
+    borderColor: '#FFF'
   },
   noPhotoIcon: {
     alignSelf: 'center'
