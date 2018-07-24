@@ -6,7 +6,7 @@ class FeedService {
 
   static feeds(search){
 
-    return axios.get(`${API_FEED}/${search}`)
+    return axios.post(API_FEED, {name: search})
       .then(response => {
         return {
           data: {
