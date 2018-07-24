@@ -29,7 +29,7 @@ class MPCircleGradientButton extends Component {
 MPCircleGradientButton.propTypes = {
   onPress: PropTypes.func.isRequired,
   style: PropTypes.any,
-  icon: PropTypes.symbol
+  icon: PropTypes.any
 };
 
 const styles = StyleSheet.create({

@@ -33,7 +33,7 @@ class LoginComponent extends Component {
 
   state = {
     form: {
-      login: 'jhonatas@devsquad.email',
+      login: 'user@gmail.com',
       password: '123456'
     }
   };

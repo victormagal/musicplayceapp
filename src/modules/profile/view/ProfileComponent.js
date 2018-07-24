@@ -230,7 +230,7 @@ class ProfileComponent extends React.Component {
   }
 
   renderTabsContent(profile, tabIndex) {
-    const {me, mySongs } = this.props;
+    const { me, mySongs, song } = this.props;
     switch (tabIndex) {
       case 0:
         return (
@@ -260,8 +260,8 @@ class ProfileComponent extends React.Component {
                 { (me && (!mySongs || mySongs.data.length === 0)) &&
                   <MPUploadFirstSong onPress={this.props.onSongAddClick} />
                 }
-                { (me && profile.song) &&
-                  <MPUpgradeButton song={profile.song}/>
+                { (me && song) &&
+                  <MPUpgradeButton song={song}/>
                 }
               </View>
             }
@@ -293,8 +293,8 @@ class ProfileComponent extends React.Component {
               { (me && (!mySongs || mySongs.data.length === 0)) &&
               <MPUploadFirstSong onPress={this.props.onSongAddClick} />
               }
-              { (me && profile.song) &&
-              <MPUpgradeButton song={profile.song}/>
+              { (me && song) &&
+              <MPUpgradeButton song={song}/>
               }
             </View>
           </View>

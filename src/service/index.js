@@ -9,3 +9,4 @@ export * from './SongService';
 export * from './HelpService';
 export * from './FeedbackService';
 export * from './TermsAndConditionsService';
+export * from './PlayerService';

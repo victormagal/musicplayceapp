@@ -30,15 +30,11 @@ class TermsSettingsScreenContainer extends React.Component {
     }
   }
 
-  handleBack = () => {
-    this.props.navigation.pop();
-  };
-
   render() {
     const { error, loading } = this.props;
     return (
       <View style={styles.parent}>
-        <MPHeader back={true} onBack={this.handleBack} title={"Termos e condições de uso"} />
+        <MPHeader title="Termos e condições de uso" />
         <ScrollView style={styles.scroll}>
           <View style={styles.container}>
             { error ?
@@ -135,8 +131,8 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = ({ fontReducer, termsReducer }) => {
-  return { ...fontReducer, ...termsReducer };
+const mapStateToProps = ({ termsReducer }) => {
+  return { ...termsReducer };
 };
 
 const TermsSettingsScreen = connect(mapStateToProps)(TermsSettingsScreenContainer);

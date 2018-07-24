@@ -89,7 +89,8 @@ const styles = StyleSheet.create({
   },
   icons: {
     paddingRight: 20,
-    paddingTop: 12
+    paddingTop: 12,
+    flexDirection: 'row',
   },
   iconsLeft: {
     paddingLeft: 10

@@ -1,4 +1,5 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import LinearGradient from 'react-native-linear-gradient';
 import {Slider} from 'react-native-elements'
 import PropTypes from 'prop-types';
@@ -9,6 +10,9 @@ import {
 import {
   MPHeader, MPText, MPIconButton, MPButton
 } from '../../../components';
+import {
+  songPlay, songPause, songResume
+} from '../../../state/action';
 import {
   MPStarIcon,
   MPAddGrayIcon,
@@ -22,13 +26,21 @@ import {
 } from '../../../assets/svg';
 
 
-class ModalPlayer extends React.Component {
+class ModalPlayerComponent extends React.Component {
+
+  togglePlayer = () => {
+    if(this.props.player.inProgress){
+      this.props.dispatch(this.props.player.isPlaying ? songPause() : songResume());
+    } else{
+      this.props.dispatch(songPlay());
+    }
+  };
 
   renderCloseIcon(){
     let {onCloseClick} = this.props;
-    return (
-      <MPIconButton icon={MPAddGrayIcon} onPress={onCloseClick}/>
-    );
+    return [
+      <MPIconButton key={1} icon={MPAddGrayIcon} onPress={onCloseClick}/>
+    ];
   }
 
   renderPlayer() {
@@ -48,7 +60,8 @@ class ModalPlayer extends React.Component {
                           icon={MPPlayerPreviousRedIcon}/>
 
             <MPIconButton style={styles.modalPlayerButton}
-                          icon={MPPlayerPlayRedIcon}/>
+                          icon={MPPlayerPlayRedIcon}
+                          onPress={this.togglePlayer}/>
 
             <MPIconButton style={styles.modalPlayerButtons} icon={MPPlayerNextRedIcon}/>
           </View>
@@ -82,7 +95,7 @@ class ModalPlayer extends React.Component {
         onRequestClose={() => {
         }}>
 
-        <MPHeader icons={[this.renderCloseIcon()]} inverse={true} transparent={true}/>
+        <MPHeader icons={this.renderCloseIcon()} inverse={true} transparent={true}/>
 
         <View style={styles.flexOne}>
 
@@ -330,10 +343,15 @@ const styles = StyleSheet.create({
   }
 });
 
-ModalPlayer.propTypes = {
+ModalPlayerComponent.propTypes = {
   onCloseClick: PropTypes.func.isRequired,
   onLyricsClick: PropTypes.func.isRequired,
   onSongSaveClick: PropTypes.func.isRequired
 };
 
+const mapStateToProps = ({playerReducer}) => {
+  return {...playerReducer}
+};
+
+const ModalPlayer = connect(mapStateToProps)(ModalPlayerComponent);
 export {ModalPlayer};
