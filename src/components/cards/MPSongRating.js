@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {View, StyleSheet, Text, TouchableOpacity, Image} from 'react-native';
-import { Card } from 'react-native-elements';
+import {Card} from 'react-native-elements';
 import PropTypes from 'prop-types';
 import {
   MPSongListIcon, MPPlayIcon, MPSongMenuIcon, MPSongIndicateIcon,
@@ -42,11 +42,14 @@ class MPSongRating extends Component {
   }
 
   render() {
-    let {song, style, isAdded, indicateSong, indications,
-      isNew, rating, isDraft, onExclude, onUnpublish, onEditClick} = this.props;
+    let {
+      song, style, isAdded, indicateSong, indications,
+      isNew, rating, isDraft, onExclude, onUnpublish, onEditClick
+    } = this.props;
 
     return (
       <View style={style || {}}>
+
         <Card containerStyle={[styles.simpleArtistCardContainer]}>
           {!this.state.menuOpen && (
             <View>
@@ -58,12 +61,40 @@ class MPSongRating extends Component {
                     <MPPlayIcon />
                   </TouchableOpacity>
                   { this.renderTopIcons() }
-                  {!song.published_at && (
+                  {song && !song.published_at && (
                     <View style={ styles.draftContainer}>
                       <MPText style={ styles.draftText}>RASCUNHO</MPText>
                     </View>
                   )}
                 </View>
+                <View>
+                  <MPText style={ styles.simpleArtistCardText }
+                          onPress={this.toggleState.bind(this)}>{ song && song.name || '' }</MPText>
+                  <MPShowRating rating={rating}/>
+                </View>
+                {
+                  indicateSong && indications == null && isNew == null && (
+                    <TouchableOpacity style={ styles.indicateSongContainer }
+                                      onPress={() => this.props.onIndicateClick(song)}>
+                      <MPSongIndicateIcon />
+                      <MPText style={styles.indicateSongText}>INDIQUE</MPText>
+                    </TouchableOpacity>
+                  )
+                }
+                {
+                  indications != null && isNew == null && (
+                    <View style={styles.indicateSongContainer}>
+                      <MPSongIndicateFullIcon />
+                      <MPText style={styles.indicateSongText}>{ indications } INDICAÇÕES</MPText>
+                    </View>
+                  )
+                }
+                {isNew && (
+                  <View style={ styles.newSongContainer}>
+                    <MPAddSongWhiteNoteIcon style={{alignSelf: 'center'}}/>
+                    <MPText style={ styles.newSongText}>NOVIDADE</MPText>
+                  </View>
+                )}
               </View>
               <View>
                 <MPText style={ styles.simpleArtistCardText }
