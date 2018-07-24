@@ -1,13 +1,18 @@
 import {
   FAQ_FETCHED,
-  FAQ_FETCH_ERROR, FAQ_LOADING_START, FAQ_LOADING_END
+  FAQ_FETCH_ERROR,
+  FAQ_LOADING_START,
+  FAQ_LOADING_END,
+  FAQ_SENT_SUCCESS,
+  FAQ_SENT_ERROR
 } from './helpAction';
 
 const helpReducer = (state, action) => {
   state = state || {
     faqs: null,
     error: null,
-    faqLoading: false
+    loading: false,
+    sentSuccess: null
   };
 
   switch (action.type) {
@@ -25,16 +30,28 @@ const helpReducer = (state, action) => {
         faqs: null
       };
 
+    case FAQ_SENT_SUCCESS:
+      return {
+        ...state,
+        sentSuccess: true,
+      };
+
+    case FAQ_SENT_ERROR:
+      return {
+        ...state,
+        sentSuccess: false
+      };
+
     case FAQ_LOADING_START:
       return {
         ...state,
-        faqLoading: true
+        loading: true
       };
 
     case FAQ_LOADING_END:
       return {
         ...state,
-        faqLoading: false
+        loading: false
       };
   }
 

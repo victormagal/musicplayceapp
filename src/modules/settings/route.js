@@ -11,6 +11,7 @@ import {
   PaymentTypesScreen,
   AddChangePlanScreen
 } from './view';
+import {MPHelp} from "../../components/settings";
 
 export const SettingsNavigation = createStackNavigator(
   {
@@ -19,6 +20,7 @@ export const SettingsNavigation = createStackNavigator(
     notificationsSettings: NotificationSettingsScreen,
     inviteSettings: InviteSettingsScreen,
     helpSettings: HelpSettingsScreen,
+    sendHelp: MPHelp,
     passwordSettings: PasswordSettingsScreen,
     feedbackSettings: FeedbackSettingsScreen,
     termsSettings: TermsSettingsScreen,

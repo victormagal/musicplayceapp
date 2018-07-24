@@ -72,7 +72,6 @@ class FeedbackSettingsScreenContainer extends React.Component {
             <MPSelect label={"Assunto do feedback"}
                       value={selectedOption}
                       options={options}
-                      style={{ borderBottomColor: 'rgba(0, 0, 0, 0.15)', borderBottomWidth: 1 }}
                       onChangeOption={(selectedOption) => this.setState({ selectedOption })} />
             <MPTextField label={"Envie sua mensagem"}
                          value={message}
@@ -115,7 +114,7 @@ const styles = StyleSheet.create({
   headerText: {
     fontWeight: "500",
     fontFamily: 'Montserrat-Medium',
-    fontSize: 12
+    fontSize: 13
   }
 });
 
