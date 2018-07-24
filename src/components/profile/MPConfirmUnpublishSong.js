@@ -1,25 +1,32 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 import {
   StyleSheet,
   View
 } from 'react-native';
 import {
-    MPText,
+  MPText,
   MPGradientButton,
-  MPHelpSuccess
+  MPLoading
 } from '../../components';
-import { saveProfile } from '../../state/action';
-import { MPUnpublishedSong } from '../../components';
+import {unpublishSong} from '../../state/action';
+import {MPUnpublishedSong} from '../../components';
 
 class MPConfirmUnpublishSongComponent extends React.Component {
 
-  handleBack = () => {
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.songUnpublishSuccess) {
+      this.props.navigation.navigate('message', {component: MPUnpublishedSong})
+    }
+  }
+
+  handleBackClick = () => {
     this.props.navigation.pop();
   };
 
-  handleFoward = () => {
-    this.props.navigation.navigate('message', {component: MPUnpublishedSong})
+  handleUnpublishClick = () => {
+    let {song} = this.props.navigation.state.params;
+    this.props.dispatch(unpublishSong(song.id));
   };
 
   render() {
@@ -27,8 +34,12 @@ class MPConfirmUnpublishSongComponent extends React.Component {
       <View style={styles.container}>
         <MPText style={ styles.title }>Confirma que deseja despublicar sua música?</MPText>
         <MPText style={ styles.subTitle }>Todas as informações sobre sua música, inclusive indicações, serão guardadas e ninguém terá acesso as informações. Caso queira reativá-la, basta republicá-la.</MPText>
-        <MPGradientButton style={ styles.button } title={'Sim, despublicar música'}   textSize={16} onPress={this.handleFoward.bind(this)}/>
-        <MPGradientButton style={ styles.button } title={'Não, manter ativa'} textSize={16} onPress={this.handleBack.bind(this)}/>
+        <MPGradientButton style={ styles.button } title={'Sim, despublicar música'} textSize={16}
+                          onPress={this.handleUnpublishClick}/>
+        <MPGradientButton style={ styles.button } title={'Não, manter ativa'} textSize={16}
+                          onPress={this.handleBackClick}/>
+
+        <MPLoading visible={this.props.loading}/>
       </View>
     );
   }
@@ -43,7 +54,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     marginHorizontal: 23,
     fontSize: 24,
-    color : '#000',
+    color: '#000',
     fontFamily: 'Montserrat-Regular',
     textAlign: 'center',
   },
@@ -61,9 +72,9 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = ({ fontReducer }) => {
-  return { ...fontReducer };
+const mapStateToProps = ({songsReducer}) => {
+  return {...songsReducer};
 };
 
 const MPConfirmUnpublishSong = connect(mapStateToProps)(MPConfirmUnpublishSongComponent);
-export { MPConfirmUnpublishSong };
+export {MPConfirmUnpublishSong};

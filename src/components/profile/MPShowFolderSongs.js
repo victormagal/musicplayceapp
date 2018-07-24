@@ -7,8 +7,11 @@ import {MPGradientBorderButton} from './MPGradientBorderButton';
 class MPShowFolderSongs extends Component {
 
   renderSongs = ({item}) => (
-    <MPSongRating song={item} indicateSong={true} isAdded={true} onExclude={this.props.excludeSong}
-                  onUnpublish={this.props.unpublishSong} onIndicateClick={this.props.onIndicateClick}/>
+    <MPSongRating song={item} indicateSong={true} isAdded={true}
+                  onExclude={this.props.onRemoveClick}
+                  onUnpublish={this.props.onUnpublishClick}
+                  onIndicateClick={this.props.onIndicateClick}
+                  onEditClick={this.props.onEditClick}/>
   );
 
   render() {

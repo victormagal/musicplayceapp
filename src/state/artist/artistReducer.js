@@ -1,6 +1,6 @@
 import {
   ARTIST_START_LOADING, ARTIST_FINISH_LOADING, FETCHED_ARTISTS,
-  ARTIST_SAVE_SUCCESS, ARTIST_SAVE_ERROR
+  ARTIST_SAVE_SUCCESS, ARTIST_BY_ID_FETCHED
 } from './artistAction';
 
 const artistReducer = (state, action) => {
@@ -25,6 +25,13 @@ const artistReducer = (state, action) => {
       return {
         ...state,
         loading: false
+      };
+
+    case ARTIST_BY_ID_FETCHED:
+      return {
+        ...state,
+        loading: false,
+        artists: action.payload
       };
 
     case FETCHED_ARTISTS:

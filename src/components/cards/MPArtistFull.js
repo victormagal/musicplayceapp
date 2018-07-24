@@ -30,7 +30,7 @@ class MPArtistFull extends Component {
               <MPStarIcon style={styles.marginEnd}/>
               <MPStarIcon style={styles.marginEnd}/>
             </View>
-            <TouchableOpacity style={styles.artistContent} onPress={onPressArtist}>
+            <TouchableOpacity style={styles.artistContent} onPress={() => onPressArtist('c4157ea3-03b3-44dc-84b0-eb69935bb855')}>
               <View style={ styles.roundImage }>
                 <Image source={artistImagePath}/>
               </View>

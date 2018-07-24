@@ -7,18 +7,27 @@ import {
 import {
     MPText,
   MPGradientButton,
-  MPHelpSuccess
+  MPExcludedSong,
+  MPLoading
 } from '../../components';
-import { saveProfile } from '../../state/action';
-import { MPExcludedSong } from '../../components';
+import { removeSong } from '../../state/action';
+
+
 class MPConfirmExcludeSongComponent extends React.Component {
+
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.songRemoveSuccess){
+      this.props.navigation.navigate('message', {component: MPExcludedSong});
+    }
+  }
 
   handleBack = () => {
     this.props.navigation.pop();
   };
 
-  handleFoward = () => {
-    this.props.navigation.navigate('message', {component: MPExcludedSong})
+  handleRemoveSong = () => {
+    let {song} = this.props.navigation.state.params;
+    this.props.dispatch(removeSong(song.id))
   };
 
   render() {
@@ -26,8 +35,9 @@ class MPConfirmExcludeSongComponent extends React.Component {
       <View style={styles.container}>
         <MPText style={ styles.title }>Tem certeza que deseja excluir sua música?</MPText>
         <MPText style={ styles.subTitle }>Não será possível resgatar as indicações e outras interações que você teve com essa música. Caso queira, poderá cadastrá-la novamente e recomeçar uma interação do zero.</MPText>
-        <MPGradientButton style={ styles.button } title={'Sim, excluir música'}   textSize={16} onPress={this.handleFoward.bind(this)}/>
-        <MPGradientButton style={ styles.button } title={'Não, manter ativa'} textSize={16} onPress={this.handleBack.bind(this)}/>
+        <MPGradientButton style={ styles.button } title={'Sim, excluir música'}   textSize={16} onPress={this.handleRemoveSong}/>
+        <MPGradientButton style={ styles.button } title={'Não, manter ativa'} textSize={16} onPress={this.handleBack}/>
+        <MPLoading visible={this.props.loading} />
       </View>
     );
   }
@@ -60,8 +70,8 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = ({ fontReducer }) => {
-  return { ...fontReducer };
+const mapStateToProps = ({songsReducer}) => {
+  return {...songsReducer};
 };
 
 const MPConfirmExcludeSong = connect(mapStateToProps)(MPConfirmExcludeSongComponent);

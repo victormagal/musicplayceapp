@@ -5,6 +5,11 @@ const API_ARTIST = `${API}/artists`;
 
 class ArtistService {
 
+  static getArtistById(id) {
+    return axios.get(`${ API_ARTIST }/${ id }`)
+      .then(response => response.data);
+  }
+
   static artists(search) {
     let params = {};
 

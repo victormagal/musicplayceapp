@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {StyleSheet, View, ScrollView, TouchableOpacity} from 'react-native';
 import {MPHeader, MPInput, MPText, MPIconButton, MPLoading, MPArtistHorizontal} from '../../../components';
-import {updateSongRegisterData, fetchArtists} from '../../../state/action';
+import {updateSongRegisterData, searchArtists} from '../../../state/action';
 import {MPSearchRedIcon, MPCloseFilledRedIcon} from '../../../assets/svg';
 
 class ArtistsScreenContainer extends React.Component {
@@ -52,7 +52,7 @@ class ArtistsScreenContainer extends React.Component {
 
     this.debounceTimer = setTimeout(() => {
       if(value.length >= 3) {
-        this.props.dispatch(fetchArtists(value));
+        this.props.dispatch(searchArtists(value));
       }
     }, 700);
   };
@@ -103,7 +103,7 @@ class ArtistsScreenContainer extends React.Component {
 
   renderHeaderMenuSave() {
     return [
-      <MPIconButton title="Salvar" titleStyle={styles.headerMenuText} onPress={this.handleSaveClick}/>
+      <MPIconButton key={1} title="Salvar" titleStyle={styles.headerMenuText} onPress={this.handleSaveClick}/>
     ];
   }
 
