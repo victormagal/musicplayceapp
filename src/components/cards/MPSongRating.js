@@ -25,6 +25,10 @@ class MPSongRating extends Component {
     this.setState({isAdded: !this.state.isAdded})
   };
 
+  handleClose = () => {
+
+  };
+
   renderTopIcons() {
     if (this.state.isAdded) {
       return (

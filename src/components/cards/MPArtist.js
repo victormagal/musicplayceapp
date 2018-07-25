@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
     paddingStart: 10,
     paddingEnd: 10,
     paddingBottom: 26,
-    fontFamily: 'Montserrat-Regular'
+    fontFamily: 'ProbaPro-Regular'
   },
   iconArtist: {
     position: 'absolute',

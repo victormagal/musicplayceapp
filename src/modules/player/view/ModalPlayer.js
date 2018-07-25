@@ -17,6 +17,7 @@ import {
   MPStarIcon,
   MPAddGrayIcon,
   MPPlayerPlayRedIcon,
+  MPPlayerPauseRedIcon,
   MPPlayerNextRedIcon,
   MPPlayerPreviousRedIcon,
   MPPlayerHeartIcon,
@@ -32,7 +33,7 @@ class ModalPlayerComponent extends React.Component {
     if(this.props.player.inProgress){
       this.props.dispatch(this.props.player.isPlaying ? songPause() : songResume());
     } else{
-      this.props.dispatch(songPlay());
+      this.props.dispatch(songPlay(this.props.song));
     }
   };
 
@@ -61,6 +62,8 @@ class ModalPlayerComponent extends React.Component {
 
             <MPIconButton style={styles.modalPlayerButton}
                           icon={MPPlayerPlayRedIcon}
+                          iconSelected={MPPlayerPauseRedIcon}
+                          selected={this.props.player.isPlaying}
                           onPress={this.togglePlayer}/>
 
             <MPIconButton style={styles.modalPlayerButtons} icon={MPPlayerNextRedIcon}/>

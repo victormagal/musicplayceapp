@@ -10,6 +10,14 @@ class InterpreterScreenContainer extends React.Component {
     interpreter_name: ''
   };
 
+  constructor(props){
+    super(props);
+    if(props.song && props.song.interpreter_name){
+      this.state.interpreter_name = props.song.interpreter_name;
+    }
+  }
+
+
   handleBackClick = () => {
     this.props.navigation.pop();
   };

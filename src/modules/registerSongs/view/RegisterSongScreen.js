@@ -23,7 +23,6 @@ class RegisterSongContainer extends React.Component {
     if(this.props.navigation.state && this.props.navigation.state.params) {
       let {song} = this.props.navigation.state.params;
       this.props.dispatch(updateSongRegisterData(song));
-      console.log(song);
     }
   }
 
@@ -40,6 +39,8 @@ class RegisterSongContainer extends React.Component {
     let width = (count * 100) / total;
     this.setState({progressContentWidth: `${Math.ceil(width)}%`});
 
+
+    console.log(nextProps)
     if(nextProps.songPublishSuccess){
       this.goToScreen('ConfirmationScreen');
     }
@@ -149,7 +150,7 @@ class RegisterSongContainer extends React.Component {
                               onPress={this.goToScreen.bind(this, 'ArtistsScreen')}/>
 
                   <MPSongInfo title={'Tem intérpretes?'} style={styles.songItem}
-                              selected={this.props.song.interpreter_name !== ''}
+                              selected={!!this.props.song.interpreter_name}
                               info={this.props.song.interpreter_name}
                               placeholder={'*Opcional'} onPress={this.goToScreen.bind(this, 'InterpreterScreen')}/>
                 </View>

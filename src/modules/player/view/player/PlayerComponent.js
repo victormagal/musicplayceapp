@@ -116,6 +116,7 @@ class PlayerComponent extends React.Component {
 
   renderModalPlayer = () => {
     return <ModalPlayer visible={this.state.playerVisible}
+                        song={this.props.song}
                         onCloseClick={this.handleTogglePlayer.bind(this, false)}
                         onLyricsClick={this.handleEnableLyricsPlayer}
                         onSongSaveClick={this.handleSaveSong}/>;
