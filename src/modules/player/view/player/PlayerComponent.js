@@ -129,6 +129,18 @@ class PlayerComponent extends React.Component {
     return composerString;
   }
 
+  handleSongDuration = (songDuration) => {
+    let songArray = songDuration.split(':');
+    let hours = Number.parseInt(songArray[0]);
+    let minutes = Number.parseInt(songArray[1]);
+    let seconds = Number.parseInt(songArray[2]);
+    let songDurationString = `${minutes}m${seconds}s`
+    if(hours > 0){
+      songDurationString = `${hours}h`.concat(songDurationString);
+    }
+    return songDurationString;
+  }
+
   renderComment = () => {
     return (
       <MPPlayerComment />
@@ -274,7 +286,7 @@ class PlayerComponent extends React.Component {
                 <MPText style={styles.gradeText}>0.0</MPText>
               </View>
 
-              <MPText style={styles.timeTotalText}>5m32s</MPText>
+              <MPText style={styles.timeTotalText}>{song ? this.handleSongDuration(song.duration) : '5m32s'}</MPText>
 
               <View style={styles.row}>
                 <MPPlayIcon style={styles.musicPlayIcon}/>
@@ -283,6 +295,7 @@ class PlayerComponent extends React.Component {
 
               <MPText style={styles.musicUploadDate}>{song ? this.handleSongDate(song.created_at) : '10/05/2018 às 13:49'}</MPText>
               <MPText style={styles.musicMessage}>Escute esta música de tal tal jeito.</MPText>
+              {/* <MPText style={styles.compositorText}>{song ? song.description : 'Escute esta música de tal tal jeito.'}</MPText> */}
 
               <MPText style={styles.compositorTitle}>COMPOSITOR</MPText>
               <MPText style={styles.compositorText}>{ song ? this.handleSongComposers(song) : 'Almir Sater'}</MPText>
