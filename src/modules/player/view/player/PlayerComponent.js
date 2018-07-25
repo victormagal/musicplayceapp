@@ -103,10 +103,31 @@ class PlayerComponent extends React.Component {
     this.props.navigation.navigate('IndicateSongFullScreen');
   };
 
+  handleSongDate = (songDate) => {
+    let date = songDate.split(" ")[0].split('-').reverse().join('/');
+    let time = songDate.split(" ")[1].slice(0, 5);
+    return `${date} às ${time}`;
+  }
+
   handleSaveSong = () => {
     this.setState({playerVisible: false});
     this.props.navigation.navigate('playerSaveSong');
   };
+
+  handleSongComposers = (song) => {
+    let composerString = song.artist.name;
+    if(song.coAuthors && song.coAuthors.length > 0){
+      let coAuthors = song.coAuthors;
+      coAuthors.map((coAuthor, index, array) => {
+        if(index == array.length - 1){
+          composerString = composerString.concat(` e ${coAuthor.name}`);
+        }else{
+          composerString = composerString.concat(`, ${coAuthor.name}`);
+        }
+      })
+    }
+    return composerString;
+  }
 
   renderComment = () => {
     return (
@@ -224,6 +245,7 @@ class PlayerComponent extends React.Component {
   }
 
   renderMain() {
+    let {song} = this.props;
     return (
       <MPFade style={styles.modalContent} visible={this.state.showPlayer}>
         <ScrollView style={styles.flexOne}>
@@ -256,17 +278,18 @@ class PlayerComponent extends React.Component {
 
               <View style={styles.row}>
                 <MPPlayIcon style={styles.musicPlayIcon}/>
-                <MPText style={styles.musicTitleText}>Tocando em Frente</MPText>
+                <MPText style={styles.musicTitleText}>{ song ? song.name : 'Tocando em Frente'}</MPText>
               </View>
 
-              <MPText style={styles.musicUploadDate}>10/05/2018 às 13:49</MPText>
+              <MPText style={styles.musicUploadDate}>{song ? this.handleSongDate(song.created_at) : '10/05/2018 às 13:49'}</MPText>
               <MPText style={styles.musicMessage}>Escute esta música de tal tal jeito.</MPText>
 
               <MPText style={styles.compositorTitle}>COMPOSITOR</MPText>
-              <MPText style={styles.compositorText}>Almir Sater</MPText>
+              <MPText style={styles.compositorText}>{ song ? this.handleSongComposers(song) : 'Almir Sater'}</MPText>
 
               <MPText style={styles.compositorTitle}>INTÉRPRETE</MPText>
               <MPText style={styles.compositorText}>Santiago Silva</MPText>
+              {/* <MPText style={styles.compositorText}>{song ? song.interpreter_name : 'Santiago Silva'}</MPText> */}
 
               <View style={[styles.row, styles.indicationContainer]}>
                 <View style={styles.row}>
