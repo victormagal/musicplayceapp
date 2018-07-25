@@ -17,7 +17,8 @@ export const SONG_UNPUBLISH_ERROR = 'SONG_UNPUBLISH_ERROR';
 export const FETCHED_ARTIST_SONGS = 'FETCHED_ARTIST_SONGS';
 export const FETCHED_SONG = 'FETCHED_SONG';
 export const FETCHED_SONG_LYRICS = 'FETCHED_SONG_LYRICS';
-
+export const SONG_INDICATE_SUCCESS = 'SONG_INDICATE_SUCCESS';
+export const SONG_INDICATE_ERROR = 'SONG_INDICATE_ERROR';
 
 export const updateSongRegisterData = createAction(SONG_REGISTER_DATA, (data) => {
     return {...data};
@@ -31,6 +32,8 @@ export const songCreateError = createAction(SONG_CREATE_ERROR);
 export const songRemoveSuccess = createAction(SONG_REMOVE_SUCCESS);
 export const songRemoveError = createAction(SONG_REMOVE_ERROR);
 export const songPublishSuccess = createAction(SONG_PUBLISH_SUCCESS);
+export const songIndicateSuccess = createAction(SONG_INDICATE_SUCCESS);
+export const songIndicateError = createAction(SONG_INDICATE_ERROR);
 export const songPublishError = createAction(SONG_PUBLISH_ERROR);
 export const songUnpublishSuccess = createAction(SONG_UNPUBLISH_SUCCESS);
 export const songUnpublishError = createAction(SONG_UNPUBLISH_ERROR);
@@ -96,6 +99,15 @@ export const unpublishSong = (id) => {
     return SongService.unpublish(id).then(_ => {
       dispatch(songUnpublishSuccess());
     }).catch(e => dispatch(songUnpublishError()));
+  };
+};
+
+export const indicateSong = (id) => {
+  return (dispatch) => {
+    dispatch(songStartLoading());
+    return SongService.indicateSong(id).then(response => {
+      dispatch(songIndicateSuccess(response));
+    }).catch(e => dispatch(songIndicateError(e)));
   };
 };
 

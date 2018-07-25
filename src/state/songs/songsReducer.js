@@ -7,6 +7,8 @@ import {
   SONG_CREATE_ERROR,
   SONG_REMOVE_SUCCESS,
   SONG_REMOVE_ERROR,
+  SONG_INDICATE_SUCCESS,
+  SONG_INDICATE_ERROR,
   SONG_PUBLISH_SUCCESS,
   SONG_PUBLISH_ERROR,
   SONG_UNPUBLISH_SUCCESS,
@@ -39,6 +41,7 @@ const songsReducer = (state, action) => {
   state.songRemoveSuccess = false;
   state.songPublishSuccess = false;
   state.songUnpublishSuccess = false;
+  state.songIndicateSuccess = false;
 
 
   switch (action.type) {
@@ -60,6 +63,7 @@ const songsReducer = (state, action) => {
         loading: true
       };
 
+    case SONG_INDICATE_ERROR:
     case SONG_PUBLISH_ERROR:
     case SONG_UNPUBLISH_ERROR:
     case SONG_FINISH_LOADING:
@@ -100,6 +104,13 @@ const songsReducer = (state, action) => {
         ...state,
         loading: false,
         songPublishSuccess: true
+      };
+    
+    case SONG_INDICATE_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        songIndicateSuccess: true
       };
 
     case SONG_UNPUBLISH_SUCCESS:
