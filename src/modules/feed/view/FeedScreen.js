@@ -117,8 +117,8 @@ class FeedScreenContainer extends React.Component {
     }
   }
 
-  handleNavigateMusic = () => {
-    this.props.navigation.navigate('player');
+  handleNavigateMusic = (song) => {
+    this.props.navigation.navigate('player', {song});
   };
 
   handleNavigateArtistProfile = (artistId) => {
@@ -203,7 +203,7 @@ class FeedScreenContainer extends React.Component {
                       style={{color: '#5994db'}}>{ this.state.textValue }</MPText></MPText>
                       {
                         this.state.feed.songs.map(song => (
-                          <MPArtistFull key={song.id} artistName={"Adelle"} songName={song.name} imagePath={images.daftPunk120}
+                          <MPArtistFull key={song.id} artistName={"Adelle"} songName={song.name} song={song} imagePath={images.daftPunk120}
                             artistImagePath={images.adele40}
                             onPressArtist={(artistId) => this.handleNavigateArtistProfile(artistId)}
                             onPressMusic={this.handleNavigateMusic}

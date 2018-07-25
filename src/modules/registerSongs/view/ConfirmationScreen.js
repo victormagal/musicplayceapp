@@ -1,59 +1,63 @@
 import React from 'react';
 import {StyleSheet, ScrollView, Text, View, TextInput, Image, FlatList} from 'react-native';
-import {  MPGradientButton, MPHeader, MPFooter, MPArtist, MPText } from '../../../components';
-import { connect } from 'react-redux';
+import {MPGradientButton, MPHeader, MPFooter, MPArtist, MPText} from '../../../components';
+import {connect} from 'react-redux';
 import images from '../../../assets/img';
 
 class ConfirmationScreenContainer extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
-    this.state = { text: "Pesquise pelo nome"};
+    this.state = {text: "Pesquise pelo nome"};
 
     this.artistList = {
-        data: [
-            {
-                id: '00',
-                title: 'David Burn',
-                imagePath: images.daftPunk100
-            },
-            {
-                id: '01',
-                title: 'Bjork',
-                imagePath: images.bjork100
-            },
-            {
-                id: '02',
-                title: 'Daft Punk',
-                imagePath: images.daftPunk100
-            },
-        ]
+      data: [
+        {
+          id: '00',
+          title: 'David Burn',
+          imagePath: images.daftPunk100
+        },
+        {
+          id: '01',
+          title: 'Bjork',
+          imagePath: images.bjork100
+        },
+        {
+          id: '02',
+          title: 'Daft Punk',
+          imagePath: images.daftPunk100
+        },
+      ]
     }
   }
 
+  handleClose = () => {
+    this.props.navigation.popToTop();
+  };
+
   renderItem = ({item}) => (
-    <MPArtist artist={item.title} imagePath={item.imagePath} onPress={() => {}} />
+    <MPArtist artist={item.title} imagePath={item.imagePath} onPress={() => {}}/>
   );
-  
+
   render() {
     return (
       <View style={styles.container}>
-        <MPHeader back={false} inverse={true} />
+        <MPHeader back={false} inverse={true}/>
         <ScrollView style={styles.scroll}>
-            <View>
-              <MPText style={styles.titleText}>Pronto! Tudo certo.</MPText>
-              <MPText style={styles.subTitleText}>Que tal indicar sua música pra uma banda que você goste?</MPText>
-              <View style={{height: 152}}>
-                  <FlatList data = {this.artistList.data}
-                      keyExtractor={(item,index) => item.id} 
+          <View>
+            <MPText style={styles.titleText}>Pronto! Tudo certo.</MPText>
+            <MPText style={styles.subTitleText}>Que tal indicar sua música pra uma banda que você goste?</MPText>
+            <FlatList data={this.artistList.data}
+                      keyExtractor={(item,index) => item.id}
                       renderItem={this.renderItem}
                       numColumns={3}
                       columnWrapperStyle={{flexWrap: 'wrap', justifyContent: 'center'}}/>
-              </View>
-              <View style={ styles.confirmationButtonsContainer }>
-                  <MPGradientButton textSize={16} title={"Convidar para o MusicPlayce"} onPress={() => {}} style={ styles.confirmationButtonTop } />
-                  <MPGradientButton textSize={16} title={"Fechar"} onPress={() => {}} style={ styles.confirmationButtonBottom } />
-              </View>
+            <View style={ styles.confirmationButtonsContainer }>
+              <MPGradientButton textSize={16} title={"Convidar para o MusicPlayce"} onPress={() => {}}
+                                style={ styles.confirmationButtonTop }/>
+              <MPGradientButton textSize={16} title={"Fechar"} onPress={this.handleClose}
+                                style={ styles.confirmationButtonBottom }/>
             </View>
+          </View>
         </ScrollView>
       </View>
     );
@@ -106,7 +110,7 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = () => {
-  return {  };
+  return {};
 };
 
 const ConfirmationScreen = connect(mapStateToProps)(ConfirmationScreenContainer);

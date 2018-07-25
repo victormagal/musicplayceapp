@@ -5,13 +5,26 @@ import {
 } from 'react-native';
 import {MPButton} from '../../../../components';
 import {PlayerComponent} from './PlayerComponent';
-import {playerSongSaveReceived} from '../../../../state/action';
+import {playerSongSaveReceived, songStop} from '../../../../state/action';
 import {
   MPHeartRedIcon
 } from '../../../../assets/svg';
 
 
 class PlayerContainer extends React.Component {
+
+  state = {
+    song : null
+  };
+
+  componentDidMount(){
+    if(this.props.navigation.state && this.props.navigation.state.params){
+      let {song} = this.props.navigation.state.params;
+      if(song) {
+        this.setState({song: song});
+      }
+    }
+  }
 
   componentWillReceiveProps(nextProps){
     if(nextProps.saveSong.update){
@@ -22,10 +35,14 @@ class PlayerContainer extends React.Component {
     }
   }
 
+  componentWillUnmount(){
+    this.props.dispatch(songStop());
+  }
+
   render() {
     return (
       <View style={styles.container}>
-        <PlayerComponent todo="REFACTOR" {...this.props} />
+        <PlayerComponent todo="REFACTOR" {...this.props} song={this.state.song} />
         {this.props.saveSong.update && (
           <MPButton
             style={styles.notificationSaved}

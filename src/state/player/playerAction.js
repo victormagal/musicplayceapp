@@ -7,6 +7,7 @@ export const PLAYER_SONG_SAVE = 'PLAYER_SONG_SAVE';
 export const PLAYER_SONG_PLAY = 'PLAYER_SONG_PLAY';
 export const PLAYER_SONG_PAUSE = 'PLAYER_SONG_PAUSE';
 export const PLAYER_SONG_RESUME = 'PLAYER_SONG_RESUME';
+export const PLAYER_SONG_STOP = 'PLAYER_SONG_STOP';
 
 
 export const playerSongSave = createAction(PLAYER_SONG_SAVE, (folder) => {
@@ -14,9 +15,10 @@ export const playerSongSave = createAction(PLAYER_SONG_SAVE, (folder) => {
 });
 
 export const playerSongSaveReceived = createAction(PLAYER_SONG_SAVE_RECEIVED);
-export const playerSongPlay = createAction(PLAYER_SONG_PLAY);
+export const playerSongPlay = createAction(PLAYER_SONG_PLAY, (data) => data);
 export const playerSongPause = createAction(PLAYER_SONG_PAUSE);
 export const playerSongResume = createAction(PLAYER_SONG_RESUME);
+export const playerSongStop = createAction(PLAYER_SONG_STOP);
 
 
 export const songPlay = (song) => {
@@ -39,5 +41,13 @@ export const songResume = () => {
     dispatch(playerSongResume());
   };
 };
+
+export const songStop = () => {
+  return (dispatch) => {
+    PlayerService.pause();
+    dispatch(playerSongStop());
+  };
+};
+
 
 

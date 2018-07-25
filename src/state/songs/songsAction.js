@@ -99,11 +99,12 @@ export const unpublishSong = (id) => {
   };
 };
 
-export const getSong = (song) => {
+export const fetchOneSong = (song) => {
   return (dispatch) => {
     dispatch(songStartLoading);
 
     return SongService.getSong(song).then(response => {
+      console.log(response)
       dispatch(fetchedSong(response));
     }).catch(e => {
       dispatch(songFinishLoading(e.response));

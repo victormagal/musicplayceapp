@@ -7,7 +7,7 @@ import {MPText} from '../../components';
 class MPArtistFull extends Component {
 
   render() {
-    let {songName, imagePath, artistImagePath, artistName, style, onPressMusic, onPressArtist} = this.props;
+    let {song, songName, imagePath, artistImagePath, artistName, style, onPressMusic, onPressArtist} = this.props;
 
     return (
       <View style={style || {}}>
@@ -20,7 +20,7 @@ class MPArtistFull extends Component {
             </View>
           </View>
           <View>
-            <TouchableOpacity onPress={onPressMusic}>
+            <TouchableOpacity onPress={() => onPressMusic(song)} >
               <MPText style={styles.simpleArtistCardText}>{songName}</MPText>
             </TouchableOpacity>
             <View style={styles.starsContainer}>
@@ -45,6 +45,7 @@ class MPArtistFull extends Component {
 
 MPArtistFull.propTypes = {
   songName: PropTypes.string.isRequired,
+  song: PropTypes.object,
   imagePath: PropTypes.any.isRequired,
   artistImagePath: PropTypes.any.isRequired,
   backgroundColor: PropTypes.any,

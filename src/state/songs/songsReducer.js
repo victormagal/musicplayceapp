@@ -39,6 +39,7 @@ const songsReducer = (state, action) => {
   state.songPublishSuccess = false;
   state.songUnpublishSuccess = false;
 
+
   switch (action.type) {
     case SONG_REGISTER_DATA:
       return {
@@ -108,7 +109,6 @@ const songsReducer = (state, action) => {
         loading: false,
         songUnpublishSuccess: true
       };
-
 
     case FETCHED_ARTIST_SONGS:
       return {

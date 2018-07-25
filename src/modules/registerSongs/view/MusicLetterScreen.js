@@ -42,11 +42,11 @@ class MusicLetterScreenContainer extends React.Component {
         <View style={styles.content}>
           <MPText style={styles.textTop}>Pode colar a letra da música aqui:</MPText>
           <MPInput label="Letra da música:" value={this.state.lyrics} onChangeText={this.handleChangeLetter}/>
-          <View style={styles.clickableTextContainer}>
-            <MPText style={styles.ouText}>ou </MPText>
-            <MPText style={styles.clickableText}>faça upload da letra(doc, tx ou rtf)</MPText>
-          </View>
-          <MPSelect style={styles.idioma} label="Idioma" />
+          {/*<View style={styles.clickableTextContainer}>*/}
+            {/*<MPText style={styles.ouText}>ou </MPText>*/}
+            {/*<MPText style={styles.clickableText}>faça upload da letra(doc, tx ou rtf)</MPText>*/}
+          {/*</View>*/}
+          {/*<MPSelect style={styles.idioma} label="Idioma" />*/}
         </View>
       </View>
     );

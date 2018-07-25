@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 import { MPText } from '../general';
 import { MPLocationPinIcon, MPVipIcon, MPVerifiedIcon } from '../../assets/svg';
 
-class MPProfileInfoComponent extends Component {
+class MPProfileInfo extends Component {
+
   render() {
     const { isMe, profile, onEditSite, onEditDescription } = this.props;
     const underlineStyle = (attribute) => attribute ? {} : { textDecorationLine: 'underline' };
@@ -119,10 +120,5 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = ({fontReducer}) => {
-  return {...fontReducer};
-};
-
-const MPProfileInfo = connect(mapStateToProps)(MPProfileInfoComponent);
 export {MPProfileInfo};
 

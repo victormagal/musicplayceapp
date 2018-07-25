@@ -1,12 +1,11 @@
 import React, {Component} from 'react';
 import {View, StyleSheet, Text, TouchableOpacity} from 'react-native';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
 import {MPText} from '../general/MPText';
 import {MPValidatedFilledRedIcon} from '../../assets/svg';
 
 
-class MPSongInfoComponent extends Component {
+class MPSongInfo extends Component {
 
   render() {
     let {title, info, placeholder, selected, invalid, onPress, style} = this.props;
@@ -44,7 +43,7 @@ class MPSongInfoComponent extends Component {
   }
 }
 
-MPSongInfoComponent.propTypes = {
+MPSongInfo.propTypes = {
   title: PropTypes.string.isRequired,
   onPress: PropTypes.func.isRequired,
   info: PropTypes.string,
@@ -92,9 +91,4 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = ({fontReducer}) => {
-  return {...fontReducer};
-};
-
-const MPSongInfo = connect(mapStateToProps)(MPSongInfoComponent);
 export {MPSongInfo};

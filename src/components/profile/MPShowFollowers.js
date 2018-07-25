@@ -15,16 +15,17 @@ class MPShowFollowers extends Component {
 
   renderArtists = ({ item}) => (
     <MPArtist
-      artist={item.name + ' ' + item.last_name}
+      artist={item.name}
       imagePath={item.picture_url}
       onPress={()=>{}}
-      isFollowing={item.isFollowing}
+      isFollowing={this.state.tabIndex === 0}
     />
   );
 
   render() {
     const { tabIndex } = this.state;
     const  { followers, following } = this.props;
+
     return (
       <View>
         <View style={ styles.tabTitlesContainer }>

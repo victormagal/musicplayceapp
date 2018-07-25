@@ -137,6 +137,7 @@ class ProfileComponent extends React.Component {
   renderContent(profile) {
     const { me, myFollowers } = this.props;
     const followers = (myFollowers && myFollowers.followers) || [];
+    let userFollowing = (profile && profile.userFollowing) || [];
 
     if (!profile) {
       return (
@@ -172,7 +173,7 @@ class ProfileComponent extends React.Component {
           </ImageBackground>
         { this.renderSongsData(profile) }
         { followers.length > 0 &&
-          <MPShowFollowers followers={followers} />
+          <MPShowFollowers following={userFollowing} followers={followers} />
         }
         { !me && <MPReportProfile onPress={ () => this.reportProfile()}/>}
       </View>
@@ -196,7 +197,7 @@ class ProfileComponent extends React.Component {
         <MPProfileInfo
           isMe={me}
           profile={profile}
-          editDescription={() => this.goToScreen('EditProfileDescription')}
+          onEditDescription={() => this.goToScreen('EditProfileDescription')}
         />
         <View style={styles.profileIndicatorContainer}>
           <ProfileIndicatorCE
@@ -251,9 +252,10 @@ class ProfileComponent extends React.Component {
                 <MPShowFolderSongs
                   folderName='Outras'
                   songs={mySongs.data}
+                  onEditClick={this.handleEditSong}
                   onIndicateClick={this.handleIndicateSong}
-                  excludeSong={() => this.excludeSong()}
-                  unpublishSong={() => this.unpublishSong()}
+                  excludeSong={this.handleRemoveSong}
+                  unpublishSong={this.handleUnpublishSong}
                 />
                 { me &&
                   <View style={styles.whiteBackground}>
@@ -285,9 +287,10 @@ class ProfileComponent extends React.Component {
               <View>
                 <MPShowFolderSongs folderName='Outras'
                                    songs={profile.songSaves}
+                                   onEditClick={this.handleEditSong}
                                    onIndicateClick={this.handleIndicateSong}
-                                   excludeSong={() => this.excludeSong()}
-                                   unpublishSong={() => this.unpublishSong()}/>
+                                   excludeSong={this.handleRemoveSong}
+                                   unpublishSong={this.handleUnpublishSong}/>
                 { me &&
                   <View style={styles.whiteBackground}>
                     <MPGradientButton
