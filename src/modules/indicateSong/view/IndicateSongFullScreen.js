@@ -3,7 +3,7 @@ import {StyleSheet, ScrollView, View, TextInput, FlatList} from 'react-native';
 import {connect} from 'react-redux';
 import {MPHeader, MPTextField, MPFooter, MPArtist, MPSong, MPGradientButton, MPText, MPLoading} from '../../../components'
 import images from '../../../assets/img';
-import {searchArtists} from '../../../state/action';
+import {searchArtists, fetchOneSong} from '../../../state/action';
 
 class IndicateSongFullScreenContainer extends React.Component {
 
@@ -19,14 +19,24 @@ class IndicateSongFullScreenContainer extends React.Component {
 
   componentDidMount(){
     this.props.dispatch(searchArtists(''))
+    if(this.props.navigation.state && this.props.navigation.state.params){
+      let {song} = this.props.navigation.state.params;
+      if(song) {
+        console.log('id', song.id);
+        this.props.dispatch(fetchOneSong(song));
+      }
+    }
   }
 
   componentWillReceiveProps(nextProps){
-    console.log(nextProps);
     if(nextProps.artists && nextProps.artists.data.length > 0){
       this.setState({artists: nextProps.artists.data, notFoundArtist: false});
     }else if(nextProps.artists && nextProps.artists.data.length == 0){
       this.setState({notFoundArtist: true});
+    }
+
+    if(nextProps.song){
+      this.setState({song: nextProps.fetchedSong});
     }
   }
 
@@ -59,6 +69,10 @@ class IndicateSongFullScreenContainer extends React.Component {
     }
   }
 
+  handleArtistClick = (song) => {
+    this.props.navigate('IndicateSongFeedbackScreen', {song})
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -69,7 +83,7 @@ class IndicateSongFullScreenContainer extends React.Component {
                   { this.state.songHeader && (
                       <View>
                         <MPText style={ styles.headerText}>Com quem <MPText style={ styles.headerTextCustom }>combina</MPText>?</MPText>
-                        <MPSong />
+                        <MPSong song={this.state.song}/>
                         <MPText style={ styles.detailsText}>Sabe aquela história de que todo artista tem de ir aonde o povo está? Vamos mostrar sua criação para o mundo. Aproveite para convocar seus seguidores ou você mesmo pode achar uma banda perfeita para esse hit.</MPText>
                       </View>
                   )}
@@ -156,8 +170,8 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = ({artistReducer}) => {
-  return {...artistReducer};
+const mapStateToProps = ({artistReducer, songsReducer}) => {
+  return {...artistReducer, ...songsReducer};
 };
 
 const IndicateSongFullScreen = connect(mapStateToProps)(IndicateSongFullScreenContainer);

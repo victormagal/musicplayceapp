@@ -99,8 +99,8 @@ class PlayerComponent extends React.Component {
     this.setState({playerVisible: false, showLyrics: true, showComments: false, showPlayer: false});
   };
 
-  handleIndicateSong = () => {
-    this.props.navigation.navigate('IndicateSongFullScreen');
+  handleIndicateSong = (song) => {
+    this.props.navigation.navigate('IndicateSongFullScreen', {song});
   };
 
   handleSongDate = (songDate) => {
@@ -325,7 +325,7 @@ class PlayerComponent extends React.Component {
                 </View>
 
                 <View style={styles.totalIndicationsContainer}>
-                  <MPGradientButton title="INDICAR" onPress={this.handleIndicateSong}/>
+                  <MPGradientButton title="INDICAR" onPress={this.handleIndicateSong.bind(this, song)}/>
                   <MPText style={styles.totalIndications}>200 indicações</MPText>
                 </View>
               </View>
