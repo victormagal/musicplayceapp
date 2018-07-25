@@ -21,7 +21,8 @@ class ProfileComponent extends React.Component {
   scrollViewRef = null;
 
   state = {
-    tabIndex: 0
+    tabIndex: 0,
+    linearGradientHeight: 0
   };
 
   constructor(props) {
@@ -34,7 +35,7 @@ class ProfileComponent extends React.Component {
   };
 
   handleScrollEnd = () => {
-    this.scrollViewRef.current.scrollToEnd();
+    this.scrollViewRef.current.scrollTo({y: this.state.linearGradientHeight, animated: true})
   };
 
   toggleFollow = () => {
@@ -79,7 +80,7 @@ class ProfileComponent extends React.Component {
 
   renderHeaderMenuRight() {
     return [
-      <MPIconButton key={Math.random()} icon={MPSettingsIcon} onPress={this.goToScreen.bind(this, 'settings')}/>
+      <MPIconButton key={Math.random()} icon={MPSettingsIcon} onPress={() => this.goToScreen('settings')}/>
     ];
   }
 
@@ -87,151 +88,218 @@ class ProfileComponent extends React.Component {
     return [
       <MPIconButton key={Math.random()}
                     style={styles.logout}
-                    title="Sair"
+                    title='Sair'
                     titleStyle={styles.headerMenuText}
                     onPress={this.props.onLogoutClick} />
     ];
   }
 
+  render() {
+    const { me, profile } = this.props;
+    return (
+      <View style={{ flex: 1 }}>
+        {this.renderHeader()}
+        <ScrollView style={{ flex: 1 }} ref={this.scrollViewRef}>
+          { this.renderContent(profile) }
+        </ScrollView>
+        { (profile && me) &&
+          <MPAddSongButton isColored={true}/>
+        }
+      </View>
+    )
+  }
+
   renderHeader(){
-    if(this.props.me){
-      return <MPHeader iconsLeft={this.renderHeaderMenuLeft()} icons={this.renderHeaderMenuRight()}/>
+    if (this.props.me) {
+      return (
+        <MPHeader
+          iconsLeft={this.renderHeaderMenuLeft()}
+          icons={this.renderHeaderMenuRight()}
+        />
+      )
     } else {
-      return <MPHeader back={true} onBack={this.handleBack} icons={[<View key={Math.random()} />]}/>;
+      return (
+        <MPHeader
+          back={true}
+          onBack={this.handleBack}
+          icons={[ <View key={Math.random()} /> ]}
+        />
+      )
     }
   }
 
-  render() {
-    let {profile, mySongs, myFollowers, myIndications, song} = this.props;
-    let followers = (myFollowers && myFollowers.followers) || [];
-    let countFollowers =  (myFollowers && myFollowers.count);
-    let countIndications =  (myIndications && myIndications.count);
-    console.log('props', this.props);
-    return (
-      <View style={styles.container}>
-        {this.renderHeader()}
-        <ScrollView style={styles.flexOne} ref={this.scrollViewRef}>
-          {!profile ? (
-            <View style={styles.containerLoading}>
-              <View style={styles.contentLoading}>
-                  <ActivityIndicator size="large" color="#BB1A1A" />
-                  <MPText style={styles.textLoading}>Carregando perfil...</MPText>
-              </View>
-            </View>
-          ) : (
-          <View>
-            <View style={styles.linearContainer}>
-              <LinearGradient
-                colors={["rgba(0, 0, 0, 0.2)", "#e13223"]}
-                style={styles.gradient}>
-                {profile.visiting ?
-                  <MPFollowButton isFollowing={profile.isFollowing} onPress={this.toggleFollow.bind(this)}/>
-                  :
-                  <MPAddChangePhoto onPressPhoto={this.handleClickPhoto} hasPhoto={profile.hasPhoto}/>
-                }
-                <View>
-                  <MPProfileInfo profile={profile} editDescription={this.goToScreen.bind(this, 'EditProfileDescription')}/>
+  renderContent(profile) {
+    const { me, myFollowers } = this.props;
+    const followers = (myFollowers && myFollowers.followers) || [];
 
-                  <View style={styles.profileIndicatorContainer}>
-                    <ProfileIndicatorCE style={styles.flexOne} title="Indicação Feita" titlePlural="Indicações Feitas" subtitle="Explore"
-                                        count={countIndications}/>
-                    <ProfileIndicatorCE style={styles.flexOne} title="Seguidor" titlePlural="Seguidores"  subtitle="Convide seus amigos"
-                                        count={countFollowers}
-                                        onEmptyClick={this.props.onFollowersEmptyClick}/>
-                  </View>
-                  {profile.languages && (
-                    <MPShowLanguages languages={profile.languages}/>
-                  )}
-                  {profile.agencies && (
-                    <MPShowAgencies agencies={profile.agencies} isArtist={profile.isArtist}/>
-                  )}
-
-                  <TouchableOpacity style={{alignSelf: 'center', justifyContent: 'center', marginBottom: 20}}
-                                    onPress={this.handleScrollEnd}>
-                    <MPProfileArrowIcon />
-                  </TouchableOpacity>
-                </View>
-
-              </LinearGradient>
-            </View>
-
-
-            <View>
-              <MPTabBar
-                titles={['MINHAS MÚSICAS', 'MÚSICAS SALVAS']} onTabChange={this.handleChangeTab}
-                index={this.state.tabIndex}/>
-
-              {this.state.tabIndex === 0 && (
-                <View>
-                  {mySongs ? (
-                    <View>
-                      <MPShowFolderSongs folderName='Outras'
-                                         songs={mySongs.data}
-                                         onIndicateClick={this.handleIndicateSong}
-                                         onRemoveClick={this.handleRemoveSong}
-                                         onUnpublishClick={this.handleUnpublishSong}
-                                         onEditClick={this.handleEditSong}/>
-                      {!profile.visiting && (
-                        <View style={styles.whiteBackground}>
-                          <MPGradientButton title={'Cadastrar nova música'} textSize={16}
-                                            icon={MPSongAddIcon}
-                                            onPress={this.props.onSongAddClick}/>
-                        </View>
-                      )}
-                    </View>
-                  )
-                  :
-                  (
-                  <View>
-                    { (!mySongs || mySongs.data.length === 0) &&
-                      <MPUploadFirstSong onPress={this.props.onSongAddClick} />
-                    }
-                    { song && song.name !== '' &&
-                      <MPUpgradeButton song={song}/>
-                    }
-                  </View>
-                )}
-                </View>
-              )}
-              {this.state.tabIndex === 1 && (
-                <View>
-                  {profile.songSaves && (
-                    <View>
-                      <MPShowFolderSongs folderName='Outras'
-                                         songs={profile.songSaves}
-                                         onIndicateClick={this.handleIndicateSong}
-                                         onRemoveClick={this.handleRemoveSong}
-                                         onUnpublishClick={this.handleUnpublishSong}/>
-
-                      {!profile.visiting && (
-                        <View style={styles.whiteBackground}>
-                          <MPGradientButton title='Cadastrar nova música' textSize={16}
-                                            icon={MPSongAddIcon}
-                                            onPress={this.props.onSongAddClick}/>
-                        </View>
-                      )}
-                    </View>
-                  )}
-
-                  {!profile.songSaves && (
-                    <View>
-                      {!(song && song.name) && <MPUploadFirstSong onPress={this.props.onSongAddClick} />}
-                      {song && song.name && <MPUpgradeButton song={song}/>}
-                    </View>
-                  )}
-                </View>
-              )}
-            </View>
-
-            <MPShowFollowers followers={followers} />
-            { profile.visiting && <MPReportProfile onPress={ this.reportProfile.bind(this)}/>}
-
-            <MPAddSongButton isColored={true}/>
+    if (!profile) {
+      return (
+        <View style={styles.containerLoading}>
+          <View style={styles.contentLoading}>
+            <ActivityIndicator size='large' color='#BB1A1A' />
+            <MPText style={styles.textLoading}>
+              { `Carregando ${me ? 'perfil' : 'artista'}...` }
+            </MPText>
           </View>
-          )}
-        </ScrollView>
+        </View>
+      )
+    }
+
+    return (
+      <View style={{ backgroundColor: '#000' }}>
+        <LinearGradient
+          onLayout={event => this.setState({ linearGradientHeight: event.nativeEvent.layout.height })}
+          colors={['rgba(0, 0, 0, 0.2)', '#e13223']}
+          style={{ flex: 1 }}>
+          { this.renderProfileData(profile) }
+          <TouchableOpacity
+            style={{ alignSelf: 'center', justifyContent: 'center', marginBottom: 20 }}
+            onPress={this.handleScrollEnd}
+          >
+            <MPProfileArrowIcon />
+          </TouchableOpacity>
+        </LinearGradient>
+        { this.renderSongsData(profile) }
+        { followers.length > 0 &&
+          <MPShowFollowers followers={followers} />
+        }
+        { !me && <MPReportProfile onPress={ () => this.reportProfile()}/>}
       </View>
     )
+  }
+
+  renderProfileData(profile) {
+    const { me, myFollowers, myIndications } = this.props;
+    const countFollowers =  (myFollowers && myFollowers.count);
+    const countIndications =  (myIndications && myIndications.count);
+    return (
+      <View>
+        { me ?
+          <MPAddChangePhoto
+            onPressPhoto={this.handleClickPhoto}
+            hasPhoto={profile.cover_picture_url}
+          />
+          :
+          <MPFollowButton isFollowing={profile.isFollowing} onPress={() => this.toggleFollow()}/>
+        }
+        <MPProfileInfo
+          isMe={me}
+          profile={profile}
+          editDescription={() => this.goToScreen('EditProfileDescription')}
+        />
+        <View style={styles.profileIndicatorContainer}>
+          <ProfileIndicatorCE
+            style={{ flex: 1 }}
+            title='Indicação Feita'
+            titlePlural='Indicações Feitas'
+            subtitle={ me ? 'Explore' : '' }
+            count={countIndications}
+          />
+          <ProfileIndicatorCE
+            style={{ flex: 1 }}
+            title='Seguidor'
+            titlePlural='Seguidores'
+            subtitle={ me ? 'Convide seus amigos' : ''}
+            count={countFollowers}
+            onEmptyClick={this.props.onFollowersEmptyClick}
+          />
+        </View>
+        { profile.languages &&
+          <MPShowLanguages languages={profile.languages} />
+        }
+        { profile.agencies && (
+          <MPShowAgencies agencies={profile.agencies} isArtist={profile.isArtist}/>
+        )}
+      </View>
+    )
+  }
+
+  renderSongsData(profile) {
+    const { tabIndex } = this.state;
+    const { me } = this.props;
+    return (
+      <View>
+        <MPTabBar
+          titles={ me ? ['MINHAS MÚSICAS', 'MÚSICAS SALVAS'] : ['MÚSICAS DO ARTISTA']}
+          onTabChange={this.handleChangeTab}
+          index={tabIndex}
+        />
+        { this.renderTabsContent(profile, tabIndex) }
+      </View>
+    )
+  }
+
+  renderTabsContent(profile, tabIndex) {
+    const { me, mySongs, song } = this.props;
+    switch (tabIndex) {
+      case 0:
+        return (
+          <View>
+            { mySongs ?
+              <View>
+                <MPShowFolderSongs
+                  folderName='Outras'
+                  songs={mySongs.data}
+                  onIndicateClick={this.handleIndicateSong}
+                  excludeSong={() => this.excludeSong()}
+                  unpublishSong={() => this.unpublishSong()}
+                />
+                { me &&
+                  <View style={styles.whiteBackground}>
+                    <MPGradientButton
+                      title={'Cadastrar nova música'}
+                      textSize={16}
+                      icon={MPSongAddIcon}
+                      onPress={this.props.onSongAddClick}
+                    />
+                  </View>
+                }
+              </View>
+              :
+              <View>
+                { (me && (!mySongs || mySongs.data.length === 0)) &&
+                  <MPUploadFirstSong onPress={this.props.onSongAddClick} />
+                }
+                { (me && song) &&
+                  <MPUpgradeButton song={song}/>
+                }
+              </View>
+            }
+          </View>
+        )
+      case 1:
+        return (
+          <View>
+            {profile.songSaves && (
+              <View>
+                <MPShowFolderSongs folderName='Outras'
+                                   songs={profile.songSaves}
+                                   onIndicateClick={this.handleIndicateSong}
+                                   excludeSong={() => this.excludeSong()}
+                                   unpublishSong={() => this.unpublishSong()}/>
+                { me &&
+                  <View style={styles.whiteBackground}>
+                    <MPGradientButton
+                      title='Cadastrar nova música'
+                      textSize={16}
+                      icon={MPSongAddIcon}
+                      onPress={this.props.onSongAddClick}
+                    />
+                  </View>
+                }
+              </View>
+            )}
+            <View>
+              { (me && (!mySongs || mySongs.data.length === 0)) &&
+              <MPUploadFirstSong onPress={this.props.onSongAddClick} />
+              }
+              { (me && song) &&
+              <MPUpgradeButton song={song}/>
+              }
+            </View>
+          </View>
+        )
+    }
   }
 }
 
@@ -244,19 +312,6 @@ ProfileComponent.propTypes = {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  flexOne: {
-    flex: 1
-  },
-  linearContainer: {
-    backgroundColor: '#000',
-  },
-  gradient: {
-    flex: 1,
-    alignContent: 'flex-start',
-  },
   button: {
     width: 230
   },

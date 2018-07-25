@@ -8,33 +8,24 @@ class MPArtist extends Component {
 
   render() {
     let {artist, imagePath, style, isFollowing} = this.props;
-    if(typeof imagePath == 'string'){
-      image = {uri : imagePath};
-    }else{
-      image = imagePath;
-    }
 
     return (
       <TouchableOpacity style={style || {}}>
         <View style={ styles.simpleArtistCardContainer }>
           <View>
             <View style={ styles.simpleArtistCardImage }>
-              <Image style={ styles.simpleArtistCardImage } source={ image }/>
+              <Image source={ imagePath }/>
             </View>
-            {
-              this.props.isFollowing == true  && (
-                <View style={{position: 'absolute'}}>
-                  <MPLessArtistIcon style={styles.iconArtist}/>
-                  <MPPlusArtistAvatarIcon style={styles.iconArtistAvatar}/>      
-                </View>
-              )
-            }{
-              this.props.isFollowing == false && (
-                <View style={{position: 'absolute'}}>
-                  <MPPlusArtistIcon style={styles.iconArtist}/>
-                  <MPPlusArtistAvatarIcon style={styles.iconArtistAvatar}/>      
-                </View>
-              )
+            { isFollowing  ?
+              <View style={{position: 'absolute'}}>
+                <MPLessArtistIcon style={styles.iconArtist}/>
+                <MPPlusArtistAvatarIcon style={styles.iconArtistAvatar}/>
+              </View>
+            :
+              <View style={{position: 'absolute'}}>
+                <MPPlusArtistIcon style={styles.iconArtist}/>
+                <MPPlusArtistAvatarIcon style={styles.iconArtistAvatar}/>
+              </View>
             }
           </View>
           <MPText style={ styles.simpleArtistCardText }>{ artist }</MPText>
@@ -46,7 +37,7 @@ class MPArtist extends Component {
 
 MPArtist.propTypes = {
   artist: PropTypes.string.isRequired,
-  imagePath: PropTypes.any.isRequired,
+  imagePath: PropTypes.any,
   onPress: PropTypes.func.isRequired,
   backgroundColor: PropTypes.any,
   style: PropTypes.any,

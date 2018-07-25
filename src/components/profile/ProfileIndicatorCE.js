@@ -4,19 +4,17 @@ import {MPText} from '../general';
 import PropTypes from 'prop-types';
 
 class ProfileIndicatorCE extends Component {
-
   renderEmpty() {
-    let {style, titlePlural, subtitle} = this.props;
-
+    const { style, titlePlural, subtitle, onEmptyClick } = this.props;
     return (
       <View style={style}>
         <MPText style={styles.titleEmpty}>
-          {titlePlural}
+          { titlePlural.toUpperCase() }
         </MPText>
         <View style={styles.top}/>
-        <TouchableOpacity onPress={this.props.onEmptyClick}>
+        <TouchableOpacity onPress={onEmptyClick}>
           <MPText style={styles.subtitle}>
-            {subtitle}
+            { subtitle }
           </MPText>
         </TouchableOpacity>
       </View>
@@ -24,31 +22,30 @@ class ProfileIndicatorCE extends Component {
   }
 
   renderIndicator() {
-    let {style, title, titlePlural, count} = this.props;
-
-    let label = count === 1 ? title : titlePlural;
-
+    const { style, title, titlePlural, count} = this.props;
+    const label = count === 1 ? title : titlePlural;
+    const moreThan1k = count > 1000 ? `${ count/1000 }K` : count;
+    const finalCount = count > 1000000 ? `${ count/1000000 }M` : moreThan1k;
     return (
       <View style={style}>
         <View style={styles.top}/>
-
-        <TouchableOpacity>
-          <View style={{flexDirection: 'row'}}>
-            <MPText style={styles.count}>{count}</MPText>
-            <MPText style={styles.title} numberOfLines={2}>{label.toUpperCase()}</MPText>
-          </View>
-        </TouchableOpacity>
+        <View style={{ flexDirection: 'row' }}>
+          <MPText style={styles.countText}>
+            { finalCount }
+          </MPText>
+          <MPText style={styles.labelText} numberOfLines={2}>
+            { label.toUpperCase() }
+          </MPText>
+        </View>
       </View>
     );
   }
 
   render() {
-    let {count} = this.props;
-
-    if (count) {
+    const { count } = this.props;
+    if (count || count > 0) {
       return this.renderIndicator()
     }
-
     return this.renderEmpty()
   }
 }
@@ -64,38 +61,38 @@ ProfileIndicatorCE.propTypes = {
 const styles = StyleSheet.create({
   top: {
     width: 40,
-    height: 1,
-    backgroundColor: '#000000'
+    marginBottom: 5,
+    borderWidth: 1,
+    borderColor: '#000',
   },
-  count: {
+  countText: {
     fontSize: 24,
     fontFamily: 'Montserrat-Black',
     fontWeight: "900",
-    color: "#ffffff",
-    marginRight: 4,
-    width: 40,
+    color: "#FFF",
+    marginRight: 4
   },
   titleEmpty: {
-    color: '#000000',
+    color: '#000',
     fontFamily: 'Montserrat-Medium',
     fontWeight: "500",
-    fontSize: 11,
+    fontSize: 12,
     marginBottom: 11,
   },
-  title: {
-    color: '#000000',
+  labelText: {
+    color: '#000',
     fontWeight: "500",
-    fontSize: 11,
+    fontSize: 12,
     width: 100,
+    marginTop: 6,
     fontFamily: 'Montserrat-Medium'
   },
   subtitle: {
-    fontSize: 12,
-    fontWeight: "bold",
+    fontSize: 13,
+    marginTop: 9,
+    color: "#FFF",
     fontFamily: 'Montserrat-Bold',
-    color: "#ffffff",
-    textDecorationLine: "underline",
-    marginTop: 9
+    textDecorationLine: "underline"
   }
 });
 

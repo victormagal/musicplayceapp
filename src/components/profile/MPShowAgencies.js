@@ -5,27 +5,21 @@ import {connect} from 'react-redux';
 import { MPText } from '../general';
 
 class MPShowAgenciesComponent extends Component{
-
-    render() {
-        let { agencies, isArtist } = this.props;
-        
-        return (
-            <View style={ styles.parent }>
-            {
-                isArtist ? (
-                    <MPText style={ styles.placeHolderText}>ARTISTA DA</MPText>
-                ) : (
-                    <MPText style={ styles.placeHolderText}>TRABALHA EM </MPText>    
-                )
-            }
-            {
-                agencies.map( i => {
-                    return (<MPText style={styles.languageText}>{i}</MPText>)
-                })
-            }
-            </View>
-        )
-    }
+  render() {
+    const { agencies, isArtist } = this.props;
+    return (
+      <View style={ styles.parent }>
+      <MPText style={ styles.placeHolderText}>
+        { isArtist ? 'ARTISTA DA' : 'TRABALHA EM' }
+      </MPText>
+      { agencies.map(agency => (
+        <MPText style={styles.agencyText}>
+          { agency }
+        </MPText>)
+      )}
+      </View>
+    )
+  }
 }
 
 const styles = StyleSheet.create({
@@ -44,7 +38,7 @@ const styles = StyleSheet.create({
         marginEnd: 12,
         alignSelf: 'center'
     },
-    languageText: {
+    agencyText: {
         fontSize: 12,
         fontFamily: 'Montserrat-Regular',
         color : '#FFF',
