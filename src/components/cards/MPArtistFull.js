@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Image, View, StyleSheet, Text, TouchableOpacity} from 'react-native';
+import {Card} from 'react-native-elements';
 import PropTypes from 'prop-types';
 import {MPSongListIcon, MPPlayIcon, MPStarIcon} from '../../assets/svg';
 import {MPText} from '../../components';
@@ -8,37 +9,39 @@ class MPArtistFull extends Component {
 
   render() {
     const {song, songName, imagePath, artistImagePath, artistName, style, onPressMusic, onPressArtist} = this.props;
-    const songImage = typeof imagePath === 'string' ? { uri: imagePath } : imagePath;
-    const artistImage = typeof artistImagePath === 'string' ? { uri: artistImagePath } : artistImagePath;
+    const songImage = typeof imagePath === 'string' ? {uri: imagePath} : imagePath;
+    const artistImage = typeof artistImagePath === 'string' ? {uri: artistImagePath} : artistImagePath;
     return (
       <View style={style || {}}>
-        <View style={ styles.simpleArtistCardContainer }>
-          <View>
-            <View style={ styles.simpleArtistCardImage }>
-              <Image source={songImage} style={{  width: 120, height: 120, borderRadius: 4 }}/>
-              <MPPlayIcon style={styles.playIcon}/>
-              <MPSongListIcon style={styles.songListIcon}/>
-            </View>
-          </View>
-          <View>
-            <TouchableOpacity onPress={() => onPressMusic(song)} >
-              <MPText style={styles.simpleArtistCardText}>{songName}</MPText>
-            </TouchableOpacity>
-            <View style={styles.starsContainer}>
-              <MPStarIcon style={styles.marginEnd}/>
-              <MPStarIcon style={styles.marginEnd}/>
-              <MPStarIcon style={styles.marginEnd}/>
-              <MPStarIcon style={styles.marginEnd}/>
-              <MPStarIcon style={styles.marginEnd}/>
-            </View>
-            <TouchableOpacity style={styles.artistContent} onPress={onPressArtist}>
-              <View style={ styles.roundImage }>
-                <Image source={artistImage} style={{ borderRadius: 20, width: 40, height: 40 }}/>
+        <Card containerStyle={styles.simpleArtistCardContainer}>
+          <View style={styles.cardContainer}>
+            <TouchableOpacity onPress={() => onPressMusic(song)}>
+              <View style={styles.simpleArtistCardImageContainer}>
+                <Image source={songImage} style={ styles.simpleArtistCardImage }/>
+                <MPPlayIcon style={styles.playIcon}/>
+                <MPSongListIcon style={styles.songListIcon}/>
               </View>
-              <MPText style={styles.artistName}>{artistName}</MPText>
             </TouchableOpacity>
+            <View>
+              <TouchableOpacity onPress={() => onPressMusic(song)}>
+                <MPText style={styles.simpleArtistCardText}>{songName}</MPText>
+              </TouchableOpacity>
+              <View style={styles.starsContainer}>
+                <MPStarIcon style={styles.marginEnd}/>
+                <MPStarIcon style={styles.marginEnd}/>
+                <MPStarIcon style={styles.marginEnd}/>
+                <MPStarIcon style={styles.marginEnd}/>
+                <MPStarIcon style={styles.marginEnd}/>
+              </View>
+              <TouchableOpacity style={styles.artistContent} onPress={onPressArtist}>
+                <View style={ styles.roundImage }>
+                  <Image source={artistImage} style={{ borderRadius: 20, width: 40, height: 40 }}/>
+                </View>
+                <MPText style={styles.artistName}>{artistName}</MPText>
+              </TouchableOpacity>
+            </View>
           </View>
-        </View>
+        </Card>
       </View>
     );
   }
@@ -57,23 +60,26 @@ MPArtistFull.propTypes = {
 
 const styles = StyleSheet.create({
   simpleArtistCardContainer: {
-    flexDirection: 'row',
     backgroundColor: '#fff',
     borderRadius: 4,
     marginHorizontal: 20,
-    marginBottom: 20,
-    shadowColor: '#000',
-    shadowOffset: {width: 0, height: 4},
-    shadowOpacity: 0.15,
-    shadowRadius: 4
+    marginVertical: 20,
+    height: 120,
+    padding: 0,
+    overflow: 'hidden'
   },
-  simpleArtistCardImage: {
+  cardContainer: {
+    flexDirection: 'row'
+  },
+  simpleArtistCardImageContainer: {
     justifyContent: 'center',
     width: 120,
-    height: 120,
-    borderRadius: 4,
-    backgroundColor: '#f60',
-    overflow: 'hidden'
+    height: '100%',
+    backgroundColor: '#f60'
+  },
+  simpleArtistCardImage: {
+    width: 120,
+    height: '100%'
   },
   simpleArtistCardText: {
     fontSize: 14,

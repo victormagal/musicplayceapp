@@ -357,6 +357,7 @@ const styles = StyleSheet.create({
   firstSliderContainer: {
     flex: 1,
     backgroundColor: '#FCFCFC',
+    paddingBottom: 20
   },
   secondSliderContainer: {
     flex: 1,

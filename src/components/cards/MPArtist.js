@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Card} from 'react-native-elements';
 import {View, StyleSheet, Image, TouchableOpacity} from 'react-native';
 import PropTypes from 'prop-types';
 import {MPText} from '../general';
@@ -11,10 +12,10 @@ class MPArtist extends Component {
     const image = typeof imagePath === 'string' ? { uri: imagePath } : imagePath;
     return (
       <TouchableOpacity style={style || {}} onPress={onPress}>
-        <View style={ styles.simpleArtistCardContainer }>
+        <Card containerStyle={styles.simpleArtistCardContainer}>
           <View>
             <View style={ styles.simpleArtistCardImage }>
-              <Image source={image} style={{ width: 100, height: 100, borderRadius: 4 }}/>
+              <Image source={image} style={styles.image}/>
             </View>
             { isFollowing  ?
               <View style={{position: 'absolute'}}>
@@ -29,7 +30,7 @@ class MPArtist extends Component {
             }
           </View>
           <MPText style={ styles.simpleArtistCardText }>{ artist }</MPText>
-        </View>
+        </Card>
       </TouchableOpacity>
     );
   }
@@ -52,17 +53,17 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     marginHorizontal: 5,
     marginBottom: 5,
-    shadowColor: '#000',
-    shadowOffset: {width: 0, height: 4},
-    shadowOpacity: 0.15,
-    shadowRadius: 4,
+    padding: 0,
+    overflow: 'hidden'
   },
   simpleArtistCardImage: {
     width: 100,
     height: 100,
-    borderRadius: 4,
-    backgroundColor: '#f60',
-    overflow: 'hidden'
+    backgroundColor: '#f60'
+  },
+  image: {
+    width: 100,
+    height: 100
   },
   simpleArtistCardText: {
     fontSize: 14,
