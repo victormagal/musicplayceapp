@@ -30,7 +30,7 @@ class MPProfileInfo extends Component {
             <View>
               <MPLocationPinIcon/>
               <MPText style={[ styles.location, underlineStyle(profile.location) ]}>
-                { profile.location }
+                { profile.city }/{ profile.state }
               </MPText>
             </View>
             : isMe &&
@@ -42,13 +42,13 @@ class MPProfileInfo extends Component {
         { !profile.isManager && profile.site ?
           <TouchableOpacity onPress={() => Linking.openURL(profileSite)}>
             <MPText style={styles.itemStyle}>
-              { profile.site }
+              { profile.social_networks }
             </MPText>
           </TouchableOpacity>
           : isMe &&
           <TouchableOpacity onPress={onEditSite}>
             <MPText style={styles.itemStyle}>
-              Insira aqui seu site
+              Insira aqui suas redes sociais
             </MPText>
           </TouchableOpacity>
         }

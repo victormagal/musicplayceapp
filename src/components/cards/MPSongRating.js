@@ -26,7 +26,25 @@ class MPSongRating extends Component {
   };
 
   handleClose = () => {
+    this.setState({menuOpen: false});
+  };
 
+  handleEditClick = () => {
+    let {onEditClick, song} = this.props;
+    onEditClick(song);
+    this.handleClose();
+  };
+
+  handleUnpublishClick = () => {
+    let {onUnpublish, song} = this.props;
+    onUnpublish(song);
+    this.handleClose();
+  };
+
+  handleRemoveClick = () => {
+    let {onExclude, song} = this.props;
+    onExclude(song);
+    this.handleClose();
   };
 
   renderTopIcons() {
@@ -48,7 +66,7 @@ class MPSongRating extends Component {
   render() {
     let {
       song, style, isAdded, indicateSong, indications,
-      isNew, rating, isDraft, onExclude, onUnpublish, onEditClick
+      isNew, rating
     } = this.props;
 
     return (
@@ -137,17 +155,17 @@ class MPSongRating extends Component {
             <View style={ styles.menuContainer }>
               <MPText style={ styles.menuCloseText} onPress={this.toggleState.bind(this)}>X</MPText>
 
-              <MPText style={[styles.menuText, styles.menuTextFirst]} onPress={() => onEditClick(song)}>EDITAR</MPText>
+              <MPText style={[styles.menuText, styles.menuTextFirst]} onPress={this.handleEditClick}>EDITAR</MPText>
               <View style={ styles.menuSeparator }/>
 
               {song.published_at && (
                 <View>
-                  <MPText style={ styles.menuText } onPress={() => onUnpublish(song)}>DESPUBLICAR</MPText>
+                  <MPText style={ styles.menuText } onPress={this.handleUnpublishClick}>DESPUBLICAR</MPText>
                   <View style={ styles.menuSeparator }/>
                 </View>
               )}
 
-              <MPText style={ styles.menuText } onPress={() => onExclude(song)}>EXCLUIR</MPText>
+              <MPText style={ styles.menuText } onPress={this.handleRemoveClick}>EXCLUIR</MPText>
             </View>
           )}
         </Card>

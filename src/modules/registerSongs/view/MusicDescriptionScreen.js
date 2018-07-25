@@ -2,7 +2,7 @@ import React from 'react';
 import {StyleSheet, Text, View, TextInput, ScrollView} from 'react-native';
 import {connect} from 'react-redux';
 import {updateSongRegisterData} from '../../../state/action';
-import {MPHeader, MPFooter, MPInput, MPText, MPIconButton} from '../../../components';
+import {MPHeader, MPInput, MPText, MPIconButton} from '../../../components';
 
 class MusicDescriptionScreenContainer extends React.Component {
 

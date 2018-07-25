@@ -1,7 +1,13 @@
 import React from 'react';
-import {View, StyleSheet, ScrollView, TouchableOpacity, ActivityIndicator} from 'react-native';
+import {
+  View,
+  StyleSheet,
+  ScrollView,
+  TouchableOpacity,
+  ActivityIndicator,
+  ImageBackground
+} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import Swiper from 'react-native-swiper';
 import PropTypes from 'prop-types';
 import {
   MPTabBar, MPProfileInfo, MPShowLanguages, MPHeader,
@@ -148,18 +154,23 @@ class ProfileComponent extends React.Component {
 
     return (
       <View style={{ backgroundColor: '#000' }}>
-        <LinearGradient
-          onLayout={event => this.setState({ linearGradientHeight: event.nativeEvent.layout.height })}
-          colors={['rgba(0, 0, 0, 0.2)', '#e13223']}
-          style={{ flex: 1 }}>
-          { this.renderProfileData(profile) }
-          <TouchableOpacity
-            style={{ alignSelf: 'center', justifyContent: 'center', marginBottom: 20 }}
-            onPress={this.handleScrollEnd}
+          <ImageBackground
+            style={{ flex: 1, width: '100%' }}
+            source={{ uri: profile.cover_picture_url }}
           >
-            <MPProfileArrowIcon />
-          </TouchableOpacity>
-        </LinearGradient>
+            <LinearGradient
+              onLayout={event => this.setState({ linearGradientHeight: event.nativeEvent.layout.height })}
+              colors={['rgba(0, 0, 0, 0.2)', '#e13223']}
+            >
+              { this.renderProfileData(profile) }
+              <TouchableOpacity
+                style={{ alignSelf: 'center', justifyContent: 'center', marginBottom: 20 }}
+                onPress={this.handleScrollEnd}
+              >
+                <MPProfileArrowIcon />
+              </TouchableOpacity>
+            </LinearGradient>
+          </ImageBackground>
         { this.renderSongsData(profile) }
         { followers.length > 0 &&
           <MPShowFollowers following={userFollowing} followers={followers} />
@@ -243,8 +254,8 @@ class ProfileComponent extends React.Component {
                   songs={mySongs.data}
                   onEditClick={this.handleEditSong}
                   onIndicateClick={this.handleIndicateSong}
-                  excludeSong={this.handleRemoveSong}
-                  unpublishSong={this.handleUnpublishSong}
+                  onRemoveClick={this.handleRemoveSong}
+                  onUnpublishClick={this.handleUnpublishSong}
                 />
                 { me &&
                   <View style={styles.whiteBackground}>
@@ -278,8 +289,8 @@ class ProfileComponent extends React.Component {
                                    songs={profile.songSaves}
                                    onEditClick={this.handleEditSong}
                                    onIndicateClick={this.handleIndicateSong}
-                                   excludeSong={this.handleRemoveSong}
-                                   unpublishSong={this.handleUnpublishSong}/>
+                                   onRemoveClick={this.handleRemoveSong}
+                                   onUnpublishClick={this.handleUnpublishSong}/>
                 { me &&
                   <View style={styles.whiteBackground}>
                     <MPGradientButton

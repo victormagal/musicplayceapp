@@ -7,14 +7,15 @@ import {MPText} from '../../components';
 class MPArtistFull extends Component {
 
   render() {
-    let {song, songName, imagePath, artistImagePath, artistName, style, onPressMusic, onPressArtist} = this.props;
-
+    const {song, songName, imagePath, artistImagePath, artistName, style, onPressMusic, onPressArtist} = this.props;
+    const songImage = typeof imagePath === 'string' ? { uri: imagePath } : imagePath;
+    const artistImage = typeof artistImagePath === 'string' ? { uri: artistImagePath } : artistImagePath;
     return (
       <View style={style || {}}>
         <View style={ styles.simpleArtistCardContainer }>
           <View>
             <View style={ styles.simpleArtistCardImage }>
-              <Image source={imagePath}/>
+              <Image source={songImage} style={{  width: 120, height: 120, borderRadius: 4 }}/>
               <MPPlayIcon style={styles.playIcon}/>
               <MPSongListIcon style={styles.songListIcon}/>
             </View>
@@ -30,9 +31,9 @@ class MPArtistFull extends Component {
               <MPStarIcon style={styles.marginEnd}/>
               <MPStarIcon style={styles.marginEnd}/>
             </View>
-            <TouchableOpacity style={styles.artistContent} onPress={() => onPressArtist('c4157ea3-03b3-44dc-84b0-eb69935bb855')}>
+            <TouchableOpacity style={styles.artistContent} onPress={onPressArtist}>
               <View style={ styles.roundImage }>
-                <Image source={artistImagePath}/>
+                <Image source={artistImage} style={{ borderRadius: 20, width: 40, height: 40 }}/>
               </View>
               <MPText style={styles.artistName}>{artistName}</MPText>
             </TouchableOpacity>
