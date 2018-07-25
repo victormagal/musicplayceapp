@@ -5,7 +5,7 @@ import {
 } from 'react-native';
 import {MPButton} from '../../../../components';
 import {PlayerComponent} from './PlayerComponent';
-import {playerSongSaveReceived, songStop} from '../../../../state/action';
+import {playerSongSaveReceived, songStop, fetchOneSong} from '../../../../state/action';
 import {
   MPHeartRedIcon
 } from '../../../../assets/svg';
@@ -21,7 +21,7 @@ class PlayerContainer extends React.Component {
     if(this.props.navigation.state && this.props.navigation.state.params){
       let {song} = this.props.navigation.state.params;
       if(song) {
-        this.setState({song: song});
+        this.props.dispatch(fetchOneSong(song));
       }
     }
   }
@@ -32,6 +32,10 @@ class PlayerContainer extends React.Component {
         this.props.dispatch(playerSongSaveReceived());
         clearTimeout(timer);
       }, 2000);
+    }
+
+    if(nextProps.song){
+      this.setState({song: nextProps.song});
     }
   }
 
@@ -73,8 +77,8 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = ({playerReducer}) => {
-  return {...playerReducer}
+const mapStateToProps = ({playerReducer, songsReducer}) => {
+  return {...playerReducer, song: songsReducer.fetchedSong}
 };
 
 const PlayerScreen = connect(mapStateToProps)(PlayerContainer);

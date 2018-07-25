@@ -30,6 +30,7 @@ const songsReducer = (state, action) => {
   state = state || {
       loading: false,
       song: {...defaultSong},
+      fetchedSong: null,
       mySongs: null
     };
 
@@ -78,16 +79,14 @@ const songsReducer = (state, action) => {
       return {
         ...state,
         songCreateError: true,
-        loading: false,
-        mySongs: null
+        loading: false
       };
 
     case SONG_REMOVE_SUCCESS:
       return {
         ...state,
         loading: false,
-        songRemoveSuccess: true,
-        mySongs: null
+        songRemoveSuccess: true
       };
 
     case SONG_REMOVE_ERROR:
@@ -120,7 +119,7 @@ const songsReducer = (state, action) => {
     case FETCHED_SONG:
       return {
         ...state,
-        song: action.payload,
+        fetchedSong: action.payload,
         loading: false
       };
 

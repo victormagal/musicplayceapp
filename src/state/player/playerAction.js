@@ -43,9 +43,11 @@ export const songResume = () => {
 };
 
 export const songStop = () => {
-  return (dispatch) => {
-    PlayerService.pause();
-    dispatch(playerSongStop());
+  return (dispatch, getState) => {
+    if(getState().playerReducer.player.song) {
+      PlayerService.pause();
+      dispatch(playerSongStop());
+    }
   };
 };
 

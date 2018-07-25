@@ -254,8 +254,8 @@ class ProfileComponent extends React.Component {
                   songs={mySongs.data}
                   onEditClick={this.handleEditSong}
                   onIndicateClick={this.handleIndicateSong}
-                  excludeSong={this.handleRemoveSong}
-                  unpublishSong={this.handleUnpublishSong}
+                  onRemoveClick={this.handleRemoveSong}
+                  onUnpublishClick={this.handleUnpublishSong}
                 />
                 { me &&
                   <View style={styles.whiteBackground}>
@@ -289,8 +289,8 @@ class ProfileComponent extends React.Component {
                                    songs={profile.songSaves}
                                    onEditClick={this.handleEditSong}
                                    onIndicateClick={this.handleIndicateSong}
-                                   excludeSong={this.handleRemoveSong}
-                                   unpublishSong={this.handleUnpublishSong}/>
+                                   onRemoveClick={this.handleRemoveSong}
+                                   onUnpublishClick={this.handleUnpublishSong}/>
                 { me &&
                   <View style={styles.whiteBackground}>
                     <MPGradientButton

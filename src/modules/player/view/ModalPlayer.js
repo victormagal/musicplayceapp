@@ -91,6 +91,8 @@ class ModalPlayerComponent extends React.Component {
 
 
   render() {
+    let {song} = this.props;
+
     return (
       <Modal
         animationType="slide"
@@ -122,7 +124,7 @@ class ModalPlayerComponent extends React.Component {
             </View>
           </View>
 
-          <MPText style={[styles.musicTitleText, styles.modalMusicTitleText]}>Tocando em Frente</MPText>
+          <MPText style={[styles.musicTitleText, styles.modalMusicTitleText]}>{song && song.name}</MPText>
 
           <MPText style={[styles.compositorTitle, styles.alignCenter]}>COMPOSITOR</MPText>
           <MPText style={[styles.compositorText, styles.modalCompositorText]}>Almir Sater</MPText>

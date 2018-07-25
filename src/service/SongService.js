@@ -1,29 +1,33 @@
 import axios from 'axios';
-import {API, transformResponseData} from './api';
+import {API, transformResponseData, getIncludes} from './api';
 
 const API_SONG = `${API}/songs`;
 
 class SongService {
 
-  static create(song) {
+  static transformSongRequest(song){
     song = {...song};
     song.title = song.name;
 
     let relationships = {};
 
-    if(song.coAuthors){
+    if (song.coAuthors) {
       relationships['coAuthors'] = {
-        data : song.coAuthors.map(a => { return {id: a.id, type: "coAuthors"}})
+        data: song.coAuthors.map(a => {
+          return {id: a.id, type: "coAuthors"}
+        })
       };
     }
 
-    if(song.tags){
+    if (song.tags) {
       relationships['tags'] = {
-        data : song.tags.map(a => { return {id: a.id, type: "tags"}})
+        data: song.tags.map(a => {
+          return {id: a.id, type: "tags"}
+        })
       };
     }
 
-    if(song.folder){
+    if (song.folder) {
       relationships['folder'] = {
         data: song.folder
       };
@@ -32,6 +36,12 @@ class SongService {
     delete song.coAuthors;
     delete song.folder;
     delete song.tags;
+
+    return {song, relationships};
+  }
+
+  static create(songParam) {
+    let {song, relationships} = SongService.transformSongRequest(songParam);
 
     let data = {
       data: {
@@ -42,60 +52,55 @@ class SongService {
     };
 
     return axios.post(API_SONG, data)
-                .then(response => response.data);
+      .then(response => response.data);
   }
 
-  static update(song) {
-    song = {...song};
-    song.title = song.name;
+  static update(songParam) {
+    let {song, relationships} = SongService.transformSongRequest(songParam);
 
-    //TODO: update relationship
-    delete song.coAuthors;
-    delete song.folder;
-    delete song.tags;
 
     let data = {
       data: {
         type: "songs",
         song_id: song.id,
-        attributes: song
+        attributes: song,
+        relationships
       }
     };
 
     return axios.put(`${API_SONG}/${song.id}`, data)
-                .then(response => response.data);
+      .then(response => response.data);
   }
 
-  static delete(id){
+  static delete(id) {
     return axios.delete(`${API_SONG}/${id}`).then(response => response.data);
   }
 
-  static publish(id){
+  static publish(id) {
     return axios.post(`${API_SONG}/${id}/publish`).then(response => response.data);
   }
 
-  static unpublish(id){
+  static unpublish(id) {
     return axios.post(`${API_SONG}/${id}/unpublish`).then(response => response.data);
   }
 
-  static getSong(song){
-    return axios.get(`${API_SONG}/${song.id}`).
-      then(response => {
-        let {data} = response.data;
-        console.log(data);
-        return data;
-      });
+  static getSong(song) {
+    return axios.get(`${API_SONG}/${song.id}?include=coAuthors,tags`).then(({data}) => {
+      console.log(data);
+      let relations = getIncludes(data);
+      let {id, attributes} = data.data;
+      return {id, ...attributes, ...relations};
+    });
   }
 
-  static getSongLyrics(song){
-    return axios.get(`${API_SONG}/${song.id}/lyrics`).
-      then(response =>{
-        let {data} = response.data;
-        return {data : transformResponseData(data)}
-      })
+  static getSongLyrics(song) {
+    return axios.get(`${API_SONG}/${song.id}/lyrics`).then(response => {
+      let {data} = response.data;
+      return {data: transformResponseData(data)}
+    })
   }
 
-  static artistSongs(artist){
+  static artistSongs(artist) {
     return axios.get(`${API}/song-artist/${artist}`)
       .then(response => {
         let {data, meta} = response.data;
