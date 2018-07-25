@@ -35,6 +35,7 @@ class PlayerContainer extends React.Component {
     }
 
     if(nextProps.song){
+      nextProps.song.artist = this.props.navigation.state.params.song.artist;
       this.setState({song: nextProps.song});
     }
   }
