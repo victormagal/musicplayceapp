@@ -11,12 +11,16 @@ class MPTabBar extends React.Component {
   };
 
   componentWillReceiveProps(nextProps){
-    if (nextProps.index) {
+    if (typeof nextProps.index !== 'undefined') {
       this.setState({ selected: nextProps.index });
     }
   }
 
   changeTabIndex = (index) => {
+    if(index === this.state.selected){
+      return;
+    }
+
     this.setState({ selected: index });
     this.props.onTabChange && this.props.onTabChange(index);
   };

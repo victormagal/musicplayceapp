@@ -25,6 +25,7 @@ import {  fetchFeeds } from '../../../state/action';
 class FeedScreenContainer extends React.Component {
 
   searchTimer = null;
+  swiperRef = null;
 
   constructor(props) {
     super(props);
@@ -35,6 +36,8 @@ class FeedScreenContainer extends React.Component {
       searchingNotFound: false,
       feed: {},
     };
+
+    this.swiperRef = React.createRef();
 
     this.artists = {
       data: [
@@ -166,6 +169,11 @@ class FeedScreenContainer extends React.Component {
   };
 
   handleChangeTab = (index) => {
+    this.swiperRef.current.scrollBy(index === 1 ? 1 : -1, true);
+    this.setState({tabIndex: index});
+  };
+
+  handleChangeTabSwipe = (index) => {
     this.setState({tabIndex: index});
   };
 
@@ -182,7 +190,7 @@ class FeedScreenContainer extends React.Component {
         isFollowing={false}
       />
     );
-  }
+  };
 
   renderItemFeed = ({item}) => (
     <MPFeedNotification notificationType={item.type} artistName={item.artistName} composerName={item.composerName}
@@ -272,10 +280,10 @@ class FeedScreenContainer extends React.Component {
                 titles={['PARA VOCÊ','SEGUINDO']} onTabChange={this.handleChangeTab}
                 index={this.state.tabIndex}/>
               <Swiper
+                ref={this.swiperRef}
                 showsPagination={false}
                 loop={false}
-                index={this.state.tabIndex}
-                onIndexChanged={this.handleChangeTab}>
+                onIndexChanged={this.handleChangeTabSwipe}>
 
                 <View style={styles.firstSliderContainer}>
                   <ScrollView style={{flex: 2,}}>

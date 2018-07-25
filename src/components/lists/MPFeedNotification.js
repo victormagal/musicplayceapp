@@ -6,7 +6,7 @@ import {
 import { connect } from 'react-redux';
 import { MPText } from '../../components';
 
-class MPFeedNotificationComponent extends React.Component {
+class MPFeedNotification extends React.Component {
   state = {
     tabIndex: 0,
   };
@@ -20,7 +20,6 @@ class MPFeedNotificationComponent extends React.Component {
       artistName, 
       composerName, 
       songName, 
-      notificationType, 
       timeText
     } = this.props;
     return (
@@ -65,7 +64,7 @@ class MPFeedNotificationComponent extends React.Component {
           this.props.notificationType == '5' && (
             <MPText style={styles.notificationText}>
               <MPText style={styles.notificationTextEmpth}>{composerName}</MPText> postou uma música: 
-              <MPText style={styles.notificationTextEmpth}>{songName}</MPText>
+              <MPText style={styles.notificationTextEmpth}> {songName}</MPText>
             </MPText>
           )
         }            
@@ -77,10 +76,10 @@ class MPFeedNotificationComponent extends React.Component {
 
 const styles = StyleSheet.create({
   parent:{
-    paddingHorizontal: 20, 
-    paddingVertical: 12, 
-    flexDirection:'row', 
-    borderTopWidth: 1, 
+    paddingHorizontal: 20,
+    paddingVertical: 12,
+    flexDirection:'row',
+    borderBottomWidth: 1,
     borderColor:'#d3d3d3'
   },
   notificationText: {
@@ -89,11 +88,9 @@ const styles = StyleSheet.create({
     fontFamily: 'ProbaPro-Regular',
     textAlign: 'left',
     flexWrap: 'wrap',
-    marginEnd: 34,
     flex: 1,
-    alignSelf: 'center',
-    justifyContent: 'center',
-    lineHeight: 1.25,
+    marginEnd: 15,
+    alignSelf: 'center'
   },
   notificationTextEmpth: {
     color:'#4a90e2',
@@ -108,9 +105,4 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = ({fontReducer}) => {
-  return {...fontReducer};
-};
-
-const MPFeedNotification = connect(mapStateToProps)(MPFeedNotificationComponent);
 export {MPFeedNotification};
