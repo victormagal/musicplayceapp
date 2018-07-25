@@ -104,9 +104,9 @@ export const fetchOneSong = (song) => {
     dispatch(songStartLoading);
 
     return SongService.getSong(song).then(response => {
-      console.log(response)
       dispatch(fetchedSong(response));
     }).catch(e => {
+      console.log(e);
       dispatch(songFinishLoading(e.response));
     });
   };

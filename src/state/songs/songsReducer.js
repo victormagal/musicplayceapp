@@ -30,6 +30,7 @@ const songsReducer = (state, action) => {
   state = state || {
       loading: false,
       song: {...defaultSong},
+      fetchedSong: null,
       mySongs: null
     };
 
@@ -118,7 +119,7 @@ const songsReducer = (state, action) => {
     case FETCHED_SONG:
       return {
         ...state,
-        song: action.payload,
+        fetchedSong: action.payload,
         loading: false
       };
 

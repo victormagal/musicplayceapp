@@ -23,6 +23,9 @@ import {MPSearchRedIcon, MPCloseFilledRedIcon} from '../../../assets/svg';
 import {  fetchFeeds } from '../../../state/action';
 
 class FeedScreenContainer extends React.Component {
+
+  searchTimer = null;
+
   constructor(props) {
     super(props);
     this.state = {
@@ -117,6 +120,12 @@ class FeedScreenContainer extends React.Component {
     }
   }
 
+  componentWillUnmount(){
+    if(this.searchTimer){
+      clearTimeout(this.searchTimer);
+    }
+  }
+
   handleNavigateMusic = (song) => {
     this.props.navigation.navigate('player', {song});
   };
@@ -129,13 +138,27 @@ class FeedScreenContainer extends React.Component {
     this.setState({textValue: value});
 
     if(value.length >= 3){
-      this.props.dispatch(fetchFeeds(value));
-      this.setState({searching: true});
+      this.handleSearch();
+      return;
     }
 
-    if(value == ""){
+    if(value){
       this.setState({searching: false, searchingNotFound: false});
+    }else{
+      this.setState({feed: [], searching: false, searchingNotFound: false});
     }
+  };
+
+  handleSearch = () => {
+    if(this.searchTimer){
+      clearTimeout(this.searchTimer);
+    }
+
+    this.searchTimer = setTimeout(() => {
+      this.props.dispatch(fetchFeeds(this.state.textValue));
+      this.setState({searching: true});
+      clearTimeout(this.searchTimer);
+    }, 800);
   };
 
   handleClearClick = () => {
