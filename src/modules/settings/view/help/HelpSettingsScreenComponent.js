@@ -1,10 +1,5 @@
 import React from 'react';
-import { 
-	ScrollView,
-	StyleSheet,
-	TouchableHighlight,
-	View
-} from 'react-native';
+import { ScrollView, StyleSheet, TouchableHighlight, View } from 'react-native';
 import { 
 	MPHeader,
 	MPTextField,
@@ -15,51 +10,51 @@ import {
 import { MPArrowRightIcon } from '../../../../assets/svg';
 
 class HelpSettingsScreenComponent extends React.Component {
-	
-	state = {
-		formLoaded: false,
-		form: {}
-	};
-	
-	constructor(props) {
-		super(props);
-		if (props.profile && props.profile.name) {
-			this.state.form = {...props.profile};
-			this.state.formLoaded = true;
-		}
-	}
-	
-	componentWillReceiveProps(props) {
-		if (!this.state.formLoaded && props.profile && props.profile.name) {
-			let state = {...this.state};
-			state.form = {...props.profile};
-			state.formLoaded = true;
-			this.setState(state);
-		}
-	}
-
-	handleUpdateIdentificacao = (page) => {
-    this.props.onSave(page);
-	};
+  state = {
+    searchText: ''
+  };
 
 	render() {
-		const { onBack, faqs } = this.props;
+	  const { searchText } = this.state;
+		const { onBack, faqs, onQuestionNotFound } = this.props;
 		return (
 			<View style={styles.parent}>
-        <MPHeader back={true} onBack={onBack} title={"Pesquise sua dúvida ou consulte na lista abaixo"} />
+        <MPHeader
+          back={true}
+          onBack={onBack}
+          icons={[ <View key={Math.random()}/> ]}
+          title={"Pesquise sua dúvida ou consulte na lista abaixo"}
+        />
         <ScrollView style={styles.scroll}>
           <View style={styles.container}>
-						<MPTextField label={"Pesquisar"} />
+            <View style={{ marginHorizontal: 20 }}>
+              <MPTextField
+                label={"Pesquisar"}
+                value={searchText}
+                onChangeText={(searchText) => this.setState({ searchText })}
+              />
+            </View>
 						<View style={styles.borda}>
-              { !!faqs && faqs.map(faq => (
+              { !!faqs && faqs
+                .filter(faq => faq.attributes.question.includes(searchText) || faq.attributes.answer.includes(searchText))
+                .map(faq => (
                 <MPToggleList key={faq.id} title={faq.attributes.question}>
-                  <MPText style={styles.text}>{faq.attributes.answer}</MPText>
+                  <MPText style={styles.text}>
+                    { faq.attributes.answer }
+                  </MPText>
                 </MPToggleList>
               ))}
-							<TouchableHighlight underlayColor="transparent" onPress={this.handleUpdateIdentificacao.bind(this, 'help')}>
+							<TouchableHighlight
+                underlayColor="transparent"
+                onPress={() => onQuestionNotFound('sendHelp')}
+              >
 								<View style={styles.item}>
-									<MPText style={styles.textItem}>Não encontrei minha dúvida</MPText>
-									<MPArrowRightIcon />
+									<MPText style={styles.textItem}>
+                    Não encontrei minha dúvida
+                  </MPText>
+                  <View style={{ flex: 0, width: 30, alignItems: 'flex-end' }}>
+									  <MPArrowRightIcon />
+                  </View>
 								</View>
 							</TouchableHighlight>
 						</View>
@@ -106,24 +101,12 @@ const styles = StyleSheet.create({
 	},
 	item: {
 		backgroundColor: '#FFFFFF',
-		paddingVertical: 15,
-		marginHorizontal: 20,
-		marginTop: 30,
+		margin: 20,
 		flexDirection: 'row',
-		display: 'flex',
-		flex: 1,
-		alignItems: 'center',
-		justifyContent: 'space-around',
-		borderRadius: 4,
-		shadowColor: '#000000',
-		shadowOpacity: 0.15,
-		shadowRadius: 2,
-		shadowOffset: {
-			width: 1,
-			height: 1
-		}
+    alignItems: 'center'
 	},
 	textItem: {
+	  flex: 1,
 		color: 'black',
 		fontFamily: 'Montserrat-Regular',
 		fontSize: 16

@@ -98,7 +98,7 @@ class MPSongRating extends Component {
               </View>
               <View>
                 <MPText style={ styles.simpleArtistCardText }
-                        onPress={this.toggleState.bind(this)}>{ song.name }</MPText>
+                        onPress={this.toggleState.bind(this)}>{ song && song.name }</MPText>
                 <MPShowRating rating={rating}/>
               </View>
               {

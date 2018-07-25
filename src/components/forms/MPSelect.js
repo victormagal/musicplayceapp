@@ -8,6 +8,7 @@ import { MPText } from '../../components';
 import { MPArrowDownIcon } from '../../assets/svg';
 import ActionSheet from 'react-native-actionsheet';
 import { connect } from 'react-redux';
+import PropTypes from "prop-types";
 
 class MPSelectComponent extends React.Component {
   constructor(props) {
@@ -64,7 +65,7 @@ class MPSelectComponent extends React.Component {
 
 const styles = StyleSheet.create({
   areaSelection: {
-    paddingVertical: 5,
+    paddingVertical: 15,
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-around',
@@ -86,6 +87,14 @@ const styles = StyleSheet.create({
     marginBottom: 15
   }
 });
+
+MPSelectComponent.propTypes = {
+  options: PropTypes.array.isRequired,
+  label: PropTypes.string.isRequired,
+  value: PropTypes.number,
+  style: PropTypes.any,
+  onChangeOption: PropTypes.func.isRequired
+};
 
 const mapStateToProps = ({ fontReducer }) => {
   return { ...fontReducer };

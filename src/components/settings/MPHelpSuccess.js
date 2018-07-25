@@ -1,40 +1,40 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {
-  StyleSheet,
-  View
-} from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import {
   MPGradientButton,
   MPText
 } from '../../components';
 
 class MPHelpSuccessComponent extends React.Component {
-
-  handleBack = () => {
-    this.props.navigation.pop();
-  };
-
-  handleFoward = () => {
-    this.props.navigation.replace('message', { component: MPPhoneSuccess });
+  handleGoTo = (route) => {
+    this.props.navigation.navigate(route);
   };
 
   render() {
     return (
-      <View style={styles.container}>
-        <MPText style={styles.title}>Retornaremos em até 24 horas úteis. Obrigado pelo contato.</MPText>
-        <MPGradientButton style={styles.button} textSize={16} title="Enviar outra dúvida" onPress={this.handleBack} />
-        <MPGradientButton style={styles.button} textSize={16} title="Voltar para configurações" onPress={this.handleBack} />
+      <View style={{ marginVertical: 30 }}>
+        <MPText style={styles.title}>
+          Retornaremos em até 24 horas úteis. Obrigado pelo contato.
+        </MPText>
+        <MPGradientButton
+          style={styles.button}
+          textSize={16}
+          title="Enviar outra dúvida"
+          onPress={() => this.handleGoTo('helpSettings')}
+        />
+        <MPGradientButton
+          style={styles.button}
+          textSize={16}
+          title="Voltar para configurações"
+          onPress={() => this.handleGoTo('homeSettings')}
+        />
       </View>
     );
   }
-
 }
 
 const styles = StyleSheet.create({
-  container: {
-    marginVertical: 30
-  },
   title: {
     fontFamily: 'Montserrat-Regular',
     fontSize: 20,

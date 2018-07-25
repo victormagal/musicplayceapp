@@ -10,7 +10,7 @@ class FeedbackService {
   static createFeedback(feedback) {
     const data = {
       data: {
-        type: "feedback",
+        type: "feedbacks",
         attributes: feedback
       }
     };
