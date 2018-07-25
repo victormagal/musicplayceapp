@@ -141,6 +141,14 @@ class PlayerComponent extends React.Component {
     return songDurationString;
   }
 
+  handleSongTags = (songTags) => {
+    if(songTags.length > 0){
+      return songTags.map(tag => {
+        return (<MPText style={styles.tagText}>#{tag.name}</MPText>)
+      })
+    }
+  }
+
   renderComment = () => {
     return (
       <MPPlayerComment />
@@ -148,7 +156,6 @@ class PlayerComponent extends React.Component {
   };
 
   renderModalPlayer = () => {
-    console.log(this.props.song)
     return <ModalPlayer visible={this.state.playerVisible}
                         song={this.props.song}
                         onCloseClick={this.handleTogglePlayer.bind(this, false)}
@@ -157,6 +164,7 @@ class PlayerComponent extends React.Component {
   };
 
   renderLyricsContent() {
+    let {song} = this.props;
     return (
       <MPFade style={styles.modalContent} visible={this.state.showLyrics}>
         <View style={styles.flexOne}>
@@ -174,7 +182,7 @@ class PlayerComponent extends React.Component {
 
             <View style={[styles.commentMusicContent, styles.row]}>
               <MPPlayIcon style={styles.musicPlayIcon}/>
-              <MPText style={styles.musicTitleText}>Tocando em Frente</MPText>
+              <MPText style={styles.musicTitleText}>{song ? song.title : 'Tocando em Frente'}</MPText>
             </View>
 
           </View>
@@ -194,13 +202,14 @@ class PlayerComponent extends React.Component {
 
             <ScrollView style={styles.flexOne}>
               <View style={styles.lyricsScrollContent}>
-                {this.state.lyric.map((p, index) => (
+                {song ? (<MPText style={styles.lyricLine}>{song.lyrics}</MPText>) : null}
+                {/* {this.state.lyric.map((p, index) => (
                   <View style={index === 0 ? {} : styles.lyricParagraph} key={index}>
                     {p.map((line, lineIndex) => (
                       <MPText style={styles.lyricLine} key={lineIndex}>{line}</MPText>
                     ))}
                   </View>
-                ))}
+                ))} */}
               </View>
             </ScrollView>
             <LinearGradient style={styles.lyricsGradientTop}
@@ -336,11 +345,9 @@ class PlayerComponent extends React.Component {
 
           <View style={[styles.row, styles.tagContainer]}>
             <View style={[styles.row, styles.tagContent]}>
-              <MPText style={styles.tagText}>#coraçãopartido</MPText>
-              <MPText style={styles.tagText}>#descobertas</MPText>
-              <MPText style={styles.tagText}>#paquera</MPText>
-              <MPText style={styles.tagText}>#balada</MPText>
-              <MPText style={styles.tagText}>#amor</MPText>
+            {
+              song && this.handleSongTags(song.tags)
+            }
             </View>
             <MPCircleGradientButton icon={MPBalloonTalkIcon}/>
           </View>
