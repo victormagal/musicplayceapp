@@ -78,16 +78,14 @@ const songsReducer = (state, action) => {
       return {
         ...state,
         songCreateError: true,
-        loading: false,
-        mySongs: null
+        loading: false
       };
 
     case SONG_REMOVE_SUCCESS:
       return {
         ...state,
         loading: false,
-        songRemoveSuccess: true,
-        mySongs: null
+        songRemoveSuccess: true
       };
 
     case SONG_REMOVE_ERROR:

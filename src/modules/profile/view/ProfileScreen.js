@@ -17,8 +17,16 @@ class ProfileScreenContainer extends React.Component {
   }
 
   setup(props){
-    if(props.profile && !props.mySongs){
+    if((props.profile && !props.mySongs)){
       this.props.dispatch(fetchArtistSongs(props.profile.id));
+    }
+
+    if(props.songCreateSuccess || props.songRemoveSuccess ||
+       props.songPublishSuccess || props.songUnpublishSuccess){
+      let timer = setTimeout(() => {
+        this.props.dispatch(fetchArtistSongs(props.profile.id));
+        clearTimeout(timer);
+      }, 1000);
     }
   }
 
@@ -47,7 +55,12 @@ class ProfileScreenContainer extends React.Component {
 }
 
 const mapStateToProps = ({profileReducer, songsReducer}) => {
-  return {...profileReducer, mySongs: songsReducer.mySongs};
+  let {songCreateSuccess, songRemoveSuccess, songPublishSuccess, songUnpublishSuccess, mySongs} = songsReducer;
+
+  return {
+    ...profileReducer, songCreateSuccess, songRemoveSuccess,
+    songPublishSuccess, songUnpublishSuccess, mySongs
+  };
 };
 
 const ProfileScreen = connect(mapStateToProps)(ProfileScreenContainer);

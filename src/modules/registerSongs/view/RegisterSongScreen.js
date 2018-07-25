@@ -39,8 +39,6 @@ class RegisterSongContainer extends React.Component {
     let width = (count * 100) / total;
     this.setState({progressContentWidth: `${Math.ceil(width)}%`});
 
-
-    console.log(nextProps)
     if(nextProps.songPublishSuccess){
       this.goToScreen('ConfirmationScreen');
     }
