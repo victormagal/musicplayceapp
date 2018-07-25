@@ -150,9 +150,16 @@ class FeedScreenContainer extends React.Component {
     <MPArtist artist={item.artistName} imagePath={item.imagePath} onPress={()=>{}} isFollowing={false}/>
   );
 
-  renderSearchArtists = ({item}) => (
-    <MPArtist artist={item.name} imagePath={item.cover_picture_url} onPress={()=>{}} isFollowing={false}/>
-  );
+  renderSearchArtists = ({item}) => {
+    return (
+      <MPArtist
+        artist={item.name}
+        imagePath={item.cover_picture_url}
+        onPress={() => this.handleNavigateArtistProfile(item.id)}
+        isFollowing={false}
+      />
+    );
+  }
 
   renderItemFeed = ({item}) => (
     <MPFeedNotification notificationType={item.type} artistName={item.artistName} composerName={item.composerName}
@@ -203,9 +210,14 @@ class FeedScreenContainer extends React.Component {
                       style={{color: '#5994db'}}>{ this.state.textValue }</MPText></MPText>
                       {
                         this.state.feed.songs.map(song => (
-                          <MPArtistFull key={song.id} artistName={"Adelle"} songName={song.name} song={song} imagePath={images.daftPunk120}
-                            artistImagePath={images.adele40}
-                            onPressArtist={(artistId) => this.handleNavigateArtistProfile(artistId)}
+                          <MPArtistFull
+                            key={song.id}
+                            artistName={song.artist.name}
+                            songName={song.name}
+                            song={song}
+                            imagePath={images.daftPunk120}
+                            artistImagePath={song.artist.cover_picture_url}
+                            onPressArtist={() => this.handleNavigateArtistProfile(song.artist.id)}
                             onPressMusic={this.handleNavigateMusic}
                           />
                         ))
@@ -253,15 +265,15 @@ class FeedScreenContainer extends React.Component {
                   }}>Talvez você goste dessas músicas:</MPText>
                     <MPArtistFull artistName={'Adelle'} songName={'Nome da música'} imagePath={images.bjork120}
                                   artistImagePath={images.adele40}
-                                  onPressArtist={(artistId) => this.handleNavigateArtistProfile(artistId)}
+                                  onPressArtist={() => this.handleNavigateArtistProfile('8f2d7902-ae3b-471d-ac27-350665aab0fa')}
                                   onPressMusic={this.handleNavigateMusic} />
                     <MPArtistFull artistName={'Freddie'} songName={'Nome da música'} imagePath={images.daftPunk120}
                                   artistImagePath={images.freddieMercury40}
-                                  onPressArtist={(artistId) => this.handleNavigateArtistProfile(artistId)}
+                                  onPressArtist={() => this.handleNavigateArtistProfile('8f2d7902-ae3b-471d-ac27-350665aab0fa')}
                                   onPressMusic={this.handleNavigateMusic} />
                     <MPArtistFull artistName={'Bjork'} songName={'Nome da música'} imagePath={images.bjork120}
                                   artistImagePath={images.adele40}
-                                  onPressArtist={(artistId) => this.handleNavigateArtistProfile(artistId)}
+                                  onPressArtist={() => this.handleNavigateArtistProfile('8f2d7902-ae3b-471d-ac27-350665aab0fa')}
                                   onPressMusic={this.handleNavigateMusic} />
                     <View style={styles.topArtistsContainer}>
                       <MPText style={{fontSize: 20, fontFamily: 'ProbaPro-Regular', marginBottom: 16, color: '#000'}}>Artistas
@@ -275,17 +287,17 @@ class FeedScreenContainer extends React.Component {
                     </View>
                     <MPArtistFull artistName={'Adelle'} songName={'Nome da música'} imagePath={images.daftPunk120}
                                   artistImagePath={images.freddieMercury40}
-                                  onPressArtist={(artistId) => this.handleNavigateArtistProfile(artistId)}
+                                  onPressArtist={() => this.handleNavigateArtistProfile('8f2d7902-ae3b-471d-ac27-350665aab0fa')}
                                   onPressMusic={this.handleNavigateMusic}
                     />
                     <MPArtistFull artistName={'Freddie'} songName={'Nome da música'} imagePath={images.daftPunk120}
                                   artistImagePath={images.adele40}
-                                  onPressArtist={(artistId) => this.handleNavigateArtistProfile(artistId)}
+                                  onPressArtist={() => this.handleNavigateArtistProfile('8f2d7902-ae3b-471d-ac27-350665aab0fa')}
                                   onPressMusic={this.handleNavigateMusic}
                     />
                     <MPArtistFull artistName={'Bjork'} songName={'Nome da música'} imagePath={images.bjork120}
                                   artistImagePath={images.adele40}
-                                  onPressArtist={(artistId) => this.handleNavigateArtistProfile(artistId)}
+                                  onPressArtist={() => this.handleNavigateArtistProfile('8f2d7902-ae3b-471d-ac27-350665aab0fa')}
                                   onPressMusic={this.handleNavigateMusic}
                     />
                   </ScrollView>

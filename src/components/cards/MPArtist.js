@@ -7,14 +7,14 @@ import { MPLessArtistIcon, MPPlusArtistIcon, MPPlusArtistAvatarIcon} from '../..
 class MPArtist extends Component {
 
   render() {
-    let {artist, imagePath, style, isFollowing} = this.props;
-
+    const {artist, imagePath, style, isFollowing, onPress} = this.props;
+    const image = typeof imagePath === 'string' ? { uri: imagePath } : imagePath;
     return (
-      <TouchableOpacity style={style || {}}>
+      <TouchableOpacity style={style || {}} onPress={onPress}>
         <View style={ styles.simpleArtistCardContainer }>
           <View>
             <View style={ styles.simpleArtistCardImage }>
-              <Image source={ imagePath }/>
+              <Image source={image} style={{ width: 100, height: 100, borderRadius: 4 }}/>
             </View>
             { isFollowing  ?
               <View style={{position: 'absolute'}}>
