@@ -33,7 +33,7 @@ class MPHeader extends React.Component {
             </View>
           )}
         </View>
-        { title && (
+        { title != '' && (
           <MPText style={styles.title}>
             {title}
           </MPText>

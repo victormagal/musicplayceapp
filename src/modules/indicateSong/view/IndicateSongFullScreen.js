@@ -22,7 +22,6 @@ class IndicateSongFullScreenContainer extends React.Component {
     if(this.props.navigation.state && this.props.navigation.state.params){
       let {song} = this.props.navigation.state.params;
       if(song) {
-        console.log('id', song.id);
         this.props.dispatch(fetchOneSong(song));
       }
     }
@@ -44,13 +43,13 @@ class IndicateSongFullScreenContainer extends React.Component {
     this.props.navigation.pop();
   };
 
-  goToScreen = (route) => {
-    this.props.navigation.navigate(route);
+  goToScreen = ([route, artist, song]) => {
+    this.props.navigation.navigate(route, {artist, song});
   };
 
   renderItem = ({item}) => (
     <MPArtist artist={item.name} imagePath={item.picture_url}
-              onPress={this.goToScreen.bind(this, 'IndicateSongFeedbackScreen')} style={{marginBottom: 10,}}/>
+              onPress={this.goToScreen.bind(this, ['IndicateSongFeedbackScreen', item, this.state.song])} style={{marginBottom: 10,}}/>
   );
 
   toggleState = (att) => {

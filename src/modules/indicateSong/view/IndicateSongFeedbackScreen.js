@@ -1,12 +1,20 @@
 import React from 'react';
 import {StyleSheet, ScrollView, Text, View} from 'react-native';
-import { MPHeader, MPTextField, MPFooter, MPGradientButton, MPArtist, MPSongRating } from '../../../components'
+import { MPHeader, MPText, MPGradientButton, MPArtist, MPSongRating } from '../../../components'
 import { connect } from 'react-redux';
 import { MPPlusIcon, MPLogoIcon } from '../../../assets/svg';
 import images from '../../../assets/img';
+import { fetchOneSong } from '../../../state/action';
 
 class IndicateSongFeedbackScreenContainer extends React.Component {
   
+  constructor(props){
+    super(props);
+    if(this.props.navigation.state && this.props.navigation.state.params){
+      let {artist, song } = this.props.navigation.state.params;
+      this.state = {artist, song};
+    }
+  }
   handleBackClick = () => {
     this.props.navigation.pop();
   };
@@ -16,24 +24,19 @@ class IndicateSongFeedbackScreenContainer extends React.Component {
   }
   
   render() {
+    console.log(this.state);
     return (
       <View style={styles.container}>
         <MPHeader back={true} onBack={this.handleBackClick} title={""} />
         <ScrollView>
-        {
-          this.props.fontLoaded ? (
-            <View>
-              <Text style={ styles.headerText }>Indicação feita!</Text>
-              <View style={ styles.partnershipContainer}>
-                <MPSongRating songName={'Tocando em Frente'} imagePath={images.daftPunk100} onPress={() => {}} style={{}} isNew={true} />
-                <MPPlusIcon   style={ styles.partnershipIcon }/>
-                <MPArtist artist={'Bruno Caliman'} imagePath={images.bjork100} onPress={() => {}} style={{}} />
-              </View>
-              <Text style={ styles.infoText }><Text style={ styles.infoTextEmph }>203</Text> outras pessoas sugeriram esta parceria também!</Text>
-              <MPGradientButton title={'Fechar'} textSize={16} style={{marginHorizontal: 133}} onPress={()=>{}} />
-            </View>
-          ) : null
-        }
+          <MPText style={ styles.headerText }>Indicação feita!</MPText>
+          <View style={ styles.partnershipContainer}>
+            <MPSongRating song={this.state.song} imagePath={images.daftPunk100} onPress={() => {}} style={{}} />
+            <MPPlusIcon   style={ styles.partnershipIcon }/>
+            <MPArtist artist={this.state.artist.name} imagePath={this.state.artist.picture_url} onPress={() => {}} style={{}} />
+          </View>
+          <MPText style={ styles.infoText }><MPText style={ styles.infoTextEmph }>203</MPText> outras pessoas sugeriram esta parceria também!</MPText>
+          <MPGradientButton title={'Fechar'} textSize={16} style={{marginHorizontal: 133}} onPress={()=>{}} />
         </ScrollView>
       </View>
     );
@@ -82,8 +85,8 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = ({ fontReducer }) => {
-  return { ...fontReducer };
+const mapStateToProps = ({ songsReducer }) => {
+  return { ...songsReducer };
 };
 
 const IndicateSongFeedbackScreen = connect(mapStateToProps)(IndicateSongFeedbackScreenContainer);

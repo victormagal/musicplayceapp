@@ -12,10 +12,14 @@ import {MPShowRating} from '../profile';
 
 
 class MPSongRating extends Component {
-  state = {
-    menuOpen: false,
-    isAdded: this.props.isAdded,
-  };
+  constructor(props){
+    super(props);
+    this.state = {
+      menuOpen: false,
+      isNew: false,
+      isAdded: this.props.isAdded,
+    };
+  }
 
   toggleState = () => {
     this.setState({menuOpen: !this.state.menuOpen});
@@ -118,7 +122,7 @@ class MPSongRating extends Component {
                   </View>
                 )}
               </View>
-              <View>
+              {/* <View>
                 <MPText style={ styles.simpleArtistCardText }
                         onPress={this.toggleState.bind(this)}>{ song && song.name }</MPText>
                 <MPShowRating rating={rating}/>
@@ -147,7 +151,7 @@ class MPSongRating extends Component {
                     <MPText style={ styles.newSongText}>NOVIDADE</MPText>
                   </View>
                 )
-              }
+              } */}
             </View>
           )}
 
