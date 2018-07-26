@@ -6,13 +6,17 @@ import {MPGradientBorderButton} from './MPGradientBorderButton';
 
 class MPShowFolderSongs extends Component {
 
-  renderSongs = ({item}) => (
-    <MPSongRating song={item} indicateSong={true} isAdded={true}
-                  onExclude={this.props.onRemoveClick}
-                  onUnpublish={this.props.onUnpublishClick}
-                  onIndicateClick={this.props.onIndicateClick}
-                  onEditClick={this.props.onEditClick}/>
-  );
+  renderSongs = ({item}) => {
+    let {me} = this.props;
+
+    return (
+      <MPSongRating song={item} indicateSong={true} isAdded={true}
+                    me={me} onExclude={this.props.onRemoveClick}
+                    onUnpublish={this.props.onUnpublishClick}
+                    onIndicateClick={this.props.onIndicateClick}
+                    onEditClick={this.props.onEditClick}/>
+    );
+  };
 
   render() {
     let {folderName, edit, onEdit, songs} = this.props;
@@ -45,7 +49,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FCFCFC',
     paddingVertical: 30,
     paddingHorizontal: 20,
-    height: 300,
+    height: 290,
     borderBottomWidth: 1,
     borderColor: '#fff',
   },

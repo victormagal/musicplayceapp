@@ -5,15 +5,19 @@ import {
   SONG_DRAFT_ERROR,
   SONG_REMOVE_SUCCESS,
   SONG_REMOVE_ERROR,
+  SONG_INDICATE_SUCCESS,
+  SONG_INDICATE_ERROR,
+  SONG_FAVORITE_SUCCESS,
+  SONG_FAVORITE_ERROR,
   SONG_PUBLISH_SUCCESS,
   SONG_PUBLISH_ERROR,
   SONG_UNPUBLISH_SUCCESS,
   SONG_UNPUBLISH_ERROR,
-  FETCHED_ARTIST_SONGS,
   FETCHED_SONG,
   FETCHED_SONG_LYRICS,
   SONG_REGISTER_DATA,
-  SONG_REGISTER_CLEAR
+  SONG_REGISTER_CLEAR,
+  FETCHED_ARTIST_SONGS
 } from './songsType';
 
 const defaultSong = {
@@ -37,7 +41,9 @@ const songsReducer = (state, action) => {
     songRemoveSuccess: false,
     songPublishSuccess: false,
     songUnpublishSuccess: false,
-    };
+    songIndicateSuccess: false,
+    songFavoriteSuccess: false
+  };
 
   switch (action.type) {
     case SONG_REGISTER_DATA:
@@ -59,6 +65,8 @@ const songsReducer = (state, action) => {
       };
 
     case SONG_DRAFT_ERROR:
+    case SONG_FAVORITE_ERROR:
+    case SONG_INDICATE_ERROR:
     case SONG_PUBLISH_ERROR:
     case SONG_UNPUBLISH_ERROR:
     case SONG_FINISH_LOADING:
@@ -93,6 +101,20 @@ const songsReducer = (state, action) => {
         loading: false,
         songPublishSuccess: true,
         song: {...defaultSong}
+      };
+    
+    case SONG_INDICATE_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        songIndicateSuccess: true
+      };
+
+    case SONG_FAVORITE_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        songFavoriteSuccess: true
       };
 
     case SONG_UNPUBLISH_SUCCESS:

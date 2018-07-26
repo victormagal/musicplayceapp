@@ -99,8 +99,9 @@ class PlayerComponent extends React.Component {
     this.setState({playerVisible: false, showLyrics: true, showComments: false, showPlayer: false});
   };
 
-  handleIndicateSong = () => {
-    this.props.navigation.navigate('IndicateSongFullScreen');
+  handleIndicateSong = (song) => {
+    this.setState({playerVisible: false});
+    this.props.navigation.navigate('IndicateSongFullScreen', {song});
   };
 
   handleSongDate = (songDate) => {
@@ -109,9 +110,9 @@ class PlayerComponent extends React.Component {
     return `${date} às ${time}`;
   }
 
-  handleSaveSong = () => {
+  handleSaveSong = (song) => {
     this.setState({playerVisible: false});
-    this.props.navigation.navigate('playerSaveSong');
+    this.props.navigation.navigate('playerSaveSong', {song});
   };
 
   handleSongComposers = (song) => {
@@ -141,6 +142,22 @@ class PlayerComponent extends React.Component {
     return songDurationString;
   }
 
+  handleSongTags = (songTags) => {
+    if(songTags.length > 0){
+      return songTags.map((tag, index) => {
+        return (<MPText key={index} style={styles.tagText}>#{tag.name}</MPText>)
+      })
+    }
+  };
+
+  togglePlayerPause = () => {
+    if(this.props.player.inProgress){
+      this.props.player.isPlaying ? this.props.onSongPause() : this.props.onSongResume();
+    } else{
+      this.props.onSongPlay(this.props.song);
+    }
+  };
+
   renderComment = () => {
     return (
       <MPPlayerComment />
@@ -148,15 +165,17 @@ class PlayerComponent extends React.Component {
   };
 
   renderModalPlayer = () => {
-    console.log(this.props.song)
     return <ModalPlayer visible={this.state.playerVisible}
                         song={this.props.song}
                         onCloseClick={this.handleTogglePlayer.bind(this, false)}
                         onLyricsClick={this.handleEnableLyricsPlayer}
-                        onSongSaveClick={this.handleSaveSong}/>;
+                        onSongSaveClick={this.handleSaveSong.bind(this, this.props.song)}
+                        onSongIndicateClick={this.handleIndicateSong.bind(this, this.props.song)}/>;
+
   };
 
   renderLyricsContent() {
+    let {song} = this.props;
     return (
       <MPFade style={styles.modalContent} visible={this.state.showLyrics}>
         <View style={styles.flexOne}>
@@ -174,7 +193,7 @@ class PlayerComponent extends React.Component {
 
             <View style={[styles.commentMusicContent, styles.row]}>
               <MPPlayIcon style={styles.musicPlayIcon}/>
-              <MPText style={styles.musicTitleText}>Tocando em Frente</MPText>
+              <MPText style={styles.musicTitleText}>{song ? song.title : 'Tocando em Frente'}</MPText>
             </View>
 
           </View>
@@ -194,13 +213,14 @@ class PlayerComponent extends React.Component {
 
             <ScrollView style={styles.flexOne}>
               <View style={styles.lyricsScrollContent}>
-                {this.state.lyric.map((p, index) => (
+                {song ? (<MPText style={styles.lyricLine}>{song.lyrics}</MPText>) : null}
+                {/* {this.state.lyric.map((p, index) => (
                   <View style={index === 0 ? {} : styles.lyricParagraph} key={index}>
                     {p.map((line, lineIndex) => (
                       <MPText style={styles.lyricLine} key={lineIndex}>{line}</MPText>
                     ))}
                   </View>
-                ))}
+                ))} */}
               </View>
             </ScrollView>
             <LinearGradient style={styles.lyricsGradientTop}
@@ -312,11 +332,11 @@ class PlayerComponent extends React.Component {
 
                   <MPIconButton title="SALVAR" icon={MPHeartIcon} style={styles.iconButtonContainer}
                                 iconStyle={styles.iconButton} titleStyle={styles.iconButtonText}
-                                onPress={this.handleSaveSong}/>
+                                onPress={this.handleSaveSong.bind(this, song)}/>
                 </View>
 
                 <View style={styles.totalIndicationsContainer}>
-                  <MPGradientButton title="INDICAR" onPress={this.handleIndicateSong}/>
+                  <MPGradientButton title="INDICAR" onPress={this.handleIndicateSong.bind(this, song)}/>
                   <MPText style={styles.totalIndications}>200 indicações</MPText>
                 </View>
               </View>
@@ -336,11 +356,9 @@ class PlayerComponent extends React.Component {
 
           <View style={[styles.row, styles.tagContainer]}>
             <View style={[styles.row, styles.tagContent]}>
-              <MPText style={styles.tagText}>#coraçãopartido</MPText>
-              <MPText style={styles.tagText}>#descobertas</MPText>
-              <MPText style={styles.tagText}>#paquera</MPText>
-              <MPText style={styles.tagText}>#balada</MPText>
-              <MPText style={styles.tagText}>#amor</MPText>
+            {
+              song && this.handleSongTags(song.tags)
+            }
             </View>
             <MPCircleGradientButton icon={MPBalloonTalkIcon}/>
           </View>
@@ -407,6 +425,8 @@ class PlayerComponent extends React.Component {
   }
 
   renderDetailPlayer() {
+    let {song} = this.props;
+
     return (
       <View style={styles.player}>
         <Slider style={styles.playerSlider} thumbStyle={styles.playerThumb}
@@ -415,20 +435,22 @@ class PlayerComponent extends React.Component {
         <TouchableOpacity style={styles.playerContent}
                           onPress={this.handleTogglePlayer.bind(this, true)}>
           <TouchableOpacity style={styles.playerPlayIcon}>
-            <MPIconButton icon={MPDetailPlayIcon} iconSelected={MPDetailPauseIcon}/>
+            <MPIconButton icon={MPDetailPlayIcon} iconSelected={MPDetailPauseIcon}
+                          selected={this.props.player.isPlaying}
+                          onPress={this.togglePlayerPause}/>
           </TouchableOpacity>
 
           <View style={styles.playerInfo}>
-            <MPText style={styles.playerSongName}>Tocando em frente</MPText>
-            <MPText style={styles.playerArtistName}>Almir Sater</MPText>
+            <MPText style={styles.playerSongName}>{song ? song.name : 'Tocando em Frente'}</MPText>
+            <MPText style={styles.playerArtistName}>{song ? this.handleSongComposers(song) : 'Almir Sater'}</MPText>
           </View>
 
-          <TouchableOpacity style={styles.playerHeart} onPress={this.handleSaveSong}>
+          <TouchableOpacity style={styles.playerHeart} onPress={this.handleSaveSong.bind(this,song)}>
             <MPDetailHeartIcon />
           </TouchableOpacity>
 
           <MPButton title="INDICAR" style={styles.playerIndicate} textStyle={styles.playerIndicateText}
-                    onPress={this.handleIndicateSong}/>
+                    onPress={this.handleIndicateSong.bind(this, song)}/>
 
           <MPTriangleUpGrayIcon style={styles.playerUp}/>
         </TouchableOpacity>

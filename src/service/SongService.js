@@ -84,10 +84,22 @@ class SongService {
   static unpublish(id) {
     return axios.post(`${API_SONG}/${id}/unpublish`).then(response => response.data);
   }
+  static indicateSong(songId, artistId){
+    let params = { 
+      artist_id: artistId
+    };
+    return axios.post(`${API_SONG}/${songId}/indications`, params).then(response => response.data);
+  }
+
+  static favoriteSong(songId){
+    // let params = { 
+      // folders: [],
+    // };
+    return axios.post(`${API_SONG}/${songId}/favorite`).then(response => response.data);
+  }
 
   static getSong(song) {
     return axios.get(`${API_SONG}/${song.id}?include=coAuthors,tags`).then(({data}) => {
-      console.log(data);
       let relations = getIncludes(data);
       let {id, attributes} = data.data;
       return {id, ...attributes, ...relations};

@@ -5,7 +5,10 @@ import {
 } from 'react-native';
 import {MPButton} from '../../../../components';
 import {PlayerComponent} from './PlayerComponent';
-import {playerSongSaveReceived, songStop, fetchOneSong} from '../../../../state/action';
+import {
+  playerSongSaveReceived, songStop, songPlay,
+  songPause, songResume, fetchOneSong
+} from '../../../../state/action';
 import {
   MPHeartRedIcon
 } from '../../../../assets/svg';
@@ -44,10 +47,26 @@ class PlayerContainer extends React.Component {
     this.props.dispatch(songStop());
   }
 
+  handleSongPause = () => {
+    this.props.dispatch(songPause());
+  };
+
+  handleSongPlay = (song) => {
+    this.props.dispatch(songPlay(song));
+  };
+
+  handleSongResume = () => {
+    this.props.dispatch(songResume());
+  };
+
   render() {
     return (
       <View style={styles.container}>
-        <PlayerComponent todo="REFACTOR" {...this.props} song={this.state.song} />
+        <PlayerComponent todo="REFACTOR" {...this.props}
+                         song={this.state.song}
+                         onSongPause={this.handleSongPause}
+                         onSongResume={this.handleSongResume}
+                         onSongPlay={this.handleSongPlay} />
         {this.props.saveSong.update && (
           <MPButton
             style={styles.notificationSaved}

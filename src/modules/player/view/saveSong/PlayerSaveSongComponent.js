@@ -16,14 +16,14 @@ class PlayerSaveSongComponent extends React.Component {
 
   renderHeaderMenu() {
     return [
-      <MPIconButton title="Salvar" titleStyle={styles.headerMenuText} onPress={this.props.onSave}/>
+      <MPIconButton key={1} title="Salvar" titleStyle={styles.headerMenuText} onPress={this.props.onSave}/>
     ];
   }
 
   renderFolder = (item, index) => {
     return (
       <View key={index} style={styles.folder}>
-        <MPFolder folderName={item.title} selected={item.selected} musicAmount={item.total} onPress={this.handleSelectFolder.bind(this, index)}/>
+        <MPFolder folderName={item.name} selected={item.selected} musicAmount={item.countMusic} onPress={this.handleSelectFolder.bind(this, index)}/>
       </View>
     )
   };

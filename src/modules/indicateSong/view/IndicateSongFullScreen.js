@@ -1,85 +1,79 @@
 import React from 'react';
 import {StyleSheet, ScrollView, View, TextInput, FlatList} from 'react-native';
-import {MPHeader, MPTextField, MPFooter, MPArtist, MPSong, MPGradientButton, MPText} from '../../../components'
-import images from '../../../assets/img';
+import {connect} from 'react-redux';
+import {MPHeader, MPTextField, MPArtist, MPSong, MPGradientButton, MPText, MPLoading} from '../../../components'
+import {searchArtists, fetchOneSong, indicateSong} from '../../../state/action';
 
-class IndicateSongFullScreen extends React.Component {
-
-  state = {
-    textValue: '',
-    songHeader: true,
-    notFoundArtist: false,
-  };
+class IndicateSongFullScreenContainer extends React.Component {
 
   constructor(props) {
     super(props);
-
-    this.artistList = {
-      data: [
-        {
-          id: '00',
-          title: 'David Burn',
-          imagePath: images.daftPunk100
-        },
-        {
-          id: '01',
-          title: 'Bjork',
-          imagePath: images.bjork100
-        },
-        {
-          id: '02',
-          title: 'Daft Punk',
-          imagePath: images.daftPunk100
-        },
-
-        {
-          id: '02',
-          title: 'Sergio Reis',
-          imagePath: images.bjork100
-        },
-
-        {
-          id: '02',
-          title: 'Munhoz & Mariano',
-          imagePath: images.daftPunk100
-        },
-
-        {
-          id: '02',
-          title: 'Samuel Rosa',
-          imagePath: images.bjork100
-        },
-      ]
-    }
+    this.state = {
+      textValue: '',
+      songHeader: true,
+      notFoundArtist: false,
+      songIndicateSuccess: false,
+      artists: [],
+      indication: {
+        song: {},
+        artist: {},
+      }
+    };
   }
 
   componentDidMount(){
-    console.log(this.props.navigation);
+    this.props.dispatch(searchArtists(''));
+    if(this.props.navigation.state && this.props.navigation.state.params){
+      let {song} = this.props.navigation.state.params;
+      this.setState({song: song});
+    }
+  }
+
+  componentWillReceiveProps(nextProps){
+    if(nextProps.artists && nextProps.artists.data.length > 0){
+      this.setState({artists: nextProps.artists.data, notFoundArtist: false});
+    }else if(nextProps.artists && nextProps.artists.data.length == 0){
+      this.setState({notFoundArtist: true});
+    }
+
+    if(nextProps.songIndicateSuccess){
+      this.goToScreen('IndicateSongFeedbackScreen')
+    }
   }
 
   handleBackClick = () => {
     this.props.navigation.pop();
   };
 
-  goToScreen = (route) => {
-    this.props.navigation.navigate(route);
+  handleSongIndicate = ([artist, song]) => {
+    this.setState({indication: {song, artist}});
+    this.props.dispatch(indicateSong(song.id, artist.id));
+  }
+
+  goToScreen = () => {
+    let artist = this.state.indication.artist;
+    let song = this.state.indication.song;
+    this.props.navigation.navigate('IndicateSongFeedbackScreen', {artist, song});
   };
 
   renderItem = ({item}) => (
-    <MPArtist artist={item.title} imagePath={item.imagePath}
-              onPress={this.goToScreen.bind(this, 'IndicateSongFeedbackScreen')} style={{marginBottom: 10,}}/>
+    <MPArtist artist={item}
+              onPress={this.handleSongIndicate.bind(this, [item, this.state.song])} style={{marginBottom: 10}}/>
   );
 
   toggleState = (att) => {
     this.setState({[att]: !this.state.songHeader});
   };
 
-  checkArtistName = (value) => {
+  handleSearch = (value) => {
     this.setState({textValue: value});
-    if (value == 'Madonna') {
-      this.setState({notFoundArtist: true});
-    } else {
+
+    if(value == ""){
       this.setState({notFoundArtist: false});
+    }
+
+    if(value.length > 3){
+      this.props.dispatch(searchArtists(value))
     }
   }
 
@@ -87,12 +81,13 @@ class IndicateSongFullScreen extends React.Component {
     return (
       <View style={styles.container}>
         <MPHeader back={true} onBack={this.handleBackClick}/>
+        <MPLoading visible={this.props.loading} />
         <ScrollView>
                 <View>
                   { this.state.songHeader && (
                       <View>
                         <MPText style={ styles.headerText}>Com quem <MPText style={ styles.headerTextCustom }>combina</MPText>?</MPText>
-                        <MPSong />
+                        <MPSong song={this.state.song}/>
                         <MPText style={ styles.detailsText}>Sabe aquela história de que todo artista tem de ir aonde o povo está? Vamos mostrar sua criação para o mundo. Aproveite para convocar seus seguidores ou você mesmo pode achar uma banda perfeita para esse hit.</MPText>
                       </View>
                   )}
@@ -101,18 +96,18 @@ class IndicateSongFullScreen extends React.Component {
                                style={{marginHorizontal: 20}}
                                onFocus={this.toggleState.bind(this, 'songHeader')}
                                onBlur={this.toggleState.bind(this, 'songHeader')}
-                               onChangeText={ this.checkArtistName }/>
+                               onChangeText={ this.handleSearch }/>
                   {this.state.notFoundArtist && (
                         <View>
-                          <MPText style={ styles.textFieldSubText}><MPText style={ styles.textFieldSubTextEmph}>"Madonna"</MPText>ainda não está no MusicPlayce.</MPText>
+                          <MPText style={ styles.textFieldSubText}><MPText style={ styles.textFieldSubTextEmph}>"{this.state.textValue}"</MPText>ainda não está no MusicPlayce.</MPText>
                           <View style={styles.infoTextContainer}>
-                            <MPText style={styles.infoText}>Quando <MPText style={styles.infoTextEmph}>Madonna</MPText>fizer o cadastro, vamos mostrar sua indicação!</MPText>
+                            <MPText style={styles.infoText}>Quando <MPText style={styles.infoTextEmph}>{this.state.textValue}</MPText>fizer o cadastro, vamos mostrar sua indicação!</MPText>
                             <MPGradientButton title={'Indicar'} textSize={16} style={{marginHorizontal: 113, marginTop: 10}} onPress={()=> {}} />
                           </View>
                         </View>
                   )}
                   <View>
-                    <FlatList data = {this.artistList.data}
+                    <FlatList data = {this.state.artists}
                               keyExtractor={(item,index) => item.id}
                               renderItem={this.renderItem}
                               numColumns={3}
@@ -179,4 +174,9 @@ const styles = StyleSheet.create({
   },
 });
 
+const mapStateToProps = ({artistReducer, songsReducer}) => {
+  return {...artistReducer, ...songsReducer};
+};
+
+const IndicateSongFullScreen = connect(mapStateToProps)(IndicateSongFullScreenContainer);
 export {IndicateSongFullScreen};

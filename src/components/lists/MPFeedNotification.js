@@ -3,17 +3,9 @@ import {
   StyleSheet, 
   View,
 } from 'react-native';
-import { connect } from 'react-redux';
 import { MPText } from '../../components';
 
 class MPFeedNotification extends React.Component {
-  state = {
-    tabIndex: 0,
-  };
-
-  changeTabIndex = (index) => {
-    this.setState({tabIndex: index});
-  };
 
   render() {
     let {

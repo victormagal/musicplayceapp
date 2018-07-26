@@ -41,7 +41,7 @@ class MPFolderContainer extends Component {
             </View>
             <View>
               <MPText style={ styles.chooseFolderText}>{ folderName }</MPText>
-              <MPText style={ styles.chooseFolderSubText}>{ musicAmount }</MPText>
+              <MPText style={ styles.chooseFolderSubText}>{ musicAmount } músicas</MPText>
             </View>
           </View>
         </Card>

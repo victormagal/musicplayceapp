@@ -22,10 +22,18 @@ class ProfileIndicatorCE extends Component {
   }
 
   renderIndicator() {
-    const { style, title, titlePlural, count} = this.props;
-    const label = count === 1 ? title : titlePlural;
+    let { style, title, titlePlural, titleZero, count} = this.props;
+
+    if(typeof count === 'undefined'){
+      count = 0;
+    }
+
+    let label = count <= 1 ? title : titlePlural;
+    label = count === 0 ? titlePlural : label;
+
     const moreThan1k = count > 1000 ? `${ count/1000 }K` : count;
     const finalCount = count > 1000000 ? `${ count/1000000 }M` : moreThan1k;
+
     return (
       <View style={style}>
         <View style={styles.top}/>
@@ -42,8 +50,8 @@ class ProfileIndicatorCE extends Component {
   }
 
   render() {
-    const { count } = this.props;
-    if (count || count > 0) {
+    const { count, me } = this.props;
+    if (!me || count || count > 0) {
       return this.renderIndicator()
     }
     return this.renderEmpty()
@@ -55,6 +63,7 @@ ProfileIndicatorCE.propTypes = {
   title: PropTypes.string.isRequired,
   titlePlural: PropTypes.string.isRequired,
   subtitle: PropTypes.string.isRequired,
+  me : PropTypes.bool,
   onEmptyClick : PropTypes.func
 };
 

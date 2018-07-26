@@ -37,6 +37,29 @@ class ModalPlayerComponent extends React.Component {
     }
   };
 
+  renderComposers = (song) => {
+    let composerString = song.artist.name;
+    let composers = [composerString];
+
+    if(song.coAuthors && song.coAuthors.length > 0){
+      let coAuthors = song.coAuthors;
+      composers = composers.concat(coAuthors.map((coAuthor, index) => coAuthor.name));
+    }
+
+    composers = composers.join(', ');
+    if(composers) {
+    }
+
+    return composers;
+  };
+
+
+  renderTags(tags){
+    return tags.map((tag, index) =>
+      <MPText key={index} style={styles.tagText}>#{tag.name}</MPText>
+    );
+  }
+
   renderCloseIcon(){
     let {onCloseClick} = this.props;
     return [
@@ -127,18 +150,14 @@ class ModalPlayerComponent extends React.Component {
           <MPText style={[styles.musicTitleText, styles.modalMusicTitleText]}>{song && song.name}</MPText>
 
           <MPText style={[styles.compositorTitle, styles.alignCenter]}>COMPOSITOR</MPText>
-          <MPText style={[styles.compositorText, styles.modalCompositorText]}>Almir Sater</MPText>
+          <MPText style={[styles.compositorText, styles.modalCompositorText]}>{song && this.renderComposers(song)}</MPText>
 
           <MPText style={[styles.compositorTitle, styles.alignCenter]}>INTÉRPRETE</MPText>
           <MPText style={[styles.compositorText, styles.modalCompositorText]}>Santiago Silva</MPText>
 
           <View style={[styles.row, styles.tagContainer, styles.modalTagContainer]}>
             <View style={[styles.row, styles.modalTagContent]}>
-              <MPText style={styles.tagText}>#coraçãopartido</MPText>
-              <MPText style={styles.tagText}>#descobertas</MPText>
-              <MPText style={styles.tagText}>#paquera</MPText>
-              <MPText style={styles.tagText}>#balada</MPText>
-              <MPText style={styles.tagText}>#amor</MPText>
+              {song && song.tags && this.renderTags(song.tags)}
             </View>
           </View>
 
@@ -147,7 +166,7 @@ class ModalPlayerComponent extends React.Component {
             <MPPlayerHeartIcon />
           </TouchableOpacity>
 
-          <MPButton title="INDICAR" style={styles.playerIndicate} textStyle={styles.playerIndicateText}/>
+          <MPButton title="INDICAR" onPress={this.props.onSongIndicateClick} style={styles.playerIndicate} textStyle={styles.playerIndicateText}/>
           <MPText style={[styles.totalIndications, styles.modalTotalIndications]}>200 indicações</MPText>
 
         </View>

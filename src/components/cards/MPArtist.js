@@ -8,8 +8,9 @@ import { MPLessArtistIcon, MPPlusArtistIcon, MPPlusArtistAvatarIcon} from '../..
 class MPArtist extends Component {
 
   render() {
-    const {artist, imagePath, style, isFollowing, onPress} = this.props;
-    const image = typeof imagePath === 'string' ? { uri: imagePath } : imagePath;
+    const {artist, style, isFollowing, onPress} = this.props;
+    const image = artist.picture_url ? { uri: artist.picture_url } : null;
+
     return (
       <TouchableOpacity style={style || {}} onPress={onPress}>
         <Card containerStyle={styles.simpleArtistCardContainer}>
@@ -29,7 +30,7 @@ class MPArtist extends Component {
               </View>
             }
           </View>
-          <MPText style={ styles.simpleArtistCardText }>{ artist }</MPText>
+          <MPText style={ styles.simpleArtistCardText }>{ artist.name }</MPText>
         </Card>
       </TouchableOpacity>
     );
@@ -37,9 +38,9 @@ class MPArtist extends Component {
 }
 
 MPArtist.propTypes = {
-  artist: PropTypes.string.isRequired,
+  artist: PropTypes.object.isRequired,
   imagePath: PropTypes.any,
-  onPress: PropTypes.func.isRequired,
+  onPress: PropTypes.func,
   backgroundColor: PropTypes.any,
   style: PropTypes.any,
 };
