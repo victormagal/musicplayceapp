@@ -13,7 +13,7 @@ import {
   SONG_PUBLISH_ERROR,
   SONG_UNPUBLISH_SUCCESS,
   SONG_UNPUBLISH_ERROR,
-  FETCHED_ARTIST_SONGS,
+  FETCHED_SONG_ARTIST_SONGS,
   FETCHED_SONG,
   FETCHED_SONG_LYRICS
 } from './songsAction';
@@ -120,7 +120,7 @@ const songsReducer = (state, action) => {
         songUnpublishSuccess: true
       };
 
-    case FETCHED_ARTIST_SONGS:
+    case FETCHED_SONG_ARTIST_SONGS:
       return {
         ...state,
         mySongs: action.payload,

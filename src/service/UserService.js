@@ -61,6 +61,11 @@ class UserService {
       return {...attributes};
     });
   }
+
+  static followArtist(artist){
+    return axios.post(`${API_USER}/users/me/following/${artist}`)
+      .then(response => response.data);
+  }
 }
 
 export {UserService};

@@ -1,6 +1,7 @@
 import React from 'react';
+import {Card} from 'react-native-elements';
 import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
-import { MPConfigurationIcon } from '../../assets/svg';
+
 
 class MPTabBottomComponent extends React.Component {
 
@@ -8,35 +9,36 @@ class MPTabBottomComponent extends React.Component {
     const {navigation, onTabPress, jumpTo, renderIcon} = this.props;
     const { routes } = navigation.state;
 
-    return <View style={styles.container} forceInset={{ bottom: 'always', top: 'never' }}>
-      {routes.map((route, index) => {
-        const focused = index === navigation.state.index;
-        const addStyle = focused ? styles.buttonActive : {};
-        const scene = { route, focused };
+    return (
+      <Card containerStyle={styles.card} forceInset={{ bottom: 'always', top: 'never' }}>
+        <View style={styles.container}>
+          {routes.map((route, index) => {
+            const focused = index === navigation.state.index;
+            const addStyle = focused ? styles.buttonActive : {};
+            const scene = { route, focused };
 
-        return <TouchableOpacity style={[styles.button, addStyle]} key={route.key} onPress={() => {
-          jumpTo(route.key);
-          onTabPress({ route });
-        }}>
-          {renderIcon(scene)}
-        </TouchableOpacity>;
-      })}
-    </View>;
+            return <TouchableOpacity style={[styles.button, addStyle]} key={route.key} onPress={() => {
+              jumpTo(route.key);
+              onTabPress({ route });
+            }}>
+              {renderIcon(scene)}
+            </TouchableOpacity>;
+          })}
+        </View>
+      </Card>
+    );
   }
 }
 
 
 const styles = StyleSheet.create({
+  card: {
+    margin: 0,
+    padding: 0
+  },
   container: {
     flexDirection: 'row',
-    backgroundColor: '#FFFFFF',
-    shadowColor: '#000000',
-    shadowOpacity: 0.15,
-    shadowRadius: 2,
-    shadowOffset: {
-      width: 2,
-      height: 0
-    }
+    backgroundColor: '#FFFFFF'
   },
   button: {
     alignItems: 'center',

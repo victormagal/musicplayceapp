@@ -147,7 +147,15 @@ class PlayerComponent extends React.Component {
         return (<MPText style={styles.tagText}>#{tag.name}</MPText>)
       })
     }
-  }
+  };
+
+  togglePlayerPause = () => {
+    if(this.props.player.inProgress){
+      this.props.player.isPlaying ? this.props.onSongPause() : this.props.onSongResume();
+    } else{
+      this.props.onSongPlay(this.props.song);
+    }
+  };
 
   renderComment = () => {
     return (
@@ -414,6 +422,8 @@ class PlayerComponent extends React.Component {
   }
 
   renderDetailPlayer() {
+    let {song} = this.props;
+
     return (
       <View style={styles.player}>
         <Slider style={styles.playerSlider} thumbStyle={styles.playerThumb}
@@ -422,12 +432,14 @@ class PlayerComponent extends React.Component {
         <TouchableOpacity style={styles.playerContent}
                           onPress={this.handleTogglePlayer.bind(this, true)}>
           <TouchableOpacity style={styles.playerPlayIcon}>
-            <MPIconButton icon={MPDetailPlayIcon} iconSelected={MPDetailPauseIcon}/>
+            <MPIconButton icon={MPDetailPlayIcon} iconSelected={MPDetailPauseIcon}
+                          selected={this.props.player.isPlaying}
+                          onPress={this.togglePlayerPause}/>
           </TouchableOpacity>
 
           <View style={styles.playerInfo}>
-            <MPText style={styles.playerSongName}>Tocando em frente</MPText>
-            <MPText style={styles.playerArtistName}>Almir Sater</MPText>
+            <MPText style={styles.playerSongName}>{song ? song.name : 'Tocando em Frente'}</MPText>
+            <MPText style={styles.playerArtistName}>{song ? this.handleSongComposers(song) : 'Almir Sater'}</MPText>
           </View>
 
           <TouchableOpacity style={styles.playerHeart} onPress={this.handleSaveSong}>

@@ -14,7 +14,7 @@ export const SONG_PUBLISH_SUCCESS = 'SONG_PUBLISH_SUCCESS';
 export const SONG_PUBLISH_ERROR = 'SONG_PUBLISH_ERROR';
 export const SONG_UNPUBLISH_SUCCESS = 'SONG_UNPUBLISH_SUCCESS';
 export const SONG_UNPUBLISH_ERROR = 'SONG_UNPUBLISH_ERROR';
-export const FETCHED_ARTIST_SONGS = 'FETCHED_ARTIST_SONGS';
+export const FETCHED_SONG_ARTIST_SONGS = 'FETCHED_SONG_ARTIST_SONGS';
 export const FETCHED_SONG = 'FETCHED_SONG';
 export const FETCHED_SONG_LYRICS = 'FETCHED_SONG_LYRICS';
 export const SONG_INDICATE_SUCCESS = 'SONG_INDICATE_SUCCESS';
@@ -37,7 +37,7 @@ export const songIndicateError = createAction(SONG_INDICATE_ERROR);
 export const songPublishError = createAction(SONG_PUBLISH_ERROR);
 export const songUnpublishSuccess = createAction(SONG_UNPUBLISH_SUCCESS);
 export const songUnpublishError = createAction(SONG_UNPUBLISH_ERROR);
-export const fetchedArtistSongs = createAction(FETCHED_ARTIST_SONGS, data => data);
+export const fetchedSongArtistSongs = createAction(FETCHED_SONG_ARTIST_SONGS, data => data);
 export const fetchedSong = createAction(FETCHED_SONG, data => data);
 export const fetchedSongLyrics = createAction(FETCHED_SONG_LYRICS, data => data);
 
@@ -141,7 +141,7 @@ export const fetchArtistSongs = (artist) => {
     dispatch(songStartLoading());
 
     return SongService.artistSongs(artist).then(response => {
-      dispatch(fetchedArtistSongs(response));
+      dispatch(fetchedSongArtistSongs(response));
     }).catch(e => {
       dispatch(songFinishLoading(e.response));
     });

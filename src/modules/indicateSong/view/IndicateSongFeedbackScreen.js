@@ -2,12 +2,12 @@ import React from 'react';
 import {StyleSheet, ScrollView, Text, View} from 'react-native';
 import { MPHeader, MPText, MPGradientButton, MPArtist, MPSongRating } from '../../../components'
 import { connect } from 'react-redux';
-import { MPPlusIcon, MPLogoIcon } from '../../../assets/svg';
+import { MPPlusIcon,  } from '../../../assets/svg';
+
 import images from '../../../assets/img';
 import { fetchOneSong } from '../../../state/action';
 
 class IndicateSongFeedbackScreenContainer extends React.Component {
-  
   constructor(props){
     super(props);
     if(this.props.navigation.state && this.props.navigation.state.params){
@@ -15,6 +15,7 @@ class IndicateSongFeedbackScreenContainer extends React.Component {
       this.state = {artist, song};
     }
   }
+
   handleBackClick = () => {
     this.props.navigation.pop();
   };
@@ -22,12 +23,12 @@ class IndicateSongFeedbackScreenContainer extends React.Component {
   goToScreen = (route) => {
     this.props.navigation.navigate(route);
   }
-  
+
   render() {
     console.log(this.state);
     return (
       <View style={styles.container}>
-        <MPHeader back={true} onBack={this.handleBackClick} title={""} />
+        <MPHeader back={true} onBack={this.handleBackClick} title={""}/>
         <ScrollView>
           <MPText style={ styles.headerText }>Indicação feita!</MPText>
           <View style={ styles.partnershipContainer}>
@@ -62,12 +63,12 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   infoText: {
-    fontSize : 16,
-    color : '#000',
+    fontSize: 16,
+    color: '#000',
     fontFamily: 'Montserrat-Regular',
     marginHorizontal: 32,
     textAlign: 'center',
-    marginBottom : 20,
+    marginBottom: 20,
     marginTop: 22,
   },
   infoTextEmph: {
@@ -85,8 +86,9 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = ({ songsReducer }) => {
-  return { ...songsReducer };
+
+const mapStateToProps = () => {
+  return {};
 };
 
 const IndicateSongFeedbackScreen = connect(mapStateToProps)(IndicateSongFeedbackScreenContainer);

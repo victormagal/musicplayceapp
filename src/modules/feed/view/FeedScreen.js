@@ -165,7 +165,7 @@ class FeedScreenContainer extends React.Component {
   };
 
   handleClearClick = () => {
-    this.setState({textValue: ''});
+    this.setState({textValue: '', feed: [], searching: false, searchingNotFound: false});
   };
 
   handleChangeTab = (index) => {
@@ -286,7 +286,7 @@ class FeedScreenContainer extends React.Component {
                 onIndexChanged={this.handleChangeTabSwipe}>
 
                 <View style={styles.firstSliderContainer}>
-                  <ScrollView style={{flex: 2,}}>
+                  <ScrollView style={styles.firstSliderScroll} contentContainerStyle={styles.contentScroll}>
                     <MPText style={{
                     fontFamily: 'ProbaPro-Regular',
                     fontSize: 20,
@@ -364,7 +364,12 @@ const styles = StyleSheet.create({
   },
   firstSliderContainer: {
     flex: 1,
-    backgroundColor: '#FCFCFC',
+    backgroundColor: '#FCFCFC'
+  },
+  firstSliderScroll: {
+    flex: 2
+  },
+  contentScroll: {
     paddingBottom: 20
   },
   secondSliderContainer: {

@@ -14,10 +14,12 @@ class ArtistProfileScreenContainer extends React.Component {
 
   render() {
     const { navigation } = this.props;
+
     return (
       <ProfileComponent
         navigation={navigation}
-        profile={this.props.artists.data.attributes}/>
+        profile={this.props.artists.data.attributes}
+        mySongs={this.props.artistsSongs} />
     );
   }
 }
