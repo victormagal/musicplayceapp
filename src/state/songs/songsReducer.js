@@ -9,6 +9,8 @@ import {
   SONG_REMOVE_ERROR,
   SONG_INDICATE_SUCCESS,
   SONG_INDICATE_ERROR,
+  SONG_FAVORITE_SUCCESS,
+  SONG_FAVORITE_ERROR,
   SONG_PUBLISH_SUCCESS,
   SONG_PUBLISH_ERROR,
   SONG_UNPUBLISH_SUCCESS,
@@ -62,7 +64,8 @@ const songsReducer = (state, action) => {
         ...state,
         loading: true
       };
-
+    
+    case SONG_FAVORITE_ERROR:
     case SONG_INDICATE_ERROR:
     case SONG_PUBLISH_ERROR:
     case SONG_UNPUBLISH_ERROR:
@@ -111,6 +114,13 @@ const songsReducer = (state, action) => {
         ...state,
         loading: false,
         songIndicateSuccess: true
+      };
+
+    case SONG_FAVORITE_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        songFavoriteSuccess: true
       };
 
     case SONG_UNPUBLISH_SUCCESS:

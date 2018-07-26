@@ -90,6 +90,13 @@ class SongService {
     return axios.post(`${API_SONG}/${songId}/indications`, params).then(response => response.data);
   }
 
+  static favoriteSong(songId){
+    // let params = { 
+      // folders: [],
+    // };
+    return axios.post(`${API_SONG}/${songId}/favorite`).then(response => response.data);
+  }
+
   static getSong(song) {
     return axios.get(`${API_SONG}/${song.id}?include=coAuthors,tags`).then(({data}) => {
       let relations = getIncludes(data);

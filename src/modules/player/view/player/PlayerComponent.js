@@ -100,6 +100,7 @@ class PlayerComponent extends React.Component {
   };
 
   handleIndicateSong = (song) => {
+    this.setState({playerVisible: false});
     this.props.navigation.navigate('IndicateSongFullScreen', {song});
   };
 
@@ -109,9 +110,9 @@ class PlayerComponent extends React.Component {
     return `${date} às ${time}`;
   }
 
-  handleSaveSong = () => {
+  handleSaveSong = (song) => {
     this.setState({playerVisible: false});
-    this.props.navigation.navigate('playerSaveSong');
+    this.props.navigation.navigate('playerSaveSong', {song});
   };
 
   handleSongComposers = (song) => {
@@ -168,7 +169,9 @@ class PlayerComponent extends React.Component {
                         song={this.props.song}
                         onCloseClick={this.handleTogglePlayer.bind(this, false)}
                         onLyricsClick={this.handleEnableLyricsPlayer}
-                        onSongSaveClick={this.handleSaveSong}/>;
+                        onSongSaveClick={this.handleSaveSong.bind(this, this.props.song)}
+                        onSongIndicateClick={this.handleIndicateSong.bind(this, this.props.song)}/>;
+
   };
 
   renderLyricsContent() {
@@ -329,7 +332,7 @@ class PlayerComponent extends React.Component {
 
                   <MPIconButton title="SALVAR" icon={MPHeartIcon} style={styles.iconButtonContainer}
                                 iconStyle={styles.iconButton} titleStyle={styles.iconButtonText}
-                                onPress={this.handleSaveSong}/>
+                                onPress={this.handleSaveSong.bind(this, song)}/>
                 </View>
 
                 <View style={styles.totalIndicationsContainer}>
@@ -442,12 +445,12 @@ class PlayerComponent extends React.Component {
             <MPText style={styles.playerArtistName}>{song ? this.handleSongComposers(song) : 'Almir Sater'}</MPText>
           </View>
 
-          <TouchableOpacity style={styles.playerHeart} onPress={this.handleSaveSong}>
+          <TouchableOpacity style={styles.playerHeart} onPress={this.handleSaveSong.bind(this,song)}>
             <MPDetailHeartIcon />
           </TouchableOpacity>
 
           <MPButton title="INDICAR" style={styles.playerIndicate} textStyle={styles.playerIndicateText}
-                    onPress={this.handleIndicateSong}/>
+                    onPress={this.handleIndicateSong.bind(this, song)}/>
 
           <MPTriangleUpGrayIcon style={styles.playerUp}/>
         </TouchableOpacity>

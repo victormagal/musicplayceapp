@@ -1,15 +1,19 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {PlayerSaveSongComponent} from './PlayerSaveSongComponent';
-import {playerSongSave, fetchFolders} from '../../../../state/action';
+import { fetchFolders, favoriteSong} from '../../../../state/action';
 
 
 class PlayerSaveSongContainer extends React.Component {
-
-  state = {
-    folderName: '',
-    folders: []
-  };
+  constructor(props){
+    super(props);
+    this.state = {
+      folderName: '',
+      folders: [],
+      song: {},
+      songFavoriteSuccess: false,
+    };
+  }
 
   handleBack = () => {
     this.props.navigation.pop();
@@ -44,18 +48,27 @@ class PlayerSaveSongContainer extends React.Component {
   };
 
   handleSave = () => {
-    let selectedFolder = this.state.folders.filter(i => i.selected)[0];
-    this.handleBack();
-    this.props.dispatch(playerSongSave(selectedFolder.title));
+    // let selectedFolder = this.state.folders.filter(i => i.selected)[0];
+    this.props.dispatch(favoriteSong(this.state.song.id));
   };
 
   componentDidMount = () => {
     this.props.dispatch(fetchFolders());
+    if(this.props.navigation.state && this.props.navigation.state.params){
+      let {song} = this.props.navigation.state.params;
+      if(song) {
+        this.setState({song});
+      }
+    }
   }
 
   componentWillReceiveProps(nextProps){
     if(nextProps.folders){
       this.setState({folders: nextProps.folders.data})
+    }
+
+    if(nextProps.songFavoriteSuccess){
+      this.handleBack();
     }
   }
 
@@ -68,13 +81,14 @@ class PlayerSaveSongContainer extends React.Component {
         onSave={this.handleSave}
         onSelectFolder={this.handleSelectFolder}
         onChangeText={this.handleChangeText}
-        onAddFolder={this.handleAdd}/>
+        onAddFolder={this.handleAdd}
+        loading={this.props.loading}/>
     );
   }
 }
 
-const mapStateToProps = ({folderReducer}) => {
-  return {...folderReducer};
+const mapStateToProps = ({folderReducer, songsReducer}) => {
+  return {...folderReducer, ...songsReducer};
 };
 
 const PlayerSaveSongScreen = connect(mapStateToProps)(PlayerSaveSongContainer);

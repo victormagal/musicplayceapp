@@ -19,6 +19,8 @@ export const FETCHED_SONG = 'FETCHED_SONG';
 export const FETCHED_SONG_LYRICS = 'FETCHED_SONG_LYRICS';
 export const SONG_INDICATE_SUCCESS = 'SONG_INDICATE_SUCCESS';
 export const SONG_INDICATE_ERROR = 'SONG_INDICATE_ERROR';
+export const SONG_FAVORITE_SUCCESS = 'SONG_FAVORITE_SUCCESS';
+export const SONG_FAVORITE_ERROR = 'SONG_FAVORITE_ERROR';
 
 export const updateSongRegisterData = createAction(SONG_REGISTER_DATA, (data) => {
     return {...data};
@@ -34,6 +36,8 @@ export const songRemoveError = createAction(SONG_REMOVE_ERROR);
 export const songPublishSuccess = createAction(SONG_PUBLISH_SUCCESS);
 export const songIndicateSuccess = createAction(SONG_INDICATE_SUCCESS);
 export const songIndicateError = createAction(SONG_INDICATE_ERROR);
+export const songFavoriteSuccess = createAction(SONG_FAVORITE_SUCCESS);
+export const songFavoriteError = createAction(SONG_FAVORITE_ERROR);
 export const songPublishError = createAction(SONG_PUBLISH_ERROR);
 export const songUnpublishSuccess = createAction(SONG_UNPUBLISH_SUCCESS);
 export const songUnpublishError = createAction(SONG_UNPUBLISH_ERROR);
@@ -106,9 +110,17 @@ export const indicateSong = (songId, artistId) => {
   return (dispatch) => {
     dispatch(songStartLoading());
     return SongService.indicateSong(songId, artistId).then(response => {
-      console.log(response);
       dispatch(songIndicateSuccess());
     }).catch(e => dispatch(songIndicateError(e)));
+  };
+};
+
+export const favoriteSong = (songId) => {
+  return (dispatch) => {
+    dispatch(songStartLoading());
+    return SongService.favoriteSong(songId).then(response => {
+      dispatch(songFavoriteSuccess());
+    }).catch(e => dispatch(songFavoriteError(e)));
   };
 };
 
@@ -119,7 +131,6 @@ export const fetchOneSong = (song) => {
     return SongService.getSong(song).then(response => {
       dispatch(fetchedSong(response));
     }).catch(e => {
-      console.log(e);
       dispatch(songFinishLoading(e.response));
     });
   };

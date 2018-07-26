@@ -166,7 +166,7 @@ class ModalPlayerComponent extends React.Component {
             <MPPlayerHeartIcon />
           </TouchableOpacity>
 
-          <MPButton title="INDICAR" style={styles.playerIndicate} textStyle={styles.playerIndicateText}/>
+          <MPButton title="INDICAR" onPress={this.props.onSongIndicateClick} style={styles.playerIndicate} textStyle={styles.playerIndicateText}/>
           <MPText style={[styles.totalIndications, styles.modalTotalIndications]}>200 indicações</MPText>
 
         </View>
