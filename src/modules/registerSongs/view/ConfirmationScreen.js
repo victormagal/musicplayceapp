@@ -1,13 +1,15 @@
 import React from 'react';
-import {StyleSheet, ScrollView, Text, View, TextInput, Image, FlatList} from 'react-native';
-import {MPGradientButton, MPHeader, MPFooter, MPArtist, MPText} from '../../../components';
+import {StyleSheet, ScrollView, View, FlatList} from 'react-native';
+import {MPGradientButton, MPHeader, MPArtist, MPText} from '../../../components';
 import {connect} from 'react-redux';
 import images from '../../../assets/img';
 
 class ConfirmationScreenContainer extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {text: "Pesquise pelo nome"};
+    this.state = {
+      text: "Pesquise pelo nome"
+    };
 
     this.artistList = {
       data: [
@@ -31,11 +33,15 @@ class ConfirmationScreenContainer extends React.Component {
   }
 
   handleClose = () => {
-    this.props.navigation.popToTop();
+    this.props.navigation.navigate('ProfileScreen', { backFromPublishedOrDraft: true });
   };
 
   renderItem = ({item}) => (
-    <MPArtist artist={item.title} imagePath={item.imagePath} onPress={() => {}}/>
+    <MPArtist
+      artist={item.title}
+      imagePath={item.imagePath}
+      onPress={() => console.log()}
+    />
   );
 
   render() {
@@ -44,18 +50,32 @@ class ConfirmationScreenContainer extends React.Component {
         <MPHeader back={false} inverse={true}/>
         <ScrollView style={styles.scroll}>
           <View>
-            <MPText style={styles.titleText}>Pronto! Tudo certo.</MPText>
-            <MPText style={styles.subTitleText}>Que tal indicar sua música pra uma banda que você goste?</MPText>
-            <FlatList data={this.artistList.data}
-                      keyExtractor={(item,index) => item.id}
-                      renderItem={this.renderItem}
-                      numColumns={3}
-                      columnWrapperStyle={{flexWrap: 'wrap', justifyContent: 'center'}}/>
+            <MPText style={styles.titleText}>
+              Pronto! Tudo certo.
+            </MPText>
+            <MPText style={styles.subTitleText}>
+              Que tal indicar sua música pra uma banda que você goste?
+            </MPText>
+            <FlatList
+              data={this.artistList.data}
+              keyExtractor={(item) => item.id}
+              renderItem={this.renderItem}
+              numColumns={3}
+              columnWrapperStyle={{flexWrap: 'wrap', justifyContent: 'center'}}
+            />
             <View style={ styles.confirmationButtonsContainer }>
-              <MPGradientButton textSize={16} title={"Convidar para o MusicPlayce"} onPress={() => {}}
-                                style={ styles.confirmationButtonTop }/>
-              <MPGradientButton textSize={16} title={"Fechar"} onPress={this.handleClose}
-                                style={ styles.confirmationButtonBottom }/>
+              <MPGradientButton
+                textSize={16}
+                title={"Convidar para o MusicPlayce"}
+                onPress={() => console.log()}
+                style={ styles.confirmationButtonTop }
+              />
+              <MPGradientButton
+                textSize={16}
+                title={"Fechar"}
+                onPress={this.handleClose}
+                style={ styles.confirmationButtonBottom }
+              />
             </View>
           </View>
         </ScrollView>

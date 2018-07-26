@@ -1,91 +1,108 @@
-import {createAction} from 'redux-actions';
-import {SongService} from '../../service';
+import { SongService } from '../../service';
+import {
+  fetchedArtistSongs,
+  fetchedSong,
+  fetchedSongLyrics,
+  songDraftError,
+  songDraftSuccess,
+  songFinishLoading,
+  songPublishError,
+  songPublishSuccess,
+  songRemoveError,
+  songRemoveSuccess,
+  songStartLoading,
+  songUnpublishError,
+  songUnpublishSuccess
+} from "./songsType";
 
-
-export const SONG_START_LOADING = 'SONG_START_LOADING';
-export const SONG_FINISH_LOADING = 'SONG_FINISH_LOADING';
-export const SONG_REGISTER_CLEAR = 'SONG_REGISTER_CLEAR';
-export const SONG_REGISTER_DATA = 'UPDATE_SONG_REGISTER_DATA';
-export const SONG_CREATE_SUCCESS = 'SONG_CREATE_SUCCESS';
-export const SONG_CREATE_ERROR = 'SONG_CREATE_ERROR';
-export const SONG_REMOVE_SUCCESS = 'SONG_REMOVE_SUCCESS';
-export const SONG_REMOVE_ERROR = 'SONG_REMOVE_ERROR';
-export const SONG_PUBLISH_SUCCESS = 'SONG_PUBLISH_SUCCESS';
-export const SONG_PUBLISH_ERROR = 'SONG_PUBLISH_ERROR';
-export const SONG_UNPUBLISH_SUCCESS = 'SONG_UNPUBLISH_SUCCESS';
-export const SONG_UNPUBLISH_ERROR = 'SONG_UNPUBLISH_ERROR';
-export const FETCHED_ARTIST_SONGS = 'FETCHED_ARTIST_SONGS';
-export const FETCHED_SONG = 'FETCHED_SONG';
-export const FETCHED_SONG_LYRICS = 'FETCHED_SONG_LYRICS';
-
-
-export const updateSongRegisterData = createAction(SONG_REGISTER_DATA, (data) => {
-    return {...data};
-});
-
-export const songStartLoading = createAction(SONG_START_LOADING);
-export const songFinishLoading = createAction(SONG_FINISH_LOADING);
-export const songRegisterClear = createAction(SONG_REGISTER_CLEAR);
-export const songCreateSuccess = createAction(SONG_CREATE_SUCCESS);
-export const songCreateError = createAction(SONG_CREATE_ERROR);
-export const songRemoveSuccess = createAction(SONG_REMOVE_SUCCESS);
-export const songRemoveError = createAction(SONG_REMOVE_ERROR);
-export const songPublishSuccess = createAction(SONG_PUBLISH_SUCCESS);
-export const songPublishError = createAction(SONG_PUBLISH_ERROR);
-export const songUnpublishSuccess = createAction(SONG_UNPUBLISH_SUCCESS);
-export const songUnpublishError = createAction(SONG_UNPUBLISH_ERROR);
-export const fetchedArtistSongs = createAction(FETCHED_ARTIST_SONGS, data => data);
-export const fetchedSong = createAction(FETCHED_SONG, data => data);
-export const fetchedSongLyrics = createAction(FETCHED_SONG_LYRICS, data => data);
-
-export const createSong = (song) => {
+export const createPermanentSong = (song, file) => {
   return (dispatch, getState) => {
-    let {profile} = getState().profileReducer;
+    const { profile } = getState().profileReducer;
     song.artist_id = profile.id;
-    song.path = 'mock/path.mp3';
 
     dispatch(songStartLoading());
     return SongService.create(song).then(response => {
-      dispatch(songCreateSuccess(response));
+      return SongService.sendSongFile(file, response).then(() => {
+        return SongService.publish(response.data.id).then(() => {
+          dispatch(songPublishSuccess());
+        }).catch(e => {
+            console.log('createPermanentSong -- publishSongError', e.response);
+            dispatch(songPublishError())
+          });
+      }).catch(e => {
+        console.log('createPermanentSong --sendSongFileError', e.response);
+      });
     }).catch(e => {
-      dispatch(songCreateError(e.response));
+      console.log('createPermanentSongError', e.response);
     });
   };
-};
+}
 
-export const updateSong = (song) => {
+export const createDraftSong = (song) => {
+  return (dispatch, getState) => {
+    const { profile } = getState().profileReducer;
+    song.artist_id = profile.id;
+
+    dispatch(songStartLoading());
+    return SongService.create(song).then(() => {
+      dispatch(songDraftSuccess());
+    }).catch(e => {
+      dispatch(songDraftError());
+      console.log('createDraftSongError', e.response);
+    });
+  };
+}
+
+export const updatePermanentSong = (song, file) => {
   return (dispatch) => {
     dispatch(songStartLoading());
-    return SongService.update(song).then(response => {
-      dispatch(songCreateSuccess(response));
+    return SongService.update(song).then(() => {
+      if (file !== null) {
+        return SongService.sendSongFile(file, song).then(() => {
+          return SongService.publish(song.id).then(() => {
+            dispatch(songPublishSuccess());
+          }).catch(e => {
+            console.log('createPermanentSong -- publishSongError', e.response);
+            dispatch(songPublishError())
+          });
+        }).catch(e => {
+          console.log('createPermanentSong --sendSongFileError', e.response);
+        });
+      }
+      return SongService.publish(song.id).then(() => {
+        dispatch(songPublishSuccess());
+      }).catch(e => {
+        console.log('updatePermanentSong -- publishSongError', e.response);
+        dispatch(songPublishError())
+      });
     }).catch(e => {
-      dispatch(songCreateError(e.response));
+      console.log('updatePermanentSongError', e.response);
     });
   };
-};
+}
+
+export const updateDraftSong = (song) => {
+  return (dispatch) => {
+    dispatch(songStartLoading());
+    return SongService.update(song).then(() => {
+      dispatch(songDraftSuccess());
+    }).catch(e => {
+      dispatch(songDraftError());
+      console.log('updateDraftSong', e.response);
+    });
+  };
+}
 
 export const removeSong = (id) => {
   return (dispatch) => {
     dispatch(songStartLoading());
 
-    return SongService.delete(id).then(_ => {
+    return SongService.delete(id).then(() => {
       dispatch(songRemoveSuccess());
-    }).catch(e => dispatch(songRemoveError()));
-  };
-};
-
-export const publishSong = (song) => {
-  return (dispatch) => {
-    dispatch(songStartLoading());
-    return SongService.update(song)
-                      .then(() => SongService.publish(song.id).then(_ => {
-                        dispatch(songPublishSuccess());
-                      }))
-                      .catch(e => {
-                        console.log(e);
-                        console.log(e.response);
-                        dispatch(songPublishError())
-                      });
+    }).catch(() => {
+      console.log('removeSongError', e.response);
+      dispatch(songRemoveError())
+    });
   };
 };
 
@@ -95,7 +112,10 @@ export const unpublishSong = (id) => {
 
     return SongService.unpublish(id).then(_ => {
       dispatch(songUnpublishSuccess());
-    }).catch(e => dispatch(songUnpublishError()));
+    }).catch((e) => {
+      console.log('unpublishSongError', e.response);
+      dispatch(songUnpublishError())
+    });
   };
 };
 
@@ -106,7 +126,7 @@ export const fetchOneSong = (song) => {
     return SongService.getSong(song).then(response => {
       dispatch(fetchedSong(response));
     }).catch(e => {
-      console.log(e);
+      console.log('fetchOneSongError', e.response);
       dispatch(songFinishLoading(e.response));
     });
   };
@@ -119,7 +139,8 @@ export const getSongLyrics = (song) => {
     return SongService.getSongLyrics(song).then(response => {
       dispatch(fetchedSongLyrics(response));
     }).catch(e => {
-      dispatch(songFinishLoading(e.response));
+      console.log('getSongLyricsError', e.response);
+      dispatch(songFinishLoading());
     })
   }
 }

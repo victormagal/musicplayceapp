@@ -1,11 +1,10 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {StyleSheet, Text, View, TextInput} from 'react-native';
-import {updateSongRegisterData} from '../../../state/action';
-import {MPHeader, MPInput, MPText, MPIconButton, MPForm} from '../../../components';
+import {StyleSheet, View} from 'react-native';
+import {MPHeader, MPInput, MPText, MPIconButton} from '../../../components';
+import {updateSongRegisterData} from "../../../state/songs/songsType";
 
 class TitleScreenContainer extends React.Component {
-
   constructor(props){
     super(props);
     this.state = {
@@ -29,17 +28,34 @@ class TitleScreenContainer extends React.Component {
 
   renderHeaderMenuSave() {
     return [
-      <MPIconButton key={1} title="Salvar" titleStyle={styles.headerMenuText} onPress={this.handleSaveClick}/>
+      <MPIconButton
+        key={1}
+        title="Salvar"
+        titleStyle={styles.headerMenuText}
+        onPress={this.handleSaveClick}
+      />
     ];
   }
 
   render() {
     return (
       <View style={styles.container}>
-        <MPHeader back={true} onBack={this.handleBackClick} title="Título da música" icons={this.renderHeaderMenuSave()}/>
+        <MPHeader
+          back={true}
+          onBack={this.handleBackClick}
+          title="Título da música"
+          icons={this.renderHeaderMenuSave()}
+        />
         <View style={styles.content}>
-          <MPText style={styles.description}>Escreva o título da música.</MPText>
-          <MPInput label="Título da música" name="title" value={this.state.title} onChangeText={this.handleChangeName} />
+          <MPText style={styles.description}>
+            Escreva o título da música.
+          </MPText>
+          <MPInput
+            label="Título da música"
+            name="title"
+            value={this.state.title}
+            onChangeText={this.handleChangeName}
+          />
         </View>
 
       </View>

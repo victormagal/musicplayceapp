@@ -109,7 +109,7 @@ class ProfileComponent extends React.Component {
           { this.renderContent(profile) }
         </ScrollView>
         { (profile && me) &&
-          <MPAddSongButton isColored={true}/>
+          <MPAddSongButton isColored={true} onPress={this.props.onSongAddClick} />
         }
       </View>
     )

@@ -1,10 +1,8 @@
 import {
-  SONG_REGISTER_DATA,
-  SONG_REGISTER_CLEAR,
   SONG_START_LOADING,
   SONG_FINISH_LOADING,
-  SONG_CREATE_SUCCESS,
-  SONG_CREATE_ERROR,
+  SONG_DRAFT_SUCCESS,
+  SONG_DRAFT_ERROR,
   SONG_REMOVE_SUCCESS,
   SONG_REMOVE_ERROR,
   SONG_PUBLISH_SUCCESS,
@@ -13,8 +11,10 @@ import {
   SONG_UNPUBLISH_ERROR,
   FETCHED_ARTIST_SONGS,
   FETCHED_SONG,
-  FETCHED_SONG_LYRICS
-} from './songsAction';
+  FETCHED_SONG_LYRICS,
+  SONG_REGISTER_DATA,
+  SONG_REGISTER_CLEAR
+} from './songsType';
 
 const defaultSong = {
   name: '',
@@ -24,22 +24,20 @@ const defaultSong = {
   coAuthors: null,
   folder: null,
   tags: null,
+  path: ''
 };
 
 const songsReducer = (state, action) => {
   state = state || {
-      loading: false,
-      song: {...defaultSong},
-      fetchedSong: null,
-      mySongs: null
+    loading: false,
+    fetchedSong: null,
+    mySongs: null,
+    song: {...defaultSong},
+    songDraftSuccess: false,
+    songRemoveSuccess: false,
+    songPublishSuccess: false,
+    songUnpublishSuccess: false,
     };
-
-  state.songCreateSuccess = false;
-  state.songCreateError = false;
-  state.songRemoveSuccess = false;
-  state.songPublishSuccess = false;
-  state.songUnpublishSuccess = false;
-
 
   switch (action.type) {
     case SONG_REGISTER_DATA:
@@ -60,6 +58,7 @@ const songsReducer = (state, action) => {
         loading: true
       };
 
+    case SONG_DRAFT_ERROR:
     case SONG_PUBLISH_ERROR:
     case SONG_UNPUBLISH_ERROR:
     case SONG_FINISH_LOADING:
@@ -68,18 +67,11 @@ const songsReducer = (state, action) => {
         loading: false
       };
 
-    case SONG_CREATE_SUCCESS:
+    case SONG_DRAFT_SUCCESS:
       return {
         ...state,
-        songCreateSuccess: true,
-        loading: false
-      };
-
-    case SONG_CREATE_ERROR:
-      return {
-        ...state,
-        songCreateError: true,
-        loading: false
+        songDraftSuccess: true,
+        song: {...defaultSong}
       };
 
     case SONG_REMOVE_SUCCESS:
@@ -99,7 +91,8 @@ const songsReducer = (state, action) => {
       return {
         ...state,
         loading: false,
-        songPublishSuccess: true
+        songPublishSuccess: true,
+        song: {...defaultSong}
       };
 
     case SONG_UNPUBLISH_SUCCESS:
@@ -129,8 +122,6 @@ const songsReducer = (state, action) => {
         songLyrics: action.payload,
         loading: false
       };
-
-
   }
 
   return state;

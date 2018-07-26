@@ -1,11 +1,11 @@
 import React from 'react';
-import {StyleSheet, Text, View, TextInput, ScrollView} from 'react-native';
+import {StyleSheet, View, ScrollView} from 'react-native';
 import {connect} from 'react-redux';
-import {updateSongRegisterData} from '../../../state/action';
-import {MPHeader, MPInput, MPText, MPIconButton} from '../../../components';
+import {MPHeader, MPText, MPIconButton} from '../../../components';
+import {updateSongRegisterData} from "../../../state/songs/songsType";
+import {MPTextField} from "../../../components/forms";
 
 class MusicDescriptionScreenContainer extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -13,8 +13,8 @@ class MusicDescriptionScreenContainer extends React.Component {
     };
   }
 
-  handleChangeDescription = ({value}) => {
-    this.setState({description: value});
+  handleChangeDescription = (description) => {
+    this.setState({ description });
   };
 
   handleBackClick = () => {
@@ -22,25 +22,44 @@ class MusicDescriptionScreenContainer extends React.Component {
   };
 
   handleSaveClick = () => {
-    let song = {...this.props.song, description: this.state.description};
+    const song = {...this.props.song, description: this.state.description};
     this.props.dispatch(updateSongRegisterData(song));
     this.handleBackClick();
   };
 
   renderHeaderMenuSave() {
     return [
-      <MPIconButton key={1} title="Salvar" titleStyle={styles.headerMenuText} onPress={this.handleSaveClick}/>
+      <MPIconButton
+        key={1}
+        title="Salvar"
+        titleStyle={styles.headerMenuText}
+        onPress={this.handleSaveClick}
+      />
     ];
   }
 
   render() {
     return (
       <View style={styles.container}>
-        <MPHeader back={true} onBack={this.handleBackClick} title="Descrição" icons={this.renderHeaderMenuSave()}/>
-        <View style={styles.content}>
-          <MPText style={styles.textTop}>Explique um pouquinho sobre sua música.</MPText>
-          <MPInput label='Descrição' value={this.state.description} onChangeText={this.handleChangeDescription}/>
-        </View>
+        <MPHeader
+          back={true}
+          onBack={this.handleBackClick}
+          title="Descrição"
+          icons={this.renderHeaderMenuSave()}
+        />
+        <ScrollView>
+          <View style={styles.content}>
+            <MPText style={styles.textTop}>
+              Explique um pouquinho sobre sua música.
+            </MPText>
+            <MPTextField
+              multiline={true}
+              label='Descrição'
+              value={this.state.description}
+              onChangeText={this.handleChangeDescription}
+            />
+          </View>
+        </ScrollView>
       </View>
     );
   }
