@@ -7,7 +7,6 @@ import {
   Modal
 } from 'react-native';
 import {
-  MPFooter,
   MPHeader,
   MPText,
   MPConfirmChatDelete,
@@ -163,7 +162,7 @@ class ChatScreenContainer extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <MPHeader back={true} />
+        <MPHeader back={true} onBack={this.handleBackClick} />
         <TouchableWithoutFeedback onPress={this.handleToggleMenu}>
           <View style={styles.menuHeader}>
             <MPText style={styles.menuText}>Fernanda</MPText>

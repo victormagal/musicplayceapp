@@ -22,7 +22,6 @@ class IndicateSongFullScreenContainer extends React.Component {
     if(this.props.navigation.state && this.props.navigation.state.params){
       let {song} = this.props.navigation.state.params;
       if(song) {
-        console.log('id', song.id);
         this.props.dispatch(fetchOneSong(song));
       }
     }

@@ -251,6 +251,7 @@ class ProfileComponent extends React.Component {
               <View>
                 <MPShowFolderSongs
                   folderName='Outras'
+                  me={me}
                   songs={mySongs.data}
                   onEditClick={this.handleEditSong}
                   onIndicateClick={this.handleIndicateSong}
@@ -286,6 +287,7 @@ class ProfileComponent extends React.Component {
             {profile.songSaves && (
               <View>
                 <MPShowFolderSongs folderName='Outras'
+                                   me={me}
                                    songs={profile.songSaves}
                                    onEditClick={this.handleEditSong}
                                    onIndicateClick={this.handleIndicateSong}
