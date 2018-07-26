@@ -6,10 +6,9 @@ import {
 } from 'react-native';
 import {
     MPText,
-  MPGradientButton,
-  MPHelpSuccess
+  MPGradientButton
 } from '../../components';
-import { saveProfile } from '../../state/action';
+import { artistStopFollow } from '../../state/action';
 
 class MPConfirmStopFollowComponent extends React.Component {
 
@@ -17,18 +16,21 @@ class MPConfirmStopFollowComponent extends React.Component {
     this.props.navigation.pop();
   };
 
-  handleFoward = () => {
-    this.props.dispatch(saveProfile({isFollowing: false}))
+  handleStopFollow = () => {
+    let {profile} =  this.props.navigation.state.params;
+    this.props.dispatch(artistStopFollow(profile.id));
     this.props.navigation.pop();
   };
 
   render() {
+    let {profile} =  this.props.navigation.state.params;
+
     return (
       <View style={styles.container}>
-        <MPText style={ styles.title }>Parar de seguir{"\n"}Ivete Sangalo?</MPText>
+        <MPText style={ styles.title }>Parar de seguir{"\n"} {profile.name}?</MPText>
         <MPText style={ styles.subTitle }>As informações, troca de mensagens e indicações ficarão escondidas. Para reativá-la, basta segui-la novamente.</MPText>
-        <MPGradientButton style={ styles.button } title={'Parar de seguir'}   textSize={16} onPress={this.handleFoward.bind(this)}/>
-        <MPGradientButton style={ styles.button } title={'Continuar seguindo'} textSize={16} onPress={this.handleBack.bind(this)}/>
+        <MPGradientButton style={ styles.button } title={'Parar de seguir'}   textSize={16} onPress={this.handleStopFollow}/>
+        <MPGradientButton style={ styles.button } title={'Continuar seguindo'} textSize={16} onPress={this.handleBack}/>
       </View>
     );
   }
@@ -61,8 +63,8 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = ({ fontReducer }) => {
-  return { ...fontReducer };
+const mapStateToProps = () => {
+  return {};
 };
 
 const MPConfirmStopFollow = connect(mapStateToProps)(MPConfirmStopFollowComponent);

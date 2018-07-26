@@ -46,7 +46,7 @@ class ProfileComponent extends React.Component {
 
   toggleFollow = () => {
     if(this.props.profile.isFollowing){
-      this.props.navigation.navigate('message', {component: MPConfirmStopFollow})
+      this.props.navigation.navigate('message', {component: MPConfirmStopFollow, profile: this.props.profile});
     }else{
       this.props.onFollowUpClick();
     }
@@ -78,7 +78,7 @@ class ProfileComponent extends React.Component {
 
   handleBack = () => {
     this.props.navigation.goBack();
-  }
+  };
 
   handleChangeTab = (index) => {
     this.setState({tabIndex: index});
@@ -109,7 +109,7 @@ class ProfileComponent extends React.Component {
           { this.renderContent(profile) }
         </ScrollView>
         { (profile && me) &&
-          <MPAddSongButton isColored={true}/>
+          <MPAddSongButton isColored={true} onPress={this.props.onSongAddClick} />
         }
       </View>
     )
@@ -128,7 +128,6 @@ class ProfileComponent extends React.Component {
         <MPHeader
           back={true}
           onBack={this.handleBack}
-          icons={[ <View key={Math.random()} /> ]}
         />
       )
     }

@@ -63,8 +63,11 @@ class UserService {
   }
 
   static followArtist(artist){
-    return axios.post(`${API_USER}/me/following/${artist}`)
-                .then(response => response.data);
+    return axios.post(`${API_USER}/me/following/${artist}`);
+  }
+
+  static stopFollowArtist(artist){
+    return axios.delete(`${API_USER}/me/following/${artist}`);
   }
 }
 
