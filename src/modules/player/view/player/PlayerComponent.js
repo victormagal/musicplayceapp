@@ -143,8 +143,8 @@ class PlayerComponent extends React.Component {
 
   handleSongTags = (songTags) => {
     if(songTags.length > 0){
-      return songTags.map(tag => {
-        return (<MPText style={styles.tagText}>#{tag.name}</MPText>)
+      return songTags.map((tag, index) => {
+        return (<MPText key={index} style={styles.tagText}>#{tag.name}</MPText>)
       })
     }
   };

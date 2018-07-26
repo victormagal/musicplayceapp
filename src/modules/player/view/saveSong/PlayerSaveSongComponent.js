@@ -16,7 +16,7 @@ class PlayerSaveSongComponent extends React.Component {
 
   renderHeaderMenu() {
     return [
-      <MPIconButton title="Salvar" titleStyle={styles.headerMenuText} onPress={this.props.onSave}/>
+      <MPIconButton key={1} title="Salvar" titleStyle={styles.headerMenuText} onPress={this.props.onSave}/>
     ];
   }
 
