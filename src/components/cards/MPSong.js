@@ -22,7 +22,7 @@ class MPSong extends Component {
   }
 
   render() {
-    let {song, composers, onPress, style} = this.props;
+    let {song, style} = this.props;
 
     return (
       <TouchableOpacity style={[styles.parent, style]}>
