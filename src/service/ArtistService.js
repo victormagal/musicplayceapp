@@ -7,7 +7,11 @@ class ArtistService {
 
   static getArtistById(id) {
     return axios.get(`${ API_ARTIST }/${ id }`)
-      .then(response => response.data);
+      .then(response => {
+        let {data} = response.data;
+        let {id, attributes} = data;
+        return {id, ...attributes};
+      });
   }
 
   static artists(search) {

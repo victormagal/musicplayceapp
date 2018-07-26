@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {ProfileComponent} from './ProfileComponent';
-import {getArtistById} from "../../../state/artist/artistAction";
+import {getArtistById, artistFollow} from "../../../state/action";
 
 
 class ArtistProfileScreenContainer extends React.Component {
@@ -12,13 +12,18 @@ class ArtistProfileScreenContainer extends React.Component {
     dispatch(getArtistById(navigationParams.artistId));
   }
 
+  handleFollowUp = () => {
+    this.props.dispatch(artistFollow(this.props.artist.id));
+  };
+
   render() {
     const { navigation } = this.props;
 
     return (
       <ProfileComponent
         navigation={navigation}
-        profile={this.props.artists.data.attributes}
+        profile={this.props.artist}
+        onFollowUpClick={this.handleFollowUp}
         mySongs={this.props.artistsSongs} />
     );
   }

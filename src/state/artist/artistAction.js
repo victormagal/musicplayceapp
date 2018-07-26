@@ -1,14 +1,16 @@
 import {createAction} from 'redux-actions';
-import {ArtistService, SongService} from '../../service';
+import {ArtistService, SongService, UserService} from '../../service';
 
 
+export const FETCHED_ARTISTS = 'FETCHED_ARTISTS';
+export const FETCHED_ARTIST_SONGS = 'FETCHED_ARTIST_SONGS';
 export const ARTIST_START_LOADING = 'ARTIST_START_LOADING';
 export const ARTIST_FINISH_LOADING = 'ARTIST_FINISH_LOADING';
-export const FETCHED_ARTISTS = 'FETCHED_ARTISTS';
 export const ARTIST_BY_ID_FETCHED = 'ARTIST_BY_ID_FETCHED';
 export const ARTIST_SAVE_SUCCESS = 'ARTIST_SAVE_SUCCESS';
 export const ARTIST_SAVE_ERROR = 'ARTIST_SAVE_ERROR';
-export const FETCHED_ARTIST_SONGS = 'FETCHED_ARTIST_SONGS';
+export const ARTIST_FOLLOW_SUCCESS = 'ARTIST_FOLLOW_SUCCESS';
+export const ARTIST_FOLLOW_ERROR = 'ARTIST_FOLLOW_ERROR';
 
 export const fetchedArtists = createAction(FETCHED_ARTISTS, (data) => data);
 export const artistByIdFetched = createAction(ARTIST_BY_ID_FETCHED, (data) => data);
@@ -16,6 +18,8 @@ export const artistStartLoading = createAction(ARTIST_START_LOADING);
 export const artistFinishLoading = createAction(ARTIST_FINISH_LOADING);
 export const artistSaveSuccess = createAction(ARTIST_SAVE_SUCCESS);
 export const artistSaveError = createAction(ARTIST_SAVE_ERROR);
+export const artistFollowSuccess = createAction(ARTIST_FOLLOW_SUCCESS);
+export const artistFollowError = createAction(ARTIST_FOLLOW_ERROR);
 export const fetchedArtistSongs = createAction(FETCHED_ARTIST_SONGS, (data) => data);
 
 
@@ -66,6 +70,16 @@ export const artistsSongs = (id) => {
       dispatch(fetchedArtistSongs(response));
     }).catch(e => {
       console.log('error', e);
+    });
+  };
+};
+
+export const artistFollow = (id) => {
+  return (dispatch) => {
+    return UserService.followArtist(id).then(_ => {
+      dispatch(artistFollowSuccess());
+    }).catch(e => {
+      dispatch(artistFollowError());
     });
   };
 };

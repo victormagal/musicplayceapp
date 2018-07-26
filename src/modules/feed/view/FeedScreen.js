@@ -43,27 +43,19 @@ class FeedScreenContainer extends React.Component {
       data: [
         {
           id: '00',
-          artistName: 'Michel Teló',
-          imagePath: images.daftPunk100,
-          backgroundColor: '#f60'
+          name: 'Michel Teló'
         },
         {
           id: '01',
-          artistName: 'Paula Fernandes',
-          imagePath: images.bjork100,
-          backgroundColor: '#0f6'
+          name: 'Paula Fernandes'
         },
         {
           id: '02',
-          artistName: 'Almir Sater',
-          imagePath: images.daftPunk100,
-          backgroundColor: '#f06'
+          name: 'Almir Sater'
         },
         {
           id: '03',
-          artistName: 'Michel Teló',
-          imagePath: images.bjork100,
-          backgroundColor: '#06f'
+          name: 'Michel Teló'
         }
       ]
     }
@@ -141,7 +133,7 @@ class FeedScreenContainer extends React.Component {
     this.setState({textValue: value});
 
     if(value.length >= 3){
-      this.handleSearch();
+      this.handleSearch(value);
       return;
     }
 
@@ -152,13 +144,13 @@ class FeedScreenContainer extends React.Component {
     }
   };
 
-  handleSearch = () => {
+  handleSearch = (value) => {
     if(this.searchTimer){
       clearTimeout(this.searchTimer);
     }
 
     this.searchTimer = setTimeout(() => {
-      this.props.dispatch(fetchFeeds(this.state.textValue));
+      this.props.dispatch(fetchFeeds(value));
       this.setState({searching: true});
       clearTimeout(this.searchTimer);
     }, 800);
@@ -178,16 +170,14 @@ class FeedScreenContainer extends React.Component {
   };
 
   renderItemTopArtists = ({item}) => (
-    <MPArtist artist={item.artistName} imagePath={item.imagePath} onPress={()=>{}} isFollowing={false}/>
+    <MPArtist artist={item}/>
   );
 
   renderSearchArtists = ({item}) => {
     return (
       <MPArtist
-        artist={item.name}
-        imagePath={item.cover_picture_url}
+        artist={item}
         onPress={() => this.handleNavigateArtistProfile(item.id)}
-        isFollowing={false}
       />
     );
   };

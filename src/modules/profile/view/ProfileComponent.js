@@ -48,7 +48,7 @@ class ProfileComponent extends React.Component {
     if(this.props.profile.isFollowing){
       this.props.navigation.navigate('message', {component: MPConfirmStopFollow})
     }else{
-      this.props.dispatch(saveProfile({isFollowing: true}))
+      this.props.onFollowUpClick();
     }
   };
 
@@ -156,7 +156,7 @@ class ProfileComponent extends React.Component {
       <View style={{ backgroundColor: '#000' }}>
           <ImageBackground
             style={{ flex: 1, width: '100%' }}
-            source={{ uri: profile.cover_picture_url }}
+            source={profile.cover_picture_url ? { uri: profile.cover_picture_url } : null}
           >
             <LinearGradient
               onLayout={event => this.setState({ linearGradientHeight: event.nativeEvent.layout.height })}
@@ -231,11 +231,13 @@ class ProfileComponent extends React.Component {
     const { me } = this.props;
     return (
       <View>
-        <MPTabBar
-          titles={ me ? ['MINHAS MÚSICAS', 'MÚSICAS SALVAS'] : ['MÚSICAS DO ARTISTA']}
-          onTabChange={this.handleChangeTab}
-          index={tabIndex}
-        />
+        {me && (
+          <MPTabBar
+            titles={['MINHAS MÚSICAS', 'MÚSICAS SALVAS']}
+            onTabChange={this.handleChangeTab}
+            index={tabIndex}
+          />
+        )}
         { this.renderTabsContent(profile, tabIndex) }
       </View>
     )
