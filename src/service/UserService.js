@@ -1,6 +1,7 @@
 import {API, getIncludes} from './api';
 import {AuthService} from './AuthService';
 import axios from 'axios';
+import {StorageService} from "./StorageService";
 
 
 const API_USER = `${API}/users`;
@@ -19,6 +20,28 @@ class UserService {
 
     return axios.post(API_USER, data)
       .then(response => response.data);
+  }
+
+  static uploadImage(file) {
+    let formData = new FormData();
+    formData.append('picture', file);
+
+    return StorageService.getToken().then(token => {
+      if (token) {
+        return fetch (
+          `${ API_USER }/me/picture`,
+          {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+              'Accept': 'application/json',
+              'Authorization': `Bearer ${token}`
+            },
+            method: 'POST',
+            body: formData
+          }
+        );
+      }
+    });
   }
 
   static updateUser(user) {

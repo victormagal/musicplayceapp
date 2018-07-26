@@ -10,20 +10,23 @@ export const PROFILE_START_LOADING = 'PROFILE_START_LOADING';
 export const PROFILE_FINISH_LOADING = 'PROFILE_FINISH_LOADING';
 export const PROFILE_CREATE_USER_SUCCESS = 'PROFILE_CREATE_USER_SUCCESS';
 export const PROFILE_CREATE_USER_ERROR = 'PROFILE_CREATE_USER_ERROR';
+export const UPDATE_PROFILE_DATA = 'UPDATE_PROFILE_DATA';
+export const PROFILE_IMAGE_UPLOADED = 'PROFILE_IMAGE_UPLOADED';
 
-export const profileStartLoading = createAction(PROFILE_START_LOADING, () => null);
-export const profileFinishLoading = createAction(PROFILE_FINISH_LOADING, () => null);
-
+export const profileStartLoading = createAction(PROFILE_START_LOADING);
+export const profileFinishLoading = createAction(PROFILE_FINISH_LOADING);
 export const fetchedProfile = createAction(FETCHED_PROFILE, (data) => data);
 export const fetchedMyIndications = createAction(FETCHED_MY_INDICATIONS, (data) => data);
 export const fetchedMyFollowers = createAction(FETCHED_MY_FOLLOWERS, (data) => data);
-
 export const saveProfileSucessfully = createAction(SAVE_PROFILE_SUCCESS, (data) => {
   return {...data};
 });
-
 export const createUserSuccess = createAction(PROFILE_CREATE_USER_SUCCESS);
 export const createUserError = createAction(PROFILE_CREATE_USER_ERROR);
+export const updateProfileData = createAction(UPDATE_PROFILE_DATA, (data) => {
+  return {...data};
+});
+export const profileImageUploaded = createAction(PROFILE_IMAGE_UPLOADED);
 
 export const createUser = (user) => {
   return (dispatch) => {
@@ -37,6 +40,19 @@ export const createUser = (user) => {
     });
   };
 };
+
+export const uploadImage = (picture) => {
+  return (dispatch) => {
+    dispatch(profileStartLoading());
+    return UserService.uploadImage(picture).then(response => {
+      console.log('response', response);
+      dispatch(profileImageUploaded());
+    }).catch(e => {
+      console.log('uploadImageError', e.response);
+      dispatch(profileFinishLoading());
+    })
+  }
+}
 
 export const fetchProfile = () => {
   return (dispatch, getState) => {

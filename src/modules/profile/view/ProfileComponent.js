@@ -21,19 +21,20 @@ import {
 } from '../../../assets/svg/'
 import {MPUpgradeButton} from '../../../components/profile/MPUpgradeButton';
 import {saveProfile} from '../../../state/action';
+import {updateProfileData, uploadImage} from "../../../state/profile/profileAction";
+import ImagePicker from 'react-native-image-picker';
 
 
 class ProfileComponent extends React.Component {
   scrollViewRef = null;
 
-  state = {
-    tabIndex: 0,
-    linearGradientHeight: 0
-  };
-
   constructor(props) {
     super(props);
     this.scrollViewRef = React.createRef();
+    this.state = {
+      tabIndex: 0,
+      linearGradientHeight: 0
+    };
   }
 
   goToScreen = (rota) => {
@@ -74,7 +75,27 @@ class ProfileComponent extends React.Component {
   };
 
   handleClickPhoto = () => {
+    const options = {
+      title: 'Selecionar uma foto',
+      storageOptions: {
+        skipBackup: true,
+        path: 'images'
+      }
+    };
 
+    ImagePicker.showImagePicker(options, (response) => {
+      console.log('response', response);
+
+      if (response.didCancel) {
+        console.log('User cancelled image picker');
+      } else if (response.error) {
+        console.log('ImagePicker Error: ', response.error);
+      } else {
+        this.props.dispatch(uploadImage(response.path)).then(updateResponse => {
+          console.log('updateResponse', updateResponse);
+        })
+      }
+    });
   };
 
   handleBack = () => {

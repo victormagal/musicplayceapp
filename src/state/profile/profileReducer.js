@@ -1,6 +1,7 @@
 import {
   FETCHED_PROFILE, FETCHED_MY_FOLLOWERS, FETCHED_MY_INDICATIONS, PROFILE_START_LOADING, PROFILE_FINISH_LOADING,
-  SAVE_PROFILE_SUCCESS, PROFILE_CREATE_USER_SUCCESS, PROFILE_CREATE_USER_ERROR
+  SAVE_PROFILE_SUCCESS, PROFILE_CREATE_USER_SUCCESS, PROFILE_CREATE_USER_ERROR, UPDATE_PROFILE_DATA,
+  PROFILE_IMAGE_UPLOADED
 } from './profileAction';
 import {
   AUTH_LOGOUT
@@ -9,15 +10,16 @@ import {
 
 const profileReducer = (state, action) => {
   state = state || {
-      saveProfileSuccess: null,
-      createUserSuccess: false,
-      createUserError: false,
-      loading: false,
-      profile: null,
-      user: null,
-      myFollowers: null,
-      myIndications: null
-    };
+    imageUploadedSuccess: false,
+    saveProfileSuccess: null,
+    createUserSuccess: false,
+    createUserError: false,
+    loading: false,
+    profile: null,
+    user: null,
+    myFollowers: null,
+    myIndications: null
+  };
 
   state.saveProfileSuccess = null;
   state.createUserSuccess = false;
@@ -72,7 +74,7 @@ const profileReducer = (state, action) => {
         ...state,
         myIndications: action.payload
       };
-      
+
     case AUTH_LOGOUT:
       return {
         ...state,
@@ -80,7 +82,19 @@ const profileReducer = (state, action) => {
         profile: null,
         user: null
       };
-  }
+
+    case UPDATE_PROFILE_DATA:
+      return {
+        ...state,
+        profile: {...action.payload}
+      };
+
+    case PROFILE_IMAGE_UPLOADED:
+      return {
+        ...state,
+        imageUploadedSuccess: true
+      }
+}
 
   return state;
 };
