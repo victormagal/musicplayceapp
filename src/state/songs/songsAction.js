@@ -102,11 +102,12 @@ export const unpublishSong = (id) => {
   };
 };
 
-export const indicateSong = (id) => {
+export const indicateSong = (songId, artistId) => {
   return (dispatch) => {
     dispatch(songStartLoading());
-    return SongService.indicateSong(id).then(response => {
-      dispatch(songIndicateSuccess(response));
+    return SongService.indicateSong(songId, artistId).then(response => {
+      console.log(response);
+      dispatch(songIndicateSuccess());
     }).catch(e => dispatch(songIndicateError(e)));
   };
 };

@@ -3,7 +3,7 @@ import {StyleSheet, ScrollView, View, TextInput, FlatList} from 'react-native';
 import {connect} from 'react-redux';
 import {MPHeader, MPTextField, MPFooter, MPArtist, MPSong, MPGradientButton, MPText, MPLoading} from '../../../components'
 import images from '../../../assets/img';
-import {searchArtists, fetchOneSong} from '../../../state/action';
+import {searchArtists, fetchOneSong, indicateSong} from '../../../state/action';
 
 class IndicateSongFullScreenContainer extends React.Component {
 
@@ -13,7 +13,12 @@ class IndicateSongFullScreenContainer extends React.Component {
       textValue: '',
       songHeader: true,
       notFoundArtist: false,
+      songIndicateSuccess: false,
       artists: [],
+      indication: {
+        song: {},
+        artist: {},
+      }
     };
   }
 
@@ -37,19 +42,30 @@ class IndicateSongFullScreenContainer extends React.Component {
     if(nextProps.song){
       this.setState({song: nextProps.fetchedSong});
     }
+
+    if(nextProps.songIndicateSuccess){
+      this.goToScreen('IndicateSongFeedbackScreen')
+    }
   }
 
   handleBackClick = () => {
     this.props.navigation.pop();
   };
 
-  goToScreen = ([route, artist, song]) => {
-    this.props.navigation.navigate(route, {artist, song});
+  handleSongIndicate = ([artist, song]) => {
+    this.setState({indication: {song, artist}});
+    this.props.dispatch(indicateSong(song.id, artist.id));
+  }
+
+  goToScreen = () => {
+    let artist = this.state.indication.artist;
+    let song = this.state.indication.song;
+    this.props.navigation.navigate('IndicateSongFeedbackScreen', {artist, song});
   };
 
   renderItem = ({item}) => (
     <MPArtist artist={item.name} imagePath={item.picture_url}
-              onPress={this.goToScreen.bind(this, ['IndicateSongFeedbackScreen', item, this.state.song])} style={{marginBottom: 10,}}/>
+              onPress={this.handleSongIndicate.bind(this, [item, this.state.song])} style={{marginBottom: 10,}}/>
   );
 
   toggleState = (att) => {
@@ -66,10 +82,6 @@ class IndicateSongFullScreenContainer extends React.Component {
     if(value.length > 3){
       this.props.dispatch(searchArtists(value))
     }
-  }
-
-  handleArtistClick = (song) => {
-    this.props.navigate('IndicateSongFeedbackScreen', {song})
   }
 
   render() {
