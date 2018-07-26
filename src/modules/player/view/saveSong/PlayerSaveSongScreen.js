@@ -1,26 +1,14 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {PlayerSaveSongComponent} from './PlayerSaveSongComponent';
-import {playerSongSave} from '../../../../state/action';
+import {playerSongSave, fetchFolders} from '../../../../state/action';
 
 
 class PlayerSaveSongContainer extends React.Component {
 
   state = {
     folderName: '',
-    folders: [
-      {
-        id: 1,
-        title: 'Inspirações rock',
-        total: '2 músicas',
-        selected: true
-      },
-      {
-        id: 2,
-        title: 'Inspirações Samba',
-        total:  '4 músicas'
-      }
-    ]
+    folders: []
   };
 
   handleBack = () => {
@@ -61,6 +49,16 @@ class PlayerSaveSongContainer extends React.Component {
     this.props.dispatch(playerSongSave(selectedFolder.title));
   };
 
+  componentDidMount = () => {
+    this.props.dispatch(fetchFolders());
+  }
+
+  componentWillReceiveProps(nextProps){
+    if(nextProps.folders){
+      this.setState({folders: nextProps.folders.data})
+    }
+  }
+
   render() {
     return (
       <PlayerSaveSongComponent
@@ -75,8 +73,8 @@ class PlayerSaveSongContainer extends React.Component {
   }
 }
 
-const mapStateToProps = () => {
-  return {};
+const mapStateToProps = ({folderReducer}) => {
+  return {...folderReducer};
 };
 
 const PlayerSaveSongScreen = connect(mapStateToProps)(PlayerSaveSongContainer);
