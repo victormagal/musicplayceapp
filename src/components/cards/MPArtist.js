@@ -38,9 +38,9 @@ class MPArtist extends Component {
 }
 
 MPArtist.propTypes = {
-  artist: PropTypes.string.isRequired,
+  artist: PropTypes.object.isRequired,
   imagePath: PropTypes.any,
-  onPress: PropTypes.func.isRequired,
+  onPress: PropTypes.func,
   backgroundColor: PropTypes.any,
   style: PropTypes.any,
 };

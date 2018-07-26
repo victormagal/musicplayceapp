@@ -51,7 +51,7 @@ MPArtistFull.propTypes = {
   songName: PropTypes.string.isRequired,
   song: PropTypes.object,
   imagePath: PropTypes.any.isRequired,
-  artistImagePath: PropTypes.any.isRequired,
+  artistImagePath: PropTypes.any,
   backgroundColor: PropTypes.any,
   style: PropTypes.any,
   onPressMusic: PropTypes.func.isRequired,

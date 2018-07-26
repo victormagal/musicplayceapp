@@ -6,12 +6,12 @@ import {  MPAddSongNoteIcon, MPAddSongPlusIcon, MPAddSongWhiteNoteIcon, MPAddSon
 
 class MPAddSongButtonComponent extends Component{
   render() {
-    const { isColored } = this.props;
+    const { isColored, onPress } = this.props;
     const linearColorOptions = [['#BB1A1A', '#2E2C9D'], ['#FFF', '#FFF']];
     const linearColor = isColored ? linearColorOptions[0] : linearColorOptions[1];
 
     return (
-      <TouchableOpacity style={styles.parent}>
+      <TouchableOpacity style={styles.parent} onPress={onPress}>
         <LinearGradient
           colors={linearColor}
           start={{ x: 0, y: 0 }}

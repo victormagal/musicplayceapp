@@ -10,6 +10,7 @@ export const ARTIST_BY_ID_FETCHED = 'ARTIST_BY_ID_FETCHED';
 export const ARTIST_SAVE_SUCCESS = 'ARTIST_SAVE_SUCCESS';
 export const ARTIST_SAVE_ERROR = 'ARTIST_SAVE_ERROR';
 export const ARTIST_FOLLOW_SUCCESS = 'ARTIST_FOLLOW_SUCCESS';
+export const ARTIST_STOP_FOLLOW_SUCCESS = 'ARTIST_STOP_FOLLOW_SUCCESS';
 export const ARTIST_FOLLOW_ERROR = 'ARTIST_FOLLOW_ERROR';
 
 export const fetchedArtists = createAction(FETCHED_ARTISTS, (data) => data);
@@ -18,6 +19,7 @@ export const artistStartLoading = createAction(ARTIST_START_LOADING);
 export const artistFinishLoading = createAction(ARTIST_FINISH_LOADING);
 export const artistSaveSuccess = createAction(ARTIST_SAVE_SUCCESS);
 export const artistSaveError = createAction(ARTIST_SAVE_ERROR);
+export const artistStopFollowSuccess = createAction(ARTIST_STOP_FOLLOW_SUCCESS);
 export const artistFollowSuccess = createAction(ARTIST_FOLLOW_SUCCESS);
 export const artistFollowError = createAction(ARTIST_FOLLOW_ERROR);
 export const fetchedArtistSongs = createAction(FETCHED_ARTIST_SONGS, (data) => data);
@@ -76,8 +78,22 @@ export const artistsSongs = (id) => {
 
 export const artistFollow = (id) => {
   return (dispatch) => {
+    dispatch(artistStartLoading());
+
     return UserService.followArtist(id).then(_ => {
       dispatch(artistFollowSuccess());
+    }).catch(e => {
+      dispatch(artistFollowError());
+    });
+  };
+};
+
+export const artistStopFollow = (id) => {
+  return (dispatch) => {
+    dispatch(artistStartLoading());
+
+    return UserService.stopFollowArtist(id).then(_ => {
+      dispatch(artistStopFollowSuccess());
     }).catch(e => {
       dispatch(artistFollowError());
     });

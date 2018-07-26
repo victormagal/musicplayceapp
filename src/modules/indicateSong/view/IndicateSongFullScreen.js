@@ -1,8 +1,7 @@
 import React from 'react';
 import {StyleSheet, ScrollView, View, TextInput, FlatList} from 'react-native';
 import {connect} from 'react-redux';
-import {MPHeader, MPTextField, MPFooter, MPArtist, MPSong, MPGradientButton, MPText, MPLoading} from '../../../components'
-import images from '../../../assets/img';
+import {MPHeader, MPTextField, MPArtist, MPSong, MPGradientButton, MPText, MPLoading} from '../../../components'
 import {searchArtists, fetchOneSong, indicateSong} from '../../../state/action';
 
 class IndicateSongFullScreenContainer extends React.Component {
@@ -64,8 +63,8 @@ class IndicateSongFullScreenContainer extends React.Component {
   };
 
   renderItem = ({item}) => (
-    <MPArtist artist={item.name} imagePath={item.picture_url}
-              onPress={this.handleSongIndicate.bind(this, [item, this.state.song])} style={{marginBottom: 10,}}/>
+    <MPArtist artist={item}
+              onPress={this.handleSongIndicate.bind(this, [item, this.state.song])} style={{marginBottom: 10}}/>
   );
 
   toggleState = (att) => {
