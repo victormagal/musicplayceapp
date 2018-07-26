@@ -22,12 +22,10 @@ class IndicateSongFullScreenContainer extends React.Component {
   }
 
   componentDidMount(){
-    this.props.dispatch(searchArtists(''))
+    this.props.dispatch(searchArtists(''));
     if(this.props.navigation.state && this.props.navigation.state.params){
       let {song} = this.props.navigation.state.params;
-      if(song) {
-        this.props.dispatch(fetchOneSong(song));
-      }
+      this.setState({song: song});
     }
   }
 
@@ -36,10 +34,6 @@ class IndicateSongFullScreenContainer extends React.Component {
       this.setState({artists: nextProps.artists.data, notFoundArtist: false});
     }else if(nextProps.artists && nextProps.artists.data.length == 0){
       this.setState({notFoundArtist: true});
-    }
-
-    if(nextProps.song){
-      this.setState({song: nextProps.fetchedSong});
     }
 
     if(nextProps.songIndicateSuccess){

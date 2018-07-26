@@ -65,6 +65,7 @@ class ProfileComponent extends React.Component {
   };
 
   handleIndicateSong = (song) => {
+    song = {...song, artist: this.props.profile};
     this.props.navigation.navigate('IndicateSongFullScreen', {song});
   };
 
@@ -135,8 +136,8 @@ class ProfileComponent extends React.Component {
 
   renderContent(profile) {
     const { me, myFollowers } = this.props;
-    const followers = (myFollowers && myFollowers.followers) || [];
-    let userFollowing = (profile && profile.userFollowing) || [];
+    const followers = [];
+    const userFollowing = [];
 
     if (!profile) {
       return (
@@ -181,7 +182,6 @@ class ProfileComponent extends React.Component {
 
   renderProfileData(profile) {
     const { me, myFollowers, myIndications } = this.props;
-    const countFollowers =  (myFollowers && myFollowers.count);
     const countIndications =  (myIndications && myIndications.count);
     return (
       <View>
@@ -203,15 +203,17 @@ class ProfileComponent extends React.Component {
             style={{ flex: 1 }}
             title='Indicação Feita'
             titlePlural='Indicações Feitas'
-            subtitle={ me ? 'Explore' : '' }
+            subtitle='Explore'
+            me={me}
             count={countIndications}
           />
           <ProfileIndicatorCE
             style={{ flex: 1 }}
             title='Seguidor'
             titlePlural='Seguidores'
-            subtitle={ me ? 'Convide seus amigos' : ''}
-            count={countFollowers}
+            subtitle='Convide seus amigos'
+            count={profile.followerCount}
+            me={me}
             onEmptyClick={this.props.onFollowersEmptyClick}
           />
         </View>
@@ -238,6 +240,16 @@ class ProfileComponent extends React.Component {
           />
         )}
         { this.renderTabsContent(profile, tabIndex) }
+        { me &&
+          <View style={styles.whiteBackground}>
+            <MPGradientButton
+              title={'Cadastrar nova música'}
+              textSize={16}
+              icon={MPSongAddIcon}
+              onPress={this.props.onSongAddClick}
+            />
+          </View>
+        }
       </View>
     )
   }
@@ -259,16 +271,6 @@ class ProfileComponent extends React.Component {
                   onRemoveClick={this.handleRemoveSong}
                   onUnpublishClick={this.handleUnpublishSong}
                 />
-                { me &&
-                  <View style={styles.whiteBackground}>
-                    <MPGradientButton
-                      title={'Cadastrar nova música'}
-                      textSize={16}
-                      icon={MPSongAddIcon}
-                      onPress={this.props.onSongAddClick}
-                    />
-                  </View>
-                }
               </View>
               :
               <View>
@@ -294,26 +296,8 @@ class ProfileComponent extends React.Component {
                                    onIndicateClick={this.handleIndicateSong}
                                    onRemoveClick={this.handleRemoveSong}
                                    onUnpublishClick={this.handleUnpublishSong}/>
-                { me &&
-                  <View style={styles.whiteBackground}>
-                    <MPGradientButton
-                      title='Cadastrar nova música'
-                      textSize={16}
-                      icon={MPSongAddIcon}
-                      onPress={this.props.onSongAddClick}
-                    />
-                  </View>
-                }
               </View>
             )}
-            <View>
-              { (me && (!mySongs || mySongs.data.length === 0)) &&
-              <MPUploadFirstSong onPress={this.props.onSongAddClick} />
-              }
-              { (me && song) &&
-              <MPUpgradeButton song={song}/>
-              }
-            </View>
           </View>
         )
     }
