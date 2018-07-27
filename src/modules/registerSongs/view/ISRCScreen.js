@@ -1,26 +1,37 @@
 import React from 'react';
-import { StyleSheet, Text, View, TextInput, ScrollView } from 'react-native';
+import { StyleSheet, View, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 import { MPHeader, MPFooter, MPTextField, MPText } from '../../../components';
 
 class ISRCScreenContainer extends React.Component {
-
   constructor(props){
     super(props);
-    this.state = { text: ''};
+    this.state = {
+      text: ''
+    };
   }
   
   render() {
     return (
       <View style={styles.container}>
-        <MPHeader back={true} onBack={this.handleBackClick} title={"Nº ISRC (código-padrão internacional de gravação)"} />
+        <MPHeader
+          back={true}
+          onBack={this.handleBackClick}
+          title={"Nº ISRC (código-padrão internacional de gravação)"}
+        />
         <ScrollView style={styles.scroll}>
             <View>
-              <MPText style={styles.textTop}>Informe o ISRC, caso a música já esteja registrada:</MPText>
+              <MPText style={styles.textTop}>
+                Informe o ISRC, caso a música já esteja registrada:
+              </MPText>
               <MPTextField label={'Nº do ISRC'} value={''} />
-              <View style={[styles.clickableTextContainer, {marginTop: 76}]}>
-                <MPText style={[styles.clickableText, {marginBottom: 20}]}>A gravação ainda nao está registrada.</MPText>
-                <MPText style={styles.clickableText}>Eu não sei o que é ISRC.</MPText>
+              <View style={[ styles.clickableTextContainer, { marginTop: 76 } ]}>
+                <MPText style={[ styles.clickableText, { marginBottom: 20 } ]}>
+                  A gravação ainda nao está registrada.
+                </MPText>
+                <MPText style={styles.clickableText}>
+                  Eu não sei o que é ISRC.
+                </MPText>
               </View>
             </View>
         </ScrollView>
@@ -58,6 +69,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Montserrat-Regular'
   }
 });
+
 const mapStateToProps = () => {
   return {  };
 };

@@ -13,15 +13,24 @@ import {
 class MPUnpublishedSongComponent extends React.Component {
 
   handleBack = () => {
-    this.props.navigation.pop();
+    this.props.navigation.navigate('ProfileScreen', { backFromPublishedOrDraft: true });
   };
 
   render() {
     return (
       <View style={styles.container}>
-        <MPText style={ styles.title }>Música despublicada.</MPText>
-        <MPText style={ styles.subTitle }>Caso queira tornar a música acessível aos seus contatos, basta republicá-la a qualquer momento.</MPText>
-        <MPGradientButton style={ styles.button } title={'OK'} textSize={16} onPress={this.handleBack.bind(this)}/>
+        <MPText style={ styles.title }>
+          Música despublicada.
+        </MPText>
+        <MPText style={ styles.subTitle }>
+          Caso queira tornar a música acessível aos seus contatos, basta republicá-la a qualquer momento.
+        </MPText>
+        <MPGradientButton
+          style={ styles.button }
+          title={'OK'}
+          textSize={16}
+          onPress={this.handleBack}
+        />
       </View>
     );
   }

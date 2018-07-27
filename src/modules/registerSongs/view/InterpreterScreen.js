@@ -1,22 +1,19 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {StyleSheet, ScrollView, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import {MPHeader, MPInput, MPText, MPIconButton} from '../../../components'
-import {updateSongRegisterData} from '../../../state/action';
+import {updateSongRegisterData} from "../../../state/songs/songsType";
 
 class InterpreterScreenContainer extends React.Component {
-
-  state = {
-    interpreter_name: ''
-  };
-
   constructor(props){
     super(props);
-    if(props.song && props.song.interpreter_name){
+    this.state = {
+      interpreter_name: ''
+    };
+    if (props.song && props.song.interpreter_name) {
       this.state.interpreter_name = props.song.interpreter_name;
     }
   }
-
 
   handleBackClick = () => {
     this.props.navigation.pop();
@@ -37,19 +34,37 @@ class InterpreterScreenContainer extends React.Component {
 
   renderHeaderMenuSave() {
     return [
-      <MPIconButton key={1} title="Salvar" titleStyle={styles.headerMenuText} onPress={this.handleSaveClick}/>
+      <MPIconButton
+        key={1}
+        title="Salvar"
+        titleStyle={styles.headerMenuText}
+        onPress={this.handleSaveClick}
+      />
     ];
   }
 
   render() {
     return (
       <View style={styles.container}>
-        <MPHeader back={true} onBack={this.handleBackClick} title="Intérpretes" icons={this.renderHeaderMenuSave()}/>
+        <MPHeader
+          back={true}
+          onBack={this.handleBackClick}
+          title="Intérpretes"
+          icons={this.renderHeaderMenuSave()}
+        />
         <View style={styles.content}>
-          <MPText style={styles.textTop}>Essa música tem intérprete?</MPText>
-          <MPInput label='Intérprete' value={this.state.interpreter_name} onChangeText={this.handleChangeText}/>
+          <MPText style={styles.textTop}>
+            Essa música tem intérprete?
+          </MPText>
+          <MPInput
+            label='Intérprete'
+            value={this.state.interpreter_name}
+            onChangeText={this.handleChangeText}
+          />
           <View style={styles.clickableTextContainer}>
-            <MPText style={styles.clickableText}>Não, apenas eu</MPText>
+            <MPText style={styles.clickableText}>
+              Não, apenas eu
+            </MPText>
           </View>
         </View>
       </View>
