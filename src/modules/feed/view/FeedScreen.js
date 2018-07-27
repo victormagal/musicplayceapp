@@ -20,7 +20,7 @@ import {connect} from 'react-redux';
 import Swiper from 'react-native-swiper';
 import images from '../../../assets/img';
 import {MPSearchRedIcon, MPCloseFilledRedIcon} from '../../../assets/svg';
-import {  fetchFeeds } from '../../../state/action';
+import {  fetchFeeds, searchArtists } from '../../../state/action';
 
 class FeedScreenContainer extends React.Component {
 
@@ -35,6 +35,7 @@ class FeedScreenContainer extends React.Component {
       searching: false,
       searchingNotFound: false,
       feed: {},
+      artists:[],
     };
 
     this.swiperRef = React.createRef();
@@ -106,12 +107,22 @@ class FeedScreenContainer extends React.Component {
     }
   }
 
+  componentDidMount(){
+    this.props.dispatch(searchArtists(''));
+    this.props.dispatch(fetchFeeds(''));
+  }
+
   componentWillReceiveProps(nextProps){
+    console.log(nextProps);
     if(nextProps.feed.data){
       this.setState({feed: nextProps.feed.data, searchingNotFound: false});
       if(nextProps.feed.data.artists.length == 0 && nextProps.feed.data.songs.length == 0 && this.state.searching){
         this.setState({searchingNotFound: true});
       }
+    }
+
+    if(nextProps.artists){
+      this.setState({artists: nextProps.artists.data});
     }
   }
 
@@ -170,7 +181,7 @@ class FeedScreenContainer extends React.Component {
   };
 
   renderItemTopArtists = ({item}) => (
-    <MPArtist artist={item}/>
+    <MPArtist key={item.id} artist={item}/>
   );
 
   renderSearchArtists = ({item}) => {
@@ -284,43 +295,54 @@ class FeedScreenContainer extends React.Component {
                     marginBottom: 16,
                     marginTop: 20
                   }}>Talvez você goste dessas músicas:</MPText>
-                    <MPArtistFull artistName={'Adelle'} songName={'Nome da música'} imagePath={images.bjork120}
-                                  artistImagePath={images.adele40}
-                                  onPressArtist={() => this.handleNavigateArtistProfile('8f2d7902-ae3b-471d-ac27-350665aab0fa')}
-                                  onPressMusic={this.handleNavigateMusic} />
-                    <MPArtistFull artistName={'Freddie'} songName={'Nome da música'} imagePath={images.daftPunk120}
-                                  artistImagePath={images.freddieMercury40}
-                                  onPressArtist={() => this.handleNavigateArtistProfile('8f2d7902-ae3b-471d-ac27-350665aab0fa')}
-                                  onPressMusic={this.handleNavigateMusic} />
-                    <MPArtistFull artistName={'Bjork'} songName={'Nome da música'} imagePath={images.bjork120}
-                                  artistImagePath={images.adele40}
-                                  onPressArtist={() => this.handleNavigateArtistProfile('8f2d7902-ae3b-471d-ac27-350665aab0fa')}
-                                  onPressMusic={this.handleNavigateMusic} />
+                    {
+                      this.state.feed.songs && this.state.feed.songs.length > 0 && 
+                      <View>
+                        {
+                          this.state.feed.songs.map(song => (
+                            <MPArtistFull
+                              key={song.id}
+                              artistName={song.artist.name}
+                              songName={song.name}
+                              song={song}
+                              imagePath={song.picture_url}
+                              artistImagePath={song.artist.cover_picture_url}
+                              onPressArtist={() => this.handleNavigateArtistProfile(song.artist.id)}
+                              onPressMusic={this.handleNavigateMusic}
+                            />
+                          ))
+                        }
+                      </View>
+                    }
                     <View style={styles.topArtistsContainer}>
                       <MPText style={{fontSize: 20, fontFamily: 'ProbaPro-Regular', marginBottom: 16, color: '#000'}}>Artistas
                       em alta</MPText>
                       <FlatList
-                        data={this.artists.data}
+                        data={this.state.artists}
                         keyExtractor={(item) => item.id}
                         renderItem={this.renderItemTopArtists}
                         horizontal={true}
                       />
                     </View>
-                    <MPArtistFull artistName={'Adelle'} songName={'Nome da música'} imagePath={images.daftPunk120}
-                                  artistImagePath={images.freddieMercury40}
-                                  onPressArtist={() => this.handleNavigateArtistProfile('8f2d7902-ae3b-471d-ac27-350665aab0fa')}
-                                  onPressMusic={this.handleNavigateMusic}
-                    />
-                    <MPArtistFull artistName={'Freddie'} songName={'Nome da música'} imagePath={images.daftPunk120}
-                                  artistImagePath={images.adele40}
-                                  onPressArtist={() => this.handleNavigateArtistProfile('8f2d7902-ae3b-471d-ac27-350665aab0fa')}
-                                  onPressMusic={this.handleNavigateMusic}
-                    />
-                    <MPArtistFull artistName={'Bjork'} songName={'Nome da música'} imagePath={images.bjork120}
-                                  artistImagePath={images.adele40}
-                                  onPressArtist={() => this.handleNavigateArtistProfile('8f2d7902-ae3b-471d-ac27-350665aab0fa')}
-                                  onPressMusic={this.handleNavigateMusic}
-                    />
+                    {
+                      this.state.feed.songs && this.state.feed.songs.length > 0 && 
+                      <View>
+                        {
+                          this.state.feed.songs.map(song => (
+                            <MPArtistFull
+                              key={song.id}
+                              artistName={song.artist.name}
+                              songName={song.name}
+                              song={song}
+                              imagePath={song.picture_url}
+                              artistImagePath={song.artist.cover_picture_url}
+                              onPressArtist={() => this.handleNavigateArtistProfile(song.artist.id)}
+                              onPressMusic={this.handleNavigateMusic}
+                            />
+                          ))
+                        }
+                      </View>
+                    }
                   </ScrollView>
                 </View>
                 <View style={styles.secondSliderContainer}>
@@ -417,8 +439,8 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = ({feedsReducer}) => {
-  return {...feedsReducer};
+const mapStateToProps = ({feedsReducer, artistReducer}) => {
+  return {...feedsReducer, ...artistReducer};
 };
 
 const FeedScreen = connect(mapStateToProps)(FeedScreenContainer);

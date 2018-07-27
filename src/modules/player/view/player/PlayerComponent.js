@@ -357,7 +357,7 @@ class PlayerComponent extends React.Component {
           <View style={[styles.row, styles.tagContainer]}>
             <View style={[styles.row, styles.tagContent]}>
             {
-              song && this.handleSongTags(song.tags)
+              song && song.tags && this.handleSongTags(song.tags)
             }
             </View>
             <MPCircleGradientButton icon={MPBalloonTalkIcon}/>
