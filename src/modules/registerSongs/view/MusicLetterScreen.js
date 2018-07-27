@@ -1,11 +1,10 @@
 import React from 'react';
 import {StyleSheet, View, ScrollView} from 'react-native';
 import {connect} from 'react-redux';
-import {updateSongRegisterData} from '../../../state/action';
-import {MPHeader, MPSelect, MPText, MPIconButton, MPInput} from '../../../components';
+import {MPHeader, MPText, MPIconButton, MPTextField} from '../../../components';
+import {updateSongRegisterData} from "../../../state/songs/songsType";
 
 class MusicLetterScreenContainer extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -14,8 +13,8 @@ class MusicLetterScreenContainer extends React.Component {
     };
   }
 
-  handleChangeLetter = ({value}) => {
-    this.setState({lyrics: value});
+  handleChangeLetter = (lyrics) => {
+    this.setState({ lyrics });
   };
 
   handleBackClick = () => {
@@ -30,24 +29,46 @@ class MusicLetterScreenContainer extends React.Component {
 
   renderHeaderMenuSave() {
     return [
-      <MPIconButton key={1} title="Salvar" titleStyle={styles.headerMenuText} onPress={this.handleSaveClick}/>
+      <MPIconButton
+        key={1}
+        title="Salvar"
+        titleStyle={styles.headerMenuText}
+        onPress={this.handleSaveClick}
+      />
     ];
   }
 
   render() {
     return (
       <View style={styles.container}>
-        <MPHeader back={true} onBack={this.handleBackClick} title="Letra da música"
-                  icons={this.renderHeaderMenuSave()}/>
-        <View style={styles.content}>
-          <MPText style={styles.textTop}>Pode colar a letra da música aqui:</MPText>
-          <MPInput label="Letra da música:" value={this.state.lyrics} onChangeText={this.handleChangeLetter}/>
-          {/*<View style={styles.clickableTextContainer}>*/}
-            {/*<MPText style={styles.ouText}>ou </MPText>*/}
-            {/*<MPText style={styles.clickableText}>faça upload da letra(doc, tx ou rtf)</MPText>*/}
-          {/*</View>*/}
-          {/*<MPSelect style={styles.idioma} label="Idioma" />*/}
-        </View>
+        <MPHeader
+          back={true}
+          onBack={this.handleBackClick}
+          title="Letra da música"
+          icons={this.renderHeaderMenuSave()}
+        />
+        <ScrollView style={styles.content}>
+          <MPText style={styles.textTop}>
+            Pode colar a letra da música aqui:
+          </MPText>
+          <MPTextField
+            multiline={true}
+            label="Letra da música:"
+            value={this.state.lyrics}
+            onChangeText={this.handleChangeLetter}
+          />
+          {/*
+          <View style={styles.clickableTextContainer}>
+            <MPText style={styles.ouText}>
+              ou
+            </MPText>
+            <MPText style={styles.clickableText}>
+              faça upload da letra (doc, tx ou rtf)
+            </MPText>
+          </View>
+          <MPSelect style={styles.idioma} label="Idioma" />
+          */}
+        </ScrollView>
       </View>
     );
   }

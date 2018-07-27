@@ -2,11 +2,11 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {StyleSheet, View, ScrollView, TouchableOpacity} from 'react-native';
 import {MPHeader, MPInput, MPText, MPIconButton, MPLoading, MPArtistHorizontal} from '../../../components';
-import {updateSongRegisterData, searchArtists} from '../../../state/action';
+import {searchArtists} from '../../../state/action';
 import {MPSearchRedIcon, MPCloseFilledRedIcon} from '../../../assets/svg';
+import {updateSongRegisterData} from "../../../state/songs/songsType";
 
 class ArtistsScreenContainer extends React.Component {
-
   debounceTimer = null;
 
   constructor(props) {
@@ -21,32 +21,32 @@ class ArtistsScreenContainer extends React.Component {
   }
 
   componentWillReceiveProps(nextProps){
-    if(nextProps.artists){
-      this.setState({artists: nextProps.artists.data, waiting: false});
+    if (nextProps.artists){
+      this.setState({ artists: nextProps.artists.data, waiting: false });
     }
   }
 
   componentWillUnmount(){
-    if(this.debounceTimer !== null){
+    if (this.debounceTimer !== null){
       clearTimeout(this.debounceTimer);
     }
   }
 
   handleSearchChange = ({value}) => {
-    this.setState({search: value, waiting: true});
+    this.setState({ search: value, waiting: true });
     this.handleSearch(value);
 
-    if(value.length === 0){
-      this.setState({artistsSelected: Object.values(this.state.artistsSelectedTemp)});
+    if (value.length === 0){
+      this.setState({ artistsSelected: Object.values(this.state.artistsSelectedTemp) });
     }
 
-    if(value.length < 3){
+    if (value.length < 3){
       this.setState({artists: []});
     }
   };
 
   handleSearch = (value) => {
-    if(this.debounceTimer !== null){
+    if(this.debounceTimer !== null) {
       clearTimeout(this.debounceTimer);
     }
 
@@ -62,10 +62,10 @@ class ArtistsScreenContainer extends React.Component {
   };
 
   handleSaveClick = () => {
-    let {artistsSelectedTemp} = this.state;
-    let selecteds = Object.values(artistsSelectedTemp);
+    const {artistsSelectedTemp} = this.state;
+    const selecteds = Object.values(artistsSelectedTemp);
 
-    if(selecteds.length > 0){
+    if (selecteds.length > 0){
       let song = {...this.props.song};
 
       song.coAuthors = selecteds;
@@ -77,17 +77,17 @@ class ArtistsScreenContainer extends React.Component {
   };
 
   handleClearClick = () => {
-    this.setState({artists: [], search: ''});
+    this.setState({ artists: [], search: '' });
   };
 
   handleArtistClick = (index) => {
     let newState = {...this.state};
-    let artist = newState.artists[index];
+    const artist = newState.artists[index];
     newState.artists[index].selected = !artist.selected;
 
-    if(artist.selected){
+    if (artist.selected){
       newState.artistsSelectedTemp[artist.id] = artist;
-    }else{
+    } else {
       delete newState.artistsSelectedTemp[artist.id];
     }
 
@@ -103,60 +103,97 @@ class ArtistsScreenContainer extends React.Component {
 
   renderHeaderMenuSave() {
     return [
-      <MPIconButton key={1} title="Salvar" titleStyle={styles.headerMenuText} onPress={this.handleSaveClick}/>
+      <MPIconButton
+        key={1}
+        title="Salvar"
+        titleStyle={styles.headerMenuText}
+        onPress={this.handleSaveClick}
+      />
     ];
   }
 
   render() {
-    let hasSelected = Object.keys(this.state.artistsSelectedTemp).length > 0;
+    const hasSelected = Object.keys(this.state.artistsSelectedTemp).length > 0;
 
     return (
       <View style={styles.container}>
-        <MPHeader back={true} onBack={this.handleBackClick} title="Co-autores" icons={this.renderHeaderMenuSave()}/>
-
+        <MPHeader
+          back={true}
+          onBack={this.handleBackClick}
+          title="Co-autores"
+          icons={this.renderHeaderMenuSave()}
+        />
         <ScrollView style={styles.content}>
-          {this.state.artistsSelected.length > 0 && (
+          { this.state.artistsSelected.length > 0 && (
             <View style={styles.contentArtists}>
-              {this.state.artistsSelected.map((item, index) =>
-                <MPArtistHorizontal key={index} artist={item.name} selected={item.selected}
-                                    image={item.picture_url} onPress={this.handleArtistSelectedClick.bind(this, index, item.id)}/>
-              )}
+              { this.state.artistsSelected.map((item, index) => (
+                <MPArtistHorizontal
+                  key={index}
+                  artist={item.name}
+                  selected={item.selected}
+                  image={item.picture_url}
+                  onPress={() => this.handleArtistSelectedClick(index, item.id)}
+                />
+              ))}
             </View>
           )}
 
           <View style={styles.contentSearch}>
-            <MPText style={styles.textTop}>Essa música tem outros autores?</MPText>
+            <MPText style={styles.textTop}>
+              Essa música tem outros autores?
+            </MPText>
             <View>
-              <MPInput label='Pesquise pelo nome:' value={this.state.search} onChangeText={this.handleSearchChange}/>
-              {this.state.search.length < 3 && <MPSearchRedIcon style={styles.searchIcon} />}
-              {this.state.search.length >= 3 && (
-                <MPIconButton style={styles.searchIcon} icon={MPCloseFilledRedIcon} onPress={this.handleClearClick}/>
-              )}
+              <MPInput
+                label='Pesquise pelo nome:'
+                value={this.state.search}
+                onChangeText={this.handleSearchChange}
+              />
+              { this.state.search.length < 3 &&
+                <MPSearchRedIcon style={styles.searchIcon} />
+              }
+              { this.state.search.length >= 3 &&
+                <MPIconButton
+                  style={styles.searchIcon}
+                  icon={MPCloseFilledRedIcon}
+                  onPress={this.handleClearClick}
+                />
+              }
             </View>
 
-            {this.state.search.length >= 3 && this.state.artists.length === 0 && !this.props.loading && !this.state.waiting && (
+            { (this.state.search.length >= 3
+              && this.state.artists.length === 0
+              && !this.props.loading && !this.state.waiting) && (
               <View>
-                <MPText style={ styles.textInputSubTextHeader}>Não encontrou o co-autor?</MPText>
-                <MPText style={ styles.textInputSubTextSuggestion}>Convide-o para se juntar ao MusicPlayce.</MPText>
+                <MPText style={ styles.textInputSubTextHeader}>
+                  Não encontrou o co-autor?
+                </MPText>
+                <MPText style={ styles.textInputSubTextSuggestion}>
+                  Convide-o para se juntar ao MusicPlayce.
+                </MPText>
                 <MPInput label='E-mail' />
               </View>
             )}
-
-            {!this.state.search && !hasSelected && (
+            { (!this.state.search && !hasSelected) &&
               <TouchableOpacity style={styles.clickableTextContainer} onPress={this.handleBackClick}>
-                <MPText style={styles.clickableText}>Não, apenas eu</MPText>
+                <MPText style={styles.clickableText}>
+                  Não, apenas eu
+                </MPText>
               </TouchableOpacity>
-            )}
+            }
           </View>
-
-          {this.state.search.length >= 3 && this.state.artists.length > 0 && !this.props.loading && (
+          { (this.state.search.length >= 3 && this.state.artists.length > 0 && !this.props.loading) &&
             <View style={styles.contentArtists}>
-              {this.state.artists.map((item, index) =>
-                <MPArtistHorizontal key={index} artist={item.name} selected={!!item.selected}
-                                    image={item.picture_url} onPress={this.handleArtistClick.bind(this, index)} />
-              )}
+              { this.state.artists.map((item, index) => (
+                <MPArtistHorizontal
+                  key={index}
+                  artist={item.name}
+                  selected={!!item.selected}
+                  image={item.picture_url}
+                  onPress={() => this.handleArtistClick(index)}
+                />
+              ))}
             </View>
-          )}
+          }
         </ScrollView>
         <MPLoading visible={this.props.loading} />
       </View>
