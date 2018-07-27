@@ -59,6 +59,11 @@ class PlayerContainer extends React.Component {
     this.props.dispatch(songResume());
   };
 
+  handleSongSliderChange = (value) => {
+    //TODO:
+    //call action to seek music in react native plugin
+  };
+
   render() {
     return (
       <View style={styles.container}>
@@ -66,7 +71,8 @@ class PlayerContainer extends React.Component {
                          song={this.state.song}
                          onSongPause={this.handleSongPause}
                          onSongResume={this.handleSongResume}
-                         onSongPlay={this.handleSongPlay} />
+                         onSongPlay={this.handleSongPlay}
+                         onSongSliderChange={this.handleSongSliderChange}/>
         {this.props.saveSong.update && (
           <MPButton
             style={styles.notificationSaved}

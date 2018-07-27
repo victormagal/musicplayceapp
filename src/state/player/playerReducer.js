@@ -1,6 +1,6 @@
 import {
   PLAYER_SONG_SAVE, PLAYER_SONG_SAVE_RECEIVED, PLAYER_SONG_PAUSE, PLAYER_SONG_PLAY, PLAYER_SONG_RESUME,
-  PLAYER_SONG_STOP
+  PLAYER_SONG_STOP, PLAYER_SONG_UPDATE_PROGRESS
 } from './playerAction';
 
 
@@ -10,6 +10,7 @@ const playerReducer = (state, action) => {
         song: null,
         inProgress: false,
         isPlaying: false,
+        progress: 0
       },
       saveSong: {
         update: false,
@@ -28,7 +29,7 @@ const playerReducer = (state, action) => {
 
     case PLAYER_SONG_PLAY:
       let newState = {...state};
-      newState.player = {song: {...action.payload}, isPlaying:true, inProgress: true};
+      newState.player = {...newState.player, song: {...action.payload}, isPlaying:true, inProgress: true};
       return newState;
 
     case PLAYER_SONG_RESUME:
@@ -38,8 +39,10 @@ const playerReducer = (state, action) => {
       return {...state, player: {...state.player, isPlaying:false}};
 
     case PLAYER_SONG_STOP:
-      return {...state, player: {song: null, inProgress: false, isPlaying: false}};
+      return {...state, player: {song: null, inProgress: false, isPlaying: false, progress: 0}};
 
+    case PLAYER_SONG_UPDATE_PROGRESS:
+      return {...state, player: {...state.player, progress: action.payload}};
   }
 
   return state;

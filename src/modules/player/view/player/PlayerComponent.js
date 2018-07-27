@@ -170,7 +170,8 @@ class PlayerComponent extends React.Component {
                         onCloseClick={this.handleTogglePlayer.bind(this, false)}
                         onLyricsClick={this.handleEnableLyricsPlayer}
                         onSongSaveClick={this.handleSaveSong.bind(this, this.props.song)}
-                        onSongIndicateClick={this.handleIndicateSong.bind(this, this.props.song)}/>;
+                        onSongIndicateClick={this.handleIndicateSong.bind(this, this.props.song)}
+                        onSongSliderChange={this.props.onSongSliderChange}/>;
 
   };
 
@@ -426,10 +427,14 @@ class PlayerComponent extends React.Component {
 
   renderDetailPlayer() {
     let {song} = this.props;
+    const progress = Math.ceil(this.props.player.progress);
+
     return (
       <View style={styles.player}>
         <Slider style={styles.playerSlider} thumbStyle={styles.playerThumb}
-                minimumTrackTintColor='#e13223' maximumTrackTintColor='#808080'/>
+                minimumTrackTintColor='#e13223' maximumTrackTintColor='#808080'
+                minimumValue={0} maximumValue={111} onValueChange={this.props.onSongSliderChange}
+                value={progress}/>
 
         <TouchableOpacity style={styles.playerContent}
                           onPress={this.handleTogglePlayer.bind(this, true)}>
