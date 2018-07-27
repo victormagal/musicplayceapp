@@ -426,7 +426,6 @@ class PlayerComponent extends React.Component {
 
   renderDetailPlayer() {
     let {song} = this.props;
-
     return (
       <View style={styles.player}>
         <Slider style={styles.playerSlider} thumbStyle={styles.playerThumb}

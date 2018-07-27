@@ -113,7 +113,6 @@ class FeedScreenContainer extends React.Component {
   }
 
   componentWillReceiveProps(nextProps){
-    console.log(nextProps);
     if(nextProps.feed.data){
       this.setState({feed: nextProps.feed.data, searchingNotFound: false});
       if(nextProps.feed.data.artists.length == 0 && nextProps.feed.data.songs.length == 0 && this.state.searching){

@@ -69,6 +69,7 @@ class IndicateSongFullScreenContainer extends React.Component {
     this.setState({textValue: value});
 
     if(value == ""){
+      this.props.dispatch(searchArtists(''));
       this.setState({notFoundArtist: false});
     }
 
