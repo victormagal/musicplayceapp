@@ -17,7 +17,7 @@ class IndicateSongFeedbackScreenContainer extends React.Component {
   }
 
   handleBackClick = () => {
-    this.props.navigation.pop();
+    this.props.navigation.popToTop();
   };
 
   goToScreen = (route) => {
@@ -25,10 +25,9 @@ class IndicateSongFeedbackScreenContainer extends React.Component {
   }
 
   render() {
-    console.log(this.state);
     return (
       <View style={styles.container}>
-        <MPHeader back={true} onBack={this.handleBackClick} title={''}/>
+        <MPHeader back={true} onBack={this.handleBackClick} />
         <ScrollView>
           <MPText style={ styles.headerText }>Indicação feita!</MPText>
           <View style={ styles.partnershipContainer}>
@@ -37,7 +36,7 @@ class IndicateSongFeedbackScreenContainer extends React.Component {
             <MPArtist artist={this.state.artist} imagePath={this.state.artist.picture_url} onPress={() => {}} style={{}} />
           </View>
           <MPText style={ styles.infoText }><MPText style={ styles.infoTextEmph }>203</MPText> outras pessoas sugeriram esta parceria também!</MPText>
-          <MPGradientButton title={'Fechar'} textSize={16} style={{marginHorizontal: 133}} onPress={()=>{}} />
+          <MPGradientButton title={'Fechar'} textSize={16} style={{marginHorizontal: 133}} onPress={this.handleBackClick} />
         </ScrollView>
       </View>
     );
