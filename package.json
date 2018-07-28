@@ -6,8 +6,10 @@
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "android": "react-native run-android",
     "ios": "react-native run-ios",
-    "build:android": "react-native run-android --variant=release",
-    "build:ios": "react-native run-ios --configuration Release",
+    "release:android": "react-native run-android --variant=release",
+    "release:ios": "react-native run-ios --configuration Release",
+    "build:ios": "cd ios && xcodebuild archive -scheme musicplayce -archivePath $(pwd)/musicplayce.xcarchive && xcodebuild -exportArchive -exportOptionsPlist '$(pwd)/musicplayce/Build.plist' -archivePath '$(pwd)/musicplayce.xcarchive' -exportPath '$(pwd)/musicplayce.ipa'",
+    "build:android": "cd android && ./gradlew assembleRelease",
     "test": "jest"
   },
   "rnpm": {
