@@ -3,47 +3,50 @@ import {
   FlatList, 
   ScrollView, 
   StyleSheet, 
-  View 
+  View,
+  Clipboard,
+  Share
 } from 'react-native';
-import { 
-  MPEditConfigIcon, 
-  MPNotificationConfigIcon, 
-  MPInviteConfigIcon, 
-  MPHelpConfigIcon, 
-  MPArrowRightIcon, 
-  MPClipboardIcon 
-} from '../../../assets/svg';
-import { 
-  MPHeader, 
-  MPItemList, 
-  MPFooter 
-} from '../../../components';
+import { MPArrowRightIcon, MPClipboardIcon } from '../../../assets/svg';
+import { MPHeader, MPItemList } from '../../../components';
 
 class InviteSettingsScreen extends React.Component {
-
   list = {
     data: [
-      {
+      /*{
         id: '00',
-        rota: 'homeSettings',
+        onChooseOption: 'homeSettings',
         title: 'Enviar por e-mail',
         iconNext: MPArrowRightIcon
       },
       {
         id: '01',
-        rota: 'homeSettings',
+        onChooseOption: 'homeSettings',
         title: 'Enviar por Facebook',
         iconNext: MPArrowRightIcon
       },
       {
         id: '02',
-        rota: 'homeSettings',
+        onChooseOption: 'homeSettings',
         title: 'Enviar por SMS',
+        iconNext: MPArrowRightIcon
+      },*/
+      {
+        id: '02',
+        onChooseOption: () => Share.share({
+          title: 'Musicplayce',
+          message: 'Gostaria de te convidar a participar do Musicplayce...',
+          dialogTitle: 'Convidar amigos',
+        }),
+        title: 'Escolher modo de convite',
         iconNext: MPArrowRightIcon
       },
       {
-        id: '03',
-        rota: 'homeSettings',
+        id: '04',
+        onChooseOption: () => {
+          Clipboard.setString('musicplayce link');
+          alert('Link copiado.');
+        },
         title: 'Copiar o link',
         iconNext: MPClipboardIcon
       }
@@ -51,17 +54,22 @@ class InviteSettingsScreen extends React.Component {
   };
 
   handleBack = () => {
-    if(this.props.navigation.state && this.props.navigation.state.params && this.props.navigation.state.params.profile){
-      this.props.navigation.dangerouslyGetParent().goBack();
-    }else{
-      this.props.navigation.pop();
+    const { navigation } = this.props;
+    if (navigation.state.params && navigation.state.params.profile) {
+      navigation.dangerouslyGetParent().goBack();
+    } else {
+      navigation.pop();
     }
   };
 
   render() {
     return (
       <View style={styles.parent}>
-        <MPHeader back={true} onBack={this.handleBack} title={"Convide seus amigos para o MusicPlayce"} />
+        <MPHeader
+          back={true}
+          onBack={this.handleBack}
+          title={"Convide seus amigos para o MusicPlayce"}
+        />
         <ScrollView style={styles.scroll}>
           <FlatList
             style={styles.container}
@@ -69,7 +77,10 @@ class InviteSettingsScreen extends React.Component {
             keyExtractor={item => item.id}
             renderItem={({ item }) => {
               return (
-                <MPItemList item={item} {...this.props} />
+                <MPItemList
+                  item={item}
+                  {...this.props}
+                />
               )
             }}
           />

@@ -30,63 +30,63 @@ class InitialSettingsScreenContainer extends React.Component {
 		data: [
 			{
 				id: '00',
-				rota: 'editSettings',
+				onChooseOption: () => this.props.navigation.replace('editSettings'),
 				title: 'Editar dados cadastrais',
 				icon: MPEditConfigIcon,
 				iconNext: MPArrowRightIcon
 			},
 			{
 				id: '01',
-				rota: 'notificationsSettings',
+				onChooseOption: () => this.props.navigation.replace('notificationsSettings'),
 				title: 'Personalizar notificações',
 				icon: MPNotificationConfigIcon,
 				iconNext: MPArrowRightIcon
 			},
 			{
 				id: '02',
-				rota: 'inviteSettings',
+				onChooseOption: () => this.props.navigation.replace('inviteSettings'),
 				title: 'Convide seus amigos',
 				icon: MPInviteConfigIcon,
 				iconNext: MPArrowRightIcon
 			},
 			{
 				id: '03',
-				rota: 'helpSettings',
+				onChooseOption: () => this.props.navigation.replace('helpSettings'),
 				title: 'Peça ajuda',
 				icon: MPHelpConfigIcon,
 				iconNext: MPArrowRightIcon
 			},
 			{
 				id: '04',
-				rota: 'passwordSettings',
+				onChooseOption: () => this.props.navigation.replace('passwordSettings'),
 				title: 'Troque sua senha',
 				icon: MPPasswordConfigIcon,
 				iconNext: MPArrowRightIcon
 			},
 			{
 				id: '05',
-				rota: 'addChangePlanSettings',
+				onChooseOption: () => this.props.navigation.replace('addChangePlanSettings'),
 				title: 'Alterar plano',
 				icon: MPChangePlanIcon,
 				iconNext: MPArrowRightIcon
 			},
 			{
 				id: '06',
-				rota: 'paymentTypesSettings',
+				onChooseOption: () => this.props.navigation.replace('paymentTypesSettings'),
 				title: 'Alterar forma de pagamento',
 				icon: MPPaymentTypesIcon,
 				iconNext: MPArrowRightIcon
 			},
 			{
 				id: '07',
-				rota: 'feedbackSettings',
+				onChooseOption: () => this.props.navigation.replace('feedbackSettings'),
 				title: 'Enviar feedback',
 				icon: MPFeedbackConfigIcon,
 				iconNext: MPArrowRightIcon
 			},
 			{
 				id: '08',
-				rota: 'termsSettings',
+				onChooseOption: () => this.props.navigation.replace('termsSettings'),
 				title: 'Termos e condições',
 				icon: MPTermsConfigIcon,
 				iconNext: MPArrowRightIcon

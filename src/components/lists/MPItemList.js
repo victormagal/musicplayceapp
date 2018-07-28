@@ -8,28 +8,23 @@ import { MPText } from '../../components';
 import { connect } from 'react-redux';
 
 class MPItemListComponent extends React.Component {
-
-  onPress = (rota) => {
-    this.props.navigation.navigate(rota);
-  }
-
   render() {
-    let { item } = this.props;
-    let Icon = item.icon;
-    let IconNext = item.iconNext;
+    const { item } = this.props;
+    const Icon = item.icon;
+    const IconNext = item.iconNext;
     return (
-      <TouchableHighlight onPress={this.onPress.bind(this, item.rota)} underlayColor="transparent">
+      <TouchableHighlight onPress={item.onChooseOption} underlayColor="transparent">
         <View style={styles.item}>
           {
-            item.icon ? (
+            item.icon ?
               <View style={styles.boxIcon}>
                 <Icon />
               </View>
-            ) : null
+            : null
           }
           <View style={styles.boxText}>
             <MPText numberOfLines={1} style={styles.text}>
-              {item.title}
+              { item.title }
             </MPText>
           </View>
           <View style={styles.boxFoward}>
