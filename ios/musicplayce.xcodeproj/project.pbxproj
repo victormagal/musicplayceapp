@@ -895,14 +895,14 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = A7VJDT66QY;
-						ProvisioningStyle = Manual;
+						DevelopmentTeam = XP64R75L6S;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
 							};
 							com.apple.iCloud = {
-								enabled = 0;
+								enabled = 1;
 							};
 						};
 					};
@@ -1548,10 +1548,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_ENTITLEMENTS = musicplayce/musicplayce.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
-				DEVELOPMENT_TEAM = A7VJDT66QY;
+				DEVELOPMENT_TEAM = XP64R75L6S;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-linear-gradient/BVLinearGradient",
@@ -1569,10 +1571,10 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = br.com.musicplayce.appp;
+				PRODUCT_BUNDLE_IDENTIFIER = br.com.musicplayce.app.dev;
 				PRODUCT_NAME = musicplayce;
-				PROVISIONING_PROFILE = "f6f49504-b8c0-4cbf-86c3-ed579ad72f44";
-				PROVISIONING_PROFILE_SPECIFIER = MusicplayceProv;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -1581,9 +1583,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_ENTITLEMENTS = musicplayce/musicplayce.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = A7VJDT66QY;
+				DEVELOPMENT_TEAM = XP64R75L6S;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-linear-gradient/BVLinearGradient",
@@ -1601,10 +1605,10 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = br.com.musicplayce.appp;
+				PRODUCT_BUNDLE_IDENTIFIER = br.com.musicplayce.app.dev;
 				PRODUCT_NAME = musicplayce;
-				PROVISIONING_PROFILE = "f6f49504-b8c0-4cbf-86c3-ed579ad72f44";
-				PROVISIONING_PROFILE_SPECIFIER = MusicplayceProv;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
