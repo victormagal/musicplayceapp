@@ -1,4 +1,4 @@
-import { SongService } from '../../service';
+import {SongService} from '../../service';
 import {
   fetchedArtistSongs,
   fetchedSong,
@@ -21,22 +21,14 @@ import {
 
 export const createPermanentSong = (song, file) => {
   return (dispatch, getState) => {
-    const { profile } = getState().profileReducer;
+    const {profile} = getState().profileReducer;
     song.artist_id = profile.id;
 
     dispatch(songStartLoading());
-    return SongService.create(song).then(response => {
-      return SongService.sendSongFile(file, response).then(() => {
-        return SongService.publish(response.data.id).then(() => {
-          dispatch(songPublishSuccess());
-        }).catch(e => {
-            console.log('createPermanentSong -- publishSongError', e.response);
-            dispatch(songPublishError())
-          });
-      }).catch(e => {
-        console.log('createPermanentSong --sendSongFileError', e.response);
-      });
+    return SongService.createAndPublishSong(song, file).then(() => {
+      dispatch(songPublishSuccess());
     }).catch(e => {
+      dispatch(songPublishError());
       console.log('createPermanentSongError', e.response);
     });
   };
@@ -44,7 +36,7 @@ export const createPermanentSong = (song, file) => {
 
 export const createDraftSong = (song) => {
   return (dispatch, getState) => {
-    const { profile } = getState().profileReducer;
+    const {profile} = getState().profileReducer;
     song.artist_id = profile.id;
 
     dispatch(songStartLoading());
@@ -60,30 +52,15 @@ export const createDraftSong = (song) => {
 export const updatePermanentSong = (song, file) => {
   return (dispatch) => {
     dispatch(songStartLoading());
-    return SongService.update(song).then(() => {
-      if (file !== null) {
-        return SongService.sendSongFile(file, song).then(() => {
-          return SongService.publish(song.id).then(() => {
-            dispatch(songPublishSuccess());
-          }).catch(e => {
-            console.log('createPermanentSong -- publishSongError', e.response);
-            dispatch(songPublishError())
-          });
-        }).catch(e => {
-          console.log('createPermanentSong --sendSongFileError', e.response);
-        });
-      }
-      return SongService.publish(song.id).then(() => {
-        dispatch(songPublishSuccess());
-      }).catch(e => {
-        console.log('updatePermanentSong -- publishSongError', e.response);
-        dispatch(songPublishError())
-      });
+
+    return SongService.republishSong(song, file).then(() => {
+      dispatch(songPublishSuccess());
     }).catch(e => {
-      console.log('updatePermanentSongError', e.response);
+      console.log('updatePermanentSongError', e);
+      dispatch(songPublishError())
     });
   };
-}
+};
 
 export const updateDraftSong = (song) => {
   return (dispatch) => {

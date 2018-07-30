@@ -16,8 +16,7 @@ class RegisterSongContainer extends React.Component {
       progressContentWidth: 0,
       cardErrors: {
         name: false,
-        lyrics: false,
-        path: false
+        lyrics: false
       }
     };
 
@@ -76,10 +75,10 @@ class RegisterSongContainer extends React.Component {
 
   handleChooseFileClick = () => {
     DocumentPicker.show({
-      filetype: [DocumentPickerUtil.allFiles()],
-    },(_, response) => {
-      const song = {...this.props.song, path: response.uri};
-      this.props.dispatch(updateSongRegisterData(song));
+      filetype: [DocumentPickerUtil.audio()],
+    },(something, response) => {
+      console.log(something);
+      console.log(response);
       this.setState({ songFile: response })
     });
   };
@@ -97,6 +96,8 @@ class RegisterSongContainer extends React.Component {
     }
 
     this.setState({ cardErrors });
+
+    //TODO: handle file validation if exists file
     return valid;
   }
 
@@ -151,7 +152,7 @@ class RegisterSongContainer extends React.Component {
                   />
                   <MPText style={ styles.subText}>
                     {this.state.songFile
-                      ? `${ this.state.songFile.fileName }.${ this.state.songFile.type.split('/')[1] }`
+                      ? this.state.songFile.fileName
                       : 'Você pode fazer upload de músicas em MP3 ou AAC.'}
                   </MPText>
                 </View>
