@@ -65,7 +65,9 @@ class PlayerContainer extends React.Component {
       let arraySongs = nextProps.artistSongs.map(songs => {
         return songs.data;
       });
-      // this.setState({artistsSongs: arraySongs});
+      if(arraySongs.length > 0){
+        this.setState({artistsSongs: arraySongs});
+      }
     }
   }
 
@@ -95,6 +97,8 @@ class PlayerContainer extends React.Component {
       <View style={styles.container}>
         <PlayerComponent todo="REFACTOR" {...this.props}
                          song={this.state.song}
+                         artistsSongs={this.state.artistsSongs}
+                         artistNames={this.state.artistNames}
                          onSongPause={this.handleSongPause}
                          onSongResume={this.handleSongResume}
                          onSongPlay={this.handleSongPlay}

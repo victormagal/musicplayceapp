@@ -277,6 +277,24 @@ class PlayerComponent extends React.Component {
     );
   }
 
+  renderArtistSongs = (songs) => {
+    if (songs && songs.length > 0){
+      songs.map((songList, index) => {
+        return (<View>
+          <View style={[styles.sectionHeader, styles.row]}>
+            <MPText style={styles.sectionTitle}>Outras de {this.props.artistNames[index]}</MPText>
+            <MPGradientBorderButton />
+          </View>
+          <FlatList
+            data={this.state.data}
+            keyExtractor={(item) => item.id}
+            renderItem={this.renderItem}
+            horizontal={true}/>
+        </View>)
+      })
+    }
+  }
+
   renderMain() {
     let {song} = this.props;
     return (
@@ -363,42 +381,22 @@ class PlayerComponent extends React.Component {
             </View>
             <MPCircleGradientButton icon={MPBalloonTalkIcon}/>
           </View>
-
-          <View>
-            <View style={[styles.sectionHeader, styles.row]}>
-              <MPText style={styles.sectionTitle}>Outras de Almir Sater</MPText>
-              <MPGradientBorderButton />
-            </View>
-            <FlatList
-              data={this.state.data}
-              keyExtractor={(item) => item.id}
-              renderItem={this.renderItem}
-              horizontal={true}/>
-          </View>
-
-          <View>
-            <View style={[styles.sectionHeader, styles.row]}>
-              <MPText style={styles.sectionTitle}>Outras de Zé da Clave</MPText>
-              <MPGradientBorderButton />
-            </View>
-            <FlatList
-              data={this.state.data}
-              keyExtractor={(item) => item.id}
-              renderItem={this.renderItem}
-              horizontal={true}/>
-          </View>
-
-          <View style={styles.lastSectionMargin}>
-            <View style={[styles.sectionHeader, styles.row]}>
-              <MPText style={styles.sectionTitle}>Outras de Santiago Silva</MPText>
-              <MPGradientBorderButton />
-            </View>
-            <FlatList
-              data={this.state.data}
-              keyExtractor={(item) => item.id}
-              renderItem={this.renderItem}
-              horizontal={true}/>
-          </View>
+          { this.props.artistsSongs && this.props.artistsSongs.length > 0 && (
+            this.props.artistsSongs.map((songList, index) => {
+              return (
+              <View>
+                <View style={[styles.sectionHeader, styles.row]}>
+                  <MPText style={styles.sectionTitle}>Outras de {this.props.artistNames[index]}</MPText>
+                  <MPGradientBorderButton />
+                </View>
+                <FlatList
+                  data={songList}
+                  keyExtractor={(item) => item.id}
+                  renderItem={this.renderItem}
+                  horizontal={true}/>
+              </View>)
+            })
+          )}
         </ScrollView>
       </MPFade>
     );
@@ -411,7 +409,7 @@ class PlayerComponent extends React.Component {
       style = styles.songCardFirst;
     }
 
-    return <MPSongRating key={index} style={style} song={item} indicateSong={true} imagePath={item.imagePath}
+    return <MPSongRating key={index} style={style} song={item} indicateSong={true} imagePath={item.picture_url}
                          onPress={() => {
                          }}/>
   };
