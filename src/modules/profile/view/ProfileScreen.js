@@ -2,10 +2,10 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {ProfileComponent} from './ProfileComponent';
 import {fetchProfile, fetchArtistSongs, logout} from '../../../state/action';
+import {MPProfileSuccess} from "../../../components";
 
 
 class ProfileScreenContainer extends React.Component {
-
   componentDidMount() {
     let {dispatch} = this.props;
     dispatch(fetchProfile());
@@ -28,6 +28,10 @@ class ProfileScreenContainer extends React.Component {
         clearTimeout(timer);
       }, 1000);
     }
+
+    if (props.artistSaveSuccess) {
+      props.dispatch(fetchProfile());
+    }
   }
 
   handleFollowersEmptyClick = () => {
@@ -45,11 +49,13 @@ class ProfileScreenContainer extends React.Component {
 
   render() {
     return (
-      <ProfileComponent {...this.props}
-                        me={true}
-                        onSongAddClick={this.handleSongAddClick}
-                        onFollowersEmptyClick={this.handleFollowersEmptyClick}
-                        onLogoutClick={this.handleLogout}/>
+      <ProfileComponent
+        {...this.props}
+        me={true}
+        onSongAddClick={this.handleSongAddClick}
+        onFollowersEmptyClick={this.handleFollowersEmptyClick}
+        onLogoutClick={this.handleLogout}
+      />
     )
   }
 }

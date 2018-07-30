@@ -9,16 +9,14 @@ import {
 } from '../../../../components';
 
 class EditProfileDescriptionComponent extends React.Component {
-
-  state = {
-    description: ''
-  };
-
   refSaveButton = null;
 
   constructor(props){
     super(props);
     this.refSaveButton = React.createRef();
+    this.state = {
+      description: props.description || ''
+    };
   }
 
   handleTriggerSave = () => {
@@ -26,16 +24,21 @@ class EditProfileDescriptionComponent extends React.Component {
   };
 
   handleSave = () => {
-    this.props.onSave({...this.state});
+    this.props.onSave({ ...this.state });
   };
 
-  handleChange = ({value}) => {
-    this.setState({description: value});
+  handleChange = ({ value }) => {
+    this.setState({ description: value });
   };
 
   renderHeaderMenuSave() {
     return [
-      <MPIconButton key={1} title="Salvar" titleStyle={styles.headerMenuText} onPress={this.handleTriggerSave}/>
+      <MPIconButton
+        key={1}
+        title="Salvar"
+        titleStyle={styles.headerMenuText}
+        onPress={this.handleTriggerSave}
+      />
     ];
   }
 
@@ -43,15 +46,26 @@ class EditProfileDescriptionComponent extends React.Component {
     let {onBack} = this.props;
     return (
       <View style={styles.parent}>
-        <MPHeader back={true} onBack={onBack} title={"Fale de você e do seu trabalho"} icons={this.renderHeaderMenuSave()}/>
+        <MPHeader
+          back={true}
+          onBack={onBack}
+          title={"Fale de você e do seu trabalho"}
+          icons={this.renderHeaderMenuSave()}
+        />
         <ScrollView style={styles.scroll}>
           <View style={styles.container}>
-
-            <MPText style={ styles.titleText}>O que te inspira? Quais suas referências e estilos ? Aproveite para vender seu peixe, esse espaço é seu.</MPText>
+            <MPText style={ styles.titleText}>
+              O que te inspira? Quais suas referências e estilos ? Aproveite para vender seu peixe, esse espaço é seu.
+            </MPText>
             <MPForm>
-              <MPInput label="Envie sua mensagem" validators={['required']} style={styles.textFieldContainer} multiline={true}
-                       value={this.state.description} onChangeText={this.handleChange}/>
-
+              <MPInput
+                label="Envie sua mensagem"
+                validators={['required']}
+                style={styles.textFieldContainer}
+                multiline={true}
+                value={this.state.description}
+                onChangeText={this.handleChange}
+              />
               <View>
                 <MPFormButton>
                   <MPIconButton ref={this.refSaveButton} onPress={this.handleSave} />

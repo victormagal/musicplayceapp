@@ -6,8 +6,12 @@ import { MPLocationPinIcon, MPVipIcon, MPVerifiedIcon } from '../../assets/svg';
 
 class MPProfileInfo extends Component {
 
+  goToScreen = (route, params = {}) => {
+    this.props.navigation.navigate(route, params);
+}
+
   render() {
-    const { isMe, profile, onEditSite, onEditDescription } = this.props;
+    const { isMe, profile, onEditSite } = this.props;
     const underlineStyle = (attribute) => attribute ? {} : { textDecorationLine: 'underline' };
     const profileSite = profile.site && (profile.site.includes('http') || profile.site.includes('https'))
         ? profile.site : `https://${ profile.site }`;
@@ -26,43 +30,51 @@ class MPProfileInfo extends Component {
           }
         </View>
         <View style={{ flexDirection: 'row', marginTop: 10, marginBottom: 15, alignItems: 'center' }}>
-          { profile.description ?
-            <View>
-              <MPLocationPinIcon/>
-              <MPText style={[ styles.location, underlineStyle(profile.location) ]}>
-                { profile.city }/{ profile.state }
-              </MPText>
-            </View>
+          <MPLocationPinIcon/>
+          { (profile.city && profile.state) ?
+            <MPText style={[ styles.location, underlineStyle(profile.location) ]}>
+              { profile.city }/{ profile.state }
+            </MPText>
             : isMe &&
             <MPText style={[ styles.location, underlineStyle(profile.location) ]}>
               Informe sua localização
             </MPText>
           }
         </View>
-        { !profile.isManager && profile.site ?
-          <TouchableOpacity onPress={() => Linking.openURL(profileSite)}>
+        { isMe ?
+          <TouchableOpacity
+            onPress={() => this.goToScreen('EditProfileSites', { sites: profile.social_networks || []})}
+          >
             <MPText style={styles.itemStyle}>
-              { profile.social_networks }
+              { profile.social_networks ?
+                profile.social_networks.map(social => social.name + '  ')
+                : 'Insira aqui suas redes sociais'
+              }
             </MPText>
           </TouchableOpacity>
-          : isMe &&
-          <TouchableOpacity onPress={onEditSite}>
+          : profile.social_networks &&
+          <TouchableOpacity onPress={() => Linking.openURL(profileSite)}>
             <MPText style={styles.itemStyle}>
-              Insira aqui suas redes sociais
+              { profile.social_networks.map(social => social.name + '  ') }
             </MPText>
           </TouchableOpacity>
         }
-        { profile.description ?
+        { isMe ?
+          <TouchableOpacity
+            onPress={() => this.goToScreen('EditProfileDescription', { description: profile.description || ''})}
+          >
+            <MPText style={[ styles.descriptionText, profile.description && underlineStyle(profile.description)]}>
+              { profile.description
+                ? profile.description
+                :'Fale sobre você, seu trabalho, qual seu objetivo com o MusicPlayce. Quanto tempo de experiência ' +
+                'você tem? Já fez parceria com bandas? Já ganhou premiações? Tem fã clube?'
+              }
+            </MPText>
+          </TouchableOpacity>
+          : profile.description &&
           <MPText style={styles.descriptionText}>
             { profile.description }
           </MPText>
-          : isMe &&
-          <TouchableOpacity onPress={onEditDescription}>
-            <MPText style={[ styles.descriptionText, underlineStyle(profile.description)]}>
-              Fale sobre você, seu trabalho, qual seu objetivo com o MusicPlayce. Quanto tempo de experiência você tem?
-              Já fez parceria com bandas? Já ganhou premiações? Tem fã clube?
-            </MPText>
-          </TouchableOpacity>
         }
         { profile.vip &&
           <View style={styles.avaliadorContainer}>

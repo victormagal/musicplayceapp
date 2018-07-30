@@ -21,23 +21,23 @@ import {
 } from '../../../assets/svg/'
 import {MPUpgradeButton} from '../../../components/profile/MPUpgradeButton';
 import {saveProfile} from '../../../state/action';
+import {MPProfileSuccess} from "../../../components";
 
 
 class ProfileComponent extends React.Component {
   scrollViewRef = null;
 
-  state = {
-    tabIndex: 0,
-    linearGradientHeight: 0
-  };
-
   constructor(props) {
     super(props);
     this.scrollViewRef = React.createRef();
+    this.state = {
+      tabIndex: 0,
+      linearGradientHeight: 0
+    };
   }
 
-  goToScreen = (rota) => {
-    this.props.navigation.navigate(rota)
+  goToScreen = (rota, params = {}) => {
+    this.props.navigation.navigate(rota, params)
   };
 
   handleScrollEnd = () => {
@@ -87,22 +87,29 @@ class ProfileComponent extends React.Component {
 
   renderHeaderMenuRight() {
     return [
-      <MPIconButton key={Math.random()} icon={MPSettingsIcon} onPress={() => this.goToScreen('settings')}/>
+      <MPIconButton
+        key={Math.random()}
+        icon={MPSettingsIcon}
+        onPress={() => this.goToScreen('settings')}
+      />
     ];
   }
 
   renderHeaderMenuLeft() {
     return [
-      <MPIconButton key={Math.random()}
-                    style={styles.logout}
-                    title='Sair'
-                    titleStyle={styles.headerMenuText}
-                    onPress={this.props.onLogoutClick} />
+      <MPIconButton
+        key={Math.random()}
+        style={styles.logout}
+        title='Sair'
+        titleStyle={styles.headerMenuText}
+        onPress={this.props.onLogoutClick}
+      />
     ];
   }
 
   render() {
     const { me, profile } = this.props;
+    console.log('profile', profile);
     return (
       <View style={{ flex: 1 }}>
         {this.renderHeader()}
@@ -181,7 +188,7 @@ class ProfileComponent extends React.Component {
   }
 
   renderProfileData(profile) {
-    const { me, myFollowers, myIndications } = this.props;
+    const { me, myFollowers, myIndications, navigation } = this.props;
     const countIndications =  (myIndications && myIndications.count);
     return (
       <View>
@@ -196,7 +203,7 @@ class ProfileComponent extends React.Component {
         <MPProfileInfo
           isMe={me}
           profile={profile}
-          onEditDescription={() => this.goToScreen('EditProfileDescription')}
+          navigation={navigation}
         />
         <View style={styles.profileIndicatorContainer}>
           <ProfileIndicatorCE
