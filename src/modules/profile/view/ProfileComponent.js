@@ -109,7 +109,6 @@ class ProfileComponent extends React.Component {
 
   render() {
     const { me, profile } = this.props;
-    console.log('profile', profile);
     return (
       <View style={{ flex: 1 }}>
         {this.renderHeader()}

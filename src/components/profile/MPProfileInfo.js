@@ -31,14 +31,16 @@ class MPProfileInfo extends Component {
         </View>
         <View style={{ flexDirection: 'row', marginTop: 10, marginBottom: 15, alignItems: 'center' }}>
           <MPLocationPinIcon/>
-          { (profile.city && profile.state) ?
+          { profile.city ?
             <MPText style={[ styles.location, underlineStyle(profile.location) ]}>
               { profile.city }/{ profile.state }
             </MPText>
             : isMe &&
-            <MPText style={[ styles.location, underlineStyle(profile.location) ]}>
-              Informe sua localização
-            </MPText>
+            <TouchableOpacity onPress={() => this.goToScreen('EditProfileLocation', { location: { city: profile.city, state: profile.state } })}>
+              <MPText style={[ styles.location, underlineStyle(profile.location) ]}>
+                { profile.city ? profile.city+'/'+profile.state : 'Informe sua localização' }
+              </MPText>
+            </TouchableOpacity>
           }
         </View>
         { isMe ?
