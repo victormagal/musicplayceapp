@@ -2,49 +2,47 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {ProfileComponent} from './ProfileComponent';
 import {fetchProfile, fetchArtistSongs, logout} from '../../../state/action';
-import {MPProfileSuccess} from "../../../components";
-
+import {songRegisterClear} from "../../../state/songs/songsType";
 
 class ProfileScreenContainer extends React.Component {
   componentDidMount() {
-    let {dispatch} = this.props;
-    dispatch(fetchProfile());
-    this.setup(this.props);
+    const { dispatch } = this.props;
+
+    dispatch(fetchProfile()).then(response => {
+      dispatch(fetchArtistSongs(response.payload.profile.id));
+    });
   }
 
   componentWillReceiveProps(nextProps){
-    this.setup(nextProps);
-  }
+    const navigationParams = nextProps.navigation.state.params;
 
-  setup(props){
-    if((props.profile && !props.mySongs)){
-      this.props.dispatch(fetchArtistSongs(props.profile.id));
-    }
-
-    if(props.songCreateSuccess || props.songRemoveSuccess ||
-       props.songPublishSuccess || props.songUnpublishSuccess){
-      let timer = setTimeout(() => {
-        this.props.dispatch(fetchArtistSongs(props.profile.id));
+    if (navigationParams && navigationParams.backFromPublishedOrDraft) {
+      const timer = setTimeout(() => {
+        this.props.dispatch(fetchArtistSongs(this.props.profile.id));
         clearTimeout(timer);
-      }, 1000);
+      }, 500);
+      nextProps.navigation.setParams({ backFromPublishedOrDraft: false });
     }
 
-    if (props.artistSaveSuccess) {
-      props.dispatch(fetchProfile());
+    if (nextProps.artistSaveSuccess) {
+      this.props.dispatch(fetchProfile());
     }
   }
 
   handleFollowersEmptyClick = () => {
-    this.props.navigation.navigate('inviteSettings', {profile: true});
+    this.props.navigation.navigate('inviteSettings', { profile: true });
   };
 
   handleSongAddClick = () => {
+    this.props.dispatch(songRegisterClear());
     this.props.navigation.navigate('RegisterSongScreen');
   };
 
   handleLogout = () => {
-    this.props.dispatch(logout());
-    this.props.navigation.dangerouslyGetParent().dangerouslyGetParent().replace('login');
+    const { dispatch, navigation } = this.props;
+
+    dispatch(logout());
+    navigation.dangerouslyGetParent().dangerouslyGetParent().replace('login');
   };
 
   render() {
@@ -60,14 +58,18 @@ class ProfileScreenContainer extends React.Component {
   }
 }
 
-const mapStateToProps = ({profileReducer, songsReducer}) => {
-  let {songCreateSuccess, songRemoveSuccess, songPublishSuccess, songUnpublishSuccess, mySongs} = songsReducer;
+const mapStateToProps = ({ profileReducer, songsReducer }) => {
+  const { songCreateSuccess, songRemoveSuccess, songPublishSuccess, songUnpublishSuccess, mySongs } = songsReducer;
 
   return {
-    ...profileReducer, songCreateSuccess, songRemoveSuccess,
-    songPublishSuccess, songUnpublishSuccess, mySongs
+    ...profileReducer,
+    songCreateSuccess,
+    songRemoveSuccess,
+    songPublishSuccess,
+    songUnpublishSuccess,
+    mySongs
   };
 };
 
 const ProfileScreen = connect(mapStateToProps)(ProfileScreenContainer);
-export {ProfileScreen};
+export { ProfileScreen };

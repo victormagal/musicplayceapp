@@ -1,5 +1,6 @@
 import axios from 'axios';
 import {API, transformResponseData, getIncludes} from './api';
+import {StorageService} from "./StorageService";
 
 const API_SONG = `${API}/songs`;
 
@@ -120,6 +121,31 @@ class SongService {
       });
   }
 
+  static sendSongFile(file, song) {
+    let formData = new FormData();
+
+    formData.append('file', file);
+    formData.append('name', file.fileName);
+    formData.append('title', song.data.attributes.title || song.title);
+    formData.append('artist_id', song.data.attributes.artist_id || song.artist_id);
+
+    return StorageService.getToken().then(token => {
+      if (token) {
+        return fetch (
+          `${ API_SONG }/${ song.data.id }/audio`,
+          {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+              'Accept': 'application/json',
+              'Authorization': `Bearer ${token}`
+            },
+            method: 'POST',
+            body: formData
+          }
+        );
+      }
+    });
+  }
 }
 
 export {SongService};
