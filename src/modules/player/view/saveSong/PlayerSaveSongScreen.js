@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {PlayerSaveSongComponent} from './PlayerSaveSongComponent';
-import { fetchFolders, favoriteSong} from '../../../../state/action';
+import { fetchFolders, favoriteSong, createFolder} from '../../../../state/action';
 
 
 class PlayerSaveSongContainer extends React.Component {
@@ -21,14 +21,11 @@ class PlayerSaveSongContainer extends React.Component {
 
   handleAdd = () => {
     if(this.state.folderName){
-      let newState = {...this.state};
-      newState.folderName = '';
-      newState.folders.push({
-        id: newState.folders.length,
-        title: this.state.folderName,
-        total: 'Nenhuma música'
-      });
-      this.setState(newState);
+      let folder = {
+        'name': this.state.folderName
+      }
+      this.props.dispatch(createFolder(folder));
+      this.props.dispatch(fetchFolders());
     }
   };
 
