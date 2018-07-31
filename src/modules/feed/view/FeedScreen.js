@@ -20,7 +20,7 @@ import {connect} from 'react-redux';
 import Swiper from 'react-native-swiper';
 import images from '../../../assets/img';
 import {MPSearchRedIcon, MPCloseFilledRedIcon} from '../../../assets/svg';
-import {  fetchFeeds, searchArtists } from '../../../state/action';
+import {  fetchFeeds, searchArtists, getFollowNotifications } from '../../../state/action';
 
 class FeedScreenContainer extends React.Component {
 
@@ -110,9 +110,11 @@ class FeedScreenContainer extends React.Component {
   componentDidMount(){
     this.props.dispatch(searchArtists(''));
     this.props.dispatch(fetchFeeds(''));
+    this.props.dispatch(getFollowNotifications());
   }
 
   componentWillReceiveProps(nextProps){
+    console.log(nextProps);
     if(nextProps.feed.data){
       this.setState({feed: nextProps.feed.data, searchingNotFound: false});
       if(nextProps.feed.data.artists.length == 0 && nextProps.feed.data.songs.length == 0 && this.state.searching){

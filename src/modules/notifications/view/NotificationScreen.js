@@ -7,6 +7,7 @@ import Swiper from 'react-native-swiper';
 import {
   MPHeader, MPNotificationList, MPMessageList, MPTabBar
 } from '../../../components';
+import { getNotifications } from '../../../state/action';
 
 
 class NotificationScreenContainer extends React.Component {
@@ -164,6 +165,16 @@ class NotificationScreenContainer extends React.Component {
     ]
   };
 
+  componentDidMount(){
+    this.props.dispatch(getNotifications());
+  }
+
+  componentWillReceiveProps(nextProps){
+    if(nextProps){
+      console.log(nextProps);
+    }
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -219,8 +230,8 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = () => {
-  return {};
+const mapStateToProps = ({artistReducer}) => {
+  return {...artistReducer};
 };
 
 const NotificationScreen = connect(mapStateToProps)(NotificationScreenContainer);

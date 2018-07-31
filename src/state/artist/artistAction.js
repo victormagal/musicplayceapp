@@ -1,7 +1,6 @@
 import {createAction} from 'redux-actions';
 import {ArtistService, SongService, UserService} from '../../service';
 
-
 export const FETCHED_ARTISTS = 'FETCHED_ARTISTS';
 export const FETCHED_ARTIST_SONGS = 'FETCHED_ARTIST_SONGS';
 export const ARTIST_START_LOADING = 'ARTIST_START_LOADING';
@@ -12,6 +11,10 @@ export const ARTIST_SAVE_ERROR = 'ARTIST_SAVE_ERROR';
 export const ARTIST_FOLLOW_SUCCESS = 'ARTIST_FOLLOW_SUCCESS';
 export const ARTIST_STOP_FOLLOW_SUCCESS = 'ARTIST_STOP_FOLLOW_SUCCESS';
 export const ARTIST_FOLLOW_ERROR = 'ARTIST_FOLLOW_ERROR';
+export const NOTIFICATIONS_START_LOADING = 'NOTIFICATIONS_START_LOADING';
+export const FETCHED_NOTIFICATIONS = 'FETCHED NOTIFICATIONS';
+export const FETCHED_FOLLOWERS_NOTIFICATIONS = 'FETCHED FOLLOWERS NOTIFICATIONS';
+export const NOTIFICATIONS_FINISHED_LOADING = 'NOTIFICATIONS_FINISHED_LOADING';
 
 export const fetchedArtists = createAction(FETCHED_ARTISTS, (data) => data);
 export const artistByIdFetched = createAction(ARTIST_BY_ID_FETCHED, (data) => data);
@@ -23,7 +26,10 @@ export const artistStopFollowSuccess = createAction(ARTIST_STOP_FOLLOW_SUCCESS);
 export const artistFollowSuccess = createAction(ARTIST_FOLLOW_SUCCESS);
 export const artistFollowError = createAction(ARTIST_FOLLOW_ERROR);
 export const fetchedArtistSongs = createAction(FETCHED_ARTIST_SONGS, (data) => data);
-
+export const notificationsStartLoading = createAction(NOTIFICATIONS_START_LOADING);
+export const fetchedNotifications = createAction(FETCHED_NOTIFICATIONS, data => data);
+export const fetchedFollowersNotifications = createAction(FETCHED_FOLLOWERS_NOTIFICATIONS, data => data);
+export const notificationsFinishedLoading = createAction(NOTIFICATIONS_FINISHED_LOADING)
 
 export const searchArtists = (name) => {
   return (dispatch) => {
@@ -96,6 +102,30 @@ export const artistStopFollow = (id) => {
       dispatch(artistStopFollowSuccess());
     }).catch(e => {
       dispatch(artistFollowError());
+    });
+  };
+};
+
+export const getNotifications = () => {
+  return (dispatch) => {
+    dispatch(notificationsStartLoading());
+
+    return UserService.getNotifications().then(response => {
+      dispatch(fetchedNotifications(response.data));
+    }).catch(e => {
+      dispatch(notificationsFinishedLoading());
+    });
+  };
+};
+
+export const getFollowNotifications = () => {
+  return (dispatch) => {
+    dispatch(notificationsStartLoading());
+
+    return UserService.getFollowNotifications().then(response => {
+      dispatch(fetchedFollowersNotifications(response.data));
+    }).catch(e => {
+      dispatch(notificationsFinishedLoading());
     });
   };
 };
