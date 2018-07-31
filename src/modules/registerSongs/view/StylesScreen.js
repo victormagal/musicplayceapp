@@ -17,7 +17,15 @@ class StylesScreenContainer extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.tags && nextProps.tags.length !== this.state.tags.length) {
-      this.setState({ tags: nextProps.tags });
+      let {tags, song} = nextProps;
+      if(song.tags && song.tags.length > 0){
+        tags = tags.map((tag) => {
+          tag.selected = typeof (song.tags.find((tagSong) => tagSong.id === tag.id)) !== 'undefined';
+          return tag;
+        });
+      }
+
+      this.setState({ tags });
     }
   }
 
