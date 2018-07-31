@@ -46,6 +46,7 @@ const generalReducer = (state, action) => {
     case FETCHED_STATE_BRAZIL:
       return {
         ...state,
+        loading: false,
         states: action.payload
       };
   }

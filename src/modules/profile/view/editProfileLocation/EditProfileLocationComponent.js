@@ -2,16 +2,21 @@ import React from 'react';
 import {
   ScrollView,
   StyleSheet,
+  Platform,
+  TouchableOpacity,
   View
 } from 'react-native';
 import {
   MPHeader,
   MPSelect,
-  MPIconButton
+  MPIconButton,
+  MPText,
+  MPLoading
 } from '../../../../components';
 import { connect } from 'react-redux';
-import {fetchCityBrazil, fetchStateBrazil} from "../../../../state/general/generalAction";
-import {MPLoading} from "../../../../components/general";
+import { GeneralService } from '../../../../service/GeneralService';
+import {fetchCityBrazil, fetchStateBrazil, generalStartLoading} from "../../../../state/general/generalAction";
+import {MPLocationPinIcon} from "../../../../assets/svg";
 
 class EditProfileLocationComponent extends React.Component {
   refSaveButton = null;
@@ -20,19 +25,75 @@ class EditProfileLocationComponent extends React.Component {
     super (props);
     this.refSaveButton = React.createRef();
     this.state = {
-      city: props.location.city || null,
-      state: props.location.state || null
+      city: props.location.city || '',
+      state: props.location.state || '',
+      selectedCity: null,
+      selectedState: null,
+      error: null,
+      isCurrentLocation: false
     };
   }
 
   componentDidMount() {
     const { dispatch } = this.props;
-    dispatch(fetchCityBrazil());
     dispatch(fetchStateBrazil());
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    const { selectedState, isCurrentLocation } = this.state;
+
+    if (selectedState !== prevState.selectedState) {
+      if (prevState.selectedState !== null) {
+        this.setState({ selectedCity: null });
+      }
+      this.props.dispatch(fetchCityBrazil(selectedState));
+    }
+
+    if (prevProps.cities !== this.props.cities && isCurrentLocation) {
+      const selectedCity = this.props.cities.filter(c => c.nome === this.state.city)[0].id;
+      this.setState({ selectedCity, isCurrentLocation: false });
+    }
+  }
+
+  handleCurrentPosition = () => {
+    const { states } = this.props;
+
+    this.props.dispatch(generalStartLoading());
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const coords = position.coords;
+        /*const coords = {
+          latitude: '-15.7867618',
+          longitude: '-47.8910984'
+        };*/
+        GeneralService.getAddressFromCoordinates(coords.latitude, coords.longitude).then(response => {
+          const result = response.data.results[0];
+          const statePosition = result.address_components.length - 3;
+          const cityPosition = result.address_components.length - 4;
+
+          const city = result.address_components[cityPosition].short_name;
+          const state = result.address_components[statePosition].short_name;
+          const selectedState = states.filter(s => s.sigla === state)[0].id;
+          this.setState({ city, state, selectedState, isCurrentLocation: true });
+        })
+      },
+      () => this.setState({ error: 'Não foi possível usar a localização atual.' }),
+      { enableHighAccuracy: true, timeout: 2000 }
+    )
+  }
+
   handleSave = () => {
-    this.props.onSave({ ...this.state });
+    const { selectedState, selectedCity } = this.state;
+    let error = null;
+
+    if (selectedState === null) {
+      error = 'O estado não pode ficar em branco.';
+    } else if (selectedCity === null) {
+      error = 'A cidade não pode ficar em branco.';
+    } else {
+      this.props.onSave({ ...this.state });
+    }
+    this.setState({ error });
   };
 
   renderHeaderMenuSave() {
@@ -48,8 +109,7 @@ class EditProfileLocationComponent extends React.Component {
 
   render() {
     const { onBack, cities, states } = this.props;
-    const { state, city } = this.state;
-
+    const { selectedState, selectedCity, error } = this.state;
     return (
       <View style={styles.parent}>
         <MPHeader
@@ -60,27 +120,47 @@ class EditProfileLocationComponent extends React.Component {
         />
         <ScrollView style={styles.scroll}>
           <View style={styles.container}>
-            { (states && cities) &&
+            <TouchableOpacity style={styles.currentPosition} onPress={() => this.handleCurrentPosition()}>
+              <MPLocationPinIcon/>
+              <MPText style={styles.currentPositionText}>
+                Usar minha localização atual
+              </MPText>
+            </TouchableOpacity>
+            <MPText style={styles.randomText}>
+              ou
+            </MPText>
+            { states &&
               <View style={{ marginHorizontal: 20 }}>
                 <MPSelect
                   label={'Selecione o estado'}
-                  value={state}
+                  customValue={selectedState ? states.filter(state => state.id === selectedState)[0].sigla : null}
+                  value={selectedState ? selectedState.id : null}
                   options={states.map(state => state.sigla)}
                   style={styles.containerSelect}
-                  onChangeOption={(state) => this.setState({ state })}
+                  onChangeOption={(selectedState) => this.setState({
+                    selectedState: states[selectedState].id,
+                    state: states[selectedState].sigla
+                  })}
                 />
-                { state &&
+                { (selectedState && cities) &&
                   <MPSelect
                     label={'Selecione a cidade'}
-                    value={city}
-                    options={cities.filter(city => (
-                      city.microrregiao.mesorregiao.UF.id === states[state].id).map(city => city.nome)
-                    )}
+                    value={selectedCity ? selectedCity.id : null}
+                    customValue={selectedCity ? cities.filter(city => city.id === selectedCity)[0].nome : null}
+                    options={cities.map(city => city.nome)}
                     style={styles.containerSelect}
-                    onChangeOption={(city) => this.setState({ city })}
+                    onChangeOption={(selectedCity) => this.setState({
+                      selectedCity: cities[selectedCity].id,
+                      city: cities[selectedCity].nome
+                    })}
                   />
                 }
               </View>
+            }
+            { error !== null &&
+              <MPText style={styles.errorText}>
+                { error }
+              </MPText>
             }
           </View>
         </ScrollView>
@@ -116,6 +196,31 @@ const styles = StyleSheet.create({
     fontFamily: 'Montserrat-Regular',
     fontSize: 14,
     color: '#fff'
+  },
+  errorText: {
+    marginTop: 15,
+    textAlign: 'center',
+    color: '#e13223',
+    fontFamily: 'Montserrat-Regular'
+  },
+  currentPosition: {
+    padding: 20,
+    backgroundColor: '#CCC',
+    marginBottom: 20,
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
+  currentPositionText: {
+    fontSize: 16,
+    color: '#686868',
+    marginLeft: 10,
+    flex: 1,
+    fontFamily: 'Montserrat-Regular'
+  },
+  randomText: {
+    marginVertical: 15,
+    textAlign: 'center',
+    fontFamily: 'Montserrat-SemiBold'
   }
 });
 

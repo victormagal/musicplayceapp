@@ -19,10 +19,10 @@ export const generalFinishLoading = createAction(GENERAL_FINISH_LOADING);
 export const fetchedCityBrazil = createAction(FETCHED_CITY_BRAZIL, data => data);
 export const fetchedStateBrazil = createAction(FETCHED_STATE_BRAZIL, data => data);
 
-export const fetchCityBrazil = () => {
+export const fetchCityBrazil = (state) => {
   return (dispatch) => {
     dispatch(generalStartLoading());
-    return GeneralService.fetchCityBrazil().then(response => {
+    return GeneralService.fetchCityBrazil(state).then(response => {
       dispatch(fetchedCityBrazil(response.data));
     }).catch(() => {
       dispatch(generalFinishLoading());
@@ -32,6 +32,7 @@ export const fetchCityBrazil = () => {
 
 export const fetchStateBrazil = () => {
   return (dispatch) => {
+    dispatch(generalStartLoading());
     return GeneralService.fetchStateBrazil().then(response => {
       dispatch(fetchedStateBrazil(response.data));
     }).catch(() => {
