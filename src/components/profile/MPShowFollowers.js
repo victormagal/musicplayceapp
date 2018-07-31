@@ -19,6 +19,7 @@ class MPShowFollowers extends Component {
 
   changeTabIndex = (tabIndex) => {
     this.setState({ tabIndex });
+    this.flatList.scrollToIndex({ index: 0 });
   };
 
   renderArtists = ({ item }) => (
@@ -63,6 +64,7 @@ class MPShowFollowers extends Component {
         </View>
         <View style={styles.sliderContainer}>
           <FlatList
+            ref={ref => this.flatList = ref}
             data={tabIndex === 0 ? following : followers}
             keyExtractor={(item) => item.id}
             renderItem={this.renderArtists}
