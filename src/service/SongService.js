@@ -62,7 +62,8 @@ class SongService {
 
   static update(songParam) {
     let {song, relationships} = SongService.transformSongRequest(songParam);
-
+    console.log(song);
+    console.log(relationships);
 
     let data = {
       data: {
@@ -105,6 +106,7 @@ class SongService {
 
   static getSong(song) {
     return axios.get(`${API_SONG}/${song.id}?include=coAuthors,tags`).then(({data}) => {
+      console.log(data);
       let relations = getIncludes(data);
       let {id, attributes} = data.data;
       return {id, ...attributes, ...relations};
