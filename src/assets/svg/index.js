@@ -193,6 +193,11 @@ export const MPGoogleIcon = (props) => {
  return (<Svg {...newProps} viewBox='0 0 28 18'><Path d='M8.974 7.312v3.51h4.891c-.376 2.116-2.204 3.657-4.891 3.657-2.961 0-5.367-2.515-5.367-5.484 0-2.97 2.406-5.48 5.367-5.48 1.335 0 2.53.462 3.472 1.362v.006l2.53-2.537C13.421.894 11.396 0 8.973 0 4.016 0 0 4.028 0 9s4.016 9 8.974 9c5.183 0 8.615-3.656 8.615-8.798 0-.657-.062-1.288-.174-1.89H8.974zM28 7.875h-2.804V5.062h-2.244v2.813h-2.804v2.25h2.804v2.813h2.244v-2.813H28v-2.25z' fill='#FFF'/></Svg>); 
 };
 
+export const MPGroupIcon = (props) => { 
+ let newProps = applyStyle(props, 1024, 1024); 
+ return (<Svg {...newProps} viewBox='0 0 1024 1024'><Path d='M512 998.4c268.621 0 486.4-217.779 486.4-486.4s-217.779-486.4-486.4-486.4-486.4 217.779-486.4 486.4 217.779 486.4 486.4 486.4z' fill='none' fillOpacity='0.5' stroke='#171616' strokeWidth='51.2' strokeMiterlimit={4} strokeLinecap='butt' strokeLinejoin='miter'/><Path d='M149.961 837.835l687.873-687.873 36.204 36.204-687.873 687.873z' fill='#000' fillOpacity='0.5'/></Svg>); 
+};
+
 export const MPHeartRedIcon = (props) => { 
  let newProps = applyStyle(props, 22, 20); 
  return (<Svg {...newProps} viewBox='0 0 22 20'><Path d='M15.544 0c-1.647 0-3.325.66-4.552 2.014C9.732.66 8.087 0 6.44 0 4.794 0 3.147.66 1.888 2.014c-2.517 2.708-2.517 7.118 0 9.826L10.992 20l9.136-8.16C21.387 10.486 22 8.715 22 6.944c0-1.77-.613-3.541-1.872-4.895C18.868.659 17.222 0 15.544 0z' fill='#E13223'/></Svg>); 

@@ -1,8 +1,16 @@
 import React, {Component} from 'react';
-import {StyleSheet, View, FlatList, TouchableHighlight} from 'react-native';
-import {connect} from 'react-redux';
-import {MPArtist, MPText} from '../../components'
-import images from '../../assets/img';
+import {
+  StyleSheet,
+  View,
+  FlatList,
+  Dimensions,
+  TouchableHighlight
+} from 'react-native';
+import {
+  MPArtist,
+  MPText
+} from '../../components'
+import { MPGroupIcon } from "../../assets/svg";
 
 class MPShowFollowers extends Component {
   state = {
@@ -59,6 +67,14 @@ class MPShowFollowers extends Component {
             keyExtractor={(item) => item.id}
             renderItem={this.renderArtists}
             horizontal={true}
+            ListEmptyComponent={() => (
+              <View style={{ width: Dimensions.get('screen').width - 40, alignItems: 'center' }}>
+                <MPGroupIcon style={{ width: 50, height: 50 }}/>
+                <MPText style={styles.noContent}>
+                  { `Você ainda não ${ tabIndex === 0 ? 'está \nseguindo' : 'é \nseguido' } ninguém.` }
+                </MPText>
+              </View>
+            )}
           />
         </View>
       </View>
@@ -108,6 +124,13 @@ const styles = StyleSheet.create({
   },
   tabMargin: {
     marginEnd: 20
+  },
+  noContent: {
+    marginTop: 8,
+    color: '#626262',
+    fontSize: 16,
+    textAlign: 'center',
+    fontFamily: 'Montserrat-Regular'
   }
 });
 

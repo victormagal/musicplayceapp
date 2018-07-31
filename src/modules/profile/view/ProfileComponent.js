@@ -136,7 +136,6 @@ class ProfileComponent extends React.Component {
 
   renderContent(profile) {
     const { me, myFollowers } = this.props;
-    const followers = [];
     const userFollowing = [];
 
     if (!profile) {
@@ -172,8 +171,8 @@ class ProfileComponent extends React.Component {
             </LinearGradient>
           </ImageBackground>
         { this.renderSongsData(profile) }
-        { followers.length > 0 &&
-          <MPShowFollowers following={userFollowing} followers={followers} />
+        { myFollowers && myFollowers.followers.length > 0 &&
+          <MPShowFollowers following={userFollowing} followers={myFollowers.followers} />
         }
         { !me && <MPReportProfile onPress={ () => this.reportProfile()}/>}
       </View>
@@ -181,7 +180,7 @@ class ProfileComponent extends React.Component {
   }
 
   renderProfileData(profile) {
-    const { me, myFollowers, myIndications } = this.props;
+    const { me, myIndications } = this.props;
     const countIndications =  (myIndications && myIndications.count);
     return (
       <View>
@@ -289,13 +288,15 @@ class ProfileComponent extends React.Component {
           <View>
             {profile.songSaves && (
               <View>
-                <MPShowFolderSongs folderName='Outras'
-                                   me={me}
-                                   songs={profile.songSaves}
-                                   onEditClick={this.handleEditSong}
-                                   onIndicateClick={this.handleIndicateSong}
-                                   onRemoveClick={this.handleRemoveSong}
-                                   onUnpublishClick={this.handleUnpublishSong}/>
+                <MPShowFolderSongs
+                  folderName='Outras'
+                  me={me}
+                  songs={profile.songSaves}
+                  onEditClick={this.handleEditSong}
+                  onIndicateClick={this.handleIndicateSong}
+                  onRemoveClick={this.handleRemoveSong}
+                  onUnpublishClick={this.handleUnpublishSong}
+                />
               </View>
             )}
           </View>
