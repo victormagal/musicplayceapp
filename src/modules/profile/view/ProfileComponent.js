@@ -135,7 +135,7 @@ class ProfileComponent extends React.Component {
   }
 
   renderContent(profile) {
-    const { me, myFollowers } = this.props;
+    const { me, myFollowers, navigation } = this.props;
     const followers = (myFollowers && myFollowers.followers) || [];
     const userFollowing = (profile && profile.userFollowing) || [];
 
@@ -172,7 +172,11 @@ class ProfileComponent extends React.Component {
             </LinearGradient>
           </ImageBackground>
         { this.renderSongsData(profile) }
-        <MPShowFollowers following={userFollowing} followers={followers} />
+        <MPShowFollowers
+          navigation={navigation}
+          following={userFollowing}
+          followers={followers}
+        />
         { !me && <MPReportProfile onPress={ () => this.reportProfile()}/>}
       </View>
     )

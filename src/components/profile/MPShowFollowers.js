@@ -21,10 +21,10 @@ class MPShowFollowers extends Component {
     this.setState({ tabIndex });
   };
 
-  renderArtists = ({ item}) => (
+  renderArtists = ({ item }) => (
     <MPArtist
       artist={item}
-      onPress={()=>{}}
+      onPress={() => this.props.navigation.navigate('ArtistProfileScreen', { artistId: item.id })}
       isFollowing={this.state.tabIndex === 0}
     />
   );
@@ -71,7 +71,7 @@ class MPShowFollowers extends Component {
               <View style={{ width: Dimensions.get('screen').width - 40, alignItems: 'center' }}>
                 <MPGroupIcon style={{ width: 50, height: 50 }}/>
                 <MPText style={styles.noContent}>
-                  { `Você ainda não ${ tabIndex === 0 ? 'está \nseguindo' : 'é \nseguido' } ninguém.` }
+                  { `Ainda não ${ tabIndex === 0 ? 'está \nseguindo' : 'é \nseguido por' } ninguém.` }
                 </MPText>
               </View>
             )}
