@@ -18,8 +18,13 @@ class MPShowFollowers extends Component {
   };
 
   changeTabIndex = (tabIndex) => {
+    const { following, followers } = this.props;
     this.setState({ tabIndex });
-    this.flatList.scrollToIndex({ index: 0 });
+    const hasToScroll = tabIndex === 0 ? following.length > 0 : followers.length > 0;
+
+    if (hasToScroll) {
+      this.flatList.scrollToIndex({ index: 0 });
+    }
   };
 
   renderArtists = ({ item }) => (

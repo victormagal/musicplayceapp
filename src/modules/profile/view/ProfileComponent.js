@@ -154,30 +154,34 @@ class ProfileComponent extends React.Component {
 
     return (
       <View style={{ backgroundColor: '#000' }}>
-          <ImageBackground
-            style={{ flex: 1, width: '100%' }}
-            source={profile.cover_picture_url ? { uri: profile.cover_picture_url } : null}
+        <ImageBackground
+          style={{ flex: 1, width: '100%' }}
+          source={profile.cover_picture_url ? { uri: profile.cover_picture_url } : null}
+        >
+          <LinearGradient
+            onLayout={event => this.setState({ linearGradientHeight: event.nativeEvent.layout.height })}
+            colors={['rgba(0, 0, 0, 0.2)', '#e13223']}
           >
-            <LinearGradient
-              onLayout={event => this.setState({ linearGradientHeight: event.nativeEvent.layout.height })}
-              colors={['rgba(0, 0, 0, 0.2)', '#e13223']}
+            { this.renderProfileData(profile) }
+            <TouchableOpacity
+              style={{ alignSelf: 'center', justifyContent: 'center', marginBottom: 20 }}
+              onPress={this.handleScrollEnd}
             >
-              { this.renderProfileData(profile) }
-              <TouchableOpacity
-                style={{ alignSelf: 'center', justifyContent: 'center', marginBottom: 20 }}
-                onPress={this.handleScrollEnd}
-              >
-                <MPProfileArrowIcon />
-              </TouchableOpacity>
-            </LinearGradient>
-          </ImageBackground>
+              <MPProfileArrowIcon />
+            </TouchableOpacity>
+          </LinearGradient>
+        </ImageBackground>
         { this.renderSongsData(profile) }
         <MPShowFollowers
           navigation={navigation}
           following={userFollowing}
           followers={followers}
         />
-        { !me && <MPReportProfile onPress={ () => this.reportProfile()}/>}
+        { me ?
+          <View style={{ backgroundColor: '#FFF', height: 90 }} />
+          :
+          <MPReportProfile onPress={() => this.reportProfile()}/>
+        }
       </View>
     )
   }
