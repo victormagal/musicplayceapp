@@ -170,7 +170,8 @@ class PlayerComponent extends React.Component {
                         onCloseClick={this.handleTogglePlayer.bind(this, false)}
                         onLyricsClick={this.handleEnableLyricsPlayer}
                         onSongSaveClick={this.handleSaveSong.bind(this, this.props.song)}
-                        onSongIndicateClick={this.handleIndicateSong.bind(this, this.props.song)}/>;
+                        onSongIndicateClick={this.handleIndicateSong.bind(this, this.props.song)}
+                        onSongSliderChange={this.props.onSongSliderChange}/>;
 
   };
 
@@ -276,6 +277,24 @@ class PlayerComponent extends React.Component {
     );
   }
 
+  renderArtistSongs = (songs) => {
+    if (songs && songs.length > 0){
+      songs.map((songList, index) => {
+        return (<View>
+          <View style={[styles.sectionHeader, styles.row]}>
+            <MPText style={styles.sectionTitle}>Outras de {this.props.artistNames[index]}</MPText>
+            <MPGradientBorderButton />
+          </View>
+          <FlatList
+            data={this.state.data}
+            keyExtractor={(item) => item.id}
+            renderItem={this.renderItem}
+            horizontal={true}/>
+        </View>)
+      })
+    }
+  }
+
   renderMain() {
     let {song} = this.props;
     return (
@@ -357,47 +376,27 @@ class PlayerComponent extends React.Component {
           <View style={[styles.row, styles.tagContainer]}>
             <View style={[styles.row, styles.tagContent]}>
             {
-              song && this.handleSongTags(song.tags)
+              song && song.tags && this.handleSongTags(song.tags)
             }
             </View>
             <MPCircleGradientButton icon={MPBalloonTalkIcon}/>
           </View>
-
-          <View>
-            <View style={[styles.sectionHeader, styles.row]}>
-              <MPText style={styles.sectionTitle}>Outras de Almir Sater</MPText>
-              <MPGradientBorderButton />
-            </View>
-            <FlatList
-              data={this.state.data}
-              keyExtractor={(item) => item.id}
-              renderItem={this.renderItem}
-              horizontal={true}/>
-          </View>
-
-          <View>
-            <View style={[styles.sectionHeader, styles.row]}>
-              <MPText style={styles.sectionTitle}>Outras de Zé da Clave</MPText>
-              <MPGradientBorderButton />
-            </View>
-            <FlatList
-              data={this.state.data}
-              keyExtractor={(item) => item.id}
-              renderItem={this.renderItem}
-              horizontal={true}/>
-          </View>
-
-          <View style={styles.lastSectionMargin}>
-            <View style={[styles.sectionHeader, styles.row]}>
-              <MPText style={styles.sectionTitle}>Outras de Santiago Silva</MPText>
-              <MPGradientBorderButton />
-            </View>
-            <FlatList
-              data={this.state.data}
-              keyExtractor={(item) => item.id}
-              renderItem={this.renderItem}
-              horizontal={true}/>
-          </View>
+          { this.props.artistsSongs && this.props.artistsSongs.length > 0 && (
+            this.props.artistsSongs.map((songList, index) => {
+              return (
+              <View>
+                <View style={[styles.sectionHeader, styles.row]}>
+                  <MPText style={styles.sectionTitle}>Outras de {this.props.artistNames[index]}</MPText>
+                  <MPGradientBorderButton />
+                </View>
+                <FlatList
+                  data={songList}
+                  keyExtractor={(item) => item.id}
+                  renderItem={this.renderItem}
+                  horizontal={true}/>
+              </View>)
+            })
+          )}
         </ScrollView>
       </MPFade>
     );
@@ -410,7 +409,7 @@ class PlayerComponent extends React.Component {
       style = styles.songCardFirst;
     }
 
-    return <MPSongRating key={index} style={style} song={item} indicateSong={true} imagePath={item.imagePath}
+    return <MPSongRating key={index} style={style} song={item} indicateSong={true} imagePath={item.picture_url}
                          onPress={() => {
                          }}/>
   };
@@ -426,11 +425,14 @@ class PlayerComponent extends React.Component {
 
   renderDetailPlayer() {
     let {song} = this.props;
+    const progress = Math.ceil(this.props.player.progress);
 
     return (
       <View style={styles.player}>
         <Slider style={styles.playerSlider} thumbStyle={styles.playerThumb}
-                minimumTrackTintColor='#e13223' maximumTrackTintColor='#808080'/>
+                minimumTrackTintColor='#e13223' maximumTrackTintColor='#808080'
+                minimumValue={0} maximumValue={111} onValueChange={this.props.onSongSliderChange}
+                value={progress}/>
 
         <TouchableOpacity style={styles.playerContent}
                           onPress={this.handleTogglePlayer.bind(this, true)}>

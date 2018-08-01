@@ -7,7 +7,7 @@ import {MPButton} from '../../../../components';
 import {PlayerComponent} from './PlayerComponent';
 import {
   playerSongSaveReceived, songStop, songPlay,
-  songPause, songResume, fetchOneSong
+  songPause, songResume, fetchOneSong, getArtistsSongs
 } from '../../../../state/action';
 import {
   MPHeartRedIcon
@@ -17,7 +17,9 @@ import {
 class PlayerContainer extends React.Component {
 
   state = {
-    song : null
+    song : null,
+    artistNames: [],
+    artistsSongs: []
   };
 
   componentDidMount(){
@@ -27,6 +29,20 @@ class PlayerContainer extends React.Component {
         this.props.dispatch(fetchOneSong(song));
       }
     }
+  }
+
+  getArtistsList = (song) => {
+    let artistNames = [song.artist.name];
+    let artistList = [song.artist.id];
+    if(song.coAuthors && song.coAuthors.length > 0){
+      let coAuthors = song.coAuthors;
+      coAuthors.map((coAuthor) => {
+        artistList.push(coAuthor.id);
+        artistNames.push(coAuthor.name);
+      })
+    }
+    this.setState({artistNames});
+    return artistList;
   }
 
   componentWillReceiveProps(nextProps){
@@ -39,7 +55,19 @@ class PlayerContainer extends React.Component {
 
     if(nextProps.song){
       nextProps.song.artist = this.props.navigation.state.params.song.artist;
+      if(this.state.song !== nextProps.song){
+        this.props.dispatch(getArtistsSongs(this.getArtistsList(nextProps.song)));
+      }
       this.setState({song: nextProps.song});
+    }
+
+    if(nextProps.artistSongs){
+      let arraySongs = nextProps.artistSongs.map(songs => {
+        return songs.data;
+      });
+      if(arraySongs.length > 0){
+        this.setState({artistsSongs: arraySongs});
+      }
     }
   }
 
@@ -59,14 +87,22 @@ class PlayerContainer extends React.Component {
     this.props.dispatch(songResume());
   };
 
+  handleSongSliderChange = (value) => {
+    //TODO:
+    //call action to seek music in react native plugin
+  };
+
   render() {
     return (
       <View style={styles.container}>
         <PlayerComponent todo="REFACTOR" {...this.props}
                          song={this.state.song}
+                         artistsSongs={this.state.artistsSongs}
+                         artistNames={this.state.artistNames}
                          onSongPause={this.handleSongPause}
                          onSongResume={this.handleSongResume}
-                         onSongPlay={this.handleSongPlay} />
+                         onSongPlay={this.handleSongPlay}
+                         onSongSliderChange={this.handleSongSliderChange}/>
         {this.props.saveSong.update && (
           <MPButton
             style={styles.notificationSaved}

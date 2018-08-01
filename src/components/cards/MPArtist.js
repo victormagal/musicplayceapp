@@ -9,7 +9,7 @@ class MPArtist extends Component {
 
   render() {
     const {artist, style, isFollowing, onPress} = this.props;
-    const image = artist.picture_url ? { uri: artist.picture_url } : null;
+    const image = artist.picture_url ? { uri: artist.picture_url } : require('../../assets/img/avatar-male.jpg');
 
     return (
       <TouchableOpacity style={style || {}} onPress={onPress}>

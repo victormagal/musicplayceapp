@@ -157,8 +157,8 @@ class ProfileComponent extends React.Component {
 
   renderContent(profile) {
     const { me, myFollowers } = this.props;
-    const followers = [];
-    const userFollowing = [];
+    const followers = (myFollowers && myFollowers.followers) || [];
+    const userFollowing = (profile && profile.userFollowing) || [];
 
     if (!profile) {
       return (
@@ -193,16 +193,14 @@ class ProfileComponent extends React.Component {
             </LinearGradient>
           </ImageBackground>
         { this.renderSongsData(profile) }
-        { followers.length > 0 &&
-          <MPShowFollowers following={userFollowing} followers={followers} />
-        }
+        <MPShowFollowers following={userFollowing} followers={followers} />
         { !me && <MPReportProfile onPress={ () => this.reportProfile()}/>}
       </View>
     )
   }
 
   renderProfileData(profile) {
-    const { me, myFollowers, myIndications } = this.props;
+    const { me, myIndications } = this.props;
     const countIndications =  (myIndications && myIndications.count);
     return (
       <View>
@@ -250,7 +248,7 @@ class ProfileComponent extends React.Component {
 
   renderSongsData(profile) {
     const { tabIndex } = this.state;
-    const { me } = this.props;
+    const { me, mySongs } = this.props;
     return (
       <View>
         {me && (
@@ -261,7 +259,7 @@ class ProfileComponent extends React.Component {
           />
         )}
         { this.renderTabsContent(profile, tabIndex) }
-        { me &&
+        { me && (mySongs && mySongs.data.length > 0) &&
           <View style={styles.whiteBackground}>
             <MPGradientButton
               title={'Cadastrar nova música'}

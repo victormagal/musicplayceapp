@@ -1,15 +1,21 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {StyleSheet, View, TextInput, ScrollView} from 'react-native';
+import {StyleSheet, View, ScrollView} from 'react-native';
 import {
-  MPFolder, MPHeader, MPInput, MPForm, MPFormButton, MPGradientButton,
-  MPIconButton, MPLoading
+  MPFolder,
+  MPHeader,
+  MPInput,
+  MPForm,
+  MPFormButton,
+  MPGradientButton,
+  MPIconButton,
+  MPLoading
 } from '../../../components';
-import {createFolder, fetchFolders, updateSongRegisterData} from '../../../state/action';
+import {createFolder, fetchFolders} from '../../../state/action';
+import {updateSongRegisterData} from "../../../state/songs/songsType";
 
 
 class FolderScreenContainer extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -24,19 +30,19 @@ class FolderScreenContainer extends React.Component {
 
   componentWillReceiveProps(nextProps){
     if(nextProps.folders && nextProps.folders.data && nextProps.folders.data.length !== this.state.folders.length){
-      let {data} = nextProps.folders;
-      this.setState({folders: data});
+      const { data } = nextProps.folders;
+      this.setState({ folders: data });
     }
   }
 
-  handleChangeText = ({value}) => {
-    this.setState({folderName: value});
+  handleChangeText = (folderName) => {
+    this.setState({ folderName });
   };
 
   handleCreateFolder = () => {
-    let name = this.state.folderName;
-    this.setState({folderName: ''});
-    this.props.dispatch(createFolder({name}));
+    const name = this.state.folderName;
+    this.setState({ folderName: '' });
+    this.props.dispatch(createFolder({ name }));
   };
 
   handleBackClick = () => {
@@ -70,39 +76,62 @@ class FolderScreenContainer extends React.Component {
   renderFolder = (item, index) => {
     return (
       <View key={index}>
-        <MPFolder folderName={item.name} selected={item.selected} musicAmount={item.total} onPress={this.handleSelectFolder.bind(this, index)}/>
+        <MPFolder
+          folderName={item.name}
+          selected={item.selected}
+          musicAmount={item.total}
+          onPress={() => this.handleSelectFolder(index)}
+        />
       </View>
     )
   };
 
   renderHeaderMenuSave() {
     return [
-      <MPIconButton key={1} title="Salvar" titleStyle={styles.headerMenuText} onPress={this.handleSaveClick}/>
+      <MPIconButton
+        key={1}
+        title="Salvar"
+        titleStyle={styles.headerMenuText}
+        onPress={this.handleSaveClick}
+      />
     ];
   }
 
   render() {
     return (
       <View style={styles.container}>
-        <MPHeader back={true} onBack={this.handleBackClick} title="Escolha a pasta" icons={this.renderHeaderMenuSave()}/>
+        <MPHeader
+          back={true}
+          onBack={this.handleBackClick}
+          title="Escolha a pasta"
+          icons={this.renderHeaderMenuSave()}
+        />
         <View style={styles.content}>
           <ScrollView style={styles.scroll}>
-            {this.state.folders.map((item, index) => this.renderFolder(item, index))}
+            { this.state.folders.map((item, index) => (
+              this.renderFolder(item, index)
+            ))}
           </ScrollView>
           <View style={styles.inputFolderContainer}>
             <MPForm>
-              <MPInput label="Nome da nova pasta" validators={['required']} value={this.state.folderName} onChangeText={this.handleChangeText} />
-
+              <MPInput
+                label="Nome da nova pasta"
+                validators={['required']}
+                value={this.state.folderName}
+                onChangeText={this.handleChangeText}
+              />
               <View>
                 <MPFormButton>
-                  <MPGradientButton style={styles.inputButtonAdd} title="Criar"
-                                    onPress={this.handleCreateFolder}/>
+                  <MPGradientButton
+                    style={styles.inputButtonAdd}
+                    title="Criar"
+                    onPress={this.handleCreateFolder}
+                  />
                 </MPFormButton>
               </View>
             </MPForm>
           </View>
         </View>
-
         <MPLoading visible={this.props.loading} />
       </View>
     );

@@ -60,6 +60,7 @@
 		C38E2A37623F431B9844D1D9 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 03DB0F3879CA4223B0D82434 /* FontAwesome.ttf */; };
 		CC2C75080C8348D5AF717C2F /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A0FE1A67CE6747C2884F47DB /* Feather.ttf */; };
 		CFB98A1DE5BF4647914C8638 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4BA7B5F4EF2B475E9C4700A0 /* Octicons.ttf */; };
+		D35F01CCEC9A4E2AA0D4DFAD /* libRNDocumentPicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E21F8AE47E6410495ABF0BA /* libRNDocumentPicker.a */; };
 		E4237FB6CB7349E38B1E7DE5 /* montSerratBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BEAEB7E3307B4BA9AA976F05 /* montSerratBold.ttf */; };
 		ED2541BADB1449FD99188509 /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 409198991D2C4320B5DB15FC /* MaterialCommunityIcons.ttf */; };
 		C5E9B76060634D7F996AE9EF /* libRNImagePicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DA3483582B94DDF9AE72156 /* libRNImagePicker.a */; };
@@ -360,6 +361,13 @@
 			remoteGlobalIDString = 5DBEB1501B18CEA900B34395;
 			remoteInfo = RNVectorIcons;
 		};
+		675FA190210F451800E521A7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 38EC1BA910A4428AB5C54279 /* RNDocumentPicker.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = E01DD9DB1D2311A600C39062;
+			remoteInfo = RNDocumentPicker;
+		};
 		78C398B81ACF4ADC00677621 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */;
@@ -397,7 +405,7 @@
 		0922CE160FD14501BE743BF9 /* montSerratLight.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = montSerratLight.ttf; path = ../assets/fonts/montSerratLight.ttf; sourceTree = "<group>"; };
 		09348F13A0C34930A179B25C /* BVLinearGradient.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = BVLinearGradient.xcodeproj; path = "../node_modules/react-native-linear-gradient/BVLinearGradient.xcodeproj"; sourceTree = "<group>"; };
 		0BEA6EEFA5D14E75A0D2537B /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
-		1044B3F6844044FEBD07E128 /* libRNDocumentPicker.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNDocumentPicker.a; sourceTree = "<group>"; };
+		0E21F8AE47E6410495ABF0BA /* libRNDocumentPicker.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNDocumentPicker.a; sourceTree = "<group>"; };
 		139105B61AF99BAD00B5F7CC /* RCTSettings.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTSettings.xcodeproj; path = "../node_modules/react-native/Libraries/Settings/RCTSettings.xcodeproj"; sourceTree = "<group>"; };
 		139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTWebSocket.xcodeproj; path = "../node_modules/react-native/Libraries/WebSocket/RCTWebSocket.xcodeproj"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* musicplayce.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = musicplayce.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -414,6 +422,7 @@
 		2D02E47B1E0B4A5D006451C7 /* musicplayce-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "musicplayce-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* musicplayce-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "musicplayce-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D16E6891FA4F8E400B85C8A /* libReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libReact.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		38EC1BA910A4428AB5C54279 /* RNDocumentPicker.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNDocumentPicker.xcodeproj; path = "../node_modules/react-native-document-picker/ios/RNDocumentPicker.xcodeproj"; sourceTree = "<group>"; };
 		402053CE24284B4A83454372 /* montSerratSemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = montSerratSemiBold.ttf; path = ../assets/fonts/montSerratSemiBold.ttf; sourceTree = "<group>"; };
 		409198991D2C4320B5DB15FC /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
 		47FE146FBA414A7F853E313B /* libRNSVG.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNSVG.a; sourceTree = "<group>"; };
@@ -421,6 +430,7 @@
 		5C7F634064B141C3B3DFC2D8 /* montSerratBoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = montSerratBoldItalic.ttf; path = ../assets/fonts/montSerratBoldItalic.ttf; sourceTree = "<group>"; };
 		5CD15F0429C74638803EC465 /* libBVLinearGradient.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libBVLinearGradient.a; sourceTree = "<group>"; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
+		67C9CC5C210BB6A0000758C4 /* musicplayce.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = musicplayce.entitlements; path = musicplayce/musicplayce.entitlements; sourceTree = "<group>"; };
 		6E31EDAE72764D11B1B852D8 /* montSerratMedium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = montSerratMedium.ttf; path = ../assets/fonts/montSerratMedium.ttf; sourceTree = "<group>"; };
 		6E9AB093449648F6B9CEB911 /* libRNSVG-tvOS.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = "libRNSVG-tvOS.a"; sourceTree = "<group>"; };
 		728410531EA44A13945F439A /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
@@ -474,6 +484,7 @@
 				6BA2D71AFAA04316BAE3340D /* libRNVectorIcons.a in Frameworks */,
 				B0784824A1E34B6CB0B2C1AD /* libRNMusicPlayer.a in Frameworks */,
 				C5E9B76060634D7F996AE9EF /* libRNImagePicker.a in Frameworks */,
+				D35F01CCEC9A4E2AA0D4DFAD /* libRNDocumentPicker.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -586,6 +597,7 @@
 		13B07FAE1A68108700A75B9A /* musicplayce */ = {
 			isa = PBXGroup;
 			children = (
+				67C9CC5C210BB6A0000758C4 /* musicplayce.entitlements */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -679,8 +691,8 @@
 				47FE146FBA414A7F853E313B /* libRNSVG.a */,
 				F82B3C87A8F44D26849768D7 /* libRNVectorIcons.a */,
 				6E9AB093449648F6B9CEB911 /* libRNSVG-tvOS.a */,
-				1044B3F6844044FEBD07E128 /* libRNDocumentPicker.a */,
 				FE5EFE6C6AA84426B28F2D3F /* libRNMusicPlayer.a */,
+				0E21F8AE47E6410495ABF0BA /* libRNDocumentPicker.a */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -707,6 +719,14 @@
 			isa = PBXGroup;
 			children = (
 				672543B82102970300CCF05B /* libRNVectorIcons.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		675FA18D210F451800E521A7 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				675FA191210F451800E521A7 /* libRNDocumentPicker.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -740,6 +760,7 @@
 				C9EB97AE51C246D4ACD9A605 /* RNVectorIcons.xcodeproj */,
 				DC28243724254A33A8C8170F /* RNMusicPlayer.xcodeproj */,
 				3DBAC3EBC4F84B83AED78D7C /* RNImagePicker.xcodeproj */,
+				38EC1BA910A4428AB5C54279 /* RNDocumentPicker.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -878,10 +899,13 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = A7VJDT66QY;
-						ProvisioningStyle = Manual;
+						DevelopmentTeam = XP64R75L6S;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.iCloud = {
 								enabled = 1;
 							};
 						};
@@ -960,6 +984,10 @@
 				{
 					ProductGroup = 146834001AC3E56700842450 /* Products */;
 					ProjectRef = 146833FF1AC3E56700842450 /* React.xcodeproj */;
+				},
+				{
+					ProductGroup = 675FA18D210F451800E521A7 /* Products */;
+					ProjectRef = 38EC1BA910A4428AB5C54279 /* RNDocumentPicker.xcodeproj */;
 				},
 				{
 					ProductGroup = 6702EC9C2107986D00F32518 /* Products */;
@@ -1265,6 +1293,13 @@
 			remoteRef = 672543B72102970300CCF05B /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		675FA191210F451800E521A7 /* libRNDocumentPicker.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNDocumentPicker.a;
+			remoteRef = 675FA190210F451800E521A7 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		78C398B91ACF4ADC00677621 /* libRCTLinking.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1453,6 +1488,7 @@
 					"$(SRCROOT)/../node_modules/react-native-document-picker/ios/RNDocumentPicker",
 					"$(SRCROOT)/../node_modules/react-native-stream-music-player/ios",
 					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
+					"$(SRCROOT)/../node_modules/react-native-document-picker/ios/RNDocumentPicker"
 				);
 				INFOPLIST_FILE = musicplayceTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -1491,6 +1527,7 @@
 					"$(SRCROOT)/../node_modules/react-native-document-picker/ios/RNDocumentPicker",
 					"$(SRCROOT)/../node_modules/react-native-stream-music-player/ios",
 					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
+					"$(SRCROOT)/../node_modules/react-native-document-picker/ios/RNDocumentPicker"
 				);
 				INFOPLIST_FILE = musicplayceTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -1519,10 +1556,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_ENTITLEMENTS = musicplayce/musicplayce.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
-				DEVELOPMENT_TEAM = A7VJDT66QY;
+				DEVELOPMENT_TEAM = XP64R75L6S;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-linear-gradient/BVLinearGradient",
@@ -1532,6 +1571,7 @@
 					"$(SRCROOT)/../node_modules/react-native-document-picker/ios/RNDocumentPicker",
 					"$(SRCROOT)/../node_modules/react-native-stream-music-player/ios",
 					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
+					"$(SRCROOT)/../node_modules/react-native-document-picker/ios/RNDocumentPicker"
 				);
 				INFOPLIST_FILE = musicplayce/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1540,10 +1580,10 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = br.com.musicplayce.appp;
+				PRODUCT_BUNDLE_IDENTIFIER = br.com.musicplayce.app.dev;
 				PRODUCT_NAME = musicplayce;
-				PROVISIONING_PROFILE = "f6f49504-b8c0-4cbf-86c3-ed579ad72f44";
-				PROVISIONING_PROFILE_SPECIFIER = MusicplayceProv;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -1552,9 +1592,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_ENTITLEMENTS = musicplayce/musicplayce.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = A7VJDT66QY;
+				DEVELOPMENT_TEAM = XP64R75L6S;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-linear-gradient/BVLinearGradient",
@@ -1564,6 +1606,7 @@
 					"$(SRCROOT)/../node_modules/react-native-document-picker/ios/RNDocumentPicker",
 					"$(SRCROOT)/../node_modules/react-native-stream-music-player/ios",
 					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
+					"$(SRCROOT)/../node_modules/react-native-document-picker/ios/RNDocumentPicker"
 				);
 				INFOPLIST_FILE = musicplayce/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1572,10 +1615,10 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = br.com.musicplayce.appp;
+				PRODUCT_BUNDLE_IDENTIFIER = br.com.musicplayce.app.dev;
 				PRODUCT_NAME = musicplayce;
-				PROVISIONING_PROFILE = "f6f49504-b8c0-4cbf-86c3-ed579ad72f44";
-				PROVISIONING_PROFILE_SPECIFIER = MusicplayceProv;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
@@ -1601,6 +1644,7 @@
 					"$(SRCROOT)/../node_modules/react-native-document-picker/ios/RNDocumentPicker",
 					"$(SRCROOT)/../node_modules/react-native-stream-music-player/ios",
 					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
+					"$(SRCROOT)/../node_modules/react-native-document-picker/ios/RNDocumentPicker",
 				);
 				INFOPLIST_FILE = "musicplayce-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1648,6 +1692,7 @@
 					"$(SRCROOT)/../node_modules/react-native-document-picker/ios/RNDocumentPicker",
 					"$(SRCROOT)/../node_modules/react-native-stream-music-player/ios",
 					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
+					"$(SRCROOT)/../node_modules/react-native-document-picker/ios/RNDocumentPicker",
 				);
 				INFOPLIST_FILE = "musicplayce-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1694,6 +1739,7 @@
 					"$(SRCROOT)/../node_modules/react-native-document-picker/ios/RNDocumentPicker",
 					"$(SRCROOT)/../node_modules/react-native-stream-music-player/ios",
 					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
+					"$(SRCROOT)/../node_modules/react-native-document-picker/ios/RNDocumentPicker"
 				);
 				INFOPLIST_FILE = "musicplayce-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -1740,6 +1786,7 @@
 					"$(SRCROOT)/../node_modules/react-native-document-picker/ios/RNDocumentPicker",
 					"$(SRCROOT)/../node_modules/react-native-stream-music-player/ios",
 					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
+					"$(SRCROOT)/../node_modules/react-native-document-picker/ios/RNDocumentPicker"
 				);
 				INFOPLIST_FILE = "musicplayce-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";

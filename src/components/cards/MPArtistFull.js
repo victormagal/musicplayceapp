@@ -10,7 +10,7 @@ class MPArtistFull extends Component {
   render() {
     const {song, songName, imagePath, artistImagePath, artistName, style, onPressMusic, onPressArtist} = this.props;
     const songImage = typeof imagePath === 'string' ? {uri: imagePath} : imagePath;
-    const artistImage = typeof artistImagePath === 'string' ? {uri: artistImagePath} : artistImagePath;
+    const artistImage = typeof artistImagePath === 'string' ? {uri: artistImagePath} : require('../../assets/img/avatar-male.jpg');
     return (
       <View style={style || {}}>
         <Card containerStyle={styles.simpleArtistCardContainer}>
@@ -35,7 +35,7 @@ class MPArtistFull extends Component {
               </View>
               <TouchableOpacity style={styles.artistContent} onPress={onPressArtist}>
                 <View style={ styles.roundImage }>
-                  <Image source={artistImage} style={{ borderRadius: 20, width: 40, height: 40 }}/>
+                  <Image source={artistImage} style={styles.artistImage}/>
                 </View>
                 <MPText style={styles.artistName}>{artistName}</MPText>
               </TouchableOpacity>
@@ -48,9 +48,9 @@ class MPArtistFull extends Component {
 }
 
 MPArtistFull.propTypes = {
-  songName: PropTypes.string.isRequired,
+  songName: PropTypes.string,
   song: PropTypes.object,
-  imagePath: PropTypes.any.isRequired,
+  imagePath: PropTypes.any,
   artistImagePath: PropTypes.any,
   backgroundColor: PropTypes.any,
   style: PropTypes.any,
@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     width: 40,
     height: 40,
-    overflow: 'hidden',
+    overflow: 'hidden'
   },
   artistContent: {
     flexDirection: 'row',
@@ -125,6 +125,11 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 4,
     right: 4
+  },
+  artistImage: {
+    borderRadius: 20,
+    width: 40,
+    height: 40
   }
 });
 

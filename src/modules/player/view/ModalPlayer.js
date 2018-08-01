@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import LinearGradient from 'react-native-linear-gradient';
 import {Slider} from 'react-native-elements'
 import PropTypes from 'prop-types';
+import moment from 'moment';
 import {
   Text, View, StyleSheet, TouchableOpacity, FlatList, ScrollView, Image,
   TouchableWithoutFeedback, Modal
@@ -68,14 +69,21 @@ class ModalPlayerComponent extends React.Component {
   }
 
   renderPlayer() {
+    console.log(this.props);
+    const progress = Math.ceil(this.props.player.progress);
+    const progressLabel = moment.utc(progress * 1000).format('m:ss');
+    const durationLabel = moment((this.props.song && this.props.song.duration || 0) * 1000).format('m:ss');
+
     return (
       <View style={styles.playerContainer}>
         <Slider style={styles.playerSlider} thumbStyle={styles.playerThumb}
-                minimumTrackTintColor='#e13223' maximumTrackTintColor='#808080'/>
+                minimumTrackTintColor='#e13223' maximumTrackTintColor='#808080'
+                minimumValue={0} maximumValue={111} onValueChange={this.props.onSongSliderChange}
+                value={progress}/>
 
         <View style={styles.modalPlayerMusicTextContainer}>
-          <MPText style={styles.playerModalMusicText}>0:36</MPText>
-          <MPText style={styles.playerModalMusicText}>5:46</MPText>
+          <MPText style={styles.playerModalMusicText}>{progressLabel}</MPText>
+          <MPText style={styles.playerModalMusicText}>{durationLabel}</MPText>
         </View>
 
         <View style={styles.modalPlayerButtonContainer}>
@@ -370,7 +378,8 @@ const styles = StyleSheet.create({
 ModalPlayerComponent.propTypes = {
   onCloseClick: PropTypes.func.isRequired,
   onLyricsClick: PropTypes.func.isRequired,
-  onSongSaveClick: PropTypes.func.isRequired
+  onSongSaveClick: PropTypes.func.isRequired,
+  onSongSliderChange: PropTypes.func
 };
 
 const mapStateToProps = ({playerReducer}) => {

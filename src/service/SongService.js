@@ -1,11 +1,12 @@
 import axios from 'axios';
 import {API, transformResponseData, getIncludes} from './api';
+import {StorageService} from "./StorageService";
 
 const API_SONG = `${API}/songs`;
 
 class SongService {
 
-  static transformSongRequest(song){
+  static transformSongRequest(song) {
     song = {...song};
     song.title = song.name;
 
@@ -14,7 +15,7 @@ class SongService {
     if (song.coAuthors) {
       relationships['coAuthors'] = {
         data: song.coAuthors.map(a => {
-          return {id: a.id, type: "coAuthors"}
+          return {id: a.id, type: "coAuthors"};
         })
       };
     }
@@ -22,7 +23,7 @@ class SongService {
     if (song.tags) {
       relationships['tags'] = {
         data: song.tags.map(a => {
-          return {id: a.id, type: "tags"}
+          return {id: a.id, type: "tags"};
         })
       };
     }
@@ -52,12 +53,17 @@ class SongService {
     };
 
     return axios.post(API_SONG, data)
-      .then(response => response.data);
+      .then(response => {
+        let {data} = response.data;
+        let {id, attributes} = data;
+        return {id, ...attributes};
+      });
   }
 
   static update(songParam) {
     let {song, relationships} = SongService.transformSongRequest(songParam);
-
+    console.log(song);
+    console.log(relationships);
 
     let data = {
       data: {
@@ -83,22 +89,24 @@ class SongService {
   static unpublish(id) {
     return axios.post(`${API_SONG}/${id}/unpublish`).then(response => response.data);
   }
-  static indicateSong(songId, artistId){
-    let params = { 
+
+  static indicateSong(songId, artistId) {
+    let params = {
       artist_id: artistId
     };
     return axios.post(`${API_SONG}/${songId}/indications`, params).then(response => response.data);
   }
 
-  static favoriteSong(songId){
+  static favoriteSong(songId) {
     // let params = { 
-      // folders: [],
+    // folders: [],
     // };
     return axios.post(`${API_SONG}/${songId}/favorite`).then(response => response.data);
   }
 
   static getSong(song) {
     return axios.get(`${API_SONG}/${song.id}?include=coAuthors,tags`).then(({data}) => {
+      console.log(data);
       let relations = getIncludes(data);
       let {id, attributes} = data.data;
       return {id, ...attributes, ...relations};
@@ -115,11 +123,53 @@ class SongService {
   static artistSongs(artist) {
     return axios.get(`${API}/song-artist/${artist}`)
       .then(response => {
+        console.log(response.data);
         let {data, meta} = response.data;
         return {data: transformResponseData(data), pagination: meta.pagination};
       });
   }
 
+  static sendSongFile(file, song) {
+    let formData = new FormData();
+
+    if (!file) {
+      return Promise.resolve();
+    }
+
+    formData.append('audio', {uri: file.uri, name: file.fileName});
+
+    return axios.post(`${ API_SONG }/${ song.id }/audio`, formData, {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'multipart/form-data'
+      }
+    }).then(response => {
+      let {data} = response.data;
+      let {id, attributes} = data;
+      return {id, ...attributes};
+    });
+  }
+
+  static createAndPublishSong(song, file){
+    song.path = 'path/without-song.mp3';
+
+    return SongService.create(song).then(response => {
+      return SongService.sendSongFile(file, response).then(() => {
+        return SongService.publish(response.id);
+      });
+    });
+  }
+
+  static republishSong(song, file){
+    return SongService.sendSongFile(file, song).then((fileResponse) => {
+      if(fileResponse){
+        song.path = fileResponse.path;
+      }
+      return SongService.update(song).then(() => {
+        return SongService.publish(song.id);
+      })
+    });
+  }
 }
 
 export {SongService};

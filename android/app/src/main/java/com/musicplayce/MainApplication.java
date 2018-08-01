@@ -4,6 +4,8 @@ import android.app.Application;
 
 import com.facebook.react.ReactApplication;
 import com.imagepicker.ImagePickerPackage;
+import com.reactnativedocumentpicker.ReactNativeDocumentPicker;
+>>>>>>> 083003021f291b00c0ea08a2050f4dcb6b9bf902
 import com.reactlibrary.RNMusicPlayerPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.horcrux.svg.SvgPackage;
@@ -29,6 +31,7 @@ public class MainApplication extends Application implements ReactApplication {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
             new ImagePickerPackage(),
+            new ReactNativeDocumentPicker(),
             new RNMusicPlayerPackage(),
             new VectorIconsPackage(),
             new SvgPackage(),

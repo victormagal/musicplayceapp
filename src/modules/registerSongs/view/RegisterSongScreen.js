@@ -1,46 +1,58 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { Alert, StyleSheet, Text, View, TextInput, FlatList, ScrollView, TouchableOpacity } from 'react-native';
-import { MPGradientButton, MPHeader, MPSongInfo, MPText, MPLoading } from '../../../components'
-import { updateSongRegisterData, publishSong } from '../../../state/action'
-import {MPSongUploadIcon} from '../../../assets/svg';
+import {connect} from 'react-redux';
+import {DocumentPicker, DocumentPickerUtil} from 'react-native-document-picker';
+import {StyleSheet, View, ScrollView, TouchableOpacity} from 'react-native';
+import {MPGradientButton, MPHeader, MPSongInfo, MPText, MPLoading} from '../../../components'
+import {MPSongUploadIcon, MPSongUploadEditIcon} from '../../../assets/svg';
+import {createPermanentSong, updatePermanentSong, fetchOneSong} from "../../../state/action";
+import {updateSongRegisterData} from "../../../state/songs/songsType";
 
 
 class RegisterSongContainer extends React.Component {
 
-  state = {
-    cardErros: {
-      name: false,
-      lyrics: false,
-      coAuthors: false,
-      tags: false
-    },
-    progressContentWidth: 0
-  };
-
-  constructor(props){
+  constructor(props) {
     super(props);
-    if(this.props.navigation.state && this.props.navigation.state.params) {
-      let {song} = this.props.navigation.state.params;
-      this.props.dispatch(updateSongRegisterData(song));
+
+    this.state = {
+      shouldFetchSong: false,
+      songFile: null,
+      progressContentWidth: 0,
+      cardErrors: {
+        name: false,
+        lyrics: false
+      }
+    };
+  }
+
+  componentDidMount(){
+    if (this.props.navigation.state && this.props.navigation.state.params) {
+      const {song} = this.props.navigation.state.params;
+      this.setState({shouldFetchSong: true});
+      this.props.dispatch(fetchOneSong(song));
     }
   }
 
-  componentWillReceiveProps(nextProps){
-    let songKeys = Object.keys(nextProps.song);
-    let total = songKeys.length;
+  componentWillReceiveProps(nextProps) {
+    const songKeys = Object.keys(nextProps.song);
+    const total = songKeys.length;
     let count = 0;
 
-    for(let key of songKeys){
-      if(nextProps.song[key]){
+    for (const key of songKeys) {
+      if (nextProps.song[key]) {
         count++;
       }
     }
-    let width = (count * 100) / total;
+
+    const width = (count * 100) / total;
     this.setState({progressContentWidth: `${Math.ceil(width)}%`});
 
-    if(nextProps.songPublishSuccess){
+    if (this.props.songPublishSuccess !== nextProps.songPublishSuccess) {
       this.goToScreen('ConfirmationScreen');
+    }
+
+    if(nextProps.fetchedSong && this.state.shouldFetchSong){
+      this.props.dispatch(updateSongRegisterData(nextProps.fetchedSong));
+      this.setState({shouldFetchSong: false});
     }
   }
 
@@ -53,45 +65,58 @@ class RegisterSongContainer extends React.Component {
   };
 
   handlePublishClick = () => {
-    let {cardErros} = this.state;
-    let valid = true;
+    const {songFile} = this.state;
+    let {song, dispatch} = this.props;
+    const valid = this.validate();
 
-    for(let key in this.state.cardErros){
-      cardErros[key] = !this.props.song[key];
-      if(cardErros[key]){
-        valid = false;
-      }
-    }
-
-    this.setState({cardErros});
-
-    if(valid){
-      this.props.dispatch(publishSong(this.props.song));
+    if (valid) {
+      song.created_at
+        ? dispatch(updatePermanentSong(song, songFile))
+        : dispatch(createPermanentSong(song, songFile));
     }
   };
 
   handleFinishLaterClick = () => {
-    if(this.validate()){
+    const isValid = this.validate();
+    if (isValid) {
       this.goToScreen('SaveDraftScreen');
     }
   };
 
-  handleChooseFileClick = () => {
-    //TODO:
+  handlePlaySongClick = () => {
+    ///TODO: play music?
+    console.log("TODO: play music?");
   };
 
-  validate(){
-    let {cardErros} = this.state;
+  handleChooseFileClick = () => {
+    DocumentPicker.show({
+      filetype: [DocumentPickerUtil.audio()],
+    }, (something, response) => {
+      if (response) {
+        if (response.type) {
+          response.fileName = `${response.fileName}.${response.type.split('/')[1]}`;
+        }
+
+        this.setState({songFile: response});
+      }
+    });
+  };
+
+  validate() {
+    const {cardErrors} = this.state;
+    const {song} = this.props;
     let valid = true;
 
-    for(let key in this.state.cardErros){
-      cardErros[key] = !this.props.song[key];
-      if(cardErros[key]){
+    for (const key in cardErrors) {
+      cardErrors[key] = !song[key];
+      if (cardErrors[key]) {
         valid = false;
       }
     }
 
-    this.setState({cardErros});
+    this.setState({cardErrors});
+
+    //TODO: handle file validation if exists file
     return valid;
   }
 
@@ -101,72 +126,152 @@ class RegisterSongContainer extends React.Component {
     return style;
   };
 
-  getFilledString(key){
-    if(this.props.song[key]){
-      return this.props.song[key].map(i => i.name).slice(0, 2).join(", ");
+  getFilledString(key) {
+    const {song} = this.props;
+    if (song[key]) {
+      return song[key].map(i => i.name).slice(0, 2).join(", ");
     }
   }
 
+  getSongName() {
+    const {song} = this.props;
+    let name = '';
+
+    if (this.state.songFile) {
+      name = this.state.songFile.fileName;
+    } else if (song.path) {
+      name = song.name + song.path.substr(song.path.lastIndexOf('.'));
+    }
+
+    return name;
+  }
+
   render() {
+    const {song} = this.props;
+    const {cardErrors} = this.state;
     return (
       <View style={styles.container}>
-        <MPHeader back={true} onBack={this.handleBackClick} title="Hora de fazer sucesso" />
+        <MPHeader
+          back={true}
+          onBack={this.handleBackClick}
+          title="Hora de fazer sucesso"
+        />
         <View style={styles.progressContainer}>
           <View style={this.getProgressStyle()}/>
         </View>
         <ScrollView style={styles.scroll}>
-            <View style={ {flex: 1}}>
-              <View>
-                <MPText style={styles.headerTitle}>Mostre pra todo mundo o que você faz de melhor.</MPText>
-                <MPText style={ styles.headerText}>Upload de melodia</MPText>
-              </View>
-              <View>
-                <MPGradientButton style={styles.uploadIcon} icon={MPSongUploadIcon} title='Escolher o arquivo'
-                                  textSize={16} onPress={this.handleChooseFileClick}/>
-                <MPText style={ styles.subText}>Você pode fazer upload de músicas em MP3 ou AAC.</MPText>
-
-                <View style={ styles.horizontalContainer }>
-                  <MPSongInfo style={styles.songItem} invalid={this.state.cardErros.name}
-                              selected={!!this.props.song.name} title={'Qual é o título da música?'} info={this.props.song.name} onPress={this.goToScreen.bind(this, 'TitleScreen')}/>
-
-                  <MPSongInfo style={styles.songItem} invalid={this.state.cardErros.lyrics}
-                              selected={!!this.props.song.lyrics} title={'Qual é a letra?'}
-                              info={this.props.song.lyrics}  onPress={this.goToScreen.bind(this, 'MusicLetterScreen')}/>
-
-                  <MPSongInfo style={styles.songItem} invalid={this.state.cardErros.tags}
-                              selected={this.props.song.tags && this.props.song.tags.length > 0}
-                              title={'Quais as categorias e estilos que combinam?'} info={this.getFilledString('tags')}
-                              onPress={this.goToScreen.bind(this, 'StylesScreen')}/>
-
-                  <MPSongInfo style={styles.songItem} title={'Fale um pouquinho mais sobre sua música?'}
-                              selected={!!this.props.song.description} info={this.props.song.description} placeholder={'*Opcional'}
-                              onPress={this.goToScreen.bind(this, 'MusicDescriptionScreen')}/>
-
-                  <MPSongInfo style={styles.songItem} invalid={this.state.cardErros.coAuthors}
-                              selected={this.props.song.coAuthors && this.props.song.coAuthors.length > 0}
-                              title={'Tem outros autores?'} info={this.getFilledString('coAuthors')}
-                              onPress={this.goToScreen.bind(this, 'ArtistsScreen')}/>
-
-                  <MPSongInfo title={'Tem intérpretes?'} style={styles.songItem}
-                              selected={!!this.props.song.interpreter_name}
-                              info={this.props.song.interpreter_name}
-                              placeholder={'*Opcional'} onPress={this.goToScreen.bind(this, 'InterpreterScreen')}/>
-                </View>
-
-                <View style={ styles.horizontalFolder }>
-                  <MPSongInfo title={(this.props.song.folder && 'Pasta') || 'Organize suas músicas em pastas'} placeholder={'*Opcional'}
-                              selected={this.props.song.folder && typeof this.props.song.folder.name !== 'undefined'}
-                              info={(this.props.song.folder && this.props.song.folder.name) || '' }
-                              onPress={this.goToScreen.bind(this, 'FolderScreen')}/>
-                </View>
-
-                <MPGradientButton title='Publicar' onPress={this.handlePublishClick} textSize={16} style={styles.publishButton} />
-
-                <TouchableOpacity style={styles.clickableTextContainer} onPress={this.handleFinishLaterClick}>
-                  <MPText style={styles.clickableText} >Terminar depois</MPText>
-                </TouchableOpacity>
-              </View>
+          <View style={ {flex: 1}}>
+            <View>
+              <MPText style={styles.headerTitle}>
+                Mostre pra todo mundo o que você faz de melhor.
+              </MPText>
+              <MPText style={ styles.headerText}>
+                {this.state.songFile || song.path ? 'Melodia Selecionada' : 'Upload de melodia'}
+              </MPText>
             </View>
+            <View>
+              <View style={{
+                  padding: cardErrors.path ? 15 : 0,
+                  borderWidth: 2,
+                  borderColor: cardErrors.path ? '#e13223' : '#FFF'
+                }}>
+                <MPGradientButton
+                  style={styles.uploadIcon}
+                  icon={(this.state.songFile && this.state.songFile.fileName) || song.path ? MPSongUploadEditIcon : MPSongUploadIcon}
+                  title={this.state.songFile || song.path ? this.getSongName() : 'Escolher o arquivo'}
+                  textSize={16}
+                  onPress={this.state.songFile || song.path ? this.handlePlaySongClick : this.handleChooseFileClick}
+                />
+
+                {!this.state.songFile && !song.path && (
+                  <MPText style={ styles.subText}>
+                    Você pode fazer upload de músicas em MP3 ou AAC.
+                  </MPText>
+                )}
+
+                {(!!this.state.songFile || !!song.path) && (
+                  <TouchableOpacity onPress={this.handleChooseFileClick}>
+                    <MPText style={styles.replaceSong}>
+                      Substituir arquivo
+                    </MPText>
+                  </TouchableOpacity>
+                )}
+
+              </View>
+              <View style={ styles.horizontalContainer }>
+                <MPSongInfo
+                  style={styles.songItem}
+                  invalid={cardErrors.name}
+                  selected={!!song.name}
+                  title={'Qual é o título da música?'}
+                  info={song.name}
+                  onPress={() => this.goToScreen('TitleScreen')}
+                />
+                <MPSongInfo
+                  style={styles.songItem}
+                  invalid={cardErrors.lyrics}
+                  selected={!!song.lyrics}
+                  title={'Qual é a letra?'}
+                  info={song.lyrics}
+                  onPress={() => this.goToScreen('MusicLetterScreen')}
+                />
+                <MPSongInfo
+                  style={styles.songItem}
+                  invalid={cardErrors.tags}
+                  selected={song.tags && song.tags.length > 0}
+                  title={'Quais as categorias e estilos que combinam?'}
+                  info={this.getFilledString('tags')}
+                  onPress={() => this.goToScreen('StylesScreen')}
+                />
+                <MPSongInfo
+                  style={styles.songItem}
+                  title={'Fale um pouquinho mais sobre sua música?'}
+                  selected={!!song.description}
+                  info={song.description}
+                  placeholder={'*Opcional'}
+                  onPress={() => this.goToScreen('MusicDescriptionScreen')}
+                />
+                <MPSongInfo
+                  style={styles.songItem}
+                  invalid={cardErrors.coAuthors}
+                  selected={song.coAuthors && song.coAuthors.length > 0}
+                  title={'Tem outros autores?'}
+                  info={this.getFilledString('coAuthors')}
+                  onPress={() => this.goToScreen('ArtistsScreen')}
+                />
+                <MPSongInfo
+                  title={'Tem intérpretes?'}
+                  style={styles.songItem}
+                  selected={!!song.interpreter_name}
+                  info={song.interpreter_name}
+                  placeholder={'*Opcional'}
+                  onPress={() => this.goToScreen('InterpreterScreen')}
+                />
+              </View>
+              <View style={ styles.horizontalFolder }>
+                <MPSongInfo
+                  title={(song.folder && 'Pasta') || 'Organize suas músicas em pastas'}
+                  placeholder={'*Opcional'}
+                  selected={song.folder && typeof song.folder.name !== 'undefined'}
+                  info={(song.folder && song.folder.name) || '' }
+                  onPress={() => this.goToScreen('FolderScreen')}
+                />
+              </View>
+              <MPGradientButton
+                title={song.published_at ? 'Republicar' : 'Publicar'}
+                onPress={this.handlePublishClick}
+                textSize={16}
+                style={styles.publishButton}
+              />
+              { (song.published_at === null || song.unpublished_at !== null) &&
+              <TouchableOpacity style={styles.clickableTextContainer} onPress={this.handleFinishLaterClick}>
+                <MPText style={styles.clickableText}>
+                  Terminar depois
+                </MPText>
+              </TouchableOpacity>
+              }
+            </View>
+          </View>
         </ScrollView>
         <MPLoading visible={this.props.loading}/>
       </View>
@@ -186,13 +291,15 @@ const styles = StyleSheet.create({
   horizontalContainer: {
     flex: 2,
     marginTop: 10,
-    marginHorizontal: 10,
+    marginLeft: 20,
+    marginRight: 10,
     flexDirection: 'row',
     flexWrap: 'wrap',
-    alignContent: 'space-between' 
+    justifyContent: 'space-between'
   },
   horizontalFolder: {
-    marginHorizontal: 10,
+    marginLeft: 20,
+    marginRight: 10,
     marginBottom: 10
   },
   headerTitle: {
@@ -221,8 +328,17 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontFamily: 'Montserrat-Regular',
   },
+  replaceSong: {
+    fontSize: 14,
+    height: 32,
+    marginTop: 10,
+    fontFamily: 'Montserrat-Regular',
+    color: '#5994db',
+    textAlign: 'center',
+    textDecorationLine: 'underline'
+  },
   songItem: {
-    width: '46%'
+    width: '47%'
   },
   clickableTextContainer: {
     height: 32,
@@ -244,7 +360,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 7
   },
-  progressContent:{
+  progressContent: {
     height: 7,
     backgroundColor: '#e13223'
   },
@@ -254,7 +370,7 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = ({ songsReducer }) => {
+const mapStateToProps = ({songsReducer}) => {
   return {...songsReducer};
 };
 
