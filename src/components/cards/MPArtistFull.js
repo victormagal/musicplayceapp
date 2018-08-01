@@ -48,9 +48,9 @@ class MPArtistFull extends Component {
 }
 
 MPArtistFull.propTypes = {
-  songName: PropTypes.string.isRequired,
+  songName: PropTypes.string,
   song: PropTypes.object,
-  imagePath: PropTypes.any.isRequired,
+  imagePath: PropTypes.any,
   artistImagePath: PropTypes.any,
   backgroundColor: PropTypes.any,
   style: PropTypes.any,
