@@ -8,13 +8,16 @@ class MPProfileInfo extends Component {
 
   goToScreen = (route, params = {}) => {
     this.props.navigation.navigate(route, params);
-}
+  }
+
+  handleOpenSocialMedia = (url) => {
+    const socialMediaUrl = url.includes('http') || url.includes('https') ? url : `https://${ url }`;
+    Linking.openURL(socialMediaUrl)
+  }
 
   render() {
-    const { isMe, profile, onEditSite } = this.props;
+    const { isMe, profile } = this.props;
     const underlineStyle = (attribute) => attribute ? {} : { textDecorationLine: 'underline' };
-    const profileSite = profile.site && (profile.site.includes('http') || profile.site.includes('https'))
-        ? profile.site : `https://${ profile.site }`;
 
     return (
       <View style={{ marginHorizontal: 20 }}>
@@ -29,37 +32,55 @@ class MPProfileInfo extends Component {
             <MPVerifiedIcon style={{ marginLeft: 8 }} />
           }
         </View>
-        <View style={{ flexDirection: 'row', marginTop: 10, marginBottom: 15, alignItems: 'center' }}>
+        <View style={{ flexDirection: 'row', marginTop: 10, marginBottom: 20, alignItems: 'center' }}>
           <MPLocationPinIcon/>
-          { profile.city ?
-            <MPText style={[ styles.location, underlineStyle(profile.location) ]}>
-              { profile.city }/{ profile.state }
-            </MPText>
-            : isMe &&
-            <TouchableOpacity onPress={() => this.goToScreen('EditProfileLocation', { location: { city: profile.city, state: profile.state } })}>
-              <MPText style={[ styles.location, underlineStyle(profile.location) ]}>
+          { isMe ?
+            <TouchableOpacity
+              onPress={() => this.goToScreen('EditProfileLocation', {
+                location: {
+                  city: profile.city,
+                  state: profile.state
+                }
+              })}>
+              <MPText style={[ styles.location, !profile.city && underlineStyle(profile.location) ]}>
                 { profile.city ? profile.city+'/'+profile.state : 'Informe sua localização' }
               </MPText>
             </TouchableOpacity>
+            : profile.city &&
+            <MPText style={[ styles.location, underlineStyle(profile.location) ]}>
+            { profile.city }/{ profile.state }
+            </MPText>
           }
         </View>
         { isMe ?
           <TouchableOpacity
-            onPress={() => this.goToScreen('EditProfileSites', { sites: profile.social_networks || []})}
+            style={{ flexDirection: 'row' }}
+            onPress={() => this.goToScreen('EditProfileSites', { social: profile.social_networks || []})}
           >
-            <MPText style={styles.itemStyle}>
-              { profile.social_networks ?
-                profile.social_networks.map(social => social.name + '  ')
-                : 'Insira aqui suas redes sociais'
-              }
-            </MPText>
+            { (profile.social_networks && profile.social_networks.length > 0)
+              ? profile.social_networks.map(social => (
+              <MPText key={Math.random()} style={[styles.itemStyle, { marginRight: 10 }]}>
+                { social.name }
+              </MPText>
+              ))
+              :
+              <MPText style={styles.itemStyle}>
+                Insira aqui suas redes sociais
+              </MPText>
+            }
           </TouchableOpacity>
-          : profile.social_networks &&
-          <TouchableOpacity onPress={() => Linking.openURL(profileSite)}>
-            <MPText style={styles.itemStyle}>
-              { profile.social_networks.map(social => social.name + '  ') }
-            </MPText>
-          </TouchableOpacity>
+          : (profile.social_networks && profile.social_networks.length > 0) &&
+              profile.social_networks.map(social => (
+              <TouchableOpacity
+                key={Math.random()}
+                style={{ flexDirection: 'row' }}
+                onPress={() => this.handleOpenSocialMedia(social.url)}
+              >
+                <MPText style={[styles.itemStyle, { marginRight: 10 }]}>
+                  { social.name }
+                </MPText>
+              </TouchableOpacity>
+            ))
         }
         { isMe ?
           <TouchableOpacity
@@ -129,7 +150,6 @@ const styles = StyleSheet.create({
   itemStyle: {
     color: '#FFF',
     textDecorationLine: 'underline',
-    marginEnd: 20,
     marginBottom: 20
   }
 });
