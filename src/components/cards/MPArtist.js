@@ -30,7 +30,9 @@ class MPArtist extends Component {
               </View>
             }
           </View>
-          <MPText style={ styles.simpleArtistCardText }>{ artist.name }</MPText>
+          <MPText numberOfLines={2} style={ styles.simpleArtistCardText }>
+            { artist.name }
+          </MPText>
         </Card>
       </TouchableOpacity>
     );
