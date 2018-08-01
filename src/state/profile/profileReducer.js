@@ -29,11 +29,13 @@ const profileReducer = (state, action) => {
         ...state,
         ...action.payload
       };
+
     case PROFILE_START_LOADING:
       return {
         ...state,
         loading: true
       };
+
     case PROFILE_FINISH_LOADING:
       return {
         ...state,

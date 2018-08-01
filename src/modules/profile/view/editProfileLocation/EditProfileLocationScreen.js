@@ -1,14 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { 
-  updateArtist,
-} from '../../../../state/action';
-import { EditProfileDescriptionComponent } from './EditProfileDescriptionComponent';
-import { 
-  MPProfileSuccess
-} from '../../../../components';
+import { updateArtist } from '../../../../state/action';
+import { EditProfileLocation } from './EditProfileLocationComponent';
+import { MPProfileSuccess } from '../../../../components';
 
-class EditProfileDescriptionScreenContainer extends React.Component {
+class EditProfileLocationScreenContainer extends React.Component {
   componentWillReceiveProps(nextProps){
     if (nextProps.artistSaveSuccess) {
       this.props.navigation.navigate('message', { component: MPProfileSuccess });
@@ -21,7 +17,8 @@ class EditProfileDescriptionScreenContainer extends React.Component {
 
   handleSaveClick = (params) => {
     const profile = {...this.props.profile};
-    profile.description = params.description;
+    profile.city = params.city;
+    profile.state = params.state;
     this.props.dispatch(updateArtist(profile.id, profile));
   };
 
@@ -29,8 +26,8 @@ class EditProfileDescriptionScreenContainer extends React.Component {
     const { navigation } = this.props;
     const navigationParams = navigation.state.params;
     return (
-      <EditProfileDescriptionComponent
-        description={navigationParams && navigationParams.description}
+      <EditProfileLocation
+        location={navigationParams && navigationParams.location}
         onSave={this.handleSaveClick}
         onBack={this.handleBackClick}
       />
@@ -42,5 +39,5 @@ const mapStateToProps = ({ profileReducer, artistReducer }) => {
   return {...profileReducer, ...artistReducer};
 };
 
-const EditProfileDescriptionScreen = connect(mapStateToProps)(EditProfileDescriptionScreenContainer);
-export { EditProfileDescriptionScreen };
+const EditProfileLocationScreen = connect(mapStateToProps)(EditProfileLocationScreenContainer);
+export { EditProfileLocationScreen };

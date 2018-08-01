@@ -37,15 +37,21 @@ class MPSelectComponent extends React.Component {
 
   render() {
     const { allOptions } = this.state;
-    const { label, value, style, options } = this.props;
+    const { label, value, style, options, customValue } = this.props;
     return (
       <View style={style}>
         <TouchableHighlight onPress={this.showActionSheet} underlayColor="transparent">
           <View style={styles.areaSelection}>
             <View style={styles.boxText}>
-              <MPText style={styles.text}>
-                {value === null || value === undefined ? label : options[value]}
-              </MPText>
+              { customValue ?
+                <MPText style={styles.text}>
+                  { customValue }
+                </MPText>
+                :
+                <MPText style={styles.text}>
+                  {value === null || value === undefined ? label : options[value]}
+                </MPText>
+              }
             </View>
             <View style={styles.boxFoward}>
               <MPArrowDownIcon />

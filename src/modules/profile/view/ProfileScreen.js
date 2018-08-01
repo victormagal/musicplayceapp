@@ -1,7 +1,7 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { ProfileComponent } from './ProfileComponent';
-import { fetchProfile, fetchArtistSongs, logout } from '../../../state/action';
+import {connect} from 'react-redux';
+import {ProfileComponent} from './ProfileComponent';
+import {fetchProfile, fetchArtistSongs, logout} from '../../../state/action';
 import {songRegisterClear} from "../../../state/songs/songsType";
 
 class ProfileScreenContainer extends React.Component {
@@ -22,6 +22,10 @@ class ProfileScreenContainer extends React.Component {
         clearTimeout(timer);
       }, 500);
       nextProps.navigation.setParams({ backFromPublishedOrDraft: false });
+    }
+
+    if (nextProps.artistSaveSuccess) {
+      this.props.dispatch(fetchProfile());
     }
   }
 
