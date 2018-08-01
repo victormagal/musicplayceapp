@@ -170,8 +170,13 @@ class NotificationScreenContainer extends React.Component {
   }
 
   componentWillReceiveProps(nextProps){
-    if(nextProps){
-      console.log(nextProps);
+    if(nextProps.notifications.data){
+      console.log(nextProps.notifications.data);
+      let notificationList = nextProps.notifications.data.map((notification, index)=>{
+        obj = {id: index, type: notification.attributes.type, data: JSON.parse(notification.attributes.data), time: notification.attributes.time};
+        return obj;
+      })
+      this.setState({notifications: notificationList});
     }
   }
 
@@ -188,7 +193,7 @@ class NotificationScreenContainer extends React.Component {
           onIndexChanged={this.handleChangeTab}>
           <View style={styles.firstSliderContainer}>
             <FlatList
-              data={this.listNotifications.data}
+              data={this.state.notifications}
               keyExtractor={item => item.id}
               renderItem={({ item }) => {
                 return (

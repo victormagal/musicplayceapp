@@ -38,6 +38,8 @@ class FeedScreenContainer extends React.Component {
       artists:[],
     };
 
+    this.renderItemFeed.bind(this);
+
     this.swiperRef = React.createRef();
 
     this.artists = {
@@ -114,12 +116,19 @@ class FeedScreenContainer extends React.Component {
   }
 
   componentWillReceiveProps(nextProps){
-    console.log(nextProps);
     if(nextProps.feed.data){
       this.setState({feed: nextProps.feed.data, searchingNotFound: false});
       if(nextProps.feed.data.artists.length == 0 && nextProps.feed.data.songs.length == 0 && this.state.searching){
         this.setState({searchingNotFound: true});
       }
+    }
+
+    if(nextProps.followNotifications.data){
+        let followingNotifications = nextProps.followNotifications.data.map((notification, index) => {
+          let obj = {id: index, type: notification.attributes.type, data: JSON.parse(notification.attributes.data), time: notification.attributes.time};
+          return obj;
+        });
+        this.setState({followNotifications: followingNotifications});
     }
 
     if(nextProps.artists){
@@ -195,8 +204,7 @@ class FeedScreenContainer extends React.Component {
   };
 
   renderItemFeed = ({item}) => (
-    <MPFeedNotification notificationType={item.type} artistName={item.artistName} composerName={item.composerName}
-                        songName={item.songName} timeText={item.timeText}/>
+    <MPFeedNotification key={item.type} notification={item}/>
   );
 
   render() {
@@ -349,7 +357,7 @@ class FeedScreenContainer extends React.Component {
                 <View style={styles.secondSliderContainer}>
                   <ScrollView style={{flex: 2,}}>
                     <FlatList
-                      data={this.songs.data}
+                      data={this.state.followNotifications}
                       keyExtractor={(item) => item.id}
                       renderItem={this.renderItemFeed}
                     />
