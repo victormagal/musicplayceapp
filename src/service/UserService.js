@@ -77,7 +77,7 @@ class UserService {
   }
 
   static getFollowNotifications(){
-    return axios.get(`${API_USER}/me/following-notifications`);
+    return axios.get(`${API_USER}/me/notifications?searchType=following`);
     let {attributes} = response.data.data
     return {...attributes};
   }
