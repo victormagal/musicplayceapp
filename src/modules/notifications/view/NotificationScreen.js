@@ -171,7 +171,6 @@ class NotificationScreenContainer extends React.Component {
 
   componentWillReceiveProps(nextProps){
     if(nextProps.notifications.data){
-      console.log(nextProps.notifications.data);
       let notificationList = nextProps.notifications.data.map((notification, index)=>{
         obj = {id: index, type: notification.attributes.type, data: JSON.parse(notification.attributes.data), time: notification.attributes.time};
         return obj;
