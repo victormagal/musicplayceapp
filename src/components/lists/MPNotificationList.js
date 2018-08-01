@@ -12,7 +12,6 @@ class MPNotificationListComponent extends React.Component {
   render() {
     let { item } = this.props;
     return (
-      <View>
         <View style={styles.item}>
           {
             item.avatar ? (
@@ -25,13 +24,13 @@ class MPNotificationListComponent extends React.Component {
             item.avatar ? (
               <View style={styles.boxText}>
                 <MPText style={styles.text}>
-                  {item.title}
+                  {item.data.text}
                 </MPText>
               </View>
             ) : 
             <View style={styles.boxTextBig}>
               <MPText style={styles.text}>
-                {item.title}
+                {item.data.text}
               </MPText>
             </View>
           }
@@ -41,7 +40,6 @@ class MPNotificationListComponent extends React.Component {
             </MPText>
           </View>
         </View>
-      </View>
     );
   }
 

@@ -20,10 +20,8 @@ import {
   MPProfileArrowIcon, MPSettingsIcon, MPSongAddIcon
 } from '../../../assets/svg/'
 import {MPUpgradeButton} from '../../../components/profile/MPUpgradeButton';
-import {saveProfile} from '../../../state/action';
-import {updateProfileData, uploadImage} from "../../../state/profile/profileAction";
+import {uploadImage} from "../../../state/profile/profileAction";
 import ImagePicker from 'react-native-image-picker';
-
 
 class ProfileComponent extends React.Component {
   scrollViewRef = null;
@@ -37,8 +35,8 @@ class ProfileComponent extends React.Component {
     };
   }
 
-  goToScreen = (rota) => {
-    this.props.navigation.navigate(rota)
+  goToScreen = (rota, params = {}) => {
+    this.props.navigation.navigate(rota, params)
   };
 
   handleScrollEnd = () => {
@@ -106,17 +104,23 @@ class ProfileComponent extends React.Component {
 
   renderHeaderMenuRight() {
     return [
-      <MPIconButton key={Math.random()} icon={MPSettingsIcon} onPress={() => this.goToScreen('settings')}/>
+      <MPIconButton
+        key={Math.random()}
+        icon={MPSettingsIcon}
+        onPress={() => this.goToScreen('settings')}
+      />
     ];
   }
 
   renderHeaderMenuLeft() {
     return [
-      <MPIconButton key={Math.random()}
-                    style={styles.logout}
-                    title='Sair'
-                    titleStyle={styles.headerMenuText}
-                    onPress={this.props.onLogoutClick} />
+      <MPIconButton
+        key={Math.random()}
+        style={styles.logout}
+        title='Sair'
+        titleStyle={styles.headerMenuText}
+        onPress={this.props.onLogoutClick}
+      />
     ];
   }
 
@@ -154,7 +158,7 @@ class ProfileComponent extends React.Component {
   }
 
   renderContent(profile) {
-    const { me, myFollowers } = this.props;
+    const { me, myFollowers, navigation } = this.props;
     const followers = (myFollowers && myFollowers.followers) || [];
     const userFollowing = (profile && profile.userFollowing) || [];
 
@@ -173,32 +177,41 @@ class ProfileComponent extends React.Component {
 
     return (
       <View style={{ backgroundColor: '#000' }}>
-          <ImageBackground
-            style={{ flex: 1, width: '100%' }}
-            source={profile.cover_picture_url ? { uri: profile.cover_picture_url } : null}
+        <ImageBackground
+          style={{ flex: 1, width: '100%' }}
+          source={profile.cover_picture_url ? { uri: profile.cover_picture_url } : null}
+        >
+          <LinearGradient
+            onLayout={event => this.setState({ linearGradientHeight: event.nativeEvent.layout.height })}
+            colors={['rgba(0, 0, 0, 0.2)', '#e13223']}
           >
-            <LinearGradient
-              onLayout={event => this.setState({ linearGradientHeight: event.nativeEvent.layout.height })}
-              colors={['rgba(0, 0, 0, 0.2)', '#e13223']}
+            { this.renderProfileData(profile) }
+            <TouchableOpacity
+              style={{ alignSelf: 'center', justifyContent: 'center', marginBottom: 20 }}
+              onPress={this.handleScrollEnd}
             >
-              { this.renderProfileData(profile) }
-              <TouchableOpacity
-                style={{ alignSelf: 'center', justifyContent: 'center', marginBottom: 20 }}
-                onPress={this.handleScrollEnd}
-              >
-                <MPProfileArrowIcon />
-              </TouchableOpacity>
-            </LinearGradient>
-          </ImageBackground>
+              <MPProfileArrowIcon />
+            </TouchableOpacity>
+          </LinearGradient>
+        </ImageBackground>
         { this.renderSongsData(profile) }
-        <MPShowFollowers following={userFollowing} followers={followers} />
-        { !me && <MPReportProfile onPress={ () => this.reportProfile()}/>}
+        <MPShowFollowers
+          navigation={navigation}
+          following={userFollowing}
+          followers={followers}
+        />
+        { me ?
+          <View style={{ backgroundColor: '#FFF', height: 90 }} />
+          :
+          <MPReportProfile onPress={() => this.reportProfile()}/>
+        }
       </View>
     )
   }
 
   renderProfileData(profile) {
-    const { me, myIndications } = this.props;
+    const { me, myIndications, navigation } = this.props;
+
     const countIndications =  (myIndications && myIndications.count);
     return (
       <View>
@@ -213,7 +226,7 @@ class ProfileComponent extends React.Component {
         <MPProfileInfo
           isMe={me}
           profile={profile}
-          onEditDescription={() => this.goToScreen('EditProfileDescription')}
+          navigation={navigation}
         />
         <View style={styles.profileIndicatorContainer}>
           <ProfileIndicatorCE
@@ -306,13 +319,15 @@ class ProfileComponent extends React.Component {
           <View>
             {profile.songSaves && (
               <View>
-                <MPShowFolderSongs folderName='Outras'
-                                   me={me}
-                                   songs={profile.songSaves}
-                                   onEditClick={this.handleEditSong}
-                                   onIndicateClick={this.handleIndicateSong}
-                                   onRemoveClick={this.handleRemoveSong}
-                                   onUnpublishClick={this.handleUnpublishSong}/>
+                <MPShowFolderSongs
+                  folderName='Outras'
+                  me={me}
+                  songs={profile.songSaves}
+                  onEditClick={this.handleEditSong}
+                  onIndicateClick={this.handleIndicateSong}
+                  onRemoveClick={this.handleRemoveSong}
+                  onUnpublishClick={this.handleUnpublishSong}
+                />
               </View>
             )}
           </View>

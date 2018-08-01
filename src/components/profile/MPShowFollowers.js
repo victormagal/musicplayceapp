@@ -1,8 +1,16 @@
 import React, {Component} from 'react';
-import {StyleSheet, View, FlatList, TouchableHighlight} from 'react-native';
-import {connect} from 'react-redux';
-import {MPArtist, MPText} from '../../components'
-import images from '../../assets/img';
+import {
+  StyleSheet,
+  View,
+  FlatList,
+  Dimensions,
+  TouchableHighlight
+} from 'react-native';
+import {
+  MPArtist,
+  MPText
+} from '../../components'
+import { MPGroupIcon } from "../../assets/svg";
 
 class MPShowFollowers extends Component {
   state = {
@@ -10,13 +18,19 @@ class MPShowFollowers extends Component {
   };
 
   changeTabIndex = (tabIndex) => {
+    const { following, followers } = this.props;
     this.setState({ tabIndex });
+    const hasToScroll = tabIndex === 0 ? following.length > 0 : followers.length > 0;
+
+    if (hasToScroll) {
+      this.flatList.scrollToIndex({ index: 0 });
+    }
   };
 
-  renderArtists = ({ item}) => (
+  renderArtists = ({ item }) => (
     <MPArtist
       artist={item}
-      onPress={()=>{}}
+      onPress={() => this.props.navigation.navigate('ArtistProfileScreen', { artistId: item.id })}
       isFollowing={this.state.tabIndex === 0}
     />
   );
@@ -55,10 +69,19 @@ class MPShowFollowers extends Component {
         </View>
         <View style={styles.sliderContainer}>
           <FlatList
+            ref={ref => this.flatList = ref}
             data={tabIndex === 0 ? following : followers}
             keyExtractor={(item) => item.id}
             renderItem={this.renderArtists}
             horizontal={true}
+            ListEmptyComponent={() => (
+              <View style={{ width: Dimensions.get('screen').width - 40, alignItems: 'center' }}>
+                <MPGroupIcon style={{ width: 50, height: 50 }}/>
+                <MPText style={styles.noContent}>
+                  { `Ainda não ${ tabIndex === 0 ? 'está \nseguindo' : 'é \nseguido por' } ninguém.` }
+                </MPText>
+              </View>
+            )}
           />
         </View>
       </View>
@@ -108,6 +131,13 @@ const styles = StyleSheet.create({
   },
   tabMargin: {
     marginEnd: 20
+  },
+  noContent: {
+    marginTop: 8,
+    color: '#626262',
+    fontSize: 16,
+    textAlign: 'center',
+    fontFamily: 'Montserrat-Regular'
   }
 });
 

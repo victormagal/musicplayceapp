@@ -1,7 +1,6 @@
 import {createAction} from 'redux-actions';
 import {UserService} from '../../service';
 
-
 export const FETCHED_PROFILE = 'FETCHED_PROFILE';
 export const FETCHED_MY_INDICATIONS = 'FETCHED_MY_INDICATIONS';
 export const FETCHED_MY_FOLLOWERS = 'FETCHED_MY_FOLLOWERS';

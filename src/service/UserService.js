@@ -96,6 +96,18 @@ class UserService {
   static stopFollowArtist(artist){
     return axios.delete(`${API_USER}/me/following/${artist}`);
   }
+
+  static getNotifications(){
+    return axios.get(`${API_USER}/me/notifications`);
+    let {attributes} = response.data.data
+    return {...attributes};
+  }
+
+  static getFollowNotifications(){
+    return axios.get(`${API_USER}/me/notifications?searchType=following`);
+    let {attributes} = response.data.data
+    return {...attributes};
+  }
 }
 
 export {UserService};

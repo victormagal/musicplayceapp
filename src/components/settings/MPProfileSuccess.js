@@ -10,16 +10,21 @@ import {
 } from '../../components';
 
 class MPProfileSuccessComponent extends React.Component {
-
   handleOkClick = () => {
-    this.props.navigation.pop();
+    this.props.navigation.navigate('ProfileScreen');
   };
 
   render() {
     return (
       <View style={styles.container}>
-        <MPText style={styles.title}>Identificação atualizada com sucesso</MPText>
-        <MPGradientButton style={styles.button} textSize={16} title="OK" onPress={this.handleOkClick} />
+        <MPText style={styles.title}>
+          Identificação atualizada com sucesso
+        </MPText>
+        <MPGradientButton
+          style={styles.button}
+          textSize={16} title="OK"
+          onPress={this.handleOkClick}
+        />
       </View>
     );
   }
