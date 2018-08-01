@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {View, StyleSheet, Text, TouchableOpacity} from 'react-native';
+import {Card} from 'react-native-elements';
 import PropTypes from 'prop-types';
 import {MPText} from '../general/MPText';
 import {MPValidatedFilledRedIcon} from '../../assets/svg';
@@ -23,19 +24,19 @@ class MPSongInfo extends Component {
       iconStyle = {
         position: 'absolute',
         right: 0,
-        top: 10
+        top: 0
       };
     }
 
     style = style || {};
 
     return (
-      <View style={[styles.container, style ]}>
+      <View style={[styles.container, style]}>
         <TouchableOpacity onPress={onPress}>
-          <View style={[styles.parent, borderStyle]}>
+          <Card containerStyle={[styles.parent, borderStyle]}>
             <MPText style={styles.titleText}>{ title }</MPText>
             <MPText style={styles.infoText}>{ info || placeholder }</MPText>
-          </View>
+          </Card>
         </TouchableOpacity>
         { selected && <MPValidatedFilledRedIcon style={ iconStyle }/> }
       </View>
@@ -55,26 +56,19 @@ MPSongInfo.propTypes = {
 
 const styles = StyleSheet.create({
   container: {
-    marginHorizontal: '2%',
-    marginBottom: 10,
     height: 93,
-    width: '96%'
+    width: '100%'
   },
   parent: {
     backgroundColor: '#fff',
-    marginTop: 18,
     height: 78,
     borderRadius: 4,
-    padding: 10,
+    padding: 0,
+    marginTop: 7,
     marginRight: 7,
+    marginLeft: 0,
+    marginBottom: 0,
     justifyContent: 'center',
-    shadowColor: '#000000',
-    shadowOpacity: 0.15,
-    shadowRadius: 2,
-    shadowOffset: {
-      width: 1,
-      height: 1
-    }
   },
   titleText: {
     color: "#000",

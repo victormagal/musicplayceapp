@@ -20,6 +20,17 @@ class ArtistsScreenContainer extends React.Component {
     };
   }
 
+  componentDidMount(){
+    if(this.props.song.coAuthors && this.props.song.coAuthors.length > 0){
+      this.setState({
+        artistsSelected: this.props.song.coAuthors.map((author) => {
+          author.selected = true;
+          return author;
+        })
+      });
+    }
+  }
+
   componentWillReceiveProps(nextProps){
     if (nextProps.artists){
       this.setState({ artists: nextProps.artists.data, waiting: false });

@@ -5,3 +5,5 @@ export * from './ArtistProfileScreen';
 export * from './ComposerProfileScreen';
 export * from './editProfileDescription';
 export * from './editFolderName';
+export * from './editProfileSites';
+export * from './editProfileLocation';

@@ -29,7 +29,8 @@ class MPTextField extends React.Component {
       onFocus,
       onBlur,
       onChangeText,
-      textProps
+      textProps,
+      onSubmitEditing
     } = this.props;
 
     return (
@@ -49,6 +50,7 @@ class MPTextField extends React.Component {
           onFocus={ onFocus }
           onBlur={ onBlur }
           onChangeText={ onChangeText }
+          onSubmitEditing={onSubmitEditing}
           {...textProps}
         />
       </View>
