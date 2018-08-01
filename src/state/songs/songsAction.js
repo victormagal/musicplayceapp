@@ -16,7 +16,9 @@ import {
   songRemoveSuccess,
   songStartLoading,
   songUnpublishError,
-  songUnpublishSuccess
+  songUnpublishSuccess,
+  uploadedSongPictureSucess,
+  uploadedSongPictureError
 } from "./songsType";
 
 export const createPermanentSong = (song, file) => {
@@ -29,7 +31,7 @@ export const createPermanentSong = (song, file) => {
       dispatch(songPublishSuccess());
     }).catch(e => {
       dispatch(songPublishError());
-      console.log('createPermanentSongError', e.response);
+      console.log('createPermanentSongError', e);
     });
   };
 }
@@ -158,6 +160,20 @@ export const fetchArtistSongs = (artist) => {
       dispatch(fetchedArtistSongs(response));
     }).catch(e => {
       dispatch(songFinishLoading(e.response));
+    });
+  };
+};
+
+export const uploadSongPicture = (songId, file) => {
+  return (dispatch) => {
+    dispatch(songStartLoading());
+
+    return SongService.uploadImage(songId, file).then(response => {
+      console.log('uploadSongPictureSuccess', response);
+      dispatch(uploadedSongPictureSucess());
+    }).catch(e => {
+      console.log('uploadSongPictureError', e);
+      dispatch(uploadedSongPictureError());
     });
   };
 };

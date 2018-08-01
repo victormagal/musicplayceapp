@@ -84,14 +84,12 @@ class ProfileComponent extends React.Component {
     };
 
     ImagePicker.showImagePicker(options, (response) => {
-      console.log('response', response);
-
       if (response.didCancel) {
         console.log('User cancelled image picker');
       } else if (response.error) {
         console.log('ImagePicker Error: ', response.error);
       } else {
-        this.props.dispatch(uploadImage(response.path)).then(updateResponse => {
+        this.props.dispatch(uploadImage(response)).then(updateResponse => {
           console.log('updateResponse', updateResponse);
         })
       }

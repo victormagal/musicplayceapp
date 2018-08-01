@@ -48,7 +48,7 @@ export const uploadImage = (picture) => {
       console.log('response', response);
       dispatch(profileImageUploaded());
     }).catch(e => {
-      console.log('uploadImageError', e.response);
+      console.log('uploadImageError', e);
       dispatch(profileFinishLoading());
     })
   }

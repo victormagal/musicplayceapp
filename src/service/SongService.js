@@ -170,6 +170,32 @@ class SongService {
       })
     });
   }
+
+  static uploadImage(songId, file) {
+    let formData = new FormData();
+
+    if (!file) {
+      return Promise.resolve();
+    }
+
+    formData.append('picture', {
+      uri: file.uri,
+      name: file.fileName,
+      extension: file.fileName.split('.')[1]
+    });
+
+    return axios.post(`${ API_SONG }/${ songId }/picture`, formData, {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'multipart/form-data'
+      }
+    }).then(response => {
+      //const { data } = response.data;
+      //const { id, attributes } = data;
+      //return { id, ...attributes };
+      return response;
+    });
+  }
 }
 
 export {SongService};

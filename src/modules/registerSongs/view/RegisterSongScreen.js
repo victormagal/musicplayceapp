@@ -6,6 +6,8 @@ import {MPGradientButton, MPHeader, MPSongInfo, MPText, MPLoading} from '../../.
 import {MPSongUploadIcon, MPSongUploadEditIcon} from '../../../assets/svg';
 import {createPermanentSong, updatePermanentSong, fetchOneSong} from "../../../state/action";
 import {updateSongRegisterData} from "../../../state/songs/songsType";
+import {uploadSongPicture} from "../../../state/songs/songsAction";
+import ImagePicker from "react-native-image-picker";
 
 
 class RegisterSongContainer extends React.Component {
@@ -102,6 +104,28 @@ class RegisterSongContainer extends React.Component {
     });
   };
 
+  handleChooseSongPictureClick = () => {
+    const options = {
+      title: 'Selecionar uma imagem',
+      storageOptions: {
+        skipBackup: true,
+        path: 'images'
+      }
+    };
+
+    ImagePicker.showImagePicker(options, (response) => {
+      if (response.didCancel) {
+        console.log('User cancelled image picker');
+      } else if (response.error) {
+        console.log('ImagePicker Error: ', response.error);
+      } else {
+        this.props.dispatch(uploadSongPicture(this.props.song.id, response)).then(updateResponse => {
+          console.log('updateResponse', updateResponse);
+        })
+      }
+    });
+  }
+
   validate() {
     const {cardErrors} = this.state;
     const {song} = this.props;
@@ -170,11 +194,7 @@ class RegisterSongContainer extends React.Component {
               </MPText>
             </View>
             <View>
-              <View style={{
-                  padding: cardErrors.path ? 15 : 0,
-                  borderWidth: 2,
-                  borderColor: cardErrors.path ? '#e13223' : '#FFF'
-                }}>
+              <View style={styles.errorCard(cardErrors)}>
                 <MPGradientButton
                   style={styles.uploadIcon}
                   icon={(this.state.songFile && this.state.songFile.fileName) || song.path ? MPSongUploadEditIcon : MPSongUploadIcon}
@@ -190,6 +210,29 @@ class RegisterSongContainer extends React.Component {
                 )}
 
                 {(!!this.state.songFile || !!song.path) && (
+                  <TouchableOpacity onPress={this.handleChooseFileClick}>
+                    <MPText style={styles.replaceSong}>
+                      Substituir arquivo
+                    </MPText>
+                  </TouchableOpacity>
+                )}
+              </View>
+              <View style={styles.errorCard(cardErrors)}>
+                <MPGradientButton
+                  style={styles.uploadIcon}
+                  icon={song.picture_url ? MPSongUploadEditIcon : MPSongUploadIcon}
+                  title={song.picture_url ? song.picture_url : 'Escolher o arquivo'}
+                  textSize={16}
+                  onPress={this.handleChooseSongPictureClick}
+                />
+
+                {!song.picture_url && (
+                  <MPText style={ styles.subText}>
+                    Você pode fazer upload de imagens em JPG, JPEG e PNG.
+                  </MPText>
+                )}
+
+                {!!song.picture_url && (
                   <TouchableOpacity onPress={this.handleChooseFileClick}>
                     <MPText style={styles.replaceSong}>
                       Substituir arquivo
@@ -367,7 +410,12 @@ const styles = StyleSheet.create({
   publishButton: {
     marginBottom: 20,
     marginHorizontal: 20
-  }
+  },
+  errorCard: (cardErrors) => ({
+    padding: cardErrors.path ? 15 : 0,
+    borderWidth: 2,
+    borderColor: cardErrors.path ? '#e13223' : '#FFF'
+  })
 });
 
 const mapStateToProps = ({songsReducer}) => {
