@@ -5,26 +5,26 @@ import PropTypes from 'prop-types';
 import {MPSongListIcon, MPPlayIcon, MPStarIcon} from '../../assets/svg';
 import {MPText} from '../../components';
 
-class MPArtistFull extends Component {
+class MPUserFull extends Component {
 
   render() {
-    const {song, songName, imagePath, artistImagePath, artistName, style, onPressMusic, onPressArtist} = this.props;
+    const {song, songName, imagePath, userImagePath, userName, style, onPressMusic, onPressUser} = this.props;
     const songImage = typeof imagePath === 'string' ? {uri: imagePath} : imagePath;
-    const artistImage = typeof artistImagePath === 'string' ? {uri: artistImagePath} : require('../../assets/img/avatar-male.jpg');
+    const userImage = typeof userImagePath === 'string' ? {uri: userImagePath} : require('../../assets/img/avatar-male.jpg');
     return (
       <View style={style || {}}>
-        <Card containerStyle={styles.simpleArtistCardContainer}>
+        <Card containerStyle={styles.simpleUserCardContainer}>
           <View style={styles.cardContainer}>
             <TouchableOpacity onPress={() => onPressMusic(song)}>
-              <View style={styles.simpleArtistCardImageContainer}>
-                <Image source={songImage} style={ styles.simpleArtistCardImage }/>
+              <View style={styles.simpleUserCardImageContainer}>
+                <Image source={songImage} style={ styles.simpleUserCardImage }/>
                 <MPPlayIcon style={styles.playIcon}/>
                 <MPSongListIcon style={styles.songListIcon}/>
               </View>
             </TouchableOpacity>
             <View>
               <TouchableOpacity onPress={() => onPressMusic(song)}>
-                <MPText style={styles.simpleArtistCardText}>{songName}</MPText>
+                <MPText style={styles.simpleUserCardText}>{songName}</MPText>
               </TouchableOpacity>
               <View style={styles.starsContainer}>
                 <MPStarIcon style={styles.marginEnd}/>
@@ -33,11 +33,11 @@ class MPArtistFull extends Component {
                 <MPStarIcon style={styles.marginEnd}/>
                 <MPStarIcon style={styles.marginEnd}/>
               </View>
-              <TouchableOpacity style={styles.artistContent} onPress={onPressArtist}>
+              <TouchableOpacity style={styles.userContent} onPress={onPressUser}>
                 <View style={ styles.roundImage }>
-                  <Image source={artistImage} style={styles.artistImage}/>
+                  <Image source={userImage} style={styles.userImage}/>
                 </View>
-                <MPText style={styles.artistName}>{artistName}</MPText>
+                <MPText style={styles.userName}>{userName}</MPText>
               </TouchableOpacity>
             </View>
           </View>
@@ -47,19 +47,19 @@ class MPArtistFull extends Component {
   }
 }
 
-MPArtistFull.propTypes = {
+MPUserFull.propTypes = {
   songName: PropTypes.string,
   song: PropTypes.object,
   imagePath: PropTypes.any,
-  artistImagePath: PropTypes.any,
+  userImagePath: PropTypes.any,
   backgroundColor: PropTypes.any,
   style: PropTypes.any,
   onPressMusic: PropTypes.func.isRequired,
-  onPressArtist: PropTypes.func.isRequired
+  onPressUser: PropTypes.func.isRequired
 };
 
 const styles = StyleSheet.create({
-  simpleArtistCardContainer: {
+  simpleUserCardContainer: {
     backgroundColor: '#fff',
     borderRadius: 4,
     marginHorizontal: 20,
@@ -71,17 +71,17 @@ const styles = StyleSheet.create({
   cardContainer: {
     flexDirection: 'row'
   },
-  simpleArtistCardImageContainer: {
+  simpleUserCardImageContainer: {
     justifyContent: 'center',
     width: 120,
     height: '100%',
     backgroundColor: '#f60'
   },
-  simpleArtistCardImage: {
+  simpleUserCardImage: {
     width: 120,
     height: '100%'
   },
-  simpleArtistCardText: {
+  simpleUserCardText: {
     fontSize: 14,
     color: '#000',
     paddingTop: 10,
@@ -101,13 +101,13 @@ const styles = StyleSheet.create({
     height: 40,
     overflow: 'hidden'
   },
-  artistContent: {
+  userContent: {
     flexDirection: 'row',
     marginTop: 20,
     marginHorizontal: 10,
     alignContent: 'center'
   },
-  artistName: {
+  userName: {
     fontSize: 11,
     color: '#000',
     fontFamily: 'ProbaPro-Regular',
@@ -126,11 +126,11 @@ const styles = StyleSheet.create({
     top: 4,
     right: 4
   },
-  artistImage: {
+  userImage: {
     borderRadius: 20,
     width: 40,
     height: 40
   }
 });
 
-export {MPArtistFull};
+export {MPUserFull};

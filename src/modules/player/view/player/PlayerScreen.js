@@ -1,72 +1,76 @@
 import React from 'react';
-import {connect} from 'react-redux';
-import {
-  View, StyleSheet
-} from 'react-native';
-import {MPButton} from '../../../../components';
+import { connect } from 'react-redux';
+import { View, StyleSheet } from 'react-native';
+import { MPButton } from '../../../../components';
 import {PlayerComponent} from './PlayerComponent';
 import {
-  playerSongSaveReceived, songStop, songPlay,
-  songPause, songResume, fetchOneSong, getArtistsSongs, likeSongComment
+  playerSongSaveReceived,
+  songStop,
+  songPlay,
+  songPause,
+  songResume,
+  fetchOneSong,
+  getUsersSongs,
+  likeSongComment
 } from '../../../../state/action';
-import {
-  MPHeartRedIcon
-} from '../../../../assets/svg';
+import { MPHeartRedIcon } from '../../../../assets/svg';
 
 
 class PlayerContainer extends React.Component {
-
   state = {
     song : null,
-    artistNames: [],
-    artistsSongs: []
+    userNames: [],
+    usersSongs: []
   };
 
   componentDidMount(){
-    if(this.props.navigation.state && this.props.navigation.state.params){
-      let {song} = this.props.navigation.state.params;
-      if(song) {
-        this.props.dispatch(fetchOneSong(song));
+    const { navigation, dispatch } = this.props;
+    if (navigation.state && navigation.state.params) {
+      const { song } = navigation.state.params;
+      if (song) {
+        dispatch(fetchOneSong(song));
       }
     }
   }
 
-  getArtistsList = (song) => {
-    let artistNames = [song.artist.name];
-    let artistList = [song.artist.id];
-    if(song.coAuthors && song.coAuthors.length > 0){
-      let coAuthors = song.coAuthors;
+  getUsersList = (song) => {
+    console.log('song', song);
+    const userNames = [ song.artist.name ];
+    const userList = [ song.artist.id ];
+    if (song.coAuthors && song.coAuthors.length > 0) {
+      const coAuthors = song.coAuthors;
       coAuthors.map((coAuthor) => {
-        artistList.push(coAuthor.id);
-        artistNames.push(coAuthor.name);
-      })
+        userList.push(coAuthor.id);
+        userNames.push(coAuthor.name);
+      });
     }
-    this.setState({artistNames});
-    return artistList;
+    this.setState({ userNames });
+    return userList;
   }
 
   componentWillReceiveProps(nextProps){
-    if(nextProps.saveSong.update){
-      let timer = setTimeout(() => {
+    const { navigation, dispatch } = this.props;
+    const { song } = this.state;
+
+    if (nextProps.saveSong.update) {
+      const timer = setTimeout(() => {
         this.props.dispatch(playerSongSaveReceived());
         clearTimeout(timer);
       }, 2000);
     }
 
-    if(nextProps.song){
-      nextProps.song.artist = this.props.navigation.state.params.song.artist;
-      if(this.state.song !== nextProps.song){
-        this.props.dispatch(getArtistsSongs(this.getArtistsList(nextProps.song)));
+    if (nextProps.song){
+      nextProps.song.artist = navigation.state.params.song.artist;
+      if (song !== nextProps.song){
+        dispatch(getUsersSongs(this.getUsersList(nextProps.song)));
       }
-      this.setState({song: nextProps.song});
+      this.setState({ song: nextProps.song });
     }
 
-    if(nextProps.artistSongs){
-      let arraySongs = nextProps.artistSongs.map(songs => {
-        return songs.data;
-      });
-      if(arraySongs.length > 0){
-        this.setState({artistsSongs: arraySongs});
+    if (nextProps.userSongs){
+      const usersSongs = nextProps.userSongs.map(songs => songs.data);
+      if (usersSongs.length > 0) {
+        this.setState({ usersSongs });
       }
     }
   }
@@ -88,8 +92,7 @@ class PlayerContainer extends React.Component {
   };
 
   handleSongSliderChange = (value) => {
-    //TODO:
-    //call action to seek music in react native plugin
+    //TODO: call action to seek music in react native plugin
   };
 
   handleLikeComment = (commentId) => {
@@ -97,24 +100,30 @@ class PlayerContainer extends React.Component {
   }
 
   render() {
+    const { saveSong } = this.props;
+    const { song, usersSongs, userNames } = this.state;
     return (
       <View style={styles.container}>
-        <PlayerComponent todo="REFACTOR" {...this.props}
-                         song={this.state.song}
-                         artistsSongs={this.state.artistsSongs}
-                         artistNames={this.state.artistNames}
-                         onSongPause={this.handleSongPause}
-                         onSongResume={this.handleSongResume}
-                         onSongPlay={this.handleSongPlay}
-                         onSongSliderChange={this.handleSongSliderChange}
-                         onLikeComment={this.handleLikeComment}/>
-        {this.props.saveSong.update && (
+        <PlayerComponent
+          todo="REFACTOR" {...this.props}
+          song={song}
+          usersSongs={usersSongs}
+          userNames={userNames}
+          onSongPause={this.handleSongPause}
+          onSongResume={this.handleSongResume}
+          onSongPlay={this.handleSongPlay}
+          onSongSliderChange={this.handleSongSliderChange}
+          onLikeComment={this.handleLikeComment}
+        />
+        { saveSong.update &&
           <MPButton
             style={styles.notificationSaved}
             textStyle={styles.notificationSavedText}
-            title={"Salvo em " + this.props.saveSong.folder }
-            onPress={() => {}} icon={MPHeartRedIcon}/>
-        )}
+            title={"Salvo em " + saveSong.folder }
+            onPress={() => console.log()}
+            icon={MPHeartRedIcon}
+          />
+        }
       </View>
     );
   }
@@ -138,9 +147,9 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = ({playerReducer, songsReducer}) => {
-  return {...playerReducer, song: songsReducer.fetchedSong}
+const mapStateToProps = ({ playerReducer, songsReducer }) => {
+  return { ...playerReducer, song: songsReducer.fetchedSong }
 };
 
 const PlayerScreen = connect(mapStateToProps)(PlayerContainer);
-export {PlayerScreen};
+export { PlayerScreen };

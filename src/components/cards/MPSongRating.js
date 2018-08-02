@@ -78,11 +78,11 @@ class MPSongRating extends Component {
     return (
       <View style={style || {}}>
 
-        <Card containerStyle={[styles.simpleArtistCardContainer]}>
+        <Card containerStyle={[styles.simpleUserCardContainer]}>
           {!this.state.menuOpen && (
             <View>
               <View>
-                <View style={ styles.simpleArtistCardImage }>
+                <View style={ styles.simpleUserCardImage }>
                   <Image source={ images.daftPunk100 }/>
 
                   <TouchableOpacity style={styles.playIcon} onPress={this.toggleState}>
@@ -96,7 +96,7 @@ class MPSongRating extends Component {
                   )}
                 </View>
                 <View>
-                  <MPText style={ styles.simpleArtistCardText }
+                  <MPText style={ styles.simpleUserCardText }
                           onPress={this.toggleState.bind(this)}>{ song && song.name || '' }</MPText>
                   <MPShowRating rating={rating}/>
                 </View>
@@ -125,7 +125,7 @@ class MPSongRating extends Component {
                 )}
               </View>
               {/* <View>
-                <MPText style={ styles.simpleArtistCardText }
+                <MPText style={ styles.simpleUserCardText }
                         onPress={this.toggleState.bind(this)}>{ song && song.name }</MPText>
                 <MPShowRating rating={rating}/>
               </View>
@@ -187,7 +187,7 @@ MPSongRating.propTypes = {
 };
 
 const styles = StyleSheet.create({
-  simpleArtistCardContainer: {
+  simpleUserCardContainer: {
     backgroundColor: '#fff',
     borderRadius: 4,
     margin: 0,
@@ -199,13 +199,13 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     marginHorizontal: 5
   },
-  simpleArtistCardImage: {
+  simpleUserCardImage: {
     width: 100,
     height: 100,
     justifyContent: 'center',
     backgroundColor: '#f60',
   },
-  simpleArtistCardText: {
+  simpleUserCardText: {
     height: 40,
     fontSize: 14,
     color: '#000',

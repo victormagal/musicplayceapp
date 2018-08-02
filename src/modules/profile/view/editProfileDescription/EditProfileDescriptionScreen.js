@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { 
-  updateArtist,
+  updateUser,
 } from '../../../../state/action';
 import { EditProfileDescriptionComponent } from './EditProfileDescriptionComponent';
 import { 
@@ -10,7 +10,7 @@ import {
 
 class EditProfileDescriptionScreenContainer extends React.Component {
   componentWillReceiveProps(nextProps){
-    if (nextProps.artistSaveSuccess) {
+    if (nextProps.isUserSaved) {
       this.props.navigation.navigate('message', { component: MPProfileSuccess });
     }
   }
@@ -22,7 +22,7 @@ class EditProfileDescriptionScreenContainer extends React.Component {
   handleSaveClick = (params) => {
     const profile = {...this.props.profile};
     profile.description = params.description;
-    this.props.dispatch(updateArtist(profile.id, profile));
+    this.props.dispatch(updateUser(profile.id, profile));
   };
 
   render() {
@@ -38,8 +38,8 @@ class EditProfileDescriptionScreenContainer extends React.Component {
   }
 }
 
-const mapStateToProps = ({ profileReducer, artistReducer }) => {
-  return {...profileReducer, ...artistReducer};
+const mapStateToProps = ({ profileReducer, userReducer }) => {
+  return {...profileReducer, ...userReducer};
 };
 
 const EditProfileDescriptionScreen = connect(mapStateToProps)(EditProfileDescriptionScreenContainer);

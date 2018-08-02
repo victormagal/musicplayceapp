@@ -1,0 +1,120 @@
+import { SongService, UserService } from '../../service';
+import {
+  userStartLoading,
+  userFinishLoading,
+  usersFetched,
+  userSaveSuccess,
+  userSaveError,
+  userByIdFetched,
+  userSongsFetched,
+  userStopFollowSuccess,
+  userFollowSuccess,
+  userFollowError,
+  userNotificationsStartLoading,
+  userNotificationsFinishedLoading,
+  userNotificationsFetched,
+  userNotificationsFollowersFetched
+} from './userTypes';
+
+export const searchUsers = (name) => {
+  return (dispatch) => {
+    dispatch(userStartLoading());
+
+    return UserService.fetchUsers(name).then(response => {
+      dispatch(usersFetched(response));
+    }).catch(e => {
+      console.log('searchUsersError', e.response);
+      dispatch(userFinishLoading());
+    });
+  };
+};
+
+export const updateUser = (id, user) => {
+  return (dispatch) => {
+    dispatch(userStartLoading());
+
+    return UserService.updateUser(id, user).then(() => {
+      dispatch(userSaveSuccess());
+    }).catch(e => {
+      console.log('updateUserError', e.response);
+      dispatch(userSaveError());
+    });
+  };
+};
+
+export const getUserById = (id) => {
+  return (dispatch) => {
+    dispatch(userStartLoading());
+
+    return UserService.getUserById(id).then(response => {
+      dispatch(userByIdFetched(response));
+      dispatch(userSongs(id));
+      dispatch(userFinishLoading());
+    }).catch(e => {
+      console.log('getUserByIdError', e.response);
+      dispatch(userFinishLoading());
+    });
+  };
+};
+
+export const userSongs = (id) => {
+  return (dispatch) => {
+    return SongService.songsByUser(id).then(response => {
+      dispatch(userSongsFetched(response));
+    }).catch(e => {
+      console.log('userSongsError', e.response);
+    });
+  };
+};
+
+export const followUser = (id) => {
+  return (dispatch) => {
+    dispatch(userStartLoading());
+
+    return UserService.followUser(id).then(_ => {
+      dispatch(userFollowSuccess());
+    }).catch(e => {
+      console.log('userFollowError', e.response);
+      dispatch(userFollowError());
+    });
+  };
+};
+
+export const stopFollowUser = (id) => {
+  return (dispatch) => {
+    dispatch(userStartLoading());
+
+    return UserService.stopFollowUser(id).then(() => {
+      dispatch(userStopFollowSuccess());
+    }).catch(e => {
+      console.log('stopFollowUserError', e.response);
+      dispatch(userFollowError());
+    });
+  };
+};
+
+export const getNotifications = () => {
+  return (dispatch) => {
+    dispatch(userNotificationsStartLoading());
+
+    return UserService.getNotifications().then(response => {
+      dispatch(userNotificationsFetched(response.data));
+    }).catch(e => {
+      console.log('getNotificationsError', e.response);
+      dispatch(userNotificationsFinishedLoading());
+    });
+  };
+};
+
+export const getFollowNotifications = () => {
+  return (dispatch) => {
+    dispatch(userNotificationsStartLoading());
+
+    return UserService.getFollowNotifications().then(response => {
+      dispatch(userNotificationsFollowersFetched(response.data));
+    }).catch(e => {
+      console.log('getFollowNotificationsError', e.response);
+      dispatch(userNotificationsFinishedLoading());
+    });
+  };
+};

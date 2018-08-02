@@ -70,7 +70,7 @@ class ChatScreenContainer extends React.Component {
   handleMenuItemClick = (item) => {
     this.handleCloseMenu();
     if(item == 'profile'){
-      this.props.navigation.navigate('ArtistProfileScreen');
+      this.props.navigation.navigate('UserProfileScreen');
     }else if(item == 'block'){
       this.props.navigation.navigate('message', {component: MPBlockProfile});
     }else if(item == 'remove'){

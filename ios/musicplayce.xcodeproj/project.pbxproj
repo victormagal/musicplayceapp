@@ -899,8 +899,8 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = XP64R75L6S;
-						ProvisioningStyle = Automatic;
+						DevelopmentTeam = WT836546AW;
+						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -1558,10 +1558,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = musicplayce/musicplayce.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
-				DEVELOPMENT_TEAM = XP64R75L6S;
+				DEVELOPMENT_TEAM = WT836546AW;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-linear-gradient/BVLinearGradient",
@@ -1580,10 +1580,10 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = br.com.musicplayce.app.dev;
+				PRODUCT_BUNDLE_IDENTIFIER = br.com.musicplayce;
 				PRODUCT_NAME = musicplayce;
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "ba0f3fbc-9213-4930-b77b-908cc5b36095";
+				PROVISIONING_PROFILE_SPECIFIER = MusicplayceProv;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -1593,10 +1593,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = musicplayce/musicplayce.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = XP64R75L6S;
+				DEVELOPMENT_TEAM = WT836546AW;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-linear-gradient/BVLinearGradient",
@@ -1615,10 +1615,10 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = br.com.musicplayce.app.dev;
+				PRODUCT_BUNDLE_IDENTIFIER = br.com.musicplayce;
 				PRODUCT_NAME = musicplayce;
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "04d14f96-f737-4b29-b606-6b92c9c3646f";
+				PROVISIONING_PROFILE_SPECIFIER = Musicplayce;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;

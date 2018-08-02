@@ -1,8 +1,8 @@
 import React from 'react';
 import {StyleSheet, ScrollView, View, TextInput, FlatList} from 'react-native';
 import {connect} from 'react-redux';
-import {MPHeader, MPTextField, MPArtist, MPSong, MPGradientButton, MPText, MPLoading} from '../../../components'
-import {searchArtists, fetchOneSong, indicateSong} from '../../../state/action';
+import {MPHeader, MPTextField, MPUser, MPSong, MPGradientButton, MPText, MPLoading} from '../../../components'
+import {searchUsers, fetchOneSong, indicateSong} from '../../../state/action';
 
 class IndicateSongFullScreenContainer extends React.Component {
 
@@ -11,7 +11,7 @@ class IndicateSongFullScreenContainer extends React.Component {
     this.state = {
       textValue: '',
       songHeader: true,
-      notFoundArtist: false,
+      notFoundUser: false,
       songIndicateSuccess: false,
       artists: [],
       indication: {
@@ -22,7 +22,7 @@ class IndicateSongFullScreenContainer extends React.Component {
   }
 
   componentDidMount(){
-    this.props.dispatch(searchArtists(''));
+    this.props.dispatch(searchUsers(''));
     if(this.props.navigation.state && this.props.navigation.state.params){
       let {song} = this.props.navigation.state.params;
       this.setState({song: song});
@@ -31,9 +31,9 @@ class IndicateSongFullScreenContainer extends React.Component {
 
   componentWillReceiveProps(nextProps){
     if(nextProps.artists && nextProps.artists.data.length > 0){
-      this.setState({artists: nextProps.artists.data, notFoundArtist: false});
+      this.setState({artists: nextProps.artists.data, notFoundUser: false});
     }else if(nextProps.artists && nextProps.artists.data.length == 0){
-      this.setState({notFoundArtist: true});
+      this.setState({notFoundUser: true});
     }
 
     if(nextProps.songIndicateSuccess){
@@ -57,7 +57,7 @@ class IndicateSongFullScreenContainer extends React.Component {
   };
 
   renderItem = ({item}) => (
-    <MPArtist artist={item}
+    <MPUser artist={item}
               onPress={this.handleSongIndicate.bind(this, [item, this.state.song])} style={{marginBottom: 10}}/>
   );
 
@@ -69,12 +69,12 @@ class IndicateSongFullScreenContainer extends React.Component {
     this.setState({textValue: value});
 
     if(value == ""){
-      this.props.dispatch(searchArtists(''));
-      this.setState({notFoundArtist: false});
+      this.props.dispatch(searchUsers(''));
+      this.setState({notFoundUser: false});
     }
 
     if(value.length > 3){
-      this.props.dispatch(searchArtists(value))
+      this.props.dispatch(searchUsers(value))
     }
   }
 
@@ -98,7 +98,7 @@ class IndicateSongFullScreenContainer extends React.Component {
                                onFocus={this.toggleState.bind(this, 'songHeader')}
                                onBlur={this.toggleState.bind(this, 'songHeader')}
                                onChangeText={ this.handleSearch }/>
-                  {this.state.notFoundArtist && (
+                  {this.state.notFoundUser && (
                         <View>
                           <MPText style={ styles.textFieldSubText}><MPText style={ styles.textFieldSubTextEmph}>"{this.state.textValue}"</MPText>ainda não está no MusicPlayce.</MPText>
                           <View style={styles.infoTextContainer}>

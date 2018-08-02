@@ -7,7 +7,7 @@ import {MPPlayBlackIcon} from '../../assets/svg';
 class MPSong extends Component {
 
   handleSongComposers = (song) => {
-    let composerString = song.artist.name;
+    let composerString = song.user.name;
     if(song.coAuthors && song.coAuthors.length > 0){
       let coAuthors = song.coAuthors;
       coAuthors.map((coAuthor, index, array) => {
@@ -34,7 +34,7 @@ class MPSong extends Component {
             </View>
             <MPText style={ styles.songCardTitle}>COMPOSITORES</MPText>
             <MPText>
-              <MPText style={ styles.songCardArtist}>{song ? this.handleSongComposers(song): 'Almir Sater'}</MPText>
+              <MPText style={ styles.songCardUser}>{song ? this.handleSongComposers(song): 'Almir Sater'}</MPText>
             </MPText>
           </View>
         </View>
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
     color: '#000',
     fontFamily: 'Montserrat-Medium',
   },
-  songCardArtist: {
+  songCardUser: {
     textDecorationLine: 'underline',
     color: '#000'
   }

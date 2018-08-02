@@ -36,7 +36,7 @@ export const songPublishSuccess = createAction(SONG_PUBLISH_SUCCESS);
 export const songPublishError = createAction(SONG_PUBLISH_ERROR);
 export const songUnpublishSuccess = createAction(SONG_UNPUBLISH_SUCCESS);
 export const songUnpublishError = createAction(SONG_UNPUBLISH_ERROR);
-export const fetchedArtistSongs = createAction(FETCHED_ARTIST_SONGS, data => data);
+export const fetchedUserSongs = createAction(FETCHED_ARTIST_SONGS, data => data);
 export const fetchedSong = createAction(FETCHED_SONG, data => data);
 export const fetchedSongLyrics = createAction(FETCHED_SONG_LYRICS, data => data);
 export const songFavoriteSuccess = createAction(SONG_FAVORITE_SUCCESS);

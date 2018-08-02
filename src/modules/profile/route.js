@@ -1,7 +1,7 @@
 import { createStackNavigator } from 'react-navigation';
 import {
   ProfileScreen,
-  ArtistProfileScreen,
+  UserProfileScreen,
   EditProfileDescriptionScreen,
   EditFolderScreen,
   EditProfileSitesScreen,
@@ -13,7 +13,7 @@ import { SongsScreens } from '../registerSongs';
 export const ProfileScreensNavigation = createStackNavigator(
   {
     ProfileScreen: ProfileScreen,
-    ArtistProfileScreen: ArtistProfileScreen,
+    UserProfileScreen: UserProfileScreen,
     EditProfileSites: EditProfileSitesScreen,
     EditProfileDescription: EditProfileDescriptionScreen,
     EditProfileLocation: EditProfileLocationScreen,

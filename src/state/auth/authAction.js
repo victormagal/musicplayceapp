@@ -27,7 +27,7 @@ export const login = (user) => {
       dispatch(loginSuccess(response));
       return response;
     }).catch(e => {
-      console.log(e)
+      console.log('loginError', e.response);
       dispatch(loginError());
     });
   };

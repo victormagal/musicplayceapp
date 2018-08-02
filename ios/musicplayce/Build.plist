@@ -4,7 +4,7 @@
 <dict>
     <key>provisioningProfiles</key>
     <dict>
-        <key>br.com.musicplayce.appp</key>
+        <key>br.com.musicplayce</key>
         <string>MusicplayceProv</string>
     </dict>
     <key>method</key>

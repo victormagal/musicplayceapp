@@ -4,7 +4,6 @@ export * from './StorageService';
 export * from './FeedService';
 export * from './FolderService';
 export * from './TagService';
-export * from './ArtistService';
 export * from './SongService';
 export * from './HelpService';
 export * from './FeedbackService';

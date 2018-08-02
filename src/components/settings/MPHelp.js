@@ -13,7 +13,7 @@ import {MPHeader} from "../general";
 
 class MPHelpComponent extends React.Component {
   state = {
-    options: ['Música', 'Artista', 'Compositor', 'Cadastro', 'Perfil'],
+    options: ['Música', 'Usera', 'Compositor', 'Cadastro', 'Perfil'],
     selectedOption: null,
     message: ''
   }
