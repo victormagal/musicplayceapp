@@ -1,31 +1,37 @@
-import React, {Component} from 'react';
-import {StyleSheet, View, StatusBar} from 'react-native';
-import {MPText} from '../../components';
-import {MPLogoRegisterIcon} from '../../assets/svg';
+import React, { Component } from 'react';
+import { StyleSheet, View, StatusBar } from 'react-native';
+import { MPText } from '../../components';
+import { MPLogoRegisterIcon } from '../../assets/svg';
 import LinearGradient from 'react-native-linear-gradient';
-import {StorageService} from '../../service';
-
+import { StorageService } from '../../service';
 
 class StartScreen extends Component {
-
   componentDidMount() {
     StorageService.getToken().then(token => {
+      const { navigation } = this.props;
       if (token) {
-        this.props.navigation.replace('home');
+        navigation.replace('home');
       } else {
-        this.props.navigation.replace('login');
+        navigation.replace('login');
       }
-    }).catch(e => console.log('StartScreen componentDidMount :: Error', e));
+    }).catch(e => {
+      console.log('StartScreen componentDidMount :: Error', e)
+    });
   }
 
   render() {
     return (
       <View style={styles.container}>
         <LinearGradient colors={["#e1322373", "#ffffff8C"]} style={styles.gradient}>
-          <StatusBar translucent={true} backgroundColor='#e1322373' barStyle='light-content'/>
-
+          <StatusBar
+            translucent={true}
+            backgroundColor='#e1322373'
+            barStyle='light-content'
+          />
           <MPLogoRegisterIcon style={styles.logo}/>
-          <MPText style={styles.title}>O seu lugar de música</MPText>
+          <MPText style={styles.title}>
+            O seu lugar de música
+          </MPText>
         </LinearGradient>
       </View>
     );

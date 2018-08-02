@@ -23,9 +23,9 @@ export const playerSongPlay = createAction(PLAYER_SONG_PLAY, (data) => data);
 export const playerSongPause = createAction(PLAYER_SONG_PAUSE);
 export const playerSongResume = createAction(PLAYER_SONG_RESUME);
 export const playerSongStop = createAction(PLAYER_SONG_STOP)
-export const playerStartFetchArtistsSongs = createAction(PLAYER_START_FETCH_ARTISTS_SONGS);
-export const playerFetchArtistsSongsSuccess = createAction(PLAYER_FETCH_ARTISTS_SONGS_SUCCESS, data => data);
-export const playerFetchArtistsSongsError = createAction(PLAYER_FETCH_ARTISTS_SONGS_ERROR);
+export const playerStartFetchUsersSongs = createAction(PLAYER_START_FETCH_ARTISTS_SONGS);
+export const playerFetchUsersSongsSuccess = createAction(PLAYER_FETCH_ARTISTS_SONGS_SUCCESS, data => data);
+export const playerFetchUsersSongsError = createAction(PLAYER_FETCH_ARTISTS_SONGS_ERROR);
 export const playerSongUpdateProgress = createAction(PLAYER_SONG_UPDATE_PROGRESS, (progress) => progress);
 
 export const songPlay = (song) => {
@@ -58,13 +58,13 @@ export const songStop = () => {
   };
 };
 
-export const getArtistsSongs = (artists) => {
+export const getUsersSongs = (users) => {
   return (dispatch) => {
-    dispatch(playerStartFetchArtistsSongs());
+    dispatch(playerStartFetchUsersSongs());
 
-    return Promise.all(artists.map(id => PlayerService.getArtistsSongs(id))).
-              then(artistsArray => { dispatch(playerFetchArtistsSongsSuccess(artistsArray)) }).catch(e => {
-      dispatch(playerFetchArtistsSongsError(e));
+    return Promise.all(users.map(id => PlayerService.getUsersSongs(id))).
+              then(usersArray => { dispatch(playerFetchUsersSongsSuccess(usersArray)) }).catch(e => {
+      dispatch(playerFetchUsersSongsError(e));
     });
   };
 };

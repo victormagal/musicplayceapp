@@ -1,6 +1,6 @@
 import {SongService} from '../../service';
 import {
-  fetchedArtistSongs,
+  fetchedUserSongs,
   fetchedSong,
   fetchedSongLyrics,
   songDraftError,
@@ -24,7 +24,7 @@ import {
 export const createPermanentSong = (song, file) => {
   return (dispatch, getState) => {
     const {profile} = getState().profileReducer;
-    song.artist_id = profile.id;
+    song.user_id = profile.id;
 
     dispatch(songStartLoading());
     return SongService.createAndPublishSong(song, file).then(() => {
@@ -39,7 +39,7 @@ export const createPermanentSong = (song, file) => {
 export const createDraftSong = (song) => {
   return (dispatch, getState) => {
     const {profile} = getState().profileReducer;
-    song.artist_id = profile.id;
+    song.user_id = profile.id;
 
     dispatch(songStartLoading());
     return SongService.create(song).then(() => {
@@ -102,10 +102,10 @@ export const unpublishSong = (id) => {
   };
 };
 
-export const indicateSong = (songId, artistId) => {
+export const indicateSong = (songId, userId) => {
   return (dispatch) => {
     dispatch(songStartLoading());
-    return SongService.indicateSong(songId, artistId).then(() => {
+    return SongService.indicateSong(songId, userId).then(() => {
       dispatch(songIndicateSuccess());
     }).catch(e => {
       console.log('indicateSongError', e.response);
@@ -144,8 +144,8 @@ export const fetchOneSong = (song) => {
     return SongService.getSong(song).then(response => {
       dispatch(fetchedSong(response));
     }).catch(e => {
-      console.log('fetchOneSongError', e.response);
-      dispatch(songFinishLoading(e.response));
+      console.log('fetchOneSongError', e);
+      dispatch(songFinishLoading());
     });
   };
 };
@@ -163,12 +163,12 @@ export const getSongLyrics = (song) => {
   }
 }
 
-export const fetchArtistSongs = (artist) => {
+export const fetchUserSongs = (userId) => {
   return (dispatch) => {
     dispatch(songStartLoading());
 
-    return SongService.artistSongs(artist).then(response => {
-      dispatch(fetchedArtistSongs(response));
+    return SongService.songsByUser(userId).then(response => {
+      dispatch(fetchedUserSongs(response));
     }).catch(e => {
       dispatch(songFinishLoading(e.response));
     });

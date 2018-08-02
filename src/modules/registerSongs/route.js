@@ -1,5 +1,5 @@
 import {
-  ArtistsScreen,
+  UsersScreen,
   ConfirmationScreen,
   FolderScreen,
   ISRCScreen,
@@ -19,7 +19,7 @@ export const SongsScreens = {
   MusicLetterScreen: MusicLetterScreen,
   MusicDescriptionScreen: MusicDescriptionScreen,
   StylesScreen: StylesScreen,
-  ArtistsScreen: ArtistsScreen,
+  UsersScreen: UsersScreen,
   InterpreterScreen: InterpreterScreen,
   FolderScreen: FolderScreen,
   ConfirmationScreen: ConfirmationScreen,

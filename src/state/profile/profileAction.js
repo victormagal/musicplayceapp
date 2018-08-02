@@ -44,7 +44,7 @@ export const fetchProfile = () => {
     return UserService.me()
       .then(response => dispatch(fetchedProfile((response))))
       .catch((e) => {
-        console.log(e);
+        console.log('fetchProfileError', e);
         dispatch(profileFinishLoading());
       });
   };
@@ -53,7 +53,9 @@ export const fetchProfile = () => {
 export const fetchMyIndications = () => {
   return (dispatch) => {
     return UserService.indications()
-      .then(response => dispatch(fetchedMyIndications(response)))
+      .then(response => {
+        dispatch(fetchedMyIndications(response))
+      })
       .catch((e) => {
         console.log(e);
       });
@@ -63,7 +65,9 @@ export const fetchMyIndications = () => {
 export const fetchMyFollowers = () => {
   return (dispatch) => {
     return UserService.followers()
-      .then(response => dispatch(fetchedMyFollowers(response)))
+      .then(response => {
+        dispatch(fetchedMyFollowers(response.followers))
+      })
       .catch((e) => {
         console.log(e);
       });

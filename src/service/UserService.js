@@ -1,16 +1,17 @@
-import {API, getIncludes} from './api';
-import {AuthService} from './AuthService';
+import {
+  API,
+  getIncludes,
+  transformResponseData
+} from './api';
+import { AuthService } from './AuthService';
 import axios from 'axios';
-
 
 const API_USER = `${API}/users`;
 const API_CURRENT_USER = `${API}/auth/users/me`;
 
-
 class UserService {
-
   static createUser(user) {
-    let data = {
+    const data = {
       data: {
         type: "users",
         attributes: user
@@ -22,7 +23,7 @@ class UserService {
   }
 
   static updateUser(user) {
-    let data = {
+    const data = {
       data: {
         type: "update_user",
         attributes: user
@@ -30,52 +31,80 @@ class UserService {
     };
 
     return axios.put(API_CURRENT_USER, data)
-                .then(response => response.data);
+      .then(response => response.data);
+  }
+
+  static getUserById(id) {
+    return axios.get(`${ API_USER }/${ id }`)
+      .then(response => {
+        const { data } = response.data;
+        const { id, attributes } = data;
+        return { id, ...attributes };
+      });
+  }
+
+  static fetchUsers(search) {
+    const params = {};
+
+    if (search){
+      params.query = JSON.stringify({
+        name: {
+          $like: `%${search}%`
+        }
+      });
+    }
+
+    return axios.get(API_USER, {params})
+      .then(response => {
+        //TODO: handle pagination
+        const { data, meta } = response.data;
+        return {
+          data: transformResponseData(data),
+          pagination: meta.pagination
+        };
+      });
   }
 
   //TODO: refactor
   static me() {
     return AuthService.me()
-      .then(({data}) => {
-        let {id, attributes} = data.data;
-        let user = {id, ...attributes};
-        return {user, profile: user};
+      .then(({ data }) => {
+        const relations = getIncludes(data);
+        const { id, attributes } = data.data;
+        return { id, ...attributes, ...relations };
       });
   }
 
   static indications(){
-    return axios.get(`${API_USER}/me/indications`).then(response => {
-      let {attributes} = response.data.data;
-      return {...attributes};
-    });
-
+    return axios.get(`${API_USER}/me/indications`)
+      .then(response => {
+        const { attributes } = response.data.data;
+        return { ...attributes };
+      });
   }
 
   static followers(){
-    return axios.get(`${API_USER}/me/followers`).then(response => {
-      let {attributes} = response.data.data;
-      return {...attributes};
-    });
+    return axios.get(`${API_USER}/me/followers`)
+      .then(response => {
+        const { attributes } = response.data.data;
+        return { ...attributes };
+      });
   }
 
-  static followArtist(artist){
-    return axios.post(`${API_USER}/me/following/${artist}`);
+  static followUser(user){
+    return axios.post(`${API_USER}/me/following/${user}`);
   }
 
-  static stopFollowArtist(artist){
-    return axios.delete(`${API_USER}/me/following/${artist}`);
+  static stopFollowUser(user){
+    return axios.delete(`${API_USER}/me/following/${user}`);
   }
 
   static getNotifications(){
     return axios.get(`${API_USER}/me/notifications`);
-    let {attributes} = response.data.data
-    return {...attributes};
   }
 
   static getFollowNotifications(){
     return axios.get(`${API_USER}/me/notifications?searchType=following`);
-    let {attributes} = response.data.data
-    return {...attributes};
   }
 }
 

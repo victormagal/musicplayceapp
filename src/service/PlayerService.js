@@ -23,7 +23,7 @@ class PlayerService{
     RNMusicPlayer.resume();
   }
 
-  static getArtistsSongs(id){
+  static getUsersSongs(id){
     return axios.get(`${API}/song-artist/${id}`)
       .then(response => {
         let {data, meta} = response.data;
@@ -32,4 +32,4 @@ class PlayerService{
   }
 }
 
-export {PlayerService}
+export { PlayerService }

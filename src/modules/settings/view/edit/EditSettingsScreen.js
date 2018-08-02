@@ -28,8 +28,9 @@ class EditSettingsScreenContainer extends React.Component {
   componentWillReceiveProps(nextProps){
     if(nextProps.saveProfileSuccess) {
       this.props.navigation.navigate('message', {
-                                     component: this.sections[nextProps.section],
-                                     data: nextProps.responseData[nextProps.section] });
+        component: this.sections[nextProps.section],
+        data: nextProps.responseData[nextProps.section]
+      });
     }
   }
 
@@ -49,7 +50,7 @@ class EditSettingsScreenContainer extends React.Component {
       case 'cell_phone':
         dataToMaintain = ['name', 'username', 'last_name', 'email'];
     }
-    dataToMaintain.forEach(attribute => formData[attribute] = this.props.user[attribute]);
+    dataToMaintain.forEach(attribute => formData[attribute] = this.props.profile[attribute]);
 
     this.props.dispatch(saveProfile(formData, section));
   };
@@ -59,7 +60,7 @@ class EditSettingsScreenContainer extends React.Component {
       <EditSettingsScreenComponent
         onSave={(formData, section) => this.handleSaveClick(formData, section)}
         onBack={this.handleBackClick}
-        profile={this.props.user}
+        profile={this.props.profile}
         loading={this.props.loading}
       />
     );
