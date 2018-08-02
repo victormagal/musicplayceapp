@@ -25,7 +25,7 @@ const playerReducer = (state, action) => {
         folder: ''
       },
       loading: false,
-      artistSongs: [],  
+      userSongs: [],  
     };
 
   switch (action.type) {
@@ -55,7 +55,7 @@ const playerReducer = (state, action) => {
       return {...state, loading: true};
 
     case PLAYER_FETCH_ARTISTS_SONGS_SUCCESS:
-      return {...state, loading: false, artistSongs: action.payload};
+      return {...state, loading: false, userSongs: action.payload};
     
     case PLAYER_FETCH_ARTISTS_SONGS_ERROR:
      return {...state, loading: false};

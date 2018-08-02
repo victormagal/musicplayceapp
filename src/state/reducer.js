@@ -7,7 +7,7 @@ import playerReducer from './player/playerReducer';
 import authReducer from './auth/authReducer';
 import folderReducer from './folder/folderReducer';
 import tagReducer from './tag/tagReducer';
-import artistReducer from './artist/artistReducer';
+import userReducer from './user/userReducer';
 import helpReducer from './settings/help/helpReducer';
 import feedbackReducer from './settings/feedback/feedbackReducer';
 import termsReducer from './settings/termsAndConditions/termsReducer';
@@ -24,7 +24,7 @@ export const reducers = combineReducers({
   authReducer,
   folderReducer,
   tagReducer,
-  artistReducer,
+  userReducer,
   helpReducer,
   feedbackReducer,
   termsReducer,

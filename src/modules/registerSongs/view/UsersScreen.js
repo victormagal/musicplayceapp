@@ -1,12 +1,12 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {StyleSheet, View, ScrollView, TouchableOpacity} from 'react-native';
-import {MPHeader, MPInput, MPText, MPIconButton, MPLoading, MPArtistHorizontal} from '../../../components';
-import {searchArtists} from '../../../state/action';
+import {MPHeader, MPInput, MPText, MPIconButton, MPLoading, MPUserHorizontal} from '../../../components';
+import {searchUsers} from '../../../state/action';
 import {MPSearchRedIcon, MPCloseFilledRedIcon} from '../../../assets/svg';
 import {updateSongRegisterData} from "../../../state/songs/songsType";
 
-class ArtistsScreenContainer extends React.Component {
+class UsersScreenContainer extends React.Component {
   debounceTimer = null;
 
   constructor(props) {
@@ -14,16 +14,16 @@ class ArtistsScreenContainer extends React.Component {
     this.state = {
       search: '',
       waiting: false,
-      artists: [],
-      artistsSelected: [],
-      artistsSelectedTemp: {}
+      users: [],
+      usersSelected: [],
+      usersSelectedTemp: {}
     };
   }
 
   componentDidMount(){
     if(this.props.song.coAuthors && this.props.song.coAuthors.length > 0){
       this.setState({
-        artistsSelected: this.props.song.coAuthors.map((author) => {
+        usersSelected: this.props.song.coAuthors.map((author) => {
           author.selected = true;
           return author;
         })
@@ -32,8 +32,8 @@ class ArtistsScreenContainer extends React.Component {
   }
 
   componentWillReceiveProps(nextProps){
-    if (nextProps.artists){
-      this.setState({ artists: nextProps.artists.data, waiting: false });
+    if (nextProps.users){
+      this.setState({ users: nextProps.users.data, waiting: false });
     }
   }
 
@@ -48,11 +48,11 @@ class ArtistsScreenContainer extends React.Component {
     this.handleSearch(value);
 
     if (value.length === 0){
-      this.setState({ artistsSelected: Object.values(this.state.artistsSelectedTemp) });
+      this.setState({ usersSelected: Object.values(this.state.usersSelectedTemp) });
     }
 
     if (value.length < 3){
-      this.setState({artists: []});
+      this.setState({users: []});
     }
   };
 
@@ -63,7 +63,7 @@ class ArtistsScreenContainer extends React.Component {
 
     this.debounceTimer = setTimeout(() => {
       if(value.length >= 3) {
-        this.props.dispatch(searchArtists(value));
+        this.props.dispatch(searchUsers(value));
       }
     }, 700);
   };
@@ -73,8 +73,8 @@ class ArtistsScreenContainer extends React.Component {
   };
 
   handleSaveClick = () => {
-    const {artistsSelectedTemp} = this.state;
-    const selecteds = Object.values(artistsSelectedTemp);
+    const {usersSelectedTemp} = this.state;
+    const selecteds = Object.values(usersSelectedTemp);
 
     if (selecteds.length > 0){
       let song = {...this.props.song};
@@ -88,27 +88,27 @@ class ArtistsScreenContainer extends React.Component {
   };
 
   handleClearClick = () => {
-    this.setState({ artists: [], search: '' });
+    this.setState({ users: [], search: '' });
   };
 
-  handleArtistClick = (index) => {
+  handleUserClick = (index) => {
     let newState = {...this.state};
-    const artist = newState.artists[index];
-    newState.artists[index].selected = !artist.selected;
+    const user = newState.users[index];
+    newState.users[index].selected = !user.selected;
 
-    if (artist.selected){
-      newState.artistsSelectedTemp[artist.id] = artist;
+    if (user.selected){
+      newState.usersSelectedTemp[user.id] = user;
     } else {
-      delete newState.artistsSelectedTemp[artist.id];
+      delete newState.usersSelectedTemp[user.id];
     }
 
     this.setState(newState);
   };
 
-  handleArtistSelectedClick = (index, id) => {
+  handleUserSelectedClick = (index, id) => {
     let newState = {...this.state};
-    newState.artistsSelected[index].selected = !newState.artistsSelected[index].selected;
-    delete newState.artistsSelectedTemp[id];
+    newState.usersSelected[index].selected = !newState.usersSelected[index].selected;
+    delete newState.usersSelectedTemp[id];
     this.setState(newState);
   };
 
@@ -124,7 +124,7 @@ class ArtistsScreenContainer extends React.Component {
   }
 
   render() {
-    const hasSelected = Object.keys(this.state.artistsSelectedTemp).length > 0;
+    const hasSelected = Object.keys(this.state.usersSelectedTemp).length > 0;
 
     return (
       <View style={styles.container}>
@@ -135,15 +135,15 @@ class ArtistsScreenContainer extends React.Component {
           icons={this.renderHeaderMenuSave()}
         />
         <ScrollView style={styles.content}>
-          { this.state.artistsSelected.length > 0 && (
-            <View style={styles.contentArtists}>
-              { this.state.artistsSelected.map((item, index) => (
-                <MPArtistHorizontal
+          { this.state.usersSelected.length > 0 && (
+            <View style={styles.contentUsers}>
+              { this.state.usersSelected.map((item, index) => (
+                <MPUserHorizontal
                   key={index}
-                  artist={item.name}
+                  user={item.name}
                   selected={item.selected}
                   image={item.picture_url}
-                  onPress={() => this.handleArtistSelectedClick(index, item.id)}
+                  onPress={() => this.handleUserSelectedClick(index, item.id)}
                 />
               ))}
             </View>
@@ -172,7 +172,7 @@ class ArtistsScreenContainer extends React.Component {
             </View>
 
             { (this.state.search.length >= 3
-              && this.state.artists.length === 0
+              && this.state.users.length === 0
               && !this.props.loading && !this.state.waiting) && (
               <View>
                 <MPText style={ styles.textInputSubTextHeader}>
@@ -193,14 +193,14 @@ class ArtistsScreenContainer extends React.Component {
             }
           </View>
           { (this.state.search.length >= 3 && this.state.artists.length > 0 && !this.props.loading) &&
-            <View style={styles.contentArtists}>
+            <View style={styles.contentUsers}>
               { this.state.artists.map((item, index) => (
-                <MPArtistHorizontal
+                <MPUserHorizontal
                   key={index}
                   artist={item.name}
                   selected={!!item.selected}
                   image={item.picture_url}
-                  onPress={() => this.handleArtistClick(index)}
+                  onPress={() => this.handleUserClick(index)}
                 />
               ))}
             </View>
@@ -225,7 +225,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 40,
     marginTop: 30
   },
-  contentArtists: {
+  contentUsers: {
     marginTop: 30,
     paddingHorizontal: 10
   },
@@ -271,5 +271,5 @@ const mapStateToProps = ({artistReducer, songsReducer}) => {
   return {...artistReducer, song: songsReducer.song};
 };
 
-const ArtistsScreen = connect(mapStateToProps)(ArtistsScreenContainer);
-export {ArtistsScreen};
+const UsersScreen = connect(mapStateToProps)(UsersScreenContainer);
+export {UsersScreen};

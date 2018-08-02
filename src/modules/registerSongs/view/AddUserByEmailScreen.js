@@ -1,9 +1,9 @@
 import React from 'react';
 import {StyleSheet, View, ScrollView } from 'react-native';
-import { MPArtistHorizontal, MPInvitation, MPHeader, MPFooter, MPTextField, MPText } from '../../../components';
+import { MPUserHorizontal, MPInvitation, MPHeader, MPFooter, MPTextField, MPText } from '../../../components';
 import { connect } from 'react-redux';
 
-class AddArtistByEmailScreenContainer extends React.Component {
+class AddUserByEmailScreenContainer extends React.Component {
   constructor(props){
     super(props);
     this.state = { 
@@ -30,7 +30,7 @@ class AddArtistByEmailScreenContainer extends React.Component {
           title={"Co-autores"}
         />
         <ScrollView style={styles.scroll}>
-          <MPArtistHorizontal
+          <MPUserHorizontal
             artist={"Almir Sater"}
             selected={true}
             onPress={() => console.log()}
@@ -97,5 +97,5 @@ const mapStateToProps = () => {
   return {  };
 };
 
-const AddArtistByEmailScreen = connect(mapStateToProps)(AddArtistByEmailScreenContainer);
-export {AddArtistByEmailScreen};
+const AddUserByEmailScreen = connect(mapStateToProps)(AddUserByEmailScreenContainer);
+export {AddUserByEmailScreen};

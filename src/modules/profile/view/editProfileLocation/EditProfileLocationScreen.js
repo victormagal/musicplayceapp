@@ -1,12 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { updateArtist } from '../../../../state/action';
+import { updateUser } from '../../../../state/action';
 import { EditProfileLocation } from './EditProfileLocationComponent';
 import { MPProfileSuccess } from '../../../../components';
 
 class EditProfileLocationScreenContainer extends React.Component {
   componentWillReceiveProps(nextProps){
-    if (nextProps.artistSaveSuccess) {
+    if (nextProps.isUserSaved) {
       this.props.navigation.navigate('message', { component: MPProfileSuccess });
     }
   }
@@ -19,7 +19,7 @@ class EditProfileLocationScreenContainer extends React.Component {
     const profile = {...this.props.profile};
     profile.city = params.city;
     profile.state = params.state;
-    this.props.dispatch(updateArtist(profile.id, profile));
+    this.props.dispatch(updateUser(profile.id, profile));
   };
 
   render() {
@@ -35,8 +35,8 @@ class EditProfileLocationScreenContainer extends React.Component {
   }
 }
 
-const mapStateToProps = ({ profileReducer, artistReducer }) => {
-  return {...profileReducer, ...artistReducer};
+const mapStateToProps = ({ profileReducer, userReducer }) => {
+  return {...profileReducer, ...userReducer};
 };
 
 const EditProfileLocationScreen = connect(mapStateToProps)(EditProfileLocationScreenContainer);

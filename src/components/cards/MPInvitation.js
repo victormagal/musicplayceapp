@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 class MPInvitationComponent extends Component{
 
     render() {
-        let {artistName, artistEmail, selected} = this.props;
+        let {userName, userEmail, selected} = this.props;
         let borderStyle = {};
         let iconStyle = {};
 
@@ -29,16 +29,16 @@ class MPInvitationComponent extends Component{
                 <View style={{paddingTop: 8}}>
                 {
                     this.props.fontLoaded ? (
-                        <View style={ styles.stretchedArtistCardContainer }>
-                            <View style={ [styles.stretchedArtistCardInnerContainer, borderStyle] }>
+                        <View style={ styles.stretchedUserCardContainer }>
+                            <View style={ [styles.stretchedUserCardInnerContainer, borderStyle] }>
                                 <View>
-                                    <Text style={ styles.stretchedArtistText}>{ artistName }</Text>
-                                    <Text style={ styles.stretchedArtistEmail}>{ artistEmail }</Text>
+                                    <Text style={ styles.stretchedUserText}>{ userName }</Text>
+                                    <Text style={ styles.stretchedUserEmail}>{ userEmail }</Text>
                                 </View>
-                                <Icon type='material-community' name='email-outline' color='#5994db' size={22} containerStyle={ styles.emailArtistIcon }/>
+                                <Icon type='material-community' name='email-outline' color='#5994db' size={22} containerStyle={ styles.emailUserIcon }/>
                             </View>
                             { selected &&
-                                <Text style={ styles.stretchedArtistConfirmationText }>Convite Enviado</Text>
+                                <Text style={ styles.stretchedUserConfirmationText }>Convite Enviado</Text>
                             }
                         </View>
                     ) : null
@@ -53,14 +53,14 @@ class MPInvitationComponent extends Component{
 }
 
 MPInvitationComponent.propTypes = {
-    artistName: PropTypes.string.isRequired,
-    artistEmail: PropTypes.string.isRequired,
+    userName: PropTypes.string.isRequired,
+    userEmail: PropTypes.string.isRequired,
     onPress: PropTypes.func.isRequired,
     selected: PropTypes.bool
 };
 
 const styles = StyleSheet.create({
-	stretchedArtistCardContainer: {
+	stretchedUserCardContainer: {
         flexDirection: 'column',
         backgroundColor: '#e13223',
         borderRadius: 4,
@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
         marginBottom: 12,
         padding: 0
       },
-      stretchedArtistCardInnerContainer: {
+      stretchedUserCardInnerContainer: {
         justifyContent: 'flex-start',
         alignItems: 'center',
         flexDirection: 'row',
@@ -81,30 +81,30 @@ const styles = StyleSheet.create({
         height: 60,
         overflow: 'hidden',
       },
-      stretchedArtistImage: {
+      stretchedUserImage: {
         width: 60,
         height: 60,
       },
-      stretchedArtistText: {
+      stretchedUserText: {
         color: "#000",
         paddingStart: 20,
         fontSize: 20,
         fontFamily: 'Montserrat-Regular'
       },
-      stretchedArtistConfirmationText: {
+      stretchedUserConfirmationText: {
         color: '#fff',
         paddingStart: 10,
         paddingTop: 5,
         paddingBottom: 5,
         fontFamily: 'Montserrat-Bold'
       },
-      stretchedArtistEmail:{
+      stretchedUserEmail:{
         color: '#5994db',
         paddingStart: 20,
         fontSize: 14,
         fontFamily: 'Montserrat-Regular'
       },
-      emailArtistIcon: {
+      emailUserIcon: {
           start: 0,
           paddingEnd: 20,
           alignItems: 'flex-end',
