@@ -8,8 +8,7 @@ import {MPValidatedRedIcon} from '../../assets/svg';
 class MPPlayerComment extends Component{
 
   render() {
-    let {style} = this.props;
-
+    let {style, comment} = this.props;
     return (
       <View style={style}>
         <View style={styles.container}>
@@ -19,11 +18,9 @@ class MPPlayerComment extends Component{
             style={styles.avatar}/>
 
           <View style={styles.commentContainer}>
-            <MPText style={styles.artistText}>David Burn <MPValidatedRedIcon /></MPText>
-            <MPText style={styles.timeText}>HÁ 3 HORAS</MPText>
-            <MPText style={styles.comment}>
-              Nam dapibus nisl vitae elit fringilla rutrum. Aenean sollicitudin, erat a elementum rutrum, neque sem pretium metus.
-            </MPText>
+            <MPText style={styles.artistText}>{comment ? comment.data.name : null}<MPValidatedRedIcon /></MPText>
+            <MPText style={styles.timeText}>HÁ {comment ? comment.time : null }</MPText>
+            <MPText style={styles.comment}>{comment ? comment.text : null }</MPText>
             <MPText style={styles.commentLike}>
               Curtir
               <MPText style={styles.countCommentLike}>(10)</MPText>

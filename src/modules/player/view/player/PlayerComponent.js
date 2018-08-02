@@ -158,9 +158,9 @@ class PlayerComponent extends React.Component {
     }
   };
 
-  renderComment = () => {
+  renderComment = ({item}) => {
     return (
-      <MPPlayerComment />
+      <MPPlayerComment comment={item} />
     );
   };
 
@@ -235,6 +235,7 @@ class PlayerComponent extends React.Component {
   }
 
   renderCommentContent() {
+    let {song} = this.props;
     return (
       <MPFade style={styles.modalContent} visible={this.state.showComments}>
         <View style={{flex: 1}}>
@@ -252,7 +253,7 @@ class PlayerComponent extends React.Component {
 
             <View style={[styles.commentMusicContent, styles.row]}>
               <MPPlayIcon style={styles.musicPlayIcon}/>
-              <MPText style={styles.musicTitleText}>Tocando em Frente</MPText>
+              <MPText style={styles.musicTitleText}>{song ? song.name : null}</MPText>
             </View>
 
           </View>
@@ -269,7 +270,7 @@ class PlayerComponent extends React.Component {
           </View>
 
           <FlatList
-            data={this.state.comments}
+            data={song ? song.comments : null}
             keyExtractor={(item) => item.id}
             renderItem={this.renderComment}/>
         </View>
