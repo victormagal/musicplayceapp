@@ -17,7 +17,7 @@ import { connect } from 'react-redux';
 import { GeneralService } from '../../../../service/GeneralService';
 import {fetchCityBrazil, fetchStateBrazil, generalStartLoading} from "../../../../state/general/generalAction";
 import {MPLocationPinIcon} from "../../../../assets/svg";
-import {fetchArtistSongs} from "../../../../state/action";
+import {fetchUserSongs} from "../../../../state/action";
 
 class EditProfileLocationComponent extends React.Component {
   refSaveButton = null;

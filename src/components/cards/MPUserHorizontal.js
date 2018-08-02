@@ -6,7 +6,7 @@ import {MPText} from '../general';
 import {MPValidatedFilledRedIcon} from '../../assets/svg';
 
 
-class MPArtistHorizontal extends Component {
+class MPUserHorizontal extends Component {
 
   render() {
     let {artist, image, selected, style, onPress} = this.props;
@@ -27,10 +27,10 @@ class MPArtistHorizontal extends Component {
 
     return (
       <TouchableOpacity style={[styles.paddingShadow, style || {}]} onPress={ onPress }>
-        <Card containerStyle={[styles.stretchedArtistCardContainer, borderStyle]}>
+        <Card containerStyle={[styles.stretchedUserCardContainer, borderStyle]}>
           <View style={styles.content}>
-            <Image style={styles.stretchedArtistImage} source={image ? {uri: image} : null}/>
-            <MPText style={ styles.stretchedArtistText}>{ artist }</MPText>
+            <Image style={styles.stretchedUserImage} source={image ? {uri: image} : null}/>
+            <MPText style={ styles.stretchedUserText}>{ artist }</MPText>
           </View>
         </Card>
         {selected && <MPValidatedFilledRedIcon style={iconStyle}/>}
@@ -39,7 +39,7 @@ class MPArtistHorizontal extends Component {
   }
 }
 
-MPArtistHorizontal.propTypes = {
+MPUserHorizontal.propTypes = {
   artist: PropTypes.string.isRequired,
   image: PropTypes.any,
   onPress: PropTypes.func,
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
   content: {
     flexDirection: 'row'
   },
-  stretchedArtistCardContainer: {
+  stretchedUserCardContainer: {
     backgroundColor: '#fff',
     borderRadius: 4,
     margin: 0,
@@ -62,13 +62,13 @@ const styles = StyleSheet.create({
     height: 60,
     overflow: 'hidden'
   },
-  stretchedArtistImage: {
+  stretchedUserImage: {
     width: 58,
     height: 58,
     borderTopLeftRadius: 4,
     borderBottomLeftRadius: 4
   },
-  stretchedArtistText: {
+  stretchedUserText: {
     color: "#000",
     fontSize: 20,
     paddingStart: 20,
@@ -77,4 +77,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export {MPArtistHorizontal};
+export {MPUserHorizontal};

@@ -69,7 +69,7 @@ export const transformResponseData = (data) => {
   });
 };
 
-export const API = 'http://musicplayce-api.us-east-1.elasticbeanstalk.com/api';
+// export const API = 'http://musicplayce-api.us-east-1.elasticbeanstalk.com/api';
 // export const API = 'http://35.226.244.95/api';
-// export const API = 'http://263aaf94.ngrok.io/api';
+export const API = 'http://a00f1158.ngrok.io/api';
 

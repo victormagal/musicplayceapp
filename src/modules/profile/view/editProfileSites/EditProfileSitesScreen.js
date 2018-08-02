@@ -1,12 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { updateArtist } from '../../../../state/action';
+import { updateUser } from '../../../../state/action';
 import { EditProfileSitesComponent } from './EditProfileSitesComponent';
 import { MPProfileSuccess } from '../../../../components';
 
 class EditProfileSitesScreenContainer extends React.Component {
   componentWillReceiveProps(nextProps){
-    if (nextProps.artistSaveSuccess) {
+    if (nextProps.isUserSaved) {
       this.props.navigation.navigate('message', { component: MPProfileSuccess });
     }
   }
@@ -18,7 +18,7 @@ class EditProfileSitesScreenContainer extends React.Component {
   handleSaveClick = (params) => {
     const profile = {...this.props.profile};
     profile.social_networks = params.social_networks;
-    this.props.dispatch(updateArtist(profile.id, profile));
+    this.props.dispatch(updateUser(profile.id, profile));
   };
 
   render() {
@@ -34,8 +34,8 @@ class EditProfileSitesScreenContainer extends React.Component {
   }
 }
 
-const mapStateToProps = ({ profileReducer, artistReducer }) => {
-  return {...profileReducer, ...artistReducer};
+const mapStateToProps = ({ profileReducer, userReducer }) => {
+  return {...profileReducer, ...userReducer};
 };
 
 const EditProfileSitesScreen = connect(mapStateToProps)(EditProfileSitesScreenContainer);

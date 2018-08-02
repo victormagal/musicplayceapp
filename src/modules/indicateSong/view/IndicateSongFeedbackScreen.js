@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet, ScrollView, Text, View} from 'react-native';
-import { MPHeader, MPText, MPGradientButton, MPArtist, MPSongRating } from '../../../components'
+import { MPHeader, MPText, MPGradientButton, MPUser, MPSongRating } from '../../../components'
 import { connect } from 'react-redux';
 import { MPPlusIcon,  } from '../../../assets/svg';
 
@@ -33,7 +33,7 @@ class IndicateSongFeedbackScreenContainer extends React.Component {
           <View style={ styles.partnershipContainer}>
             <MPSongRating song={this.state.song} imagePath={images.daftPunk100} onPress={() => {}} style={{}} />
             <MPPlusIcon   style={ styles.partnershipIcon }/>
-            <MPArtist artist={this.state.artist} imagePath={this.state.artist.picture_url} onPress={() => {}} style={{}} />
+            <MPUser artist={this.state.artist} imagePath={this.state.artist.picture_url} onPress={() => {}} style={{}} />
           </View>
           <MPText style={ styles.infoText }><MPText style={ styles.infoTextEmph }>203</MPText> outras pessoas sugeriram esta parceria também!</MPText>
           <MPGradientButton title={'Fechar'} textSize={16} style={{marginHorizontal: 133}} onPress={this.handleBackClick} />

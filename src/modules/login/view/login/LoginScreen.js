@@ -11,7 +11,7 @@ class LoginScreenContainer extends Component {
   componentWillReceiveProps(nextProps){
     if(nextProps.loginSuccess){
       this.props.dispatch(fetchProfile()).then(response => {
-        if (response && response.payload.user.accepted_terms_at === null) {
+        if (response && response.payload.accepted_terms_at === null) {
           this.props.navigation.replace('termsAndConditions');
         } else {
           this.props.navigation.replace('home');

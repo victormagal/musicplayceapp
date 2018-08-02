@@ -65,7 +65,7 @@ class ProfileComponent extends React.Component {
   };
 
   handleIndicateSong = (song) => {
-    song = {...song, artist: this.props.profile};
+    song = {...song, user: this.props.profile};
     this.props.navigation.navigate('IndicateSongFullScreen', {song});
   };
 
@@ -141,8 +141,7 @@ class ProfileComponent extends React.Component {
   }
 
   renderContent(profile) {
-    const { me, myFollowers, navigation } = this.props;
-    const followers = (myFollowers && myFollowers.followers) || [];
+    const { me, followers, navigation } = this.props;
     const userFollowing = (profile && profile.userFollowing) || [];
 
     if (!profile) {
@@ -231,7 +230,7 @@ class ProfileComponent extends React.Component {
           <MPShowLanguages languages={profile.languages} />
         }
         { profile.agencies && (
-          <MPShowAgencies agencies={profile.agencies} isArtist={profile.isArtist}/>
+          <MPShowAgencies agencies={profile.agencies} isUser={profile.isUser}/>
         )}
       </View>
     )

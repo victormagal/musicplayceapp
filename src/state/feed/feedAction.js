@@ -17,7 +17,7 @@ export const fetchFeeds = (text) => {
     dispatch(feedStartLoading());
 
     return FeedService.feeds(text).then(response => {
-      dispatch(fetchedFeedSearch(response));
+      dispatch(fetchedFeedSearch(response.data));
     }).catch(e => {
       dispatch(feedFinishLoading());
     })

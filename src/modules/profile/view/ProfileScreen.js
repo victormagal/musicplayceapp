@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {ProfileComponent} from './ProfileComponent';
-import {fetchProfile, fetchArtistSongs, logout} from '../../../state/action';
+import {fetchProfile, fetchUserSongs, logout} from '../../../state/action';
 import {songRegisterClear} from "../../../state/songs/songsType";
 
 class ProfileScreenContainer extends React.Component {
@@ -9,7 +9,7 @@ class ProfileScreenContainer extends React.Component {
     const { dispatch } = this.props;
 
     dispatch(fetchProfile()).then(response => {
-      dispatch(fetchArtistSongs(response.payload.profile.id));
+      dispatch(fetchUserSongs(response.payload.id));
     });
   }
 
@@ -18,13 +18,13 @@ class ProfileScreenContainer extends React.Component {
 
     if (navigationParams && navigationParams.backFromPublishedOrDraft) {
       const timer = setTimeout(() => {
-        this.props.dispatch(fetchArtistSongs(this.props.profile.id));
+        this.props.dispatch(fetchUserSongs(this.props.profile.id));
         clearTimeout(timer);
       }, 500);
       nextProps.navigation.setParams({ backFromPublishedOrDraft: false });
     }
 
-    if (this.props.artistSaveSuccess !== nextProps.artistSaveSuccess && nextProps.artistSaveSuccess) {
+    if (this.props.isUserSaved !== nextProps.isUserSaved && nextProps.isUserSaved) {
       this.props.dispatch(fetchProfile());
     }
   }
@@ -58,13 +58,13 @@ class ProfileScreenContainer extends React.Component {
   }
 }
 
-const mapStateToProps = ({ profileReducer, songsReducer, artistReducer }) => {
+const mapStateToProps = ({ profileReducer, songsReducer, userReducer }) => {
   const { songCreateSuccess, songRemoveSuccess, songPublishSuccess, songUnpublishSuccess, mySongs } = songsReducer;
-  const { artistSaveSuccess } = artistReducer;
+  const { isUserSaved } = userReducer;
 
   return {
     ...profileReducer,
-    artistSaveSuccess,
+    isUserSaved,
     songCreateSuccess,
     songRemoveSuccess,
     songPublishSuccess,

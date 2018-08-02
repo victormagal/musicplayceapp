@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet, ScrollView, View, FlatList} from 'react-native';
-import {MPGradientButton, MPHeader, MPArtist, MPText} from '../../../components';
+import {MPGradientButton, MPHeader, MPUser, MPText} from '../../../components';
 import {connect} from 'react-redux';
 import images from '../../../assets/img';
 
@@ -37,7 +37,7 @@ class ConfirmationScreenContainer extends React.Component {
   };
 
   renderItem = ({item}) => (
-    <MPArtist
+    <MPUser
       artist={item.title}
       imagePath={item.imagePath}
       onPress={() => console.log()}

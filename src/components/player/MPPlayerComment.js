@@ -19,7 +19,7 @@ class MPPlayerComment extends Component{
             style={styles.avatar}/>
 
           <View style={styles.commentContainer}>
-            <MPText style={styles.artistText}>David Burn <MPValidatedRedIcon /></MPText>
+            <MPText style={styles.userText}>David Burn <MPValidatedRedIcon /></MPText>
             <MPText style={styles.timeText}>HÁ 3 HORAS</MPText>
             <MPText style={styles.comment}>
               Nam dapibus nisl vitae elit fringilla rutrum. Aenean sollicitudin, erat a elementum rutrum, neque sem pretium metus.
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingLeft: 10,
   },
-  artistText: {
+  userText: {
     fontFamily: 'Montserrat-Bold',
     fontSize: 16,
     color: '#e13223'

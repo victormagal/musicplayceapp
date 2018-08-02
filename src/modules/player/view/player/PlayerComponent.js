@@ -30,7 +30,6 @@ import images from '../../../../assets/img';
 
 
 class PlayerComponent extends React.Component {
-
   state = {
     showPlayer: true,
     showComments: false,
@@ -277,12 +276,12 @@ class PlayerComponent extends React.Component {
     );
   }
 
-  renderArtistSongs = (songs) => {
+  renderUserSongs = (songs) => {
     if (songs && songs.length > 0){
       songs.map((songList, index) => {
         return (<View>
           <View style={[styles.sectionHeader, styles.row]}>
-            <MPText style={styles.sectionTitle}>Outras de {this.props.artistNames[index]}</MPText>
+            <MPText style={styles.sectionTitle}>Outras de {this.props.userNames[index]}</MPText>
             <MPGradientBorderButton />
           </View>
           <FlatList
@@ -381,12 +380,12 @@ class PlayerComponent extends React.Component {
             </View>
             <MPCircleGradientButton icon={MPBalloonTalkIcon}/>
           </View>
-          { this.props.artistsSongs && this.props.artistsSongs.length > 0 && (
-            this.props.artistsSongs.map((songList, index) => {
+          { this.props.usersSongs && this.props.usersSongs.length > 0 && (
+            this.props.usersSongs.map((songList, index) => {
               return (
               <View>
                 <View style={[styles.sectionHeader, styles.row]}>
-                  <MPText style={styles.sectionTitle}>Outras de {this.props.artistNames[index]}</MPText>
+                  <MPText style={styles.sectionTitle}>Outras de {this.props.userNames[index]}</MPText>
                   <MPGradientBorderButton />
                 </View>
                 <FlatList
@@ -444,7 +443,7 @@ class PlayerComponent extends React.Component {
 
           <View style={styles.playerInfo}>
             <MPText style={styles.playerSongName}>{song ? song.name : 'Tocando em Frente'}</MPText>
-            <MPText style={styles.playerArtistName}>{song ? this.handleSongComposers(song) : 'Almir Sater'}</MPText>
+            <MPText style={styles.playerUserName}>{song ? this.handleSongComposers(song) : 'Almir Sater'}</MPText>
           </View>
 
           <TouchableOpacity style={styles.playerHeart} onPress={this.handleSaveSong.bind(this,song)}>
@@ -686,7 +685,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Montserrat-Regular',
     fontSize: 14
   },
-  playerArtistName: {
+  playerUserName: {
     fontFamily: 'Montserrat-Bold',
     fontSize: 10,
     color: '#ff0000'

@@ -7,7 +7,7 @@ import {
   TouchableHighlight
 } from 'react-native';
 import {
-  MPArtist,
+  MPUser,
   MPText
 } from '../../components'
 import { MPGroupIcon } from "../../assets/svg";
@@ -27,10 +27,10 @@ class MPShowFollowers extends Component {
     }
   };
 
-  renderArtists = ({ item }) => (
-    <MPArtist
-      artist={item}
-      onPress={() => this.props.navigation.navigate('ArtistProfileScreen', { artistId: item.id })}
+  renderUsers = ({ item }) => (
+    <MPUser
+      user={item}
+      onPress={() => this.props.navigation.navigate('UserProfileScreen', { userId: item.id })}
       isFollowing={this.state.tabIndex === 0}
     />
   );
@@ -72,7 +72,7 @@ class MPShowFollowers extends Component {
             ref={ref => this.flatList = ref}
             data={tabIndex === 0 ? following : followers}
             keyExtractor={(item) => item.id}
-            renderItem={this.renderArtists}
+            renderItem={this.renderUsers}
             horizontal={true}
             ListEmptyComponent={() => (
               <View style={{ width: Dimensions.get('screen').width - 40, alignItems: 'center' }}>
