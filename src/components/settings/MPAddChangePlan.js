@@ -21,7 +21,9 @@ class MPAddChangePlanComponent extends React.Component {
     this.setState({monthly: !this.state.monthly});
   }
   render() {
-      let {onPress} = this.props;
+
+    let {onPress, plans} = this.props;
+    console.log(plans);
     let monthValue = '50,00';
     let yearValue = '550,00';
 

@@ -10,3 +10,4 @@ export * from './HelpService';
 export * from './FeedbackService';
 export * from './TermsAndConditionsService';
 export * from './PlayerService';
+export * from './PlansService';

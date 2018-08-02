@@ -12,6 +12,7 @@ import helpReducer from './settings/help/helpReducer';
 import feedbackReducer from './settings/feedback/feedbackReducer';
 import termsReducer from './settings/termsAndConditions/termsReducer';
 import feedsReducer from './feed/feedReducer';
+import plansReducer from './plan/planReducer';
 
 export const reducers = combineReducers({
   languageReducer,
@@ -27,5 +28,6 @@ export const reducers = combineReducers({
   helpReducer,
   feedbackReducer,
   termsReducer,
-  feedsReducer
+  feedsReducer,
+  plansReducer
 });

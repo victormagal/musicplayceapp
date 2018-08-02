@@ -10,8 +10,15 @@ import {
   MPAddPayment
 } from '../../../components';
 import { connect } from 'react-redux';
+import { getPlans } from '../../../state/action';
 
 class AddChangePlanScreenContainer extends React.Component {
+  constructor(props){
+    super(props);
+    state = {
+      plans: [],
+    }
+  }
 
   handleBack = () => {
     this.props.navigation.pop();
@@ -21,12 +28,23 @@ class AddChangePlanScreenContainer extends React.Component {
     this.props.navigation.navigate('message', { component: MPAddPayment, title: 'Cadastre seu cartão, é 100% seguro' });
   }
 
+  componentDidMount(){
+    this.props.dispatch(getPlans());
+  }
+
+  componentWillReceiveProps(nextProps){
+    if(nextProps.plans){
+      this.setState({plans: nextProps.plans});
+    }
+  }
+
   render() {
+    console.log(this.state);
     return (
       <View style={styles.parent}>
         <MPHeader back={true} onBack={this.handleBack} title={"Assine o plano para ter mais vantagens"} />
         <ScrollView style={styles.scroll}>
-          <MPAddChangePlan onPress={this.addPlan.bind(this)} />
+          <MPAddChangePlan  onPress={this.addPlan.bind(this)} />
         </ScrollView>
       </View>
     );
@@ -46,8 +64,8 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = ({ fontReducer }) => {
-  return { ...fontReducer };
+const mapStateToProps = ({ fontReducer, plansReducer }) => {
+  return { ...fontReducer, ...plansReducer };
 };
 
 const AddChangePlanScreen = connect(mapStateToProps)(AddChangePlanScreenContainer);
