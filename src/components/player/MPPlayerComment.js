@@ -14,6 +14,7 @@ class MPPlayerComment extends Component{
         <View style={styles.container}>
 
           <Image
+            // source={comment ? {uri: comment.data.picture_url} : require('../../assets/img/david-burn-60.png')}
             source={require('../../assets/img/david-burn-60.png')}
             style={styles.avatar}/>
 
