@@ -17,7 +17,9 @@ import {
   FETCHED_SONG_LYRICS,
   SONG_REGISTER_DATA,
   SONG_REGISTER_CLEAR,
-  FETCHED_ARTIST_SONGS
+  FETCHED_ARTIST_SONGS,
+  SONG_LIKE_COMMENT_ERROR,
+  SONG_LIKE_COMMENT_SUCCESS
 } from './songsType';
 
 const defaultSong = {
@@ -42,7 +44,8 @@ const songsReducer = (state, action) => {
     songPublishSuccess: false,
     songUnpublishSuccess: false,
     songIndicateSuccess: false,
-    songFavoriteSuccess: false
+    songFavoriteSuccess: false,
+    likedCommentSuccess: false,
   };
 
   switch (action.type) {
@@ -67,6 +70,7 @@ const songsReducer = (state, action) => {
     case SONG_DRAFT_ERROR:
     case SONG_FAVORITE_ERROR:
     case SONG_INDICATE_ERROR:
+    case SONG_LIKE_COMMENT_ERROR:
     case SONG_PUBLISH_ERROR:
     case SONG_UNPUBLISH_ERROR:
     case SONG_FINISH_LOADING:
@@ -108,6 +112,13 @@ const songsReducer = (state, action) => {
         ...state,
         loading: false,
         songIndicateSuccess: true
+      };
+    
+    case SONG_LIKE_COMMENT_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        likedCommentSuccess: true
       };
 
     case SONG_FAVORITE_SUCCESS:

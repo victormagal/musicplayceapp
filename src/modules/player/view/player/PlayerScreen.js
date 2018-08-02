@@ -7,7 +7,7 @@ import {MPButton} from '../../../../components';
 import {PlayerComponent} from './PlayerComponent';
 import {
   playerSongSaveReceived, songStop, songPlay,
-  songPause, songResume, fetchOneSong, getArtistsSongs
+  songPause, songResume, fetchOneSong, getArtistsSongs, likeSongComment
 } from '../../../../state/action';
 import {
   MPHeartRedIcon
@@ -92,6 +92,10 @@ class PlayerContainer extends React.Component {
     //call action to seek music in react native plugin
   };
 
+  handleLikeComment = (commentId) => {
+    this.props.dispatch(likeSongComment(commentId));
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -102,7 +106,8 @@ class PlayerContainer extends React.Component {
                          onSongPause={this.handleSongPause}
                          onSongResume={this.handleSongResume}
                          onSongPlay={this.handleSongPlay}
-                         onSongSliderChange={this.handleSongSliderChange}/>
+                         onSongSliderChange={this.handleSongSliderChange}
+                         onLikeComment={this.handleLikeComment}/>
         {this.props.saveSong.update && (
           <MPButton
             style={styles.notificationSaved}

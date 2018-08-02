@@ -160,7 +160,7 @@ class PlayerComponent extends React.Component {
 
   renderComment = ({item}) => {
     return (
-      <MPPlayerComment comment={item} />
+      <MPPlayerComment comment={item} onLikeComment={this.props.onLikeComment} />
     );
   };
 

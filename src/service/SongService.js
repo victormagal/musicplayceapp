@@ -97,6 +97,10 @@ class SongService {
     return axios.post(`${API_SONG}/${songId}/indications`, params).then(response => response.data);
   }
 
+  static likeComment(commentId) {
+    return axios.post(`${API_SONG}/${commentId}/like`).then(response => response.data);
+  }
+
   static favoriteSong(songId) {
     // let params = { 
     // folders: [],
