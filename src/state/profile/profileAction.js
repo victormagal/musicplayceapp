@@ -54,23 +54,18 @@ export const uploadImage = (picture) => {
 }
 
 export const fetchProfile = () => {
-  return (dispatch, getState) => {
+  return (dispatch) => {
     dispatch(profileStartLoading());
 
-    if (shouldFetchProfile(getState())) {
-      dispatch(fetchMyIndications());
-      dispatch(fetchMyFollowers());
+    dispatch(fetchMyIndications());
+    dispatch(fetchMyFollowers());
 
-      return UserService.me()
-        .then(response => dispatch(fetchedProfile((response))))
-        .catch((e) => {
-          console.log(e);
-          dispatch(profileFinishLoading());
-        });
-    }
-
-    dispatch(profileFinishLoading());
-    return Promise.resolve();
+    return UserService.me()
+      .then(response => dispatch(fetchedProfile((response))))
+      .catch((e) => {
+        console.log(e);
+        dispatch(profileFinishLoading());
+      });
   };
 };
 
@@ -109,8 +104,4 @@ export const saveProfile = (data, section) => {
       dispatch(profileFinishLoading());
     });
   };
-};
-
-const shouldFetchProfile = (state) => {
-  return (!state.profileReducer.profile || !state.profileReducer.profile.name);
 };

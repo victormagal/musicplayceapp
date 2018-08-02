@@ -158,9 +158,9 @@ class PlayerComponent extends React.Component {
     }
   };
 
-  renderComment = () => {
+  renderComment = ({item}) => {
     return (
-      <MPPlayerComment />
+      <MPPlayerComment comment={item} onLikeComment={this.props.onLikeComment} />
     );
   };
 
@@ -235,6 +235,7 @@ class PlayerComponent extends React.Component {
   }
 
   renderCommentContent() {
+    let {song} = this.props;
     return (
       <MPFade style={styles.modalContent} visible={this.state.showComments}>
         <View style={{flex: 1}}>
@@ -252,7 +253,7 @@ class PlayerComponent extends React.Component {
 
             <View style={[styles.commentMusicContent, styles.row]}>
               <MPPlayIcon style={styles.musicPlayIcon}/>
-              <MPText style={styles.musicTitleText}>Tocando em Frente</MPText>
+              <MPText style={styles.musicTitleText}>{song ? song.name : null}</MPText>
             </View>
 
           </View>
@@ -269,7 +270,7 @@ class PlayerComponent extends React.Component {
           </View>
 
           <FlatList
-            data={this.state.comments}
+            data={song ? song.comments : null}
             keyExtractor={(item) => item.id}
             renderItem={this.renderComment}/>
         </View>
@@ -356,7 +357,7 @@ class PlayerComponent extends React.Component {
 
                 <View style={styles.totalIndicationsContainer}>
                   <MPGradientButton title="INDICAR" onPress={this.handleIndicateSong.bind(this, song)}/>
-                  <MPText style={styles.totalIndications}>200 indicações</MPText>
+                  <MPText style={styles.totalIndications}>{song ? song.indicationsCount : null} indicações</MPText>
                 </View>
               </View>
             </View>
@@ -415,8 +416,9 @@ class PlayerComponent extends React.Component {
   };
 
   renderHeaderMenu() {
+    let {song} = this.props;
     return [
-      <MPIconButton key={1} title="200" titleStyle={styles.headerMenuText} icon={MPCommentWhiteIcon}
+      <MPIconButton key={1} title={song ? song.comments.length : null} titleStyle={styles.headerMenuText} icon={MPCommentWhiteIcon}
                     style={styles.headerMenuItem}
                     onPress={this.handleToggleComments.bind(this, true)}/>,
       <MPIconButton  key={2} title="600" titleStyle={styles.headerMenuText} icon={MPShareWhiteIcon}/>

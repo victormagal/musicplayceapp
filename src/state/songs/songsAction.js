@@ -18,7 +18,9 @@ import {
   songUnpublishError,
   songUnpublishSuccess,
   uploadedSongPictureSucess,
-  uploadedSongPictureError
+  uploadedSongPictureError,
+  likedCommentSuccess,
+  likedCommentError,
 } from "./songsType";
 
 export const createPermanentSong = (song, file) => {
@@ -110,6 +112,17 @@ export const indicateSong = (songId, artistId) => {
     }).catch(e => {
       console.log('indicateSongError', e.response);
       dispatch(songIndicateError())
+    });
+  };
+};
+
+export const likeSongComment = (commentId) => {
+  return (dispatch) => {
+    dispatch(songStartLoading());
+    return SongService.likeComment(commentId).then((response) => {
+      dispatch(likedCommentSuccess());
+    }).catch(e => {
+      dispatch(likedCommentError())
     });
   };
 };

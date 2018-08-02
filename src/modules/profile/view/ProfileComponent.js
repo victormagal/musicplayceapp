@@ -186,10 +186,7 @@ class ProfileComponent extends React.Component {
             colors={['rgba(0, 0, 0, 0.2)', '#e13223']}
           >
             { this.renderProfileData(profile) }
-            <TouchableOpacity
-              style={{ alignSelf: 'center', justifyContent: 'center', marginBottom: 20 }}
-              onPress={this.handleScrollEnd}
-            >
+            <TouchableOpacity style={styles.profileArrow} onPress={this.handleScrollEnd}>
               <MPProfileArrowIcon />
             </TouchableOpacity>
           </LinearGradient>
@@ -377,6 +374,12 @@ const styles = StyleSheet.create({
   },
   logout: {
     padding: 10
+  },
+  profileArrow: {
+    alignSelf: 'center',
+    justifyContent: 'center',
+    padding: 20,
+    marginTop: -20
   }
 });
 
