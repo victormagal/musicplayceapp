@@ -357,7 +357,7 @@ class PlayerComponent extends React.Component {
 
                 <View style={styles.totalIndicationsContainer}>
                   <MPGradientButton title="INDICAR" onPress={this.handleIndicateSong.bind(this, song)}/>
-                  <MPText style={styles.totalIndications}>200 indicações</MPText>
+                  <MPText style={styles.totalIndications}>{song ? song.indicationsCount : null} indicações</MPText>
                 </View>
               </View>
             </View>
@@ -416,8 +416,9 @@ class PlayerComponent extends React.Component {
   };
 
   renderHeaderMenu() {
+    let {song} = this.props;
     return [
-      <MPIconButton key={1} title="200" titleStyle={styles.headerMenuText} icon={MPCommentWhiteIcon}
+      <MPIconButton key={1} title={song ? song.comments.length : null} titleStyle={styles.headerMenuText} icon={MPCommentWhiteIcon}
                     style={styles.headerMenuItem}
                     onPress={this.handleToggleComments.bind(this, true)}/>,
       <MPIconButton  key={2} title="600" titleStyle={styles.headerMenuText} icon={MPShareWhiteIcon}/>
