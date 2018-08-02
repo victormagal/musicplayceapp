@@ -11,29 +11,32 @@ class MPNotificationListComponent extends React.Component {
 
   render() {
     let { item } = this.props;
+    let notificationType = item.type.split("\\")[item.type.split("\\").length - 1];
+    console.log(notificationType, item);
+    let types = [
+      'AlertIndicationYourSongNotification',
+      'AlertFaqNotification'
+    ]
     return (
-      <View>
         <View style={styles.item}>
+          <View style={styles.boxIcon}>
+            <Image source={require('../../../assets/images/avatar.png')} />
+          </View>
           {
-            item.avatar ? (
-              <View style={styles.boxIcon}>
-                <Image source={require('../../../assets/images/avatar.png')} />
-              </View>
-            ) : null
+            notificationType == types[0] && (
+              <MPText style={styles.notificationText}>
+                <MPText style={styles.notificationTextEmpth}>{item.data.userLogged.name}</MPText> indicou a sua música
+                <MPText style={styles.notificationTextEmpth}> {item.data.song.name}</MPText> para 
+                <MPText style={styles.notificationTextEmpth}> {item.data.artistIndicate.name}</MPText>
+              </MPText>
+            )
           }
           {
-            item.avatar ? (
-              <View style={styles.boxText}>
-                <MPText style={styles.text}>
-                  {item.title}
-                </MPText>
-              </View>
-            ) : 
-            <View style={styles.boxTextBig}>
-              <MPText style={styles.text}>
-                {item.title}
+            notificationType == types[1] && (
+              <MPText style={styles.notificationText}>
+                <MPText style={styles.notificationTextEmpth}>{item.data.users.name}</MPText> sua pergunta já está registrada em nosso sistema.
               </MPText>
-            </View>
+            )
           }
           <View style={styles.boxFoward}>
             <MPText style={styles.textTime}>
@@ -41,7 +44,6 @@ class MPNotificationListComponent extends React.Component {
             </MPText>
           </View>
         </View>
-      </View>
     );
   }
 
@@ -69,10 +71,19 @@ const styles = StyleSheet.create({
   boxTextBig: {
     flex: 0.8
   },
-  text: {
-    color: '#9B9B9B',
+  notificationText: {
+    fontSize: 16,
+    color: '#9b9b9b',
     fontFamily: 'ProbaPro-Regular',
-    fontSize: 16
+    textAlign: 'left',
+    flexWrap: 'wrap',
+    flex: 1,
+    marginEnd: 15,
+    alignSelf: 'center'
+  },
+  notificationTextEmpth: {
+    color:'#4a90e2',
+    textDecorationLine: 'underline',
   },
   boxFoward: {
     flex: 0.2,

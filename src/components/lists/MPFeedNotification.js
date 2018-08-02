@@ -8,28 +8,39 @@ import { MPText } from '../../components';
 class MPFeedNotification extends React.Component {
 
   render() {
-    let {
-      artistName, 
-      composerName, 
-      songName, 
-      timeText
-    } = this.props;
+    let {notification} = this.props;
+    let notificationType = notification.type.split("\\")[notification.type.split("\\").length - 1];
+
+    let types = ['AlertFollowingMeIndicationNotification',
+      'AlertFollowersMeNotification',
+      // 'AlertIndicationMeNotification',
+      // 'AlertFollowingMeNotification',
+      // 'AlertIndicationYourSongNotification' 
+    ];
+    
     return (
       <View style={styles.parent}>
         <View style={{width: 40, height: 40, backgroundColor: '#f60', marginEnd: 10}}></View>
         {
-          this.props.notificationType == '1' && (
+          notificationType == types[0] && (
             <MPText style={styles.notificationText}>
-              <MPText style={styles.notificationTextEmpth}>{songName}</MPText> de
-              <MPText> </MPText>
-              <MPText style={styles.notificationTextEmpth}>{composerName}</MPText> foi indicada para 
-              <MPText> </MPText>
-              <MPText style={styles.notificationTextEmpth}>{artistName}</MPText>
+              <MPText style={styles.notificationTextEmpth}>{notification.data.song.name}</MPText> de
+              <MPText style={styles.notificationTextEmpth}> {notification.data.artistsOwner.name}</MPText> foi indicada para 
+              <MPText style={styles.notificationTextEmpth}> {notification.data.artistIndication.name}</MPText>
             </MPText>
           )
         }
-        {
-          this.props.notificationType == '2' && (
+        { 
+          notificationType == types[1] && (
+            <MPText style={styles.notificationText}>
+              <MPText style={styles.notificationTextEmpth}>{notification.data.userFollower.name}</MPText> começou a seguir   
+              <MPText style={styles.notificationTextEmpth}> {notification.data.artists.name}</MPText>
+            </MPText>
+          )
+        } 
+        { /*
+        { 
+          notification.type == '2' && (
             <MPText style={styles.notificationText}>
               <MPText style={styles.notificationTextEmpth}>{composerName}</MPText> indicou  
               <MPText style={styles.notificationTextEmpth}>{artistName}</MPText>
@@ -37,15 +48,7 @@ class MPFeedNotification extends React.Component {
           )
         }
         {
-          this.props.notificationType == '3' && (
-            <MPText style={styles.notificationText}>
-              <MPText style={styles.notificationTextEmpth}>{composerName}</MPText> começou a seguir   
-              <MPText style={styles.notificationTextEmpth}>{artistName}</MPText>
-            </MPText>
-          )
-        } 
-        {
-          this.props.notificationType == '4' && (
+          notification.type == '4' && (
             <MPText style={styles.notificationText}>
               <MPText style={styles.notificationTextEmpth}>{artistName}</MPText> comentou em    
               <MPText style={styles.notificationTextEmpth}>{songName}</MPText>
@@ -53,14 +56,14 @@ class MPFeedNotification extends React.Component {
           )
         }
         {
-          this.props.notificationType == '5' && (
+          notification.type == '5' && (
             <MPText style={styles.notificationText}>
               <MPText style={styles.notificationTextEmpth}>{composerName}</MPText> postou uma música: 
               <MPText style={styles.notificationTextEmpth}> {songName}</MPText>
             </MPText>
           )
-        }            
-        <MPText style={styles.notificationTimeLeft}>{timeText}</MPText>
+        }*/}
+        <MPText style={styles.notificationTimeLeft}>{notification.time}</MPText> 
       </View>
     );
   }

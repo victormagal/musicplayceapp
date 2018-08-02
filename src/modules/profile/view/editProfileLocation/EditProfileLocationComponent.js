@@ -17,6 +17,7 @@ import { connect } from 'react-redux';
 import { GeneralService } from '../../../../service/GeneralService';
 import {fetchCityBrazil, fetchStateBrazil, generalStartLoading} from "../../../../state/general/generalAction";
 import {MPLocationPinIcon} from "../../../../assets/svg";
+import {fetchArtistSongs} from "../../../../state/action";
 
 class EditProfileLocationComponent extends React.Component {
   refSaveButton = null;
@@ -41,6 +42,11 @@ class EditProfileLocationComponent extends React.Component {
 
   componentDidUpdate(prevProps, prevState) {
     const { selectedState, isCurrentLocation } = this.state;
+
+    if (prevProps.states === null && !this.props.loading) {
+      const selectedState = this.props.states.filter(s => s.sigla === this.state.state)[0].id;
+      this.setState({ selectedState, isCurrentLocation: true });
+    }
 
     if (selectedState !== prevState.selectedState) {
       if (prevState.selectedState !== null) {
@@ -110,6 +116,7 @@ class EditProfileLocationComponent extends React.Component {
   render() {
     const { onBack, cities, states } = this.props;
     const { selectedState, selectedCity, error } = this.state;
+
     return (
       <View style={styles.parent}>
         <MPHeader

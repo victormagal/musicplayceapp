@@ -24,7 +24,7 @@ class ProfileScreenContainer extends React.Component {
       nextProps.navigation.setParams({ backFromPublishedOrDraft: false });
     }
 
-    if (nextProps.artistSaveSuccess) {
+    if (this.props.artistSaveSuccess !== nextProps.artistSaveSuccess && nextProps.artistSaveSuccess) {
       this.props.dispatch(fetchProfile());
     }
   }
@@ -58,11 +58,13 @@ class ProfileScreenContainer extends React.Component {
   }
 }
 
-const mapStateToProps = ({ profileReducer, songsReducer }) => {
+const mapStateToProps = ({ profileReducer, songsReducer, artistReducer }) => {
   const { songCreateSuccess, songRemoveSuccess, songPublishSuccess, songUnpublishSuccess, mySongs } = songsReducer;
+  const { artistSaveSuccess } = artistReducer;
 
   return {
     ...profileReducer,
+    artistSaveSuccess,
     songCreateSuccess,
     songRemoveSuccess,
     songPublishSuccess,

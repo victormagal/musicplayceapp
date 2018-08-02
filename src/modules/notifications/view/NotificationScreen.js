@@ -7,6 +7,7 @@ import Swiper from 'react-native-swiper';
 import {
   MPHeader, MPNotificationList, MPMessageList, MPTabBar
 } from '../../../components';
+import { getNotifications } from '../../../state/action';
 
 
 class NotificationScreenContainer extends React.Component {
@@ -164,6 +165,20 @@ class NotificationScreenContainer extends React.Component {
     ]
   };
 
+  componentDidMount(){
+    this.props.dispatch(getNotifications());
+  }
+
+  componentWillReceiveProps(nextProps){
+    if(nextProps.notifications.data){
+      let notificationList = nextProps.notifications.data.map((notification, index)=>{
+        obj = {id: index, type: notification.attributes.type, data: JSON.parse(notification.attributes.data), time: notification.attributes.time};
+        return obj;
+      })
+      this.setState({notifications: notificationList});
+    }
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -177,7 +192,7 @@ class NotificationScreenContainer extends React.Component {
           onIndexChanged={this.handleChangeTab}>
           <View style={styles.firstSliderContainer}>
             <FlatList
-              data={this.listNotifications.data}
+              data={this.state.notifications}
               keyExtractor={item => item.id}
               renderItem={({ item }) => {
                 return (
@@ -219,8 +234,8 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = () => {
-  return {};
+const mapStateToProps = ({artistReducer}) => {
+  return {...artistReducer};
 };
 
 const NotificationScreen = connect(mapStateToProps)(NotificationScreenContainer);
