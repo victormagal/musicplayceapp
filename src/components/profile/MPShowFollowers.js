@@ -23,7 +23,8 @@ class MPShowFollowers extends Component {
     const hasToScroll = tabIndex === 0 ? following.length > 0 : followers.length > 0;
 
     if (hasToScroll) {
-      this.flatList.scrollToIndex({ index: 0 });
+      //TODO: REVIEW, error in IOS
+      //this.flatList.scrollToIndex({ index: 0 });
     }
   };
 
