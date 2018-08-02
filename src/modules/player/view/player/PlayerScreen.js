@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { View, StyleSheet } from 'react-native';
 import { MPButton } from '../../../../components';
-import { PlayerComponent } from './PlayerComponent';
+import {PlayerComponent} from './PlayerComponent';
 import {
   playerSongSaveReceived,
   songStop,
@@ -10,7 +10,8 @@ import {
   songPause,
   songResume,
   fetchOneSong,
-  getUsersSongs
+  getUsersSongs,
+  likeSongComment
 } from '../../../../state/action';
 import { MPHeartRedIcon } from '../../../../assets/svg';
 
@@ -94,6 +95,10 @@ class PlayerContainer extends React.Component {
     //TODO: call action to seek music in react native plugin
   };
 
+  handleLikeComment = (commentId) => {
+    this.props.dispatch(likeSongComment(commentId));
+  }
+
   render() {
     const { saveSong } = this.props;
     const { song, usersSongs, userNames } = this.state;
@@ -108,6 +113,7 @@ class PlayerContainer extends React.Component {
           onSongResume={this.handleSongResume}
           onSongPlay={this.handleSongPlay}
           onSongSliderChange={this.handleSongSliderChange}
+          onLikeComment={this.handleLikeComment}
         />
         { saveSong.update &&
           <MPButton

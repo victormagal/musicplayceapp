@@ -1,36 +1,37 @@
-import React, {Component} from 'react';
-import {StyleSheet, View, TouchableOpacity, Image} from 'react-native';
+import React, { Component } from 'react';
+import { StyleSheet, View, Image } from 'react-native';
 import PropTypes from 'prop-types';
-import {MPText} from '../general/MPText';
-import {MPValidatedRedIcon} from '../../assets/svg';
-
+import { MPText } from '../general/MPText';
+import { MPValidatedRedIcon } from '../../assets/svg';
 
 class MPPlayerComment extends Component{
-
   render() {
-    let {style} = this.props;
-
+    const { style, comment } = this.props;
     return (
       <View style={style}>
         <View style={styles.container}>
-
           <Image
+            // source={comment ? {uri: comment.data.picture_url} : require('../../assets/img/david-burn-60.png')}
             source={require('../../assets/img/david-burn-60.png')}
-            style={styles.avatar}/>
-
+            style={styles.avatar}
+          />
           <View style={styles.commentContainer}>
-            <MPText style={styles.userText}>David Burn <MPValidatedRedIcon /></MPText>
-            <MPText style={styles.timeText}>HÁ 3 HORAS</MPText>
-            <MPText style={styles.comment}>
-              Nam dapibus nisl vitae elit fringilla rutrum. Aenean sollicitudin, erat a elementum rutrum, neque sem pretium metus.
+            <MPText style={styles.artistText}>
+              {comment ? comment.data.name : null}
+              <MPValidatedRedIcon />
             </MPText>
-            <MPText style={styles.commentLike}>
+            <MPText style={styles.timeText}>
+              HÁ {comment ? comment.time : null }
+            </MPText>
+            <MPText style={styles.comment}>
+              {comment ? comment.text : null }
+            </MPText>
+            <MPText style={styles.commentLike} onPress={comment ? () => this.props.onLikeComment(comment.id) : null}>
               Curtir
-              <MPText style={styles.countCommentLike}>(10)</MPText>
+              <MPText style={styles.countCommentLike}>({comment ? comment.likesCount : null})</MPText>
             </MPText>
           </View>
         </View>
-
         <View style={styles.divider}/>
       </View>
     )
