@@ -5,7 +5,6 @@
 	};
 	objectVersion = 46;
 	objects = {
-
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -56,7 +55,6 @@
 		8A4332D76A2A4D20AE1EDEE7 /* montSerratBlack.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1891D8F853AC466FADE491EF /* montSerratBlack.ttf */; };
 		AA23A242AFB947BBBC5D2212 /* montSerratMedium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6E31EDAE72764D11B1B852D8 /* montSerratMedium.ttf */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
-		B0784824A1E34B6CB0B2C1AD /* libRNMusicPlayer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FE5EFE6C6AA84426B28F2D3F /* libRNMusicPlayer.a */; };
 		B820D1DD38C04C71830E0F85 /* montSerratBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5C7F634064B141C3B3DFC2D8 /* montSerratBoldItalic.ttf */; };
 		C38E2A37623F431B9844D1D9 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 03DB0F3879CA4223B0D82434 /* FontAwesome.ttf */; };
 		CC2C75080C8348D5AF717C2F /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A0FE1A67CE6747C2884F47DB /* Feather.ttf */; };
@@ -64,6 +62,7 @@
 		D35F01CCEC9A4E2AA0D4DFAD /* libRNDocumentPicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E21F8AE47E6410495ABF0BA /* libRNDocumentPicker.a */; };
 		E4237FB6CB7349E38B1E7DE5 /* montSerratBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BEAEB7E3307B4BA9AA976F05 /* montSerratBold.ttf */; };
 		ED2541BADB1449FD99188509 /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 409198991D2C4320B5DB15FC /* MaterialCommunityIcons.ttf */; };
+		4B265712984A416491045671 /* libRNMusicPlayer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D5CD98055C184CE08DE6DC67 /* libRNMusicPlayer.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -319,13 +318,6 @@
 			remoteGlobalIDString = 2D2A28201D9B03D100D4039D;
 			remoteInfo = "RCTAnimation-tvOS";
 		};
-		6702EC9F2107986D00F32518 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = DC28243724254A33A8C8170F /* RNMusicPlayer.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 134814201AA4EA6300B7C361;
-			remoteInfo = RNMusicPlayer;
-		};
 		672543AC2102970300CCF05B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 09348F13A0C34930A179B25C /* BVLinearGradient.xcodeproj */;
@@ -444,12 +436,12 @@
 		B71E0D6A936A4227AFD0B806 /* montSerratItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = montSerratItalic.ttf; path = ../assets/fonts/montSerratItalic.ttf; sourceTree = "<group>"; };
 		BEAEB7E3307B4BA9AA976F05 /* montSerratBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = montSerratBold.ttf; path = ../assets/fonts/montSerratBold.ttf; sourceTree = "<group>"; };
 		C9EB97AE51C246D4ACD9A605 /* RNVectorIcons.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNVectorIcons.xcodeproj; path = "../node_modules/react-native-vector-icons/RNVectorIcons.xcodeproj"; sourceTree = "<group>"; };
-		DC28243724254A33A8C8170F /* RNMusicPlayer.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNMusicPlayer.xcodeproj; path = "../node_modules/react-native-stream-music-player/ios/RNMusicPlayer.xcodeproj"; sourceTree = "<group>"; };
 		DD2B9308B28042F78643FB92 /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
 		DFC0D294FDF6478B8FFCCF15 /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
 		E7E02ECF5E6142EB9F32396A /* RNSVG.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNSVG.xcodeproj; path = "../node_modules/react-native-svg/ios/RNSVG.xcodeproj"; sourceTree = "<group>"; };
 		F82B3C87A8F44D26849768D7 /* libRNVectorIcons.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNVectorIcons.a; sourceTree = "<group>"; };
-		FE5EFE6C6AA84426B28F2D3F /* libRNMusicPlayer.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNMusicPlayer.a; sourceTree = "<group>"; };
+		5E7F3A0E60BE43A4A54197E2 /* RNMusicPlayer.xcodeproj */ = {isa = PBXFileReference; name = "RNMusicPlayer.xcodeproj"; path = "../node_modules/react-native-stream-music-player/ios/RNMusicPlayer.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		D5CD98055C184CE08DE6DC67 /* libRNMusicPlayer.a */ = {isa = PBXFileReference; name = "libRNMusicPlayer.a"; path = "libRNMusicPlayer.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -480,8 +472,8 @@
 				25A5D59B2A874B12A249E91E /* libBVLinearGradient.a in Frameworks */,
 				0C4D87F24D774842B447CD3C /* libRNSVG.a in Frameworks */,
 				6BA2D71AFAA04316BAE3340D /* libRNVectorIcons.a in Frameworks */,
-				B0784824A1E34B6CB0B2C1AD /* libRNMusicPlayer.a in Frameworks */,
 				D35F01CCEC9A4E2AA0D4DFAD /* libRNDocumentPicker.a in Frameworks */,
+				4B265712984A416491045671 /* libRNMusicPlayer.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -673,14 +665,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		6702EC9C2107986D00F32518 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				6702ECA02107986D00F32518 /* libRNMusicPlayer.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		6725437E210296FF00CCF05B /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
@@ -755,8 +739,8 @@
 				09348F13A0C34930A179B25C /* BVLinearGradient.xcodeproj */,
 				E7E02ECF5E6142EB9F32396A /* RNSVG.xcodeproj */,
 				C9EB97AE51C246D4ACD9A605 /* RNVectorIcons.xcodeproj */,
-				DC28243724254A33A8C8170F /* RNMusicPlayer.xcodeproj */,
 				38EC1BA910A4428AB5C54279 /* RNDocumentPicker.xcodeproj */,
+				5E7F3A0E60BE43A4A54197E2 /* RNMusicPlayer.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -984,10 +968,6 @@
 				{
 					ProductGroup = 675FA18D210F451800E521A7 /* Products */;
 					ProjectRef = 38EC1BA910A4428AB5C54279 /* RNDocumentPicker.xcodeproj */;
-				},
-				{
-					ProductGroup = 6702EC9C2107986D00F32518 /* Products */;
-					ProjectRef = DC28243724254A33A8C8170F /* RNMusicPlayer.xcodeproj */;
 				},
 				{
 					ProductGroup = 672543A42102970200CCF05B /* Products */;
@@ -1247,13 +1227,6 @@
 			remoteRef = 5E9157341DD0AC6500FF2AA8 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		6702ECA02107986D00F32518 /* libRNMusicPlayer.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libRNMusicPlayer.a;
-			remoteRef = 6702EC9F2107986D00F32518 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		672543AD2102970300CCF05B /* libBVLinearGradient.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1482,22 +1455,15 @@
 					"$(SRCROOT)/../node_modules/react-native-document-picker/ios/RNDocumentPicker",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-document-picker/ios/RNDocumentPicker",
+					"$(SRCROOT)/../node_modules/react-native-document-picker/ios/RNDocumentPicker",
+					"$(SRCROOT)/../node_modules/react-native-document-picker/ios/RNDocumentPicker",
 					"$(SRCROOT)/../node_modules/react-native-stream-music-player/ios",
-					"$(SRCROOT)/../node_modules/react-native-document-picker/ios/RNDocumentPicker",
-					"$(SRCROOT)/../node_modules/react-native-document-picker/ios/RNDocumentPicker",
 				);
 				INFOPLIST_FILE = musicplayceTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
@@ -1521,22 +1487,15 @@
 					"$(SRCROOT)/../node_modules/react-native-document-picker/ios/RNDocumentPicker",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-document-picker/ios/RNDocumentPicker",
+					"$(SRCROOT)/../node_modules/react-native-document-picker/ios/RNDocumentPicker",
+					"$(SRCROOT)/../node_modules/react-native-document-picker/ios/RNDocumentPicker",
 					"$(SRCROOT)/../node_modules/react-native-stream-music-player/ios",
-					"$(SRCROOT)/../node_modules/react-native-document-picker/ios/RNDocumentPicker",
-					"$(SRCROOT)/../node_modules/react-native-document-picker/ios/RNDocumentPicker",
 				);
 				INFOPLIST_FILE = musicplayceTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
@@ -1565,9 +1524,9 @@
 					"$(SRCROOT)/../node_modules/react-native-document-picker/ios/RNDocumentPicker",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-document-picker/ios/RNDocumentPicker",
+					"$(SRCROOT)/../node_modules/react-native-document-picker/ios/RNDocumentPicker",
+					"$(SRCROOT)/../node_modules/react-native-document-picker/ios/RNDocumentPicker",
 					"$(SRCROOT)/../node_modules/react-native-stream-music-player/ios",
-					"$(SRCROOT)/../node_modules/react-native-document-picker/ios/RNDocumentPicker",
-					"$(SRCROOT)/../node_modules/react-native-document-picker/ios/RNDocumentPicker",
 				);
 				INFOPLIST_FILE = musicplayce/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1600,9 +1559,9 @@
 					"$(SRCROOT)/../node_modules/react-native-document-picker/ios/RNDocumentPicker",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-document-picker/ios/RNDocumentPicker",
+					"$(SRCROOT)/../node_modules/react-native-document-picker/ios/RNDocumentPicker",
+					"$(SRCROOT)/../node_modules/react-native-document-picker/ios/RNDocumentPicker",
 					"$(SRCROOT)/../node_modules/react-native-stream-music-player/ios",
-					"$(SRCROOT)/../node_modules/react-native-document-picker/ios/RNDocumentPicker",
-					"$(SRCROOT)/../node_modules/react-native-document-picker/ios/RNDocumentPicker",
 				);
 				INFOPLIST_FILE = musicplayce/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1638,21 +1597,14 @@
 					"$(SRCROOT)/../node_modules/react-native-document-picker/ios/RNDocumentPicker",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-document-picker/ios/RNDocumentPicker",
+					"$(SRCROOT)/../node_modules/react-native-document-picker/ios/RNDocumentPicker",
+					"$(SRCROOT)/../node_modules/react-native-document-picker/ios/RNDocumentPicker",
 					"$(SRCROOT)/../node_modules/react-native-stream-music-player/ios",
-					"$(SRCROOT)/../node_modules/react-native-document-picker/ios/RNDocumentPicker",
-					"$(SRCROOT)/../node_modules/react-native-document-picker/ios/RNDocumentPicker",
 				);
 				INFOPLIST_FILE = "musicplayce-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
@@ -1686,21 +1638,14 @@
 					"$(SRCROOT)/../node_modules/react-native-document-picker/ios/RNDocumentPicker",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-document-picker/ios/RNDocumentPicker",
+					"$(SRCROOT)/../node_modules/react-native-document-picker/ios/RNDocumentPicker",
+					"$(SRCROOT)/../node_modules/react-native-document-picker/ios/RNDocumentPicker",
 					"$(SRCROOT)/../node_modules/react-native-stream-music-player/ios",
-					"$(SRCROOT)/../node_modules/react-native-document-picker/ios/RNDocumentPicker",
-					"$(SRCROOT)/../node_modules/react-native-document-picker/ios/RNDocumentPicker",
 				);
 				INFOPLIST_FILE = "musicplayce-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
@@ -1733,21 +1678,14 @@
 					"$(SRCROOT)/../node_modules/react-native-document-picker/ios/RNDocumentPicker",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-document-picker/ios/RNDocumentPicker",
+					"$(SRCROOT)/../node_modules/react-native-document-picker/ios/RNDocumentPicker",
+					"$(SRCROOT)/../node_modules/react-native-document-picker/ios/RNDocumentPicker",
 					"$(SRCROOT)/../node_modules/react-native-stream-music-player/ios",
-					"$(SRCROOT)/../node_modules/react-native-document-picker/ios/RNDocumentPicker",
-					"$(SRCROOT)/../node_modules/react-native-document-picker/ios/RNDocumentPicker",
 				);
 				INFOPLIST_FILE = "musicplayce-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
@@ -1780,21 +1718,14 @@
 					"$(SRCROOT)/../node_modules/react-native-document-picker/ios/RNDocumentPicker",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-document-picker/ios/RNDocumentPicker",
+					"$(SRCROOT)/../node_modules/react-native-document-picker/ios/RNDocumentPicker",
+					"$(SRCROOT)/../node_modules/react-native-document-picker/ios/RNDocumentPicker",
 					"$(SRCROOT)/../node_modules/react-native-stream-music-player/ios",
-					"$(SRCROOT)/../node_modules/react-native-document-picker/ios/RNDocumentPicker",
-					"$(SRCROOT)/../node_modules/react-native-document-picker/ios/RNDocumentPicker",
 				);
 				INFOPLIST_FILE = "musicplayce-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
