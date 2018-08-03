@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { updateUser } from '../../../../state/action';
+import { updateUser } from '../../../../../state/action';
 import { EditProfileLocation } from './EditProfileLocationComponent';
-import { MPProfileSuccess } from '../../../../components';
+import { MPProfileSuccess } from '../../../../../components/index';
 
 class EditProfileLocationScreenContainer extends React.Component {
   componentWillReceiveProps(nextProps){

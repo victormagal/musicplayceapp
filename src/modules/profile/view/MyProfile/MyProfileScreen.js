@@ -1,10 +1,10 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {ProfileComponent} from './ProfileComponent';
-import {fetchProfile, fetchUserSongs, logout} from '../../../state/action';
-import {songRegisterClear} from "../../../state/songs/songsType";
+import {ProfileComponent} from '../ProfileComponent';
+import {fetchProfile, fetchUserSongs, logout} from '../../../../state/action';
+import {songRegisterClear} from "../../../../state/songs/songsType";
 
-class ProfileScreenContainer extends React.Component {
+class MyProfileScreenContainer extends React.Component {
   componentDidMount() {
     const { dispatch } = this.props;
 
@@ -73,5 +73,5 @@ const mapStateToProps = ({ profileReducer, songsReducer, userReducer }) => {
   };
 };
 
-const ProfileScreen = connect(mapStateToProps)(ProfileScreenContainer);
-export { ProfileScreen };
+const MyProfileScreen = connect(mapStateToProps)(MyProfileScreenContainer);
+export { MyProfileScreen };

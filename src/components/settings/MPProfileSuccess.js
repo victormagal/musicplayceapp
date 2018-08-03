@@ -11,7 +11,7 @@ import {
 
 class MPProfileSuccessComponent extends React.Component {
   handleOkClick = () => {
-    this.props.navigation.navigate('ProfileScreen');
+    this.props.navigation.navigate('MyProfileScreen');
   };
 
   render() {

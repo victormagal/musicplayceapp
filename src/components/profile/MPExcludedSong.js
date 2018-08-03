@@ -13,7 +13,7 @@ import {
 class MPExcludedSongComponent extends React.Component {
 
   handleBack = () => {
-    this.props.navigation.navigate('ProfileScreen', { backFromPublishedOrDraft: true });
+    this.props.navigation.navigate('MyProfileScreen', { backFromPublishedOrDraft: true });
   };
 
   render() {
