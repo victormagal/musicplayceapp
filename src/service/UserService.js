@@ -33,7 +33,7 @@ class UserService {
     formData.append('picture', {
       uri: file.uri,
       name: file.fileName,
-      extension: file.fileName.split('.')[1]
+      type: file.type
     });
 
     return axios.post(`${ API_USER }/me/picture`, formData, {
