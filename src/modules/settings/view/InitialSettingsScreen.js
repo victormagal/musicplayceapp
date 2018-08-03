@@ -30,63 +30,63 @@ class InitialSettingsScreenContainer extends React.Component {
 		data: [
 			{
 				id: '00',
-				onChooseOption: () => this.props.navigation.replace('editSettings'),
+				onChooseOption: () => this.props.navigation.navigate('editSettings'),
 				title: 'Editar dados cadastrais',
 				icon: MPEditConfigIcon,
 				iconNext: MPArrowRightIcon
 			},
 			{
 				id: '01',
-				onChooseOption: () => this.props.navigation.replace('notificationsSettings'),
+				onChooseOption: () => this.props.navigation.navigate('notificationsSettings'),
 				title: 'Personalizar notificações',
 				icon: MPNotificationConfigIcon,
 				iconNext: MPArrowRightIcon
 			},
 			{
 				id: '02',
-				onChooseOption: () => this.props.navigation.replace('inviteSettings'),
+				onChooseOption: () => this.props.navigation.navigate('inviteSettings'),
 				title: 'Convide seus amigos',
 				icon: MPInviteConfigIcon,
 				iconNext: MPArrowRightIcon
 			},
 			{
 				id: '03',
-				onChooseOption: () => this.props.navigation.replace('helpSettings'),
+				onChooseOption: () => this.props.navigation.navigate('helpSettings'),
 				title: 'Peça ajuda',
 				icon: MPHelpConfigIcon,
 				iconNext: MPArrowRightIcon
 			},
 			{
 				id: '04',
-				onChooseOption: () => this.props.navigation.replace('passwordSettings'),
+				onChooseOption: () => this.props.navigation.navigate('passwordSettings'),
 				title: 'Troque sua senha',
 				icon: MPPasswordConfigIcon,
 				iconNext: MPArrowRightIcon
 			},
 			{
 				id: '05',
-				onChooseOption: () => this.props.navigation.replace('addChangePlanSettings'),
+				onChooseOption: () => this.props.navigation.navigate('addChangePlanSettings'),
 				title: 'Alterar plano',
 				icon: MPChangePlanIcon,
 				iconNext: MPArrowRightIcon
 			},
 			{
 				id: '06',
-				onChooseOption: () => this.props.navigation.replace('paymentTypesSettings'),
+				onChooseOption: () => this.props.navigation.navigate('paymentTypesSettings'),
 				title: 'Alterar forma de pagamento',
 				icon: MPPaymentTypesIcon,
 				iconNext: MPArrowRightIcon
 			},
 			{
 				id: '07',
-				onChooseOption: () => this.props.navigation.replace('feedbackSettings'),
+				onChooseOption: () => this.props.navigation.navigate('feedbackSettings'),
 				title: 'Enviar feedback',
 				icon: MPFeedbackConfigIcon,
 				iconNext: MPArrowRightIcon
 			},
 			{
 				id: '08',
-				onChooseOption: () => this.props.navigation.replace('termsSettings'),
+				onChooseOption: () => this.props.navigation.navigate('termsSettings'),
 				title: 'Termos e condições',
 				icon: MPTermsConfigIcon,
 				iconNext: MPArrowRightIcon

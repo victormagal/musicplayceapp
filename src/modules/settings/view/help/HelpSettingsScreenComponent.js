@@ -22,7 +22,6 @@ class HelpSettingsScreenComponent extends React.Component {
         <MPHeader
           back={true}
           onBack={onBack}
-          icons={[ <View key={Math.random()}/> ]}
           title={"Pesquise sua dúvida ou consulte na lista abaixo"}
         />
         <ScrollView style={styles.scroll}>
