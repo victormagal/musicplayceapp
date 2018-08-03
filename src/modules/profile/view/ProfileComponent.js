@@ -38,40 +38,45 @@ class ProfileComponent extends React.Component {
   }
 
   goToScreen = (rota, params = {}) => {
-    this.props.navigation.navigate(rota, params)
+    this.props.navigation.navigate(rota, params);
   };
 
   handleScrollEnd = () => {
-    this.scrollViewRef.current.scrollTo({y: this.state.linearGradientHeight, animated: true})
+    this.scrollViewRef.current.scrollTo({
+      y: this.state.linearGradientHeight,
+      animated: true
+    })
   };
 
   toggleFollow = () => {
-    if(this.props.profile.isFollowing){
-      this.props.navigation.navigate('message', {component: MPConfirmStopFollow, profile: this.props.profile});
-    }else{
-      this.props.onFollowUpClick();
+    const { profile, navigation, onFollowUpClick } = this.props;
+    if (profile.isFollowing) {
+      navigation.navigate('message', { component: MPConfirmStopFollow, profile });
+    } else {
+      onFollowUpClick();
     }
   };
 
   handleEditSong = (song) => {
-    this.props.navigation.navigate('RegisterSongScreen', {song});
+    this.goToScreen('RegisterSongScreen', { song });
   };
 
   handleRemoveSong = (song) => {
-    this.props.navigation.navigate('message', {component: MPConfirmExcludeSong, song});
+    this.goToScreen('message', { component: MPConfirmExcludeSong, song });
   };
 
   handleUnpublishSong = (song) => {
-    this.props.navigation.navigate('message', {component: MPConfirmUnpublishSong, song});
+    this.goToScreen('message', { component: MPConfirmUnpublishSong, song });
   };
 
   handleIndicateSong = (song) => {
-    song = {...song, user: this.props.profile};
-    this.props.navigation.navigate('IndicateSongFullScreen', {song});
+    const { profile } = this.props;
+    song = {...song, user: profile};
+    this.goToScreen('IndicateSongFullScreen', { song });
   };
 
   reportProfile = () => {
-    this.props.navigation.navigate('message', {component: MPConfirmReportProfile})
+    this.goToScreen('message', { component: MPConfirmReportProfile })
   };
 
   handleClickPhoto = () => {
@@ -82,8 +87,8 @@ class ProfileComponent extends React.Component {
     this.props.navigation.goBack();
   };
 
-  handleChangeTab = (index) => {
-    this.setState({tabIndex: index});
+  handleChangeTab = (tabIndex) => {
+    this.setState({ tabIndex });
   };
 
   renderHeaderMenuRight() {
@@ -110,10 +115,9 @@ class ProfileComponent extends React.Component {
 
   render() {
     const { me, profile } = this.props;
-    console.log('props', this.props);
     return (
       <View style={{ flex: 1 }}>
-        {this.renderHeader()}
+        {this.renderHeader(me)}
         <ScrollView style={{ flex: 1 }} ref={this.scrollViewRef}>
           { this.renderContent(profile) }
         </ScrollView>
@@ -124,8 +128,8 @@ class ProfileComponent extends React.Component {
     )
   }
 
-  renderHeader(){
-    if (this.props.me) {
+  renderHeader(me){
+    if (me) {
       return (
         <MPHeader
           iconsLeft={this.renderHeaderMenuLeft()}
@@ -164,7 +168,7 @@ class ProfileComponent extends React.Component {
       <View style={{ backgroundColor: '#000' }}>
         <ImageBackground
           style={{ flex: 1, width: '100%' }}
-          source={profile.cover_picture_url ? { uri: profile.cover_picture_url } : null}
+          source={profile.picture_url ? { uri: profile.picture_url } : null}
         >
           <LinearGradient
             onLayout={event => this.setState({ linearGradientHeight: event.nativeEvent.layout.height })}
@@ -193,14 +197,14 @@ class ProfileComponent extends React.Component {
 
   renderProfileData(profile) {
     const { me, myIndications, navigation } = this.props;
-
     const countIndications =  (myIndications && myIndications.count);
+    console.log('props', this.props);
     return (
       <View>
         { me ?
           <MPAddChangePhoto
             onPressPhoto={this.handleClickPhoto}
-            hasPhoto={profile.cover_picture_url}
+            hasPhoto={profile.picture_url}
           />
           :
           <MPFollowButton isFollowing={profile.isFollowing} onPress={() => this.toggleFollow()}/>
