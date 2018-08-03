@@ -7,7 +7,7 @@ import {createDraftSong, removeSong, updateDraftSong} from "../../../state/songs
 class SaveDraftScreenContainer extends React.Component {
   componentWillReceiveProps(nextProps){
     if (nextProps.songDraftSuccess || nextProps.songRemoveSuccess){
-      this.props.navigation.navigate('ProfileScreen', { backFromPublishedOrDraft: true });
+      this.props.navigation.navigate('MyProfileScreen', { backFromPublishedOrDraft: true });
     }
   }
 

@@ -6,7 +6,7 @@ import {
 } from 'react-native';
 import {
   MPHeader, MPText, MPInput, MPForm, MPFormButton, MPIconButton
-} from '../../../../components';
+} from '../../../../../components/index';
 
 class EditProfileDescriptionComponent extends React.Component {
   refSaveButton = null;

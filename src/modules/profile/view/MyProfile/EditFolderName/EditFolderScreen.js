@@ -3,13 +3,13 @@ import { connect } from 'react-redux';
 import { 
   fetchProfile, 
   saveProfile 
-} from '../../../../state/action';
+} from '../../../../../state/action';
 import { EditFolderComponent } from './EditFolderComponent';
 import { 
   MPProfileSuccess,
   MPMail,
   MPPhone
-} from '../../../../components';
+} from '../../../../../components/index';
 
 class EditFolderScreenContainer extends React.Component {
 

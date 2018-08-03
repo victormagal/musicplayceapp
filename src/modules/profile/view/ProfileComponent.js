@@ -5,7 +5,7 @@ import {
   ScrollView,
   TouchableOpacity,
   ActivityIndicator,
-  ImageBackground
+  ImageBackground, Dimensions
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import PropTypes from 'prop-types';
@@ -22,6 +22,7 @@ import {
 import {MPUpgradeButton} from '../../../components/profile/MPUpgradeButton';
 import {saveProfile} from '../../../state/action';
 import {MPProfileSuccess} from "../../../components";
+import {MPGroupIcon} from "../../../assets/svg";
 
 
 class ProfileComponent extends React.Component {
@@ -109,6 +110,7 @@ class ProfileComponent extends React.Component {
 
   render() {
     const { me, profile } = this.props;
+    console.log('props', this.props);
     return (
       <View style={{ flex: 1 }}>
         {this.renderHeader()}
@@ -142,6 +144,7 @@ class ProfileComponent extends React.Component {
 
   renderContent(profile) {
     const { me, followers, navigation } = this.props;
+    const userFollowers = followers || [];
     const userFollowing = (profile && profile.userFollowing) || [];
 
     if (!profile) {
@@ -177,7 +180,7 @@ class ProfileComponent extends React.Component {
         <MPShowFollowers
           navigation={navigation}
           following={userFollowing}
-          followers={followers}
+          followers={userFollowers}
         />
         { me ?
           <View style={{ backgroundColor: '#FFF', height: 90 }} />
@@ -249,7 +252,7 @@ class ProfileComponent extends React.Component {
           />
         )}
         { this.renderTabsContent(profile, tabIndex) }
-        { me && (mySongs && mySongs.data.length > 0) &&
+        { me && (mySongs && mySongs.data && mySongs.data.length > 0) &&
           <View style={styles.whiteBackground}>
             <MPGradientButton
               title={'Cadastrar nova música'}
@@ -295,26 +298,30 @@ class ProfileComponent extends React.Component {
         )
       case 1:
         return (
-          <View>
-            {profile.songSaves && (
-              <View>
-                <MPShowFolderSongs
-                  folderName='Outras'
-                  me={me}
-                  songs={profile.songSaves}
-                  onEditClick={this.handleEditSong}
-                  onIndicateClick={this.handleIndicateSong}
-                  onRemoveClick={this.handleRemoveSong}
-                  onUnpublishClick={this.handleUnpublishSong}
-                />
+          <View style={{ backgroundColor: '#FFF' }}>
+            {profile.songSaves ?
+              <MPShowFolderSongs
+                folderName='Outras'
+                me={me}
+                songs={profile.songSaves}
+                onEditClick={this.handleEditSong}
+                onIndicateClick={this.handleIndicateSong}
+                onRemoveClick={this.handleRemoveSong}
+                onUnpublishClick={this.handleUnpublishSong}
+              />
+              :
+              <View style={styles.noSongsSaved}>
+                <MPGroupIcon style={{ width: 50, height: 50 }}/>
+                <MPText style={styles.noContent}>
+                  Você não salvou {'\n'} nenhuma música ainda.
+                </MPText>
               </View>
-            )}
+            }
           </View>
         )
     }
   }
 }
-
 
 ProfileComponent.propTypes = {
   profile: PropTypes.object,
@@ -362,6 +369,18 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     padding: 20,
     marginTop: -20
+  },
+  noSongsSaved: {
+    width: Dimensions.get('screen').width,
+    alignItems: 'center',
+    marginVertical: 40
+  },
+  noContent: {
+    marginTop: 8,
+    color: '#626262',
+    fontSize: 16,
+    textAlign: 'center',
+    fontFamily: 'Montserrat-Regular'
   }
 });
 
