@@ -9,16 +9,22 @@ import {MPText} from '../general/MPText';
 
 
 class MPSwitchComponent extends React.Component {
-
-  state = {
-    switchValue: false,
-    switchAnim: new Animated.Value(0)
-  };
+  constructor(props){
+    super(props);
+    this.state = {
+      switchValue: false,
+      switchAnim: new Animated.Value(0)
+    };
+  }
 
   linearValues = {
     true: ['#bb1a1a', '#2e2c9d'],
     false: ['#dfdfdf', '#dfdfdf']
   };
+
+  componentDidMount(){
+    console.log('mountProps', this.props);
+  }
 
   handleToggleSwitch = () => {
     let value = !this.state.switchValue;
@@ -34,7 +40,7 @@ class MPSwitchComponent extends React.Component {
   };
 
   render() {
-    let { label } = this.props;
+    let { value, label } = this.props;
     return (
       <View style={styles.parent}>
         <View style={styles.areaSwitch}>

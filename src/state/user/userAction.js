@@ -13,7 +13,10 @@ import {
   userNotificationsStartLoading,
   userNotificationsFinishedLoading,
   userNotificationsFetched,
-  userNotificationsFollowersFetched
+  userNotificationsFollowersFetched,
+  userNotificationsSettingsStartLoading,
+  userNotificationsSettingsFinishedLoading,
+  userNotificationsSettingsFetched
 } from './userTypes';
 
 export const searchUsers = (name) => {
@@ -106,11 +109,24 @@ export const getNotifications = () => {
   };
 };
 
+export const getNotificationsSettings = () => {
+  return (dispatch) => {
+    dispatch(userNotificationsSettingsStartLoading());
+
+    return UserService.getNotificationSettings().then(response => {
+      dispatch(userNotificationsSettingsFetched(response.data.data));
+    }).catch(e => {
+      console.log('getNotificationsSettingsError', e.response);
+      dispatch(userNotificationsSettingsFinishedLoading());
+    });
+  };
+};
+
 export const getFollowNotifications = () => {
   return (dispatch) => {
     dispatch(userNotificationsStartLoading());
 
-    return UserService.getFollowNotifications().then(response => {
+    return UserService.getFollowNotifications().then(response => {s
       dispatch(userNotificationsFollowersFetched(response.data));
     }).catch(e => {
       console.log('getFollowNotificationsError', e.response);

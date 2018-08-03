@@ -11,3 +11,4 @@ export * from './user/userAction';
 export * from './settings/help/helpAction';
 export * from './settings/feedback/feedbackAction';
 export * from './settings/termsAndConditions/termsAction';
+export * from './plan/planAction';
