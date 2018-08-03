@@ -12,14 +12,55 @@ import {
   MPText
 } from '../../../components';
 import { connect } from 'react-redux';
+import { getNotificationsSettings } from '../../../state/user/userAction';
 
 class NotificationSettingsScreenContainer extends React.Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      loading: false,
+      notificationSettings: {},
+    }
+  }
+
+  componentWillMount(){
+    this.props.dispatch(getNotificationsSettings());
+  }
+
+  componentWillReceiveProps(nextProps){
+    if(nextProps.notificationSettings){
+      this.setState({notificationSettings: nextProps.notificationSettings.attributes});
+    }
+  }
 
   handleBack = () => {
     this.props.navigation.pop();
   };
 
   render() {
+    let {
+      interested_email,
+      interested_push,
+      interested_sms,
+      interested_unit_frequency,
+      indicate_your_song_email,
+      indicate_your_song_push,
+      indicate_your_song_sms,
+      indicate_your_song_unit_frequency,
+      indication_email,
+      indication_push,
+      indication_sms,
+      indication_unit_frequency,
+      promotion_email,
+      promotion_push,
+      promotion_sms,
+      promotion_unit_frequency,
+      support_email,
+      support_push,
+      support_sms,
+      support_unit_frequency,
+    } = this.state.notificationSettings;
+    console.log(interested_email);
     return (
       <View style={styles.parent}>
         <MPHeader back={true} onBack={this.handleBack} title={"Preferências de notificação"} />
@@ -29,7 +70,7 @@ class NotificationSettingsScreenContainer extends React.Component {
               <MPText style={styles.title}>Novos interessados</MPText>
               <MPText style={styles.paragraph}>Fique sabendo quando entrarem em contato com você</MPText>
             </View>
-            <MPSwitch label={"E-mail"} />
+            <MPSwitch value={interested_email ? true : false} label={"E-mail"} />
             <MPSwitch label={"Celular / tablet"} />
             <MPSwitch label={"SMS"} />
             <View style={styles.separator} />
@@ -37,7 +78,7 @@ class NotificationSettingsScreenContainer extends React.Component {
               <MPText style={styles.title}>Indicaram sua música</MPText>
               <MPText style={styles.paragraph}>Fique sabendo quando indicarem suas composições</MPText>
             </View>
-            <MPSelect />
+            {/* <MPSelect /> */}
             <MPSwitch label={"E-mail"} />
             <MPSwitch label={"Celular / tablet"} />
             <MPSwitch label={"SMS"} />
@@ -46,7 +87,7 @@ class NotificationSettingsScreenContainer extends React.Component {
               <MPText style={styles.title}>Indicaram para você</MPText>
               <MPText style={styles.paragraph}>Fique sabendo quando indicarem músicas para você</MPText>
             </View>
-            <MPSelect />
+            {/* <MPSelect /> */}
             <MPSwitch label={"E-mail"} />
             <MPSwitch label={"Celular / tablet"} />
             <MPSwitch label={"SMS"} />
@@ -109,8 +150,8 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = ({ fontReducer }) => {
-  return { ...fontReducer };
+const mapStateToProps = ({ fontReducer, userReducer }) => {
+  return { ...fontReducer, ...userReducer };
 };
 
 const NotificationSettingsScreen = connect(mapStateToProps)(NotificationSettingsScreenContainer);
