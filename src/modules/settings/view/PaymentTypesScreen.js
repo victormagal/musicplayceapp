@@ -91,11 +91,19 @@ class PaymentTypesScreenContainer extends React.Component {
     this.props.navigation.navigate('message', { component: MPChangeRemovePayment, title: 'Cadastre seu cartão, é 100% seguro' });
   }
 
+  handleBack = () => {
+    this.props.navigation.pop();
+  };
+
   render() {
     let creditBonus = 60;
     return (
       <View style={styles.parent}>
-        <MPHeader back={true} onBack={this.handleBack} title={"Mantenha sua carteira atualizada"} />
+        <MPHeader
+          back={true}
+          onBack={this.handleBack}
+          title={"Mantenha sua carteira atualizada"}
+        />
         <ScrollView style={styles.scroll}>
           <MPPaymentTypes 
             cards={this.state.cards}

@@ -27,11 +27,13 @@ class MPHeader extends React.Component {
             </View>
           )}
           {logo}
-          {icons && (
+          {icons ?
             <View style={styles.icons}>
               {icons}
             </View>
-          )}
+            : back &&
+            <View style={styles.icons} />
+          }
         </View>
         { title && title !== '' && (
           <MPText style={styles.title}>
