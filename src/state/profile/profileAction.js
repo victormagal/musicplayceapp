@@ -99,7 +99,6 @@ export const saveProfile = (data, section) => {
 
     UserService.updateUser(data).then((response) => {
       const responseData = response.data.attributes;
-
       dispatch(saveProfileSucessfully({ section, responseData }));
       dispatch(profileFinishLoading());
 

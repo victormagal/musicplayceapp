@@ -5,7 +5,8 @@ import {
   ScrollView,
   TouchableOpacity,
   ActivityIndicator,
-  ImageBackground
+  ImageBackground,
+  Dimensions
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import PropTypes from 'prop-types';
@@ -17,11 +18,14 @@ import {
   MPText
 } from '../../../components/';
 import {
-  MPProfileArrowIcon, MPSettingsIcon, MPSongAddIcon
+  MPProfileArrowIcon,
+  MPSettingsIcon,
+  MPSongAddIcon
 } from '../../../assets/svg/'
 import {MPUpgradeButton} from '../../../components/profile/MPUpgradeButton';
 import {uploadImage} from "../../../state/profile/profileAction";
 import ImagePicker from 'react-native-image-picker';
+import {MPGroupIcon} from "../../../assets/svg";
 
 class ProfileComponent extends React.Component {
   scrollViewRef = null;
@@ -159,6 +163,7 @@ class ProfileComponent extends React.Component {
 
   renderContent(profile) {
     const { me, followers, navigation } = this.props;
+    const userFollowers = followers || [];
     const userFollowing = (profile && profile.userFollowing) || [];
 
     if (!profile) {
@@ -178,7 +183,7 @@ class ProfileComponent extends React.Component {
       <View style={{ backgroundColor: '#000' }}>
         <ImageBackground
           style={{ flex: 1, width: '100%' }}
-          source={profile.cover_picture_url ? { uri: profile.cover_picture_url } : null}
+          source={profile.picture_url ? { uri: profile.picture_url } : null}
         >
           <LinearGradient
             onLayout={event => this.setState({ linearGradientHeight: event.nativeEvent.layout.height })}
@@ -194,7 +199,7 @@ class ProfileComponent extends React.Component {
         <MPShowFollowers
           navigation={navigation}
           following={userFollowing}
-          followers={followers}
+          followers={userFollowers}
         />
         { me ?
           <View style={{ backgroundColor: '#FFF', height: 90 }} />
@@ -214,7 +219,7 @@ class ProfileComponent extends React.Component {
         { me ?
           <MPAddChangePhoto
             onPressPhoto={this.handleClickPhoto}
-            hasPhoto={profile.cover_picture_url}
+            hasPhoto={profile.picture_url}
           />
           :
           <MPFollowButton isFollowing={profile.isFollowing} onPress={() => this.toggleFollow()}/>
@@ -266,7 +271,7 @@ class ProfileComponent extends React.Component {
           />
         )}
         { this.renderTabsContent(profile, tabIndex) }
-        { me && (mySongs && mySongs.data.length > 0) &&
+        { me && (mySongs && mySongs.data && mySongs.data.length > 0) &&
           <View style={styles.whiteBackground}>
             <MPGradientButton
               title={'Cadastrar nova música'}
@@ -312,26 +317,30 @@ class ProfileComponent extends React.Component {
         )
       case 1:
         return (
-          <View>
-            {profile.songSaves && (
-              <View>
-                <MPShowFolderSongs
-                  folderName='Outras'
-                  me={me}
-                  songs={profile.songSaves}
-                  onEditClick={this.handleEditSong}
-                  onIndicateClick={this.handleIndicateSong}
-                  onRemoveClick={this.handleRemoveSong}
-                  onUnpublishClick={this.handleUnpublishSong}
-                />
+          <View style={{ backgroundColor: '#FFF' }}>
+            {profile.songSaves ?
+              <MPShowFolderSongs
+                folderName='Outras'
+                me={me}
+                songs={profile.songSaves}
+                onEditClick={this.handleEditSong}
+                onIndicateClick={this.handleIndicateSong}
+                onRemoveClick={this.handleRemoveSong}
+                onUnpublishClick={this.handleUnpublishSong}
+              />
+              :
+              <View style={styles.noSongsSaved}>
+                <MPGroupIcon style={{ width: 50, height: 50 }}/>
+                <MPText style={styles.noContent}>
+                  Você não salvou {'\n'} nenhuma música ainda.
+                </MPText>
               </View>
-            )}
+            }
           </View>
         )
     }
   }
 }
-
 
 ProfileComponent.propTypes = {
   profile: PropTypes.object,
@@ -379,6 +388,18 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     padding: 20,
     marginTop: -20
+  },
+  noSongsSaved: {
+    width: Dimensions.get('screen').width,
+    alignItems: 'center',
+    marginVertical: 40
+  },
+  noContent: {
+    marginTop: 8,
+    color: '#626262',
+    fontSize: 16,
+    textAlign: 'center',
+    fontFamily: 'Montserrat-Regular'
   }
 });
 

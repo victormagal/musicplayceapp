@@ -45,7 +45,11 @@ class EditSettingsScreenComponent extends React.Component {
 		const isProfileDisabled = form.username === '' || form.name === '' || form.username === '';
 		return (
 		  <View style={styles.parent}>
-				<MPHeader back={true} onBack={onBack} title={"Mantenha seus dados cadastrais atualizados"}/>
+				<MPHeader
+          back={true}
+          onBack={onBack}
+          title={"Mantenha seus dados cadastrais atualizados"}
+        />
 				<ScrollView style={styles.scroll}>
 					<View style={styles.container}>
 						<MPTitleFormContainer title={"Identificação"}

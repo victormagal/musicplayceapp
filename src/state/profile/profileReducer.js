@@ -44,14 +44,15 @@ const profileReducer = (state, action) => {
     case PROFILE_FINISH_LOADING:
       return {
         ...state,
-        loading: false
+        loading: false,
+        saveProfileSuccess: false
       };
 
     case SAVE_PROFILE_SUCCESS:
       return {
         ...state,
         ...action.payload,
-        saveProfileSuccess: true
+        saveProfileSuccess: true,
       };
 
     case PROFILE_CREATE_USER_SUCCESS:
@@ -99,7 +100,6 @@ const profileReducer = (state, action) => {
         imageUploadedSuccess: true
       }
 }
-
   return state;
 };
 

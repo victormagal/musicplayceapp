@@ -33,7 +33,7 @@ class ConfirmationScreenContainer extends React.Component {
   }
 
   handleClose = () => {
-    this.props.navigation.navigate('ProfileScreen', { backFromPublishedOrDraft: true });
+    this.props.navigation.navigate('MyProfileScreen', { backFromPublishedOrDraft: true });
   };
 
   renderItem = ({item}) => (

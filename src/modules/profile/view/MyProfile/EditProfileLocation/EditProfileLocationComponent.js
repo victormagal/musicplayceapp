@@ -12,12 +12,12 @@ import {
   MPIconButton,
   MPText,
   MPLoading
-} from '../../../../components';
+} from '../../../../../components/index';
 import { connect } from 'react-redux';
-import { GeneralService } from '../../../../service/GeneralService';
-import {fetchCityBrazil, fetchStateBrazil, generalStartLoading} from "../../../../state/general/generalAction";
-import {MPLocationPinIcon} from "../../../../assets/svg";
-import {fetchUserSongs} from "../../../../state/action";
+import { GeneralService } from '../../../../../service/GeneralService';
+import {fetchCityBrazil, fetchStateBrazil, generalStartLoading} from "../../../../../state/general/generalAction";
+import {MPLocationPinIcon} from "../../../../../assets/svg/index";
+import {fetchUserSongs} from "../../../../../state/action";
 
 class EditProfileLocationComponent extends React.Component {
   refSaveButton = null;
@@ -43,7 +43,7 @@ class EditProfileLocationComponent extends React.Component {
   componentDidUpdate(prevProps, prevState) {
     const { selectedState, isCurrentLocation } = this.state;
 
-    if (prevProps.states === null && !this.props.loading) {
+    if (prevProps.states === null && !this.props.loading && this.props.location.state !== null) {
       const selectedState = this.props.states.filter(s => s.sigla === this.state.state)[0].id;
       this.setState({ selectedState, isCurrentLocation: true });
     }
