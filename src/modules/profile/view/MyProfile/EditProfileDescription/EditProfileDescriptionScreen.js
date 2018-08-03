@@ -22,7 +22,7 @@ class EditProfileDescriptionScreenContainer extends React.Component {
   handleSaveClick = (params) => {
     const profile = {...this.props.profile};
     profile.description = params.description;
-    this.props.dispatch(updateUser(profile.id, profile));
+    this.props.dispatch(updateUser(profile));
   };
 
   render() {

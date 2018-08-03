@@ -18,7 +18,7 @@ class EditProfileSitesScreenContainer extends React.Component {
   handleSaveClick = (params) => {
     const profile = {...this.props.profile};
     profile.social_networks = params.social_networks;
-    this.props.dispatch(updateUser(profile.id, profile));
+    this.props.dispatch(updateUser(profile));
   };
 
   render() {
