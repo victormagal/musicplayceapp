@@ -22,7 +22,7 @@ class MPProfileInfo extends Component {
     return (
       <View style={{ marginHorizontal: 20 }}>
         <MPText style={styles.name}>
-          { profile.name }
+          { profile.name } { profile.last_name }
         </MPText>
         <View style={{ flexDirection: 'row' }}>
           <MPText style={styles.username}>
@@ -86,7 +86,7 @@ class MPProfileInfo extends Component {
           <TouchableOpacity
             onPress={() => this.goToScreen('EditProfileDescription', { description: profile.description || ''})}
           >
-            <MPText style={[ styles.descriptionText, profile.description && underlineStyle(profile.description)]}>
+            <MPText style={[ styles.descriptionText, !profile.description && underlineStyle(profile.description)]}>
               { profile.description
                 ? profile.description
                 :'Fale sobre você, seu trabalho, qual seu objetivo com o MusicPlayce. Quanto tempo de experiência ' +

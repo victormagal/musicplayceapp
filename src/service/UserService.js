@@ -30,7 +30,7 @@ class UserService {
       }
     };
 
-    return axios.put(API_CURRENT_USER, data)
+    return axios.put(`${ API_USER }/${ user.id }`, data)
       .then(response => response.data);
   }
 

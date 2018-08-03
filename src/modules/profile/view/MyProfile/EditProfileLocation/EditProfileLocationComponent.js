@@ -43,7 +43,7 @@ class EditProfileLocationComponent extends React.Component {
   componentDidUpdate(prevProps, prevState) {
     const { selectedState, isCurrentLocation } = this.state;
 
-    if (prevProps.states === null && !this.props.loading) {
+    if (prevProps.states === null && !this.props.loading && this.props.location.state !== null) {
       const selectedState = this.props.states.filter(s => s.sigla === this.state.state)[0].id;
       this.setState({ selectedState, isCurrentLocation: true });
     }

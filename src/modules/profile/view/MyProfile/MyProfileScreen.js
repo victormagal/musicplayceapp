@@ -24,7 +24,9 @@ class MyProfileScreenContainer extends React.Component {
       nextProps.navigation.setParams({ backFromPublishedOrDraft: false });
     }
 
-    if (this.props.isUserSaved !== nextProps.isUserSaved && nextProps.isUserSaved) {
+    if ((this.props.isUserSaved !== nextProps.isUserSaved && nextProps.isUserSaved) ||
+      (this.props.saveProfileSuccess !== nextProps.saveProfileSuccess && nextProps.saveProfileSuccess)
+    ) {
       this.props.dispatch(fetchProfile());
     }
   }

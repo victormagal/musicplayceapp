@@ -19,7 +19,7 @@ class EditProfileLocationScreenContainer extends React.Component {
     const profile = {...this.props.profile};
     profile.city = params.city;
     profile.state = params.state;
-    this.props.dispatch(updateUser(profile.id, profile));
+    this.props.dispatch(updateUser(profile));
   };
 
   render() {

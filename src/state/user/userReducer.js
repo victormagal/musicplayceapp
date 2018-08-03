@@ -37,7 +37,8 @@ const userReducer = (state, action) => {
     case USER_FINISH_LOADING:
       return {
         ...state,
-        loading: false
+        loading: false,
+        isUserSaved: false
       };
 
     case USER_BY_ID_FETCHED:
@@ -57,7 +58,6 @@ const userReducer = (state, action) => {
     case USER_SAVE_SUCCESS:
       return {
         ...state,
-        loading: false,
         isUserSaved: true
       };
     
