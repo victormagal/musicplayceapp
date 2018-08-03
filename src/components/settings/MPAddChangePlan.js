@@ -21,11 +21,9 @@ class MPAddChangePlanComponent extends React.Component {
     this.setState({monthly: !this.state.monthly});
   }
   render() {
-
     let {onPress, plans} = this.props;
-    console.log(plans);
-    let monthValue = '50,00';
-    let yearValue = '550,00';
+    let monthlyPlan = plans[1];
+    let yearlyPlan = plans[0];
 
     return (
         <View style={styles.container}>
@@ -59,36 +57,39 @@ class MPAddChangePlanComponent extends React.Component {
                     )
                 }
             </LinearGradient>
-            <View style={{backgroundColor: '#FFF', marginHorizontal: 80, marginBottom: 2, paddingVertical: 20, borderRadius: 4}}>
             {
                 this.state.monthly == true ? (
                     <View>
-                        <MPText style={styles.topTitle}>Plano Básico 1</MPText>
-                        <MPText style={styles.topSubTitle}>In hac habitasse platea dictumst. Vivamus adipiscing fermentum quam volutpat aliquam.</MPText>
+                        <View style={{backgroundColor: '#FFF', marginHorizontal: 80, marginBottom: 2, paddingVertical: 20, borderRadius: 4}}>
+                            <View>
+                                <MPText style={styles.topTitle}>{monthlyPlan? monthlyPlan.attributes.title : null}</MPText>
+                                <MPText style={styles.topSubTitle}>{monthlyPlan ? monthlyPlan.attributes.description : null}</MPText>
+                            </View>
+                        </View>
+                        <View style={{backgroundColor: '#FFF', marginHorizontal: 80, marginBottom: 30}}>
+                            <View>
+                                <MPText style={styles.bottomTitle}>R$ <MPText style={styles.bottomTitleEmph}>{monthlyPlan ? monthlyPlan.attributes.value : null}</MPText></MPText>
+                                <MPText style={styles.bottomSubTitle}>por mes</MPText>
+                            </View>
+                        </View>
                     </View>
                 ) : (
                     <View>
-                        <MPText style={styles.topTitle}>Plano Básico 2</MPText>
-                        <MPText style={styles.topSubTitle}>In hac habitasse platea dictumst. Vivamus adipiscing fermentum quam volutpat aliquam.</MPText>
+                        <View style={{backgroundColor: '#FFF', marginHorizontal: 80, marginBottom: 2, paddingVertical: 20, borderRadius: 4}}>
+                            <View>
+                                <MPText style={styles.topTitle}>{yearlyPlan ? yearlyPlan.attributes.title: null}</MPText>
+                                <MPText style={styles.topSubTitle}>{yearlyPlan ? yearlyPlan.attributes.description : null}</MPText>
+                            </View>
+                        </View>
+                        <View style={{backgroundColor: '#FFF', marginHorizontal: 80, marginBottom: 30}}>
+                            <View>
+                                <MPText style={styles.bottomTitle}>R$ <MPText style={styles.bottomTitleEmph}>{yearlyPlan ? yearlyPlan.attributes.value : null}</MPText></MPText>
+                                <MPText style={styles.bottomSubTitle}>por ano</MPText>
+                            </View>
+                        </View>
                     </View>
                 )
             }
-            </View>
-            <View style={{backgroundColor: '#FFF', marginHorizontal: 80, marginBottom: 30}}>
-            {
-                this.state.monthly == true ? (
-                    <View>
-                        <MPText style={styles.bottomTitle}>R$<MPText style={styles.bottomTitleEmph}>{monthValue}</MPText></MPText>
-                        <MPText style={styles.bottomSubTitle}>por ano</MPText>
-                    </View>
-                ) : (
-                    <View>
-                        <MPText style={styles.bottomTitle}>R$<MPText style={styles.bottomTitleEmph}>{yearValue}</MPText></MPText>
-                        <MPText style={styles.bottomSubTitle}>por ano</MPText>
-                    </View>
-                )
-            }
-            </View>
             <MPGradientButton style={{marginHorizontal: 80}} title={'Fazer upgrade'} textSize={16} onPress={onPress} />
         </View>
     );

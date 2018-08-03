@@ -15,7 +15,7 @@ import { getPlans } from '../../../state/action';
 class AddChangePlanScreenContainer extends React.Component {
   constructor(props){
     super(props);
-    state = {
+    this.state = {
       plans: [],
     }
   }
@@ -28,7 +28,7 @@ class AddChangePlanScreenContainer extends React.Component {
     this.props.navigation.navigate('message', { component: MPAddPayment, title: 'Cadastre seu cartão, é 100% seguro' });
   }
 
-  componentDidMount(){
+  componentWillMount(){
     this.props.dispatch(getPlans());
   }
 
@@ -39,12 +39,11 @@ class AddChangePlanScreenContainer extends React.Component {
   }
 
   render() {
-    console.log(this.state);
     return (
       <View style={styles.parent}>
         <MPHeader back={true} onBack={this.handleBack} title={"Assine o plano para ter mais vantagens"} />
         <ScrollView style={styles.scroll}>
-          <MPAddChangePlan  onPress={this.addPlan.bind(this)} />
+          <MPAddChangePlan plans={this.state.plans}  onPress={this.addPlan.bind(this)} />
         </ScrollView>
       </View>
     );
