@@ -22,6 +22,7 @@ const userReducer = (state, action) => {
     loading: false,
     user: null,
     isUserSaved: false,
+    users: [],
     usersSongs: [],
     userNotifications: [],
     userFollowNotifications: [],
@@ -96,14 +97,14 @@ const userReducer = (state, action) => {
         ...state,
         loading: false,
         userFollowNotifications: action.payload,
-      }
+      };
 
     case USER_NOTIFICATIONS_SETTINGS_FETCHED:
       return {
         ...state,
         loading: false,
         notificationSettings: action.payload,
-      }
+      };
   }
 
   return state;

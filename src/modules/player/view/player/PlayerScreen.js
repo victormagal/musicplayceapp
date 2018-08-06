@@ -9,6 +9,7 @@ import {
   songPlay,
   songPause,
   songResume,
+  songSeekTo,
   fetchOneSong,
   getUsersSongs,
   likeSongComment
@@ -33,21 +34,6 @@ class PlayerContainer extends React.Component {
     }
   }
 
-  getUsersList = (song) => {
-    console.log('song', song);
-    const userNames = [ song.artist.name ];
-    const userList = [ song.artist.id ];
-    if (song.coAuthors && song.coAuthors.length > 0) {
-      const coAuthors = song.coAuthors;
-      coAuthors.map((coAuthor) => {
-        userList.push(coAuthor.id);
-        userNames.push(coAuthor.name);
-      });
-    }
-    this.setState({ userNames });
-    return userList;
-  }
-
   componentWillReceiveProps(nextProps){
     const { navigation, dispatch } = this.props;
     const { song } = this.state;
@@ -62,7 +48,7 @@ class PlayerContainer extends React.Component {
     if (nextProps.song){
       nextProps.song.artist = navigation.state.params.song.artist;
       if (song !== nextProps.song){
-        dispatch(getUsersSongs(this.getUsersList(nextProps.song)));
+        //dispatch(getUsersSongs(this.getUsersList(nextProps.song)));
       }
       this.setState({ song: nextProps.song });
     }
@@ -79,6 +65,21 @@ class PlayerContainer extends React.Component {
     this.props.dispatch(songStop());
   }
 
+  getUsersList = (song) => {
+    console.log('song', song);
+    const userNames = [ song.artist.name ];
+    const userList = [ song.artist.id ];
+    if (song.coAuthors && song.coAuthors.length > 0) {
+      const coAuthors = song.coAuthors;
+      coAuthors.map((coAuthor) => {
+        userList.push(coAuthor.id);
+        userNames.push(coAuthor.name);
+      });
+    }
+    this.setState({ userNames });
+    return userList;
+  }
+
   handleSongPause = () => {
     this.props.dispatch(songPause());
   };
@@ -93,11 +94,12 @@ class PlayerContainer extends React.Component {
 
   handleSongSliderChange = (value) => {
     //TODO: call action to seek music in react native plugin
+    this.props.dispatch(songSeekTo(value));
   };
 
   handleLikeComment = (commentId) => {
     this.props.dispatch(likeSongComment(commentId));
-  }
+  };
 
   render() {
     const { saveSong } = this.props;

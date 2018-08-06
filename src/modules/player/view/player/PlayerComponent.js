@@ -35,47 +35,8 @@ class PlayerComponent extends React.Component {
     showComments: false,
     showLyrics: false,
     playerVisible: false,
-    data: [
-      {
-        id: '00',
-        songName: 'Michel Teló',
-        imagePath: images.daftPunk100,
-      },
-      {
-        id: '01',
-        songName: 'Paula Fernandes',
-        imagePath: images.bjork100,
-      },
-      {
-        id: '02',
-        songName: 'Almir Sater',
-        imagePath: images.daftPunk100,
-      }
-    ],
-    comments: [
-      {}, {}, {}
-    ],
-    lyric: [
-      ['Ando devagar',
-        'Porque já tive pressa',
-        'E levo esse sorriso',
-        'Porque já chorei demais'],
-      ['Hoje me sinto mais forte',
-        'Mais feliz, quem sabe',
-        'Só levo a certeza',
-        'De que muito pouco sei',
-        'Ou nada sei'],
-      ['Conhecer as manhas',
-        'Mais feliz, quem sabe',
-        'Só levo a certeza',
-        'De que muito pouco sei',
-        'Ou nada sei'],
-      ['Conhecer as manhas',
-        'Mais feliz, quem sabe',
-        'Só levo a certeza',
-        'De que muito pouco sei',
-        'Ou nada sei']
-    ]
+    data: [],
+    lyric: []
   };
 
   handleBack = () => {
@@ -114,20 +75,21 @@ class PlayerComponent extends React.Component {
     this.props.navigation.navigate('playerSaveSong', {song});
   };
 
-  handleSongComposers = (song) => {
-    let composerString = song.artist.name;
+  renderComposers = (song) => {
+    let composerString = ''; //TODO: // song.artist.name;
+    let composers = [];
+
     if(song.coAuthors && song.coAuthors.length > 0){
       let coAuthors = song.coAuthors;
-      coAuthors.map((coAuthor, index, array) => {
-        if(index == array.length - 1){
-          composerString = composerString.concat(` e ${coAuthor.name}`);
-        }else{
-          composerString = composerString.concat(`, ${coAuthor.name}`);
-        }
-      })
+      composers = composers.concat(coAuthors.map((coAuthor, index) => coAuthor.name));
     }
-    return composerString;
-  }
+
+    composers = composers.join(', ');
+    if(composers) {
+    }
+
+    return composers;
+  };
 
   handleSongDuration = (songDuration) => {
     let songArray = songDuration.split(':');
@@ -171,7 +133,6 @@ class PlayerComponent extends React.Component {
                         onSongSaveClick={this.handleSaveSong.bind(this, this.props.song)}
                         onSongIndicateClick={this.handleIndicateSong.bind(this, this.props.song)}
                         onSongSliderChange={this.props.onSongSliderChange}/>;
-
   };
 
   renderLyricsContent() {
@@ -337,7 +298,7 @@ class PlayerComponent extends React.Component {
               {/* <MPText style={styles.compositorText}>{song ? song.description : 'Escute esta música de tal tal jeito.'}</MPText> */}
 
               <MPText style={styles.compositorTitle}>COMPOSITOR</MPText>
-              <MPText style={styles.compositorText}>{ song ? this.handleSongComposers(song) : 'Almir Sater'}</MPText>
+              <MPText style={styles.compositorText}>{ song ? this.renderComposers(song) : 'Almir Sater'}</MPText>
 
               <MPText style={styles.compositorTitle}>INTÉRPRETE</MPText>
               <MPText style={styles.compositorText}>Santiago Silva</MPText>
@@ -445,7 +406,7 @@ class PlayerComponent extends React.Component {
 
           <View style={styles.playerInfo}>
             <MPText style={styles.playerSongName}>{song ? song.name : 'Tocando em Frente'}</MPText>
-            <MPText style={styles.playerUserName}>{song ? this.handleSongComposers(song) : 'Almir Sater'}</MPText>
+            <MPText style={styles.playerUserName}>{song ? this.renderComposers(song) : 'Almir Sater'}</MPText>
           </View>
 
           <TouchableOpacity style={styles.playerHeart} onPress={this.handleSaveSong.bind(this,song)}>

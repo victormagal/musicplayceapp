@@ -7,7 +7,6 @@ import { AuthService } from './AuthService';
 import axios from 'axios';
 
 const API_USER = `${API}/users`;
-const API_CURRENT_USER = `${API}/auth/users/me`;
 
 class UserService {
   static createUser(user) {

@@ -19,6 +19,7 @@ import {
   userNotificationsSettingsFetched
 } from './userTypes';
 
+
 export const searchUsers = (name) => {
   return (dispatch) => {
     dispatch(userStartLoading());
