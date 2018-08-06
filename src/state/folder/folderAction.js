@@ -34,6 +34,23 @@ export const fetchFolders = () => {
   };
 };
 
+export const getUserSongsFolders = () => {
+  return (dispatch, getState) => {
+    dispatch(folderStartLoading());
+
+    if(shouldFetchFolders(getState())) {
+      return FolderService.getUserSongsFolders().then(response => {
+        dispatch(fetchedFolders(response));
+      }).catch(e => {
+        //TODO: handle error
+        dispatch(folderFinishLoading());
+      });
+    }
+
+    return Promise.resolve().then(() => dispatch(folderFinishLoading()));
+  };
+};
+
 export const getFavoriteSongsFolders = () => {
   return (dispatch, getState) => {
     dispatch(folderStartLoading());

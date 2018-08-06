@@ -16,7 +16,7 @@ class FolderService {
     return axios.post(API_FOLDER, data);
   }
 
-  static getUserFolders(){
+  static getUserSongsFolders(){
     return axios.get(`${API_FOLDER}?query={"type":"userSongs"}&queryTable=folders&include=userSongs`)
                  .then(response => {
                    let {data} = response.data;
