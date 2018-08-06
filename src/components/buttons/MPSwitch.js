@@ -12,8 +12,8 @@ class MPSwitchComponent extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      switchValue: false,
-      switchAnim: new Animated.Value(0)
+      switchAnim: new Animated.Value(0),
+      value: !!props.value,
     };
   }
 
@@ -23,24 +23,39 @@ class MPSwitchComponent extends React.Component {
   };
 
   componentDidMount(){
-    console.log('mountProps', this.props);
+    if(typeof this.props.value !== undefined){
+      this.animateSwitch(this.props.value, 0);
+    }
+  }
+
+  componentWillReceiveProps(nextProps){
+    if(typeof nextProps.value !== undefined){
+      this.setState({value: nextProps.value});
+      this.animateSwitch(nextProps.value, 300);
+    }
   }
 
   handleToggleSwitch = () => {
-    let value = !this.state.switchValue;
-    this.setState({switchValue: !this.state.switchValue});
+    let {name, onChangeSwitch} = this.props;
 
+    let value = !this.state.value;
+    this.setState({value});
+    this.animateSwitch(value, 300);
+    onChangeSwitch && onChangeSwitch({name, value});
+  };
+
+  animateSwitch = (value, duration) => {
     Animated.timing(
       this.state.switchAnim,
       {
         toValue: value ? 33 : 0,
-        duration: 300
+        duration: duration
       }
     ).start();
-  };
+  }
 
   render() {
-    let { value, label } = this.props;
+    let { label } = this.props;
     return (
       <View style={styles.parent}>
         <View style={styles.areaSwitch}>
@@ -49,7 +64,7 @@ class MPSwitchComponent extends React.Component {
           </View>
           <TouchableWithoutFeedback onPress={this.handleToggleSwitch}>
             <LinearGradient
-              colors={this.linearValues[this.state.switchValue]}
+              colors={this.linearValues[this.state.value]}
               start={{x:0, y: 0}}
               end={{x:1, y:0}}
               style={styles.boxSwitch} >
@@ -108,8 +123,8 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = ({fontReducer}) => {
-  return {...fontReducer};
+const mapStateToProps = ({userReducer}) => {
+  return {...userReducer};
 };
 
 const MPSwitch = connect(mapStateToProps)(MPSwitchComponent);
