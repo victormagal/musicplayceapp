@@ -283,7 +283,7 @@ class RegisterSongContainer extends React.Component {
                   selected={song.coAuthors && song.coAuthors.length > 0}
                   title={'Tem outros autores?'}
                   info={this.getFilledString('coAuthors')}
-                  onPress={() => this.goToScreen('ArtistsScreen')}
+                  onPress={() => this.goToScreen('UsersScreen')}
                 />
                 <MPSongInfo
                   title={'Tem intérpretes?'}

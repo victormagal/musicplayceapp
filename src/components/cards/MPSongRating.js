@@ -29,6 +29,16 @@ class MPSongRating extends Component {
     this.setState({isAdded: !this.state.isAdded})
   };
 
+  handleOptionsClick = () => {
+    let {me, onPlayClick, song } = this.props;
+
+    if(me){
+      this.toggleState()
+    }else{
+      onPlayClick && onPlayClick(song);
+    }
+  };
+
   handleClose = () => {
     this.setState({menuOpen: false});
   };
@@ -78,7 +88,6 @@ class MPSongRating extends Component {
       isNew,
       rating
     } = this.props;
-
     return (
       <View style={style || {}}>
 
@@ -91,7 +100,7 @@ class MPSongRating extends Component {
                     style={{ width: 100, height: 100 }}
                     source={ song.picture_url ? { uri: song.picture_url } : images.daftPunk100 }/>
 
-                  <TouchableOpacity style={styles.playIcon} onPress={this.toggleState}>
+                  <TouchableOpacity style={styles.playIcon} onPress={this.handleOptionsClick}>
                     <MPPlayIcon />
                   </TouchableOpacity>
                   { this.renderTopIcons() }

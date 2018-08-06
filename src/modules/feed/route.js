@@ -8,7 +8,6 @@ export const FeedScreensNavigation = createStackNavigator(
     FeedScreen: FeedScreen,
     player: PlayerScreensNavigation,
     userProfile: UserProfileScreen
-
 },{
     headerMode: 'none'
   }

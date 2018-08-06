@@ -15,6 +15,7 @@ import {
   USER_NOTIFICATIONS_SETTINGS_START_LOADING,
   USER_NOTIFICATIONS_SETTINGS_FINISHED_LOADING,
   USER_NOTIFICATIONS_SETTINGS_FETCHED,
+  USER_NOTIFICATIONS_SETTINGS_PATCHED
 } from './userTypes';
 
 const userReducer = (state, action) => {
@@ -22,6 +23,7 @@ const userReducer = (state, action) => {
     loading: false,
     user: null,
     isUserSaved: false,
+    users: [],
     usersSongs: [],
     userNotifications: [],
     userFollowNotifications: [],
@@ -96,14 +98,19 @@ const userReducer = (state, action) => {
         ...state,
         loading: false,
         userFollowNotifications: action.payload,
-      }
+      };
 
+    case USER_NOTIFICATIONS_SETTINGS_PATCHED:
+      return {
+        ...state,
+        loading: false,
+      }
     case USER_NOTIFICATIONS_SETTINGS_FETCHED:
       return {
         ...state,
         loading: false,
         notificationSettings: action.payload,
-      }
+      };
   }
 
   return state;

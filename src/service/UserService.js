@@ -135,6 +135,18 @@ class UserService {
   static getNotificationSettings(){
     return axios.get(`${API_USER}/me/settings-notifications`);
   }
+  
+  static patchNotificationSettings(settings){
+    let params = {
+      data: {
+        type: 'notificationSettings',
+        attributes: [
+          settings, 
+        ]
+      }
+    }
+    return axios.patch(`${API_USER}/me/settings-notifications`, params);
+  }
 }
 
 export {UserService};

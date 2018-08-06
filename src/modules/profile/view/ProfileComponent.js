@@ -59,6 +59,10 @@ class ProfileComponent extends React.Component {
     this.props.navigation.navigate('RegisterSongScreen', {song});
   };
 
+  handlePlaySong = (song) => {
+    this.props.navigation.navigate('player', {song});
+  };
+
   handleRemoveSong = (song) => {
     this.props.navigation.navigate('message', {component: MPConfirmExcludeSong, song});
   };
@@ -301,6 +305,7 @@ class ProfileComponent extends React.Component {
                   onIndicateClick={this.handleIndicateSong}
                   onRemoveClick={this.handleRemoveSong}
                   onUnpublishClick={this.handleUnpublishSong}
+                  onPlayClick={this.handlePlaySong}
                 />
               </View>
               :
@@ -327,6 +332,7 @@ class ProfileComponent extends React.Component {
                 onIndicateClick={this.handleIndicateSong}
                 onRemoveClick={this.handleRemoveSong}
                 onUnpublishClick={this.handleUnpublishSong}
+                onPlayClick={this.handlePlaySong}
               />
               :
               <View style={styles.noSongsSaved}>

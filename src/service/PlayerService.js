@@ -1,7 +1,5 @@
 import {NativeModules} from 'react-native';
 const { RNMusicPlayer } = NativeModules;
-import {API, transformResponseData} from './api';
-import axios from 'axios';
 
 
 class PlayerService{
@@ -23,12 +21,8 @@ class PlayerService{
     RNMusicPlayer.resume();
   }
 
-  static getUsersSongs(id){
-    return axios.get(`${API}/song-artist/${id}`)
-      .then(response => {
-        let {data, meta} = response.data;
-        return {data: transformResponseData(data), pagination: meta.pagination};
-      });
+  static seekTo(duration){
+    RNMusicPlayer.seek(duration);
   }
 }
 

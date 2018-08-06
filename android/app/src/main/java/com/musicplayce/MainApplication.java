@@ -4,8 +4,8 @@ import android.app.Application;
 
 import com.facebook.react.ReactApplication;
 import com.imagepicker.ImagePickerPackage;
-import com.reactnativedocumentpicker.ReactNativeDocumentPicker;
 import com.reactlibrary.RNMusicPlayerPackage;
+import com.reactnativedocumentpicker.ReactNativeDocumentPicker;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.horcrux.svg.SvgPackage;
 import com.BV.LinearGradient.LinearGradientPackage;
@@ -30,8 +30,8 @@ public class MainApplication extends Application implements ReactApplication {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
             new ImagePickerPackage(),
-            new ReactNativeDocumentPicker(),
             new RNMusicPlayerPackage(),
+            new ReactNativeDocumentPicker(),
             new VectorIconsPackage(),
             new SvgPackage(),
             new LinearGradientPackage()

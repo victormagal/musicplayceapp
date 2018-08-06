@@ -9,7 +9,7 @@ import {MPValidatedFilledRedIcon} from '../../assets/svg';
 class MPUserHorizontal extends Component {
 
   render() {
-    let {artist, image, selected, style, onPress} = this.props;
+    let {user, image, selected, style, onPress} = this.props;
     let borderStyle = {};
     let iconStyle = {};
 
@@ -30,7 +30,7 @@ class MPUserHorizontal extends Component {
         <Card containerStyle={[styles.stretchedUserCardContainer, borderStyle]}>
           <View style={styles.content}>
             <Image style={styles.stretchedUserImage} source={image ? {uri: image} : null}/>
-            <MPText style={ styles.stretchedUserText}>{ artist }</MPText>
+            <MPText style={ styles.stretchedUserText}>{ user }</MPText>
           </View>
         </Card>
         {selected && <MPValidatedFilledRedIcon style={iconStyle}/>}
