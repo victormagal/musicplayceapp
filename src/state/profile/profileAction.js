@@ -46,6 +46,7 @@ export const uploadImage = (picture) => {
     return UserService.uploadImage(picture).then(response => {
       console.log('response', response);
       dispatch(profileImageUploaded());
+      dispatch(profileFinishLoading());
     }).catch(e => {
       console.log('uploadImageError', e);
       dispatch(profileFinishLoading());

@@ -3,12 +3,11 @@ import {
   getIncludes,
   transformResponseData
 } from './api';
+import { Platform } from 'react-native';
 import { AuthService } from './AuthService';
 import axios from 'axios';
-import {StorageService} from "./StorageService";
 
 const API_USER = `${API}/users`;
-const API_CURRENT_USER = `${API}/auth/users/me`;
 
 class UserService {
   static createUser(user) {
@@ -33,7 +32,7 @@ class UserService {
     formData.append('picture', {
       uri: file.uri,
       name: file.fileName,
-      type: file.type
+      type: Platform.OS === 'android' ? file.type : `images/${ file.fileName.split('.')[1] }`
     });
 
     return axios.post(`${ API_USER }/me/picture`, formData, {
@@ -42,10 +41,9 @@ class UserService {
         'Content-Type': 'multipart/form-data'
       }
     }).then(response => {
-      //const { data } = response.data;
-      //const { id, attributes } = data;
-      //return { id, ...attributes };
-      return response;
+      const { data } = response.data;
+      const { id, attributes } = data;
+      return { id, ...attributes };
     });
   }
 

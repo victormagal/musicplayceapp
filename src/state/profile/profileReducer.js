@@ -49,6 +49,7 @@ const profileReducer = (state, action) => {
       };
 
     case SAVE_PROFILE_SUCCESS:
+    case PROFILE_IMAGE_UPLOADED:
       return {
         ...state,
         ...action.payload,
@@ -93,12 +94,6 @@ const profileReducer = (state, action) => {
         ...state,
         profile: {...action.payload}
       };
-
-    case PROFILE_IMAGE_UPLOADED:
-      return {
-        ...state,
-        imageUploadedSuccess: true
-      }
 }
   return state;
 };

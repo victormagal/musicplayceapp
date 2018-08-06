@@ -38,7 +38,7 @@ class ConfirmationScreenContainer extends React.Component {
 
   renderItem = ({item}) => (
     <MPUser
-      artist={item.title}
+      user={item}
       imagePath={item.imagePath}
       onPress={() => console.log()}
     />

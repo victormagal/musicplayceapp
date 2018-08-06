@@ -31,7 +31,7 @@ class MPUser extends Component {
             }
           </View>
           <MPText numberOfLines={2} style={ styles.simpleUserCardText }>
-            { user.name }
+            { user.title }
           </MPText>
         </Card>
       </TouchableOpacity>
