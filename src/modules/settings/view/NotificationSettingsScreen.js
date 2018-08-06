@@ -29,7 +29,7 @@ class NotificationSettingsScreenContainer extends React.Component {
 
   componentWillReceiveProps(nextProps){
     if(nextProps.notificationSettings){
-      this.setState({notificationSettings: nextProps.notificationSettings.attributes});
+      this.setState({notificationSettings: nextProps.notificationSettings});
     }
   }
 
@@ -38,7 +38,11 @@ class NotificationSettingsScreenContainer extends React.Component {
   };
 
   onChangeSwitch = ({name, value}) => {
-    this.props.dispatch(patchNotificationSettings({[name]: value}))
+    if(value){
+      this.props.dispatch(patchNotificationSettings({[name]: 1}));
+    }else{
+      this.props.dispatch(patchNotificationSettings({[name]: 0}));
+    }
   }
 
   render() {
@@ -74,7 +78,7 @@ class NotificationSettingsScreenContainer extends React.Component {
               <MPText style={styles.title}>Novos interessados</MPText>
               <MPText style={styles.paragraph}>Fique sabendo quando entrarem em contato com você</MPText>
             </View>
-            <MPSwitch name={'interested_email'} value={!!interested_email} label={"E-mail"} />
+            <MPSwitch name={'interested_email'} value={!!interested_email} label={"E-mail"} onChangeSwitch={this.onChangeSwitch} />
             <MPSwitch name={'interested_push'} value={!!interested_push} label={"Celular / tablet"} />
             <MPSwitch name={'interested_sms'} value={!!interested_sms} label={"SMS"} />
             <View style={styles.separator} />

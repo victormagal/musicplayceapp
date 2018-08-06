@@ -1,7 +1,7 @@
 import axios from 'axios';
 import {API, transformResponseData} from './api';
 
-const API_FOLDER = `${API}/song-folders`;
+const API_FOLDER = `${API}/folders`;
 
 //PLAYLIST
 class FolderService {
