@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {StyleSheet, View, FlatList} from 'react-native';
-import {MPSongRating, MPText} from '../../components'
+import {MPSongRating, MPText, MPUpgradeButton} from '../../components'
 import {MPGradientBorderButton} from './MPGradientBorderButton';
 
 
@@ -9,8 +9,14 @@ class MPShowFolderSongs extends Component {
   renderSongs = ({item}) => {
     let {me} = this.props;
 
+    if(item.type && item.type === 'draft'){
+      return (
+        <MPUpgradeButton />
+      );
+    }
+
     return (
-      <MPSongRating song={item} indicateSong={true} isAdded={true}
+      <MPSongRating song={item}  indicateSong={true} isAdded={true}
                     me={me} onExclude={this.props.onRemoveClick}
                     onUnpublish={this.props.onUnpublishClick}
                     onIndicateClick={this.props.onIndicateClick}
@@ -20,7 +26,12 @@ class MPShowFolderSongs extends Component {
   };
 
   render() {
-    let {folderName, edit, onEdit, songs} = this.props;
+    let {folderName, edit, onEdit, songs, songDraft} = this.props;
+    let folderSongs = [].concat(songs);
+
+    if(songDraft){
+      folderSongs.push({type: 'draft', id: Math.random()});
+    }
 
     return (
       <View style={ styles.parent }>
@@ -34,7 +45,7 @@ class MPShowFolderSongs extends Component {
         </View>
         <View style={ styles.sliderContainer}>
           <FlatList
-            data={songs}
+            data={folderSongs}
             keyExtractor={(item) => item.id}
             renderItem={this.renderSongs}
             horizontal={true}

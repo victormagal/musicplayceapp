@@ -19,9 +19,6 @@ import {
 import {
   MPProfileArrowIcon, MPSettingsIcon, MPSongAddIcon
 } from '../../../assets/svg/'
-import {MPUpgradeButton} from '../../../components/profile/MPUpgradeButton';
-import {saveProfile} from '../../../state/action';
-import {MPProfileSuccess} from "../../../components";
 import {MPGroupIcon} from "../../../assets/svg";
 
 
@@ -270,7 +267,7 @@ class ProfileComponent extends React.Component {
   }
 
   renderTabsContent(profile, tabIndex) {
-    const { me, mySongs, song } = this.props;
+    const { me, mySongs, songDraft } = this.props;
     switch (tabIndex) {
       case 0:
         return (
@@ -286,15 +283,13 @@ class ProfileComponent extends React.Component {
                   onRemoveClick={this.handleRemoveSong}
                   onUnpublishClick={this.handleUnpublishSong}
                   onPlayClick={this.handlePlaySong}
+                  songDraft={me && songDraft}
                 />
               </View>
               :
               <View>
                 { (me && (!mySongs || mySongs.data.length === 0)) &&
                   <MPUploadFirstSong onPress={this.props.onSongAddClick} />
-                }
-                { (me && song) &&
-                  <MPUpgradeButton song={song}/>
                 }
               </View>
             }

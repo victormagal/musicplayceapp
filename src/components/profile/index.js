@@ -18,4 +18,5 @@ export * from './MPConfirmUnpublishSong';
 export * from './MPUnpublishedSong';
 export * from './MPConfirmReportProfile';
 export * from './MPReportedProfile';
+export * from './MPUpgradeButton';
 

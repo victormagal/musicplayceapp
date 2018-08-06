@@ -17,8 +17,7 @@ class MPAddSongButtonComponent extends Component{
           start={{ x: 0, y: 0 }}
           end={{ x: 1, y: 0 }}
           style={styles.linear}
-          selected={true}
-        >
+          selected={true}>
           { isColored ?
             <View style={[styles.buttonContainer, { marginTop: 5 }]}>
                 <MPAddSongWhiteNoteIcon style={{ width: 30, height: 30, marginRight: -7 }} />
@@ -60,8 +59,8 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = ({fontReducer}) => {
-    return {...fontReducer};
+const mapStateToProps = () => {
+    return {};
 };
 
 const MPAddSongButton = connect(mapStateToProps)(MPAddSongButtonComponent);

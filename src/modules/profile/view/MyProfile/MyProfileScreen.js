@@ -36,7 +36,6 @@ class MyProfileScreenContainer extends React.Component {
   };
 
   handleSongAddClick = () => {
-    this.props.dispatch(songRegisterClear());
     this.props.navigation.navigate('RegisterSongScreen');
   };
 
@@ -61,7 +60,7 @@ class MyProfileScreenContainer extends React.Component {
 }
 
 const mapStateToProps = ({ profileReducer, songsReducer, userReducer }) => {
-  const { songCreateSuccess, songRemoveSuccess, songPublishSuccess, songUnpublishSuccess, mySongs } = songsReducer;
+  const { songCreateSuccess, songRemoveSuccess, songPublishSuccess, songUnpublishSuccess, mySongs, songDraft, song } = songsReducer;
   const { isUserSaved } = userReducer;
 
   return {
@@ -71,7 +70,9 @@ const mapStateToProps = ({ profileReducer, songsReducer, userReducer }) => {
     songRemoveSuccess,
     songPublishSuccess,
     songUnpublishSuccess,
-    mySongs
+    mySongs,
+    songDraft,
+    song
   };
 };
 

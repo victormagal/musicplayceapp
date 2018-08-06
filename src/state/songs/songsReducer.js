@@ -30,7 +30,7 @@ const defaultSong = {
   coAuthors: null,
   folder: null,
   tags: null,
-  path: ''
+  path: '',
 };
 
 const songsReducer = (state, action) => {
@@ -46,19 +46,22 @@ const songsReducer = (state, action) => {
     songIndicateSuccess: false,
     songFavoriteSuccess: false,
     likedCommentSuccess: false,
+    songDraft: false
   };
 
   switch (action.type) {
     case SONG_REGISTER_DATA:
       return {
         ...state,
-        song: {...action.payload}
+        song: {...action.payload},
+        songDraft: true
       };
 
     case SONG_REGISTER_CLEAR:
       return {
         ...state,
-        song: {...defaultSong}
+        song: {...defaultSong},
+        songDraft: false
       };
 
     case SONG_START_LOADING:
@@ -83,7 +86,8 @@ const songsReducer = (state, action) => {
       return {
         ...state,
         songDraftSuccess: true,
-        song: {...defaultSong}
+        song: {...defaultSong},
+        songDraft: false
       };
 
     case SONG_REMOVE_SUCCESS:
@@ -104,7 +108,8 @@ const songsReducer = (state, action) => {
         ...state,
         loading: false,
         songPublishSuccess: true,
-        song: {...defaultSong}
+        song: {...defaultSong},
+        songDraft: false
       };
     
     case SONG_INDICATE_SUCCESS:
