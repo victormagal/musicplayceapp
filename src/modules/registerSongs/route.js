@@ -11,7 +11,7 @@ import {
   TitleScreen,
   RegisterSongScreen,
 } from './view';
-import {ProfileScreen} from "../profile/view";
+import {MyProfileScreen} from "../profile/view";
 
 export const SongsScreens = {
   RegisterSongScreen: RegisterSongScreen,
@@ -24,5 +24,5 @@ export const SongsScreens = {
   FolderScreen: FolderScreen,
   ConfirmationScreen: ConfirmationScreen,
   SaveDraftScreen: SaveDraftScreen,
-  ProfileScreen: ProfileScreen
+  MyProfileScreen: MyProfileScreen
 };

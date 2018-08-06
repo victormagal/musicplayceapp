@@ -11,7 +11,7 @@ import {
 	MPTextField,
 	MPLoading, 
 	MPFooter
-} from '../../../../components';
+} from '../../../../../components/index';
 
 class EditFolderComponent extends React.Component {
 	

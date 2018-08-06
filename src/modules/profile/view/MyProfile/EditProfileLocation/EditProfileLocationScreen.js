@@ -1,14 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { 
-  updateUser,
-} from '../../../../state/action';
-import { EditProfileDescriptionComponent } from './EditProfileDescriptionComponent';
-import { 
-  MPProfileSuccess
-} from '../../../../components';
+import { updateUser } from '../../../../../state/action';
+import { EditProfileLocation } from './EditProfileLocationComponent';
+import { MPProfileSuccess } from '../../../../../components/index';
 
-class EditProfileDescriptionScreenContainer extends React.Component {
+class EditProfileLocationScreenContainer extends React.Component {
   componentWillReceiveProps(nextProps){
     if (nextProps.isUserSaved) {
       this.props.navigation.navigate('message', { component: MPProfileSuccess });
@@ -21,16 +17,17 @@ class EditProfileDescriptionScreenContainer extends React.Component {
 
   handleSaveClick = (params) => {
     const profile = {...this.props.profile};
-    profile.description = params.description;
-    this.props.dispatch(updateUser(profile.id, profile));
+    profile.city = params.city;
+    profile.state = params.state;
+    this.props.dispatch(updateUser(profile));
   };
 
   render() {
     const { navigation } = this.props;
     const navigationParams = navigation.state.params;
     return (
-      <EditProfileDescriptionComponent
-        description={navigationParams && navigationParams.description}
+      <EditProfileLocation
+        location={navigationParams && navigationParams.location}
         onSave={this.handleSaveClick}
         onBack={this.handleBackClick}
       />
@@ -42,5 +39,5 @@ const mapStateToProps = ({ profileReducer, userReducer }) => {
   return {...profileReducer, ...userReducer};
 };
 
-const EditProfileDescriptionScreen = connect(mapStateToProps)(EditProfileDescriptionScreenContainer);
-export { EditProfileDescriptionScreen };
+const EditProfileLocationScreen = connect(mapStateToProps)(EditProfileLocationScreenContainer);
+export { EditProfileLocationScreen };

@@ -23,6 +23,7 @@ const userReducer = (state, action) => {
     loading: false,
     user: null,
     isUserSaved: false,
+    users: [],
     usersSongs: [],
     userNotifications: [],
     userFollowNotifications: [],
@@ -38,7 +39,8 @@ const userReducer = (state, action) => {
     case USER_FINISH_LOADING:
       return {
         ...state,
-        loading: false
+        loading: false,
+        isUserSaved: false
       };
 
     case USER_BY_ID_FETCHED:
@@ -58,7 +60,6 @@ const userReducer = (state, action) => {
     case USER_SAVE_SUCCESS:
       return {
         ...state,
-        loading: false,
         isUserSaved: true
       };
     
@@ -97,7 +98,7 @@ const userReducer = (state, action) => {
         ...state,
         loading: false,
         userFollowNotifications: action.payload,
-      }
+      };
 
     case USER_NOTIFICATIONS_SETTINGS_PATCHED:
       return {
@@ -109,7 +110,7 @@ const userReducer = (state, action) => {
         ...state,
         loading: false,
         notificationSettings: action.payload,
-      }
+      };
   }
 
   return state;

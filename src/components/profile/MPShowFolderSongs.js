@@ -14,7 +14,8 @@ class MPShowFolderSongs extends Component {
                     me={me} onExclude={this.props.onRemoveClick}
                     onUnpublish={this.props.onUnpublishClick}
                     onIndicateClick={this.props.onIndicateClick}
-                    onEditClick={this.props.onEditClick}/>
+                    onEditClick={this.props.onEditClick}
+                    onPlayClick={this.props.onPlayClick}/>
     );
   };
 

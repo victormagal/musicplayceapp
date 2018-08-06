@@ -30,11 +30,19 @@ class TermsSettingsScreenContainer extends React.Component {
     }
   }
 
+  handleBackButton = () => {
+    this.props.navigation.pop();
+  }
+
   render() {
     const { error, loading } = this.props;
     return (
       <View style={styles.parent}>
-        <MPHeader title="Termos e condições de uso" />
+        <MPHeader
+          back={true}
+          onBack={this.handleBackButton}
+          title="Termos e condições de uso"
+        />
         <ScrollView style={styles.scroll}>
           <View style={styles.container}>
             { error ?

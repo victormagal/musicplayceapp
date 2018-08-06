@@ -39,8 +39,8 @@ class ModalPlayerComponent extends React.Component {
   };
 
   renderComposers = (song) => {
-    let composerString = song.artist.name;
-    let composers = [composerString];
+    let composerString = ''; //TODO: // song.artist.name;
+    let composers = [];
 
     if(song.coAuthors && song.coAuthors.length > 0){
       let coAuthors = song.coAuthors;
@@ -48,9 +48,6 @@ class ModalPlayerComponent extends React.Component {
     }
 
     composers = composers.join(', ');
-    if(composers) {
-    }
-
     return composers;
   };
 
@@ -69,10 +66,9 @@ class ModalPlayerComponent extends React.Component {
   }
 
   renderPlayer() {
-    console.log(this.props);
     const progress = Math.ceil(this.props.player.progress);
     const progressLabel = moment.utc(progress * 1000).format('m:ss');
-    const durationLabel = moment((this.props.song && this.props.song.duration || 0) * 1000).format('m:ss');
+    const durationLabel = moment.utc((this.props.song && this.props.song.duration || 0) * 1000).format('m:ss');
 
     return (
       <View style={styles.playerContainer}>

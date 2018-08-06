@@ -7,7 +7,6 @@ import { AuthService } from './AuthService';
 import axios from 'axios';
 
 const API_USER = `${API}/users`;
-const API_CURRENT_USER = `${API}/auth/users/me`;
 
 class UserService {
   static createUser(user) {
@@ -30,7 +29,7 @@ class UserService {
       }
     };
 
-    return axios.put(API_CURRENT_USER, data)
+    return axios.put(`${ API_USER }/${ user.id }`, data)
       .then(response => response.data);
   }
 

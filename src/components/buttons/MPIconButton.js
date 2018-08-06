@@ -61,7 +61,7 @@ class MPIconButton extends Component {
 }
 
 MPIconButton.propTypes = {
-  title: PropTypes.string,
+  title: PropTypes.any,
   onPress: PropTypes.func,
   style: PropTypes.any,
   icon: PropTypes.any,

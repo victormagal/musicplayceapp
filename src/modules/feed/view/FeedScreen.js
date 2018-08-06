@@ -135,6 +135,7 @@ class FeedScreenContainer extends React.Component {
     <MPUser
       key={item.id}
       user={item}
+      onPress={() => this.handleNavigateUserProfile(item.id)}
     />
   );
 

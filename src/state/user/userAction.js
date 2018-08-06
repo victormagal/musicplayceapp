@@ -20,6 +20,7 @@ import {
   userNotificationsSettingsPatched
 } from './userTypes';
 
+
 export const searchUsers = (name) => {
   return (dispatch) => {
     dispatch(userStartLoading());
@@ -33,12 +34,13 @@ export const searchUsers = (name) => {
   };
 };
 
-export const updateUser = (id, user) => {
+export const updateUser = (user) => {
   return (dispatch) => {
     dispatch(userStartLoading());
 
-    return UserService.updateUser(id, user).then(() => {
+    return UserService.updateUser(user).then(() => {
       dispatch(userSaveSuccess());
+      dispatch(userFinishLoading());
     }).catch(e => {
       console.log('updateUserError', e.response);
       dispatch(userSaveError());

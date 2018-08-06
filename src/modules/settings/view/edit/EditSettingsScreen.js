@@ -39,19 +39,6 @@ class EditSettingsScreenContainer extends React.Component {
   };
 
   handleSaveClick = (formData, section) => {
-    let dataToMaintain = [];
-    switch(section) {
-      case 'profile':
-        dataToMaintain = ['email', 'cell_phone'];
-        break;
-      case 'email':
-        dataToMaintain = ['name', 'username', 'last_name', 'cell_phone'];
-        break;
-      case 'cell_phone':
-        dataToMaintain = ['name', 'username', 'last_name', 'email'];
-    }
-    dataToMaintain.forEach(attribute => formData[attribute] = this.props.profile[attribute]);
-
     this.props.dispatch(saveProfile(formData, section));
   };
 

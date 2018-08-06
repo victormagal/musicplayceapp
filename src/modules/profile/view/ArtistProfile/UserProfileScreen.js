@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {ProfileComponent} from './ProfileComponent';
-import {getUserById, userFollow} from "../../../state/action";
+import {ProfileComponent} from '../ProfileComponent';
+import {getUserById, userFollow} from "../../../../state/action";
 
 
 class UserProfileScreenContainer extends React.Component {

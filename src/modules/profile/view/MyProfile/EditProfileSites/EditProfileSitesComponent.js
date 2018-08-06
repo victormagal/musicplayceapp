@@ -13,7 +13,7 @@ import {
   MPIconButton,
   MPTextField,
   MPGradientButton
-} from '../../../../components';
+} from '../../../../../components/index';
 
 class EditProfileSitesComponent extends React.Component {
   refSaveButton = null;
