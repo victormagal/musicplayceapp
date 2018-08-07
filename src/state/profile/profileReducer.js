@@ -6,7 +6,8 @@ import {
   PROFILE_FINISH_LOADING,
   SAVE_PROFILE_SUCCESS,
   PROFILE_CREATE_USER_SUCCESS,
-  PROFILE_CREATE_USER_ERROR
+  PROFILE_CREATE_USER_ERROR,
+  SAVE_PROFILE_ERROR
 } from './profileAction';
 import {
   AUTH_LOGOUT
@@ -15,6 +16,7 @@ import {
 
 const profileReducer = (state, action) => {
   state = state || {
+      saveProfileError: null,
       saveProfileSuccess: false,
       createUserSuccess: false,
       createUserError: false,
@@ -50,6 +52,13 @@ const profileReducer = (state, action) => {
         ...state,
         ...action.payload,
         saveProfileSuccess: true,
+      };
+
+    case SAVE_PROFILE_ERROR:
+      return {
+        ...state,
+        saveProfileError: action.payload,
+        saveProfileSuccess: false,
       };
 
     case PROFILE_CREATE_USER_SUCCESS:

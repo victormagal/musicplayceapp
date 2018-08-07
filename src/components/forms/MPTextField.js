@@ -30,7 +30,8 @@ class MPTextField extends React.Component {
       onBlur,
       onChangeText,
       textProps,
-      onSubmitEditing
+      onSubmitEditing,
+      secureTextEntry
     } = this.props;
 
     return (
@@ -49,6 +50,7 @@ class MPTextField extends React.Component {
           style={this.getTextFieldStyle()}
           onFocus={ onFocus }
           onBlur={ onBlur }
+          secureTextEntry={secureTextEntry}
           onChangeText={ onChangeText }
           onSubmitEditing={onSubmitEditing}
           {...textProps}
