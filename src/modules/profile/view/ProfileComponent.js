@@ -22,7 +22,6 @@ import {
   MPSettingsIcon,
   MPSongAddIcon
 } from '../../../assets/svg/'
-import {MPUpgradeButton} from '../../../components/profile/MPUpgradeButton';
 import {uploadImage} from "../../../state/profile/profileAction";
 import ImagePicker from 'react-native-image-picker';
 import {MPGroupIcon} from "../../../assets/svg";
@@ -311,7 +310,7 @@ class ProfileComponent extends React.Component {
                 <MPShowFolderSongs
                   folderName='Outras'
                   me={me}
-                  songs={mySongs.data}
+                  songs={(mySongs && mySongs.data) || []}
                   onEditClick={this.handleEditSong}
                   onIndicateClick={this.handleIndicateSong}
                   onRemoveClick={this.handleRemoveSong}

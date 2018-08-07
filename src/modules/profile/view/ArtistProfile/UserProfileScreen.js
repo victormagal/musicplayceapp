@@ -22,7 +22,7 @@ class UserProfileScreenContainer extends React.Component {
         navigation={navigation}
         profile={this.props.user}
         onFollowUpClick={this.handleFollowUp}
-        mySongs={this.props.usersSongs} />
+        mySongs={this.props.usersSongs}/>
     );
   }
 }

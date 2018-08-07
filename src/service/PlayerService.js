@@ -6,6 +6,7 @@ class PlayerService{
 
   static play(song){
     RNMusicPlayer.play({
+      id: song.id || String(Math.random()),
       title: (song && song.name) ||  "Music 1",
       mediaURL: (song && song.path) || "https://d27stng4hz4vj7.cloudfront.net/music.mp3",
       duration: 111,

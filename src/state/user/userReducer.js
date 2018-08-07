@@ -24,7 +24,7 @@ const userReducer = (state, action) => {
     user: null,
     isUserSaved: false,
     users: [],
-    usersSongs: [],
+    usersSongs: null,
     userNotifications: [],
     userFollowNotifications: [],
   };
