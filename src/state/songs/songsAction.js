@@ -17,21 +17,24 @@ import {
   songStartLoading,
   songUnpublishError,
   songUnpublishSuccess,
+  uploadedSongPictureSucess,
+  uploadedSongPictureError,
   likedCommentSuccess,
   likedCommentError,
 } from "./songsType";
 
-export const createPermanentSong = (song, file) => {
+export const createPermanentSong = (song, songFile, imageFile) => {
   return (dispatch, getState) => {
     const {profile} = getState().profileReducer;
     song.user_id = profile.id;
 
     dispatch(songStartLoading());
-    return SongService.createAndPublishSong(song, file).then(() => {
+    return SongService.createAndPublishSong(song, songFile, imageFile).then(() => {
       dispatch(songPublishSuccess());
     }).catch(e => {
       dispatch(songPublishError());
-      console.log('createPermanentSongError', e.response);
+      console.log('createPermanentSongError', e);
+      console.log(e.response);
     });
   };
 }
@@ -51,11 +54,11 @@ export const createDraftSong = (song) => {
   };
 }
 
-export const updatePermanentSong = (song, file) => {
+export const updatePermanentSong = (song, songFile, imageFile) => {
   return (dispatch) => {
     dispatch(songStartLoading());
 
-    return SongService.republishSong(song, file).then(() => {
+    return SongService.republishSong(song, songFile, imageFile).then(() => {
       dispatch(songPublishSuccess());
     }).catch(e => {
       console.log('updatePermanentSongError', e);
@@ -171,6 +174,20 @@ export const fetchUserSongs = (userId) => {
       dispatch(fetchedUserSongs(response));
     }).catch(e => {
       dispatch(songFinishLoading(e.response));
+    });
+  };
+};
+
+export const uploadSongPicture = (songId, file) => {
+  return (dispatch) => {
+    dispatch(songStartLoading());
+
+    return SongService.uploadImage(songId, file).then(response => {
+      console.log('uploadSongPictureSuccess', response);
+      dispatch(uploadedSongPictureSucess());
+    }).catch(e => {
+      console.log('uploadSongPictureError', e);
+      dispatch(uploadedSongPictureError());
     });
   };
 };

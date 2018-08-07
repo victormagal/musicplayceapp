@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {StyleSheet, View, FlatList} from 'react-native';
-import {MPSongRating, MPText, MPUpgradeButton} from '../../components'
+import {MPSongRating, MPText} from '../../components'
 import {MPGradientBorderButton} from './MPGradientBorderButton';
 
 

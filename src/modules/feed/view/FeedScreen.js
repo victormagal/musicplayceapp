@@ -222,12 +222,12 @@ class FeedScreenContainer extends React.Component {
                 { feed.songs.map(song => (
                   <MPUserFull
                     key={song.id}
-                    userName={song.artist.name}
+                    userName={song.user && song.user.name}
                     songName={song.name}
                     song={song}
                     imagePath={images.daftPunk120}
-                    userImagePath={song.artist.cover_picture_url}
-                    onPressUser={() => this.handleNavigateUserProfile(song.artist.id)}
+                    userImagePath={song.user && song.user.picture_url}
+                    onPressUser={() => this.handleNavigateUserProfile(song.user && song.user.id)}
                     onPressMusic={this.handleNavigateMusic}
                   />
                 ))}
@@ -276,12 +276,12 @@ class FeedScreenContainer extends React.Component {
                       { feed.songs.map(song => (
                         <MPUserFull
                           key={song.id}
-                          userName={song.artist.name}
+                          userName={song.user && song.user.name}
                           songName={song.name}
                           song={song}
                           imagePath={song.picture_url}
-                          userImagePath={song.artist.cover_picture_url}
-                          onPressUser={() => this.handleNavigateUserProfile(song.artist.id)}
+                          userImagePath={song.user && song.user.picture_url}
+                          onPressUser={() => this.handleNavigateUserProfile(song.user && song.user.id)}
                           onPressMusic={this.handleNavigateMusic}
                         />
                       ))}
@@ -303,12 +303,12 @@ class FeedScreenContainer extends React.Component {
                       { feed.songs.map(song => (
                         <MPUserFull
                           key={song.id}
-                          userName={song.artist.name}
+                          userName={song.user && song.user.name}
                           songName={song.name}
                           song={song}
                           imagePath={song.picture_url}
-                          userImagePath={song.artist.cover_picture_url}
-                          onPressUser={() => this.handleNavigateUserProfile(song.artist.id)}
+                          userImagePath={song.user && song.user.picture_url}
+                          onPressUser={() => this.handleNavigateUserProfile(song.user && song.user.id)}
                           onPressMusic={this.handleNavigateMusic}
                         />
                       ))}
