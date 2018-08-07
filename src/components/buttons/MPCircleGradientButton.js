@@ -27,7 +27,7 @@ class MPCircleGradientButton extends Component {
 }
 
 MPCircleGradientButton.propTypes = {
-  onPress: PropTypes.func.isRequired,
+  onPress: PropTypes.func,
   style: PropTypes.any,
   icon: PropTypes.any
 };

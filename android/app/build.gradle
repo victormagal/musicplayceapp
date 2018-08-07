@@ -95,7 +95,6 @@ def enableProguardInReleaseBuilds = false
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
-    buildToolsVersion rootProject.ext.buildToolsVersion
 
     defaultConfig {
         applicationId "com.musicplayce"
@@ -143,11 +142,13 @@ android {
             }
         }
     }
+    buildToolsVersion '27.0.3'
 }
 
 dependencies {
-    compile project(':react-native-document-picker')
+    compile project(':react-native-image-picker')
     compile project(':react-native-stream-music-player')
+    compile project(':react-native-document-picker')
     compile project(':react-native-vector-icons')
     compile project(':react-native-svg')
     compile project(':react-native-linear-gradient')

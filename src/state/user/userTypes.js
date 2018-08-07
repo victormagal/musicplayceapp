@@ -17,6 +17,7 @@ export const USER_NOTIFICATIONS_FOLLOWERS_FETCHED = 'USER_NOTIFICATIONS_FOLLOWER
 export const USER_NOTIFICATIONS_SETTINGS_START_LOADING = 'USER_NOTIFICATIONS_SETTINGS_START_LOADING';
 export const USER_NOTIFICATIONS_SETTINGS_FINISHED_LOADING = 'USER_NOTIFICATIONS_SETTINGS_FINISHED_LOADING';
 export const USER_NOTIFICATIONS_SETTINGS_FETCHED = 'USER_NOTIFICATIONS_SETTINGS_FETCHED';
+export const USER_NOTIFICATIONS_SETTINGS_PATCHED = 'USER_NOTIFICATIONS_SETTINGS_PATCHED';
 
 export const usersFetched = createAction(USERS_FETCHED, (data) => data);
 export const userByIdFetched = createAction(USER_BY_ID_FETCHED, (data) => data);
@@ -35,3 +36,4 @@ export const userNotificationsFinishedLoading = createAction(USER_NOTIFICATIONS_
 export const userNotificationsSettingsStartLoading = createAction(USER_NOTIFICATIONS_SETTINGS_START_LOADING);
 export const userNotificationsSettingsFinishedLoading = createAction(USER_NOTIFICATIONS_SETTINGS_FINISHED_LOADING);
 export const userNotificationsSettingsFetched = createAction(USER_NOTIFICATIONS_SETTINGS_FETCHED, (data) => data);
+export const userNotificationsSettingsPatched = createAction(USER_NOTIFICATIONS_SETTINGS_PATCHED, (data) => data);

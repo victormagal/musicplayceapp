@@ -16,8 +16,10 @@ import {
   userNotificationsFollowersFetched,
   userNotificationsSettingsStartLoading,
   userNotificationsSettingsFinishedLoading,
-  userNotificationsSettingsFetched
+  userNotificationsSettingsFetched,
+  userNotificationsSettingsPatched
 } from './userTypes';
+
 
 export const searchUsers = (name) => {
   return (dispatch) => {
@@ -115,7 +117,20 @@ export const getNotificationsSettings = () => {
     dispatch(userNotificationsSettingsStartLoading());
 
     return UserService.getNotificationSettings().then(response => {
-      dispatch(userNotificationsSettingsFetched(response.data.data));
+      dispatch(userNotificationsSettingsFetched(response));
+    }).catch(e => {
+      console.log('getNotificationsSettingsError', e.response);
+      dispatch(userNotificationsSettingsFinishedLoading());
+    });
+  };
+};
+
+export const patchNotificationSettings = (settings) => {
+  return (dispatch) => {
+    dispatch(userNotificationsSettingsStartLoading());
+
+    return UserService.patchNotificationSettings(settings).then(response => {
+      dispatch(userNotificationsSettingsPatched(response));
     }).catch(e => {
       console.log('getNotificationsSettingsError', e.response);
       dispatch(userNotificationsSettingsFinishedLoading());

@@ -3,9 +3,10 @@ import {connect} from 'react-redux';
 import {DocumentPicker, DocumentPickerUtil} from 'react-native-document-picker';
 import {StyleSheet, View, ScrollView, TouchableOpacity} from 'react-native';
 import {MPGradientButton, MPHeader, MPSongInfo, MPText, MPLoading} from '../../../components'
-import {MPSongUploadIcon, MPSongUploadEditIcon} from '../../../assets/svg';
+import {MPSongUploadIcon, MPSongUploadEditIcon, MPCameraIcon} from '../../../assets/svg';
 import {createPermanentSong, updatePermanentSong, fetchOneSong} from "../../../state/action";
 import {updateSongRegisterData} from "../../../state/songs/songsType";
+import ImagePicker from "react-native-image-picker";
 
 
 class RegisterSongContainer extends React.Component {
@@ -16,6 +17,7 @@ class RegisterSongContainer extends React.Component {
     this.state = {
       shouldFetchSong: false,
       songFile: null,
+      imageFile: null,
       progressContentWidth: 0,
       cardErrors: {
         name: false,
@@ -65,14 +67,14 @@ class RegisterSongContainer extends React.Component {
   };
 
   handlePublishClick = () => {
-    const {songFile} = this.state;
+    const { songFile, imageFile } = this.state;
     let {song, dispatch} = this.props;
     const valid = this.validate();
 
     if (valid) {
       song.created_at
-        ? dispatch(updatePermanentSong(song, songFile))
-        : dispatch(createPermanentSong(song, songFile));
+        ? dispatch(updatePermanentSong(song, songFile, imageFile))
+        : dispatch(createPermanentSong(song, songFile, imageFile));
     }
   };
 
@@ -92,6 +94,7 @@ class RegisterSongContainer extends React.Component {
     DocumentPicker.show({
       filetype: [DocumentPickerUtil.audio()],
     }, (something, response) => {
+      console.log('response', response);
       if (response) {
         if (response.type) {
           response.fileName = `${response.fileName}.${response.type.split('/')[1]}`;
@@ -101,6 +104,26 @@ class RegisterSongContainer extends React.Component {
       }
     });
   };
+
+  handleChooseSongPictureClick = () => {
+    const options = {
+      title: 'Selecionar uma imagem',
+      storageOptions: {
+        skipBackup: true,
+        path: 'images'
+      }
+    };
+
+    ImagePicker.showImagePicker(options, (response) => {
+      if (response.didCancel) {
+        console.log('User cancelled image picker');
+      } else if (response.error) {
+        console.log('ImagePicker Error: ', response.error);
+      } else {
+        this.setState({ imageFile: response });
+      }
+    });
+  }
 
   validate() {
     const {cardErrors} = this.state;
@@ -134,21 +157,22 @@ class RegisterSongContainer extends React.Component {
   }
 
   getSongName() {
-    const {song} = this.props;
-    let name = '';
+    const { song } = this.props;
+    const { songFile } = this.state;
+    return songFile ? songFile.fileName : song.name + song.path.substr(song.path.lastIndexOf('.'));
+  }
 
-    if (this.state.songFile) {
-      name = this.state.songFile.fileName;
-    } else if (song.path) {
-      name = song.name + song.path.substr(song.path.lastIndexOf('.'));
-    }
-
-    return name;
+  getImageName() {
+    const { song } = this.props;
+    const { imageFile } = this.state;
+    return imageFile
+      ? imageFile.fileName
+      :  song.name + song.picture_url.substr(song.picture_url.lastIndexOf('.'));
   }
 
   render() {
     const {song} = this.props;
-    const {cardErrors} = this.state;
+    const {cardErrors, songFile, imageFile} = this.state;
     return (
       <View style={styles.container}>
         <MPHeader
@@ -166,31 +190,53 @@ class RegisterSongContainer extends React.Component {
                 Mostre pra todo mundo o que você faz de melhor.
               </MPText>
               <MPText style={ styles.headerText}>
-                {this.state.songFile || song.path ? 'Melodia Selecionada' : 'Upload de melodia'}
+                {songFile || song.path ? 'Melodia Selecionada' : 'Upload de melodia'}
               </MPText>
             </View>
             <View>
-              <View style={{
-                  padding: cardErrors.path ? 15 : 0,
-                  borderWidth: 2,
-                  borderColor: cardErrors.path ? '#e13223' : '#FFF'
-                }}>
+              <View style={styles.errorCard(cardErrors)}>
                 <MPGradientButton
                   style={styles.uploadIcon}
-                  icon={(this.state.songFile && this.state.songFile.fileName) || song.path ? MPSongUploadEditIcon : MPSongUploadIcon}
-                  title={this.state.songFile || song.path ? this.getSongName() : 'Escolher o arquivo'}
+                  icon={(songFile && songFile.fileName) || song.path ? MPSongUploadEditIcon : MPSongUploadIcon}
+                  title={songFile || song.path ? this.getSongName() : 'Escolher o arquivo'}
                   textSize={16}
-                  onPress={this.state.songFile || song.path ? this.handlePlaySongClick : this.handleChooseFileClick}
+                  onPress={songFile || song.path ? this.handlePlaySongClick : this.handleChooseFileClick}
                 />
 
-                {!this.state.songFile && !song.path && (
+                {!songFile && !song.path && (
                   <MPText style={ styles.subText}>
                     Você pode fazer upload de músicas em MP3 ou AAC.
                   </MPText>
                 )}
 
-                {(!!this.state.songFile || !!song.path) && (
+                {(!!songFile || !!song.path) && (
                   <TouchableOpacity onPress={this.handleChooseFileClick}>
+                    <MPText style={styles.replaceSong}>
+                      Substituir arquivo
+                    </MPText>
+                  </TouchableOpacity>
+                )}
+              </View>
+              <MPText style={[styles.headerText, { marginTop: 10 }]}>
+                {imageFile || song.picture_url ? 'Imagem de Capa Selecionada' : 'Upload de Imagem de Capa'}
+              </MPText>
+              <View style={styles.errorCard(cardErrors)}>
+                <MPGradientButton
+                  style={styles.uploadIcon}
+                  icon={MPCameraIcon}
+                  title={imageFile || song.picture_url ? this.getImageName() : 'Escolher o arquivo'}
+                  textSize={16}
+                  onPress={this.handleChooseSongPictureClick}
+                />
+
+                {!imageFile && !song.picture_url && (
+                  <MPText style={ styles.subText}>
+                    Você pode fazer upload de imagens em JPG, JPEG e PNG.
+                  </MPText>
+                )}
+
+                {(!!imageFile || !!song.picture_url) && (
+                  <TouchableOpacity onPress={this.handleChooseSongPictureClick}>
                     <MPText style={styles.replaceSong}>
                       Substituir arquivo
                     </MPText>
@@ -237,7 +283,7 @@ class RegisterSongContainer extends React.Component {
                   selected={song.coAuthors && song.coAuthors.length > 0}
                   title={'Tem outros autores?'}
                   info={this.getFilledString('coAuthors')}
-                  onPress={() => this.goToScreen('ArtistsScreen')}
+                  onPress={() => this.goToScreen('UsersScreen')}
                 />
                 <MPSongInfo
                   title={'Tem intérpretes?'}
@@ -367,7 +413,12 @@ const styles = StyleSheet.create({
   publishButton: {
     marginBottom: 20,
     marginHorizontal: 20
-  }
+  },
+  errorCard: (cardErrors) => ({
+    padding: cardErrors.path ? 15 : 0,
+    borderWidth: 2,
+    borderColor: cardErrors.path ? '#e13223' : '#FFF'
+  })
 });
 
 const mapStateToProps = ({songsReducer}) => {

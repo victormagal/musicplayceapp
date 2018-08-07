@@ -1,31 +1,49 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import {
-  StyleSheet,
-  View
+  View,
+  Share,
+  StyleSheet
 } from 'react-native';
 import {
-  MPGradientButton,
   MPText,
-  MPPhoneSuccess
+  MPGradientButton
 } from '../../components';
 
 class MPPasswordComponent extends React.Component {
 
   handleBack = () => {
-    this.props.navigation.pop();
+    this.props.navigation.navigate('homeSettings');
   };
 
-  handleFoward = () => {
-    this.props.navigation.replace('message', { component: MPPhoneSuccess });
-  };
+  handleSendMe = () => {
+    const { navigation } = this.props;
+    const navigationParams = navigation.state.params;
+    Share.share({
+      title: 'MusicPlayce',
+      message: 'Senha atualizada com sucesso! Sua nova senha no MusicPlayce é: '+ navigationParams.newPassword,
+      dialogTitle: 'Nova senha',
+    })
+  }
 
   render() {
     return (
       <View style={styles.container}>
-        <MPText style={styles.title}>Enviar nova senha para meus dispositivos autorizados.</MPText>
-        <MPGradientButton style={styles.button} textSize={16} title="Enviar nova senha para mim" onPress={this.handleBack} />
-        <MPGradientButton style={styles.button} textSize={16} title="Voltar para configurações" onPress={this.handleBack} />
+        <MPText style={styles.title}>
+          Enviar nova senha para meus dispositivos autorizados.
+        </MPText>
+        <MPGradientButton
+          style={styles.button}
+          textSize={16}
+          title="Enviar nova senha para mim"
+          onPress={this.handleSendMe}
+        />
+        <MPGradientButton
+          style={styles.button}
+          textSize={16}
+          title="Voltar para configurações"
+          onPress={this.handleBack}
+        />
       </View>
     );
   }

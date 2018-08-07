@@ -3,11 +3,12 @@ import {
   getIncludes,
   transformResponseData
 } from './api';
+import { Platform } from 'react-native';
 import { AuthService } from './AuthService';
 import axios from 'axios';
 
+const API_AUTH = `${API}/auth/users/me`;
 const API_USER = `${API}/users`;
-const API_CURRENT_USER = `${API}/auth/users/me`;
 
 class UserService {
   static createUser(user) {
@@ -22,6 +23,31 @@ class UserService {
       .then(response => response.data);
   }
 
+  static uploadImage(file) {
+    let formData = new FormData();
+
+    if (!file) {
+      return Promise.resolve();
+    }
+
+    formData.append('picture', {
+      uri: file.uri,
+      name: file.fileName,
+      type: Platform.OS === 'android' ? file.type : `images/${ file.fileName.split('.')[1] }`
+    });
+
+    return axios.post(`${ API_USER }/me/picture`, formData, {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'multipart/form-data'
+      }
+    }).then(response => {
+      const { data } = response.data;
+      const { id, attributes } = data;
+      return { id, ...attributes };
+    });
+  }
+
   static updateUser(user) {
     const data = {
       data: {
@@ -30,7 +56,8 @@ class UserService {
       }
     };
 
-    return axios.put(`${ API_USER }/${ user.id }`, data)
+    const endpointUrl = user.password ? API_AUTH : `${ API_USER }/${ user.id }`;
+    return axios.put(endpointUrl, data)
       .then(response => response.data);
   }
 
@@ -108,7 +135,23 @@ class UserService {
   }
 
   static getNotificationSettings(){
-    return axios.get(`${API_USER}/me/settings-notifications`);
+    return axios.get(`${API_USER}/me/settings-notifications`).then((response)=>{
+      return response.data.data.attributes;
+    });
+  }
+  
+  static patchNotificationSettings(settings){
+    let params = {
+      data: {
+        type: 'notificationSettings',
+        attributes: [
+          settings, 
+        ]
+      }
+    }
+    return axios.patch(`${API_USER}/me/settings-notifications`, params).then((response) => {
+      return response.data.data.attributes;
+    });
   }
 }
 

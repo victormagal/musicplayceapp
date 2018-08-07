@@ -12,7 +12,7 @@ import {
   MPText
 } from '../../../components';
 import { connect } from 'react-redux';
-import { getNotificationsSettings } from '../../../state/user/userAction';
+import { getNotificationsSettings, patchNotificationSettings } from '../../../state/user/userAction';
 
 class NotificationSettingsScreenContainer extends React.Component {
   constructor(props){
@@ -29,7 +29,7 @@ class NotificationSettingsScreenContainer extends React.Component {
 
   componentWillReceiveProps(nextProps){
     if(nextProps.notificationSettings){
-      this.setState({notificationSettings: nextProps.notificationSettings.attributes});
+      this.setState({notificationSettings: nextProps.notificationSettings});
     }
   }
 
@@ -37,16 +37,24 @@ class NotificationSettingsScreenContainer extends React.Component {
     this.props.navigation.pop();
   };
 
+  onChangeSwitch = ({name, value}) => {
+    if(value){
+      this.props.dispatch(patchNotificationSettings({[name]: 1}));
+    }else{
+      this.props.dispatch(patchNotificationSettings({[name]: 0}));
+    }
+  }
+
   render() {
     let {
       interested_email,
       interested_push,
       interested_sms,
       interested_unit_frequency,
-      indicate_your_song_email,
-      indicate_your_song_push,
-      indicate_your_song_sms,
-      indicate_your_song_unit_frequency,
+      indication_your_song_email,
+      indication_your_song_push,
+      indication_your_song_sms,
+      indication_your_song_unit_frequency,
       indication_email,
       indication_push,
       indication_sms,
@@ -60,7 +68,7 @@ class NotificationSettingsScreenContainer extends React.Component {
       support_sms,
       support_unit_frequency,
     } = this.state.notificationSettings;
-    console.log(interested_email);
+    // console.log(this.state.notificationSettings)
     return (
       <View style={styles.parent}>
         <MPHeader back={true} onBack={this.handleBack} title={"Preferências de notificação"} />
@@ -70,43 +78,43 @@ class NotificationSettingsScreenContainer extends React.Component {
               <MPText style={styles.title}>Novos interessados</MPText>
               <MPText style={styles.paragraph}>Fique sabendo quando entrarem em contato com você</MPText>
             </View>
-            <MPSwitch value={interested_email ? true : false} label={"E-mail"} />
-            <MPSwitch label={"Celular / tablet"} />
-            <MPSwitch label={"SMS"} />
+            <MPSwitch name={'interested_email'} value={!!interested_email} label={"E-mail"} onChangeSwitch={this.onChangeSwitch} />
+            <MPSwitch name={'interested_push'} value={!!interested_push} label={"Celular / tablet"} onChangeSwitch={this.onChangeSwitch} />
+            <MPSwitch name={'interested_sms'} value={!!interested_sms} label={"SMS"} onChangeSwitch={this.onChangeSwitch} />
             <View style={styles.separator} />
             <View style={styles.boxText}>
               <MPText style={styles.title}>Indicaram sua música</MPText>
               <MPText style={styles.paragraph}>Fique sabendo quando indicarem suas composições</MPText>
             </View>
             {/* <MPSelect /> */}
-            <MPSwitch label={"E-mail"} />
-            <MPSwitch label={"Celular / tablet"} />
-            <MPSwitch label={"SMS"} />
+            <MPSwitch name={'indication_your_song_email'} value={!!indication_your_song_email}  label={"E-mail"} onChangeSwitch={this.onChangeSwitch} />
+            <MPSwitch name={'indication_your_song_push'} value={!!indication_your_song_push} label={"Celular / tablet"} onChangeSwitch={this.onChangeSwitch} />
+            <MPSwitch name={'indication_your_song_sms'} value={!!indication_your_song_sms} label={"SMS"} onChangeSwitch={this.onChangeSwitch} />
             <View style={styles.separator} />
             <View style={styles.boxText}>
               <MPText style={styles.title}>Indicaram para você</MPText>
               <MPText style={styles.paragraph}>Fique sabendo quando indicarem músicas para você</MPText>
             </View>
             {/* <MPSelect /> */}
-            <MPSwitch label={"E-mail"} />
-            <MPSwitch label={"Celular / tablet"} />
-            <MPSwitch label={"SMS"} />
+            <MPSwitch name={'indication_email'} value={!!indication_email} label={"E-mail"} onChangeSwitch={this.onChangeSwitch} />
+            <MPSwitch name={'indication_push'} value={!!indication_push} label={"Celular / tablet"} onChangeSwitch={this.onChangeSwitch} />
+            <MPSwitch name={'indication_sms'} value={!!indication_sms} label={"SMS"} onChangeSwitch={this.onChangeSwitch} />
             <View style={styles.separator} />
             <View style={styles.boxText}>
               <MPText style={styles.title}>Promoções e dicas</MPText>
               <MPText style={styles.paragraph}>Receba promoções e dicas para turbinar o seu perfil</MPText>
             </View>
-            <MPSwitch label={"E-mail"} />
-            <MPSwitch label={"Celular / tablet"} />
-            <MPSwitch label={"SMS"} />
+            <MPSwitch name={'promotion_email'} value={!!promotion_email} label={"E-mail"} onChangeSwitch={this.onChangeSwitch} />
+            <MPSwitch name={'promotion_push'} value={!!promotion_push} label={"Celular / tablet"} onChangeSwitch={this.onChangeSwitch} />
+            <MPSwitch name={'promotion_sms'} value={!!promotion_sms} label={"SMS"} onChangeSwitch={this.onChangeSwitch} />
             <View style={styles.separator} />
             <View style={styles.boxText}>
               <MPText style={styles.title}>Ajuda</MPText>
               <MPText style={styles.paragraph}>Quando entrar em contato com a gente, como prefere receber nossas respostas e avisos importantes?</MPText>
             </View>
-            <MPSwitch label={"E-mail"} />
-            <MPSwitch label={"Celular / tablet"} />
-            <MPSwitch label={"SMS"} />
+            <MPSwitch name={'support_email'} value={!!support_email} label={"E-mail"} onChangeSwitch={this.onChangeSwitch} />
+            <MPSwitch name={'support_push'} value={!!support_push} label={"Celular / tablet"} onChangeSwitch={this.onChangeSwitch} />
+            <MPSwitch name={'support_sms'} value={!!support_sms} label={"SMS"} onChangeSwitch={this.onChangeSwitch} />
           </View>
         </ScrollView>
       </View>

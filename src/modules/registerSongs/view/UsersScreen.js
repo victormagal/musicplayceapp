@@ -126,6 +126,8 @@ class UsersScreenContainer extends React.Component {
   render() {
     const hasSelected = Object.keys(this.state.usersSelectedTemp).length > 0;
 
+    console.log(this.state.usersSelected);
+    
     return (
       <View style={styles.container}>
         <MPHeader
@@ -192,9 +194,9 @@ class UsersScreenContainer extends React.Component {
               </TouchableOpacity>
             }
           </View>
-          { (this.state.search.length >= 3 && this.state.artists.length > 0 && !this.props.loading) &&
+          { (this.state.search.length >= 3 && this.state.users.length > 0 && !this.props.loading) &&
             <View style={styles.contentUsers}>
-              { this.state.artists.map((item, index) => (
+              { this.state.users.map((item, index) => (
                 <MPUserHorizontal
                   key={index}
                   artist={item.name}
@@ -267,8 +269,8 @@ const styles = StyleSheet.create({
     fontFamily: 'Montserrat-Italic'
   }
 });
-const mapStateToProps = ({artistReducer, songsReducer}) => {
-  return {...artistReducer, song: songsReducer.song};
+const mapStateToProps = ({userReducer, songsReducer}) => {
+  return {...userReducer, song: songsReducer.song};
 };
 
 const UsersScreen = connect(mapStateToProps)(UsersScreenContainer);
