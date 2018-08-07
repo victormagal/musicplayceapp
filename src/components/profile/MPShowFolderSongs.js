@@ -11,6 +11,7 @@ class MPShowFolderSongs extends Component {
 
     return (
       <MPSongRating
+        key={item.id}
         song={item}
         indicateSong={true}
         isAdded={true}

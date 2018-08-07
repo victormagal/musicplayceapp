@@ -227,9 +227,8 @@ class ProfileComponent extends React.Component {
   }
 
   renderProfileData(profile) {
-    const { me, myIndications, navigation } = this.props;
-    const countIndications =  (myIndications && myIndications.count);
-    console.log('props', this.props);
+    const { me, indications, navigation } = this.props;
+    const countIndications =  (indications && indications.count);
     return (
       <View>
         { me ?
@@ -307,7 +306,7 @@ class ProfileComponent extends React.Component {
       case 0:
         return (
           <View>
-            { mySongs ?
+            { mySongs && mySongs.data && mySongs.data.length > 0 ?
               <View>
                 <MPShowFolderSongs
                   folderName='Outras'
