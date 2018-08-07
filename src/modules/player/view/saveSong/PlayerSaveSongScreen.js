@@ -54,7 +54,7 @@ class PlayerSaveSongContainer extends React.Component {
     if(this.props.navigation.state && this.props.navigation.state.params){
       let {song} = this.props.navigation.state.params;
       if(song) {
-        this.setState({song});
+        this.setState({song: song});
       }
     }
   }
