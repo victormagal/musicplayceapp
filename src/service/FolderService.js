@@ -16,6 +16,9 @@ class FolderService {
         }
       }
     }
+    folders = folders.filter((folder)=>{
+      return folder.songs;
+    });
     return folders;
   }
 
@@ -59,7 +62,7 @@ class FolderService {
                    let relations = response.data.included;
                    data = transformResponseData(data);
                    let result = FolderService.transformFolderSongs(data, relations);
-                   return {result};
+                   return result;
                  }).catch(e =>{
                    console.log('getFavoriteSongsFoldersError', e);
                  });

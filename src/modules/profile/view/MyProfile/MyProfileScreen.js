@@ -29,9 +29,8 @@ class MyProfileScreenContainer extends React.Component {
     ) {
       this.props.dispatch(fetchProfile());
     }
-
-    if(nextProps.favoriteSongs){
-      this.setState({favoriteSongs: nextProps.favoriteSongs});
+    if(nextProps.favoritesFolder){
+      this.setState({favoritesFolder: nextProps.favoritesFolder});
     }
   }
 
