@@ -27,8 +27,10 @@ class MPGradientButtonComponent extends Component {
   componentWillReceiveProps(newProps){
     let { selected, textSize} = this.props;
 
-    if(newProps.textSize != textSize || newProps.selected != selected){
-      this.setState({textStyleRef: this.setupText(newProps.textSize, newProps.selected)});
+    if(newProps.textSize !== textSize || newProps.selected !== selected){
+      this.setState({
+        textStyleRef: this.setupText(newProps.textSize, newProps.selected)
+      });
     }
   }
 
@@ -37,7 +39,7 @@ class MPGradientButtonComponent extends Component {
     newTextStyle.fontSize = textSize ? textSize : 12;
     newTextStyle.color = selected ? '#FFFFFF' : '#E13223';
     if (this.props.icon){
-      newTextStyle.paddingLeft = 10;
+      newTextStyle.paddingLeft = 30;
     }
 
     return StyleSheet.create({textStyle: newTextStyle}).textStyle;

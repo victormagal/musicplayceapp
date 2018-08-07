@@ -80,8 +80,14 @@ class MPSongRating extends Component {
   }
 
   render() {
-    let { song, style, indicateSong, indications, isNew, rating} = this.props;
-
+    const {
+      song,
+      style,
+      indicateSong,
+      indications,
+      isNew,
+      rating
+    } = this.props;
     return (
       <View style={style || {}}>
 
@@ -90,7 +96,9 @@ class MPSongRating extends Component {
             <View>
               <View>
                 <View style={ styles.simpleUserCardImage }>
-                  <Image source={ images.daftPunk100 }/>
+                  <Image
+                    style={{ width: 100, height: 100 }}
+                    source={ song.picture_url ? { uri: song.picture_url } : images.daftPunk100 }/>
 
                   <TouchableOpacity style={styles.playIcon} onPress={this.handleOptionsClick}>
                     <MPPlayIcon />
