@@ -3,6 +3,7 @@ package com.musicplayce;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.imagepicker.ImagePickerPackage;
 import com.reactlibrary.RNMusicPlayerPackage;
 import com.reactnativedocumentpicker.ReactNativeDocumentPicker;
 import com.oblador.vectoricons.VectorIconsPackage;
@@ -28,6 +29,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new ImagePickerPackage(),
             new RNMusicPlayerPackage(),
             new ReactNativeDocumentPicker(),
             new VectorIconsPackage(),

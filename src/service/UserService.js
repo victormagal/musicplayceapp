@@ -3,6 +3,7 @@ import {
   getIncludes,
   transformResponseData
 } from './api';
+import { Platform } from 'react-native';
 import { AuthService } from './AuthService';
 import axios from 'axios';
 
@@ -19,6 +20,31 @@ class UserService {
 
     return axios.post(API_USER, data)
       .then(response => response.data);
+  }
+
+  static uploadImage(file) {
+    let formData = new FormData();
+
+    if (!file) {
+      return Promise.resolve();
+    }
+
+    formData.append('picture', {
+      uri: file.uri,
+      name: file.fileName,
+      type: Platform.OS === 'android' ? file.type : `images/${ file.fileName.split('.')[1] }`
+    });
+
+    return axios.post(`${ API_USER }/me/picture`, formData, {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'multipart/form-data'
+      }
+    }).then(response => {
+      const { data } = response.data;
+      const { id, attributes } = data;
+      return { id, ...attributes };
+    });
   }
 
   static updateUser(user) {

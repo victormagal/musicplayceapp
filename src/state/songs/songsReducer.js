@@ -18,6 +18,8 @@ import {
   SONG_REGISTER_DATA,
   SONG_REGISTER_CLEAR,
   FETCHED_ARTIST_SONGS,
+  SONG_UPLOADED_PICTURE_ERROR,
+  SONG_UPLOADED_PICTURE_SUCCESS,
   SONG_LIKE_COMMENT_ERROR,
   SONG_LIKE_COMMENT_SUCCESS
 } from './songsType';
@@ -45,6 +47,7 @@ const songsReducer = (state, action) => {
     songUnpublishSuccess: false,
     songIndicateSuccess: false,
     songFavoriteSuccess: false,
+    songUploadedPictureSuccess: false,
     likedCommentSuccess: false,
   };
 
@@ -67,12 +70,20 @@ const songsReducer = (state, action) => {
         loading: true
       };
 
+    case SONG_UPLOADED_PICTURE_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        songUploadedPictureSuccess: true
+      };
+
     case SONG_DRAFT_ERROR:
     case SONG_FAVORITE_ERROR:
     case SONG_INDICATE_ERROR:
     case SONG_LIKE_COMMENT_ERROR:
     case SONG_PUBLISH_ERROR:
     case SONG_UNPUBLISH_ERROR:
+    case SONG_UPLOADED_PICTURE_ERROR:
     case SONG_FINISH_LOADING:
       return {
         ...state,
