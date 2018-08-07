@@ -5,14 +5,15 @@ import {
   saveProfile
 } from '../../../../state/action';
 import { PasswordSettingsScreenComponent } from './PasswordSettingsScreenComponent';
-import {
-  MPPassword
-} from '../../../../components';
+import { MPPassword } from '../../../../components';
 
 class PasswordSettingsScreenContainer extends React.Component {
-
   pages = {
     'password': MPPassword
+  };
+
+  state = {
+    newPassword: null
   };
 
   componentDidMount() {
@@ -21,7 +22,10 @@ class PasswordSettingsScreenContainer extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.saveProfileSuccess) {
-      this.props.navigation.navigate('message', { component: this.pages[nextProps.page] });
+      this.props.navigation.navigate('message', {
+        component: this.pages['password'],
+        newPassword: this.state.newPassword
+      });
     }
   }
 
@@ -29,17 +33,19 @@ class PasswordSettingsScreenContainer extends React.Component {
     this.props.navigation.pop();
   };
 
-  handleSaveClick = (page) => {
-    this.props.dispatch(saveProfile({}, page));
+  handleSaveClick = (formData, page) => {
+    this.props.dispatch(saveProfile(formData, page));
+    this.setState({ newPassword: formData.password });
   };
 
   render() {
     return (
       <PasswordSettingsScreenComponent
-        onSave={this.handleSaveClick}
+        onSave={(data, page) => this.handleSaveClick(data, page)}
         onBack={this.handleBackClick}
         profile={this.props.profile}
         loading={this.props.loading}
+        saveProfileError={this.props.saveProfileError}
       />
     );
   }

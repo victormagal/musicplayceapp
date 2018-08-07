@@ -8,7 +8,7 @@ import {
     MPText,
   MPGradientButton
 } from '../../components';
-import { artistStopFollow } from '../../state/action';
+import { stopFollowUser } from '../../state/action';
 
 class MPConfirmStopFollowComponent extends React.Component {
 
@@ -18,7 +18,7 @@ class MPConfirmStopFollowComponent extends React.Component {
 
   handleStopFollow = () => {
     let {profile} =  this.props.navigation.state.params;
-    this.props.dispatch(artistStopFollow(profile.id));
+    this.props.dispatch(stopFollowUser(profile.id));
     this.props.navigation.pop();
   };
 

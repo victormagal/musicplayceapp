@@ -7,6 +7,7 @@ import {
   SAVE_PROFILE_SUCCESS,
   PROFILE_CREATE_USER_SUCCESS,
   PROFILE_CREATE_USER_ERROR,
+  SAVE_PROFILE_ERROR,
   UPDATE_PROFILE_DATA,
   PROFILE_IMAGE_UPLOADED
 } from './profileAction';
@@ -17,6 +18,7 @@ import {
 
 const profileReducer = (state, action) => {
   state = state || {
+    saveProfileError: null,
     imageUploadedSuccess: false,
     saveProfileSuccess: null,
     createUserSuccess: false,
@@ -54,6 +56,13 @@ const profileReducer = (state, action) => {
         ...state,
         ...action.payload,
         saveProfileSuccess: true,
+      };
+
+    case SAVE_PROFILE_ERROR:
+      return {
+        ...state,
+        saveProfileError: action.payload,
+        saveProfileSuccess: false,
       };
 
     case PROFILE_CREATE_USER_SUCCESS:

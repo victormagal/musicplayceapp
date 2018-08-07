@@ -32,24 +32,28 @@ class MPProfileInfo extends Component {
             <MPVerifiedIcon style={{ marginLeft: 8 }} />
           }
         </View>
-        <View style={{ flexDirection: 'row', marginTop: 10, marginBottom: 20, alignItems: 'center' }}>
-          <MPLocationPinIcon/>
+        <View style={{ marginTop: 10, marginBottom: 20 }}>
           { isMe ?
             <TouchableOpacity
+              style={{ flexDirection: 'row', alignItems: 'center' }}
               onPress={() => this.goToScreen('EditProfileLocation', {
                 location: {
                   city: profile.city,
                   state: profile.state
                 }
               })}>
+              <MPLocationPinIcon/>
               <MPText style={[ styles.location, !profile.city && underlineStyle(profile.location) ]}>
                 { profile.city ? profile.city+'/'+profile.state : 'Informe sua localização' }
               </MPText>
             </TouchableOpacity>
             : profile.city &&
-            <MPText style={[ styles.location, underlineStyle(profile.location) ]}>
-            { profile.city }/{ profile.state }
-            </MPText>
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <MPLocationPinIcon/>
+              <MPText style={[ styles.location, underlineStyle(profile.location) ]}>
+              { profile.city }/{ profile.state }
+              </MPText>
+            </View>
           }
         </View>
         { isMe ?

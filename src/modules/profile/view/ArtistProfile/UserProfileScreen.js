@@ -1,11 +1,10 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {ProfileComponent} from '../ProfileComponent';
-import {getUserById, userFollow} from "../../../../state/action";
+import {getUserById, followUser} from "../../../../state/action";
 
 
 class UserProfileScreenContainer extends React.Component {
-
   componentDidMount() {
     const { navigation, dispatch } = this.props;
     const navigationParams = navigation.state.params;
@@ -13,12 +12,11 @@ class UserProfileScreenContainer extends React.Component {
   }
 
   handleFollowUp = () => {
-    this.props.dispatch(userFollow(this.props.user.id));
+    this.props.dispatch(followUser(this.props.user.id));
   };
 
   render() {
     const { navigation } = this.props;
-
     return (
       <ProfileComponent
         navigation={navigation}

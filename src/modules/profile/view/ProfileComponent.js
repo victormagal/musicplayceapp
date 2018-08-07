@@ -47,23 +47,27 @@ class ProfileComponent extends React.Component {
   }
 
   goToScreen = (rota, params = {}) => {
-    this.props.navigation.navigate(rota, params)
+    this.props.navigation.navigate(rota, params);
   };
 
   handleScrollEnd = () => {
-    this.scrollViewRef.current.scrollTo({y: this.state.linearGradientHeight, animated: true})
+    this.scrollViewRef.current.scrollTo({
+      y: this.state.linearGradientHeight,
+      animated: true
+    })
   };
 
   toggleFollow = () => {
-    if(this.props.profile.isFollowing){
-      this.props.navigation.navigate('message', {component: MPConfirmStopFollow, profile: this.props.profile});
-    }else{
-      this.props.onFollowUpClick();
+    const { profile, navigation, onFollowUpClick } = this.props;
+    if (profile.isFollowing) {
+      navigation.navigate('message', { component: MPConfirmStopFollow, profile });
+    } else {
+      onFollowUpClick();
     }
   };
 
   handleEditSong = (song) => {
-    this.props.navigation.navigate('RegisterSongScreen', {song});
+    this.goToScreen('RegisterSongScreen', { song });
   };
 
   handlePlaySong = (song) => {
@@ -71,20 +75,21 @@ class ProfileComponent extends React.Component {
   };
 
   handleRemoveSong = (song) => {
-    this.props.navigation.navigate('message', {component: MPConfirmExcludeSong, song});
+    this.goToScreen('message', { component: MPConfirmExcludeSong, song });
   };
 
   handleUnpublishSong = (song) => {
-    this.props.navigation.navigate('message', {component: MPConfirmUnpublishSong, song});
+    this.goToScreen('message', { component: MPConfirmUnpublishSong, song });
   };
 
   handleIndicateSong = (song) => {
-    song = {...song, user: this.props.profile};
-    this.props.navigation.navigate('IndicateSongFullScreen', {song});
+    const { profile } = this.props;
+    song = {...song, user: profile};
+    this.goToScreen('IndicateSongFullScreen', { song });
   };
 
   reportProfile = () => {
-    this.props.navigation.navigate('message', {component: MPConfirmReportProfile})
+    this.goToScreen('message', { component: MPConfirmReportProfile })
   };
 
   handleClickPhoto = () => {
@@ -113,8 +118,8 @@ class ProfileComponent extends React.Component {
     this.props.navigation.goBack();
   };
 
-  handleChangeTab = (index) => {
-    this.setState({tabIndex: index});
+  handleChangeTab = (tabIndex) => {
+    this.setState({ tabIndex });
   };
 
   renderHeaderMenuRight() {
@@ -143,7 +148,7 @@ class ProfileComponent extends React.Component {
     const { me, profile } = this.props;
     return (
       <View style={{ flex: 1 }}>
-        {this.renderHeader()}
+        {this.renderHeader(me)}
         <ScrollView style={{ flex: 1 }} ref={this.scrollViewRef}>
           { this.renderContent(profile) }
         </ScrollView>
@@ -154,8 +159,8 @@ class ProfileComponent extends React.Component {
     )
   }
 
-  renderHeader(){
-    if (this.props.me) {
+  renderHeader(me){
+    if (me) {
       return (
         <MPHeader
           iconsLeft={this.renderHeaderMenuLeft()}
@@ -222,9 +227,8 @@ class ProfileComponent extends React.Component {
   }
 
   renderProfileData(profile) {
-    const { me, myIndications, navigation } = this.props;
-
-    const countIndications =  (myIndications && myIndications.count);
+    const { me, indications, navigation } = this.props;
+    const countIndications =  (indications && indications.count);
     return (
       <View>
         { me ?
@@ -302,7 +306,7 @@ class ProfileComponent extends React.Component {
       case 0:
         return (
           <View>
-            { mySongs ?
+            { mySongs && mySongs.data && mySongs.data.length > 0 ?
               <View>
                 <MPShowFolderSongs
                   folderName='Outras'
