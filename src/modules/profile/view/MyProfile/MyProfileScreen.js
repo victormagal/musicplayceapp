@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {ProfileComponent} from '../ProfileComponent';
-import {fetchProfile, fetchUserSongs, logout} from '../../../../state/action';
+import {fetchProfile, fetchUserSongs, logout, getFavoriteSongsWithFolders} from '../../../../state/action';
 import {songRegisterClear} from "../../../../state/songs/songsType";
 
 class MyProfileScreenContainer extends React.Component {
@@ -9,7 +9,7 @@ class MyProfileScreenContainer extends React.Component {
     const { dispatch } = this.props;
 
     dispatch(fetchProfile()).then(response => {
-      dispatch(fetchUserSongs(response.payload.id));
+      dispatch(getFavoriteSongsWithFolders());
     });
   }
 
@@ -18,7 +18,7 @@ class MyProfileScreenContainer extends React.Component {
 
     if (navigationParams && navigationParams.backFromPublishedOrDraft) {
       const timer = setTimeout(() => {
-        this.props.dispatch(fetchUserSongs(this.props.profile.id));
+        this.props.dispatch(getFavoriteSongsWithFolders());
         clearTimeout(timer);
       }, 500);
       nextProps.navigation.setParams({ backFromPublishedOrDraft: false });
@@ -28,6 +28,9 @@ class MyProfileScreenContainer extends React.Component {
       (this.props.saveProfileSuccess !== nextProps.saveProfileSuccess && nextProps.saveProfileSuccess)
     ) {
       this.props.dispatch(fetchProfile());
+    }
+    if(nextProps.favoritesFolder){
+      this.setState({favoritesFolder: nextProps.favoritesFolder});
     }
   }
 
@@ -59,12 +62,13 @@ class MyProfileScreenContainer extends React.Component {
   }
 }
 
-const mapStateToProps = ({ profileReducer, songsReducer, userReducer }) => {
+const mapStateToProps = ({ profileReducer, songsReducer, userReducer, folderReducer }) => {
   const { songCreateSuccess, songRemoveSuccess, songPublishSuccess, songUnpublishSuccess, mySongs, songDraft, song } = songsReducer;
   const { isUserSaved } = userReducer;
 
   return {
     ...profileReducer,
+    ...folderReducer,
     isUserSaved,
     songCreateSuccess,
     songRemoveSuccess,

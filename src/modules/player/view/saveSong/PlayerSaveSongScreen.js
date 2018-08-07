@@ -45,8 +45,8 @@ class PlayerSaveSongContainer extends React.Component {
   };
 
   handleSave = () => {
-    // let selectedFolder = this.state.folders.filter(i => i.selected)[0];
-    this.props.dispatch(favoriteSong(this.state.song.id));
+    let selectedFolder = this.state.folders.filter(i => i.selected)[0];
+    this.props.dispatch(favoriteSong(this.state.song.id, selectedFolder.id));
   };
 
   componentDidMount = () => {
@@ -54,7 +54,7 @@ class PlayerSaveSongContainer extends React.Component {
     if(this.props.navigation.state && this.props.navigation.state.params){
       let {song} = this.props.navigation.state.params;
       if(song) {
-        this.setState({song});
+        this.setState({song: song});
       }
     }
   }

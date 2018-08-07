@@ -99,11 +99,18 @@ class SongService {
     return axios.post(`${API_SONG}/${commentId}/like`).then(response => response.data);
   }
 
-  static favoriteSong(songId) {
-    // let params = { 
-    // folders: [],
-    // };
-    return axios.post(`${API_SONG}/${songId}/favorite`).then(response => response.data);
+  static favoriteSong(songId, folderID) {
+    let params = { 
+      data: {
+        type: "folders",
+        attributes: {
+          id: folderID,
+        }
+      }
+    };
+    return axios.post(`${API_SONG}/${songId}/favorite`, params)
+                .then(response => {console.log('response',response); return response.data})
+                .catch(e => console.log(e));
   }
 
   static getSong(song) {

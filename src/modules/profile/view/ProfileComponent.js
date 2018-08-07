@@ -35,8 +35,15 @@ class ProfileComponent extends React.Component {
     this.scrollViewRef = React.createRef();
     this.state = {
       tabIndex: 0,
-      linearGradientHeight: 0
+      linearGradientHeight: 0,
+      favoritesFolder: []
     };
+  }
+
+  componentWillReceiveProps(nextProps){
+    if(nextProps.favoritesFolder){
+      this.setState({favoritesFolder: nextProps.favoritesFolder});
+    }
   }
 
   goToScreen = (rota, params = {}) => {
@@ -321,18 +328,20 @@ class ProfileComponent extends React.Component {
       case 1:
         return (
           <View style={{ backgroundColor: '#FFF' }}>
-            {profile.songSaves ?
+            {this.state.favoritesFolder  && this.state.favoritesFolder.length > 0 ?
+            this.state.favoritesFolder.map(favoriteFolder => (
               <MPShowFolderSongs
-                folderName='Outras'
+                key={favoriteFolder.id}
+                folderName={favoriteFolder.name}
                 me={me}
-                songs={profile.songSaves}
+                songs={favoriteFolder.songs}
                 onEditClick={this.handleEditSong}
                 onIndicateClick={this.handleIndicateSong}
                 onRemoveClick={this.handleRemoveSong}
                 onUnpublishClick={this.handleUnpublishSong}
                 onPlayClick={this.handlePlaySong}
               />
-              :
+            )):
               <View style={styles.noSongsSaved}>
                 <MPGroupIcon style={{ width: 50, height: 50 }}/>
                 <MPText style={styles.noContent}>
