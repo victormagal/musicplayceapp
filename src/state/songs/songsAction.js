@@ -125,10 +125,10 @@ export const likeSongComment = (commentId) => {
   };
 };
 
-export const favoriteSong = (songId) => {
+export const favoriteSong = (songId, folderID) => {
   return (dispatch) => {
     dispatch(songStartLoading());
-    return SongService.favoriteSong(songId).then(() => {
+    return SongService.favoriteSong(songId, folderID).then(() => {
       dispatch(songFavoriteSuccess());
     }).catch(e => {
       console.log('favoriteSongError', e.response);
