@@ -5,7 +5,8 @@ import {
   ScrollView,
   TouchableOpacity,
   ActivityIndicator,
-  ImageBackground, Dimensions
+  ImageBackground,
+  Dimensions
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import PropTypes from 'prop-types';
@@ -17,13 +18,14 @@ import {
   MPText
 } from '../../../components/';
 import {
-  MPProfileArrowIcon, MPSettingsIcon, MPSongAddIcon
+  MPProfileArrowIcon,
+  MPSettingsIcon,
+  MPSongAddIcon
 } from '../../../assets/svg/'
 import {MPUpgradeButton} from '../../../components/profile/MPUpgradeButton';
-import {saveProfile} from '../../../state/action';
-import {MPProfileSuccess} from "../../../components";
+import {uploadImage} from "../../../state/profile/profileAction";
+import ImagePicker from 'react-native-image-picker';
 import {MPGroupIcon} from "../../../assets/svg";
-
 
 class ProfileComponent extends React.Component {
   scrollViewRef = null;
@@ -33,8 +35,15 @@ class ProfileComponent extends React.Component {
     this.scrollViewRef = React.createRef();
     this.state = {
       tabIndex: 0,
-      linearGradientHeight: 0
+      linearGradientHeight: 0,
+      favoritesFolder: []
     };
+  }
+
+  componentWillReceiveProps(nextProps){
+    if(nextProps.favoritesFolder){
+      this.setState({favoritesFolder: nextProps.favoritesFolder});
+    }
   }
 
   goToScreen = (rota, params = {}) => {
@@ -79,7 +88,25 @@ class ProfileComponent extends React.Component {
   };
 
   handleClickPhoto = () => {
+    const options = {
+      title: 'Selecionar uma foto',
+      storageOptions: {
+        skipBackup: true,
+        path: 'images'
+      }
+    };
 
+    ImagePicker.showImagePicker(options, (response) => {
+      if (response.didCancel) {
+        console.log('User cancelled image picker');
+      } else if (response.error) {
+        console.log('ImagePicker Error: ', response.error);
+      } else {
+        this.props.dispatch(uploadImage(response)).then(updateResponse => {
+          console.log('updateResponse', updateResponse);
+        })
+      }
+    });
   };
 
   handleBack = () => {
@@ -167,7 +194,7 @@ class ProfileComponent extends React.Component {
       <View style={{ backgroundColor: '#000' }}>
         <ImageBackground
           style={{ flex: 1, width: '100%' }}
-          source={profile.cover_picture_url ? { uri: profile.cover_picture_url } : null}
+          source={profile.picture_url ? { uri: profile.picture_url } : null}
         >
           <LinearGradient
             onLayout={event => this.setState({ linearGradientHeight: event.nativeEvent.layout.height })}
@@ -203,7 +230,7 @@ class ProfileComponent extends React.Component {
         { me ?
           <MPAddChangePhoto
             onPressPhoto={this.handleClickPhoto}
-            hasPhoto={profile.cover_picture_url}
+            hasPhoto={profile.picture_url}
           />
           :
           <MPFollowButton isFollowing={profile.isFollowing} onPress={() => this.toggleFollow()}/>
@@ -303,18 +330,20 @@ class ProfileComponent extends React.Component {
       case 1:
         return (
           <View style={{ backgroundColor: '#FFF' }}>
-            {profile.songSaves ?
+            {this.state.favoritesFolder  && this.state.favoritesFolder.length > 0 ?
+            this.state.favoritesFolder.map(favoriteFolder => (
               <MPShowFolderSongs
-                folderName='Outras'
+                key={favoriteFolder.id}
+                folderName={favoriteFolder.name}
                 me={me}
-                songs={profile.songSaves}
+                songs={favoriteFolder.songs}
                 onEditClick={this.handleEditSong}
                 onIndicateClick={this.handleIndicateSong}
                 onRemoveClick={this.handleRemoveSong}
                 onUnpublishClick={this.handleUnpublishSong}
                 onPlayClick={this.handlePlaySong}
               />
-              :
+            )):
               <View style={styles.noSongsSaved}>
                 <MPGroupIcon style={{ width: 50, height: 50 }}/>
                 <MPText style={styles.noContent}>

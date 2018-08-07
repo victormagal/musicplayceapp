@@ -59,6 +59,7 @@
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
 		B820D1DD38C04C71830E0F85 /* montSerratBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5C7F634064B141C3B3DFC2D8 /* montSerratBoldItalic.ttf */; };
 		C38E2A37623F431B9844D1D9 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 03DB0F3879CA4223B0D82434 /* FontAwesome.ttf */; };
+		C5E9B76060634D7F996AE9EF /* libRNImagePicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DA3483582B94DDF9AE72156 /* libRNImagePicker.a */; };
 		CC2C75080C8348D5AF717C2F /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A0FE1A67CE6747C2884F47DB /* Feather.ttf */; };
 		CFB98A1DE5BF4647914C8638 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4BA7B5F4EF2B475E9C4700A0 /* Octicons.ttf */; };
 		D35F01CCEC9A4E2AA0D4DFAD /* libRNDocumentPicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E21F8AE47E6410495ABF0BA /* libRNDocumentPicker.a */; };
@@ -361,6 +362,13 @@
 			remoteGlobalIDString = E01DD9DB1D2311A600C39062;
 			remoteInfo = RNDocumentPicker;
 		};
+		67616BB02114F8DA00AAEC5B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3DBAC3EBC4F84B83AED78D7C /* RNImagePicker.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 014A3B5C1C6CF33500B6D375;
+			remoteInfo = RNImagePicker;
+		};
 		78C398B81ACF4ADC00677621 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */;
@@ -423,6 +431,7 @@
 		2D02E4901E0B4A5D006451C7 /* musicplayce-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "musicplayce-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D16E6891FA4F8E400B85C8A /* libReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libReact.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		38EC1BA910A4428AB5C54279 /* RNDocumentPicker.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNDocumentPicker.xcodeproj; path = "../node_modules/react-native-document-picker/ios/RNDocumentPicker.xcodeproj"; sourceTree = "<group>"; };
+		3DBAC3EBC4F84B83AED78D7C /* RNImagePicker.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNImagePicker.xcodeproj; path = "../node_modules/react-native-image-picker/ios/RNImagePicker.xcodeproj"; sourceTree = "<group>"; };
 		402053CE24284B4A83454372 /* montSerratSemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = montSerratSemiBold.ttf; path = ../assets/fonts/montSerratSemiBold.ttf; sourceTree = "<group>"; };
 		409198991D2C4320B5DB15FC /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
 		47FE146FBA414A7F853E313B /* libRNSVG.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNSVG.a; sourceTree = "<group>"; };
@@ -432,6 +441,7 @@
 		5E7F3A0E60BE43A4A54197E2 /* RNMusicPlayer.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNMusicPlayer.xcodeproj; path = "../node_modules/react-native-stream-music-player/ios/RNMusicPlayer.xcodeproj"; sourceTree = "<group>"; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
 		67C9CC5C210BB6A0000758C4 /* musicplayce.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = musicplayce.entitlements; path = musicplayce/musicplayce.entitlements; sourceTree = "<group>"; };
+		6DA3483582B94DDF9AE72156 /* libRNImagePicker.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNImagePicker.a; sourceTree = "<group>"; };
 		6E31EDAE72764D11B1B852D8 /* montSerratMedium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = montSerratMedium.ttf; path = ../assets/fonts/montSerratMedium.ttf; sourceTree = "<group>"; };
 		6E9AB093449648F6B9CEB911 /* libRNSVG-tvOS.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = "libRNSVG-tvOS.a"; sourceTree = "<group>"; };
 		728410531EA44A13945F439A /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
@@ -480,6 +490,8 @@
 				25A5D59B2A874B12A249E91E /* libBVLinearGradient.a in Frameworks */,
 				0C4D87F24D774842B447CD3C /* libRNSVG.a in Frameworks */,
 				6BA2D71AFAA04316BAE3340D /* libRNVectorIcons.a in Frameworks */,
+				B0784824A1E34B6CB0B2C1AD /* libRNMusicPlayer.a in Frameworks */,
+				C5E9B76060634D7F996AE9EF /* libRNImagePicker.a in Frameworks */,
 				D35F01CCEC9A4E2AA0D4DFAD /* libRNDocumentPicker.a in Frameworks */,
 				4B265712984A416491045671 /* libRNMusicPlayer.a in Frameworks */,
 			);
@@ -681,6 +693,7 @@
 				F82B3C87A8F44D26849768D7 /* libRNVectorIcons.a */,
 				6E9AB093449648F6B9CEB911 /* libRNSVG-tvOS.a */,
 				0E21F8AE47E6410495ABF0BA /* libRNDocumentPicker.a */,
+				6DA3483582B94DDF9AE72156 /* libRNImagePicker.a */,
 				D5CD98055C184CE08DE6DC67 /* libRNMusicPlayer.a */,
 			);
 			name = "Recovered References";
@@ -720,6 +733,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		67616BAD2114F8DA00AAEC5B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				67616BB12114F8DA00AAEC5B /* libRNImagePicker.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		78C398B11ACF4ADC00677621 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -747,6 +768,8 @@
 				09348F13A0C34930A179B25C /* BVLinearGradient.xcodeproj */,
 				E7E02ECF5E6142EB9F32396A /* RNSVG.xcodeproj */,
 				C9EB97AE51C246D4ACD9A605 /* RNVectorIcons.xcodeproj */,
+				DC28243724254A33A8C8170F /* RNMusicPlayer.xcodeproj */,
+				3DBAC3EBC4F84B83AED78D7C /* RNImagePicker.xcodeproj */,
 				38EC1BA910A4428AB5C54279 /* RNDocumentPicker.xcodeproj */,
 				5E7F3A0E60BE43A4A54197E2 /* RNMusicPlayer.xcodeproj */,
 			);
@@ -986,6 +1009,13 @@
 					ProjectRef = 38EC1BA910A4428AB5C54279 /* RNDocumentPicker.xcodeproj */;
 				},
 				{
+<<<<<<< HEAD
+					ProductGroup = 67616BAD2114F8DA00AAEC5B /* Products */;
+					ProjectRef = 3DBAC3EBC4F84B83AED78D7C /* RNImagePicker.xcodeproj */;
+				},
+				{
+					ProductGroup = 6702EC9C2107986D00F32518 /* Products */;
+					ProjectRef = DC28243724254A33A8C8170F /* RNMusicPlayer.xcodeproj */;
 					ProductGroup = 9A576830211520C4004EA636 /* Products */;
 					ProjectRef = 5E7F3A0E60BE43A4A54197E2 /* RNMusicPlayer.xcodeproj */;
 				},
@@ -1289,6 +1319,13 @@
 			remoteRef = 675FA190210F451800E521A7 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		67616BB12114F8DA00AAEC5B /* libRNImagePicker.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNImagePicker.a;
+			remoteRef = 67616BB02114F8DA00AAEC5B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		78C398B91ACF4ADC00677621 /* libRCTLinking.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1482,6 +1519,8 @@
 					"$(SRCROOT)/../node_modules/react-native-document-picker/ios/RNDocumentPicker",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-document-picker/ios/RNDocumentPicker",
+					"$(SRCROOT)/../node_modules/react-native-stream-music-player/ios",
+					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
 					"$(SRCROOT)/../node_modules/react-native-document-picker/ios/RNDocumentPicker",
 					"$(SRCROOT)/../node_modules/react-native-document-picker/ios/RNDocumentPicker",
 					"$(SRCROOT)/../node_modules/react-native-stream-music-player/ios",
@@ -1514,6 +1553,8 @@
 					"$(SRCROOT)/../node_modules/react-native-document-picker/ios/RNDocumentPicker",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-document-picker/ios/RNDocumentPicker",
+					"$(SRCROOT)/../node_modules/react-native-stream-music-player/ios",
+					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
 					"$(SRCROOT)/../node_modules/react-native-document-picker/ios/RNDocumentPicker",
 					"$(SRCROOT)/../node_modules/react-native-document-picker/ios/RNDocumentPicker",
 					"$(SRCROOT)/../node_modules/react-native-stream-music-player/ios",
@@ -1552,6 +1593,8 @@
 					"$(SRCROOT)/../node_modules/react-native-document-picker/ios/RNDocumentPicker",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-document-picker/ios/RNDocumentPicker",
+					"$(SRCROOT)/../node_modules/react-native-stream-music-player/ios",
+					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
 					"$(SRCROOT)/../node_modules/react-native-document-picker/ios/RNDocumentPicker",
 					"$(SRCROOT)/../node_modules/react-native-document-picker/ios/RNDocumentPicker",
 					"$(SRCROOT)/../node_modules/react-native-stream-music-player/ios",
@@ -1588,6 +1631,8 @@
 					"$(SRCROOT)/../node_modules/react-native-document-picker/ios/RNDocumentPicker",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-document-picker/ios/RNDocumentPicker",
+					"$(SRCROOT)/../node_modules/react-native-stream-music-player/ios",
+					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
 					"$(SRCROOT)/../node_modules/react-native-document-picker/ios/RNDocumentPicker",
 					"$(SRCROOT)/../node_modules/react-native-document-picker/ios/RNDocumentPicker",
 					"$(SRCROOT)/../node_modules/react-native-stream-music-player/ios",
@@ -1626,6 +1671,8 @@
 					"$(SRCROOT)/../node_modules/react-native-document-picker/ios/RNDocumentPicker",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-document-picker/ios/RNDocumentPicker",
+					"$(SRCROOT)/../node_modules/react-native-stream-music-player/ios",
+					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
 					"$(SRCROOT)/../node_modules/react-native-document-picker/ios/RNDocumentPicker",
 					"$(SRCROOT)/../node_modules/react-native-document-picker/ios/RNDocumentPicker",
 					"$(SRCROOT)/../node_modules/react-native-stream-music-player/ios",
@@ -1667,6 +1714,8 @@
 					"$(SRCROOT)/../node_modules/react-native-document-picker/ios/RNDocumentPicker",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-document-picker/ios/RNDocumentPicker",
+					"$(SRCROOT)/../node_modules/react-native-stream-music-player/ios",
+					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
 					"$(SRCROOT)/../node_modules/react-native-document-picker/ios/RNDocumentPicker",
 					"$(SRCROOT)/../node_modules/react-native-document-picker/ios/RNDocumentPicker",
 					"$(SRCROOT)/../node_modules/react-native-stream-music-player/ios",
@@ -1707,6 +1756,8 @@
 					"$(SRCROOT)/../node_modules/react-native-document-picker/ios/RNDocumentPicker",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-document-picker/ios/RNDocumentPicker",
+					"$(SRCROOT)/../node_modules/react-native-stream-music-player/ios",
+					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
 					"$(SRCROOT)/../node_modules/react-native-document-picker/ios/RNDocumentPicker",
 					"$(SRCROOT)/../node_modules/react-native-document-picker/ios/RNDocumentPicker",
 					"$(SRCROOT)/../node_modules/react-native-stream-music-player/ios",
@@ -1747,6 +1798,8 @@
 					"$(SRCROOT)/../node_modules/react-native-document-picker/ios/RNDocumentPicker",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-document-picker/ios/RNDocumentPicker",
+					"$(SRCROOT)/../node_modules/react-native-stream-music-player/ios",
+					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
 					"$(SRCROOT)/../node_modules/react-native-document-picker/ios/RNDocumentPicker",
 					"$(SRCROOT)/../node_modules/react-native-document-picker/ios/RNDocumentPicker",
 					"$(SRCROOT)/../node_modules/react-native-stream-music-player/ios",

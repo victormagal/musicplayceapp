@@ -7,7 +7,9 @@ import {
   SAVE_PROFILE_SUCCESS,
   PROFILE_CREATE_USER_SUCCESS,
   PROFILE_CREATE_USER_ERROR,
-  SAVE_PROFILE_ERROR
+  SAVE_PROFILE_ERROR,
+  UPDATE_PROFILE_DATA,
+  PROFILE_IMAGE_UPLOADED
 } from './profileAction';
 import {
   AUTH_LOGOUT
@@ -16,15 +18,16 @@ import {
 
 const profileReducer = (state, action) => {
   state = state || {
-      saveProfileError: null,
-      saveProfileSuccess: false,
-      createUserSuccess: false,
-      createUserError: false,
-      loading: false,
-      profile: null,
-      followers: null,
-      indications: null
-    };
+    saveProfileError: null,
+    imageUploadedSuccess: false,
+    saveProfileSuccess: null,
+    createUserSuccess: false,
+    createUserError: false,
+    loading: false,
+    profile: null,
+    followers: null,
+    indications: null
+  };
 
   switch (action.type) {
     case FETCHED_PROFILE:
@@ -48,6 +51,7 @@ const profileReducer = (state, action) => {
       };
 
     case SAVE_PROFILE_SUCCESS:
+    case PROFILE_IMAGE_UPLOADED:
       return {
         ...state,
         ...action.payload,
@@ -86,15 +90,20 @@ const profileReducer = (state, action) => {
         ...state,
         indications: action.payload
       };
-      
+
     case AUTH_LOGOUT:
       return {
         ...state,
         loading: false,
         profile: null
       };
-  }
 
+    case UPDATE_PROFILE_DATA:
+      return {
+        ...state,
+        profile: {...action.payload}
+      };
+}
   return state;
 };
 

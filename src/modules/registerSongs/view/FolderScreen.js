@@ -83,7 +83,7 @@ class FolderScreenContainer extends React.Component {
         <MPFolder
           folderName={item.name}
           selected={item.selected}
-          musicAmount={item.total}
+          musicAmount={item.songCount.toString()}
           onPress={() => this.handleSelectFolder(index)}
         />
       </View>

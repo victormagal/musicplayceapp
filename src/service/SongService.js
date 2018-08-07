@@ -1,6 +1,7 @@
 import axios from 'axios';
 import {API, transformResponseData, getIncludes} from './api';
 import {StorageService} from "./StorageService";
+import {Platform} from "react-native";
 
 const API_SONG = `${API}/songs`;
 
@@ -62,7 +63,6 @@ class SongService {
 
   static update(songParam) {
     let {song, relationships} = SongService.transformSongRequest(songParam);
-
     let data = {
       data: {
         type: "songs",
@@ -99,11 +99,18 @@ class SongService {
     return axios.post(`${API_SONG}/${commentId}/like`).then(response => response.data);
   }
 
-  static favoriteSong(songId) {
-    // let params = { 
-    // folders: [],
-    // };
-    return axios.post(`${API_SONG}/${songId}/favorite`).then(response => response.data);
+  static favoriteSong(songId, folderID) {
+    let params = { 
+      data: {
+        type: "folders",
+        attributes: {
+          id: folderID,
+        }
+      }
+    };
+    return axios.post(`${API_SONG}/${songId}/favorite`, params)
+                .then(response => {console.log('response',response); return response.data})
+                .catch(e => console.log(e));
   }
 
   static getSong(song) {
@@ -150,24 +157,54 @@ class SongService {
     });
   }
 
-  static createAndPublishSong(song, file){
+  static createAndPublishSong(song, songFile, imageFile){
     song.path = 'path/without-song.mp3';
+    song.artist_id = song.user_id;
 
     return SongService.create(song).then(response => {
-      return SongService.sendSongFile(file, response).then(() => {
-        return SongService.publish(response.id);
+      return SongService.uploadImage(response.id, imageFile).then(() => {
+        return SongService.sendSongFile(songFile, response).then(() => {
+          return SongService.publish(response.id);
+        });
       });
     });
   }
 
-  static republishSong(song, file){
-    return SongService.sendSongFile(file, song).then((fileResponse) => {
-      if(fileResponse){
-        song.path = fileResponse.path;
+  static republishSong(song, songFile, imageFile){
+    return SongService.uploadImage(song.id, imageFile).then((response) => {
+      return SongService.sendSongFile(songFile, response).then((fileResponse) => {
+        if(fileResponse){
+          song.path = fileResponse.path;
+        }
+        return SongService.update(response).then(() => {
+          return SongService.publish(song.id);
+        });
+      });
+    });
+  }
+
+  static uploadImage(songId, file) {
+    let formData = new FormData();
+
+    if (!file) {
+      return Promise.resolve();
+    }
+
+    formData.append('picture', {
+      uri: file.uri,
+      name: file.fileName,
+      type: Platform.OS === 'android' ? file.type : `images/${ file.fileName.split('.')[1] }`
+    });
+
+    return axios.post(`${ API_SONG }/${ songId }/picture`, formData, {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'multipart/form-data'
       }
-      return SongService.update(song).then(() => {
-        return SongService.publish(song.id);
-      })
+    }).then(response => {
+      const { data } = response.data;
+      const { id, attributes } = data;
+      return { id, ...attributes };
     });
   }
 }

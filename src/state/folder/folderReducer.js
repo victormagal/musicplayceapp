@@ -1,5 +1,5 @@
 import {
-  FOLDER_START_LOADING, FOLDER_FINISH_LOADING, FETCHED_FOLDERS
+  FOLDER_START_LOADING, FOLDER_FINISH_LOADING, FETCHED_FOLDERS, FETCHED_FAVORITES_FOLDERS_SONGS, FETCHED_USER_FOLDERS_SONGS
 } from './folderAction';
 
 
@@ -28,6 +28,20 @@ const folderReducer = (state, action) => {
         ...state,
         loading: false,
         folders: action.payload
+      };
+
+    case FETCHED_FAVORITES_FOLDERS_SONGS:
+      return {
+        ...state,
+        loading: false,
+        favoritesFolder: action.payload
+      };
+
+    case FETCHED_USER_FOLDERS_SONGS:
+      return {
+        ...state,
+        loading: false,
+        userFolder: action.payload
       };
   }
 
