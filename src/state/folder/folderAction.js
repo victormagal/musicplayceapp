@@ -7,11 +7,21 @@ export const FOLDER_FINISH_LOADING = 'FOLDER_FINISH_LOADING';
 export const CREATE_FOLDER_SUCCESS = 'CREATE_FOLDER_SUCCESS';
 export const CREATE_FOLDER_ERROR = 'CREATE_FOLDER_ERROR';
 export const FETCHED_FOLDERS = 'FETCHED_FOLDERS';
+export const FETCHED_FAVORITES_FOLDERS_SONGS = 'FETCHED_FAVORITES_FOLDERS_SONGS';
+export const FETCHED_USER_FOLDERS_SONGS = 'FETCHED_USER_FOLDERS_SONGS';
 
 export const folderStartLoading = createAction(FOLDER_START_LOADING);
 export const folderFinishLoading = createAction(FOLDER_FINISH_LOADING);
 export const createFolderSuccess = createAction(CREATE_FOLDER_SUCCESS);
 export const createFolderError = createAction(CREATE_FOLDER_ERROR);
+
+export const fetchedFavoriteFolderWithSongs = createAction( FETCHED_FAVORITES_FOLDERS_SONGS, (folders) => {
+  return folders;
+})
+
+export const fetchedUserFolderWithSongs = createAction( FETCHED_FAVORITES_FOLDERS_SONGS, (folders) => {
+  return folders;
+})
 
 export const fetchedFolders = createAction(FETCHED_FOLDERS, (folders) => {
   return folders;
@@ -33,6 +43,16 @@ export const fetchFolders = () => {
     return Promise.resolve().then(() => dispatch(folderFinishLoading()));
   };
 };
+
+export const getUserSongsWithFolders = () => {
+  return (dispatch) => {
+    dispatch(folderStartLoading());
+
+    return FolderService.getUserSongsWithFolders().then(response => {
+      console.log(response);
+    }).catch(e => console.log(e));
+  }
+}
 
 export const getUserSongsFolders = () => {
   return (dispatch, getState) => {
@@ -56,6 +76,16 @@ export const getUserSongsFolders = () => {
     return Promise.resolve().then(() => dispatch(folderFinishLoading()));
   };
 };
+
+export const getFavoriteSongsWithFolders = () => {
+  return (dispatch) => {
+    dispatch(folderStartLoading());
+
+    return FolderService.getFavoriteSongsWithFolders().then(response => {
+      dispatch(fetchedFavoriteFolderWithSongs(response));
+    }).catch(e => console.log(e));
+  }
+}
 
 export const getFavoriteSongsFolders = () => {
   return (dispatch, getState) => {
