@@ -7,6 +7,7 @@ import { Platform } from 'react-native';
 import { AuthService } from './AuthService';
 import axios from 'axios';
 
+const API_AUTH = `${API}/auth/users/me`;
 const API_USER = `${API}/users`;
 
 class UserService {
@@ -55,7 +56,8 @@ class UserService {
       }
     };
 
-    return axios.put(`${ API_USER }/${ user.id }`, data)
+    const endpointUrl = user.password ? API_AUTH : `${ API_USER }/${ user.id }`;
+    return axios.put(endpointUrl, data)
       .then(response => response.data);
   }
 

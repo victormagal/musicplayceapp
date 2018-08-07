@@ -168,7 +168,6 @@ class FeedScreenContainer extends React.Component {
     if (feed === null || feed === {}) {
       return <ActivityIndicator />
     }
-
     return (
       <View style={styles.container}>
         <MPHeader inverse={true} />
@@ -222,12 +221,12 @@ class FeedScreenContainer extends React.Component {
                 { feed.songs.map(song => (
                   <MPUserFull
                     key={song.id}
-                    userName={song.user && song.user.name}
+                    userName={song.artist && song.artist.name}
                     songName={song.name}
                     song={song}
                     imagePath={images.daftPunk120}
-                    userImagePath={song.user && song.user.picture_url}
-                    onPressUser={() => this.handleNavigateUserProfile(song.user && song.user.id)}
+                    userImagePath={song.artist && song.artist.picture_url}
+                    onPressUser={() => this.handleNavigateUserProfile(song.artist && song.artist.id)}
                     onPressMusic={this.handleNavigateMusic}
                   />
                 ))}
@@ -276,12 +275,12 @@ class FeedScreenContainer extends React.Component {
                       { feed.songs.map(song => (
                         <MPUserFull
                           key={song.id}
-                          userName={song.user && song.user.name}
+                          userName={song.artist && song.artist.name}
                           songName={song.name}
                           song={song}
                           imagePath={song.picture_url}
-                          userImagePath={song.user && song.user.picture_url}
-                          onPressUser={() => this.handleNavigateUserProfile(song.user && song.user.id)}
+                          userImagePath={song.artist && song.artist.picture_url}
+                          onPressUser={() => this.handleNavigateUserProfile(song.artist && song.artist.id)}
                           onPressMusic={this.handleNavigateMusic}
                         />
                       ))}
@@ -303,12 +302,12 @@ class FeedScreenContainer extends React.Component {
                       { feed.songs.map(song => (
                         <MPUserFull
                           key={song.id}
-                          userName={song.user && song.user.name}
+                          userName={song.artist && song.artist.name}
                           songName={song.name}
                           song={song}
                           imagePath={song.picture_url}
-                          userImagePath={song.user && song.user.picture_url}
-                          onPressUser={() => this.handleNavigateUserProfile(song.user && song.user.id)}
+                          userImagePath={song.artist && song.artist.picture_url}
+                          onPressUser={() => this.handleNavigateUserProfile(song.artist && song.artist.id)}
                           onPressMusic={this.handleNavigateMusic}
                         />
                       ))}
