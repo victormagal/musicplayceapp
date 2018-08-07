@@ -101,10 +101,6 @@ const userReducer = (state, action) => {
       };
 
     case USER_NOTIFICATIONS_SETTINGS_PATCHED:
-      return {
-        ...state,
-        loading: false,
-      }
     case USER_NOTIFICATIONS_SETTINGS_FETCHED:
       return {
         ...state,

@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {PlayerSaveSongComponent} from './PlayerSaveSongComponent';
-import { fetchFolders, favoriteSong, createFolder} from '../../../../state/action';
+import { fetchFolders, favoriteSong, createFolder, getFavoriteSongsFolders} from '../../../../state/action';
 
 
 class PlayerSaveSongContainer extends React.Component {
@@ -22,10 +22,10 @@ class PlayerSaveSongContainer extends React.Component {
   handleAdd = () => {
     if(this.state.folderName){
       let folder = {
-        'name': this.state.folderName
+        'name': this.state.folderName,
+        'type': 'favoriteSongs',
       }
       this.props.dispatch(createFolder(folder));
-      this.props.dispatch(fetchFolders());
     }
   };
 
@@ -50,7 +50,7 @@ class PlayerSaveSongContainer extends React.Component {
   };
 
   componentDidMount = () => {
-    this.props.dispatch(fetchFolders());
+    this.props.dispatch(getFavoriteSongsFolders());
     if(this.props.navigation.state && this.props.navigation.state.params){
       let {song} = this.props.navigation.state.params;
       if(song) {

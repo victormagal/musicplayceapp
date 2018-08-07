@@ -11,7 +11,7 @@ import {
   MPIconButton,
   MPLoading
 } from '../../../components';
-import {createFolder, fetchFolders} from '../../../state/action';
+import {createFolder, fetchFolders, getUserSongsFolders} from '../../../state/action';
 import {updateSongRegisterData} from "../../../state/songs/songsType";
 
 
@@ -25,7 +25,7 @@ class FolderScreenContainer extends React.Component {
   }
 
   componentDidMount(){
-    this.props.dispatch(fetchFolders());
+    this.props.dispatch(getUserSongsFolders());
   }
 
   componentWillReceiveProps(nextProps){
@@ -40,9 +40,13 @@ class FolderScreenContainer extends React.Component {
   };
 
   handleCreateFolder = () => {
-    const name = this.state.folderName;
-    this.setState({ folderName: '' });
-    this.props.dispatch(createFolder({ name }));
+    if(this.state.folderName){
+      let folder = {
+        'name': this.state.folderName.value,
+        'type': 'userSongs',
+      }
+      this.props.dispatch(createFolder(folder));
+    }
   };
 
   handleBackClick = () => {
@@ -116,7 +120,7 @@ class FolderScreenContainer extends React.Component {
             <MPForm>
               <MPInput
                 label="Nome da nova pasta"
-                validators={['required']}
+                // validators={['required']}
                 value={this.state.folderName}
                 onChangeText={this.handleChangeText}
               />

@@ -117,7 +117,7 @@ export const getNotificationsSettings = () => {
     dispatch(userNotificationsSettingsStartLoading());
 
     return UserService.getNotificationSettings().then(response => {
-      dispatch(userNotificationsSettingsFetched(response.data.data));
+      dispatch(userNotificationsSettingsFetched(response));
     }).catch(e => {
       console.log('getNotificationsSettingsError', e.response);
       dispatch(userNotificationsSettingsFinishedLoading());
@@ -125,8 +125,7 @@ export const getNotificationsSettings = () => {
   };
 };
 
-export const patchNotificationSettings = ({settings}) => {
-  console.log('action', settings);
+export const patchNotificationSettings = (settings) => {
   return (dispatch) => {
     dispatch(userNotificationsSettingsStartLoading());
 

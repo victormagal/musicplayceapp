@@ -133,7 +133,9 @@ class UserService {
   }
 
   static getNotificationSettings(){
-    return axios.get(`${API_USER}/me/settings-notifications`);
+    return axios.get(`${API_USER}/me/settings-notifications`).then((response)=>{
+      return response.data.data.attributes;
+    });
   }
   
   static patchNotificationSettings(settings){
@@ -145,7 +147,9 @@ class UserService {
         ]
       }
     }
-    return axios.patch(`${API_USER}/me/settings-notifications`, params);
+    return axios.patch(`${API_USER}/me/settings-notifications`, params).then((response) => {
+      return response.data.data.attributes;
+    });
   }
 }
 

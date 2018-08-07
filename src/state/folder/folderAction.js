@@ -34,14 +34,48 @@ export const fetchFolders = () => {
   };
 };
 
+export const getUserSongsFolders = () => {
+  return (dispatch, getState) => {
+    dispatch(folderStartLoading());
+
+    if(shouldFetchFolders(getState())) {
+      return FolderService.getUserSongsFolders().then(response => {
+        dispatch(fetchedFolders(response));
+      }).catch(e => {
+        //TODO: handle error
+        dispatch(folderFinishLoading());
+      });
+    }
+
+    return Promise.resolve().then(() => dispatch(folderFinishLoading()));
+  };
+};
+
+export const getFavoriteSongsFolders = () => {
+  return (dispatch, getState) => {
+    dispatch(folderStartLoading());
+
+    if(shouldFetchFolders(getState())) {
+      return FolderService.getFavoriteSongsFolders().then(response => {
+        dispatch(fetchedFolders(response));
+      }).catch(e => {
+        //TODO: handle error
+        dispatch(folderFinishLoading());
+      });
+    }
+
+    return Promise.resolve().then(() => dispatch(folderFinishLoading()));
+  };
+};
+
 export const createFolder = (folder) => {
   return (dispatch) => {
     dispatch(folderStartLoading());
-
-    return FolderService.create(folder).then(_ => {
+    return FolderService.create(folder).then(response => {
+      console.log('response', response);
       dispatch(fetchFolders());
     }).catch(e => {
-      console.log(e.response);
+      console.log(e);
       //TODO: handle error
       dispatch(folderFinishLoading());
     });
