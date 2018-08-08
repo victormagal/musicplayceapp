@@ -19,7 +19,7 @@ export const fetchedFavoriteFolderWithSongs = createAction( FETCHED_FAVORITES_FO
   return folders;
 })
 
-export const fetchedUserFolderWithSongs = createAction( FETCHED_FAVORITES_FOLDERS_SONGS, (folders) => {
+export const fetchedUserFolderWithSongs = createAction( FETCHED_USER_FOLDERS_SONGS, (folders) => {
   return folders;
 })
 
@@ -49,7 +49,7 @@ export const getUserSongsWithFolders = () => {
     dispatch(folderStartLoading());
 
     return FolderService.getUserSongsWithFolders().then(response => {
-      console.log(response);
+      dispatch(fetchedUserFolderWithSongs(response));
     }).catch(e => console.log(e));
   }
 }

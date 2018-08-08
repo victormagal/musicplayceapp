@@ -43,6 +43,10 @@ class ProfileComponent extends React.Component {
     if(nextProps.favoritesFolder){
       this.setState({favoritesFolder: nextProps.favoritesFolder});
     }
+
+    if(nextProps.userFolders){
+      this.setState({userFolders: nextProps.userFolders});
+    }
   }
 
   goToScreen = (rota, params = {}) => {
@@ -305,12 +309,13 @@ class ProfileComponent extends React.Component {
       case 0:
         return (
           <View>
-            { mySongs && mySongs.data && mySongs.data.length > 0 ?
-              <View>
-                <MPShowFolderSongs
-                  folderName='Outras'
+            { this.state.userFolders && this.state.userFolders.length > 0 ?
+            this.state.userFolders.map(userFolder => (
+              <MPShowFolderSongs
+                  key={userFolder.id}
+                  folderName={userFolder.name}
                   me={me}
-                  songs={(mySongs && mySongs.data) || []}
+                  songs={userFolder.songs}
                   onEditClick={this.handleEditSong}
                   onIndicateClick={this.handleIndicateSong}
                   onRemoveClick={this.handleRemoveSong}
@@ -318,7 +323,7 @@ class ProfileComponent extends React.Component {
                   onPlayClick={this.handlePlaySong}
                   songDraft={me && songDraft}
                 />
-              </View>
+            ))
               :
               <View>
                 { (me && (!mySongs || mySongs.data.length === 0)) &&
