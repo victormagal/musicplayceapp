@@ -114,14 +114,6 @@ android {
             include "armeabi-v7a", "x86"
         }
     }
-    signingConfigs {
-      release {
-        storeFile file(MUSIC_RELEASE_STORE_FILE)
-        storePassword MUSIC_RELEASE_STORE_PASSWORD
-        keyAlias MUSIC_RELEASE_KEY_ALIAS
-        keyPassword MUSIC_RELEASE_KEY_PASSWORD
-      }
-    }
     buildTypes {
         release {
             minifyEnabled enableProguardInReleaseBuilds
