@@ -15,5 +15,7 @@
     <true/>
     <key>iCloudContainerEnvironment</key>
     <string>Development</string>
+    <key>ITSAppUsesNonExemptEncryption</key>
+    <string>NO</string>
 </dict>
 </plist>
