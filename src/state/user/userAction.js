@@ -104,7 +104,7 @@ export const getNotifications = () => {
     dispatch(userNotificationsStartLoading());
 
     return UserService.getNotifications().then(response => {
-      dispatch(userNotificationsFetched(response.data));
+      dispatch(userNotificationsFetched(response));
     }).catch(e => {
       console.log('getNotificationsError', e.response);
       dispatch(userNotificationsFinishedLoading());
@@ -142,8 +142,8 @@ export const getFollowNotifications = () => {
   return (dispatch) => {
     dispatch(userNotificationsStartLoading());
 
-    return UserService.getFollowNotifications().then(response => {s
-      dispatch(userNotificationsFollowersFetched(response.data));
+    return UserService.getFollowNotifications().then(response => {
+      dispatch(userNotificationsFollowersFetched(response));
     }).catch(e => {
       console.log('getFollowNotificationsError', e.response);
       dispatch(userNotificationsFinishedLoading());

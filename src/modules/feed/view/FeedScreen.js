@@ -148,8 +148,15 @@ class FeedScreenContainer extends React.Component {
     );
   };
 
+  handleSongNavigate = (song) => {
+    this.props.navigation.navigate('player', {song});
+  }
+
+
   renderItemFeed = ({ item }) => (
     <MPFeedNotification
+      handleNavigateUserProfile={this.handleNavigateUserProfile}
+      handleSongNavigate={this.handleSongNavigate}
       key={item.type}
       notification={item}
     />

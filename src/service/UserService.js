@@ -127,11 +127,15 @@ class UserService {
   }
 
   static getNotifications(){
-    return axios.get(`${API_USER}/me/notifications`);
+    return axios.get(`${API_USER}/me/notifications`).then((response) => {
+      return response.data;
+    });
   }
 
   static getFollowNotifications(){
-    return axios.get(`${API_USER}/me/notifications?searchType=following`);
+    return axios.get(`${API_USER}/me/notifications?searchType=following`).then((response) => {
+      return response.data;
+    });
   }
 
   static getNotificationSettings(){

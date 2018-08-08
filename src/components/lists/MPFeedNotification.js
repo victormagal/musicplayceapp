@@ -8,7 +8,7 @@ import { MPText } from '../../components';
 class MPFeedNotification extends React.Component {
 
   render() {
-    let {notification} = this.props;
+    let {notification, handleSongNavigate, handleNavigateUserProfile} = this.props;
     let notificationType = notification.type.split("\\")[notification.type.split("\\").length - 1];
 
     let types = ['AlertFollowingMeIndicationNotification',
@@ -23,7 +23,7 @@ class MPFeedNotification extends React.Component {
         <View style={{width: 40, height: 40, backgroundColor: '#f60', marginEnd: 10}}></View>
         {
           notificationType == types[0] && (
-            <MPText style={styles.notificationText}>
+            <MPText style={styles.notificationText} onPress={handleSongNavigate.bind(this,notification.data.song)}>
               <MPText style={styles.notificationTextEmpth}>{notification.data.song.name}</MPText> de
               <MPText style={styles.notificationTextEmpth}> {notification.data.artistsOwner.name}</MPText> foi indicada para 
               <MPText style={styles.notificationTextEmpth}> {notification.data.artistIndication.name}</MPText>
@@ -32,7 +32,7 @@ class MPFeedNotification extends React.Component {
         }
         { 
           notificationType == types[1] && (
-            <MPText style={styles.notificationText}>
+            <MPText style={styles.notificationText} onPress={handleNavigateUserProfile.bind(this, notification.data.artists.id)}>
               <MPText style={styles.notificationTextEmpth}>{notification.data.userFollower.name}</MPText> começou a seguir   
               <MPText style={styles.notificationTextEmpth}> {notification.data.artists.name}</MPText>
             </MPText>

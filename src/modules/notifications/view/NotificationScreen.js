@@ -170,8 +170,8 @@ class NotificationScreenContainer extends React.Component {
   }
 
   componentWillReceiveProps(nextProps){
-    if(nextProps.notifications.data){
-      let notificationList = nextProps.notifications.data.map((notification, index)=>{
+    if(nextProps.userNotifications.data){
+      let notificationList = nextProps.userNotifications.data.map((notification, index)=>{
         obj = {id: index, type: notification.attributes.type, data: JSON.parse(notification.attributes.data), time: notification.attributes.time};
         return obj;
       })
@@ -234,8 +234,8 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = ({artistReducer}) => {
-  return {...artistReducer};
+const mapStateToProps = ({userReducer}) => {
+  return {...userReducer};
 };
 
 const NotificationScreen = connect(mapStateToProps)(NotificationScreenContainer);
