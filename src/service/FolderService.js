@@ -7,6 +7,7 @@ class FolderService {
 
   static transformFolderSongs(folders, favoriteSongs){
     let i,j;
+
     for(i = 0; i < folders.length; i++){
       for(j = 0; j < favoriteSongs.length; j++){
         if(folders[i].id === favoriteSongs[j].attributes.pivot.folder_id){
@@ -15,9 +16,19 @@ class FolderService {
         }
       }
     }
+
     folders = folders.filter((folder)=>{
       return folder.songs;
     });
+    
+    let noFolderSongs = favoriteSongs.filter((song) => {
+      return song.attributes.pivot && song.attributes.pivot.folder_id;
+    });
+
+    if(noFolderSongs && noFolderSongs.length > 0){
+      folders.push({id: 99, name: 'Outras', songs: noFolderSongs, songCount: noFolderSongs.length });
+    }
+    
     return folders;
   }
 
@@ -34,10 +45,11 @@ class FolderService {
   static getUserSongsWithFolders(){
     return axios.get(`${API_FOLDER}?query={"type":"userSongs"}&queryTable=folders&include=userSongs`)
                  .then(response => {
-                   let {data} = response.data;
-                   let relations = getIncludes(data);
-                   data = transformResponseData(data);
-                   return {data, relations};
+                  let {data} = response.data;
+                  let relations = response.data.included;
+                  data = transformResponseData(data);
+                  let result = FolderService.transformFolderSongs(data, relations);
+                  return result;
                  }).catch(e =>{
                    console.log('getUserSongsFoldersError', e);
                  });

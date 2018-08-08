@@ -6,7 +6,9 @@ import {
 const folderReducer = (state, action) => {
   state = state || {
       loading: false,
-      folders: null
+      folders: null,
+      favoritesFolder: null,
+      userFolders: null
     };
 
   switch (action.type) {
@@ -41,7 +43,7 @@ const folderReducer = (state, action) => {
       return {
         ...state,
         loading: false,
-        userFolder: action.payload
+        userFolders: action.payload
       };
   }
 
