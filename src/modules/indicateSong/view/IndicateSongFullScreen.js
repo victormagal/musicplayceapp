@@ -31,7 +31,6 @@ class IndicateSongFullScreenContainer extends React.Component {
 
   componentWillReceiveProps(nextProps){
     if(nextProps.users && nextProps.users.data.length > 0){
-      console.log(nextProps.users);
       this.setState({artists: nextProps.users.data, notFoundUser: false});
     }else if(nextProps.users && nextProps.users.data.length == 0){
       this.setState({notFoundUser: true});
@@ -47,8 +46,10 @@ class IndicateSongFullScreenContainer extends React.Component {
   };
 
   handleSongIndicate = ([artist, song]) => {
+    let songId = song.id ? song.id : song.pivot.song_id;
+    let artistId = artist.id ? artist.id : null
     this.setState({indication: {song, artist}});
-    this.props.dispatch(indicateSong(song.id, artist.id));
+    this.props.dispatch(indicateSong(songId, artistId));
   }
 
   goToScreen = () => {
@@ -58,8 +59,7 @@ class IndicateSongFullScreenContainer extends React.Component {
   };
 
   renderItem = ({item}) => (
-    <MPUser artist={item}
-              onPress={this.handleSongIndicate.bind(this, [item, this.state.song])} style={{marginBottom: 10}}/>
+    <MPUser user={item} onPress={this.handleSongIndicate.bind(this, [item, this.state.song])} style={{marginBottom: 10}}/>
   );
 
   toggleState = (att) => {

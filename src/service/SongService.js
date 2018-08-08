@@ -90,7 +90,7 @@ class SongService {
 
   static indicateSong(songId, userId) {
     let params = {
-      user_id: userId
+      artist_id: userId
     };
     return axios.post(`${API_SONG}/${songId}/indications`, params).then(response => response.data);
   }

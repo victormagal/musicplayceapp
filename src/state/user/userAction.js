@@ -28,7 +28,7 @@ export const searchUsers = (name) => {
     return UserService.fetchUsers(name).then(response => {
       dispatch(usersFetched(response));
     }).catch(e => {
-      console.log('searchUsersError', e.response);
+      console.log('searchUsersError', e);
       dispatch(userFinishLoading());
     });
   };
