@@ -8,6 +8,10 @@ class FolderService {
   static transformFolderSongs(folders, favoriteSongs){
     let i,j;
 
+    if(folders.length === 0){
+      return [{id: 99, name: 'Outras', songs: favoriteSongs, songCount: favoriteSongs.length }];
+    }
+
     for(i = 0; i < folders.length; i++){
       for(j = 0; j < favoriteSongs.length; j++){
         if(folders[i].id === favoriteSongs[j].attributes.pivot.folder_id){

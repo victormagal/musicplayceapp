@@ -65,6 +65,7 @@ class UserService {
     return axios.get(`${ API_USER }/${ id }`)
       .then(response => {
         const { data } = response.data;
+        console.log(data);
         const { id, attributes } = data;
         return { id, ...attributes };
       });

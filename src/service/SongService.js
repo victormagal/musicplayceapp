@@ -1,6 +1,6 @@
 import axios from 'axios';
-import {API, transformResponseData, getIncludes} from './api';
-import {StorageService} from "./StorageService";
+import {API, transformResponseData, getIncludes, getItemRelations} from './api';
+import {FolderService} from "./FolderService";
 import {Platform} from "react-native";
 
 const API_SONG = `${API}/songs`;
@@ -129,10 +129,31 @@ class SongService {
   }
 
   static songsByUser(user) {
-    return axios.get(`${API}/song-artist/${user}`)
+    return axios.get(`${API}/song-artist/${user}?include=folders`)
       .then(response => {
         let {data, meta} = response.data;
-        return {data: transformResponseData(data), pagination: meta.pagination};
+        let includes = getIncludes(response.data);
+        data =  transformResponseData(data);
+
+        let folders = [];
+
+        if(Object.keys(includes).length > 0) {
+          for(let key of Object.keys(includes.folders)){
+            folders.push(includes.folders[key]);
+          }
+
+          data = data.map(item => {
+            let relations = {};
+            if(item.relationships){
+              relations = getItemRelations(item, includes);
+            }
+
+            return {...item, ...relations};
+          });
+        }
+
+        data = FolderService.transformFolderSongs(folders, data);
+        return {data, pagination: meta.pagination};
       });
   }
 

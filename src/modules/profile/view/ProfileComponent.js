@@ -44,8 +44,8 @@ class ProfileComponent extends React.Component {
       this.setState({favoritesFolder: nextProps.favoritesFolder});
     }
 
-    if(nextProps.userFolders){
-      this.setState({userFolders: nextProps.userFolders});
+    if(nextProps.mySongs){
+      this.setState({userFolders: nextProps.mySongs.data});
     }
   }
 
@@ -302,6 +302,7 @@ class ProfileComponent extends React.Component {
   }
 
   renderTabsContent(profile, tabIndex) {
+    console.log("AQUI RENDER MUSICS", this.state.userFolders);
     const { me, mySongs, songDraft } = this.props;
     switch (tabIndex) {
       case 0:

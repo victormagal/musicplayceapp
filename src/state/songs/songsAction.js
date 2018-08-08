@@ -173,6 +173,7 @@ export const fetchUserSongs = (userId) => {
     return SongService.songsByUser(userId).then(response => {
       dispatch(fetchedUserSongs(response));
     }).catch(e => {
+      console.log(e);
       dispatch(songFinishLoading(e.response));
     });
   };

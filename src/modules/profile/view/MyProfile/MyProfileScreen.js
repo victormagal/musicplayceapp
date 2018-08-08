@@ -1,16 +1,16 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {ProfileComponent} from '../ProfileComponent';
-import {fetchProfile, fetchUserSongs, logout, getFavoriteSongsWithFolders, getUserSongsWithFolders} from '../../../../state/action';
-import {songRegisterClear} from "../../../../state/songs/songsType";
+import {fetchProfile, fetchUserSongs, logout, getFavoriteSongsWithFolders} from '../../../../state/action';
+
 
 class MyProfileScreenContainer extends React.Component {
   componentDidMount() {
     const { dispatch } = this.props;
 
     dispatch(fetchProfile()).then(response => {
-      dispatch(getFavoriteSongsWithFolders()).then(_ =>
-        dispatch(getUserSongsWithFolders()));
+      dispatch(fetchUserSongs(response.payload.id));
+      dispatch(getFavoriteSongsWithFolders());
     });
   }
 

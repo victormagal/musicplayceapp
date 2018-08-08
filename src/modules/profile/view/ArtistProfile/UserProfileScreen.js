@@ -17,6 +17,7 @@ class UserProfileScreenContainer extends React.Component {
 
   render() {
     const { navigation } = this.props;
+
     return (
       <ProfileComponent
         navigation={navigation}

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import {StorageService} from './StorageService';
 
-/*axios.interceptors.request.use(request => {
+axios.interceptors.request.use(request => {
   console.log('Logger: request => ', request)
   return request
 });
@@ -12,7 +12,7 @@ axios.interceptors.response.use(response => {
 }, (error) => {
   console.log(error.response);
   return Promise.reject(error);
-});*/
+});
 
 StorageService.getToken().then((token) => {
   console.log("TOKEN", token);
@@ -26,7 +26,6 @@ StorageService.getToken().then((token) => {
 export const getIncludes = (response) => {
   let {included, data} = response;
   let includes = {};
-  let relations = {};
 
   if(included) {
     for (let e of included) {
@@ -39,6 +38,16 @@ export const getIncludes = (response) => {
       includes[type][id] = {id, ...attributes};
     }
   }
+
+  if(data && data.relationships){
+    return getItemRelations(data, includes);
+  }
+
+  return includes;
+};
+
+export const getItemRelations = (data, includes) => {
+  let relations = {};
 
   if(data && data.relationships){
 
@@ -57,9 +66,6 @@ export const getIncludes = (response) => {
 
     return relations;
   }
-
-
-  return includes;
 };
 
 export const transformResponseData = (data) => {
