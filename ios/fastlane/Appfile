@@ -1,8 +1,2 @@
-app_identifier("br.com.musicplayce") # The bundle identifier of your app
-apple_id("apple@devsquad.email") # Your Apple email address
-
-itc_team_id("119199314") # App Store Connect Team ID
-team_id("WT836546AW") # Developer Portal Team ID
-
-# For more information about the Appfile, see:
-#     https://docs.fastlane.tools/advanced/#appfile
+app_identifier("br.com.musicplayce")
+team_id("WT836546AW")

@@ -8,7 +8,7 @@
     "ios": "react-native run-ios",
     "release:android": "react-native run-android --variant=release",
     "release:ios": "react-native run-ios --configuration Release",
-    "build:ios": "cd ios && xcodebuild archive -scheme musicplayce -archivePath $(pwd)/musicplayce.xcarchive && xcodebuild -exportArchive -exportOptionsPlist '$(pwd)/musicplayce/Build.plist' -archivePath '$(pwd)/musicplayce.xcarchive' -exportPath '$(pwd)/musicplayce.ipa'",
+    "build:ios": "cd ios && xcodebuild archive -scheme musicplayce -archivePath $(pwd)/musicplayce.xcarchive && xcodebuild -exportArchive -exportOptionsPlist '$(pwd)/musicplayce/Release.plist' -archivePath '$(pwd)/musicplayce.xcarchive' -exportPath '$(pwd)/musicplayce.ipa'",
     "build:android": "cd android && ./gradlew assembleRelease --stacktrace",
     "test": "jest"
   },
