@@ -30,9 +30,10 @@ class IndicateSongFullScreenContainer extends React.Component {
   }
 
   componentWillReceiveProps(nextProps){
-    if(nextProps.artists && nextProps.artists.data.length > 0){
-      this.setState({artists: nextProps.artists.data, notFoundUser: false});
-    }else if(nextProps.artists && nextProps.artists.data.length == 0){
+    if(nextProps.users && nextProps.users.data.length > 0){
+      console.log(nextProps.users);
+      this.setState({artists: nextProps.users.data, notFoundUser: false});
+    }else if(nextProps.users && nextProps.users.data.length == 0){
       this.setState({notFoundUser: true});
     }
 
@@ -85,7 +86,7 @@ class IndicateSongFullScreenContainer extends React.Component {
         <MPLoading visible={this.props.loading} />
         <ScrollView>
                 <View>
-                  { this.state.songHeader && (
+                  { this.state.songHeader && this.state.song && (
                       <View>
                         <MPText style={ styles.headerText}>Com quem <MPText style={ styles.headerTextCustom }>combina</MPText>?</MPText>
                         <MPSong song={this.state.song}/>
@@ -175,8 +176,8 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = ({artistReducer, songsReducer}) => {
-  return {...artistReducer, ...songsReducer};
+const mapStateToProps = ({userReducer, songsReducer}) => {
+  return {...userReducer, ...songsReducer};
 };
 
 const IndicateSongFullScreen = connect(mapStateToProps)(IndicateSongFullScreenContainer);

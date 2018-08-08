@@ -86,8 +86,6 @@ class ProfileComponent extends React.Component {
   };
 
   handleIndicateSong = (song) => {
-    const { profile } = this.props;
-    song = {...song, user: profile};
     this.goToScreen('IndicateSongFullScreen', { song });
   };
 
@@ -312,12 +310,12 @@ class ProfileComponent extends React.Component {
             { this.state.userFolders && this.state.userFolders.length > 0 ?
             this.state.userFolders.map(userFolder => (
               <MPShowFolderSongs
+                  {...this.props}
                   key={userFolder.id}
                   folderName={userFolder.name}
                   me={me}
                   songs={userFolder.songs}
                   onEditClick={this.handleEditSong}
-                  onIndicateClick={this.handleIndicateSong}
                   onRemoveClick={this.handleRemoveSong}
                   onUnpublishClick={this.handleUnpublishSong}
                   onPlayClick={this.handlePlaySong}
@@ -339,6 +337,7 @@ class ProfileComponent extends React.Component {
             {this.state.favoritesFolder  && this.state.favoritesFolder.length > 0 ?
             this.state.favoritesFolder.map(favoriteFolder => (
               <MPShowFolderSongs
+                {...this.props}
                 key={favoriteFolder.id}
                 folderName={favoriteFolder.name}
                 me={me}

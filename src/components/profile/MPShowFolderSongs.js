@@ -6,6 +6,10 @@ import {MPGradientBorderButton} from './MPGradientBorderButton';
 
 class MPShowFolderSongs extends Component {
 
+  handleIndicateSong = (song) => {
+    this.props.navigation.navigate('IndicateSongFullScreen', {song});
+  };
+
   renderSongs = ({item}) => {
     let {me} = this.props;
 
@@ -19,7 +23,7 @@ class MPShowFolderSongs extends Component {
       <MPSongRating song={item}  indicateSong={true} isAdded={true}
                     me={me} onExclude={this.props.onRemoveClick}
                     onUnpublish={this.props.onUnpublishClick}
-                    onIndicateClick={this.props.onIndicateClick}
+                    onIndicateClick={this.handleIndicateSong.bind(this, item)}
                     onEditClick={this.props.onEditClick}
                     onPlayClick={this.props.onPlayClick}/>
     );
