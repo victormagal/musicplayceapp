@@ -32,6 +32,7 @@ class UsersScreenContainer extends React.Component {
   }
 
   componentWillReceiveProps(nextProps){
+    console.log(nextProps);
     if (nextProps.users){
       this.setState({ users: nextProps.users.data, waiting: false });
     }
@@ -125,8 +126,6 @@ class UsersScreenContainer extends React.Component {
 
   render() {
     const hasSelected = Object.keys(this.state.usersSelectedTemp).length > 0;
-
-    console.log(this.state.usersSelected);
     
     return (
       <View style={styles.container}>
@@ -194,12 +193,12 @@ class UsersScreenContainer extends React.Component {
               </TouchableOpacity>
             }
           </View>
-          { (this.state.search.length >= 3 && this.state.users.length > 0 && !this.props.loading) &&
+          { (this.state.search.length >= 3 && this.state.users &&  this.state.users.length > 0 && !this.props.loading) &&
             <View style={styles.contentUsers}>
               { this.state.users.map((item, index) => (
                 <MPUserHorizontal
                   key={index}
-                  artist={item.name}
+                  user={`${item.name} ${item.last_name}`}
                   selected={!!item.selected}
                   image={item.picture_url}
                   onPress={() => this.handleUserClick(index)}
