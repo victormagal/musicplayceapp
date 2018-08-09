@@ -165,6 +165,9 @@ class RegisterSongContainer extends React.Component {
   getImageName() {
     const { song } = this.props;
     const { imageFile } = this.state;
+
+    console.log(imageFile);
+
     return imageFile
       ? imageFile.fileName
       :  song.name + song.picture_url.substr(song.picture_url.lastIndexOf('.'));

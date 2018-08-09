@@ -40,17 +40,19 @@ const songsReducer = (state, action) => {
     loading: false,
     fetchedSong: null,
     mySongs: null,
-    song: {...defaultSong},
-    songDraftSuccess: false,
-    songRemoveSuccess: false,
-    songPublishSuccess: false,
-    songUnpublishSuccess: false,
-    songIndicateSuccess: false,
-    songFavoriteSuccess: false,
-    songUploadedPictureSuccess: false,
-    likedCommentSuccess: false,
-    songDraft: false
+    song: {...defaultSong}
   };
+
+  state.songPublishSuccess = false;
+  state.songDraftSuccess = false;
+  state.songRemoveSuccess = false;
+  state.songPublishSuccess = false;
+  state.songUnpublishSuccess = false;
+  state.songIndicateSuccess = false;
+  state.songFavoriteSuccess = false;
+  state.songUploadedPictureSuccess = false;
+  state.likedCommentSuccess = false;
+  state.songDraft = false;
 
   switch (action.type) {
     case SONG_REGISTER_DATA:

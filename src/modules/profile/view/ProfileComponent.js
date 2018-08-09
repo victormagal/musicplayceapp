@@ -302,7 +302,6 @@ class ProfileComponent extends React.Component {
   }
 
   renderTabsContent(profile, tabIndex) {
-    console.log("AQUI RENDER MUSICS", this.state.userFolders);
     const { me, mySongs, songDraft } = this.props;
     switch (tabIndex) {
       case 0:

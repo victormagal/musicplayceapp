@@ -7,6 +7,7 @@ import {
 import {Provider} from 'react-redux';
 import thunkMiddleware from 'redux-thunk'
 import {createBottomTabNavigator, createStackNavigator} from 'react-navigation';
+import MusicControl from 'react-native-music-control';
 import {
   LoginScreens,
   ProfileScreensNavigation,
@@ -17,7 +18,10 @@ import {
   MessageScreen
 } from './src/modules';
 import {reducers} from './src/state/reducer';
-import {loadFont, updateNetwork, playerSongPause, playerSongUpdateProgress} from './src/state/action';
+import {
+  loadFont, updateNetwork, playerSongPause,
+  playerSongUpdateProgress, songResume, songPause, songStop
+} from './src/state/action';
 import {MPTabBottomComponent} from './src/components';
 import {MPTabConfigurationIcon, MPTabNotificationIcon, MPTabProfileIcon} from './src/assets/svg/custom';
 
@@ -74,6 +78,18 @@ export default class App extends React.Component {
     NetInfo.isConnected.addEventListener('connectionChange', this.handleConnectionChange);
     this.playerPauseListener = RNMusicPlayerEmitter.addListener('playerDidPause', this.handleSongPauseListener);
     this.playerUpdateListener = RNMusicPlayerEmitter.addListener('playerDidUpdateWithProgress', this.handleSongUpdateListener);
+
+    MusicControl.on('play', ()=> {
+      store.dispatch(songResume());
+    });
+
+    MusicControl.on('pause', () => {
+      store.dispatch(songPause());
+    });
+
+    MusicControl.on('stop', () => {
+      store.dispatch(songStop());
+    });
   }
 
   componentWillUnmount() {

@@ -26,7 +26,6 @@ export const searchUsers = (name) => {
     dispatch(userStartLoading());
 
     return UserService.fetchUsers(name).then(response => {
-      console.log(response);
       dispatch(usersFetched(response));
     }).catch(e => {
       console.log('searchUsersError', e);

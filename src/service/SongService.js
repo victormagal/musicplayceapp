@@ -193,6 +193,7 @@ class SongService {
 
   static republishSong(song, songFile, imageFile){
     return SongService.uploadImage(song.id, imageFile).then((response) => {
+      response = response || song;
       return SongService.sendSongFile(songFile, response).then((fileResponse) => {
         if(fileResponse){
           song.path = fileResponse.path;

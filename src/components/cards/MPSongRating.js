@@ -266,16 +266,16 @@ const styles = StyleSheet.create({
     fontSize: 11,
     fontFamily: 'Montserrat-Medium',
     color: '#FFF',
-    textAlign: 'center'
+    textAlign: 'center',
+    paddingVertical: 18
   },
   menuTextFirst: {
-    marginTop: 43
+    marginTop: 20
   },
   menuSeparator: {
     width: 20,
     height: 1,
     backgroundColor: '#FFF',
-    marginVertical: 18,
     alignSelf: 'center'
   },
   menuCloseText: {
