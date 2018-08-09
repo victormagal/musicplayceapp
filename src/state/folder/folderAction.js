@@ -124,6 +124,16 @@ export const createFolder = (folder) => {
   };
 };
 
+export const updateFolderName = (folderId, newName) => {
+  return (dispatch) => {
+    // dispatch(folderStartLoading());
+    return FolderService.updateFolderName(folderId, newName).then(reponse => {
+      console.log('updateFolderResponse', response);
+    }).catch(e => {
+      console.log(e);
+    })
+  }
+}
 
 const shouldFetchFolders = (state) => {
   return !(state.folderReducer.folders && state.folderReducer.folders.data.length > 0);

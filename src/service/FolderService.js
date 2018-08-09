@@ -108,6 +108,20 @@ class FolderService {
                    console.log('getFoldersError', e);
                  });
   }
+
+  static updateFolderName(folderId, newName){
+    if(newName){
+      let params = {
+        data : {
+          type: 'folders',
+          attributes: {
+            name: newName,
+          }
+        }
+      }
+      return axios.put(`${API_FOLDER}/${folderId}`, params);
+    }
+  }
 }
 
 export {FolderService};

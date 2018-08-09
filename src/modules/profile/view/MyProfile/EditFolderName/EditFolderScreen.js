@@ -12,34 +12,35 @@ import {
 } from '../../../../../components/index';
 
 class EditFolderScreenContainer extends React.Component {
-
-  pages = {
-    'profile': MPProfileSuccess,
-    'email': MPMail,
-    'phone': MPPhone
-  };
-
-  componentDidMount(){
-    this.props.dispatch(fetchProfile());
+  constructor(props){
+    super(props);
+    this.state = {
+      folder: null,
+    }
   }
 
-  componentWillReceiveProps(nextProps){
-    if(nextProps.saveProfileSuccess) {
-      this.props.navigation.navigate('message', { component: this.pages[nextProps.page] });
+  componentDidMount(){
+    if(this.props.navigation.state && this.props.navigation.state.params){
+      let {selectedFolder} = this.props.navigation.state.params;
+      if(selectedFolder){
+        this.setState(selectedFolder);
+      }
     }
+  }
+
+  handleSaveClick = (newName) => {
+    this.props.dispatch(updateFolderName(this.state.selectedFolder.id, newName));
+    this.props.navigation.pop();
   }
 
   handleBackClick = () => {
     this.props.navigation.pop();
-  };
-
-  handleSaveClick = (page) => {
-    this.props.dispatch(saveProfile({}, page));
-  };
+  }
 
   render() {
     return (
       <EditFolderComponent
+        {...this.props}
         onSave={this.handleSaveClick}
         onBack={this.handleBackClick}
         profile={this.props.profile}
@@ -48,8 +49,8 @@ class EditFolderScreenContainer extends React.Component {
   }
 }
 
-const mapStateToProps = ({ profileReducer }) => {
-  return {...profileReducer };
+const mapStateToProps = ({ folderReducer }) => {
+  return {...folderReducer };
 };
 
 const EditFolderScreen = connect(mapStateToProps)(EditFolderScreenContainer);
