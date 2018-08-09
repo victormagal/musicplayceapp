@@ -92,15 +92,19 @@ class PlayerComponent extends React.Component {
   };
 
   handleSongDuration = (songDuration) => {
-    let songArray = songDuration.split(':');
-    let hours = Number.parseInt(songArray[0]);
-    let minutes = Number.parseInt(songArray[1]);
-    let seconds = Number.parseInt(songArray[2]);
-    let songDurationString = `${minutes}m${seconds}s`
-    if(hours > 0){
-      songDurationString = `${hours}h`.concat(songDurationString);
+    if(songDuration){
+      let songArray = songDuration.split(':');
+      let hours = Number.parseInt(songArray[0]);
+      let minutes = Number.parseInt(songArray[1]);
+      let seconds = Number.parseInt(songArray[2]);
+      let songDurationString = `${minutes}m${seconds}s`
+      if(hours > 0){
+        songDurationString = `${hours}h`.concat(songDurationString);
+      }
+      return songDurationString;
+    }else{
+      return '0ms0s';
     }
-    return songDurationString;
   }
 
   handleSongTags = (songTags) => {
@@ -230,7 +234,7 @@ class PlayerComponent extends React.Component {
           </View>
 
           <FlatList
-            data={song ? song.comments : null}
+            data={song && song.comments ? song.comments : null}
             keyExtractor={(item) => item.id}
             renderItem={this.renderComment}/>
         </View>
@@ -378,7 +382,7 @@ class PlayerComponent extends React.Component {
   renderHeaderMenu() {
     let {song} = this.props;
     return [
-      <MPIconButton key={1} title={song ? song.comments.length : null} titleStyle={styles.headerMenuText} icon={MPCommentWhiteIcon}
+      <MPIconButton key={1} title={song && song.comments ? song.comments.length : null} titleStyle={styles.headerMenuText} icon={MPCommentWhiteIcon}
                     style={styles.headerMenuItem}
                     onPress={this.handleToggleComments.bind(this, true)}/>,
       <MPIconButton  key={2} title="600" titleStyle={styles.headerMenuText} icon={MPShareWhiteIcon}/>

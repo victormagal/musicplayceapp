@@ -7,11 +7,6 @@ import {connect} from 'react-redux';
 
 class ConfirmationScreenContainer extends React.Component {
 
-  componentDidMount(){
-    //TODO: refactor
-    this.props.dispatch(searchUsers());
-  }
-
   handleClose = () => {
     this.props.navigation.navigate('MyProfileScreen', { backFromPublishedOrDraft: true });
   };
@@ -21,6 +16,7 @@ class ConfirmationScreenContainer extends React.Component {
   };
 
   render() {
+    console.log(this.props)
     return (
       <View style={styles.container}>
         <MPHeader back={false} inverse={true}/>
@@ -32,13 +28,17 @@ class ConfirmationScreenContainer extends React.Component {
             <MPText style={styles.subTitleText}>
               Que tal indicar sua música pra uma banda que você goste?
             </MPText>
-            <FlatList
-              data={this.props.users}
-              keyExtractor={(item) => item.id}
-              renderItem={this.renderItem}
-              numColumns={3}
-              columnWrapperStyle={{flexWrap: 'wrap', justifyContent: 'center'}}
-            />
+            {
+              this.props.users.data && this.props.users.data.length > 0 && (
+                <FlatList
+                  data={this.props.users.data.slice(0,3)}
+                  keyExtractor={(item) => item.id}
+                  renderItem={this.renderItem}
+                  numColumns={3}
+                  columnWrapperStyle={{flexWrap: 'wrap', justifyContent: 'center'}}
+                />
+              )
+            }
             <View style={ styles.confirmationButtonsContainer }>
               <MPGradientButton
                 textSize={16}

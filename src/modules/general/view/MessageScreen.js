@@ -10,13 +10,13 @@ import {
 class MessageScreen extends React.Component {
 
   render() {
-    let {component, title} =  this.props.navigation.state.params;
+    let {component, title, ...rest} =  this.props.navigation.state.params;
     let Content = component || View;
 
     return (
       <View style={styles.parent}>
         <MPHeader title={title}/>
-        <Content {...this.props} />
+        <Content {...this.props} {...rest} />
       </View>
     );
   }

@@ -25,17 +25,23 @@ class LoginScreenContainer extends Component {
   };
 
   handleForgotPassword = () => {
-    this.props.navigation.navigate('message', {component: ForgotPasswordMessage, onRegister: this.handleRegister});
+    this.props.navigation.navigate('message', {component: ForgotPasswordMessage, onRegister: this.handleRegister, onSubmit: this.handleRecoverPassword});
   };
 
   handleRegister = () => {
     this.props.navigation.navigate('register');
   };
 
+  handleRecoverPassword = (email) => {
+    this.props.dispatch(recoverPassword(email));
+  };
+
   render() {
     return (
-      <LoginComponent onRegister={this.handleRegister} onSubmit={this.handleSubmit}
-                      onForgotPassword={this.handleForgotPassword} error={this.props.loginError}
+      <LoginComponent onRegister={this.handleRegister} 
+                      onSubmit={this.handleSubmit}
+                      onForgotPassword={this.handleForgotPassword} 
+                      error={this.props.loginError}
                       loading={this.props.loading}/>
     );
   }

@@ -5,6 +5,7 @@ import {
 import {
   MPGradientButton, MPText, MPInput, MPForm, MPFormButton
 } from '../../../../components';
+import { recoverPassword } from '../../../../state/action';
 
 
 class ForgotPasswordComponent extends Component {
@@ -19,10 +20,6 @@ class ForgotPasswordComponent extends Component {
     let newState = {...this.state};
     newState.form.email = value;
     this.setState({...newState});
-  };
-
-  handleSubmit = () => {
-    this.props.onSubmit(this.state.form);
   };
 
   render() {
@@ -44,9 +41,9 @@ class ForgotPasswordComponent extends Component {
 
         <MPForm>
           <MPInput label="E-mail" name="email" value={this.state.form.email}
-                   validators={['required', 'email']} onChangeText={this.handleChangeEmail}/>
+                   validators={['required']} onChangeText={this.handleChangeEmail}/>
           <MPFormButton>
-            <MPGradientButton title="Enviar" textSize={16} style={styles.enviarText} onPress={this.handleSubmit}/>
+            <MPGradientButton title="Enviar" textSize={16} style={styles.enviarText} onPress={() => this.props.onSubmit(this.state.form.email)}/>
           </MPFormButton>
         </MPForm>
 
