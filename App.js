@@ -106,6 +106,7 @@ export default class App extends React.Component {
     let currentPlayerState = state["state"]
 
     if (RNMusicPlayer.statePlaying == currentPlayerState) {
+      console.log(state['progress']);
       store.dispatch(playerSongUpdateProgress(state["progress"]));
     }
   };

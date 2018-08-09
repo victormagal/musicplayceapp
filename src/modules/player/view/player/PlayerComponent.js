@@ -393,6 +393,8 @@ class PlayerComponent extends React.Component {
     let {song} = this.props;
     const progress = Math.ceil(this.props.player.progress);
 
+    console.log(progress);
+
     return (
       <View style={styles.player}>
         <Slider style={styles.playerSlider} thumbStyle={styles.playerThumb}
