@@ -49,15 +49,15 @@ class FeedScreenContainer extends React.Component {
   componentWillReceiveProps(nextProps) {
     const { users, feed, userFollowNotifications } = nextProps;
     const { searching } = this.state;
-
     if (feed) {
-      this.setState({ feed, searchingNotFound: false });
       if (feed.artists && feed.artists.length === 0 &&
         feed.songs && feed.songs.length === 0
         && searching
       ){
         this.setState({ searchingNotFound: true });
       }
+
+      this.setState({ feed, searchingNotFound: false });
     }
 
     if (userFollowNotifications.data) {

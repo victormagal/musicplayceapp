@@ -35,7 +35,8 @@ class ProfileComponent extends React.Component {
     this.state = {
       tabIndex: 0,
       linearGradientHeight: 0,
-      favoritesFolder: []
+      favoritesFolder: [],
+      isFollowing: false,
     };
   }
 
@@ -62,7 +63,7 @@ class ProfileComponent extends React.Component {
 
   toggleFollow = () => {
     const { profile, navigation, onFollowUpClick } = this.props;
-    if (profile.isFollowing) {
+    if (this.props.followingUser) {
       navigation.navigate('message', { component: MPConfirmStopFollow, profile });
     } else {
       onFollowUpClick();
@@ -238,7 +239,7 @@ class ProfileComponent extends React.Component {
             hasPhoto={profile.picture_url}
           />
           :
-          <MPFollowButton isFollowing={profile.isFollowing} onPress={() => this.toggleFollow()}/>
+          <MPFollowButton isFollowing={this.props.followingUser} onPress={() => this.toggleFollow()}/>
         }
         <MPProfileInfo
           isMe={me}

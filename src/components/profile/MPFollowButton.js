@@ -5,21 +5,13 @@ import { MPText } from '../general';
 import { MPFollowingIcon, MPFollowIcon } from '../../assets/svg';
 
 class MPFollowButtonComponent extends Component{
-    state = {
-        isFollowing: this.props.isFollowing,
-    }
-
-    toggleFollow = () => {
-        this.setState({isFollowing: !this.state.isFollowing})
-    }
-
     render() {
         let { isFollowing, onPress } = this.props;
         
         return (
             <TouchableOpacity style={styles.parent} onPress = { onPress }>
             {
-                this.state.isFollowing ? (
+                isFollowing ? (
                     <View style={styles.followingButtonContainer}>
                         <MPFollowingIcon />
                         <MPText style={styles.followingText}>Seguindo</MPText>

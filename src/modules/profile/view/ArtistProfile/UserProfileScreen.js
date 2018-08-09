@@ -17,11 +17,11 @@ class UserProfileScreenContainer extends React.Component {
 
   render() {
     const { navigation } = this.props;
-
     return (
       <ProfileComponent
         navigation={navigation}
         profile={this.props.user}
+        followingUser={this.props.followingUser}
         onFollowUpClick={this.handleFollowUp}
         mySongs={this.props.usersSongs}/>
     );
