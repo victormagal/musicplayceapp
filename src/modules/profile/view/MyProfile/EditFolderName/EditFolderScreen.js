@@ -1,35 +1,29 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { 
-  fetchProfile, 
-  saveProfile 
+  updateFolderName
 } from '../../../../../state/action';
 import { EditFolderComponent } from './EditFolderComponent';
-import { 
-  MPProfileSuccess,
-  MPMail,
-  MPPhone
-} from '../../../../../components/index';
 
 class EditFolderScreenContainer extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      folder: null,
+      folderId: null,
     }
   }
 
   componentDidMount(){
     if(this.props.navigation.state && this.props.navigation.state.params){
-      let {selectedFolder} = this.props.navigation.state.params;
-      if(selectedFolder){
-        this.setState(selectedFolder);
+      let {folderId} = this.props.navigation.state.params;
+      if(folderId){
+        this.setState({folderId});
       }
     }
   }
 
   handleSaveClick = (newName) => {
-    this.props.dispatch(updateFolderName(this.state.selectedFolder.id, newName));
+    this.props.dispatch(updateFolderName(this.state.folderId, newName));
     this.props.navigation.pop();
   }
 
@@ -43,7 +37,6 @@ class EditFolderScreenContainer extends React.Component {
         {...this.props}
         onSave={this.handleSaveClick}
         onBack={this.handleBackClick}
-        profile={this.props.profile}
       />
     );
   }

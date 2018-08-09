@@ -30,7 +30,7 @@ class MPShowFolderSongs extends Component {
   };
 
   render() {
-    let {folderName, edit, onEdit, songs, songDraft} = this.props;
+    let {folderName, edit, onEditFolder, songs, songDraft} = this.props;
     let folderSongs = [].concat(songs);
 
     if(songDraft){
@@ -43,7 +43,7 @@ class MPShowFolderSongs extends Component {
           <MPText style={ styles.topBarText}>{ folderName }</MPText>
           {edit && (
             <View style={ styles.topBarButton}>
-              <MPGradientBorderButton onPress={onEdit}/>
+              <MPGradientBorderButton onPress={onEditFolder}/>
             </View>
           )}
         </View>

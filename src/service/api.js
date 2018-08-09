@@ -1,18 +1,18 @@
 import axios from 'axios';
 import {StorageService} from './StorageService';
 
-// axios.interceptors.request.use(request => {
-//   console.log('Logger: request => ', request)
-//   return request
-// });
-//
-// axios.interceptors.response.use(response => {
-//   console.log('Logger: response => ', response)
-//   return response
-// }, (error) => {
-//   console.log(error.response);
-//   return Promise.reject(error);
-// });
+axios.interceptors.request.use(request => {
+  console.log('Logger: request => ', request)
+  return request
+});
+
+axios.interceptors.response.use(response => {
+  console.log('Logger: response => ', response)
+  return response
+}, (error) => {
+  console.log(error.response);
+  return Promise.reject(error);
+});
 
 StorageService.getToken().then((token) => {
   console.log("TOKEN", token);

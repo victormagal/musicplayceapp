@@ -125,10 +125,16 @@ export const createFolder = (folder) => {
 };
 
 export const updateFolderName = (folderId, newName) => {
-  return (dispatch) => {
-    // dispatch(folderStartLoading());
-    return FolderService.updateFolderName(folderId, newName).then(reponse => {
-      console.log('updateFolderResponse', response);
+  return (dispatch, getState) => {
+    dispatch(folderStartLoading());
+    return FolderService.updateFolderName(folderId, newName).then(response => {
+      if(response.data.data.attributes.type == 'userSongs'){
+        // TODO
+      }
+
+      if(response.data.data.attributes.type == 'favoriteSongs'){
+        // TODO
+      }
     }).catch(e => {
       console.log(e);
     })

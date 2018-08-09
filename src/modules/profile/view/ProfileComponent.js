@@ -70,8 +70,12 @@ class ProfileComponent extends React.Component {
     }
   };
 
+  handleEditFolder = (folderId) => {
+    this.goToScreen('EditFolder', {folderId})
+  }
+
   handleEditSong = (song) => {
-    this.goToScreen('RegisterSongScreen', { song });
+    this.goToScreen('RegisterSongScreen', {song});
   };
 
   handlePlaySong = (song) => {
@@ -312,11 +316,13 @@ class ProfileComponent extends React.Component {
             this.state.userFolders.map(userFolder => (
               <MPShowFolderSongs
                   {...this.props}
+                  edit={me && userFolder.editable}
                   key={userFolder.id}
                   folderName={userFolder.name}
                   me={me}
                   songs={userFolder.songs}
                   onEditClick={this.handleEditSong}
+                  onEditFolder={this.handleEditFolder.bind(this, userFolder.id)}
                   onRemoveClick={this.handleRemoveSong}
                   onUnpublishClick={this.handleUnpublishSong}
                   onPlayClick={this.handlePlaySong}
@@ -341,9 +347,11 @@ class ProfileComponent extends React.Component {
                 {...this.props}
                 key={favoriteFolder.id}
                 folderName={favoriteFolder.name}
+                edit={me && favoriteFolder.editable}
                 me={me}
                 songs={favoriteFolder.songs}
                 onEditClick={this.handleEditSong}
+                onEditFolder={this.handleEditFolder.bind(this, favoriteFolder.id)}
                 onIndicateClick={this.handleIndicateSong}
                 onRemoveClick={this.handleRemoveSong}
                 onUnpublishClick={this.handleUnpublishSong}

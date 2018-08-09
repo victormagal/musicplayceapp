@@ -13,12 +13,13 @@ class FolderService {
     }
 
     if(folders.length === 0){
-      return [{id: 99, name: 'Outras', songs: favoriteSongs, songCount: favoriteSongs.length }];
+      return [{id: 99, name: 'Outras', songs: favoriteSongs, songCount: favoriteSongs.length, editable: false }];
     }
 
     for(i = 0; i < folders.length; i++){
       for(j = 0; j < favoriteSongs.length; j++){
         if(folders[i].id === favoriteSongs[j].attributes.pivot.folder_id){
+          folders[i].editable = true
           folders[i].songs = [];
           folders[i].songs.push(favoriteSongs[j].attributes);
         }
@@ -34,7 +35,7 @@ class FolderService {
     });
 
     if(noFolderSongs && noFolderSongs.length > 0){
-      folders.push({id: 99, name: 'Outras', songs: noFolderSongs, songCount: noFolderSongs.length });
+      folders.push({id: 99, name: 'Outras', songs: noFolderSongs, songCount: noFolderSongs.length, editable: false });
     }
     
     return folders;
@@ -110,17 +111,19 @@ class FolderService {
   }
 
   static updateFolderName(folderId, newName){
-    if(newName){
-      let params = {
-        data : {
-          type: 'folders',
-          attributes: {
-            name: newName,
-          }
+    if(!newName){
+      return Promise.reject();
+    }
+
+    let params = {
+      data : {
+        type: 'folders',
+        attributes: {
+          name: newName.value,
         }
       }
-      return axios.put(`${API_FOLDER}/${folderId}`, params);
     }
+    return axios.put(`${API_FOLDER}/${folderId}`, params).then(response => {return response});
   }
 }
 

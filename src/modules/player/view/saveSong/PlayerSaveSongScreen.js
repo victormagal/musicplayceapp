@@ -46,9 +46,7 @@ class PlayerSaveSongContainer extends React.Component {
 
   handleSave = () => {
     let selectedFolder = this.state.folders.filter(i => i.selected)[0];
-    // this.props.dispatch(favoriteSong(this.state.song.id, selectedFolder.id));
-    this.props.navigation.navigate('EditFolder', {selectedFolder});
-    // this.props.dispatch(updateFolderName(selectedFolder.id, 'Teste de update'));
+    this.props.dispatch(favoriteSong(this.state.song.id, selectedFolder.id));
   };
 
   componentDidMount = () => {
