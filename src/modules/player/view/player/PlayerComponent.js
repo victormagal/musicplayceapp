@@ -76,17 +76,14 @@ class PlayerComponent extends React.Component {
   };
 
   renderComposers = (song) => {
-    let composerString = song.artist.name; //TODO: // song.artist.name;
-    let composers = [];
+    let composerString = song.artist.name;
 
     if(song.coAuthors && song.coAuthors.length > 0){
-      let coAuthors = song.coAuthors;
-      composers = composers.push(coAuthors.map((coAuthor, index) => coAuthor.name));
-    }
-
-    if(composers && composers.length > 0) {
-      composers = composers.join(', ');
-      composerString.concat(compo)
+      let composerTempString = '';
+      composerTempString = composerTempString.concat(song.coAuthors.map((coAuthor, index, array) => {
+        return index == array.length - 1 ? ` e ${coAuthor.name}` : `, ${coAuthor.name}`;
+      }));
+      return composerString.concat(composerTempString);
     }
 
     return composerString;
@@ -302,11 +299,11 @@ class PlayerComponent extends React.Component {
               <MPText style={styles.musicMessage}>Escute esta música de tal tal jeito.</MPText>
               {/* <MPText style={styles.compositorText}>{song ? song.description : 'Escute esta música de tal tal jeito.'}</MPText> */}
 
-              <MPText style={styles.compositorTitle}>COMPOSITOR</MPText>
+              <MPText style={styles.compositorTitle}>{song && song.coAuthors && song.coAuthors.length > 0 ? 'COMPOSITORES' : 'COMPOSITOR'}</MPText>
               <MPText style={styles.compositorText}>{ song ? this.renderComposers(song) : 'Almir Sater'}</MPText>
 
               <MPText style={styles.compositorTitle}>INTÉRPRETE</MPText>
-              <MPText style={styles.compositorText}>{song ? song.interpreter_name : 'Não há interpretes'}</MPText>
+              <MPText style={styles.compositorText}>{song && song.interpreter_name ? song.interpreter_name : 'Não há interpretes'}</MPText>
 
               <View style={[styles.row, styles.indicationContainer]}>
                 <View style={styles.row}>
