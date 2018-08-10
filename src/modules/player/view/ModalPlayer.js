@@ -44,10 +44,13 @@ class ModalPlayerComponent extends React.Component {
 
     if(song.coAuthors && song.coAuthors.length > 0){
       let coAuthors = song.coAuthors;
-      composers = composers.concat(coAuthors.map((coAuthor, index) => coAuthor.name));
+      composers = composers.push(coAuthors.map((coAuthor, index) => coAuthor.name));
     }
 
-    composers = composers.join(', ');
+    if(composers && composers.length > 0) {
+      composers = composers.join(', ');
+      composerString.concat(compo)
+    }
     return composerString;
   };
 

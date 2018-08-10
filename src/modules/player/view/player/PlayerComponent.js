@@ -84,8 +84,8 @@ class PlayerComponent extends React.Component {
       composers = composers.push(coAuthors.map((coAuthor, index) => coAuthor.name));
     }
 
-    composers = composers.join(', ');
     if(composers && composers.length > 0) {
+      composers = composers.join(', ');
       composerString.concat(compo)
     }
 
