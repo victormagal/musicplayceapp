@@ -27,6 +27,7 @@ import {
   MPSongListBlackIcon
 } from '../../../assets/svg';
 
+const stars = new Array(5).fill();
 
 class ModalPlayerComponent extends React.Component {
 
@@ -142,13 +143,11 @@ class ModalPlayerComponent extends React.Component {
           <View style={styles.modalStarContainer}>
             <View style={styles.row}>
               <View style={styles.row}>
-                <MPStarIcon />
-                <MPStarIcon />
-                <MPStarIcon />
-                <MPStarIcon />
-                <MPStarIcon />
+                {
+                  song && stars.map((_, i) => {return i < song.rating ? <MPFilledStarIcon /> : <MPStarIcon />})
+                }
               </View>
-              <MPText style={styles.modalGradeText}>4.0</MPText>
+              <MPText style={styles.modalGradeText}>{song && song.rating}</MPText>
             </View>
           </View>
 

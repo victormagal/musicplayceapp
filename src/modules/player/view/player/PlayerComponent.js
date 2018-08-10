@@ -296,8 +296,7 @@ class PlayerComponent extends React.Component {
               </View>
 
               <MPText style={styles.musicUploadDate}>{song ? this.handleSongDate(song.created_at) : '10/05/2018 às 13:49'}</MPText>
-              <MPText style={styles.musicMessage}>Escute esta música de tal tal jeito.</MPText>
-              {/* <MPText style={styles.compositorText}>{song ? song.description : 'Escute esta música de tal tal jeito.'}</MPText> */}
+              <MPText style={styles.compositorText}>{song && song.description ? song.description : 'Escute esta música de tal tal jeito.'}</MPText>
 
               <MPText style={styles.compositorTitle}>{song && song.coAuthors && song.coAuthors.length > 0 ? 'COMPOSITORES' : 'COMPOSITOR'}</MPText>
               <MPText style={styles.compositorText}>{ song ? this.renderComposers(song) : 'Almir Sater'}</MPText>
