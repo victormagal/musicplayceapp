@@ -24,10 +24,12 @@ import {
   MPCloseIcon,
   MPSongIcon,
   MPTriangleUpIcon,
-  MPTriangleUpGrayIcon
+  MPTriangleUpGrayIcon,
+  MPFilledStarIcon
 } from '../../../../assets/svg';
 import images from '../../../../assets/img';
 
+const stars = new Array(5).fill(true);
 
 class PlayerComponent extends React.Component {
   state = {
@@ -279,13 +281,11 @@ class PlayerComponent extends React.Component {
 
               <View style={styles.row}>
                 <View style={styles.row}>
-                  <MPStarIcon />
-                  <MPStarIcon />
-                  <MPStarIcon />
-                  <MPStarIcon />
-                  <MPStarIcon />
+                  {
+                    song && stars.map((_, i) => {return i < song.rating ? <MPFilledStarIcon /> : <MPStarIcon />})
+                  }
                 </View>
-                <MPText style={styles.gradeText}>0.0</MPText>
+                <MPText style={styles.gradeText}>{song && song.rating}</MPText>
               </View>
 
               <MPText style={styles.timeTotalText}>{song ? this.handleSongDuration(song.duration) : '5m32s'}</MPText>

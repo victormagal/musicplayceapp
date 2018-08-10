@@ -10,7 +10,6 @@ import images from '../../assets/img';
 import {MPText} from '../general';
 import {MPShowRating} from '../profile';
 
-
 class MPSongRating extends Component {
   constructor(props){
     super(props);
