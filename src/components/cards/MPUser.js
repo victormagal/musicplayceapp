@@ -10,7 +10,6 @@ class MPUser extends Component {
   render() {
     const {user, style, isFollowing, onPress} = this.props;
     const image = user.picture_url ? { uri: user.picture_url } : require('../../assets/img/avatar-male.jpg');
-    console.log(user, user.name, user.last_name, user.picture_url);
     return (
       <TouchableOpacity style={style || {}} onPress={onPress}>
         <Card containerStyle={styles.simpleUserCardContainer}>

@@ -113,14 +113,16 @@ class UserService {
   static getUserFollowings(user){
     return axios.get(`${API_USER}/${user}?include=userFollowing`)
       .then(response => {
-        return response.data.included;
+        let data = transformResponseData(response.data.included);
+        return data;
       });
   }
 
   static getUserFollowers(user){
     return axios.get(`${API_USER}/${user}?include=userFollower`)
       .then(response => {
-        return response.data.included;
+        let data = transformResponseData(response.data.included);
+        return data;
       });
   }
 

@@ -163,7 +163,7 @@ export const getUserFollowers = (user) => {
     return UserService.getUserFollowers(user).then(response => {
       dispatch(userFollowersFetched(response));
     }).catch(e => {
-      console.log(e.response);
+      console.log(e);
       dispatch(userFinishLoading());
     })
   };
@@ -176,7 +176,7 @@ export const getUserFollowings = (user) => {
     return UserService.getUserFollowings(user).then(response => {
       dispatch(userFollowingsFetched(response));
     }).catch(e => {
-      console.log(e.response);
+      console.log(e);
       dispatch(userFinishLoading());
     })
   };

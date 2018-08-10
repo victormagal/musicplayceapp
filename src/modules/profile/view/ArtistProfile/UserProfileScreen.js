@@ -8,14 +8,19 @@ class UserProfileScreenContainer extends React.Component {
   componentDidMount() {
     const { navigation, dispatch } = this.props;
     const navigationParams = navigation.state.params;
-    dispatch(getUserById(navigationParams.userId));
+    dispatch(getUserById(navigationParams.userId)).then(_ => {
+      dispatch(getUserFollowers(this.props.user.id)).then(_ => {
+        dispatch(getUserFollowings(this.props.user.id));
+      });
+    });
   }
 
   handleFollowUp = () => {
-    this.props.dispatch(followUser(this.props.user.id));
+    this.props.dispatch(followUser(this.props.user.id))
   };
 
   render() {
+    console.log(this.props);
     const { navigation } = this.props;
     return (
       <ProfileComponent

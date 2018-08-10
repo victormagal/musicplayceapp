@@ -30,6 +30,7 @@ class MPShowFollowers extends Component {
 
   renderUsers = ({ item }) => (
     <MPUser
+      key={item.id}
       user={item}
       onPress={() => this.props.navigation.navigate('UserProfileScreen', { userId: item.id })}
       isFollowing={this.state.tabIndex === 0}
