@@ -1,6 +1,8 @@
 import {
   LOAD_FONT,
   UPDATE_NETWORK,
+  SHOW_NETWORK_ERROR,
+  HIDE_NETWORK_ERROR,
   GENERAL_START_LOADING,
   GENERAL_FINISH_LOADING,
   FETCHED_CITY_BRAZIL,
@@ -13,12 +15,24 @@ const generalReducer = (state, action) => {
     isConnected: false,
     loading: false,
     cities: null,
-    states: null
+    states: null,
+    showError: false
   };
+
+  console.log(action);
 
   switch (action.type) {
     case LOAD_FONT:
+      return {
+        ...state,
+        fontLoaded: true
+      };
+
     case UPDATE_NETWORK:
+      if(state.isConnected === action.payload.isConnected){
+        return state;
+      }
+
       return {
         ...state,
         ...action.payload
@@ -48,6 +62,18 @@ const generalReducer = (state, action) => {
         ...state,
         loading: false,
         states: action.payload
+      };
+
+    case SHOW_NETWORK_ERROR:
+      return {
+        ...state,
+        showError: true
+      };
+
+    case HIDE_NETWORK_ERROR:
+      return {
+        ...state,
+        showError: false
       };
   }
 

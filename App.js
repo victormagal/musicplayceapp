@@ -1,5 +1,5 @@
 import React from 'react';
-import {NetInfo, NativeModules, NativeEventEmitter} from 'react-native';
+import {NetInfo, NativeModules, NativeEventEmitter, View} from 'react-native';
 import {
   applyMiddleware,
   createStore
@@ -22,13 +22,15 @@ import {
   loadFont, updateNetwork, playerSongPause,
   playerSongUpdateProgress, songResume, songPause, songStop
 } from './src/state/action';
-import {MPTabBottomComponent} from './src/components';
+import {MPTabBottomComponent, MPNetworkNotification} from './src/components';
+import {checkConnection} from './src/connectors';
 import {MPTabConfigurationIcon, MPTabNotificationIcon, MPTabProfileIcon} from './src/assets/svg/custom';
 
 const { RNMusicPlayer } = NativeModules;
 const RNMusicPlayerEmitter = new NativeEventEmitter(RNMusicPlayer);
 
 const store = createStore(reducers, applyMiddleware(thunkMiddleware));
+checkConnection(store);
 
 const HomeTabBottomNavigation = createBottomTabNavigator({
   feed: {
@@ -103,10 +105,9 @@ export default class App extends React.Component {
   };
 
   handleSongUpdateListener = (state) => {
-    let currentPlayerState = state["state"]
+    let currentPlayerState = state["state"];
 
     if (RNMusicPlayer.statePlaying == currentPlayerState) {
-      console.log(state['progress']);
       store.dispatch(playerSongUpdateProgress(state["progress"]));
     }
   };
@@ -118,7 +119,10 @@ export default class App extends React.Component {
   render() {
     return (
       <Provider store={store}>
-        <StartNavigation />
+        <View style={{flex: 1}}>
+          <StartNavigation />
+          <MPNetworkNotification />
+        </View>
       </Provider>
     );
   }

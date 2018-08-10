@@ -7,4 +7,6 @@ export * from './MPTabBar';
 export * from './MPTabBottomComponent';
 export * from './MPFade';
 export * from './MPContainerLoading';
+export * from './MPFloatingNotification';
+export * from './MPNetworkNotification';
 

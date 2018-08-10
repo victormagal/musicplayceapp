@@ -10,12 +10,7 @@ const authReducer = (state, action) => {
       recoverPasswordError: false,
       recoverPasswordSuccess: false,
       loading: false
-    };
-
-  state.loginError = false;
-  state.loginSuccess = false;
-  state.recoverPasswordError = false;
-  state.recoverPasswordSuccess = false;
+  };
 
   switch (action.type) {
     case AUTH_START_LOADING:

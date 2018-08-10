@@ -3,6 +3,8 @@ import { GeneralService } from '../../service/GeneralService';
 
 export const LOAD_FONT = 'LOAD_FONT';
 export const UPDATE_NETWORK = 'UPDATE_NETWORK';
+export const SHOW_NETWORK_ERROR = 'SHOW_NETWORK_ERROR';
+export const HIDE_NETWORK_ERROR = 'HIDE_NETWORK_ERROR';
 export const GENERAL_START_LOADING = 'GENERAL_START_LOADING';
 export const GENERAL_FINISH_LOADING = 'GENERAL_FINISH_LOADING';
 export const FETCHED_CITY_BRAZIL = 'FETCHED_CITY_BRAZIL';
@@ -14,6 +16,8 @@ export const loadFont = createAction(LOAD_FONT, (fontLoaded = false) => {
 export const updateNetwork = createAction(UPDATE_NETWORK, (isConnected = false) => {
   return { isConnected };
 });
+export const showNetworkError = createAction(SHOW_NETWORK_ERROR, data => data);
+export const hideNetworkError = createAction(HIDE_NETWORK_ERROR, data => data);
 export const generalStartLoading = createAction(GENERAL_START_LOADING);
 export const generalFinishLoading = createAction(GENERAL_FINISH_LOADING);
 export const fetchedCityBrazil = createAction(FETCHED_CITY_BRAZIL, data => data);
