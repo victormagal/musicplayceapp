@@ -184,9 +184,7 @@ class ProfileComponent extends React.Component {
   }
 
   renderContent(profile) {
-    const { me, followers, navigation } = this.props;
-    const userFollowers = followers || [];
-    const userFollowing = (profile && profile.userFollowing) || [];
+    const { me, navigation } = this.props;
 
     if (!profile) {
       return (
@@ -218,11 +216,16 @@ class ProfileComponent extends React.Component {
           </LinearGradient>
         </ImageBackground>
         { this.renderSongsData(profile) }
-        <MPShowFollowers
-          navigation={navigation}
-          following={userFollowing}
-          followers={userFollowers}
-        />
+        {
+          this.props.userFollowers && this.props.userFollowers.length > 0 
+          && this.props.userFollowings && this.props.userFollowings.length > 0 &&(
+            <MPShowFollowers
+              navigation={navigation}
+              following={this.props.userFollowings}
+              followers={this.props.userFollowers}
+            />
+          )
+        }
         { me ?
           <View style={{ backgroundColor: '#FFF', height: 90 }} />
           :
