@@ -1,5 +1,6 @@
 import {createAction} from 'redux-actions';
 import {UserService} from '../../service';
+import { userFollowersFetched, userFollowingsFetched } from '../user/userTypes';
 
 export const FETCHED_PROFILE = 'FETCHED_PROFILE';
 export const FETCHED_MY_INDICATIONS = 'FETCHED_MY_INDICATIONS';
@@ -57,12 +58,15 @@ export const uploadImage = (picture) => {
 }
 
 export const fetchProfile = () => {
-  return (dispatch) => {
+  return (dispatch, getState) => {
     dispatch(profileStartLoading());
     dispatch(fetchMyIndications());
 
     return UserService.me()
-      .then(response => dispatch(fetchedProfile((response))))
+      .then(response => dispatch(fetchedProfile((response)))).then(_ => {
+        UserService.getUserFollowers(getState().profileReducer.profile.id).then(response => dispatch(userFollowersFetched(response)));
+        UserService.getUserFollowings(getState().profileReducer.profile.id).then(response => dispatch(userFollowingsFetched(response)));
+      })
       .catch((e) => {
         console.log('fetchProfileError', e);
         dispatch(profileFinishLoading());

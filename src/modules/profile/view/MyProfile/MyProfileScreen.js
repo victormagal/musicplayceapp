@@ -10,11 +10,7 @@ class MyProfileScreenContainer extends React.Component {
 
     dispatch(fetchProfile()).then(response => {
       dispatch(fetchUserSongs(response.payload.id)).then(_ => {
-        dispatch(getFavoriteSongsWithFolders()).then(_ => {
-          dispatch(getUserFollowers(this.props.profile.id)).then(_ => {
-            dispatch(getUserFollowings(this.props.profile.id));
-          })
-        });
+        dispatch(getFavoriteSongsWithFolders());
       });
     });
   }
