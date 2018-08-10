@@ -110,6 +110,20 @@ class UserService {
       });
   }
 
+  static getUserFollowings(user){
+    return axios.get(`${API_USER}/${user}?include=userFollowing`)
+      .then(response => {
+        return response.data.included;
+      });
+  }
+
+  static getUserFollowers(user){
+    return axios.get(`${API_USER}/${user}?include=userFollower`)
+      .then(response => {
+        return response.data.included;
+      });
+  }
+
   static followers(){
     return axios.get(`${API_USER}/me/followers`)
       .then(response => {

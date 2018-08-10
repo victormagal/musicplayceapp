@@ -17,7 +17,9 @@ import {
   userNotificationsSettingsStartLoading,
   userNotificationsSettingsFinishedLoading,
   userNotificationsSettingsFetched,
-  userNotificationsSettingsPatched
+  userNotificationsSettingsPatched,
+  userFollowersFetched,
+  userFollowingsFetched
 } from './userTypes';
 
 
@@ -148,5 +150,31 @@ export const getFollowNotifications = () => {
       console.log('getFollowNotificationsError', e.response);
       dispatch(userNotificationsFinishedLoading());
     });
+  };
+};
+
+export const getUserFollowers = (user) => {
+  return (dispatch) => {
+    dispatch(userStartLoading());
+
+    return UserService.getUserFollowers(user).then(response => {
+      dispatch(userFollowersFetched(response));
+    }).catch(e => {
+      console.log(e.response);
+      dispatch(userFinishLoading());
+    })
+  };
+};
+
+export const getUserFollowings = (user) => {
+  return (dispatch) => {
+    dispatch(userStartLoading());
+
+    return UserService.getUserFollowings(user).then(response => {
+      dispatch(userFollowingsFetched(response));
+    }).catch(e => {
+      console.log(e.response);
+      dispatch(userFinishLoading());
+    })
   };
 };

@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {ProfileComponent} from '../ProfileComponent';
-import {fetchProfile, fetchUserSongs, logout, getFavoriteSongsWithFolders} from '../../../../state/action';
+import {fetchProfile, fetchUserSongs, logout, getFavoriteSongsWithFolders, getUserFollowers, getUserFollowings} from '../../../../state/action';
 
 
 class MyProfileScreenContainer extends React.Component {
@@ -9,8 +9,13 @@ class MyProfileScreenContainer extends React.Component {
     const { dispatch } = this.props;
 
     dispatch(fetchProfile()).then(response => {
-      dispatch(fetchUserSongs(response.payload.id));
-      dispatch(getFavoriteSongsWithFolders());
+      dispatch(fetchUserSongs(response.payload.id)).then(_ => {
+        dispatch(getFavoriteSongsWithFolders()).then(_ => {
+          dispatch(getUserFollowers(this.props.profile.id)).then(_ => {
+            dispatch(getUserFollowings(this.props.profile.id));
+          })
+        });
+      });
     });
   }
 
@@ -67,6 +72,7 @@ const mapStateToProps = ({ profileReducer, songsReducer, userReducer, folderRedu
   return {
     ...profileReducer,
     ...folderReducer,
+    ...userReducer,
     isUserSaved,
     songCreateSuccess,
     songRemoveSuccess,

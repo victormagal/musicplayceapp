@@ -16,7 +16,9 @@ import {
   USER_NOTIFICATIONS_SETTINGS_FINISHED_LOADING,
   USER_NOTIFICATIONS_SETTINGS_FETCHED,
   USER_NOTIFICATIONS_SETTINGS_PATCHED,
-  USER_STOP_FOLLOW_SUCCESS
+  USER_STOP_FOLLOW_SUCCESS,
+  USER_FOLLOWERS_FETCHED,
+  USER_FOLLOWINGS_FETCHED
 } from './userTypes';
 
 const userReducer = (state, action) => {
@@ -29,6 +31,8 @@ const userReducer = (state, action) => {
     userNotifications: [],
     userFollowNotifications: [],
     followingUser: false,
+    userFollowers: [],
+    userFollowings: [],
   };
 
   switch (action.type) {
@@ -121,6 +125,20 @@ const userReducer = (state, action) => {
         ...state,
         loading: false,
         notificationSettings: action.payload,
+      };
+
+    case USER_FOLLOWERS_FETCHED:
+      return {
+        ...state,
+        loading: false,
+        userFollowers: action.payload,
+      };
+
+    case USER_FOLLOWINGS_FETCHED:
+      return {
+        ...state,
+        loading: false,
+        userFollowings: action.payload,
       };
   }
 

@@ -59,9 +59,7 @@ export const uploadImage = (picture) => {
 export const fetchProfile = () => {
   return (dispatch) => {
     dispatch(profileStartLoading());
-
     dispatch(fetchMyIndications());
-    dispatch(fetchMyFollowers());
 
     return UserService.me()
       .then(response => dispatch(fetchedProfile((response))))
