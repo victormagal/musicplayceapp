@@ -39,7 +39,7 @@ class ModalPlayerComponent extends React.Component {
   };
 
   renderComposers = (song) => {
-    let composerString = ''; //TODO: // song.artist.name;
+    let composerString = song.artist.name; //TODO: // song.artist.name;
     let composers = [];
 
     if(song.coAuthors && song.coAuthors.length > 0){
@@ -48,7 +48,7 @@ class ModalPlayerComponent extends React.Component {
     }
 
     composers = composers.join(', ');
-    return composers;
+    return composerString;
   };
 
 
@@ -157,7 +157,7 @@ class ModalPlayerComponent extends React.Component {
           <MPText style={[styles.compositorText, styles.modalCompositorText]}>{song && this.renderComposers(song)}</MPText>
 
           <MPText style={[styles.compositorTitle, styles.alignCenter]}>INTÉRPRETE</MPText>
-          <MPText style={[styles.compositorText, styles.modalCompositorText]}>Santiago Silva</MPText>
+          <MPText style={[styles.compositorText, styles.modalCompositorText]}>{song ? song.interpreter_name : 'Não há interpretes' }</MPText>
 
           <View style={[styles.row, styles.tagContainer, styles.modalTagContainer]}>
             <View style={[styles.row, styles.modalTagContent]}>
@@ -171,7 +171,7 @@ class ModalPlayerComponent extends React.Component {
           </TouchableOpacity>
 
           <MPButton title="INDICAR" onPress={this.props.onSongIndicateClick} style={styles.playerIndicate} textStyle={styles.playerIndicateText}/>
-          <MPText style={[styles.totalIndications, styles.modalTotalIndications]}>200 indicações</MPText>
+          <MPText style={[styles.totalIndications, styles.modalTotalIndications]}>{song ? song.indicationsCount : 0} indicações</MPText>
 
         </View>
 

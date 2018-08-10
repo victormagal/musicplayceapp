@@ -76,19 +76,20 @@ class PlayerComponent extends React.Component {
   };
 
   renderComposers = (song) => {
-    let composerString = ''; //TODO: // song.artist.name;
+    let composerString = song.artist.name; //TODO: // song.artist.name;
     let composers = [];
 
     if(song.coAuthors && song.coAuthors.length > 0){
       let coAuthors = song.coAuthors;
-      composers = composers.concat(coAuthors.map((coAuthor, index) => coAuthor.name));
+      composers = composers.push(coAuthors.map((coAuthor, index) => coAuthor.name));
     }
 
     composers = composers.join(', ');
-    if(composers) {
+    if(composers && composers.length > 0) {
+      composerString.concat(compo)
     }
 
-    return composers;
+    return composerString;
   };
 
   handleSongDuration = (songDuration) => {
@@ -305,8 +306,7 @@ class PlayerComponent extends React.Component {
               <MPText style={styles.compositorText}>{ song ? this.renderComposers(song) : 'Almir Sater'}</MPText>
 
               <MPText style={styles.compositorTitle}>INTÉRPRETE</MPText>
-              <MPText style={styles.compositorText}>Santiago Silva</MPText>
-              {/* <MPText style={styles.compositorText}>{song ? song.interpreter_name : 'Santiago Silva'}</MPText> */}
+              <MPText style={styles.compositorText}>{song ? song.interpreter_name : 'Não há interpretes'}</MPText>
 
               <View style={[styles.row, styles.indicationContainer]}>
                 <View style={styles.row}>
@@ -391,6 +391,7 @@ class PlayerComponent extends React.Component {
 
   renderDetailPlayer() {
     let {song} = this.props;
+    console.log(song);
     const progress = Math.ceil(this.props.player.progress);
 
     console.log(progress);
