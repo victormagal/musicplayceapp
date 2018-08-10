@@ -19,7 +19,10 @@ import {
   userNotificationsSettingsFetched,
   userNotificationsSettingsPatched,
   userFollowersFetched,
-  userFollowingsFetched
+  userFollowingsFetched,
+  userReportStarted,
+  userReportSuccess,
+  userReportError
 } from './userTypes';
 
 
@@ -175,6 +178,19 @@ export const getUserFollowings = (user) => {
     }).catch(e => {
       console.log(e.response);
       dispatch(userFinishLoading());
+    })
+  };
+};
+
+export const reportProfile = (report) => {
+  return (dispatch) => {
+    dispatch(userReportStarted());
+
+    return UserService.reportProfile(report).then(_ => {
+      dispatch(userReportSuccess());
+    }).catch(e => {
+      console.log(e);
+      dispatch(userReportError());
     })
   };
 };

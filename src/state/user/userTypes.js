@@ -20,6 +20,9 @@ export const USER_NOTIFICATIONS_SETTINGS_FETCHED = 'USER_NOTIFICATIONS_SETTINGS_
 export const USER_NOTIFICATIONS_SETTINGS_PATCHED = 'USER_NOTIFICATIONS_SETTINGS_PATCHED';
 export const USER_FOLLOWERS_FETCHED = 'USER_FOLLOWERS_FETCHED';
 export const USER_FOLLOWINGS_FETCHED = 'USER_FOLLOWINGS_FETCHED';
+export const USER_REPORT_STARTED = 'USER_REPORT_STARTED';
+export const USER_REPORT_SUCCESS = 'USER_REPORT_SUCCESS';
+export const USER_REPORT_ERROR = 'USER_REPORT_ERROR';
 
 export const usersFetched = createAction(USERS_FETCHED, (data) => data);
 export const userByIdFetched = createAction(USER_BY_ID_FETCHED, (data) => data);
@@ -39,3 +42,6 @@ export const userNotificationsSettingsStartLoading = createAction(USER_NOTIFICAT
 export const userNotificationsSettingsFinishedLoading = createAction(USER_NOTIFICATIONS_SETTINGS_FINISHED_LOADING);
 export const userFollowersFetched = createAction(USER_FOLLOWERS_FETCHED, (data) => data);
 export const userFollowingsFetched = createAction(USER_FOLLOWINGS_FETCHED, (data) => data);
+export const userReportStarted = createAction(USER_REPORT_STARTED);
+export const userReportSuccess = createAction(USER_REPORT_SUCCESS, data => data);
+export const userReportError = createAction(USER_REPORT_ERROR);

@@ -11,7 +11,7 @@ import {
   MPReportedProfile,
   MPCheckBox
 } from '../../components';
-import { saveProfile } from '../../state/action';
+import { saveProfile, reportProfile } from '../../state/action';
 
 class MPConfirmReportProfileComponent extends React.Component {
   constructor(props){
@@ -29,13 +29,20 @@ class MPConfirmReportProfileComponent extends React.Component {
 
   handleFoward = () => {
     let params = {
-      isSpam: this.state.isSpam,
-      isInappropiate: this.state.isInappropiate,
-      reportText: this.state.reportText,
-      user: this.props.profile,
+      spam: this.state.isSpam,
+      inappropriate: this.state.isInappropiate,
+      message: this.state.reportText,
+      artist_id: this.props.profile.id,
     }
-    this.props.navigation.navigate('message', {component: MPReportedProfile})
+    
+    this.props.dispatch(reportProfile(params));
   };
+  
+  componentWillReceiveProps(nextProps){
+    if(nextProps.reportSuccess){
+      this.props.navigation.navigate('message', {component: MPReportedProfile})
+    }
+  }
 
   handleTextChange = (value) => {
     this.setState({reportText: value});
@@ -90,8 +97,8 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = ({ fontReducer }) => {
-  return { ...fontReducer };
+const mapStateToProps = ({ userReducer }) => {
+  return { ...userReducer };
 };
 
 const MPConfirmReportProfile = connect(mapStateToProps)(MPConfirmReportProfileComponent);

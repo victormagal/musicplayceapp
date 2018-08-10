@@ -18,7 +18,10 @@ import {
   USER_NOTIFICATIONS_SETTINGS_PATCHED,
   USER_STOP_FOLLOW_SUCCESS,
   USER_FOLLOWERS_FETCHED,
-  USER_FOLLOWINGS_FETCHED
+  USER_FOLLOWINGS_FETCHED,
+  USER_REPORT_SUCCESS,
+  USER_REPORT_ERROR,
+  USER_REPORT_STARTED
 } from './userTypes';
 
 const userReducer = (state, action) => {
@@ -97,7 +100,8 @@ const userReducer = (state, action) => {
         ...state,
         usersSongs: action.payload
       };
-
+    
+    case USER_REPORT_STARTED:
     case USER_NOTIFICATIONS_SETTINGS_START_LOADING:
     case USER_NOTIFICATIONS_START_LOADING:
       return {
@@ -139,6 +143,20 @@ const userReducer = (state, action) => {
         ...state,
         loading: false,
         userFollowings: action.payload,
+      };
+
+    case USER_REPORT_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        reportSuccess: true,
+      };
+
+    case USER_REPORT_ERROR:
+      return {
+        ...state,
+        loading: false,
+        reportSuccess: false,
       };
   }
 

@@ -171,6 +171,18 @@ class UserService {
       return response.data.data.attributes;
     });
   }
+
+  static reportProfile(report){
+    let params = {
+      data : {
+        type: 'reports',
+        attributes : report
+      }
+    }
+    return axios.post(`${API}/reports`, params).then(response => {
+      return response;
+    });
+  }
 }
 
 export {UserService};
