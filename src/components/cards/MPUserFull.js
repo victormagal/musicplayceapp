@@ -9,7 +9,7 @@ class MPUserFull extends Component {
 
   render() {
     const {song, songName, imagePath, userImagePath, userName, style, onPressMusic, onPressUser} = this.props;
-    const songImage = typeof imagePath === 'string' ? {uri: imagePath} : imagePath;
+    const songImage = typeof imagePath === 'string' ? {uri: imagePath} : require('../../assets/img/album-default.png');
     const userImage = typeof userImagePath === 'string' ? {uri: userImagePath} : require('../../assets/img/avatar-male.jpg');
     return (
       <View style={style || {}}>
