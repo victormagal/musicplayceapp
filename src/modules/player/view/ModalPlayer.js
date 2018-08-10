@@ -39,18 +39,16 @@ class ModalPlayerComponent extends React.Component {
   };
 
   renderComposers = (song) => {
-    let composerString = song.artist.name; //TODO: // song.artist.name;
-    let composers = [];
+    let composerString = song.artist.name;
 
     if(song.coAuthors && song.coAuthors.length > 0){
-      let coAuthors = song.coAuthors;
-      composers = composers.push(coAuthors.map((coAuthor, index) => coAuthor.name));
+      let composerTempString = '';
+      composerTempString = composerTempString.concat(song.coAuthors.map((coAuthor, index, array) => {
+        return index == array.length - 1 ? ` e ${coAuthor.name}` : `, ${coAuthor.name}`;
+      }));
+      return composerString.concat(composerTempString);
     }
 
-    if(composers && composers.length > 0) {
-      composers = composers.join(', ');
-      composerString.concat(compo)
-    }
     return composerString;
   };
 
@@ -156,7 +154,7 @@ class ModalPlayerComponent extends React.Component {
 
           <MPText style={[styles.musicTitleText, styles.modalMusicTitleText]}>{song && song.name}</MPText>
 
-          <MPText style={[styles.compositorTitle, styles.alignCenter]}>COMPOSITOR</MPText>
+          <MPText style={[styles.compositorTitle, styles.alignCenter]}>{song && song.coAuthors && song.coAuthors.length > 0 ? 'COMPOSITORES' : 'COMPOSITOR'}</MPText>
           <MPText style={[styles.compositorText, styles.modalCompositorText]}>{song && this.renderComposers(song)}</MPText>
 
           <MPText style={[styles.compositorTitle, styles.alignCenter]}>INTÉRPRETE</MPText>
