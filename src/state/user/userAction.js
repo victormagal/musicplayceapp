@@ -57,10 +57,21 @@ export const getUserById = (id) => {
   return (dispatch) => {
     dispatch(userStartLoading());
 
-    return UserService.getUserById(id).then(response => {
-      dispatch(userByIdFetched(response));
-      dispatch(userSongs(id));
-      dispatch(userFinishLoading());
+    return UserService.getUserById(id).then(userResponse => {
+      return SongService.songsByUser(id).then(songsResponse => {
+        dispatch(userSongsFetched(songsResponse));
+        return UserService.getUserFollowers(id).then(userFollowers => {
+          dispatch(userFollowersFetched(userFollowers));
+          return UserService.getUserFollowings(id).then(userFollowings => {
+            dispatch(userFollowingsFetched(userFollowings));
+            return userResponse;
+          });
+        });
+      }).then(userResponse => {
+        dispatch(userByIdFetched(userResponse));
+      })
+      // dispatch(userSongs(id));
+      // dispatch(userFinishLoading());
     }).catch(e => {
       console.log('getUserByIdError', e.response);
       dispatch(userFinishLoading());
