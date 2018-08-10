@@ -144,7 +144,7 @@ class ModalPlayerComponent extends React.Component {
             <View style={styles.row}>
               <View style={styles.row}>
                 {
-                  song && stars.map((_, i) => {return i < song.rating ? <MPFilledStarIcon /> : <MPStarIcon />})
+                  song && stars.map((_, i) => {return i < song.rating ? <MPFilledStarIcon style={{width: 25, height: 25}}/> : <MPStarIcon style={{width: 25, height: 25}} />})
                 }
               </View>
               <MPText style={styles.modalGradeText}>{song && song.rating}</MPText>
@@ -157,7 +157,7 @@ class ModalPlayerComponent extends React.Component {
           <MPText style={[styles.compositorText, styles.modalCompositorText]}>{song && this.renderComposers(song)}</MPText>
 
           <MPText style={[styles.compositorTitle, styles.alignCenter]}>INTÉRPRETE</MPText>
-          <MPText style={[styles.compositorText, styles.modalCompositorText]}>{song ? song.interpreter_name : 'Não há interpretes' }</MPText>
+          <MPText style={[styles.compositorText, styles.modalCompositorText]}>{song && song.interpreter_name ? song.interpreter_name : 'Não há interpretes' }</MPText>
 
           <View style={[styles.row, styles.tagContainer, styles.modalTagContainer]}>
             <View style={[styles.row, styles.modalTagContent]}>
@@ -210,8 +210,10 @@ const styles = StyleSheet.create({
   modalGradeText: {
     marginLeft: 10,
     fontFamily: 'Montserrat-Bold',
-    fontSize: 12,
-    color: '#000'
+    fontSize: 14,
+    color: '#000',
+    alignSelf: 'center',
+
   },
   musicTitleText: {
     marginLeft: 10,
