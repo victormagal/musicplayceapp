@@ -8,7 +8,7 @@ import {
 import moment from 'moment';
 import {
   MPHeader, MPText, MPGradientButton, MPIconButton, MPCircleGradientButton,
-  MPSongRating, MPGradientBorderButton, MPButton, MPPlayerComment, MPFade
+  MPSongRating, MPButton, MPPlayerComment, MPFade
 } from '../../../../components';
 import {ModalPlayer} from '../ModalPlayer';
 import {
@@ -29,7 +29,7 @@ import {
   MPTriangleUpGrayIcon,
   MPFilledStarIcon
 } from '../../../../assets/svg';
-import images from '../../../../assets/img';
+
 
 const stars = new Array(5).fill(true);
 
@@ -250,6 +250,8 @@ class PlayerComponent extends React.Component {
 
   renderMain() {
     let {song} = this.props;
+    let hasAuthors = this.props.coAuthors && this.props.coAuthors.length > 0;
+
     return (
       <MPFade style={styles.modalContent} visible={this.state.showPlayer}>
         <ScrollView style={styles.flexOne}>
@@ -281,7 +283,7 @@ class PlayerComponent extends React.Component {
               <MPText style={styles.timeTotalText}>{song && this.handleSongDuration(song.duration)}</MPText>
 
               <View style={styles.row}>
-                <MPPlayIcon style={styles.musicPlayIcon}/>
+                {/*<MPPlayIcon style={styles.musicPlayIcon}/>*/}
                 <MPText style={styles.musicTitleText}>{ song && song.name ? song.name : 'Tocando em Frente'}</MPText>
               </View>
 
@@ -337,7 +339,7 @@ class PlayerComponent extends React.Component {
             this.props.userSongs.map((songList, index) =>
               <View key={index}>
                 <View style={[styles.sectionHeader, styles.row]}>
-                  <MPText style={styles.sectionTitle}>Outras de {this.props.coAuthors[index].name}</MPText>
+                  <MPText style={styles.sectionTitle}>Outras de {hasAuthors && this.props.coAuthors[index] && this.props.coAuthors[index].name}</MPText>
                 </View>
                 <FlatList
                   data={songList.data}
@@ -352,6 +354,10 @@ class PlayerComponent extends React.Component {
     );
   }
 
+  handlePlayClick = (song) => {
+    this.props.onPlayClick(song);
+  };
+
   renderItem = (artist, {item, index}) => {
     let style = null;
 
@@ -359,11 +365,11 @@ class PlayerComponent extends React.Component {
       style = styles.songCardFirst;
     }
 
-    item.artist = artist;
+    let i = {...item, artist};
 
-    return <MPSongRating key={index} style={style} song={item} indicateSong={true} imagePath={item.picture_url}
+    return <MPSongRating key={index} style={style} song={i} indicateSong={true} imagePath={item.picture_url}
                          onIndicateClick={this.handleIndicateSong.bind(this, item)}
-                         onPlayClick={this.props.onPlayClick}/>
+                         onPlayClick={this.handlePlayClick}/>
   };
 
   renderHeaderMenu() {
@@ -381,7 +387,6 @@ class PlayerComponent extends React.Component {
     const progress = Math.ceil(this.props.player.progress);
     const duration = moment((this.props.song && this.props.song.duration) || '0:00', 'm:ss')
                         .diff(moment().startOf('day'), 'seconds');
-
 
     return (
       <View style={styles.player}>
@@ -419,9 +424,7 @@ class PlayerComponent extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-
         <MPHeader back={true} onBack={this.handleBack} icons={this.renderHeaderMenu()}/>
-
         {this.renderMain()}
         {this.renderCommentContent()}
         {this.renderLyricsContent()}
@@ -500,7 +503,6 @@ const styles = StyleSheet.create({
     marginTop: 8
   },
   musicTitleText: {
-    marginLeft: 10,
     fontFamily: 'Montserrat-Regular',
     fontSize: 24,
     color: '#fff'
@@ -585,7 +587,8 @@ const styles = StyleSheet.create({
   },
   tagContainer: {
     backgroundColor: '#fff',
-    padding: 20
+    paddingHorizontal: 20,
+    paddingVertical: 10
   },
   tagContent: {
     flexWrap: 'wrap',
@@ -607,7 +610,7 @@ const styles = StyleSheet.create({
   },
   sectionHeader: {
     paddingHorizontal: 20,
-    paddingTop: 20,
+    paddingTop: 5,
     paddingBottom: 10
   },
   lastSectionMargin: {
@@ -684,7 +687,7 @@ const styles = StyleSheet.create({
     fontFamily: 'ProbaPro-Regular',
     fontSize: 12,
     color: '#fff',
-    paddingTop: 5
+    paddingTop: 2
   },
   modalContent: {
     flex: 1,

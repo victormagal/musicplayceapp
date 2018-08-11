@@ -24,9 +24,7 @@ class RegisterSongContainer extends React.Component {
         name: false,
         lyrics: false,
         tags: false,
-        coAuthors: false,
-        songFile: false,
-        imageFile: false,
+        coAuthors: false
       },
       draftErrors: {
         name: false,
@@ -77,9 +75,15 @@ class RegisterSongContainer extends React.Component {
   handlePublishClick = () => {
     const { songFile, imageFile, cardErrors } = this.state;
     let {song, dispatch} = this.props;
-    const valid = this.validate(cardErrors);
+    let songError = songFile !== null && !song.path;
 
-    if (valid) {
+    let valid = this.validate(cardErrors, () => {
+      if(songError){
+        this.setState({errors: {...this.state.errors, songFile: true}});
+      }
+    });
+
+    if (valid && (songFile !== null || !song.path)) {
       song.created_at
         ? dispatch(updatePermanentSong(song, songFile, imageFile))
         : dispatch(createPermanentSong(song, songFile, imageFile));
@@ -134,7 +138,7 @@ class RegisterSongContainer extends React.Component {
     });
   }
 
-  validate(errors) {
+  validate(errors, callback) {
     const {song} = this.props;
     let valid = true;
 
@@ -145,9 +149,7 @@ class RegisterSongContainer extends React.Component {
       }
     }
 
-    this.setState({errors});
-
-    //TODO: handle file validation if exists file
+    this.setState({errors}, callback);
     return valid;
   }
 
@@ -181,7 +183,7 @@ class RegisterSongContainer extends React.Component {
 
   render() {
     const {song} = this.props;
-    const {cardErrors, errors,  songFile, imageFile} = this.state;
+    const {errors,  songFile, imageFile} = this.state;
     return (
       <View style={styles.container}>
         <MPHeader
@@ -213,7 +215,7 @@ class RegisterSongContainer extends React.Component {
                 />
 
                 {!songFile && !song.path && (
-                  <MPText style={ [styles.subText, errors.songFile ? {color : '#e13223'} : null]}>
+                  <MPText style={styles.subText}>
                     Você pode fazer upload de músicas em MP3 ou AAC.
                   </MPText>
                 )}

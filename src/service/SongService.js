@@ -1,7 +1,7 @@
+import {Platform} from "react-native";
 import axios from 'axios';
 import {API, transformResponseData, getIncludes, getItemRelations} from './api';
 import {FolderService} from "./FolderService";
-import {Platform} from "react-native";
 
 const API_SONG = `${API}/songs`;
 
@@ -176,7 +176,11 @@ class SongService {
       return Promise.resolve();
     }
 
-    formData.append('audio', {uri: file.uri, name: file.fileName});
+    formData.append('audio', {
+      uri: file.uri,
+      name: file.fileName,
+      type: Platform.OS === 'android' ? file.type : ''
+    });
 
     return axios.post(`${ API_SONG }/${ song.id }/audio`, formData, {
       headers: {

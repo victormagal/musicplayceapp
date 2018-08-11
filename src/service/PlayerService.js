@@ -1,3 +1,4 @@
+import moment from 'moment';
 import {NativeModules} from 'react-native';
 const { RNMusicPlayer } = NativeModules;
 import MusicControl from 'react-native-music-control';
@@ -9,13 +10,14 @@ MusicControl.enableControl('stop', false);
 class PlayerService{
 
   static play(song){
-    console.log(song);
+    const duration = moment(song.duration || '0:00', 'm:ss').diff(moment().startOf('day'), 'seconds');
+
     RNMusicPlayer.play({
       id: song.id || String(Math.random()),
       title: (song && song.name) ||  "Music 1",
       mediaURL: (song && song.path) || "https://d27stng4hz4vj7.cloudfront.net/music.mp3",
-      duration: 111,
-      artworkURL: "http://digitalspyuk.cdnds.net/16/05/768x768/gallery-1454685374-coldplay-mylo-xyloto-alternate-album-cover-1-by-rrpjdisc-d7oe37h.jpg"
+      duration: duration,
+      artworkURL: (song && song.picture_url) || "https://d32h710hkauch.cloudfront.net/e0hZGyU0HCFFr9N0wmS0EaC21.png"
     });
 
     MusicControl.updatePlayback({
@@ -24,11 +26,9 @@ class PlayerService{
 
     MusicControl.setNowPlaying({
       title: (song && song.name) ||  "Music 1",
-      artwork: "http://digitalspyuk.cdnds.net/16/05/768x768/gallery-1454685374-coldplay-mylo-xyloto-alternate-album-cover-1-by-rrpjdisc-d7oe37h.jpg",
-      artist: 'Michael Jackson',
-      album: 'Thriller',
-      genre: 'Post-disco, Rhythm and Blues, Funk, Dance-pop',
-      duration: 294,
+      artwork: (song && song.picture_url) || "https://d32h710hkauch.cloudfront.net/e0hZGyU0HCFFr9N0wmS0EaC21.png",
+      artist: (song && song.artist && song.artist.name) ||  "Artista 1",
+      duration: duration,
       description: '',
       color: 0xFFFFFF,
     });

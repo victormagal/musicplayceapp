@@ -1,7 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {ProfileComponent} from '../ProfileComponent';
-import {fetchProfile, fetchUserSongs, logout, getFavoriteSongsWithFolders, getUserFollowers, getUserFollowings} from '../../../../state/action';
+import {fetchProfile, logout, getFavoriteSongsWithFolders } from '../../../../state/action';
+import { songRegisterClear } from '../../../../state/songs/songsType';
 
 
 class MyProfileScreenContainer extends React.Component {
@@ -36,6 +37,9 @@ class MyProfileScreenContainer extends React.Component {
   };
 
   handleSongAddClick = () => {
+    if(this.props.song.id) {
+      this.props.dispatch(songRegisterClear());
+    }
     this.props.navigation.navigate('RegisterSongScreen');
   };
 

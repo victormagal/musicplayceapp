@@ -22,8 +22,10 @@ class PlayerContainer extends React.Component {
     const { navigation } = this.props;
     if (navigation.state && navigation.state.params) {
       const { song } = navigation.state.params;
-      song.artist = this.props.navigation.state.params.song.artist;
-      this.handleSetupPlay(song);
+      if(song) {
+        song.artist = this.props.navigation.state.params.song.artist;
+        this.handleSetupPlay(song);
+      }
     }
   }
 
@@ -44,8 +46,12 @@ class PlayerContainer extends React.Component {
     }
   }
 
-  getUsersList = (song, artist) => {
-    let users = [artist];
+  getUsersList = (song) => {
+    if(!song){
+      return [];
+    }
+    let users = [song.artist];
+
     if (song.coAuthors && song.coAuthors.length > 0) {
       const coAuthors = song.coAuthors;
       users = users.concat(coAuthors);
@@ -54,7 +60,7 @@ class PlayerContainer extends React.Component {
   };
 
   handleSetupPlay = (song) => {
-    if(this.props.song && this.props.song.id === song.id){
+    if(this.props.song && this.props.song.id === song.id) {
       return;
     }
 
@@ -62,7 +68,8 @@ class PlayerContainer extends React.Component {
     this.setState({artist: song.artist});
 
     this.props.dispatch(fetchOneSong(song)).then(s => {
-      let coAuthors = this.getUsersList(s, song.artist);
+      s.artist = song.artist;
+      let coAuthors = this.getUsersList(s);
       this.setState({coAuthors});
       this.props.dispatch(getUsersSongs(coAuthors));
     });
@@ -94,8 +101,7 @@ class PlayerContainer extends React.Component {
 
   render() {
     let newProps = {...this.props};
-
-    if(newProps.song && this.state.artist) {
+    if(newProps.song && !newProps.song.artist && this.state.artist) {
       newProps.song.artist = this.state.artist;
     }
 
@@ -112,8 +118,9 @@ class PlayerContainer extends React.Component {
           onSongSliderChange={this.handleSongSliderChange}
           onLikeComment={this.handleLikeComment} />
 
-        <MPFloatingNotification visible={this.props.songFavoriteSuccess} text={"Salvo em " + (newProps.song && newProps.song.folder) }
-          icon={<MPHeartRedIcon />}/>
+        <MPFloatingNotification visible={this.props.songFavoriteSuccess}
+                                text={"Salvo em " + (newProps.song && newProps.song.folder) }
+                                icon={<MPHeartRedIcon />}/>
       </View>
     );
   }
