@@ -175,7 +175,6 @@ export const getSongLyrics = (song) => {
 export const fetchUserSongs = (userId) => {
   return (dispatch) => {
     dispatch(songStartLoading());
-
     return SongService.songsByUser(userId).then(response => {
       dispatch(fetchedUserSongs(response));
     }).catch(e => {

@@ -157,7 +157,7 @@ class FeedScreenContainer extends React.Component {
     <MPFeedNotification
       handleNavigateUserProfile={this.handleNavigateUserProfile}
       handleSongNavigate={this.handleSongNavigate}
-      key={item.type}
+      key={item.id}
       notification={item}
     />
   );
