@@ -108,12 +108,14 @@ const songsReducer = (state, action) => {
 
     case SONG_REMOVE_SUCCESS:
       let songs = {...state.mySongs};
-      songs.data.splice(songs.data.indexOf(action.payload.id), 1);
+      songs.data.forEach(function(folder){
+        folder.songs = folder.songs.filter(song => song.id !== action.payload);
+      });
+
       return {
         ...state,
         loading: false,
-        songRemoveSuccess: true,
-        mySongs: songs
+        songRemoveSuccess: true
       };
 
     case SONG_REMOVE_ERROR:
