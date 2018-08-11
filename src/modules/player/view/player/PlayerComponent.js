@@ -285,7 +285,7 @@ class PlayerComponent extends React.Component {
                     song && stars.map((_, i) => {return i < song.rating ? <MPFilledStarIcon /> : <MPStarIcon />})
                   }
                 </View>
-                <MPText style={styles.gradeText}>{song && song.rating}</MPText>
+                <MPText style={styles.gradeText}>{song && song.rating.toFixed(1)}</MPText>
               </View>
 
               <MPText style={styles.timeTotalText}>{song ? this.handleSongDuration(song.duration) : '5m32s'}</MPText>

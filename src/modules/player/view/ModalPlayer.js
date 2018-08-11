@@ -12,7 +12,7 @@ import {
   MPHeader, MPText, MPIconButton, MPButton
 } from '../../../components';
 import {
-  songPlay, songPause, songResume
+  songPlay, songPause, songResume, rateSong
 } from '../../../state/action';
 import {
   MPStarIcon,
@@ -24,8 +24,19 @@ import {
   MPPlayerHeartIcon,
   MPSongRedIcon,
   MPTriangleUpBlackIcon,
-  MPSongListBlackIcon
+  MPSongListBlackIcon,
+  MPFilledStarIcon,
 } from '../../../assets/svg';
+
+const Icon = (props) => (
+  <TouchableOpacity onPress={props.onPress}>
+    {props.filled ? (
+      <MPFilledStarIcon style={{width: 25, height: 25}}/>
+    ):(
+      <MPStarIcon style={{width: 25, height: 25}} />
+    )}
+  </TouchableOpacity>
+)
 
 const stars = new Array(5).fill();
 
@@ -118,6 +129,10 @@ class ModalPlayerComponent extends React.Component {
     );
   }
 
+  handleRateSong = (song, rating) => {
+    // console.log(song, rating);
+    this.props.dispatch(rateSong(song, rating));
+  }
 
   render() {
     let {song} = this.props;
@@ -144,10 +159,10 @@ class ModalPlayerComponent extends React.Component {
             <View style={styles.row}>
               <View style={styles.row}>
                 {
-                  song && stars.map((_, i) => {return i < song.rating ? <MPFilledStarIcon style={{width: 25, height: 25}}/> : <MPStarIcon style={{width: 25, height: 25}} />})
+                  song && stars.map((_, i) => {return i < song.rating ? <Icon filled={true} onPress={this.handleRateSong.bind(this,song, i)}/> : <Icon filled={false} onPress={this.handleRateSong.bind(this, song, i)}/> })
                 }
               </View>
-              <MPText style={styles.modalGradeText}>{song && song.rating}</MPText>
+              <MPText style={styles.modalGradeText}>{song && song.rating.toFixed(1)}</MPText>
             </View>
           </View>
 

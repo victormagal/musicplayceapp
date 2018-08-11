@@ -140,6 +140,12 @@ export const favoriteSong = (songId, folderID) => {
   };
 };
 
+export const rateSong = (song, rating) => {
+  return (dispatch) => {
+    return SongService.rateSong(song, rating);
+  };
+};
+
 export const fetchOneSong = (song) => {
   return (dispatch) => {
     dispatch(songStartLoading);

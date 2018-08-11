@@ -205,6 +205,21 @@ class SongService {
     });
   }
 
+  static rateSong(song, rating){
+    let params = {
+      data: {
+        type: 'ratings',
+        attributes: {
+          rating: rating + 1
+        }
+      }
+    }    
+    return axios.post(`${API_SONG}/${song.id}/rating`, params).then(response => {
+      console.log(response);
+      // return response;
+    })
+  }
+
   static uploadImage(songId, file) {
     let formData = new FormData();
 
