@@ -19,10 +19,15 @@ export const SONG_INDICATE_SUCCESS = 'SONG_INDICATE_SUCCESS';
 export const SONG_INDICATE_ERROR = 'SONG_INDICATE_ERROR';
 export const SONG_FAVORITE_SUCCESS = 'SONG_FAVORITE_SUCCESS';
 export const SONG_FAVORITE_ERROR = 'SONG_FAVORITE_ERROR';
+export const SONG_UNFAVORITE_SUCCESS = 'SONG_UNFAVORITE_SUCCESS';
+export const SONG_UNFAVORITE_ERROR = 'SONG_UNFAVORITE_ERROR';
+export const SONG_NOTIFICATION_REMOVE = 'SONG_NOTIFICATION_REMOVE';
+
 export const SONG_UPLOADED_PICTURE_SUCCESS = 'SONG_UPLOADED_PICTURE_SUCCESS';
 export const SONG_UPLOADED_PICTURE_ERROR = 'SONG_UPLOADED_PICTURE_ERROR';
 export const SONG_LIKE_COMMENT_SUCCESS = 'SONG_LIKE_COMMENT_SUCCESS';
-export const SONG_LIKE_COMMENT_ERROR = 'SONG_LIKE_COMMENT_ERROR'
+export const SONG_LIKE_COMMENT_ERROR = 'SONG_LIKE_COMMENT_ERROR';
+
 
 export const updateSongRegisterData = createAction(SONG_REGISTER_DATA, data => ({ ...data }));
 export const songRegisterClear = createAction(SONG_REGISTER_CLEAR);
@@ -39,9 +44,12 @@ export const songUnpublishError = createAction(SONG_UNPUBLISH_ERROR);
 export const fetchedUserSongs = createAction(FETCHED_ARTIST_SONGS, data => data);
 export const fetchedSong = createAction(FETCHED_SONG, data => data);
 export const fetchedSongLyrics = createAction(FETCHED_SONG_LYRICS, data => data);
-export const songFavoriteSuccess = createAction(SONG_FAVORITE_SUCCESS);
+export const songFavoriteSuccess = createAction(SONG_FAVORITE_SUCCESS, data => data);
 export const songFavoriteError = createAction(SONG_FAVORITE_ERROR);
+export const songUnfavoriteError = createAction(SONG_UNFAVORITE_ERROR);
+export const songUnfavoriteSuccess = createAction(SONG_UNFAVORITE_SUCCESS);
 export const songIndicateSuccess = createAction(SONG_INDICATE_SUCCESS);
+export const songNotificationRemove = createAction(SONG_NOTIFICATION_REMOVE);
 export const songIndicateError = createAction(SONG_INDICATE_ERROR);
 export const uploadedSongPictureSucess = createAction(SONG_UPLOADED_PICTURE_SUCCESS);
 export const uploadedSongPictureError = createAction(SONG_UPLOADED_PICTURE_ERROR);

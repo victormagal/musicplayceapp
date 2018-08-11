@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {
   ScrollView, StyleSheet, View
 } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import {
   MPButton, MPGradientButton, MPHeader, MPText, MPInput, MPForm,
   MPFormButton, MPLoading
@@ -56,7 +57,8 @@ class LoginComponent extends Component {
 
         <MPHeader style={styles.header} inverse={true}/>
 
-        <ScrollView>
+        <KeyboardAwareScrollView>
+        {/*<ScrollView>*/}
           <View style={styles.container}>
             <MPText style={styles.title}>Bem-vindo ao MusicPlayce</MPText>
 
@@ -77,27 +79,27 @@ class LoginComponent extends Component {
               </View>
             )}
 
+              <MPForm>
+                <MPInput label="Email ou Usuário" name="login" value={this.state.form.login}
+                         onChangeText={this.handleChangeText} validators={['required']} />
+                <MPInput label={"Senha"} name="password" value={this.state.form.password}
+                         onChangeText={this.handleChangeText} validators={['required']}
+                         secureTextEntry={true}/>
 
-            <MPForm>
-              <MPInput label="Email ou Usuário" name="login" value={this.state.form.login}
-                       onChangeText={this.handleChangeText} validators={['required']} />
-              <MPInput label={"Senha"} name="password" value={this.state.form.password}
-                       onChangeText={this.handleChangeText} validators={['required']}
-                       secureTextEntry={true}/>
-
-              <View style={styles.signinContainer}>
-                <MPFormButton>
-                  <MPGradientButton title={"Entrar"} textSize={16} style={styles.signinButton} onPress={this.handleSubmit} />
-                </MPFormButton>
-                <MPText style={styles.forgotPassword} onPress={this.props.onForgotPassword}>Esqueceu a senha?</MPText>
-              </View>
-            </MPForm>
+                <View style={styles.signinContainer}>
+                  <MPFormButton>
+                    <MPGradientButton title={"Entrar"} textSize={16} style={styles.signinButton} onPress={this.handleSubmit} />
+                  </MPFormButton>
+                  <MPText style={styles.forgotPassword} onPress={this.props.onForgotPassword}>Esqueceu a senha?</MPText>
+                </View>
+              </MPForm>
 
             <MPText style={styles.noAccount} onPress={this.props.onRegister}>Não tem conta?</MPText>
             <MPText style={styles.register} onPress={this.props.onRegister}>Faça seu cadastro.</MPText>
 
           </View>
-        </ScrollView>
+        </KeyboardAwareScrollView>
+        {/*</ScrollView>*/}
 
         <MPLoading visible={this.props.loading} />
 

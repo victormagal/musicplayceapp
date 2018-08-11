@@ -104,7 +104,6 @@ class RegisterSongContainer extends React.Component {
     DocumentPicker.show({
       filetype: [DocumentPickerUtil.audio()],
     }, (something, response) => {
-      console.log('response', response);
       if (response) {
         if (response.type) {
           response.fileName = `${response.fileName}.${response.type.split('/')[1]}`;
@@ -174,8 +173,6 @@ class RegisterSongContainer extends React.Component {
   getImageName() {
     const { song } = this.props;
     const { imageFile } = this.state;
-
-    console.log(imageFile);
 
     return imageFile
       ? imageFile.fileName

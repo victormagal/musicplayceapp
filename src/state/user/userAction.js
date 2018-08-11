@@ -97,7 +97,6 @@ export const followUser = (id) => {
     return UserService.followUser(id).then(_ => {
       dispatch(userFollowSuccess());
     }).catch(e => {
-      console.log('userFollowError', e);
       dispatch(userFollowError());
     });
   };
