@@ -1,29 +1,28 @@
 import React from 'react';
 import {
-  ScrollView,
-  StyleSheet,
-  Platform,
-  TouchableOpacity,
-  View
+  ScrollView, StyleSheet, Platform, TouchableOpacity, View
 } from 'react-native';
+import Permissions from 'react-native-permissions'
 import {
   MPHeader,
   MPSelect,
   MPIconButton,
   MPText,
   MPLoading
-} from '../../../../../components/index';
-import { connect } from 'react-redux';
-import { GeneralService } from '../../../../../service/GeneralService';
-import {fetchCityBrazil, fetchStateBrazil, generalStartLoading} from "../../../../../state/general/generalAction";
+} from '../../../../../components';
+import {connect} from 'react-redux';
+import {GeneralService} from '../../../../../service';
+import {
+  fetchCityBrazil, fetchStateBrazil, generalStartLoading, generalFinishLoading
+} from "../../../../../state/action";
 import {MPLocationPinIcon} from "../../../../../assets/svg/index";
-import {fetchUserSongs} from "../../../../../state/action";
+
 
 class EditProfileLocationComponent extends React.Component {
   refSaveButton = null;
 
-  constructor(props){
-    super (props);
+  constructor(props) {
+    super(props);
     this.refSaveButton = React.createRef();
     this.state = {
       city: props.location.city || '',
@@ -36,7 +35,7 @@ class EditProfileLocationComponent extends React.Component {
   }
 
   componentDidMount() {
-    const { dispatch } = this.props;
+    const {dispatch} = this.props;
     dispatch(fetchStateBrazil());
   }
 
@@ -61,18 +60,31 @@ class EditProfileLocationComponent extends React.Component {
     }
   }
 
-  handleCurrentPosition = () => {
-    const { states } = this.props;
+  requestPermissionLocation = () => {
+    Permissions.check('location').then(response => {
+      if(response === 'authorized'){
+        this.requestLocation();
+      }else{
+        Permissions.request('location').then(locationResponse => {
+          if(locationResponse === 'allow'){
+            this.requestLocation();
+          }else{
+            this.setState({error: 'Sem acesso a localização.'});
+          }
+        });
+      }
+    });
+  };
 
+  requestLocation = () => {
+    const {states} = this.props;
     this.props.dispatch(generalStartLoading());
     navigator.geolocation.getCurrentPosition(
       (position) => {
         const coords = position.coords;
-        /*const coords = {
-          latitude: '-15.7867618',
-          longitude: '-47.8910984'
-        };*/
+        console.log(coords);
         GeneralService.getAddressFromCoordinates(coords.latitude, coords.longitude).then(response => {
+          console.log(response);
           const result = response.data.results[0];
           const statePosition = result.address_components.length - 3;
           const cityPosition = result.address_components.length - 4;
@@ -80,16 +92,28 @@ class EditProfileLocationComponent extends React.Component {
           const city = result.address_components[cityPosition].short_name;
           const state = result.address_components[statePosition].short_name;
           const selectedState = states.filter(s => s.sigla === state)[0].id;
-          this.setState({ city, state, selectedState, isCurrentLocation: true });
-        })
+          this.setState({city, state, selectedState, isCurrentLocation: true});
+          this.props.dispatch(generalFinishLoading());
+        }).catch(e => {
+          console.log(e);
+          console.log(e.response);
+        });
       },
-      () => this.setState({ error: 'Não foi possível usar a localização atual.' }),
-      { enableHighAccuracy: true, timeout: 2000 }
-    )
-  }
+      (e) => {
+        console.log(e);
+        this.setState({error: 'Não foi possível usar a localização atual. Verifique se o GPS está habilitado.'});
+        this.props.dispatch(generalFinishLoading());
+      },
+      {enableHighAccuracy: true, timeout: 60000}
+    );
+  };
+
+  handleCurrentPosition = () => {
+    this.requestPermissionLocation();
+  };
 
   handleSave = () => {
-    const { selectedState, selectedCity } = this.state;
+    const {selectedState, selectedCity} = this.state;
     let error = null;
 
     if (selectedState === null) {
@@ -97,9 +121,9 @@ class EditProfileLocationComponent extends React.Component {
     } else if (selectedCity === null) {
       error = 'A cidade não pode ficar em branco.';
     } else {
-      this.props.onSave({ ...this.state });
+      this.props.onSave({...this.state});
     }
-    this.setState({ error });
+    this.setState({error});
   };
 
   renderHeaderMenuSave() {
@@ -114,8 +138,8 @@ class EditProfileLocationComponent extends React.Component {
   }
 
   render() {
-    const { onBack, cities, states } = this.props;
-    const { selectedState, selectedCity, error } = this.state;
+    const {onBack, cities, states} = this.props;
+    const {selectedState, selectedCity, error} = this.state;
 
     return (
       <View style={styles.parent}>
@@ -127,15 +151,15 @@ class EditProfileLocationComponent extends React.Component {
         />
         <ScrollView style={styles.scroll}>
           <View style={styles.container}>
-            <TouchableOpacity style={styles.currentPosition} onPress={() => this.handleCurrentPosition()}>
-              <MPLocationPinIcon/>
-              <MPText style={styles.currentPositionText}>
-                Usar minha localização atual
-              </MPText>
-            </TouchableOpacity>
-            <MPText style={styles.randomText}>
-              ou
-            </MPText>
+            {/*<TouchableOpacity style={styles.currentPosition} onPress={() => this.handleCurrentPosition()}>*/}
+              {/*<MPLocationPinIcon/>*/}
+              {/*<MPText style={styles.currentPositionText}>*/}
+                {/*Usar minha localização atual*/}
+              {/*</MPText>*/}
+            {/*</TouchableOpacity>*/}
+            {/*<MPText style={styles.randomText}>*/}
+              {/*ou*/}
+            {/*</MPText>*/}
             { states &&
               <View style={{ marginHorizontal: 20 }}>
                 <MPSelect
@@ -165,9 +189,9 @@ class EditProfileLocationComponent extends React.Component {
               </View>
             }
             { error !== null &&
-              <MPText style={styles.errorText}>
-                { error }
-              </MPText>
+            <MPText style={styles.errorText}>
+              { error }
+            </MPText>
             }
           </View>
         </ScrollView>
@@ -231,7 +255,7 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = ({ generalReducer }) => {
+const mapStateToProps = ({generalReducer}) => {
   return {...generalReducer};
 };
 

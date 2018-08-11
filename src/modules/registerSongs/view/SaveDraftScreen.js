@@ -5,6 +5,12 @@ import { MPGradientButton, MPHeader, MPText, MPLoading } from '../../../componen
 import {createDraftSong, removeSong, updateDraftSong} from "../../../state/songs/songsAction";
 
 class SaveDraftScreenContainer extends React.Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      
+    }
+  }
   componentWillReceiveProps(nextProps){
     if (nextProps.songDraftSuccess || nextProps.songRemoveSuccess){
       this.props.navigation.navigate('MyProfileScreen', { backFromPublishedOrDraft: true });
@@ -12,24 +18,28 @@ class SaveDraftScreenContainer extends React.Component {
   }
 
   handleSaveDraftClick = () => {
-    const { song, dispatch } = this.props;
-    delete song.coAuthors;
-    if (song.created_at){
-      dispatch(updateDraftSong(song));
-    } else {
-      dispatch(createDraftSong(song));
-    }
+    let {song, dispatch} = this.props;
+
+    song.created_at
+      ? dispatch(updateDraftSong(song))
+      : dispatch(createDraftSong(song));
+
+    this.props.navigation.pop();
   };
 
   handleRemoveSongClick = () => {
     this.props.dispatch(removeSong(this.props.song.id));
   };
 
+  handleBack = () => {
+    this.props.navigation.pop();
+  };
+
   render() {
     const { song } = this.props;
     return (
       <View style={styles.container}>
-        <MPHeader />
+        <MPHeader back={true} onBack={this.handleBack}  />
         <View style={styles.content}>
           <MPText style={styles.textTop}>
             Deseja salvar como rascunho?

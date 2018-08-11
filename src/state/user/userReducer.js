@@ -38,6 +38,8 @@ const userReducer = (state, action) => {
     userFollowings: [],
   };
 
+  let user = {};
+
   switch (action.type) {
     case USER_START_LOADING:
       return {
@@ -82,16 +84,18 @@ const userReducer = (state, action) => {
       };
 
     case USER_FOLLOW_SUCCESS:
+      user = {...state.user, isFollowing: true};
       return {
         ...state,
-        followingUser: true,
+        user,
         loading: false,
       };
 
     case USER_STOP_FOLLOW_SUCCESS:
+      user = {...state.user, isFollowing: false};
       return {
         ...state,
-        followingUser: false,
+        user,
         loading: false,
       };
 

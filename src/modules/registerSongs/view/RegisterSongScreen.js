@@ -19,9 +19,17 @@ class RegisterSongContainer extends React.Component {
       songFile: null,
       imageFile: null,
       progressContentWidth: 0,
+      errors: {},
       cardErrors: {
         name: false,
-        lyrics: false
+        lyrics: false,
+        tags: false,
+        coAuthors: false,
+        songFile: false,
+        imageFile: false,
+      },
+      draftErrors: {
+        name: false,
       }
     };
   }
@@ -67,9 +75,9 @@ class RegisterSongContainer extends React.Component {
   };
 
   handlePublishClick = () => {
-    const { songFile, imageFile } = this.state;
+    const { songFile, imageFile, cardErrors } = this.state;
     let {song, dispatch} = this.props;
-    const valid = this.validate();
+    const valid = this.validate(cardErrors);
 
     if (valid) {
       song.created_at
@@ -79,9 +87,11 @@ class RegisterSongContainer extends React.Component {
   };
 
   handleFinishLaterClick = () => {
-    const isValid = this.validate();
+    let {draftErrors} = this.state;
+    const isValid = this.validate(draftErrors);
     if (isValid) {
-      this.goToScreen('SaveDraftScreen');
+      let {song} = this.props;
+      this.goToScreen('SaveDraftScreen', {song});
     }
   };
 
@@ -94,7 +104,6 @@ class RegisterSongContainer extends React.Component {
     DocumentPicker.show({
       filetype: [DocumentPickerUtil.audio()],
     }, (something, response) => {
-      console.log('response', response);
       if (response) {
         if (response.type) {
           response.fileName = `${response.fileName}.${response.type.split('/')[1]}`;
@@ -125,19 +134,18 @@ class RegisterSongContainer extends React.Component {
     });
   }
 
-  validate() {
-    const {cardErrors} = this.state;
+  validate(errors) {
     const {song} = this.props;
     let valid = true;
 
-    for (const key in cardErrors) {
-      cardErrors[key] = !song[key];
-      if (cardErrors[key]) {
+    for (const key in errors) {
+      errors[key] = !song[key];
+      if (errors[key]) {
         valid = false;
       }
     }
 
-    this.setState({cardErrors});
+    this.setState({errors});
 
     //TODO: handle file validation if exists file
     return valid;
@@ -166,8 +174,6 @@ class RegisterSongContainer extends React.Component {
     const { song } = this.props;
     const { imageFile } = this.state;
 
-    console.log(imageFile);
-
     return imageFile
       ? imageFile.fileName
       :  song.name + song.picture_url.substr(song.picture_url.lastIndexOf('.'));
@@ -175,7 +181,7 @@ class RegisterSongContainer extends React.Component {
 
   render() {
     const {song} = this.props;
-    const {cardErrors, songFile, imageFile} = this.state;
+    const {cardErrors, errors,  songFile, imageFile} = this.state;
     return (
       <View style={styles.container}>
         <MPHeader
@@ -197,7 +203,7 @@ class RegisterSongContainer extends React.Component {
               </MPText>
             </View>
             <View>
-              <View style={styles.errorCard(cardErrors)}>
+              <View style={styles.errorCard(errors)}>
                 <MPGradientButton
                   style={styles.uploadIcon}
                   icon={(songFile && songFile.fileName) || song.path ? MPSongUploadEditIcon : MPSongUploadIcon}
@@ -207,7 +213,7 @@ class RegisterSongContainer extends React.Component {
                 />
 
                 {!songFile && !song.path && (
-                  <MPText style={ styles.subText}>
+                  <MPText style={ [styles.subText, errors.songFile ? {color : '#e13223'} : null]}>
                     Você pode fazer upload de músicas em MP3 ou AAC.
                   </MPText>
                 )}
@@ -223,7 +229,7 @@ class RegisterSongContainer extends React.Component {
               <MPText style={[styles.headerText, { marginTop: 10 }]}>
                 {imageFile || song.picture_url ? 'Imagem de Capa Selecionada' : 'Upload de Imagem de Capa'}
               </MPText>
-              <View style={styles.errorCard(cardErrors)}>
+              <View style={styles.errorCard(errors)}>
                 <MPGradientButton
                   style={styles.uploadIcon}
                   icon={MPCameraIcon}
@@ -233,7 +239,7 @@ class RegisterSongContainer extends React.Component {
                 />
 
                 {!imageFile && !song.picture_url && (
-                  <MPText style={ styles.subText}>
+                  <MPText style={ [styles.subText, errors.imageFile ? {color: '#e13223'}: {} ]}>
                     Você pode fazer upload de imagens em JPG, JPEG e PNG.
                   </MPText>
                 )}
@@ -250,7 +256,7 @@ class RegisterSongContainer extends React.Component {
               <View style={ styles.horizontalContainer }>
                 <MPSongInfo
                   style={styles.songItem}
-                  invalid={cardErrors.name}
+                  invalid={errors.name}
                   selected={!!song.name}
                   title={'Qual é o título da música?'}
                   info={song.name}
@@ -258,7 +264,7 @@ class RegisterSongContainer extends React.Component {
                 />
                 <MPSongInfo
                   style={styles.songItem}
-                  invalid={cardErrors.lyrics}
+                  invalid={errors.lyrics}
                   selected={!!song.lyrics}
                   title={'Qual é a letra?'}
                   info={song.lyrics}
@@ -266,7 +272,7 @@ class RegisterSongContainer extends React.Component {
                 />
                 <MPSongInfo
                   style={styles.songItem}
-                  invalid={cardErrors.tags}
+                  invalid={errors.tags}
                   selected={song.tags && song.tags.length > 0}
                   title={'Quais as categorias e estilos que combinam?'}
                   info={this.getFilledString('tags')}
@@ -282,7 +288,7 @@ class RegisterSongContainer extends React.Component {
                 />
                 <MPSongInfo
                   style={styles.songItem}
-                  invalid={cardErrors.coAuthors}
+                  invalid={errors.coAuthors}
                   selected={song.coAuthors && song.coAuthors.length > 0}
                   title={'Tem outros autores?'}
                   info={this.getFilledString('coAuthors')}

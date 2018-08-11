@@ -21,7 +21,9 @@ import {
   SONG_UPLOADED_PICTURE_ERROR,
   SONG_UPLOADED_PICTURE_SUCCESS,
   SONG_LIKE_COMMENT_ERROR,
-  SONG_LIKE_COMMENT_SUCCESS
+  SONG_LIKE_COMMENT_SUCCESS,
+  SONG_UNFAVORITE_SUCCESS,
+  SONG_NOTIFICATION_REMOVE
 } from './songsType';
 
 const defaultSong = {
@@ -90,6 +92,7 @@ const songsReducer = (state, action) => {
     case SONG_UNPUBLISH_ERROR:
     case SONG_UPLOADED_PICTURE_ERROR:
     case SONG_FINISH_LOADING:
+    case SONG_NOTIFICATION_REMOVE:
       return {
         ...state,
         loading: false
@@ -140,10 +143,23 @@ const songsReducer = (state, action) => {
       };
 
     case SONG_FAVORITE_SUCCESS:
+      let fetchedSong = {...state.fetchedSong};
+      fetchedSong.is_favorited = true;
+      fetchedSong.folder = action.payload.name;
+
       return {
         ...state,
         loading: false,
-        songFavoriteSuccess: true
+        songFavoriteSuccess: true,
+        fetchedSong
+      };
+
+    case SONG_UNFAVORITE_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        songUnfavoriteSuccess: true,
+        fetchedSong: {...state.fetchedSong, is_favorited: false}
       };
 
     case SONG_UNPUBLISH_SUCCESS:

@@ -15,6 +15,7 @@ import {
   MPPlayIcon,
   MPSongListIcon,
   MPHeartIcon,
+  MPHeartRedIcon,
   MPBalloonTalkIcon,
   MPDetailPauseIcon,
   MPDetailHeartIcon,
@@ -73,12 +74,16 @@ class PlayerComponent extends React.Component {
   }
 
   handleSaveSong = (song) => {
-    this.setState({playerVisible: false});
-    this.props.navigation.navigate('playerSaveSong', {song});
+    if(song.is_favorited){
+      this.props.onSongUnfavorite(song.id);
+    }else{
+      this.setState({playerVisible: false});
+      this.props.navigation.navigate('playerSaveSong', {song});
+    }
   };
 
   renderComposers = (song) => {
-    let composerString = song.artist.name;
+    let composerString = song.artist ? song.artist.name : '';
 
     if(song.coAuthors && song.coAuthors.length > 0){
       let composerTempString = '';
@@ -258,7 +263,7 @@ class PlayerComponent extends React.Component {
         </View>)
       })
     }
-  }
+  };
 
   renderMain() {
     let {song} = this.props;
@@ -282,21 +287,23 @@ class PlayerComponent extends React.Component {
               <View style={styles.row}>
                 <View style={styles.row}>
                   {
-                    song && stars.map((_, i) => {return i < song.rating ? <MPFilledStarIcon /> : <MPStarIcon />})
+                    song && stars.map((_, i) => {
+                      return i < song.rating ? <MPFilledStarIcon key={i}/> : <MPStarIcon key={i}/>
+                    })
                   }
                 </View>
                 <MPText style={styles.gradeText}>{song && song.rating.toFixed(1)}</MPText>
               </View>
 
-              <MPText style={styles.timeTotalText}>{song ? this.handleSongDuration(song.duration) : '5m32s'}</MPText>
+              <MPText style={styles.timeTotalText}>{song && this.handleSongDuration(song.duration)}</MPText>
 
               <View style={styles.row}>
                 <MPPlayIcon style={styles.musicPlayIcon}/>
-                <MPText style={styles.musicTitleText}>{ song ? song.name : 'Tocando em Frente'}</MPText>
+                <MPText style={styles.musicTitleText}>{ song && song.name ? song.name : 'Tocando em Frente'}</MPText>
               </View>
 
               <MPText style={styles.musicUploadDate}>{song ? this.handleSongDate(song.created_at) : '10/05/2018 às 13:49'}</MPText>
-              <MPText style={styles.compositorText}>{song && song.description ? song.description : 'Escute esta música de tal tal jeito.'}</MPText>
+              <MPText style={styles.compositorText}>{song && song.description ? song.description : ''}</MPText>
 
               <MPText style={styles.compositorTitle}>{song && song.coAuthors && song.coAuthors.length > 0 ? 'COMPOSITORES' : 'COMPOSITOR'}</MPText>
               <MPText style={styles.compositorText}>{ song ? this.renderComposers(song) : 'Almir Sater'}</MPText>
@@ -310,14 +317,15 @@ class PlayerComponent extends React.Component {
                                 icon={MPSongListIcon} iconStyle={styles.iconButton}
                                 titleStyle={styles.iconButtonText}/>
 
-                  <MPIconButton title="SALVAR" icon={MPHeartIcon} style={styles.iconButtonContainer}
+                  <MPIconButton title="SALVAR" icon={MPHeartIcon} iconSelected={MPHeartRedIcon}
+                                style={styles.iconButtonContainer} selected={song && song.is_favorited}
                                 iconStyle={styles.iconButton} titleStyle={styles.iconButtonText}
                                 onPress={this.handleSaveSong.bind(this, song)}/>
                 </View>
 
                 <View style={styles.totalIndicationsContainer}>
                   <MPGradientButton title="INDICAR" onPress={this.handleIndicateSong.bind(this, song)}/>
-                  <MPText style={styles.totalIndications}>{song ? song.indicationsCount : null} indicações</MPText>
+                  <MPText style={styles.totalIndications}>{song ? song.indications_count : null} indicações</MPText>
                 </View>
               </View>
             </View>
@@ -387,10 +395,7 @@ class PlayerComponent extends React.Component {
 
   renderDetailPlayer() {
     let {song} = this.props;
-    console.log(song);
     const progress = Math.ceil(this.props.player.progress);
-
-    console.log(progress);
 
     return (
       <View style={styles.player}>
@@ -408,7 +413,7 @@ class PlayerComponent extends React.Component {
           </TouchableOpacity>
 
           <View style={styles.playerInfo}>
-            <MPText style={styles.playerSongName}>{song ? song.name : 'Tocando em Frente'}</MPText>
+            <MPText style={styles.playerSongName}>{song && song.name ? song.name : 'Tocando em Frente'}</MPText>
             <MPText style={styles.playerUserName}>{song ? this.renderComposers(song) : 'Almir Sater'}</MPText>
           </View>
 

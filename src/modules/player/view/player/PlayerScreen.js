@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { View, StyleSheet } from 'react-native';
-import { MPButton } from '../../../../components';
+import { MPButton, MPFloatingNotification } from '../../../../components';
 import {PlayerComponent} from './PlayerComponent';
 import {
   playerSongSaveReceived,
@@ -12,12 +12,15 @@ import {
   songSeekTo,
   fetchOneSong,
   getUsersSongs,
-  likeSongComment
+  likeSongComment,
+  unFavoriteSong,
 } from '../../../../state/action';
+import {songNotificationRemove} from '../../../../state/songs/songsType';
 import { MPHeartRedIcon } from '../../../../assets/svg';
 
 
 class PlayerContainer extends React.Component {
+  songTimer = null;
   state = {
     song : null,
     userNames: [],
@@ -35,22 +38,11 @@ class PlayerContainer extends React.Component {
   }
 
   componentWillReceiveProps(nextProps){
-    const { navigation, dispatch } = this.props;
-    const { song } = this.state;
-
     if (nextProps.saveSong.update) {
       const timer = setTimeout(() => {
         this.props.dispatch(playerSongSaveReceived());
         clearTimeout(timer);
       }, 2000);
-    }
-
-    if (nextProps.song){
-      nextProps.song.artist = navigation.state.params.song.artist;
-      if (song !== nextProps.song){
-        //dispatch(getUsersSongs(this.getUsersList(nextProps.song)));
-      }
-      this.setState({ song: nextProps.song });
     }
 
     if (nextProps.userSongs){
@@ -59,10 +51,21 @@ class PlayerContainer extends React.Component {
         this.setState({ usersSongs });
       }
     }
+
+    if(nextProps.songUnfavoriteSuccess || nextProps.songFavoriteSuccess){
+      this.songTimer = setTimeout(() => {
+        this.props.dispatch(songNotificationRemove());
+        clearTimeout(this.songTimer);
+      }, 8000);
+    }
   }
 
   componentWillUnmount(){
     this.props.dispatch(songStop());
+
+    if(this.songTimer){
+      clearTimeout(this.songTimer);
+    }
   }
 
   getUsersList = (song) => {
@@ -101,31 +104,35 @@ class PlayerContainer extends React.Component {
     this.props.dispatch(likeSongComment(commentId));
   };
 
+  handleSongUnfavorite = (songId) => {
+    this.props.dispatch(unFavoriteSong(songId));
+  };
+
   render() {
-    const { saveSong } = this.props;
-    const { song, usersSongs, userNames } = this.state;
+    const {usersSongs, userNames } = this.state;
+    let newProps = {...this.props};
+
+    if(newProps.song && this.props.navigation.state && this.props.navigation.state.params && this.props.navigation.state.params.song) {
+      newProps.song.artist = this.props.navigation.state.params.song.artist;
+    }
+
     return (
       <View style={styles.container}>
         <PlayerComponent
-          todo="REFACTOR" {...this.props}
-          song={song}
+          todo="REFACTOR"
+          {...newProps}
           usersSongs={usersSongs}
           userNames={userNames}
+          onSongUnfavorite={this.handleSongUnfavorite}
           onSongPause={this.handleSongPause}
           onSongResume={this.handleSongResume}
           onSongPlay={this.handleSongPlay}
           onSongSliderChange={this.handleSongSliderChange}
           onLikeComment={this.handleLikeComment}
         />
-        { saveSong.update &&
-          <MPButton
-            style={styles.notificationSaved}
-            textStyle={styles.notificationSavedText}
-            title={"Salvo em " + saveSong.folder }
-            onPress={() => console.log()}
-            icon={MPHeartRedIcon}
-          />
-        }
+
+        <MPFloatingNotification visible={this.props.songFavoriteSuccess} text={"Salvo em " + (newProps.song && newProps.song.folder) }
+          icon={<MPHeartRedIcon />}/>
       </View>
     );
   }
@@ -150,7 +157,8 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = ({ playerReducer, songsReducer }) => {
-  return { ...playerReducer, song: songsReducer.fetchedSong }
+  let {songUnfavoriteSuccess, songFavoriteSuccess, fetchedSong} = songsReducer;
+  return { ...playerReducer, song: fetchedSong, songUnfavoriteSuccess, songFavoriteSuccess};
 };
 
 const PlayerScreen = connect(mapStateToProps)(PlayerContainer);

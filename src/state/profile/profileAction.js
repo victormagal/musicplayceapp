@@ -1,6 +1,7 @@
 import {createAction} from 'redux-actions';
-import {UserService} from '../../service';
+import {UserService, SongService} from '../../service';
 import { userFollowersFetched, userFollowingsFetched } from '../user/userTypes';
+import { fetchedUserSongs } from '../songs/songsType';
 
 export const FETCHED_PROFILE = 'FETCHED_PROFILE';
 export const FETCHED_MY_INDICATIONS = 'FETCHED_MY_INDICATIONS';
@@ -66,6 +67,7 @@ export const fetchProfile = () => {
       .then(response => dispatch(fetchedProfile((response)))).then(_ => {
         UserService.getUserFollowers(getState().profileReducer.profile.id).then(response => dispatch(userFollowersFetched(response)));
         UserService.getUserFollowings(getState().profileReducer.profile.id).then(response => dispatch(userFollowingsFetched(response)));
+        SongService.songsByUser(getState().profileReducer.profile.id).then(response => dispatch(fetchedUserSongs(response)));
       })
       .catch((e) => {
         console.log('fetchProfileError', e);

@@ -21,6 +21,8 @@ import {
   uploadedSongPictureError,
   likedCommentSuccess,
   likedCommentError,
+  songUnfavoriteSuccess,
+  songUnfavoriteError
 } from "./songsType";
 
 export const createPermanentSong = (song, songFile, imageFile) => {
@@ -42,7 +44,7 @@ export const createPermanentSong = (song, songFile, imageFile) => {
 export const createDraftSong = (song) => {
   return (dispatch, getState) => {
     const {profile} = getState().profileReducer;
-    song.user_id = profile.id;
+    song.artist_id = profile.id;
 
     dispatch(songStartLoading());
     return SongService.create(song).then(() => {
@@ -128,14 +130,25 @@ export const likeSongComment = (commentId) => {
   };
 };
 
-export const favoriteSong = (songId, folderID) => {
+export const favoriteSong = (songId, folder) => {
   return (dispatch) => {
     dispatch(songStartLoading());
-    return SongService.favoriteSong(songId, folderID).then(() => {
-      dispatch(songFavoriteSuccess());
+    return SongService.favoriteSong(songId, folder.id).then(() => {
+      dispatch(songFavoriteSuccess(folder));
     }).catch(e => {
       console.log('favoriteSongError', e.response);
       dispatch(songFavoriteError())
+    });
+  };
+};
+
+export const unFavoriteSong = (songId) => {
+  return (dispatch) => {
+    dispatch(songStartLoading());
+    return SongService.unfavoriteSong(songId).then(() => {
+      dispatch(songUnfavoriteSuccess());
+    }).catch(e => {
+      dispatch(songUnfavoriteError())
     });
   };
 };
@@ -175,7 +188,6 @@ export const getSongLyrics = (song) => {
 export const fetchUserSongs = (userId) => {
   return (dispatch) => {
     dispatch(songStartLoading());
-
     return SongService.songsByUser(userId).then(response => {
       dispatch(fetchedUserSongs(response));
     }).catch(e => {

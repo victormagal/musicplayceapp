@@ -66,7 +66,7 @@ class MPGradientButtonComponent extends Component {
           end={{x: 1, y:0}}
           style={[styles.linear, borderStyle]}
           selected={true}>
-          <MPText style={this.state.textStyleRef}>
+          <MPText style={this.state.textStyleRef} numberOfLines={1}>
             {title}
           </MPText>
           {icon && <Icon style={styles.icon}/>}

@@ -51,7 +51,7 @@ class ModalPlayerComponent extends React.Component {
   };
 
   renderComposers = (song) => {
-    let composerString = song.artist.name;
+    let composerString = song.artist ? song.artist.name : '';
 
     if(song.coAuthors && song.coAuthors.length > 0){
       let composerTempString = '';
@@ -130,9 +130,8 @@ class ModalPlayerComponent extends React.Component {
   }
 
   handleRateSong = (song, rating) => {
-    // console.log(song, rating);
     this.props.dispatch(rateSong(song, rating));
-  }
+  };
 
   render() {
     let {song} = this.props;
@@ -158,9 +157,9 @@ class ModalPlayerComponent extends React.Component {
           <View style={styles.modalStarContainer}>
             <View style={styles.row}>
               <View style={styles.row}>
-                {
-                  song && stars.map((_, i) => {return i < song.rating ? <Icon filled={true} onPress={this.handleRateSong.bind(this,song, i)}/> : <Icon filled={false} onPress={this.handleRateSong.bind(this, song, i)}/> })
-                }
+                {song && stars.map((_, i) => {
+                    return i < song.rating ? <Icon key={i} filled={true} onPress={this.handleRateSong.bind(this,song, i)}/> : <Icon key={i} filled={false} onPress={this.handleRateSong.bind(this, song, i)}/>;
+                })}
               </View>
               <MPText style={styles.modalGradeText}>{song && song.rating.toFixed(1)}</MPText>
             </View>
