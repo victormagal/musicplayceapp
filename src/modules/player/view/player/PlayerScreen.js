@@ -1,19 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { View, StyleSheet } from 'react-native';
-import { MPButton, MPFloatingNotification } from '../../../../components';
+import { MPFloatingNotification } from '../../../../components';
 import {PlayerComponent} from './PlayerComponent';
 import {
-  playerSongSaveReceived,
-  songStop,
-  songPlay,
-  songPause,
-  songResume,
-  songSeekTo,
-  fetchOneSong,
-  getUsersSongs,
-  likeSongComment,
-  unFavoriteSong,
+  songStop, songPlay, songPause, songResume, songSeekTo,
+  fetchOneSong, getUsersSongs, likeSongComment, unFavoriteSong
 } from '../../../../state/action';
 import {songNotificationRemove} from '../../../../state/songs/songsType';
 import { MPHeartRedIcon } from '../../../../assets/svg';
@@ -22,36 +14,20 @@ import { MPHeartRedIcon } from '../../../../assets/svg';
 class PlayerContainer extends React.Component {
   songTimer = null;
   state = {
-    song : null,
-    userNames: [],
-    usersSongs: []
+    coAuthors: [],
+    artist: null
   };
 
   componentDidMount(){
-    const { navigation, dispatch } = this.props;
+    const { navigation } = this.props;
     if (navigation.state && navigation.state.params) {
       const { song } = navigation.state.params;
-      if (song) {
-        dispatch(fetchOneSong(song));
-      }
+      song.artist = this.props.navigation.state.params.song.artist;
+      this.handleSetupPlay(song);
     }
   }
 
   componentWillReceiveProps(nextProps){
-    if (nextProps.saveSong.update) {
-      const timer = setTimeout(() => {
-        this.props.dispatch(playerSongSaveReceived());
-        clearTimeout(timer);
-      }, 2000);
-    }
-
-    if (nextProps.userSongs){
-      const usersSongs = nextProps.userSongs.map(songs => songs.data);
-      if (usersSongs.length > 0) {
-        this.setState({ usersSongs });
-      }
-    }
-
     if(nextProps.songUnfavoriteSuccess || nextProps.songFavoriteSuccess){
       this.songTimer = setTimeout(() => {
         this.props.dispatch(songNotificationRemove());
@@ -68,20 +44,29 @@ class PlayerContainer extends React.Component {
     }
   }
 
-  getUsersList = (song) => {
-    console.log('song', song);
-    const userNames = [ song.artist.name ];
-    const userList = [ song.artist.id ];
+  getUsersList = (song, artist) => {
+    let users = [artist];
     if (song.coAuthors && song.coAuthors.length > 0) {
       const coAuthors = song.coAuthors;
-      coAuthors.map((coAuthor) => {
-        userList.push(coAuthor.id);
-        userNames.push(coAuthor.name);
-      });
+      users = users.concat(coAuthors);
     }
-    this.setState({ userNames });
-    return userList;
-  }
+    return users;
+  };
+
+  handleSetupPlay = (song) => {
+    if(this.props.song && this.props.song.id === song.id){
+      return;
+    }
+
+    this.props.dispatch(songStop());
+    this.setState({artist: song.artist});
+
+    this.props.dispatch(fetchOneSong(song)).then(s => {
+      let coAuthors = this.getUsersList(s, song.artist);
+      this.setState({coAuthors});
+      this.props.dispatch(getUsersSongs(coAuthors));
+    });
+  };
 
   handleSongPause = () => {
     this.props.dispatch(songPause());
@@ -96,7 +81,6 @@ class PlayerContainer extends React.Component {
   };
 
   handleSongSliderChange = (value) => {
-    //TODO: call action to seek music in react native plugin
     this.props.dispatch(songSeekTo(value));
   };
 
@@ -109,27 +93,24 @@ class PlayerContainer extends React.Component {
   };
 
   render() {
-    const {usersSongs, userNames } = this.state;
     let newProps = {...this.props};
 
-    if(newProps.song && this.props.navigation.state && this.props.navigation.state.params && this.props.navigation.state.params.song) {
-      newProps.song.artist = this.props.navigation.state.params.song.artist;
+    if(newProps.song && this.state.artist) {
+      newProps.song.artist = this.state.artist;
     }
 
     return (
       <View style={styles.container}>
         <PlayerComponent
-          todo="REFACTOR"
           {...newProps}
-          usersSongs={usersSongs}
-          userNames={userNames}
+          coAuthors={this.state.coAuthors}
+          onPlayClick={this.handleSetupPlay}
           onSongUnfavorite={this.handleSongUnfavorite}
           onSongPause={this.handleSongPause}
           onSongResume={this.handleSongResume}
           onSongPlay={this.handleSongPlay}
           onSongSliderChange={this.handleSongSliderChange}
-          onLikeComment={this.handleLikeComment}
-        />
+          onLikeComment={this.handleLikeComment} />
 
         <MPFloatingNotification visible={this.props.songFavoriteSuccess} text={"Salvo em " + (newProps.song && newProps.song.folder) }
           icon={<MPHeartRedIcon />}/>

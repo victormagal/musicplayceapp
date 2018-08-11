@@ -178,7 +178,6 @@ class FeedScreenContainer extends React.Component {
     return (
       <View style={styles.container}>
         <MPHeader inverse={true} />
-        <MPLoading visible={this.props.loading} />
         <View style={styles.content}>
           <MPTextField
             label='Pesquise pelo nome, músicas e temas'

@@ -26,6 +26,7 @@ import {
   MPTriangleUpBlackIcon,
   MPSongListBlackIcon,
   MPFilledStarIcon,
+  MPHeartRedIcon
 } from '../../../assets/svg';
 
 const Icon = (props) => (
@@ -36,7 +37,7 @@ const Icon = (props) => (
       <MPStarIcon style={{width: 25, height: 25}} />
     )}
   </TouchableOpacity>
-)
+);
 
 const stars = new Array(5).fill();
 
@@ -81,13 +82,14 @@ class ModalPlayerComponent extends React.Component {
   renderPlayer() {
     const progress = Math.ceil(this.props.player.progress);
     const progressLabel = moment.utc(progress * 1000).format('m:ss');
-    const durationLabel = moment.utc((this.props.song && this.props.song.duration || 0) * 1000).format('m:ss');
+    const durationLabel = (this.props.song && this.props.song.duration) || '0:00';
+    const duration = moment(durationLabel, 'm:ss').diff(moment().startOf('day'), 'seconds');
 
     return (
       <View style={styles.playerContainer}>
         <Slider style={styles.playerSlider} thumbStyle={styles.playerThumb}
                 minimumTrackTintColor='#e13223' maximumTrackTintColor='#808080'
-                minimumValue={0} maximumValue={111} onValueChange={this.props.onSongSliderChange}
+                minimumValue={0} maximumValue={duration} onValueChange={this.props.onSongSliderChange}
                 value={progress}/>
 
         <View style={styles.modalPlayerMusicTextContainer}>
@@ -181,11 +183,11 @@ class ModalPlayerComponent extends React.Component {
 
           <TouchableOpacity style={[styles.playerHeart, styles.modalPlayerHeart]}
                             onPress={this.props.onSongSaveClick}>
-            <MPPlayerHeartIcon />
+            {song && song.is_favorited ? <MPHeartRedIcon style={{width: 22, height: 30}}/> : <MPPlayerHeartIcon />}
           </TouchableOpacity>
 
           <MPButton title="INDICAR" onPress={this.props.onSongIndicateClick} style={styles.playerIndicate} textStyle={styles.playerIndicateText}/>
-          <MPText style={[styles.totalIndications, styles.modalTotalIndications]}>{song ? song.indicationsCount : 0} indicações</MPText>
+          <MPText style={[styles.totalIndications, styles.modalTotalIndications]}>{song ? song.indications_count : 0} indicações</MPText>
 
         </View>
 

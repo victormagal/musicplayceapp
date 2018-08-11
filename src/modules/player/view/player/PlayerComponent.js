@@ -5,6 +5,7 @@ import {
   Text, View, StyleSheet, TouchableOpacity, FlatList, ScrollView, Image,
   TouchableWithoutFeedback, Modal
 } from 'react-native';
+import moment from 'moment';
 import {
   MPHeader, MPText, MPGradientButton, MPIconButton, MPCircleGradientButton,
   MPSongRating, MPGradientBorderButton, MPButton, MPPlayerComment, MPFade
@@ -71,7 +72,7 @@ class PlayerComponent extends React.Component {
     let date = songDate.split(" ")[0].split('-').reverse().join('/');
     let time = songDate.split(" ")[1].slice(0, 5);
     return `${date} às ${time}`;
-  }
+  };
 
   handleSaveSong = (song) => {
     if(song.is_favorited){
@@ -247,24 +248,6 @@ class PlayerComponent extends React.Component {
     );
   }
 
-  renderUserSongs = (songs) => {
-    if (songs && songs.length > 0){
-      songs.map((songList, index) => {
-        return (<View>
-          <View style={[styles.sectionHeader, styles.row]}>
-            <MPText style={styles.sectionTitle}>Outras de {this.props.userNames[index]}</MPText>
-            <MPGradientBorderButton />
-          </View>
-          <FlatList
-            data={this.state.data}
-            keyExtractor={(item) => item.id}
-            renderItem={this.renderItem}
-            horizontal={true}/>
-        </View>)
-      })
-    }
-  };
-
   renderMain() {
     let {song} = this.props;
     return (
@@ -350,37 +333,37 @@ class PlayerComponent extends React.Component {
             </View>
             <MPCircleGradientButton icon={MPBalloonTalkIcon}/>
           </View>
-          { this.props.usersSongs && this.props.usersSongs.length > 0 && (
-            this.props.usersSongs.map((songList, index) => {
-              return (
-              <View>
+          { this.props.userSongs && this.props.userSongs.length > 0 && (
+            this.props.userSongs.map((songList, index) =>
+              <View key={index}>
                 <View style={[styles.sectionHeader, styles.row]}>
-                  <MPText style={styles.sectionTitle}>Outras de {this.props.userNames[index]}</MPText>
-                  <MPGradientBorderButton />
+                  <MPText style={styles.sectionTitle}>Outras de {this.props.coAuthors[index].name}</MPText>
                 </View>
                 <FlatList
-                  data={songList}
+                  data={songList.data}
                   keyExtractor={(item) => item.id}
-                  renderItem={this.renderItem}
+                  renderItem={this.renderItem.bind(this, this.props.coAuthors[index])}
                   horizontal={true}/>
-              </View>)
-            })
+              </View>
+            )
           )}
         </ScrollView>
       </MPFade>
     );
   }
 
-  renderItem = ({item, index}) => {
+  renderItem = (artist, {item, index}) => {
     let style = null;
 
     if (index == 0) {
       style = styles.songCardFirst;
     }
 
+    item.artist = artist;
+
     return <MPSongRating key={index} style={style} song={item} indicateSong={true} imagePath={item.picture_url}
-                         onPress={() => {
-                         }}/>
+                         onIndicateClick={this.handleIndicateSong.bind(this, item)}
+                         onPlayClick={this.props.onPlayClick}/>
   };
 
   renderHeaderMenu() {
@@ -396,12 +379,15 @@ class PlayerComponent extends React.Component {
   renderDetailPlayer() {
     let {song} = this.props;
     const progress = Math.ceil(this.props.player.progress);
+    const duration = moment((this.props.song && this.props.song.duration) || '0:00', 'm:ss')
+                        .diff(moment().startOf('day'), 'seconds');
+
 
     return (
       <View style={styles.player}>
         <Slider style={styles.playerSlider} thumbStyle={styles.playerThumb}
                 minimumTrackTintColor='#e13223' maximumTrackTintColor='#808080'
-                minimumValue={0} maximumValue={111} onValueChange={this.props.onSongSliderChange}
+                minimumValue={0} maximumValue={duration} onValueChange={this.props.onSongSliderChange}
                 value={progress}/>
 
         <TouchableOpacity style={styles.playerContent}
@@ -418,7 +404,7 @@ class PlayerComponent extends React.Component {
           </View>
 
           <TouchableOpacity style={styles.playerHeart} onPress={this.handleSaveSong.bind(this,song)}>
-            <MPDetailHeartIcon />
+            {song && song.is_favorited ? <MPHeartRedIcon /> : <MPDetailHeartIcon />}
           </TouchableOpacity>
 
           <MPButton title="INDICAR" style={styles.playerIndicate} textStyle={styles.playerIndicateText}
@@ -631,13 +617,14 @@ const styles = StyleSheet.create({
     paddingLeft: 20
   },
   player: {
-    backgroundColor: '#fff',
+    backgroundColor: '#ffffff00',
     width: '100%',
-    height: 70
+    height: 80
   },
   playerContent: {
     flexDirection: 'row',
     paddingHorizontal: 20,
+    marginTop: 10,
     height: 70
   },
   playerIndicate: {

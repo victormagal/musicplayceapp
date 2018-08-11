@@ -165,6 +165,7 @@ export const fetchOneSong = (song) => {
 
     return SongService.getSong(song).then(response => {
       dispatch(fetchedSong(response));
+      return response;
     }).catch(e => {
       console.log('fetchOneSongError', e);
       dispatch(songFinishLoading());

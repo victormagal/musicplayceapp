@@ -65,7 +65,7 @@ export const getUsersSongs = (users) => {
   return (dispatch) => {
     dispatch(playerStartFetchUsersSongs());
 
-    return Promise.all(users.map(id => SongService.songsByUser(id))).
+    return Promise.all(users.map(id => SongService.songsByUserWithoutFolders(id))).
               then(usersArray => { dispatch(playerFetchUsersSongsSuccess(usersArray)) }).catch(e => {
       dispatch(playerFetchUsersSongsError(e));
     });

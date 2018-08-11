@@ -131,6 +131,15 @@ class SongService {
     })
   }
 
+  static songsByUserWithoutFolders(user) {
+    return axios.get(`${API}/song-artist/${user.id}`)
+      .then(response => {
+        let {data, meta} = response.data;
+        data =  transformResponseData(data);
+        return {data, pagination: meta.pagination};
+      });
+  }
+
   static songsByUser(user) {
     return axios.get(`${API}/song-artist/${user}?include=folders`)
       .then(response => {
