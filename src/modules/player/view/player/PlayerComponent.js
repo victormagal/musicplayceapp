@@ -292,7 +292,7 @@ class PlayerComponent extends React.Component {
 
               <View style={styles.row}>
                 <MPPlayIcon style={styles.musicPlayIcon}/>
-                <MPText style={styles.musicTitleText}>{ song ? song.name : 'Tocando em Frente'}</MPText>
+                <MPText style={styles.musicTitleText}>{ song && song.name ? song.name : 'Tocando em Frente'}</MPText>
               </View>
 
               <MPText style={styles.musicUploadDate}>{song ? this.handleSongDate(song.created_at) : '10/05/2018 às 13:49'}</MPText>
@@ -408,7 +408,7 @@ class PlayerComponent extends React.Component {
           </TouchableOpacity>
 
           <View style={styles.playerInfo}>
-            <MPText style={styles.playerSongName}>{song ? song.name : 'Tocando em Frente'}</MPText>
+            <MPText style={styles.playerSongName}>{song && song.name ? song.name : 'Tocando em Frente'}</MPText>
             <MPText style={styles.playerUserName}>{song ? this.renderComposers(song) : 'Almir Sater'}</MPText>
           </View>
 
