@@ -174,7 +174,8 @@ class NotificationScreenContainer extends React.Component {
       let notificationList = nextProps.userNotifications.data.map((notification, index)=>{
         obj = {id: index, type: notification.attributes.type, data: JSON.parse(notification.attributes.data), time: notification.attributes.time};
         return obj;
-      })
+      });
+      console.log(notificationList);
       this.setState({notifications: notificationList});
     }
   }
