@@ -12,7 +12,7 @@ class UserProfileScreenContainer extends React.Component {
   }
 
   handleFollowUp = () => {
-    this.props.dispatch(followUser(this.props.user.id))
+    this.props.dispatch(followUser(this.props.user.id));
   };
 
   render() {

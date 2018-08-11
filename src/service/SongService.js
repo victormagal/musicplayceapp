@@ -109,8 +109,11 @@ class SongService {
       }
     };
     return axios.post(`${API_SONG}/${songId}/favorite`, params)
-                .then(response => {console.log('response',response); return response.data})
-                .catch(e => console.log(e));
+                .then(response => response.data);
+  }
+
+  static unfavoriteSong(songId){
+    return axios.post(`${API_SONG}/${songId}/unfavorite`).then(response => response.data);
   }
 
   static getSong(song) {

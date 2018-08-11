@@ -9,6 +9,7 @@ MusicControl.enableControl('stop', false);
 class PlayerService{
 
   static play(song){
+    console.log(song);
     RNMusicPlayer.play({
       id: song.id || String(Math.random()),
       title: (song && song.name) ||  "Music 1",

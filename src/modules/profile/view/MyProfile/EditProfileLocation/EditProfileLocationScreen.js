@@ -5,6 +5,7 @@ import { EditProfileLocation } from './EditProfileLocationComponent';
 import { MPProfileSuccess } from '../../../../../components/index';
 
 class EditProfileLocationScreenContainer extends React.Component {
+
   componentWillReceiveProps(nextProps){
     if (nextProps.isUserSaved) {
       this.props.navigation.navigate('message', { component: MPProfileSuccess });
