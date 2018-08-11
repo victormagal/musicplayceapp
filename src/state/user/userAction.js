@@ -24,6 +24,7 @@ import {
   userReportSuccess,
   userReportError
 } from './userTypes';
+import { transformResponseData } from '../../service/api';
 
 
 export const searchUsers = (name) => {
@@ -96,7 +97,7 @@ export const followUser = (id) => {
     return UserService.followUser(id).then(_ => {
       dispatch(userFollowSuccess());
     }).catch(e => {
-      console.log('userFollowError', e.response);
+      console.log('userFollowError', e);
       dispatch(userFollowError());
     });
   };
@@ -109,7 +110,7 @@ export const stopFollowUser = (id) => {
     return UserService.stopFollowUser(id).then(() => {
       dispatch(userStopFollowSuccess());
     }).catch(e => {
-      console.log('stopFollowUserError', e.response);
+      console.log('stopFollowUserError', e);
       dispatch(userFollowError());
     });
   };
