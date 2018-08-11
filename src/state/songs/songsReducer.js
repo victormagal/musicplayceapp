@@ -107,10 +107,13 @@ const songsReducer = (state, action) => {
       };
 
     case SONG_REMOVE_SUCCESS:
+      let songs = {...state.mySongs};
+      songs.data.splice(songs.data.indexOf(action.payload.id), 1);
       return {
         ...state,
         loading: false,
-        songRemoveSuccess: true
+        songRemoveSuccess: true,
+        mySongs: songs
       };
 
     case SONG_REMOVE_ERROR:

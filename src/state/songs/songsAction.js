@@ -86,7 +86,7 @@ export const removeSong = (id) => {
     dispatch(songStartLoading());
 
     return SongService.delete(id).then(() => {
-      dispatch(songRemoveSuccess());
+      dispatch(songRemoveSuccess(id));
     }).catch((e) => {
       console.log('removeSongError', e.response);
       dispatch(songRemoveError())
