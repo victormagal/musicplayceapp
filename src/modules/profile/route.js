@@ -5,9 +5,10 @@ import {
   EditProfileDescriptionScreen,
   EditFolderScreen,
   EditProfileSitesScreen,
-  EditProfileLocationScreen
+  EditProfileLocationScreen,
 } from './view';
-import { SettingsNavigation } from '../settings';
+import {PlayerScreen, PlayerSaveSongScreen} from '../player/view'
+import { SettingsNavigation, } from '../settings';
 import { SongsScreens } from '../registerSongs';
 
 export const ProfileScreensNavigation = createStackNavigator(
@@ -19,7 +20,9 @@ export const ProfileScreensNavigation = createStackNavigator(
     EditProfileLocation: EditProfileLocationScreen,
     EditFolder: EditFolderScreen,
     settings: SettingsNavigation,
-    ...SongsScreens
+    ...SongsScreens,
+    player: PlayerScreen,
+    playerSaveSong: PlayerSaveSongScreen
   },
   {
     initialRouteName: 'MyProfileScreen',
