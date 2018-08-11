@@ -78,7 +78,7 @@ class PlayerComponent extends React.Component {
   };
 
   renderComposers = (song) => {
-    let composerString = song.artist.name;
+    let composerString = song.artist ? song.artist.name : '';
 
     if(song.coAuthors && song.coAuthors.length > 0){
       let composerTempString = '';
@@ -387,7 +387,6 @@ class PlayerComponent extends React.Component {
 
   renderDetailPlayer() {
     let {song} = this.props;
-    console.log(song);
     const progress = Math.ceil(this.props.player.progress);
 
     console.log(progress);

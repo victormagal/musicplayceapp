@@ -51,7 +51,7 @@ class ModalPlayerComponent extends React.Component {
   };
 
   renderComposers = (song) => {
-    let composerString = song.artist.name;
+    let composerString = song.artist ? song.artist.name : '';
 
     if(song.coAuthors && song.coAuthors.length > 0){
       let composerTempString = '';
