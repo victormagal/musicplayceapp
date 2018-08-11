@@ -14,7 +14,9 @@ class MPNotificationListComponent extends React.Component {
     let notificationType = item.type.split("\\")[item.type.split("\\").length - 1];
     let types = [
       'AlertIndicationYourSongNotification',
-      'AlertFaqNotification'
+      'AlertFaqNotification',
+      'AlertFollowingMeNotification',
+      'AlertIndicationMeNotification'
     ]
     return (
         <View style={styles.item}>
@@ -37,6 +39,21 @@ class MPNotificationListComponent extends React.Component {
               </MPText>
             )
           }
+          {
+            notificationType == types[2] && (
+              <MPText style={styles.notificationText}>
+                <MPText style={styles.notificationTextEmpth}>{item.data.users.name}</MPText> começou a te seguir.
+              </MPText>
+            )
+          }
+          {/* {
+            notificationType == types[3] && (
+              <MPText style={styles.notificationText}>
+                <MPText style={styles.notificationTextEmpth}>{item.data.users.name}</MPText> te indicou para música
+                <MPText style={styles.notificationTextEmpth}> {item.data.song.name}</MPText>
+              </MPText>
+            )
+          } */}
           <View style={styles.boxFoward}>
             <MPText style={styles.textTime}>
               {item.time}

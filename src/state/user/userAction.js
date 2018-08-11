@@ -74,7 +74,7 @@ export const getUserById = (id) => {
       // dispatch(userSongs(id));
       // dispatch(userFinishLoading());
     }).catch(e => {
-      console.log('getUserByIdError', e.response);
+      console.log('getUserByIdError', e);
       dispatch(userFinishLoading());
     });
   };
