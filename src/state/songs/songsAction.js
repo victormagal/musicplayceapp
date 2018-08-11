@@ -42,7 +42,7 @@ export const createPermanentSong = (song, songFile, imageFile) => {
 export const createDraftSong = (song) => {
   return (dispatch, getState) => {
     const {profile} = getState().profileReducer;
-    song.user_id = profile.id;
+    song.artist_id = profile.id;
 
     dispatch(songStartLoading());
     return SongService.create(song).then(() => {

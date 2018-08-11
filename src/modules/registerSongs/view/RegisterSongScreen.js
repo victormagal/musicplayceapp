@@ -81,7 +81,8 @@ class RegisterSongContainer extends React.Component {
   handleFinishLaterClick = () => {
     const isValid = this.validate();
     if (isValid) {
-      this.goToScreen('SaveDraftScreen');
+      let {song} = this.props;
+      this.goToScreen('SaveDraftScreen', {song});
     }
   };
 
