@@ -1,6 +1,5 @@
 import {
   FETCHED_PROFILE,
-  FETCHED_MY_FOLLOWERS,
   FETCHED_MY_INDICATIONS,
   PROFILE_START_LOADING,
   PROFILE_FINISH_LOADING,
@@ -9,11 +8,16 @@ import {
   PROFILE_CREATE_USER_ERROR,
   SAVE_PROFILE_ERROR,
   UPDATE_PROFILE_DATA,
-  PROFILE_IMAGE_UPLOADED
+  PROFILE_IMAGE_UPLOADED,
+  PROFILE_FOLLOWERS_FETCHED,
+  PROFILE_FOLLOWING_FETCHED
 } from './profileAction';
 import {
   AUTH_LOGOUT
 } from '../auth/authAction';
+import {
+  USER_FOLLOW_SUCCESS, USER_STOP_FOLLOW_SUCCESS
+} from '../user/userTypes';
 
 
 const profileReducer = (state, action) => {
@@ -26,10 +30,35 @@ const profileReducer = (state, action) => {
     loading: false,
     profile: null,
     followers: null,
+    following: null,
     indications: null
   };
 
   switch (action.type) {
+    case USER_FOLLOW_SUCCESS:
+      if(state.following){
+        state.following.push(action.payload);
+        return {
+          ...state
+        };
+      }
+      break;
+
+      //TODO: update following list when user stops following
+    // case USER_STOP_FOLLOW_SUCCESS:
+    //   if(state.profile) {
+    //     user = {...state.user, isFollowing: false, followerCount: state.user.followerCount - 1};
+    //   }
+    //   state.userFollowers.splice(state.userFollowers.indexOf(state.userFollowers.find(i => i.id === user.id)), 1);
+    //
+    //   if(state.following){
+    //     state.following.push(action.payload);
+    //     return {
+    //       ...state
+    //     };
+    //   }
+    //   break;
+
     case FETCHED_PROFILE:
       return {
         ...state,
@@ -79,12 +108,6 @@ const profileReducer = (state, action) => {
         createUserError: true
       };
 
-    case FETCHED_MY_FOLLOWERS:
-      return {
-        ...state,
-        followers: action.payload
-      };
-
     case FETCHED_MY_INDICATIONS:
       return {
         ...state,
@@ -103,6 +126,18 @@ const profileReducer = (state, action) => {
         ...state,
         profile: {...action.payload}
       };
+
+    case PROFILE_FOLLOWERS_FETCHED:
+      return {
+        ...state,
+        followers: action.payload
+      };
+
+    case PROFILE_FOLLOWING_FETCHED:
+      return {
+        ...state,
+        following: action.payload
+      }
 }
   return state;
 };

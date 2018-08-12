@@ -339,7 +339,7 @@ class PlayerComponent extends React.Component {
             this.props.userSongs.map((songList, index) =>
               <View key={index}>
                 <View style={[styles.sectionHeader, styles.row]}>
-                  <MPText style={styles.sectionTitle}>Outras de {hasAuthors && this.props.coAuthors[index] && this.props.coAuthors[index].name}</MPText>
+                  <MPText style={styles.sectionTitle}>Outras de {this.props.coAuthors[index] && this.props.coAuthors[index].name}</MPText>
                 </View>
                 <FlatList
                   data={songList.data}
@@ -385,7 +385,7 @@ class PlayerComponent extends React.Component {
   renderDetailPlayer() {
     let {song} = this.props;
     const progress = Math.ceil(this.props.player.progress);
-    const duration = moment((this.props.song && this.props.song.duration) || '0:00', 'm:ss')
+    const duration = moment((this.props.song && this.props.song.duration) || '00:00:00', 'hh:mm:ss')
                         .diff(moment().startOf('day'), 'seconds');
 
     return (

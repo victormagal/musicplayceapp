@@ -39,7 +39,7 @@ export const createPermanentSong = (song, songFile, imageFile) => {
       console.log(e.response);
     });
   };
-}
+};
 
 export const createDraftSong = (song) => {
   return (dispatch, getState) => {

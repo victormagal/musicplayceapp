@@ -8,7 +8,7 @@ import { MPLessArtistIcon, MPPlusArtistIcon, MPPlusArtistAvatarIcon} from '../..
 class MPUser extends Component {
 
   render() {
-    const {user, style, isFollowing, onPress} = this.props;
+    const {user, style, onPress} = this.props;
     const image = user.picture_url ? { uri: user.picture_url } : require('../../assets/img/avatar-male.jpg');
     return (
       <TouchableOpacity style={style || {}} onPress={onPress}>
@@ -17,7 +17,7 @@ class MPUser extends Component {
             <View style={ styles.simpleUserCardImage }>
               <Image source={image} style={styles.image}/>
             </View>
-            { isFollowing  ?
+            { user.isFollowing  ?
               <View style={{position: 'absolute'}}>
                 <MPLessArtistIcon style={styles.iconUser}/>
                 <MPPlusArtistAvatarIcon style={styles.iconUserAvatar}/>

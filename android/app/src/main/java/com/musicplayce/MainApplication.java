@@ -3,13 +3,13 @@ package com.musicplayce;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
-import com.tanguyantoine.react.MusicControl;
-import com.imagepicker.ImagePickerPackage;
-import com.reactlibrary.RNMusicPlayerPackage;
-import com.reactnativedocumentpicker.ReactNativeDocumentPicker;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.horcrux.svg.SvgPackage;
+import com.reactlibrary.RNMusicPlayerPackage;
+import com.tanguyantoine.react.MusicControl;
 import com.BV.LinearGradient.LinearGradientPackage;
+import com.imagepicker.ImagePickerPackage;
+import com.reactnativedocumentpicker.ReactNativeDocumentPicker;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
@@ -30,13 +30,13 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-            new MusicControl(),
-            new ImagePickerPackage(),
-            new RNMusicPlayerPackage(),
-            new ReactNativeDocumentPicker(),
             new VectorIconsPackage(),
             new SvgPackage(),
-            new LinearGradientPackage()
+            new RNMusicPlayerPackage(),
+            new MusicControl(),
+            new LinearGradientPackage(),
+            new ImagePickerPackage(),
+            new ReactNativeDocumentPicker()
       );
     }
 

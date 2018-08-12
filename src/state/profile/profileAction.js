@@ -1,11 +1,9 @@
 import {createAction} from 'redux-actions';
 import {UserService, SongService} from '../../service';
-import { userFollowersFetched, userFollowingsFetched } from '../user/userTypes';
 import { fetchedUserSongs } from '../songs/songsType';
 
 export const FETCHED_PROFILE = 'FETCHED_PROFILE';
 export const FETCHED_MY_INDICATIONS = 'FETCHED_MY_INDICATIONS';
-export const FETCHED_MY_FOLLOWERS = 'FETCHED_MY_FOLLOWERS';
 export const SAVE_PROFILE_SUCCESS = 'SAVE_PROFILE_SUCCESS';
 export const SAVE_PROFILE_ERROR = 'SAVE_PROFILE_ERROR';
 export const PROFILE_START_LOADING = 'PROFILE_START_LOADING';
@@ -14,12 +12,15 @@ export const PROFILE_CREATE_USER_SUCCESS = 'PROFILE_CREATE_USER_SUCCESS';
 export const PROFILE_CREATE_USER_ERROR = 'PROFILE_CREATE_USER_ERROR';
 export const UPDATE_PROFILE_DATA = 'UPDATE_PROFILE_DATA';
 export const PROFILE_IMAGE_UPLOADED = 'PROFILE_IMAGE_UPLOADED';
+export const PROFILE_FOLLOWERS_FETCHED = 'PROFILE_FOLLOWERS_FETCHED';
+export const PROFILE_FOLLOWING_FETCHED = 'PROFILE_FOLLOWING_FETCHED';
 
 export const profileStartLoading = createAction(PROFILE_START_LOADING);
 export const profileFinishLoading = createAction(PROFILE_FINISH_LOADING);
-export const fetchedProfile = createAction(FETCHED_PROFILE, (data) => data);
+export const fetchedProfile= createAction(FETCHED_PROFILE, (data) => data);
+export const fetchedProfileFollowers = createAction(PROFILE_FOLLOWERS_FETCHED, (data) => data);
+export const fetchedProfileFollowing = createAction(PROFILE_FOLLOWING_FETCHED, (data) => data);
 export const fetchedMyIndications = createAction(FETCHED_MY_INDICATIONS, (data) => data);
-export const fetchedMyFollowers = createAction(FETCHED_MY_FOLLOWERS, (data) => data);
 export const saveProfileSucessfully = createAction(SAVE_PROFILE_SUCCESS, (data) => {
   return {...data};
 });
@@ -59,15 +60,16 @@ export const uploadImage = (picture) => {
 }
 
 export const fetchProfile = () => {
-  return (dispatch, getState) => {
+  return (dispatch) => {
     dispatch(profileStartLoading());
     dispatch(fetchMyIndications());
 
     return UserService.me()
-      .then(response => dispatch(fetchedProfile((response)))).then(_ => {
-        UserService.getUserFollowers(getState().profileReducer.profile.id).then(response => dispatch(userFollowersFetched(response)));
-        UserService.getUserFollowings(getState().profileReducer.profile.id).then(response => dispatch(userFollowingsFetched(response)));
-        SongService.songsByUser(getState().profileReducer.profile.id).then(response => dispatch(fetchedUserSongs(response)));
+      .then(response =>{
+        dispatch(fetchedProfile((response)));
+        UserService.getUserFollowers(response.id).then(responseFollowers => dispatch(fetchedProfileFollowers(responseFollowers)));
+        UserService.getUserFollowings(response.id).then(responseFollowings => dispatch(fetchedProfileFollowing(responseFollowings)));
+        SongService.songsByUser(response.id).then(songs => dispatch(fetchedUserSongs(songs)));
       })
       .catch((e) => {
         console.log('fetchProfileError', e);
@@ -81,18 +83,6 @@ export const fetchMyIndications = () => {
     return UserService.indications()
       .then(response => {
         dispatch(fetchedMyIndications(response))
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  };
-};
-
-export const fetchMyFollowers = () => {
-  return (dispatch) => {
-    return UserService.followers()
-      .then(response => {
-        dispatch(fetchedMyFollowers(response.followers))
       })
       .catch((e) => {
         console.log(e);

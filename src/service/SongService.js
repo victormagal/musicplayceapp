@@ -201,7 +201,7 @@ class SongService {
     return SongService.create(song).then(response => {
       return SongService.uploadImage(response.id, imageFile).then(() => {
         return SongService.sendSongFile(songFile, response).then(() => {
-          return SongService.publish(response.id);
+          return SongService.publish(response.id).then(_ => response);
         });
       });
     });

@@ -19,7 +19,7 @@ class MPFolderContainer extends Component {
     let borderStyle = {};
     let iconStyle = {};
 
-    if(selected) {
+    if (selected) {
       borderStyle = {
         borderColor: "#e13223",
         borderWidth: 1
@@ -32,23 +32,22 @@ class MPFolderContainer extends Component {
     }
 
     return (
-      <TouchableOpacity style={styles.paddingShadow} onPress={this.handlePress}>
-
-        <Card containerStyle={[styles.container, borderStyle]}>
-          <View style={[styles.chooseFolderCardContainer] }>
-            <View style={ styles.chooseFolderImage }>
-              <MPFolderIcon />
+      <View style={styles.paddingShadow}>
+        <TouchableOpacity style={styles.paddingShadow} onPress={this.handlePress}>
+          <Card containerStyle={[styles.container, borderStyle]}>
+            <View style={[styles.chooseFolderCardContainer] }>
+              <View style={ styles.chooseFolderImage }>
+                <MPFolderIcon />
+              </View>
+              <View>
+                <MPText style={ styles.chooseFolderText}>{ folderName }</MPText>
+                <MPText style={ styles.chooseFolderSubText}>{ musicAmount } músicas</MPText>
+              </View>
             </View>
-            <View>
-              <MPText style={ styles.chooseFolderText}>{ folderName }</MPText>
-              <MPText style={ styles.chooseFolderSubText}>{ musicAmount } músicas</MPText>
-            </View>
-          </View>
-        </Card>
-        { selected &&
-        <MPValidatedFilledRedIcon style={iconStyle}/>
-        }
-      </TouchableOpacity>
+          </Card>
+        </TouchableOpacity>
+        { selected && <MPValidatedFilledRedIcon style={iconStyle}/> }
+      </View>
     );
   }
 }
@@ -61,7 +60,7 @@ MPFolderContainer.propTypes = {
 };
 
 const styles = StyleSheet.create({
-  paddingShadow:{
+  paddingShadow: {
     padding: 10
   },
   container: {

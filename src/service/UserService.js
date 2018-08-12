@@ -111,26 +111,16 @@ class UserService {
   }
 
   static getUserFollowings(user){
-    return axios.get(`${API_USER}/${user}?include=userFollowing`)
+    return axios.get(`${API_USER}/${user}?include=userFollower`)
       .then(response => {
-        let data = transformResponseData(response.data.included);
-        return data;
+        return transformResponseData(response.data.included || []);
       });
   }
 
   static getUserFollowers(user){
-    return axios.get(`${API_USER}/${user}?include=userFollower`)
+    return axios.get(`${API_USER}/${user}?include=userFollowing`)
       .then(response => {
-        let data = transformResponseData(response.data.included);
-        return data;
-      });
-  }
-
-  static followers(){
-    return axios.get(`${API_USER}/me/followers`)
-      .then(response => {
-        const { attributes } = response.data.data;
-        return { ...attributes };
+        return transformResponseData(response.data.included || []);
       });
   }
 

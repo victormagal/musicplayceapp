@@ -37,7 +37,7 @@ export const songDraftSuccess = createAction(SONG_DRAFT_SUCCESS);
 export const songDraftError = createAction(SONG_DRAFT_ERROR);
 export const songRemoveSuccess = createAction(SONG_REMOVE_SUCCESS, id => id);
 export const songRemoveError = createAction(SONG_REMOVE_ERROR);
-export const songPublishSuccess = createAction(SONG_PUBLISH_SUCCESS);
+export const songPublishSuccess = createAction(SONG_PUBLISH_SUCCESS, data => data);
 export const songPublishError = createAction(SONG_PUBLISH_ERROR);
 export const songUnpublishSuccess = createAction(SONG_UNPUBLISH_SUCCESS);
 export const songUnpublishError = createAction(SONG_UNPUBLISH_ERROR);

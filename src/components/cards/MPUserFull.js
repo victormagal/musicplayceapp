@@ -2,8 +2,21 @@ import React, {Component} from 'react';
 import {Image, View, StyleSheet, Text, TouchableOpacity} from 'react-native';
 import {Card} from 'react-native-elements';
 import PropTypes from 'prop-types';
-import {MPSongListIcon, MPPlayIcon, MPStarIcon} from '../../assets/svg';
+import {MPSongListIcon, MPPlayIcon, MPStarIcon, MPFilledStarIcon} from '../../assets/svg';
 import {MPText} from '../../components';
+
+
+const StarIcon = (props) => (
+  <TouchableOpacity onPress={props.onPress}>
+    {props.filled ? (
+        <MPFilledStarIcon />
+      ):(
+        <MPStarIcon />
+      )}
+  </TouchableOpacity>
+);
+const stars = new Array(5).fill();
+
 
 class MPUserFull extends Component {
 
@@ -27,11 +40,9 @@ class MPUserFull extends Component {
                 <MPText style={styles.simpleUserCardText}>{songName}</MPText>
               </TouchableOpacity>
               <View style={styles.starsContainer}>
-                <MPStarIcon style={styles.marginEnd}/>
-                <MPStarIcon style={styles.marginEnd}/>
-                <MPStarIcon style={styles.marginEnd}/>
-                <MPStarIcon style={styles.marginEnd}/>
-                <MPStarIcon style={styles.marginEnd}/>
+                {song && stars.map((_, i) =>
+                  <StarIcon key={i} style={styles.marginEnd} filled={i < song.rating }/>
+                )}
               </View>
               <TouchableOpacity style={styles.userContent} onPress={onPressUser}>
                 <View style={ styles.roundImage }>

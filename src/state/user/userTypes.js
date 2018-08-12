@@ -31,7 +31,7 @@ export const userFinishLoading = createAction(USER_FINISH_LOADING);
 export const userSaveSuccess = createAction(USER_SAVE_SUCCESS);
 export const userSaveError = createAction(USER_SAVE_ERROR);
 export const userStopFollowSuccess = createAction(USER_STOP_FOLLOW_SUCCESS);
-export const userFollowSuccess = createAction(USER_FOLLOW_SUCCESS);
+export const userFollowSuccess = createAction(USER_FOLLOW_SUCCESS, data => data);
 export const userFollowError = createAction(USER_FOLLOW_ERROR);
 export const userSongsFetched = createAction(USER_SONGS_FETCHED, (data) => data);
 export const userNotificationsStartLoading = createAction(USER_NOTIFICATIONS_START_LOADING);

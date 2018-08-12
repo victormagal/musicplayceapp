@@ -44,7 +44,7 @@ class FolderScreenContainer extends React.Component {
       let folder = {
         'name': this.state.folderName.value,
         'type': 'userSongs',
-      }
+      };
       this.props.dispatch(createFolder(folder));
     }
   };

@@ -90,12 +90,12 @@ export const userSongs = (id) => {
   };
 };
 
-export const followUser = (id) => {
+export const followUser = (user) => {
   return (dispatch) => {
     dispatch(userStartLoading());
 
-    return UserService.followUser(id).then(_ => {
-      dispatch(userFollowSuccess());
+    return UserService.followUser(user.id).then(_ => {
+      dispatch(userFollowSuccess(user));
     }).catch(e => {
       dispatch(userFollowError());
     });

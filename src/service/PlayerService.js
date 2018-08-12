@@ -53,7 +53,8 @@ class PlayerService{
   }
 
   static stop(){
-    RNMusicPlayer.stop();
+    //TODO: implement on IOS
+    RNMusicPlayer.stop && RNMusicPlayer.stop();
     MusicControl.stopControl();
   }
 }

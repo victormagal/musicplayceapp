@@ -84,7 +84,11 @@ const userReducer = (state, action) => {
       };
 
     case USER_FOLLOW_SUCCESS:
-      user = {...state.user, isFollowing: true};
+      if(state.user) {
+        user = {...state.user, isFollowing: true, followingCount: state.user.followingCount + 1};
+      }
+      state.userFollowings.push(action.payload);
+
       return {
         ...state,
         user,
@@ -92,7 +96,11 @@ const userReducer = (state, action) => {
       };
 
     case USER_STOP_FOLLOW_SUCCESS:
-      user = {...state.user, isFollowing: false};
+      if(state.user) {
+        user = {...state.user, isFollowing: false, followerCount: state.user.followerCount - 1};
+      }
+      state.userFollowers.splice(state.userFollowers.indexOf(state.userFollowers.find(i => i.id === user.id)), 1);
+
       return {
         ...state,
         user,

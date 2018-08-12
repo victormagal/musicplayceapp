@@ -51,9 +51,9 @@ class MPSongRating extends Component {
   };
 
   renderTopIcons() {
-    let {me} = this.props;
+    let {me, hideSettings} = this.props;
 
-    if (me) {
+    if (me && !hideSettings) {
       return (
         <TouchableOpacity style={styles.menuIcon} onPress={this.toggleState}>
           <MPSongMenuIcon/>
@@ -74,8 +74,7 @@ class MPSongRating extends Component {
       style,
       indicateSong,
       indications,
-      isNew,
-      rating
+      isNew
     } = this.props;
 
     return (
@@ -103,7 +102,7 @@ class MPSongRating extends Component {
                 <View>
                   <MPText style={ styles.simpleUserCardText }
                           onPress={this.toggleState.bind(this)}>{ song && song.name || '' }</MPText>
-                  <MPShowRating rating={rating}/>
+                  <MPShowRating rating={song.rating}/>
                 </View>
                 {
                   indicateSong && indications == null && isNew == null && (

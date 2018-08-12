@@ -12,18 +12,22 @@ class UserProfileScreenContainer extends React.Component {
   }
 
   handleFollowUp = () => {
-    this.props.dispatch(followUser(this.props.user.id));
+    this.props.dispatch(followUser(this.props.user));
+  };
+
+  handleFollowerFollowingClick = (user) => {
+    this.props.dispatch(getUserById(user.id));
   };
 
   render() {
-    const { navigation, user } = this.props;
+    const { user } = this.props;
     return (
       <ProfileComponent
        {...this.props}
-        navigation={navigation}
         profile={this.props.user}
         followingUser={user ? user.isFollowing : false}
         onFollowUpClick={this.handleFollowUp}
+        onFollowerFollowingClick={this.handleFollowerFollowingClick}
         mySongs={this.props.usersSongs}/>
     );
   }

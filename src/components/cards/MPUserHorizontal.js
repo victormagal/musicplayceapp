@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {View, StyleSheet, Text, TouchableOpacity, Image} from 'react-native';
-import { Card } from 'react-native-elements';
+import {Card} from 'react-native-elements';
 import PropTypes from 'prop-types';
 import {MPText} from '../general';
 import {MPValidatedFilledRedIcon} from '../../assets/svg';
@@ -21,20 +21,23 @@ class MPUserHorizontal extends Component {
       iconStyle = {
         position: 'absolute',
         top: 4,
-        right: 5
+        right: 5,
+        zIndex: 9999999
       };
     }
 
     return (
-      <TouchableOpacity style={[styles.paddingShadow, style || {}]} onPress={ onPress }>
-        <Card containerStyle={[styles.stretchedUserCardContainer, borderStyle]}>
-          <View style={styles.content}>
-            <Image style={styles.stretchedUserImage} source={image ? {uri: image} : null}/>
-            <MPText style={ styles.stretchedUserText}>{ user }</MPText>
-          </View>
-        </Card>
+      <View style={[styles.paddingShadow, style || {}]}>
+        <TouchableOpacity onPress={ onPress }>
+          <Card containerStyle={[styles.stretchedUserCardContainer, borderStyle]}>
+            <View style={styles.content}>
+              <Image style={styles.stretchedUserImage} source={image ? {uri: image} : null}/>
+              <MPText style={ styles.stretchedUserText}>{ user }</MPText>
+            </View>
+          </Card>
+        </TouchableOpacity>
         {selected && <MPValidatedFilledRedIcon style={iconStyle}/>}
-      </TouchableOpacity>
+      </View>
     );
   }
 }
@@ -59,8 +62,7 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     margin: 0,
     padding: 0,
-    height: 60,
-    overflow: 'hidden'
+    height: 60
   },
   stretchedUserImage: {
     width: 58,

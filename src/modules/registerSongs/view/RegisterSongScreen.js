@@ -4,7 +4,7 @@ import {DocumentPicker, DocumentPickerUtil} from 'react-native-document-picker';
 import {StyleSheet, View, ScrollView, TouchableOpacity} from 'react-native';
 import {MPGradientButton, MPHeader, MPSongInfo, MPText, MPLoading} from '../../../components'
 import {MPSongUploadIcon, MPSongUploadEditIcon, MPCameraIcon} from '../../../assets/svg';
-import {createPermanentSong, updatePermanentSong, fetchOneSong} from "../../../state/action";
+import {createPermanentSong, updatePermanentSong, fetchOneSong, fetchProfile} from "../../../state/action";
 import {updateSongRegisterData} from "../../../state/songs/songsType";
 import ImagePicker from "react-native-image-picker";
 
@@ -23,8 +23,7 @@ class RegisterSongContainer extends React.Component {
       cardErrors: {
         name: false,
         lyrics: false,
-        tags: false,
-        coAuthors: false
+        tags: false
       },
       draftErrors: {
         name: false,
@@ -56,6 +55,7 @@ class RegisterSongContainer extends React.Component {
 
     if (nextProps.songPublishSuccess) {
       this.goToScreen('ConfirmationScreen');
+      this.props.dispatch(fetchProfile());
     }
 
     if(nextProps.fetchedSong && this.state.shouldFetchSong){
@@ -75,7 +75,7 @@ class RegisterSongContainer extends React.Component {
   handlePublishClick = () => {
     const { songFile, imageFile, cardErrors } = this.state;
     let {song, dispatch} = this.props;
-    let songError = songFile !== null && !song.path;
+    let songError = songFile === null && !song.path;
 
     let valid = this.validate(cardErrors, () => {
       if(songError){
@@ -83,7 +83,7 @@ class RegisterSongContainer extends React.Component {
       }
     });
 
-    if (valid && (songFile !== null || !song.path)) {
+    if (valid && !songError) {
       song.created_at
         ? dispatch(updatePermanentSong(song, songFile, imageFile))
         : dispatch(createPermanentSong(song, songFile, imageFile));
@@ -215,7 +215,7 @@ class RegisterSongContainer extends React.Component {
                 />
 
                 {!songFile && !song.path && (
-                  <MPText style={styles.subText}>
+                  <MPText style={[styles.subText, errors.songFile ? {color : '#e13223'} : null]}>
                     Você pode fazer upload de músicas em MP3 ou AAC.
                   </MPText>
                 )}

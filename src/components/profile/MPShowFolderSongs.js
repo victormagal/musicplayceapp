@@ -11,7 +11,7 @@ class MPShowFolderSongs extends Component {
   };
 
   renderSongs = ({item}) => {
-    let {me} = this.props;
+    let {me, hideSettings} = this.props;
 
     if(item.type && item.type === 'draft'){
       return (
@@ -21,6 +21,7 @@ class MPShowFolderSongs extends Component {
 
     return (
       <MPSongRating song={item}  indicateSong={true} isAdded={true}
+                    hideSettings={hideSettings}
                     me={me} onExclude={this.props.onRemoveClick}
                     onUnpublish={this.props.onUnpublishClick}
                     onIndicateClick={this.handleIndicateSong.bind(this, item)}

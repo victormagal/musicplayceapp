@@ -82,8 +82,8 @@ class ModalPlayerComponent extends React.Component {
   renderPlayer() {
     const progress = Math.ceil(this.props.player.progress);
     const progressLabel = moment.utc(progress * 1000).format('m:ss');
-    const durationLabel = (this.props.song && this.props.song.duration) || '0:00';
-    const duration = moment(durationLabel, 'm:ss').diff(moment().startOf('day'), 'seconds');
+    const durationLabel = (this.props.song && this.props.song.duration) || '00:00:00';
+    const duration = moment(durationLabel, 'hh:mm:ss').diff(moment().startOf('day'), 'seconds');
 
     return (
       <View style={styles.playerContainer}>

@@ -18,22 +18,21 @@ class MPShowFollowers extends Component {
   };
 
   changeTabIndex = (tabIndex) => {
-    const { following, followers } = this.props;
     this.setState({ tabIndex });
-    const hasToScroll = tabIndex === 0 ? following.length > 0 : followers.length > 0;
 
-    if (hasToScroll) {
-      //TODO: REVIEW, error in IOS
+    //TODO: REVIEW, error in IOS
+    // const { following, followers } = this.props;
+    // const hasToScroll = tabIndex === 0 ? following.length > 0 : followers.length > 0;
+    // if (hasToScroll) {
       //this.flatList.scrollToIndex({ index: 0 });
-    }
+    // }
   };
 
   renderUsers = ({ item }) => (
     <MPUser
       key={item.id}
       user={item}
-      onPress={() => this.props.navigation.navigate('UserProfileScreen', { userId: item.id })}
-      isFollowing={this.state.tabIndex === 0}
+      onPress={() => this.props.onFollowerFollowingClick(item)}
     />
   );
 

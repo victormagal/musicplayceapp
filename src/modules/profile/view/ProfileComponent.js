@@ -186,7 +186,7 @@ class ProfileComponent extends React.Component {
   }
 
   renderContent(profile) {
-    const { me, navigation } = this.props;
+    const { me } = this.props;
 
     if (!profile) {
       return (
@@ -218,16 +218,11 @@ class ProfileComponent extends React.Component {
           </LinearGradient>
         </ImageBackground>
         { this.renderSongsData(profile) }
-        {
-          this.props.userFollowers && this.props.userFollowers.length > 0 
-          && this.props.userFollowings && this.props.userFollowings.length > 0 &&(
-            <MPShowFollowers
-              navigation={navigation}
-              following={this.props.userFollowings}
-              followers={this.props.userFollowers}
-            />
-          )
-        }
+        <MPShowFollowers
+          following={this.props.userFollowings}
+          followers={this.props.userFollowers}
+          onFollowerFollowingClick={this.props.onFollowerFollowingClick}
+        />
         { me ?
           <View style={{ backgroundColor: '#FFF', height: 90 }} />
           :
@@ -354,6 +349,7 @@ class ProfileComponent extends React.Component {
                 folderName={favoriteFolder.name}
                 edit={me && favoriteFolder.editable}
                 me={me}
+                hideSettings={true}
                 songs={favoriteFolder.songs}
                 onEditClick={this.handleEditSong}
                 onEditFolder={this.handleEditFolder.bind(this, favoriteFolder.id)}
