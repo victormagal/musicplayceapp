@@ -35,7 +35,7 @@ class MPShowFolderSongs extends Component {
     let folderSongs = [].concat(songs);
 
     if(songDraft){
-      folderSongs.push({type: 'draft', id: Math.random()});
+     // folderSongs.push({type: 'draft', id: Math.random()});
     }
 
     return (

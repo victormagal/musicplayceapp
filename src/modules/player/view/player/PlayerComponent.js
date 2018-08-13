@@ -378,7 +378,7 @@ class PlayerComponent extends React.Component {
       <MPIconButton key={1} title={song && song.comments ? song.comments.length : null} titleStyle={styles.headerMenuText} icon={MPCommentWhiteIcon}
                     style={styles.headerMenuItem}
                     onPress={this.handleToggleComments.bind(this, true)}/>,
-      <MPIconButton  key={2} title="600" titleStyle={styles.headerMenuText} icon={MPShareWhiteIcon}/>
+      <MPIconButton  key={2} titleStyle={styles.headerMenuText} icon={MPShareWhiteIcon}/>
     ];
   }
 

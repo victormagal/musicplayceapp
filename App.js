@@ -30,7 +30,6 @@ const { RNMusicPlayer } = NativeModules;
 const RNMusicPlayerEmitter = new NativeEventEmitter(RNMusicPlayer);
 
 const store = createStore(reducers, applyMiddleware(thunkMiddleware));
-checkConnection(store);
 
 const HomeTabBottomNavigation = createBottomTabNavigator({
   feed: {
@@ -74,10 +73,10 @@ export default class App extends React.Component {
 
   componentWillMount() {
     store.dispatch(loadFont(true));
+    NetInfo.isConnected.addEventListener('connectionChange', this.handleConnectionChange);
   }
 
   componentDidMount() {
-    NetInfo.isConnected.addEventListener('connectionChange', this.handleConnectionChange);
     this.playerPauseListener = RNMusicPlayerEmitter.addListener('playerDidPause', this.handleSongPauseListener);
     this.playerUpdateListener = RNMusicPlayerEmitter.addListener('playerDidUpdateWithProgress', this.handleSongUpdateListener);
 
@@ -92,6 +91,8 @@ export default class App extends React.Component {
     MusicControl.on('stop', () => {
       store.dispatch(songStop());
     });
+
+    checkConnection(store);
   }
 
   componentWillUnmount() {

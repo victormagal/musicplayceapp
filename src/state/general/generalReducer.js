@@ -12,14 +12,12 @@ import {
 const generalReducer = (state, action) => {
   state = state || {
     fontLoaded: false,
-    isConnected: false,
+    isConnected: true,
     loading: false,
     cities: null,
     states: null,
     showError: false
   };
-
-  console.log(state, action);
 
   switch (action.type) {
     case LOAD_FONT:
