@@ -23,6 +23,7 @@ export const USER_FOLLOWINGS_FETCHED = 'USER_FOLLOWINGS_FETCHED';
 export const USER_REPORT_STARTED = 'USER_REPORT_STARTED';
 export const USER_REPORT_SUCCESS = 'USER_REPORT_SUCCESS';
 export const USER_REPORT_ERROR = 'USER_REPORT_ERROR';
+export const USER_HIDE_NOTIFICATION = 'USER_HIDE_NOTIFICATION';
 
 export const usersFetched = createAction(USERS_FETCHED, (data) => data);
 export const userByIdFetched = createAction(USER_BY_ID_FETCHED, (data) => data);
@@ -30,7 +31,7 @@ export const userStartLoading = createAction(USER_START_LOADING);
 export const userFinishLoading = createAction(USER_FINISH_LOADING);
 export const userSaveSuccess = createAction(USER_SAVE_SUCCESS);
 export const userSaveError = createAction(USER_SAVE_ERROR);
-export const userStopFollowSuccess = createAction(USER_STOP_FOLLOW_SUCCESS);
+export const userStopFollowSuccess = createAction(USER_STOP_FOLLOW_SUCCESS, data => data);
 export const userFollowSuccess = createAction(USER_FOLLOW_SUCCESS, data => data);
 export const userFollowError = createAction(USER_FOLLOW_ERROR);
 export const userSongsFetched = createAction(USER_SONGS_FETCHED, (data) => data);
@@ -45,3 +46,4 @@ export const userFollowingsFetched = createAction(USER_FOLLOWINGS_FETCHED, (data
 export const userReportStarted = createAction(USER_REPORT_STARTED);
 export const userReportSuccess = createAction(USER_REPORT_SUCCESS, data => data);
 export const userReportError = createAction(USER_REPORT_ERROR);
+export const userHiddenNotification = createAction(USER_HIDE_NOTIFICATION);

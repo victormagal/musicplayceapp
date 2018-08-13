@@ -22,42 +22,38 @@ import {
 
 const profileReducer = (state, action) => {
   state = state || {
-    saveProfileError: null,
-    imageUploadedSuccess: false,
-    saveProfileSuccess: null,
-    createUserSuccess: false,
-    createUserError: false,
-    loading: false,
-    profile: null,
-    followers: null,
-    following: null,
-    indications: null
-  };
+      saveProfileError: null,
+      imageUploadedSuccess: false,
+      saveProfileSuccess: null,
+      createUserSuccess: false,
+      createUserError: false,
+      loading: false,
+      profile: null,
+      followers: null,
+      following: null,
+      indications: null
+    };
 
   switch (action.type) {
     case USER_FOLLOW_SUCCESS:
-      if(state.following){
-        state.following.push(action.payload);
+      if (state.following) {
+        state.following.push(action.payload.user);
         return {
           ...state
         };
       }
       break;
 
-      //TODO: update following list when user stops following
-    // case USER_STOP_FOLLOW_SUCCESS:
-    //   if(state.profile) {
-    //     user = {...state.user, isFollowing: false, followerCount: state.user.followerCount - 1};
-    //   }
-    //   state.userFollowers.splice(state.userFollowers.indexOf(state.userFollowers.find(i => i.id === user.id)), 1);
-    //
-    //   if(state.following){
-    //     state.following.push(action.payload);
-    //     return {
-    //       ...state
-    //     };
-    //   }
-    //   break;
+    case USER_STOP_FOLLOW_SUCCESS:
+      if (state.following && typeof action.payload.user !== 'undefined') {
+        let data = Object.assign([], state.following);
+        data.splice(state.following.indexOf(data.find(i => i.id === action.payload.user.id)), 1);
+        return {
+          ...state,
+          following: data
+        };
+      }
+      break;
 
     case FETCHED_PROFILE:
       return {
@@ -138,7 +134,7 @@ const profileReducer = (state, action) => {
         ...state,
         following: action.payload
       }
-}
+  }
   return state;
 };
 

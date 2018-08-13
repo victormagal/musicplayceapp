@@ -22,7 +22,7 @@ import {
   MPSettingsIcon,
   MPSongAddIcon
 } from '../../../assets/svg/'
-import {uploadImage} from "../../../state/profile/profileAction";
+import {uploadImage, followUser} from "../../../state/action";
 import ImagePicker from 'react-native-image-picker';
 import {MPGroupIcon} from "../../../assets/svg";
 
@@ -72,7 +72,7 @@ class ProfileComponent extends React.Component {
 
   handleEditFolder = (folderId) => {
     this.goToScreen('EditFolder', {folderId})
-  }
+  };
 
   handleEditSong = (song) => {
     this.goToScreen('RegisterSongScreen', {song});
@@ -93,6 +93,17 @@ class ProfileComponent extends React.Component {
 
   handleIndicateSong = (song) => {
     this.goToScreen('IndicateSongFullScreen', { song });
+  };
+
+
+  handleToggleFollowUser = (user) => {
+    console.log("PROFILE", "HERE", user);
+
+    if (user.isFollowing) {
+      this.props.navigation.navigate('message', { component: MPConfirmStopFollow, profile: user});
+    }else{
+      this.props.dispatch(followUser(user));
+    }
   };
 
   reportProfile = () => {
@@ -219,9 +230,11 @@ class ProfileComponent extends React.Component {
         </ImageBackground>
         { this.renderSongsData(profile) }
         <MPShowFollowers
+          hideSettings={!me}
           following={this.props.userFollowings}
           followers={this.props.userFollowers}
           onFollowerFollowingClick={this.props.onFollowerFollowingClick}
+          onToggleFollowUser={this.handleToggleFollowUser}
         />
         { me ?
           <View style={{ backgroundColor: '#FFF', height: 90 }} />

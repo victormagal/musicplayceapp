@@ -41,10 +41,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     borderRadius: 25,
     paddingVertical: 10,
+    paddingHorizontal: 15,
     marginHorizontal: 45,
     marginTop: 60,
-    paddingRight: 15,
-    flexDirection: 'row'
+    flexDirection: 'row',
+    alignSelf: 'center'
   },
   icon: {
     marginLeft: 15,

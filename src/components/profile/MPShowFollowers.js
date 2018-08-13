@@ -32,6 +32,8 @@ class MPShowFollowers extends Component {
     <MPUser
       key={item.id}
       user={item}
+      hideSettings={this.props.hideSettings}
+      onToggleFollowUser={this.props.onToggleFollowUser}
       onPress={() => this.props.onFollowerFollowingClick(item)}
     />
   );

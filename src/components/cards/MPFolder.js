@@ -33,7 +33,7 @@ class MPFolderContainer extends Component {
 
     return (
       <View style={styles.paddingShadow}>
-        <TouchableOpacity style={styles.paddingShadow} onPress={this.handlePress}>
+        <TouchableOpacity onPress={this.handlePress}>
           <Card containerStyle={[styles.container, borderStyle]}>
             <View style={[styles.chooseFolderCardContainer] }>
               <View style={ styles.chooseFolderImage }>

@@ -3,13 +3,41 @@ import {Card} from 'react-native-elements';
 import {View, StyleSheet, Image, TouchableOpacity} from 'react-native';
 import PropTypes from 'prop-types';
 import {MPText} from '../general';
-import { MPLessArtistIcon, MPPlusArtistIcon, MPPlusArtistAvatarIcon} from '../../assets/svg';
+import {MPLessArtistIcon, MPPlusArtistIcon, MPPlusArtistAvatarIcon} from '../../assets/svg';
 
 class MPUser extends Component {
 
+  handleToggleFollowUser = () => {
+    const {onToggleFollowUser, user} = this.props;
+    onToggleFollowUser && onToggleFollowUser(user);
+  };
+
+  renderTopIcon() {
+    const {user, hideSettings} = this.props;
+
+    if (hideSettings) {
+      return null;
+    }
+
+    if (user.isFollowing)
+      return (
+        <TouchableOpacity style={styles.iconContainer} onPress={this.handleToggleFollowUser}>
+          <MPLessArtistIcon />
+          <MPPlusArtistAvatarIcon style={styles.iconAvatar}/>
+        </TouchableOpacity>
+      );
+
+    return (
+      <TouchableOpacity style={styles.iconContainer} onPress={this.handleToggleFollowUser}>
+        <MPPlusArtistIcon />
+        <MPPlusArtistAvatarIcon style={styles.iconAvatar}/>
+      </TouchableOpacity>
+    );
+  }
+
   render() {
     const {user, style, onPress} = this.props;
-    const image = user.picture_url ? { uri: user.picture_url } : require('../../assets/img/avatar-male.jpg');
+    const image = user.picture_url ? {uri: user.picture_url} : require('../../assets/img/avatar-male.jpg');
     return (
       <TouchableOpacity style={style || {}} onPress={onPress}>
         <Card containerStyle={styles.simpleUserCardContainer}>
@@ -17,17 +45,7 @@ class MPUser extends Component {
             <View style={ styles.simpleUserCardImage }>
               <Image source={image} style={styles.image}/>
             </View>
-            { user.isFollowing  ?
-              <View style={{position: 'absolute'}}>
-                <MPLessArtistIcon style={styles.iconUser}/>
-                <MPPlusArtistAvatarIcon style={styles.iconUserAvatar}/>
-              </View>
-            :
-              <View style={{position: 'absolute'}}>
-                <MPPlusArtistIcon style={styles.iconUser}/>
-                <MPPlusArtistAvatarIcon style={styles.iconUserAvatar}/>
-              </View>
-            }
+            {this.renderTopIcon()}
           </View>
           <MPText numberOfLines={2} style={ styles.simpleUserCardText }>
             { user.name } { user.last_name }
@@ -76,15 +94,13 @@ const styles = StyleSheet.create({
     paddingBottom: 26,
     fontFamily: 'ProbaPro-Regular'
   },
-  iconUser: {
+  iconContainer: {
     position: 'absolute',
-    left: 8,
-    top: 8
+    padding: 11,
+    flexDirection: 'row'
   },
-  iconUserAvatar: {
-    position: 'absolute',
-    left: 23,
-    top: 8
+  iconAvatar: {
+    marginLeft: 4
   }
 });
 

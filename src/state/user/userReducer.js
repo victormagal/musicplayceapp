@@ -1,27 +1,11 @@
 import {
-  USER_START_LOADING,
-  USER_FINISH_LOADING,
-  USERS_FETCHED,
-  USER_SAVE_SUCCESS,
-  USER_BY_ID_FETCHED,
-  USER_SONGS_FETCHED,
-  USER_FOLLOW_SUCCESS,
-  USER_FOLLOW_ERROR,
-  USER_NOTIFICATIONS_START_LOADING,
-  USER_NOTIFICATIONS_FETCHED,
-  USER_NOTIFICATIONS_FOLLOWERS_FETCHED,
-  USER_NOTIFICATIONS_FINISHED_LOADING,
-  USER_SAVE_ERROR,
-  USER_NOTIFICATIONS_SETTINGS_START_LOADING,
-  USER_NOTIFICATIONS_SETTINGS_FINISHED_LOADING,
-  USER_NOTIFICATIONS_SETTINGS_FETCHED,
-  USER_NOTIFICATIONS_SETTINGS_PATCHED,
-  USER_STOP_FOLLOW_SUCCESS,
-  USER_FOLLOWERS_FETCHED,
-  USER_FOLLOWINGS_FETCHED,
-  USER_REPORT_SUCCESS,
-  USER_REPORT_ERROR,
-  USER_REPORT_STARTED
+  USER_START_LOADING, USER_FINISH_LOADING, USERS_FETCHED, USER_SAVE_SUCCESS, USER_BY_ID_FETCHED,
+  USER_SONGS_FETCHED, USER_FOLLOW_SUCCESS, USER_FOLLOW_ERROR, USER_NOTIFICATIONS_START_LOADING,
+  USER_NOTIFICATIONS_FETCHED, USER_NOTIFICATIONS_FOLLOWERS_FETCHED, USER_NOTIFICATIONS_FINISHED_LOADING,
+  USER_SAVE_ERROR, USER_NOTIFICATIONS_SETTINGS_START_LOADING, USER_NOTIFICATIONS_SETTINGS_FINISHED_LOADING,
+  USER_NOTIFICATIONS_SETTINGS_FETCHED, USER_NOTIFICATIONS_SETTINGS_PATCHED, USER_STOP_FOLLOW_SUCCESS,
+  USER_FOLLOWERS_FETCHED, USER_FOLLOWINGS_FETCHED, USER_REPORT_SUCCESS, USER_REPORT_ERROR,
+  USER_REPORT_STARTED, USER_HIDE_NOTIFICATION
 } from './userTypes';
 
 const userReducer = (state, action) => {
@@ -31,6 +15,8 @@ const userReducer = (state, action) => {
     isUserSaved: false,
     users: [],
     usersSongs: null,
+    followSuccess: false,
+    stopFollowSuccess: false,
     userNotifications: [],
     userFollowNotifications: [],
     followingUser: false,
@@ -87,11 +73,23 @@ const userReducer = (state, action) => {
       if(state.user) {
         user = {...state.user, isFollowing: true, followingCount: state.user.followingCount + 1};
       }
-      state.userFollowings.push(action.payload);
+
+      //TODO: remover, só serve para o mock de artistas feed screen
+      if(state.users && typeof action.payload.user !== 'undefined'){
+        let data = Object.assign([], state.users.data);
+        const artist = data.find(i => action.payload.user.id === i.id);
+        artist.isFollowing = true;
+        state.users.data = data;
+      }
+
+      if(state.userFollowings && state.userFollowings.length > 0) {
+        state.userFollowings.push(action.payload.user);
+      }
 
       return {
         ...state,
         user,
+        followSuccess: true,
         loading: false,
       };
 
@@ -99,11 +97,23 @@ const userReducer = (state, action) => {
       if(state.user) {
         user = {...state.user, isFollowing: false, followerCount: state.user.followerCount - 1};
       }
-      state.userFollowers.splice(state.userFollowers.indexOf(state.userFollowers.find(i => i.id === user.id)), 1);
+
+      //TODO: remover, só serve para o mock de artistas feed screen
+      if(state.users && typeof action.payload.user !== 'undefined'){
+        let data = Object.assign([], state.users.data);
+        const artist = data.find(i => action.payload.user.id === i.id);
+        artist.isFollowing = false;
+        state.users.data = data;
+      }
+
+      if(state.userFollowers && state.userFollowers.length > 0) {
+        state.userFollowers.splice(state.userFollowers.indexOf(state.userFollowers.find(i => i.id === user.id)), 1);
+      }
 
       return {
         ...state,
         user,
+        stopFollowSuccess: true,
         loading: false,
       };
 
@@ -170,6 +180,13 @@ const userReducer = (state, action) => {
         loading: false,
         reportSuccess: false,
       };
+
+    case USER_HIDE_NOTIFICATION:
+      return {
+        ...state,
+        followSuccess: false,
+        stopFollowSuccess: false
+      }
   }
 
   return state;
