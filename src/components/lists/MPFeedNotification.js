@@ -10,7 +10,6 @@ class MPFeedNotification extends React.Component {
   render() {
     let {notification, handleSongNavigate, handleNavigateUserProfile} = this.props;
     let notificationType = notification.type.split("\\")[notification.type.split("\\").length - 1];
-    console.log(notification);
     let types = ['AlertFollowingMeIndicationNotification',
       'AlertFollowersMeNotification',
       // 'AlertIndicationMeNotification',

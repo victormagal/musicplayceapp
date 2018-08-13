@@ -134,19 +134,24 @@ export const getNotificationsSettings = () => {
 
     return UserService.getNotificationSettings().then(response => {
       dispatch(userNotificationsSettingsFetched(response));
+      dispatch(userNotificationsSettingsFinishedLoading());
     }).catch(e => {
-      console.log('getNotificationsSettingsError', e.response);
+      console.log('getNotificationsSettingsError', e);
       dispatch(userNotificationsSettingsFinishedLoading());
     });
   };
 };
 
 export const patchNotificationSettings = (settings) => {
-  return (dispatch) => {
+  return (dispatch, getState) => {
     dispatch(userNotificationsSettingsStartLoading());
 
-    return UserService.patchNotificationSettings(settings).then(response => {
+    const { notificationSettings } = getState().userReducer;
+    const newSettings = { ...notificationSettings, ...settings };
+
+    return UserService.patchNotificationSettings(newSettings).then(response => {
       dispatch(userNotificationsSettingsPatched(response));
+      dispatch(userNotificationsSettingsFinishedLoading());
     }).catch(e => {
       console.log('getNotificationsSettingsError', e.response);
       dispatch(userNotificationsSettingsFinishedLoading());

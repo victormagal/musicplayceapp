@@ -45,3 +45,5 @@ export const userFollowingsFetched = createAction(USER_FOLLOWINGS_FETCHED, (data
 export const userReportStarted = createAction(USER_REPORT_STARTED);
 export const userReportSuccess = createAction(USER_REPORT_SUCCESS, data => data);
 export const userReportError = createAction(USER_REPORT_ERROR);
+export const userNotificationsSettingsFetched = createAction(USER_NOTIFICATIONS_SETTINGS_FETCHED, (data) => data);
+export const userNotificationsSettingsPatched = createAction(USER_NOTIFICATIONS_SETTINGS_PATCHED, (data) => data);

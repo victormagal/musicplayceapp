@@ -150,13 +150,11 @@ class UserService {
     });
   }
   
-  static patchNotificationSettings(settings){
-    let params = {
+  static patchNotificationSettings(settings) {
+    const params = {
       data: {
         type: 'notificationSettings',
-        attributes: [
-          settings, 
-        ]
+        attributes: settings
       }
     }
     return axios.patch(`${API_USER}/me/settings-notifications`, params).then((response) => {
