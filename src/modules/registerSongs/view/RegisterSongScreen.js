@@ -31,7 +31,7 @@ class RegisterSongContainer extends React.Component {
     };
   }
 
-  componentDidMount(){
+  componentDidMount() {
     if (this.props.navigation.state && this.props.navigation.state.params) {
       const {song} = this.props.navigation.state.params;
       this.setState({shouldFetchSong: true});
@@ -54,11 +54,13 @@ class RegisterSongContainer extends React.Component {
     this.setState({progressContentWidth: `${Math.ceil(width)}%`});
 
     if (nextProps.songPublishSuccess) {
-      this.goToScreen('ConfirmationScreen');
+      if (nextProps.songPublishSuccess) {
+        this.goToScreen('ConfirmationScreen');
+      }
       this.props.dispatch(fetchProfile());
     }
 
-    if(nextProps.fetchedSong && this.state.shouldFetchSong){
+    if (nextProps.fetchedSong && this.state.shouldFetchSong) {
       this.props.dispatch(updateSongRegisterData(nextProps.fetchedSong));
       this.setState({shouldFetchSong: false});
     }
@@ -73,12 +75,12 @@ class RegisterSongContainer extends React.Component {
   };
 
   handlePublishClick = () => {
-    const { songFile, imageFile, cardErrors } = this.state;
+    const {songFile, imageFile, cardErrors} = this.state;
     let {song, dispatch} = this.props;
     let songError = songFile === null && !song.path;
 
     let valid = this.validate(cardErrors, () => {
-      if(songError){
+      if (songError) {
         this.setState({errors: {...this.state.errors, songFile: true}});
       }
     });
@@ -133,7 +135,7 @@ class RegisterSongContainer extends React.Component {
       } else if (response.error) {
         console.log('ImagePicker Error: ', response.error);
       } else {
-        this.setState({ imageFile: response });
+        this.setState({imageFile: response});
       }
     });
   }
@@ -167,23 +169,23 @@ class RegisterSongContainer extends React.Component {
   }
 
   getSongName() {
-    const { song } = this.props;
-    const { songFile } = this.state;
+    const {song} = this.props;
+    const {songFile} = this.state;
     return songFile ? songFile.fileName : song.name + song.path.substr(song.path.lastIndexOf('.'));
   }
 
   getImageName() {
-    const { song } = this.props;
-    const { imageFile } = this.state;
+    const {song} = this.props;
+    const {imageFile} = this.state;
 
     return imageFile
       ? imageFile.fileName
-      :  song.name + song.picture_url.substr(song.picture_url.lastIndexOf('.'));
+      : song.name + song.picture_url.substr(song.picture_url.lastIndexOf('.'));
   }
 
   render() {
     const {song} = this.props;
-    const {errors,  songFile, imageFile} = this.state;
+    const {errors, songFile, imageFile} = this.state;
     return (
       <View style={styles.container}>
         <MPHeader
