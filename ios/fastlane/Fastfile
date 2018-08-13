@@ -24,6 +24,7 @@ platform :ios do
 
   desc "Push a new beta build to TestFlight"
   lane :beta do
+    match(type: "development")
     match(type: "appstore")
     gym(scheme: "musicplayce", export_options: "./musicplayce/Release.plist")
     upload_to_testflight
