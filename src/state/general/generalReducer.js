@@ -19,6 +19,8 @@ const generalReducer = (state, action) => {
     showError: false
   };
 
+  console.log(state, action);
+
   switch (action.type) {
     case LOAD_FONT:
       return {
