@@ -6,6 +6,9 @@ import {songRegisterClear} from '../../../../state/songs/songsType';
 
 
 class MyProfileScreenContainer extends React.Component {
+
+  timerSuccess = null;
+
   componentDidMount() {
     const {dispatch} = this.props;
     dispatch(fetchProfile()).then(_ => {
@@ -24,10 +27,23 @@ class MyProfileScreenContainer extends React.Component {
       nextProps.navigation.setParams({backFromPublishedOrDraft: false});
     }
 
+    if(nextProps.songDraftSuccess) {
+      this.timerSuccess = setTimeout(() => {
+        this.props.dispatch(fetchProfile());
+        clearTimeout(this.timerSuccess);
+      }, 3000);
+    }
+
     if ((this.props.isUserSaved !== nextProps.isUserSaved && nextProps.isUserSaved) ||
       (this.props.saveProfileSuccess !== nextProps.saveProfileSuccess && nextProps.saveProfileSuccess)
     ) {
       this.props.dispatch(fetchProfile());
+    }
+  }
+
+  componentWillUnmount(){
+    if(this.timerSuccess){
+      clearTimeout(this.timerSuccess);
     }
   }
 
@@ -70,7 +86,10 @@ class MyProfileScreenContainer extends React.Component {
 }
 
 const mapStateToProps = ({profileReducer, songsReducer, userReducer, folderReducer}) => {
-  const {songCreateSuccess, songRemoveSuccess, songPublishSuccess, songUnpublishSuccess, mySongs, songDraft, song} = songsReducer;
+  const {
+    songCreateSuccess, songRemoveSuccess, songPublishSuccess, songUnpublishSuccess,
+    songDraftSuccess, mySongs, songDraft, song
+  } = songsReducer;
   const {isUserSaved} = userReducer;
 
   return {
@@ -81,6 +100,7 @@ const mapStateToProps = ({profileReducer, songsReducer, userReducer, folderReduc
     songRemoveSuccess,
     songPublishSuccess,
     songUnpublishSuccess,
+    songDraftSuccess,
     mySongs,
     songDraft,
     song

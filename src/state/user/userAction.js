@@ -90,24 +90,24 @@ export const userSongs = (id) => {
   };
 };
 
-export const followUser = (user) => {
+export const followUser = (user, from) => {
   return (dispatch) => {
     dispatch(userStartLoading());
 
     return UserService.followUser(user.id).then(_ => {
-      dispatch(userFollowSuccess(user));
+      dispatch(userFollowSuccess({user, from}));
     }).catch(e => {
       dispatch(userFollowError());
     });
   };
 };
 
-export const stopFollowUser = (id) => {
+export const stopFollowUser = (user, from) => {
   return (dispatch) => {
     dispatch(userStartLoading());
 
-    return UserService.stopFollowUser(id).then(() => {
-      dispatch(userStopFollowSuccess());
+    return UserService.stopFollowUser(user.id).then(() => {
+      dispatch(userStopFollowSuccess({user, from}));
     }).catch(e => {
       console.log('stopFollowUserError', e);
       dispatch(userFollowError());

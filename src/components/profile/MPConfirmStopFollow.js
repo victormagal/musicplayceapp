@@ -17,8 +17,8 @@ class MPConfirmStopFollowComponent extends React.Component {
   };
 
   handleStopFollow = () => {
-    let {profile} =  this.props.navigation.state.params;
-    this.props.dispatch(stopFollowUser(profile.id));
+    let {profile, from} =  this.props;
+    this.props.dispatch(stopFollowUser(profile, from));
     this.props.navigation.pop();
   };
 

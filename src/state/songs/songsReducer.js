@@ -103,7 +103,8 @@ const songsReducer = (state, action) => {
         ...state,
         songDraftSuccess: true,
         song: {...defaultSong},
-        songDraft: false
+        songDraft: false,
+        loading: false
       };
 
     case SONG_REMOVE_SUCCESS:

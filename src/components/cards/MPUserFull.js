@@ -7,13 +7,7 @@ import {MPText} from '../../components';
 
 
 const StarIcon = (props) => (
-  <TouchableOpacity onPress={props.onPress}>
-    {props.filled ? (
-        <MPFilledStarIcon />
-      ):(
-        <MPStarIcon />
-      )}
-  </TouchableOpacity>
+  props.filled ? <MPFilledStarIcon /> : <MPStarIcon />
 );
 const stars = new Array(5).fill();
 
