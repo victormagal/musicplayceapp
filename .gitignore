@@ -61,3 +61,7 @@ android/app/gradle.properties
 # IOS
 musicplayce.ipa/
 musicplayce.xcarchive/
+
+
+package-lock.json
+yarn.lock
