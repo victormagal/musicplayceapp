@@ -246,7 +246,7 @@ class SongService {
     formData.append('picture', {
       uri: file.uri,
       name: file.fileName,
-      type: Platform.OS === 'android' ? file.type : `images/${ file.fileName.split('.')[1] }`
+      type: file.type || `image/${ file.fileName.split('.')[1] }`
     });
 
     return axios.post(`${ API_SONG }/${ songId }/picture`, formData, {
