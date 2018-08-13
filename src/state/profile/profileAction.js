@@ -7,6 +7,8 @@ export const FETCHED_MY_INDICATIONS = 'FETCHED_MY_INDICATIONS';
 export const SAVE_PROFILE_SUCCESS = 'SAVE_PROFILE_SUCCESS';
 export const SAVE_PROFILE_ERROR = 'SAVE_PROFILE_ERROR';
 export const PROFILE_START_LOADING = 'PROFILE_START_LOADING';
+export const IMAGE_PROFILE_START_LOADING = 'IMAGE_PROFILE_START_LOADING';
+export const IMAGE_PROFILE_FINISHED_LOADING = 'IMAGE_PROFILE_FINISHED_LOADING';
 export const PROFILE_FINISH_LOADING = 'PROFILE_FINISH_LOADING';
 export const PROFILE_CREATE_USER_SUCCESS = 'PROFILE_CREATE_USER_SUCCESS';
 export const PROFILE_CREATE_USER_ERROR = 'PROFILE_CREATE_USER_ERROR';
@@ -30,7 +32,9 @@ export const createUserError = createAction(PROFILE_CREATE_USER_ERROR);
 export const updateProfileData = createAction(UPDATE_PROFILE_DATA, (data) => {
   return {...data};
 });
+export const imageProfileStartLoading = createAction(IMAGE_PROFILE_START_LOADING);
 export const profileImageUploaded = createAction(PROFILE_IMAGE_UPLOADED);
+export const imageProfileFinishedLoading = createAction(IMAGE_PROFILE_FINISHED_LOADING);
 
 export const createUser = (user) => {
   return (dispatch) => {
@@ -47,14 +51,12 @@ export const createUser = (user) => {
 
 export const uploadImage = (picture) => {
   return (dispatch) => {
-    dispatch(profileStartLoading());
+    dispatch(imageProfileStartLoading());
     return UserService.uploadImage(picture).then(response => {
-      console.log('response', response);
       dispatch(profileImageUploaded());
-      dispatch(profileFinishLoading());
     }).catch(e => {
       console.log('uploadImageError', e);
-      dispatch(profileFinishLoading());
+      dispatch(imageProfileFinishedLoading());
     })
   }
 }

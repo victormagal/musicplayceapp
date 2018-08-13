@@ -15,7 +15,8 @@ import {
   MPFollowButton, ProfileIndicatorCE, MPAddSongButton, MPAddChangePhoto,
   MPUploadFirstSong, MPShowFollowers, MPShowAgencies, MPReportProfile, MPShowFolderSongs, MPGradientButton,
   MPConfirmStopFollow, MPConfirmExcludeSong, MPConfirmUnpublishSong, MPConfirmReportProfile, MPIconButton,
-  MPText
+  MPText,
+  MPLoading
 } from '../../../components/';
 import {
   MPProfileArrowIcon,
@@ -170,6 +171,7 @@ class ProfileComponent extends React.Component {
         {this.renderHeader(me)}
         <ScrollView style={{ flex: 1 }} ref={this.scrollViewRef}>
           { this.renderContent(profile) }
+          <MPLoading visible={this.props.imageLoading} />
         </ScrollView>
         { (profile && me) &&
           <MPAddSongButton isColored={true} onPress={this.props.onSongAddClick} />
