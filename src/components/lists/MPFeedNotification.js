@@ -2,6 +2,7 @@ import React from 'react';
 import {
   StyleSheet, 
   View,
+  Image
 } from 'react-native';
 import { MPText } from '../../components';
 
@@ -10,17 +11,43 @@ class MPFeedNotification extends React.Component {
   render() {
     let {notification, handleSongNavigate, handleNavigateUserProfile} = this.props;
     let notificationType = notification.type.split("\\")[notification.type.split("\\").length - 1];
-    console.log(notification);
     let types = ['AlertFollowingMeIndicationNotification',
       'AlertFollowersMeNotification',
       // 'AlertIndicationMeNotification',
       // 'AlertFollowingMeNotification',
       // 'AlertIndicationYourSongNotification' 
     ];
-    
+
+    let image = require('../../../assets/images/avatar.png');
+    let imageFirst = '';
+    let imageSecond = "";
+
+    if(notificationType == types[0]){
+      imageFirst = typeof notification.data.artistsOwner.picture_url === 'string' ? {uri : notification.data.artistsOwner.picture_url} : require('../../../assets/images/avatar.png');
+      imageSecond = typeof notification.data.artistIndication.picture_url === 'string' ? {uri : notification.data.artistIndication.picture_url} : require('../../../assets/images/avatar.png');
+    }else if(notificationType == types[1]){
+      imageFirst = typeof notification.data.userFollower.picture_url === 'string' ? {uri : notification.data.userFollower.picture_url} : require('../../../assets/images/avatar.png');
+      imageSecond = typeof notification.data.artists.picture_url === 'string' ? {uri : notification.data.artists.picture_url} : require('../../../assets/images/avatar.png');
+    }
+    console.log(notification, imageFirst, imageSecond)
     return (
       <View style={styles.parent}>
-        <View style={{width: 40, height: 40, backgroundColor: '#f60', marginEnd: 10}}></View>
+        {
+          notificationType == types[0] && (
+            <View style={{width: 30, height: 30, backgroundColor: '#f60', marginEnd: 10}}>
+              <Image source={imageFirst} style={{width: 20, height:20, borderRadius: 10}} />
+              <Image style={{position: 'absolute', bottom: 0, right: 0, width: 20, height:20, borderRadius: 10}} source={imageSecond} />
+            </View>   
+          )
+        }
+        {
+          notificationType == types[1] && (
+            <View style={{width: 30, height: 30, marginEnd: 10}}>
+              <Image source={imageFirst} style={{width: 20, height:20, borderRadius: 10}} />
+              <Image style={{position: 'absolute', bottom: 0, right: 0, width: 20, height: 20, borderRadius: 10}} source={imageSecond} />
+            </View>   
+          )
+        }
         {
           notificationType == types[0] && (
             <MPText style={styles.notificationText} onPress={handleSongNavigate.bind(this,notification.data.song)}>

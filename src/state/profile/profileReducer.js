@@ -10,7 +10,9 @@ import {
   UPDATE_PROFILE_DATA,
   PROFILE_IMAGE_UPLOADED,
   PROFILE_FOLLOWERS_FETCHED,
-  PROFILE_FOLLOWING_FETCHED
+  PROFILE_FOLLOWING_FETCHED,
+  IMAGE_PROFILE_START_LOADING,
+  IMAGE_PROFILE_FINISHED_LOADING
 } from './profileAction';
 import {
   AUTH_LOGOUT
@@ -31,7 +33,8 @@ const profileReducer = (state, action) => {
       profile: null,
       followers: null,
       following: null,
-      indications: null
+      indications: null,
+      imageLoading: false,
     };
 
   switch (action.type) {
@@ -68,6 +71,25 @@ const profileReducer = (state, action) => {
         loading: true
       };
 
+    case IMAGE_PROFILE_START_LOADING:
+      return {
+        ...state,
+        imageLoading: true
+      };
+
+    case IMAGE_PROFILE_FINISHED_LOADING:
+      return {
+        ...state,
+        imageLoading: false,
+        saveProfileSuccess: true
+      };
+
+    case PROFILE_IMAGE_UPLOADED:
+      return {
+        ...state,
+        imageLoading: false,
+      }
+
     case PROFILE_FINISH_LOADING:
       return {
         ...state,
@@ -76,7 +98,6 @@ const profileReducer = (state, action) => {
       };
 
     case SAVE_PROFILE_SUCCESS:
-    case PROFILE_IMAGE_UPLOADED:
       return {
         ...state,
         ...action.payload,

@@ -1,6 +1,9 @@
 import React from 'react';
 import {
-  Animated, StyleSheet, View, Text, TouchableWithoutFeedback
+  Animated,
+  StyleSheet,
+  View,
+  TouchableWithoutFeedback
 } from 'react-native';
 import {connect} from 'react-redux';
 import LinearGradient from 'react-native-linear-gradient';
@@ -22,33 +25,27 @@ class MPSwitchComponent extends React.Component {
     false: ['#dfdfdf', '#dfdfdf']
   };
 
-  componentDidMount(){
-    if(typeof this.props.value !== undefined){
-      this.animateSwitch(this.props.value, 0);
-    }
-  }
-
-  componentWillReceiveProps(nextProps){
-    if(typeof nextProps.value !== undefined){
-      this.setState({value: nextProps.value});
-      this.animateSwitch(nextProps.value, 300);
+  componentDidMount() {
+    const { value } = this.props;
+    if (value !== undefined) {
+      this.animateSwitch(value, 0);
     }
   }
 
   handleToggleSwitch = () => {
-    let {name, onChangeSwitch} = this.props;
+    const { name, onChangeSwitch } = this.props;
 
     let value = !this.state.value;
-    this.setState({value});
-    this.animateSwitch(value, 300);
-    onChangeSwitch && onChangeSwitch({name, value});
+    this.setState({ value });
+    this.animateSwitch(value, 50);
+    onChangeSwitch && onChangeSwitch({ name, value });
   };
 
   animateSwitch = (value, duration) => {
     Animated.timing(
       this.state.switchAnim,
       {
-        toValue: value ? 33 : 0,
+        toValue: value ? 35 : 0,
         duration: duration
       }
     ).start();

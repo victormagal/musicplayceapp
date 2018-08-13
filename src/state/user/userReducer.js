@@ -22,6 +22,8 @@ const userReducer = (state, action) => {
     followingUser: false,
     userFollowers: [],
     userFollowings: [],
+    notificationSettings: null,
+    isUserNotificationsSaved: false
   };
 
   let user = {};
@@ -59,14 +61,20 @@ const userReducer = (state, action) => {
         ...state,
         isUserSaved: true
       };
-    
+
     case USER_NOTIFICATIONS_FINISHED_LOADING:
-    case USER_NOTIFICATIONS_SETTINGS_FINISHED_LOADING:
     case USER_FOLLOW_ERROR:
     case USER_SAVE_ERROR:
       return {
         ...state,
         loading: false
+      };
+
+    case USER_NOTIFICATIONS_SETTINGS_FINISHED_LOADING:
+      return {
+        ...state,
+        loading: false,
+        isUserNotificationsSaved: false
       };
 
     case USER_FOLLOW_SUCCESS:
@@ -146,10 +154,15 @@ const userReducer = (state, action) => {
       };
 
     case USER_NOTIFICATIONS_SETTINGS_PATCHED:
+      return {
+        ...state,
+        isUserNotificationsSaved: true,
+        notificationSettings: action.payload,
+      };
+
     case USER_NOTIFICATIONS_SETTINGS_FETCHED:
       return {
         ...state,
-        loading: false,
         notificationSettings: action.payload,
       };
 
