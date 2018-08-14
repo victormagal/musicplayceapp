@@ -29,6 +29,7 @@ import {
   MPTriangleUpGrayIcon,
   MPFilledStarIcon
 } from '../../../../assets/svg';
+import { commentSong } from '../../../../state/action';
 
 
 const stars = new Array(5).fill(true);
@@ -48,7 +49,7 @@ class PlayerComponent extends React.Component {
   };
 
   handleCommentSong = (song) => {
-    console.log(song.name);
+    this.props.dispatch(commentSong(song.id, 'comentario teste'));
   }
 
   handleToggleComments = (visible) => {
@@ -151,6 +152,7 @@ class PlayerComponent extends React.Component {
 
   renderLyricsContent() {
     let {song} = this.props;
+    console.log(this.props);
     return (
       <MPFade style={styles.modalContent} visible={this.state.showLyrics}>
         <View style={styles.flexOne}>
@@ -210,6 +212,7 @@ class PlayerComponent extends React.Component {
 
   renderCommentContent() {
     let {song} = this.props;
+    console.log(song);
     return (
       <MPFade style={styles.modalContent} visible={this.state.showComments}>
         <View style={{flex: 1}}>
@@ -226,7 +229,6 @@ class PlayerComponent extends React.Component {
             </LinearGradient>
 
             <View style={[styles.commentMusicContent, styles.row]}>
-              <MPPlayIcon style={styles.musicPlayIcon}/>
               <MPText style={styles.musicTitleText}>{song ? song.name : null}</MPText>
             </View>
 

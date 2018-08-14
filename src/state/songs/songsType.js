@@ -60,7 +60,7 @@ export const likedCommentSuccess = createAction(SONG_LIKE_COMMENT_SUCCESS);
 export const likedCommentError = createAction(SONG_LIKE_COMMENT_ERROR);
 export const commentStartLoading = createAction(SONG_COMMENT_START_LOADING);
 export const commentSongError = createAction(SONG_COMMENT_ERROR);
-export const commentSongSuccess = createAction(SONG_COMMENT_SUCCESS);
+export const commentSongSuccess = createAction(SONG_COMMENT_SUCCESS, data => data);
 
 
 

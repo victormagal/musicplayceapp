@@ -29,7 +29,7 @@ class MPFeedNotification extends React.Component {
       imageFirst = typeof notification.data.userFollower.picture_url === 'string' ? {uri : notification.data.userFollower.picture_url} : require('../../../assets/images/avatar.png');
       imageSecond = typeof notification.data.artists.picture_url === 'string' ? {uri : notification.data.artists.picture_url} : require('../../../assets/images/avatar.png');
     }
-    console.log(notification, imageFirst, imageSecond)
+    // console.log(notification, imageFirst, imageSecond)
     return (
       <View style={styles.parent}>
         {

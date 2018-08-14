@@ -75,6 +75,7 @@ const songsReducer = (state, action) => {
       };
 
     case SONG_START_LOADING:
+    case SONG_COMMENT_START_LOADING:
       return {
         ...state,
         loading: true
@@ -96,6 +97,7 @@ const songsReducer = (state, action) => {
     case SONG_UPLOADED_PICTURE_ERROR:
     case SONG_FINISH_LOADING:
     case SONG_NOTIFICATION_REMOVE:
+    case SONG_COMMENT_ERROR:
       return {
         ...state,
         loading: false
@@ -150,6 +152,18 @@ const songsReducer = (state, action) => {
         loading: false,
         likedCommentSuccess: true
       };
+
+    case SONG_COMMENT_SUCCESS:
+      let song = {...state.fetchedSong}
+      let comment = action.payload.attributes;
+      comment.id = action.payload.id;
+      song.comments = Object.assign([], song.comments)
+      song.comments.unshift(comment);
+      return {
+        ...state,
+        loading: false,
+        fetchedSong: song,
+      }
 
     case SONG_FAVORITE_SUCCESS:
       let fetchedSong = {...state.fetchedSong};
