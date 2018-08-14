@@ -58,6 +58,7 @@ const songsReducer = (state, action) => {
   state.songUploadedPictureSuccess = false;
   state.likedCommentSuccess = false;
   state.songDraft = false;
+  state.songCommentedSuccess = false;
 
   switch (action.type) {
     case SONG_REGISTER_DATA:
@@ -163,6 +164,7 @@ const songsReducer = (state, action) => {
         ...state,
         loading: false,
         fetchedSong: song,
+        songCommentedSuccess: true,
       }
 
     case SONG_FAVORITE_SUCCESS:

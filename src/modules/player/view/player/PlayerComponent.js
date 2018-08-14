@@ -49,7 +49,7 @@ class PlayerComponent extends React.Component {
   };
 
   handleCommentSong = (song) => {
-    this.props.dispatch(commentSong(song.id, 'comentario teste'));
+    this.props.navigation.navigate('playerCommentSong', {song});
   }
 
   handleToggleComments = (visible) => {
@@ -152,7 +152,6 @@ class PlayerComponent extends React.Component {
 
   renderLyricsContent() {
     let {song} = this.props;
-    console.log(this.props);
     return (
       <MPFade style={styles.modalContent} visible={this.state.showLyrics}>
         <View style={styles.flexOne}>
@@ -339,7 +338,7 @@ class PlayerComponent extends React.Component {
               song && song.tags && this.handleSongTags(song.tags)
             }
             </View>
-            <MPCircleGradientButton icon={MPBalloonTalkIcon}/>
+            <MPCircleGradientButton onPress={this.handleCommentSong.bind(this, song)} icon={MPBalloonTalkIcon}/>
           </View>
           { this.props.userSongs && this.props.userSongs.length > 0 && (
             this.props.userSongs.map((songList, index) =>
