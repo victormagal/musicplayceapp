@@ -46,14 +46,14 @@ class MPNotificationListComponent extends React.Component {
               </MPText>
             )
           }
-          {/* {
+          {
             notificationType == types[3] && (
               <MPText style={styles.notificationText}>
                 <MPText style={styles.notificationTextEmpth}>{item.data.users.name}</MPText> te indicou para música
-                <MPText style={styles.notificationTextEmpth}> {item.data.song.name}</MPText>
+                <MPText style={styles.notificationTextEmpth}> {item.data.songs.name}</MPText>
               </MPText>
             )
-          } */}
+          }
           <View style={styles.boxFoward}>
             <MPText style={styles.textTime}>
               {item.time}

@@ -26,6 +26,7 @@ class FeedScreenContainer extends React.Component {
       searching: false,
       searchingNotFound: false,
       feed: null,
+      refreshUserFollowings: false,
     };
     this.swiperRef = React.createRef();
   }
@@ -140,9 +141,9 @@ class FeedScreenContainer extends React.Component {
 
   renderItemFeed = ({item}) => (
     <MPFeedNotification
+      key={item.id.toString()}
       handleNavigateUserProfile={this.handleNavigateUserProfile}
       handleSongNavigate={this.handleSongNavigate}
-      key={item.id}
       notification={item}
     />
   );
@@ -306,13 +307,29 @@ class FeedScreenContainer extends React.Component {
               </ScrollView>
             </View>
             <View style={styles.secondSliderContainer}>
-              <ScrollView style={{ flex: 2 }}>
                 <FlatList
                   data={userFollowNotifications}
                   keyExtractor={(item) => item.id}
-                  renderItem={this.renderItemFeed}
+                  refreshing={this.state.refreshUserFollowings}
+                  onRefresh={() => {
+                    this.setState({refreshUserFollowings: true});
+                    console.log('atualizando');
+                    setTimeout(() => {
+                      this.setState({refreshUserFollowings: false});
+                      console.log('atualizado');
+                    }, 3000);
+                  }}
+                  renderItem={({item}) => {
+                    return (
+                      <MPFeedNotification
+                        key={item.id.toString()}
+                        handleNavigateUserProfile={this.handleNavigateUserProfile}
+                        handleSongNavigate={this.handleSongNavigate}
+                        notification={item}
+                      />
+                    )
+                  }}
                 />
-              </ScrollView>
             </View>
           </Swiper>
         </View>
