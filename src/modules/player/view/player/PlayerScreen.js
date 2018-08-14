@@ -34,7 +34,7 @@ class PlayerContainer extends React.Component {
       this.songTimer = setTimeout(() => {
         this.props.dispatch(songNotificationRemove());
         clearTimeout(this.songTimer);
-      }, 8000);
+      }, 4000);
     }
   }
 

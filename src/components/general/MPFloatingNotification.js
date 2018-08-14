@@ -48,7 +48,6 @@ const styles = StyleSheet.create({
     alignSelf: 'center'
   },
   icon: {
-    marginLeft: 15,
     marginRight: 10,
     alignSelf: 'center'
   },

@@ -2,14 +2,19 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {DocumentPicker, DocumentPickerUtil} from 'react-native-document-picker';
 import {StyleSheet, View, ScrollView, TouchableOpacity} from 'react-native';
-import {MPGradientButton, MPHeader, MPSongInfo, MPText, MPLoading} from '../../../components'
-import {MPSongUploadIcon, MPSongUploadEditIcon, MPCameraIcon} from '../../../assets/svg';
+import {
+  MPGradientButton, MPHeader, MPSongInfo, MPText, MPLoading, MPFloatingNotification
+} from '../../../components'
+import {MPSongUploadIcon, MPSongUploadEditIcon, MPCameraIcon, MPAlertIcon} from '../../../assets/svg';
 import {createPermanentSong, updatePermanentSong, fetchOneSong, fetchProfile} from "../../../state/action";
 import {updateSongRegisterData} from "../../../state/songs/songsType";
 import ImagePicker from "react-native-image-picker";
 
 
 class RegisterSongContainer extends React.Component {
+
+  scrollViewRef = null;
+  timerError = null;
 
   constructor(props) {
     super(props);
@@ -19,16 +24,27 @@ class RegisterSongContainer extends React.Component {
       songFile: null,
       imageFile: null,
       progressContentWidth: 0,
+      showError: false,
+      showErrorText: '',
       errors: {},
       cardErrors: {
         name: false,
         lyrics: false,
-        tags: false
+        tags: false,
+        songFile: false
       },
       draftErrors: {
-        name: false,
+        name: false
+      },
+      textErros: {
+        name: 'nome',
+        songFile: 'melodia',
+        lyrics: 'letra',
+        tags: 'categorias'
       }
     };
+
+    this.scrollViewRef = React.createRef();
   }
 
   componentDidMount() {
@@ -66,6 +82,12 @@ class RegisterSongContainer extends React.Component {
     }
   }
 
+  componentWillUnmount(){
+    if(this.timerError){
+      clearTimeout(this.timerError);
+    }
+  }
+
   goToScreen = (route) => {
     this.props.navigation.navigate(route);
   };
@@ -75,32 +97,36 @@ class RegisterSongContainer extends React.Component {
   };
 
   handlePublishClick = () => {
-    const {songFile, imageFile, cardErrors} = this.state;
+    const {songFile, cardErrors} = this.state;
     let {song, dispatch} = this.props;
     let songError = songFile === null && !song.path;
 
     let valid = this.validate(cardErrors, () => {
-      if (songError) {
-        this.setState({errors: {...this.state.errors, songFile: true}});
+      let errors = {...this.state.errors, songFile: songError};
+      this.setState({errors});
+
+      if (valid && !songError) {
+        song.created_at
+          ? dispatch(updatePermanentSong(song))
+          : dispatch(createPermanentSong(song));
+      }else{
+        this.showNotificationError(errors);
       }
     });
-
-    if (valid && !songError) {
-      song.created_at
-        ? dispatch(updatePermanentSong(song, songFile, imageFile))
-        : dispatch(createPermanentSong(song, songFile, imageFile));
-    }
   };
 
   handleFinishLaterClick = () => {
-    const {songFile, imageFile} = this.state;
     let {draftErrors} = this.state;
 
-    const isValid = this.validate(draftErrors);
-    if (isValid) {
-      let {song} = this.props;
-      this.goToScreen('SaveDraftScreen', {song, songFile, imageFile});
-    }
+    const isValid = this.validate(draftErrors, () => {
+      if (isValid) {
+        let {song} = this.props;
+        this.goToScreen('SaveDraftScreen', {song});
+      }else{
+        this.showNotificationError(this.state.errors);
+      }
+    });
+
   };
 
   handlePlaySongClick = () => {
@@ -117,6 +143,7 @@ class RegisterSongContainer extends React.Component {
           response.fileName = `${response.fileName}.${response.type.split('/')[1]}`;
         }
 
+        this.updateSong('songFile', response)
         this.setState({songFile: response});
       }
     });
@@ -138,8 +165,15 @@ class RegisterSongContainer extends React.Component {
         console.log('ImagePicker Error: ', response.error);
       } else {
         this.setState({imageFile: response});
+        this.updateSong('imageFile', response)
       }
     });
+  };
+
+  updateSong(propName, value){
+    let {song} = this.props;
+    song[propName] = value;
+    this.props.dispatch(updateSongRegisterData(song));
   }
 
   validate(errors, callback) {
@@ -155,6 +189,32 @@ class RegisterSongContainer extends React.Component {
 
     this.setState({errors}, callback);
     return valid;
+  }
+
+  showNotificationError(errors){
+    let fields = [];
+
+    for(let key in errors){
+      if(errors[key]){
+        fields.push(this.state.textErros[key]);
+      }
+    }
+
+    const label = fields.length > 1 ? 'Verifique os campos obrigatórios, ' : 'Verifique o campo obrigatório, ';
+    fields = fields.join(', ');
+    let index = fields.lastIndexOf(',');
+
+    if(index >= 0){
+      fields = [fields.substr(0, index), ' e', fields.substr(index + 1, fields.length)].join('');
+    }
+
+    this.setState({showError: true, showErrorText: `${label}${fields}`});
+    this.scrollViewRef.current.scrollTo({x: 0, y: 0});
+
+     this.timerError = setTimeout(() => {
+       this.setState({showError: false, showErrorText: ''});
+       clearTimeout(this.timerError);
+     }, 4000);
   }
 
   getProgressStyle = () => {
@@ -198,7 +258,7 @@ class RegisterSongContainer extends React.Component {
         <View style={styles.progressContainer}>
           <View style={this.getProgressStyle()}/>
         </View>
-        <ScrollView style={styles.scroll}>
+        <ScrollView style={styles.scroll} ref={this.scrollViewRef}>
           <View style={ {flex: 1}}>
             <View>
               <MPText style={styles.headerTitle}>
@@ -335,6 +395,9 @@ class RegisterSongContainer extends React.Component {
           </View>
         </ScrollView>
         <MPLoading visible={this.props.loading}/>
+        <MPFloatingNotification visible={this.state.showError}
+                                text={this.state.showErrorText}
+                                icon={<MPAlertIcon />}/>
       </View>
     );
   }
