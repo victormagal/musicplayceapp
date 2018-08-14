@@ -75,6 +75,11 @@ export const MPBackBlackIcon = (props) => {
  return (<Svg {...newProps} viewBox='0 0 10 12'><Path d='M9.214 0c.434 0 .786.352.786.786l-.003 10.43a.783.783 0 0 1-1.194.666L.383 6.675a.784.784 0 0 1-.01-1.34L8.743.157A.783.783 0 0 1 9.214 0z' fill='#000'/></Svg>); 
 };
 
+export const MPBackRedIcon = (props) => { 
+ let newProps = applyStyle(props, 10, 12); 
+ return (<Svg {...newProps} viewBox='0 0 10 12'><Path d='M9.214 0c.434 0 .786.352.786.786l-.003 10.43a.783.783 0 0 1-1.194.666L.383 6.675a.784.784 0 0 1-.01-1.34L8.743.157A.783.783 0 0 1 9.214 0z' fill='#E13223'/></Svg>); 
+};
+
 export const MPBackIcon = (props) => { 
  let newProps = applyStyle(props, 10, 12); 
  return (<Svg {...newProps} viewBox='0 0 10 12'><Path d='M9.214 0c.434 0 .786.352.786.786l-.003 10.43a.783.783 0 0 1-1.194.666L.383 6.675a.784.784 0 0 1-.01-1.34L8.743.157A.783.783 0 0 1 9.214 0z' fill='#FFF'/></Svg>); 

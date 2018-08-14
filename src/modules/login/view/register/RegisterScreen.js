@@ -21,9 +21,17 @@ class RegisterScreenContainer extends Component {
     this.props.dispatch(createUser(user));
   };
 
+  handleBackClick = () => {
+    this.props.navigation.pop();
+  };
+
   render() {
     return (
-      <RegisterComponent onRegister={this.handleRegister} loading={this.props.loading} error={this.props.createUserError}/>
+      <RegisterComponent
+        onBackClick={this.handleBackClick}
+        onRegister={this.handleRegister}
+        loading={this.props.loading}
+        error={this.props.createUserError}/>
     );
   }
 }
