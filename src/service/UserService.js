@@ -134,6 +134,7 @@ class UserService {
 
   static getNotifications(){
     return axios.get(`${API_USER}/me/notifications`).then((response) => {
+      console.log(response);
       return response.data;
     });
   }

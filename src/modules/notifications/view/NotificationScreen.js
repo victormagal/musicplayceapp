@@ -16,6 +16,7 @@ class NotificationScreenContainer extends React.Component {
     super(props);
     this.state = {
       tabIndex: 0,
+      refresh: false,
     }
   }
 
@@ -195,6 +196,15 @@ class NotificationScreenContainer extends React.Component {
             <FlatList
               data={this.state.notifications}
               keyExtractor={item => item.id}
+              refreshing={this.state.refresh}
+              onRefresh={() => {
+                this.setState({refresh: true});
+                console.log('atualizando');
+                setTimeout(() => {
+                  this.setState({refresh: false});
+                  console.log('atualizado');
+                }, 3000);
+              }}
               renderItem={({ item }) => {
                 return (
                   <MPNotificationList item={item} {...this.props} />
