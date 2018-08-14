@@ -28,6 +28,11 @@ class MPSongRating extends Component {
     this.setState({isAdded: !this.state.isAdded})
   };
 
+  handlePlayClick = (song) => {
+    let {onPlayClick} =
+    onPlayClick && onPlayClick(song);
+  };
+
   handleClose = () => {
     this.setState({menuOpen: false});
   };
@@ -89,7 +94,7 @@ class MPSongRating extends Component {
                     style={{ width: 100, height: 100 }}
                     source={ song.picture_url ? { uri: song.picture_url } : require('../../assets/img/album-default.png')}/>
 
-                  <TouchableOpacity style={styles.playIcon} onPress={this.props.onPlayClick.bind(this,song)}>
+                  <TouchableOpacity style={styles.playIcon} onPress={this.handlePlayClick}>
                     <MPPlayIcon />
                   </TouchableOpacity>
                   { this.renderTopIcons() }

@@ -1,5 +1,6 @@
 import React from 'react';
-import { 
+import {
+  Dimensions,
   StyleSheet, 
   TouchableHighlight, 
   View
@@ -40,7 +41,7 @@ const styles = StyleSheet.create({
   item: {
     backgroundColor: '#FFFFFF',
     paddingVertical: 15,
-    marginHorizontal: 20,
+    marginHorizontal: Dimensions.get('window').width < 375 ? 15 : 20,
     marginBottom: 20,
     flexDirection: 'row',
     display: 'flex',
@@ -60,7 +61,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     flex: 0,
     width: 37,
-    paddingRight: 12,
+    paddingHorizontal: 12,
     borderRightWidth: 2,
     borderRightColor: '#F6F6F6',
     alignItems: 'center'
@@ -77,7 +78,7 @@ const styles = StyleSheet.create({
   boxFoward: {
     display: 'flex',
     flex: 0.05,
-    paddingRight: 10,
+    paddingRight: 12,
     alignItems: 'flex-end'
   }
 });

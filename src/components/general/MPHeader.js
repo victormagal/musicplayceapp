@@ -65,18 +65,18 @@ const styles = StyleSheet.create({
         }})
   },
   backContainer: {
-    paddingLeft: 20,
-    paddingRight: 20,
-    paddingTop: 10,
-    paddingBottom: 10
+    flex: 0,
+    width: 50,
+    marginLeft: 10,
+    marginTop: 12,
+    alignItems: 'center'
   },
   back: {
     width: 10,
-    height: 20,
+    height: 20
   },
   logo: {
     flex: 1,
-    width: 100,
     height: 20,
     alignSelf: 'center'
   },
@@ -90,12 +90,18 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   },
   icons: {
-    paddingRight: 20,
-    paddingTop: 12,
+    flex: 0,
+    width: 50,
+    marginRight: 10,
+    marginTop: 12,
     flexDirection: 'row',
+    justifyContent: 'flex-end'
   },
   iconsLeft: {
-    paddingLeft: 10
+    flex: 0,
+    width: 50,
+    marginLeft: 10,
+    justifyContent: 'center'
   }
 });
 
