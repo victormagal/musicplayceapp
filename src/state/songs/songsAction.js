@@ -1,8 +1,6 @@
 import {SongService} from '../../service';
 import {
-  fetchedUserSongs,
   fetchedSong,
-  fetchedSongLyrics,
   songDraftError,
   songDraftSuccess,
   songFavoriteError,
@@ -17,8 +15,6 @@ import {
   songStartLoading,
   songUnpublishError,
   songUnpublishSuccess,
-  uploadedSongPictureSucess,
-  uploadedSongPictureError,
   likedCommentSuccess,
   likedCommentError,
   songUnfavoriteSuccess,
@@ -28,13 +24,13 @@ import {
   commentStartLoading
 } from "./songsType";
 
-export const createPermanentSong = (song, songFile, imageFile) => {
+export const createPermanentSong = (song) => {
   return (dispatch, getState) => {
     const {profile} = getState().profileReducer;
     song.artist_id = profile.id;
 
     dispatch(songStartLoading());
-    return SongService.createSong(song, songFile, imageFile, true).then(() => {
+    return SongService.createSong(song, true).then(() => {
       dispatch(songPublishSuccess());
     }).catch(e => {
       dispatch(songPublishError());
@@ -44,13 +40,13 @@ export const createPermanentSong = (song, songFile, imageFile) => {
   };
 };
 
-export const createDraftSong = (song, songFile, imageFile) => {
+export const createDraftSong = (song) => {
   return (dispatch, getState) => {
     const {profile} = getState().profileReducer;
     song.artist_id = profile.id;
 
     dispatch(songStartLoading());
-    return SongService.createSong(song, songFile, imageFile).then(() => {
+    return SongService.createSong(song).then(() => {
       dispatch(songDraftSuccess());
     }).catch(e => {
       dispatch(songDraftError());
@@ -59,11 +55,11 @@ export const createDraftSong = (song, songFile, imageFile) => {
   };
 }
 
-export const updatePermanentSong = (song, songFile, imageFile) => {
+export const updatePermanentSong = (song) => {
   return (dispatch) => {
     dispatch(songStartLoading());
 
-    return SongService.updateSong(song, songFile, imageFile, true).then(() => {
+    return SongService.updateSong(song, true).then(() => {
       dispatch(songPublishSuccess());
     }).catch(e => {
       console.log('updatePermanentSongError', e);
@@ -72,10 +68,10 @@ export const updatePermanentSong = (song, songFile, imageFile) => {
   };
 };
 
-export const updateDraftSong = (song, songFile, imageFile) => {
+export const updateDraftSong = (song) => {
   return (dispatch) => {
     dispatch(songStartLoading());
-    return SongService.updateSong(song, songFile, imageFile).then(() => {
+    return SongService.updateSong(song).then(() => {
       dispatch(songDraftSuccess());
     }).catch(e => {
       dispatch(songDraftError());
@@ -184,45 +180,6 @@ export const fetchOneSong = (song) => {
     }).catch(e => {
       console.log('fetchOneSongError', e);
       dispatch(songFinishLoading());
-    });
-  };
-};
-
-export const getSongLyrics = (song) => {
-  return (dispatch) => {
-    dispatch(songStartLoading);
-
-    return SongService.getSongLyrics(song).then(response => {
-      dispatch(fetchedSongLyrics(response));
-    }).catch(e => {
-      console.log('getSongLyricsError', e.response);
-      dispatch(songFinishLoading());
-    })
-  }
-}
-
-export const fetchUserSongs = (userId) => {
-  return (dispatch) => {
-    dispatch(songStartLoading());
-    return SongService.songsByUser(userId).then(response => {
-      dispatch(fetchedUserSongs(response));
-    }).catch(e => {
-      console.log(e);
-      dispatch(songFinishLoading(e.response));
-    });
-  };
-};
-
-export const uploadSongPicture = (songId, file) => {
-  return (dispatch) => {
-    dispatch(songStartLoading());
-
-    return SongService.uploadImage(songId, file).then(response => {
-      console.log('uploadSongPictureSuccess', response);
-      dispatch(uploadedSongPictureSucess());
-    }).catch(e => {
-      console.log('uploadSongPictureError', e);
-      dispatch(uploadedSongPictureError());
     });
   };
 };

@@ -13,8 +13,8 @@ class SaveDraftScreenContainer extends React.Component {
   }
 
   handleSaveDraftClick = () => {
-    let {song, imageFile, songFile, dispatch} = this.props;
-    song.created_at ? dispatch(updateDraftSong(song, songFile, imageFile)) : dispatch(createDraftSong(song, songFile, imageFile));
+    let {song, dispatch} = this.props;
+    song.created_at ? dispatch(updateDraftSong(song)) : dispatch(createDraftSong(song));
   };
 
   handleRemoveSongClick = () => {

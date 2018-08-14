@@ -136,13 +136,6 @@ class SongService {
     });
   }
 
-  static getSongLyrics(song) {
-    return axios.get(`${API_SONG}/${song.id}/lyrics`).then(response => {
-      let {data} = response.data;
-      return {data: transformResponseData(data)}
-    })
-  }
-
   static songsByUserWithoutFolders(user) {
     return axios.get(`${API}/song-artist/${user.id}`)
       .then(response => {
@@ -206,8 +199,10 @@ class SongService {
     });
   }
 
-  static createSong(song, songFile, imageFile, publish){
-    song.path = 'path/without-song.mp3';
+  static createSong(song, publish){
+    let {songFile, imageFile} = song;
+    delete song.songFile;
+    delete song.imageFile;
 
     return SongService.create(song).then(response => {
       return SongService.uploadImage(response.id, imageFile).then(() => {
@@ -221,7 +216,11 @@ class SongService {
     });
   }
 
-  static updateSong(song, songFile, imageFile){
+  static updateSong(song){
+    let {songFile, imageFile} = song;
+    delete song.songFile;
+    delete song.imageFile;
+
     return SongService.uploadImage(song.id, imageFile).then((response) => {
       response = response || song;
       return SongService.sendSongFile(songFile, response).then((fileResponse) => {
