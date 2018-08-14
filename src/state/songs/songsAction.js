@@ -31,10 +31,10 @@ import {
 export const createPermanentSong = (song, songFile, imageFile) => {
   return (dispatch, getState) => {
     const {profile} = getState().profileReducer;
-    song.user_id = profile.id;
+    song.artist_id = profile.id;
 
     dispatch(songStartLoading());
-    return SongService.createAndPublishSong(song, songFile, imageFile).then(() => {
+    return SongService.createSong(song, songFile, imageFile, true).then(() => {
       dispatch(songPublishSuccess());
     }).catch(e => {
       dispatch(songPublishError());
@@ -44,13 +44,13 @@ export const createPermanentSong = (song, songFile, imageFile) => {
   };
 };
 
-export const createDraftSong = (song) => {
+export const createDraftSong = (song, songFile, imageFile) => {
   return (dispatch, getState) => {
     const {profile} = getState().profileReducer;
     song.artist_id = profile.id;
 
     dispatch(songStartLoading());
-    return SongService.create(song).then(() => {
+    return SongService.createSong(song, songFile, imageFile).then(() => {
       dispatch(songDraftSuccess());
     }).catch(e => {
       dispatch(songDraftError());
@@ -63,7 +63,7 @@ export const updatePermanentSong = (song, songFile, imageFile) => {
   return (dispatch) => {
     dispatch(songStartLoading());
 
-    return SongService.republishSong(song, songFile, imageFile).then(() => {
+    return SongService.updateSong(song, songFile, imageFile, true).then(() => {
       dispatch(songPublishSuccess());
     }).catch(e => {
       console.log('updatePermanentSongError', e);
@@ -72,10 +72,10 @@ export const updatePermanentSong = (song, songFile, imageFile) => {
   };
 };
 
-export const updateDraftSong = (song) => {
+export const updateDraftSong = (song, songFile, imageFile) => {
   return (dispatch) => {
     dispatch(songStartLoading());
-    return SongService.update(song).then(() => {
+    return SongService.updateSong(song, songFile, imageFile).then(() => {
       dispatch(songDraftSuccess());
     }).catch(e => {
       dispatch(songDraftError());
