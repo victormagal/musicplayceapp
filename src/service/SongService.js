@@ -194,20 +194,22 @@ class SongService {
     });
   }
 
-  static createAndPublishSong(song, songFile, imageFile){
+  static createSong(song, songFile, imageFile, publish){
     song.path = 'path/without-song.mp3';
-    song.artist_id = song.user_id;
 
     return SongService.create(song).then(response => {
       return SongService.uploadImage(response.id, imageFile).then(() => {
         return SongService.sendSongFile(songFile, response).then(() => {
-          return SongService.publish(response.id).then(_ => response);
+          if(publish) {
+            return SongService.publish(response.id).then(_ => response);
+          }
+          return response;
         });
       });
     });
   }
 
-  static republishSong(song, songFile, imageFile){
+  static updateSong(song, songFile, imageFile){
     return SongService.uploadImage(song.id, imageFile).then((response) => {
       response = response || song;
       return SongService.sendSongFile(songFile, response).then((fileResponse) => {
@@ -229,11 +231,12 @@ class SongService {
           rating: rating + 1
         }
       }
-    }    
+    };
+
     return axios.post(`${API_SONG}/${song.id}/rating`, params).then(response => {
       console.log(response);
       // return response;
-    })
+    });
   }
 
   static uploadImage(songId, file) {

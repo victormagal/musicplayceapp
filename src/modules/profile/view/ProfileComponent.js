@@ -81,6 +81,7 @@ class ProfileComponent extends React.Component {
 
   handlePlaySong = (song) => {
     song.artist = this.props.profile;
+    console.log(song);
     this.props.navigation.navigate('player', {song});
   };
 

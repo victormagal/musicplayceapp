@@ -28,8 +28,8 @@ class MPSongRating extends Component {
     this.setState({isAdded: !this.state.isAdded})
   };
 
-  handlePlayClick = (song) => {
-    let {onPlayClick} =
+  handlePlayClick = () => {
+    let {onPlayClick, song} = this.props;
     onPlayClick && onPlayClick(song);
   };
 
