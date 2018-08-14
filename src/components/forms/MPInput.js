@@ -32,26 +32,6 @@ class MPInputComponent extends React.Component {
     }
   }
 
-  getTextFieldStyle() {
-    let style = {fontSize: 16, paddingRight: 30};
-
-    if (this.props.fontLoaded) {
-      style['fontFamily'] = 'Montserrat-Regular';
-    }
-
-    return Object.assign({}, style);
-  }
-
-  getLabelStyle() {
-    let style = {};
-
-    if (this.props.fontLoaded) {
-      style['fontFamily'] = 'Montserrat-Regular';
-    }
-
-    return Object.assign({}, style);
-  }
-
   validate(){
     return this.props.validate();
   }
@@ -86,8 +66,8 @@ class MPInputComponent extends React.Component {
           labelFontSize={12}
           baseColor={'rgba(104, 104, 104, 0.8)'}
           tintColor={'rgba(177, 177, 177, 0.8)'}
-          labelTextStyle={this.getLabelStyle()}
-          style={this.getTextFieldStyle()}
+          labelTextStyle={styles.labelStyle}
+          style={styles.textField}
           onBlur={onBlur}
           onChangeText={ this.handleChangeText }
           secureTextEntry={this.state.isPassword}
@@ -112,6 +92,14 @@ const styles = StyleSheet.create({
   parent: {
     display: 'flex'
   },
+  labelStyle: {
+    fontFamily: 'Montserrat-Regular'
+  },
+  textField: {
+    fontSize: 16,
+    paddingRight: 30,
+    fontFamily: 'Montserrat-Regular'
+  },
   eye: {
     position: 'absolute',
     right: 0,
@@ -122,10 +110,5 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = ({fontReducer}) => {
-  return {...fontReducer};
-};
-
-
-const MPInput = connect(mapStateToProps)(applyValidator(MPInputComponent));
+const MPInput = applyValidator(MPInputComponent);
 export {MPInput};

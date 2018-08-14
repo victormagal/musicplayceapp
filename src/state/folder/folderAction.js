@@ -114,11 +114,8 @@ export const createFolder = (folder) => {
   return (dispatch) => {
     dispatch(folderStartLoading());
     return FolderService.create(folder).then(response => {
-      console.log('response', response);
-      dispatch(fetchFolders());
+      dispatch(getUserSongsFolders());
     }).catch(e => {
-      console.log(e);
-      //TODO: handle error
       dispatch(folderFinishLoading());
     });
   };
