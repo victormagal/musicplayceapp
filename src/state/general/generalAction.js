@@ -27,7 +27,7 @@ export const fetchCityBrazil = (state) => {
   return (dispatch) => {
     dispatch(generalStartLoading());
     return GeneralService.fetchCityBrazil(state).then(response => {
-      dispatch(fetchedCityBrazil(response.data));
+      dispatch(fetchedCityBrazil(response));
     }).catch(() => {
       dispatch(generalFinishLoading());
     })
