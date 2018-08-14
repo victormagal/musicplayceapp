@@ -47,6 +47,10 @@ class PlayerComponent extends React.Component {
     this.props.navigation.pop();
   };
 
+  handleCommentSong = (song) => {
+    console.log(song.name);
+  }
+
   handleToggleComments = (visible) => {
     this.setState({showComments: visible, showLyrics: false, showPlayer: !visible})
   };
@@ -230,7 +234,7 @@ class PlayerComponent extends React.Component {
 
           <View>
             <View style={[styles.leaveCommentContainer]}>
-              <MPText style={styles.leaveCommentText}>DEIXE SEU COMENTÁRIO</MPText>
+              <MPText style={styles.leaveCommentText} onPress={this.handleCommentSong.bind(this, song)}>DEIXE SEU COMENTÁRIO</MPText>
             </View>
             <View style={styles.divider}/>
 

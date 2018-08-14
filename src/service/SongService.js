@@ -95,6 +95,16 @@ class SongService {
     return axios.post(`${API_SONG}/${songId}/indications`, params).then(response => response.data);
   }
 
+  static commentSong(songId, comment){
+    let params = {
+      data : {
+        type: "comments",
+        text: comment
+      }
+    }
+    return axios.post(`${API_SONG}/${songId}/comments`, params)
+  }
+
   static likeComment(commentId) {
     return axios.post(`${API_SONG}/${commentId}/like`).then(response => response.data);
   }
