@@ -12,6 +12,7 @@ class MPNotificationListComponent extends React.Component {
   render() {
     let { item } = this.props;
     let notificationType = item.type.split("\\")[item.type.split("\\").length - 1];
+    console.log(notificationType);
     let types = [
       'AlertIndicationYourSongNotification',
       'AlertFaqNotification',
@@ -20,9 +21,20 @@ class MPNotificationListComponent extends React.Component {
     ]
     return (
         <View style={styles.item}>
-          <View style={styles.boxIcon}>
-            <Image source={require('../../../assets/images/avatar.png')} />
-          </View>
+          {
+            (notificationType == types[0]) && (
+              <View style={styles.boxIcon}>
+                <Image style={{width: 20, height: 20, borderRadius: 10, marginEnd: 10}} source={typeof item.data.userLogged.picture_url === 'string' ? {uri : item.data.userLogged.picture_url} : require('../../assets/img/avatar-male.jpg')} />
+              </View>  
+            )
+          }
+          {
+            (notificationType == types[1] || notificationType == types[2] || notificationType == types[3]) && (
+              <View style={styles.boxIcon}>
+                <Image style={{width: 20, height: 20, borderRadius: 10, marginEnd: 10}} source={typeof item.data.users.picture_url === 'string' ? {uri : item.data.users.picture_url} : require('../../assets/img/avatar-male.jpg')} />
+              </View>  
+            )
+          }
           {
             notificationType == types[0] && (
               <MPText style={styles.notificationText}>
