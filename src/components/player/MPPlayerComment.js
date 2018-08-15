@@ -16,10 +16,12 @@ class MPPlayerComment extends Component{
             style={styles.avatar}
           />
           <View style={styles.commentContainer}>
-            <MPText style={styles.artistText}>
-              {comment ? comment.data.name : null}
-              <MPValidatedRedIcon />
-            </MPText>
+            <View style={styles.titleContainer}>
+              <MPText>
+                {comment ? comment.data.name : null}
+              </MPText>
+              <MPValidatedRedIcon style={styles.validatedIcon}/>
+            </View>
             <MPText style={styles.timeText}>
               HÁ {comment ? comment.time : null }
             </MPText>
@@ -56,7 +58,9 @@ MPPlayerComment.propTypes = {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    padding: 20
+    padding: 20,
+    backgroundColor: '#ffffff',
+    flex: 1
   },
   avatar: {
     width: 50,
@@ -66,6 +70,13 @@ const styles = StyleSheet.create({
   divider: {
     height: 1,
     backgroundColor: '#f1f1f1'
+  },
+  titleContainer: {
+    flexDirection: 'row'
+  },
+  validatedIcon: {
+    marginLeft: 5,
+    marginTop: 2
   },
   commentContainer: {
     flex: 1,

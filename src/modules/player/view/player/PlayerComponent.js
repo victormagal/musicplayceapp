@@ -29,7 +29,6 @@ import {
   MPTriangleUpGrayIcon,
   MPFilledStarIcon
 } from '../../../../assets/svg';
-import { commentSong } from '../../../../state/action';
 
 
 const stars = new Array(5).fill(true);
@@ -157,12 +156,12 @@ class PlayerComponent extends React.Component {
         <View style={styles.flexOne}>
           <View style={styles.coverCommentContainer}>
             <Image
-              source={require('../../../../assets/img/fernandinho-cover.jpeg')}
+              source={require('../../../../assets/img/album-default.png')}
               style={styles.coverImage}/>
 
             <LinearGradient
               style={styles.linearGradient}
-              colors={['#000000', '#000000D9']}
+              colors={['#00000099', '#00000033']}
               start={{x: 0, y: 0.9}}
               end={{x:0, y:0}}>
             </LinearGradient>
@@ -216,12 +215,12 @@ class PlayerComponent extends React.Component {
         <View style={{flex: 1}}>
           <View style={styles.coverCommentContainer}>
             <Image
-              source={require('../../../../assets/img/fernandinho-cover.jpeg')}
-              style={styles.coverImage}/>
+              source={require('../../../../assets/img/album-default.png')}
+              style={styles.coverImageComment}/>
 
             <LinearGradient
               style={styles.linearGradient}
-              colors={['#000000', '#000000D9']}
+              colors={['#00000099', '#00000033']}
               start={{x:0, y:0.9}}
               end={{x:0, y:0}}>
             </LinearGradient>
@@ -254,20 +253,18 @@ class PlayerComponent extends React.Component {
 
   renderMain() {
     let {song} = this.props;
-    console.log(this.props);
-    let hasAuthors = this.props.coAuthors && this.props.coAuthors.length > 0;
 
     return (
       <MPFade style={styles.modalContent} visible={this.state.showPlayer}>
         <ScrollView style={styles.flexOne}>
           <View style={styles.coverContainer}>
             <Image
-              source={require('../../../../assets/img/fernandinho-cover.jpeg')}
+              source={require('../../../../assets/img/album-default.png')}
               style={styles.coverImage}/>
 
             <LinearGradient
               style={styles.linearGradient}
-              colors={['#000000', '#000000D9']}
+              colors={['#00000099', '#00000066']}
               start={{x:0, y:0.9}}
               end={{x:0, y:0}}>
             </LinearGradient>
@@ -458,6 +455,10 @@ const styles = StyleSheet.create({
   coverImage: {
     width: '100%',
     height: 330
+  },
+  coverImageComment: {
+    width: '100%',
+    height: 120,
   },
   coverCommentContainer: {
     height: 120,
