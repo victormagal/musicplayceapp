@@ -34,7 +34,7 @@ class MPFeedNotification extends React.Component {
       <View style={styles.parent}>
         {
           notificationType == types[0] && (
-            <View style={{width: 30, height: 30, backgroundColor: '#f60', marginEnd: 10}}>
+            <View style={{width: 30, height: 30, marginEnd: 10}}>
               <Image source={imageFirst} style={{width: 20, height:20, borderRadius: 10}} />
               <Image style={{position: 'absolute', bottom: 0, right: 0, width: 20, height:20, borderRadius: 10}} source={imageSecond} />
             </View>   
