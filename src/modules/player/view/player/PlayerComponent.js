@@ -211,7 +211,6 @@ class PlayerComponent extends React.Component {
 
   renderCommentContent() {
     let {song} = this.props;
-    console.log(song);
     return (
       <MPFade style={styles.modalContent} visible={this.state.showComments}>
         <View style={{flex: 1}}>
@@ -255,6 +254,7 @@ class PlayerComponent extends React.Component {
 
   renderMain() {
     let {song} = this.props;
+    console.log(this.props);
     let hasAuthors = this.props.coAuthors && this.props.coAuthors.length > 0;
 
     return (

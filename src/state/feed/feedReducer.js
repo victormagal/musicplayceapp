@@ -27,6 +27,7 @@ const feedsReducer = (state, action) => {
       return {
         ...state,
         loading: false,
+        searching: false,
       };
 
     case FETCHED_FEED_SEARCH:
@@ -34,6 +35,7 @@ const feedsReducer = (state, action) => {
         ...state,
         loading: false,
         feed: action.payload,
+        searching: false,
       };
 
     case USER_FOLLOW_SUCCESS:

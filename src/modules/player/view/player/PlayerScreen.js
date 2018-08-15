@@ -92,6 +92,7 @@ class PlayerContainer extends React.Component {
   };
 
   handleLikeComment = (commentId) => {
+    console.log('comentou', commentId);
     this.props.dispatch(likeSongComment(commentId));
   };
 

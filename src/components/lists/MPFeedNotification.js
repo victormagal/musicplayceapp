@@ -18,16 +18,16 @@ class MPFeedNotification extends React.Component {
       // 'AlertIndicationYourSongNotification' 
     ];
 
-    let image = require('../../../assets/images/avatar.png');
+    let image = require('../../assets/img/avatar-male.jpg');
     let imageFirst = '';
     let imageSecond = "";
 
     if(notificationType == types[0]){
-      imageFirst = typeof notification.data.artistsOwner.picture_url === 'string' ? {uri : notification.data.artistsOwner.picture_url} : require('../../../assets/images/avatar.png');
-      imageSecond = typeof notification.data.artistIndication.picture_url === 'string' ? {uri : notification.data.artistIndication.picture_url} : require('../../../assets/images/avatar.png');
+      imageFirst = typeof notification.data.artistsOwner.picture_url === 'string' ? {uri : notification.data.artistsOwner.picture_url} : image;
+      imageSecond = typeof notification.data.artistIndication.picture_url === 'string' ? {uri : notification.data.artistIndication.picture_url} : image;
     }else if(notificationType == types[1]){
-      imageFirst = typeof notification.data.userFollower.picture_url === 'string' ? {uri : notification.data.userFollower.picture_url} : require('../../../assets/images/avatar.png');
-      imageSecond = typeof notification.data.artists.picture_url === 'string' ? {uri : notification.data.artists.picture_url} : require('../../../assets/images/avatar.png');
+      imageFirst = typeof notification.data.userFollower.picture_url === 'string' ? {uri : notification.data.userFollower.picture_url} : image;
+      imageSecond = typeof notification.data.artists.picture_url === 'string' ? {uri : notification.data.artists.picture_url} : image;
     }
     // console.log(notification, imageFirst, imageSecond)
     return (

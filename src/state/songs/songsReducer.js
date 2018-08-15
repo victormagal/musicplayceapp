@@ -148,6 +148,7 @@ const songsReducer = (state, action) => {
       };
     
     case SONG_LIKE_COMMENT_SUCCESS:
+    console.log(action);
       return {
         ...state,
         loading: false,

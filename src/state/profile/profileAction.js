@@ -52,8 +52,9 @@ export const createUser = (user) => {
 export const uploadImage = (picture) => {
   return (dispatch) => {
     dispatch(imageProfileStartLoading());
-    return UserService.uploadImage(picture).then(response => {
+    return UserService.uploadImage(picture).then(() => {
       dispatch(profileImageUploaded());
+      dispatch(imageProfileFinishedLoading());
     }).catch(e => {
       console.log('uploadImageError', e);
       dispatch(imageProfileFinishedLoading());

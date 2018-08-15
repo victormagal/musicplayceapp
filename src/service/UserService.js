@@ -33,7 +33,7 @@ class UserService {
     formData.append('picture', {
       uri: file.uri,
       name: file.fileName,
-      type: Platform.OS === 'android' ? file.type : `images/${ file.fileName.split('.')[1] }`
+      type: `images/${ file.fileName.split('.')[1] }`
     });
 
     return axios.post(`${ API_USER }/me/picture`, formData, {

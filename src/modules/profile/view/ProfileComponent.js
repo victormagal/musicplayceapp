@@ -23,9 +23,10 @@ import {
   MPSettingsIcon,
   MPSongAddIcon
 } from '../../../assets/svg/'
-import {uploadImage, followUser} from "../../../state/action";
+import {uploadImage, followUser, getFavoriteSongsWithFolders} from "../../../state/action";
 import ImagePicker from 'react-native-image-picker';
-import {MPGroupIcon} from "../../../assets/svg";
+import {MPCameraIcon, MPGroupIcon, MPProfileIcon} from "../../../assets/svg";
+import {MPFloatingNotification} from "../../../components/general";
 
 class ProfileComponent extends React.Component {
   scrollViewRef = null;
@@ -38,6 +39,7 @@ class ProfileComponent extends React.Component {
       linearGradientHeight: 0,
       favoritesFolder: [],
       isFollowing: false,
+      imageSizeError: false
     };
   }
 
@@ -48,6 +50,10 @@ class ProfileComponent extends React.Component {
 
     if(nextProps.mySongs){
       this.setState({userFolders: nextProps.mySongs.data});
+    }
+
+    if (this.props.profile !== nextProps.profile) {
+      this.props.onStopLoading()
     }
   }
 
@@ -127,10 +133,14 @@ class ProfileComponent extends React.Component {
         console.log('User cancelled image picker');
       } else if (response.error) {
         console.log('ImagePicker Error: ', response.error);
+      } else if (response.fileSize > 2000000) {
+        this.setState({ imageSizeError: true });
+        const timer = setTimeout(() => {
+          this.setState({ imageSizeError: false });
+          clearTimeout(timer);
+        }, 1000);
       } else {
-        this.props.dispatch(uploadImage(response)).then(updateResponse => {
-          console.log('updateResponse', updateResponse);
-        })
+        this.props.dispatch(uploadImage(response))
       }
     });
   };
@@ -179,6 +189,11 @@ class ProfileComponent extends React.Component {
         { (profile && me) &&
           <MPAddSongButton isColored={true} onPress={this.props.onSongAddClick} />
         }
+        <MPFloatingNotification
+          visible={this.state.imageSizeError}
+          icon={<MPProfileIcon/>}
+          text="Imagem muito grande. Tente usar outra."
+        />
       </View>
     )
   }
@@ -202,9 +217,9 @@ class ProfileComponent extends React.Component {
   }
 
   renderContent(profile) {
-    const { me } = this.props;
+    const { me, loadingProfile } = this.props;
 
-    if (!profile) {
+    if (loadingProfile) {
       return (
         <View style={styles.containerLoading}>
           <View style={styles.contentLoading}>
