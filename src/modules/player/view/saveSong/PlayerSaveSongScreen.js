@@ -29,7 +29,7 @@ class PlayerSaveSongContainer extends React.Component {
     }
   };
 
-  handleChangeText = (value) => {
+  handleChangeText = ({value}) => {
     this.setState({folderName: value});
   };
 

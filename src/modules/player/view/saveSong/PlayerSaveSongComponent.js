@@ -4,9 +4,11 @@ import {
   TouchableWithoutFeedback, Modal
 } from 'react-native';
 import {
-  MPHeader, MPIconButton, MPFolder, MPTextField, MPGradientButton
+  MPHeader, MPIconButton, MPFolder, MPTextField, MPGradientButton, MPInput
 } from '../../../../components';
+import {withFixedBottom} from '../../../../connectors/withFixedBottom';
 
+const InputFolder = withFixedBottom(MPInput);
 
 class PlayerSaveSongComponent extends React.Component {
 
@@ -39,7 +41,7 @@ class PlayerSaveSongComponent extends React.Component {
         </ScrollView>
 
         <View style={styles.inputFolderContainer}>
-          <MPTextField label="Nome da nova pasta" value={this.props.folderName} onChangeText={this.props.onChangeText} />
+          <InputFolder label="Nome da nova pasta" value={this.props.folderName} onChangeText={this.props.onChangeText} />
           <MPGradientButton style={styles.inputButtonAdd} title="Criar"
                             onPress={this.props.onAddFolder}/>
         </View>

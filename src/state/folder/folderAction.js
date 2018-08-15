@@ -114,7 +114,8 @@ export const createFolder = (folder) => {
   return (dispatch) => {
     dispatch(folderStartLoading());
     return FolderService.create(folder).then(response => {
-      dispatch(getUserSongsFolders());
+      if(folder.type === 'favoriteSongs') dispatch(getFavoriteSongsFolders());
+      if(folder.type === 'userSongs') dispatch(getUserSongsFolders());
     }).catch(e => {
       dispatch(folderFinishLoading());
     });
