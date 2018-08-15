@@ -19,13 +19,11 @@ class MPShowFollowers extends Component {
 
   changeTabIndex = (tabIndex) => {
     this.setState({ tabIndex });
-
-    //TODO: REVIEW, error in IOS
-    // const { following, followers } = this.props;
-    // const hasToScroll = tabIndex === 0 ? following.length > 0 : followers.length > 0;
-    // if (hasToScroll) {
-      //this.flatList.scrollToIndex({ index: 0 });
-    // }
+    const { following, followers } = this.props;
+    const hasToScroll = tabIndex === 0 ? following.length > 0 : followers.length > 0;
+    if (hasToScroll) {
+      this.flatList.scrollToOffset({ offset: 0 });
+    }
   };
 
   renderUsers = ({ item }) => (

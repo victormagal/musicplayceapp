@@ -1,12 +1,7 @@
 import React from 'react';
 import {
-  View,
-  StyleSheet,
-  ScrollView,
-  TouchableOpacity,
-  ActivityIndicator,
-  ImageBackground,
-  Dimensions
+  View, StyleSheet, ScrollView, TouchableOpacity,
+  ActivityIndicator, ImageBackground, Dimensions
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import PropTypes from 'prop-types';
@@ -15,17 +10,14 @@ import {
   MPFollowButton, ProfileIndicatorCE, MPAddSongButton, MPAddChangePhoto,
   MPUploadFirstSong, MPShowFollowers, MPShowAgencies, MPReportProfile, MPShowFolderSongs, MPGradientButton,
   MPConfirmStopFollow, MPConfirmExcludeSong, MPConfirmUnpublishSong, MPConfirmReportProfile, MPIconButton,
-  MPText,
-  MPLoading
+  MPText, MPLoading
 } from '../../../components/';
 import {
-  MPProfileArrowIcon,
-  MPSettingsIcon,
-  MPSongAddIcon
+  MPProfileArrowIcon, MPSettingsIcon, MPSongAddIcon
 } from '../../../assets/svg/'
-import {uploadImage, followUser, getFavoriteSongsWithFolders} from "../../../state/action";
+import {uploadImage, followUser} from "../../../state/action";
 import ImagePicker from 'react-native-image-picker';
-import {MPCameraIcon, MPGroupIcon, MPProfileIcon} from "../../../assets/svg";
+import {MPGroupIcon, MPProfileIcon} from "../../../assets/svg";
 import {MPFloatingNotification} from "../../../components/general";
 
 class ProfileComponent extends React.Component {
@@ -87,7 +79,6 @@ class ProfileComponent extends React.Component {
 
   handlePlaySong = (song) => {
     song.artist = this.props.profile;
-    console.log(song);
     this.props.navigation.navigate('player', {song});
   };
 
@@ -105,8 +96,6 @@ class ProfileComponent extends React.Component {
 
 
   handleToggleFollowUser = (user) => {
-    console.log("PROFILE", "HERE", user);
-
     if (user.isFollowing) {
       this.props.navigation.navigate('message', { component: MPConfirmStopFollow, profile: user});
     }else{
@@ -266,17 +255,19 @@ class ProfileComponent extends React.Component {
   }
 
   renderProfileData(profile) {
-    const { me, indications, navigation } = this.props;
+    const { me, indications, navigation, loggedUser } = this.props;
     const countIndications =  (indications && indications.count);
+    const hiddenFollow = loggedUser && loggedUser.id === profile.id;
+
     return (
-      <View>
+      <View style={styles.infoContainer}>
         { me ?
           <MPAddChangePhoto
             onPressPhoto={this.handleClickPhoto}
             hasPhoto={profile.picture_url}
           />
           :
-          <MPFollowButton isFollowing={this.props.followingUser} onPress={() => this.toggleFollow()}/>
+          !hiddenFollow && <MPFollowButton isFollowing={this.props.followingUser} onPress={() => this.toggleFollow()}/>
         }
         <MPProfileInfo
           isMe={me}
@@ -420,6 +411,9 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
     paddingHorizontal: 50,
     backgroundColor: '#FFF',
+  },
+  infoContainer: {
+    paddingTop: 180
   },
   profileIndicatorContainer: {
     flexDirection: 'row',

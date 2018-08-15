@@ -4,8 +4,8 @@ import {
 } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import {
-  MPButton, MPGradientButton, MPHeader, MPText, MPInput, MPForm,
-  MPFormButton, MPLoading
+  MPGradientButton, MPHeader, MPText, MPInput, MPForm,
+  MPFormButton, MPLoading, MPButton
 } from '../../../../components';
 import {
   MPFacebookIcon, MPGoogleIcon
@@ -34,8 +34,8 @@ class LoginComponent extends Component {
 
   state = {
     form: {
-      login: 'user@gmail.com',
-      password: '123456'
+      login: '',
+      password: ''
     }
   };
 
@@ -58,16 +58,15 @@ class LoginComponent extends Component {
         <MPHeader style={styles.header} inverse={true}/>
 
         <KeyboardAwareScrollView>
-        {/*<ScrollView>*/}
           <View style={styles.container}>
             <MPText style={styles.title}>Bem-vindo ao MusicPlayce</MPText>
 
-            <MPButton icon={FacebookIcon} title="Entre com Facebook" textSize={16} onPress={() => {}} style={styles.signinFB}/>
-            <MPButton icon={GoogleIcon} title="Entre com Google+" textSize={16} onPress={() => {}} style={styles.signinGoogle}/>
+            {/*<MPButton icon={FacebookIcon} title="Entre com Facebook" textSize={16} onPress={() => {}} style={styles.signinFB}/>*/}
+            {/*<MPButton icon={GoogleIcon} title="Entre com Google+" textSize={16} onPress={() => {}} style={styles.signinGoogle}/>*/}
 
             {!this.props.error && (
               <View>
-                <MPText style={styles.ouText}>ou</MPText>
+                {/*<MPText style={styles.ouText}>ou</MPText>*/}
                 <MPText style={styles.signinUser}>Entre com seu usuário</MPText>
               </View>
             )}
@@ -99,10 +98,7 @@ class LoginComponent extends Component {
 
           </View>
         </KeyboardAwareScrollView>
-        {/*</ScrollView>*/}
-
         <MPLoading visible={this.props.loading} />
-
       </LinearGradient>
     );
   }

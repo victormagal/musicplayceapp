@@ -79,6 +79,7 @@ const userReducer = (state, action) => {
 
     case USER_FOLLOW_SUCCESS:
       if(state.user) {
+        //TODO: review increase follower count instead of following count
         user = {...state.user, isFollowing: true, followingCount: state.user.followingCount + 1};
       }
 

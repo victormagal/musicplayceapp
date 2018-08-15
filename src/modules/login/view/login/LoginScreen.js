@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {LoginComponent} from './LoginComponent';
 import {ForgotPasswordMessage} from '../forgot/ForgotPasswordMessage';
-import {login} from '../../../../state/action';
+import {login, recoverPassword} from '../../../../state/action';
 import {fetchProfile} from "../../../../state/profile/profileAction";
 
 
@@ -25,7 +25,12 @@ class LoginScreenContainer extends Component {
   };
 
   handleForgotPassword = () => {
-    this.props.navigation.navigate('message', {component: ForgotPasswordMessage, onRegister: this.handleRegister, onSubmit: this.handleRecoverPassword});
+    this.props.navigation.navigate('message', {
+      back: true,
+      component: ForgotPasswordMessage,
+      onRegister: this.handleRegister,
+      onSubmit: this.handleRecoverPassword
+    });
   };
 
   handleRegister = () => {

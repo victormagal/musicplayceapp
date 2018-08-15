@@ -13,8 +13,9 @@ import feedbackReducer from './settings/feedback/feedbackReducer';
 import termsReducer from './settings/termsAndConditions/termsReducer';
 import feedsReducer from './feed/feedReducer';
 import plansReducer from './plan/planReducer';
+import {AUTH_LOGOUT} from './auth/authAction';
 
-export const reducers = combineReducers({
+const rootReducer = combineReducers({
   languageReducer,
   profileReducer,
   generalReducer,
@@ -31,3 +32,11 @@ export const reducers = combineReducers({
   feedsReducer,
   plansReducer
 });
+
+
+export const reducers = (state, action) => {
+  if(action.type === AUTH_LOGOUT){
+    state = undefined;
+  }
+  return rootReducer(state, action)
+};
