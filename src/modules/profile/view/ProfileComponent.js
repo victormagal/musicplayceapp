@@ -344,7 +344,7 @@ class ProfileComponent extends React.Component {
                   key={userFolder.id}
                   folderName={userFolder.name}
                   me={me}
-                  songs={userFolder.songs}
+                  songs={userFolder.songs.data}
                   onEditClick={this.handleEditSong}
                   onEditFolder={this.handleEditFolder.bind(this, userFolder.id)}
                   onRemoveClick={this.handleRemoveSong}
@@ -374,7 +374,7 @@ class ProfileComponent extends React.Component {
                 edit={me && favoriteFolder.editable}
                 me={me}
                 hideSettings={true}
-                songs={favoriteFolder.songs}
+                songs={favoriteFolder.songs.data}
                 onEditClick={this.handleEditSong}
                 onEditFolder={this.handleEditFolder.bind(this, favoriteFolder.id)}
                 onIndicateClick={this.handleIndicateSong}

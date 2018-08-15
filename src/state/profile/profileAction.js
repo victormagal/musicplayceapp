@@ -3,6 +3,8 @@ import {UserService, SongService} from '../../service';
 import { fetchedUserSongs } from '../songs/songsType';
 
 export const FETCHED_PROFILE = 'FETCHED_PROFILE';
+export const FETCHED_PROFILE_MY_SONGS = 'FETCHED_PROFILE_MY_SONGS';
+export const FETCHED_PROFILE_MY_FAVORITE_SONGS = 'FETCHED_PROFILE_MY_FAVORITE_SONGS';
 export const FETCHED_MY_INDICATIONS = 'FETCHED_MY_INDICATIONS';
 export const SAVE_PROFILE_SUCCESS = 'SAVE_PROFILE_SUCCESS';
 export const SAVE_PROFILE_ERROR = 'SAVE_PROFILE_ERROR';
@@ -20,6 +22,8 @@ export const PROFILE_FOLLOWING_FETCHED = 'PROFILE_FOLLOWING_FETCHED';
 export const profileStartLoading = createAction(PROFILE_START_LOADING);
 export const profileFinishLoading = createAction(PROFILE_FINISH_LOADING);
 export const fetchedProfile= createAction(FETCHED_PROFILE, (data) => data);
+export const fetchedProfileSongs= createAction(FETCHED_PROFILE_MY_SONGS, (data) => data);
+export const fetchedProfileFavoriteSongs= createAction(FETCHED_PROFILE_MY_FAVORITE_SONGS, (data) => data);
 export const fetchedProfileFollowers = createAction(PROFILE_FOLLOWERS_FETCHED, (data) => data);
 export const fetchedProfileFollowing = createAction(PROFILE_FOLLOWING_FETCHED, (data) => data);
 export const fetchedMyIndications = createAction(FETCHED_MY_INDICATIONS, (data) => data);
@@ -60,7 +64,7 @@ export const uploadImage = (picture) => {
       dispatch(imageProfileFinishedLoading());
     })
   }
-}
+};
 
 export const fetchProfile = () => {
   return (dispatch) => {
@@ -70,14 +74,35 @@ export const fetchProfile = () => {
     return UserService.me()
       .then(response =>{
         dispatch(fetchedProfile((response)));
-        //UserService.getUserFollowers(response.id).then(responseFollowers => dispatch(fetchedProfileFollowers(responseFollowers)));
-        //UserService.getUserFollowings(response.id).then(responseFollowings => dispatch(fetchedProfileFollowing(responseFollowings)));
-        //SongService.songsByUser(response.id).then(songs => dispatch(fetchedUserSongs(songs)));
+        UserService.getUserFollowers(response.id).then(responseFollowers => dispatch(fetchedProfileFollowers(responseFollowers)));
+        UserService.getUserFollowings(response.id).then(responseFollowings => dispatch(fetchedProfileFollowing(responseFollowings)));
+        dispatch(fetchMySongs(response.id));
+        dispatch(fetchMyFavoriteSongs());
+        return response;
       })
       .catch((e) => {
         console.log('fetchProfileError', e);
         dispatch(profileFinishLoading());
       });
+  };
+};
+
+export const fetchMySongs = (id, page = 1) => {
+  return (dispatch) => {
+    return SongService.mySongs(id, page, true).then(response => {
+      dispatch(fetchedProfileSongs(response));
+      //TODO: dispatch()
+      //TODO: dispatch page === 1 replace
+      //TODO: dispatch page > 1 append
+    });
+  };
+};
+
+export const fetchMyFavoriteSongs = (page = 1) => {
+  return (dispatch) => {
+    return SongService.mySongsFavorites(page).then(response => {
+      dispatch(fetchedProfileFavoriteSongs(response));
+    });
   };
 };
 

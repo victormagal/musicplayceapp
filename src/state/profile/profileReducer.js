@@ -12,7 +12,9 @@ import {
   PROFILE_FOLLOWERS_FETCHED,
   PROFILE_FOLLOWING_FETCHED,
   IMAGE_PROFILE_START_LOADING,
-  IMAGE_PROFILE_FINISHED_LOADING
+  IMAGE_PROFILE_FINISHED_LOADING,
+  FETCHED_PROFILE_MY_SONGS,
+  FETCHED_PROFILE_MY_FAVORITE_SONGS
 } from './profileAction';
 import {
   AUTH_LOGOUT
@@ -35,6 +37,8 @@ const profileReducer = (state, action) => {
       following: null,
       indications: null,
       imageLoading: false,
+      mySongs: null,
+      myFavoriteSongs: null
     };
 
   switch (action.type) {
@@ -63,6 +67,18 @@ const profileReducer = (state, action) => {
         ...state,
         profile: action.payload,
         loading: false
+      };
+
+    case FETCHED_PROFILE_MY_FAVORITE_SONGS:
+      return {
+        ...state,
+        myFavoriteSongs: action.payload
+      };
+
+    case FETCHED_PROFILE_MY_SONGS:
+      return {
+        ...state,
+        mySongs: action.payload
       };
 
     case PROFILE_START_LOADING:

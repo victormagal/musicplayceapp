@@ -10,6 +10,7 @@ import {withFixedBottom} from '../../../../connectors/withFixedBottom';
 
 const InputFolder = withFixedBottom(MPInput);
 
+//TODO: switch scroll to flat list and add infinite scroll
 class PlayerSaveSongComponent extends React.Component {
 
   handleSelectFolder = (index) => {

@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {ProfileComponent} from '../ProfileComponent';
-import {fetchProfile, logout, getFavoriteSongsWithFolders} from '../../../../state/action';
+import {fetchProfile, logout, fetchMySongs} from '../../../../state/action';
 import {songRegisterClear} from '../../../../state/songs/songsType';
 
 
@@ -14,10 +14,8 @@ class MyProfileScreenContainer extends React.Component {
 
   componentDidMount() {
     const {dispatch} = this.props;
-    this.setState({ loadingProfile: true });
-    dispatch(fetchProfile()).then(_ => {
-      dispatch(getFavoriteSongsWithFolders());
-    });
+    this.setState({loadingProfile: true});
+    dispatch(fetchProfile());
   }
 
   componentWillReceiveProps(nextProps) {
@@ -25,7 +23,7 @@ class MyProfileScreenContainer extends React.Component {
 
     if (navigationParams && navigationParams.backFromPublishedOrDraft) {
       const timer = setTimeout(() => {
-        this.props.dispatch(getFavoriteSongsWithFolders());
+        //this.props.dispatch(getFavoriteSongs());
         clearTimeout(timer);
       }, 500);
       nextProps.navigation.setParams({backFromPublishedOrDraft: false});
@@ -78,6 +76,7 @@ class MyProfileScreenContainer extends React.Component {
       <ProfileComponent
         {...this.props}
         me={true}
+        favoritesFolder={this.props.myFavoriteSongs && this.props.myFavoriteSongs.data}
         userFollowers={this.props.followers}
         userFollowings={this.props.following}
         onSongAddClick={this.handleSongAddClick}
@@ -94,7 +93,7 @@ class MyProfileScreenContainer extends React.Component {
 const mapStateToProps = ({profileReducer, songsReducer, userReducer, folderReducer}) => {
   const {
     songCreateSuccess, songRemoveSuccess, songPublishSuccess, songUnpublishSuccess,
-    songDraftSuccess, mySongs, songDraft, song
+    songDraftSuccess, songDraft, song
   } = songsReducer;
   const {isUserSaved} = userReducer;
 
@@ -107,7 +106,6 @@ const mapStateToProps = ({profileReducer, songsReducer, userReducer, folderReduc
     songPublishSuccess,
     songUnpublishSuccess,
     songDraftSuccess,
-    mySongs,
     songDraft,
     song
   };

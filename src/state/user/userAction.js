@@ -1,4 +1,4 @@
-import { SongService, UserService } from '../../service';
+import {SongService, UserService} from '../../service';
 import {
   userStartLoading,
   userFinishLoading,
@@ -24,7 +24,7 @@ import {
   userReportSuccess,
   userReportError
 } from './userTypes';
-import { transformResponseData } from '../../service/api';
+import {transformResponseData} from '../../service/api';
 
 
 export const searchUsers = (name) => {
@@ -59,20 +59,16 @@ export const getUserById = (id) => {
     dispatch(userStartLoading());
 
     return UserService.getUserById(id).then(userResponse => {
-      return SongService.songsByUser(id).then(songsResponse => {
-        dispatch(userSongsFetched(songsResponse));
-        return UserService.getUserFollowers(id).then(userFollowers => {
-          dispatch(userFollowersFetched(userFollowers));
-          return UserService.getUserFollowings(id).then(userFollowings => {
-            dispatch(userFollowingsFetched(userFollowings));
-            return userResponse;
-          });
+      return UserService.getUserFollowers(id).then(userFollowers => {
+        dispatch(userFollowersFetched(userFollowers));
+        return UserService.getUserFollowings(id).then(userFollowings => {
+          dispatch(userFollowingsFetched(userFollowings));
+          return userResponse;
         });
       }).then(userResponse => {
         dispatch(userByIdFetched(userResponse));
-      })
-      // dispatch(userSongs(id));
-      // dispatch(userFinishLoading());
+        dispatch(userSongs(id));
+      });
     }).catch(e => {
       console.log('getUserByIdError', e);
       dispatch(userFinishLoading());
@@ -80,9 +76,9 @@ export const getUserById = (id) => {
   };
 };
 
-export const userSongs = (id) => {
+export const userSongs = (id, page = 1) => {
   return (dispatch) => {
-    return SongService.songsByUser(id).then(response => {
+    return SongService.mySongs(id, page).then(response => {
       dispatch(userSongsFetched(response));
     }).catch(e => {
       console.log('userSongsError', e.response);
@@ -146,8 +142,8 @@ export const patchNotificationSettings = (settings) => {
   return (dispatch, getState) => {
     dispatch(userNotificationsSettingsStartLoading());
 
-    const { notificationSettings } = getState().userReducer;
-    const newSettings = { ...notificationSettings, ...settings };
+    const {notificationSettings} = getState().userReducer;
+    const newSettings = {...notificationSettings, ...settings};
 
     return UserService.patchNotificationSettings(newSettings).then(response => {
       dispatch(userNotificationsSettingsPatched(response));
@@ -169,32 +165,6 @@ export const getFollowNotifications = () => {
       console.log('getFollowNotificationsError', e.response);
       dispatch(userNotificationsFinishedLoading());
     });
-  };
-};
-
-export const getUserFollowers = (user) => {
-  return (dispatch) => {
-    dispatch(userStartLoading());
-
-    return UserService.getUserFollowers(user).then(response => {
-      dispatch(userFollowersFetched(response));
-    }).catch(e => {
-      console.log(e);
-      dispatch(userFinishLoading());
-    })
-  };
-};
-
-export const getUserFollowings = (user) => {
-  return (dispatch) => {
-    dispatch(userStartLoading());
-
-    return UserService.getUserFollowings(user).then(response => {
-      dispatch(userFollowingsFetched(response));
-    }).catch(e => {
-      console.log(e);
-      dispatch(userFinishLoading());
-    })
   };
 };
 

@@ -35,7 +35,6 @@ export const createPermanentSong = (song) => {
     }).catch(e => {
       dispatch(songPublishError());
       console.log('createPermanentSongError', e);
-      console.log(e.response);
     });
   };
 };
@@ -183,3 +182,13 @@ export const fetchOneSong = (song) => {
     });
   };
 };
+
+
+// export const userSongs = (id, page = 1) => {
+//   return (dispatch) => {
+//     return SongService.mySongs(id, page, false).then(i => {
+//       console.log("MY SONGS WITH FOLDER", i);
+//       //TODO: dispatch()
+//     });
+//   };
+// };

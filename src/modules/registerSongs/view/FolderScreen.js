@@ -29,8 +29,8 @@ class FolderScreenContainer extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.folders && nextProps.folders.data && nextProps.folders.data.length !== this.state.folders.length) {
-      let {data} = nextProps.folders;
+    if (nextProps.userFolders && nextProps.userFolders.data && nextProps.userFolders.data.length !== this.state.folders.length) {
+      let {data} = nextProps.userFolders;
       const {song} = this.props;
 
       if (song.folder) {
@@ -102,9 +102,8 @@ class FolderScreenContainer extends React.Component {
   };
 
   handleFolderPagination = () => {
-    console.log("ON END REACH")
-    if(this.state.folders.length > 0 && this.props.folders.pagination.current_page < this.props.folders.pagination.total_pages){
-      this.props.dispatch(getUserSongsFolders(this.props.folders.pagination.current_page + 1));
+    if(this.state.folders.length > 0 && this.props.userFolders.pagination.current_page < this.props.userFolders.pagination.total_pages){
+      this.props.dispatch(getUserSongsFolders(this.props.userFolders.pagination.current_page + 1));
     }
   };
 
