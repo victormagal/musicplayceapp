@@ -5,10 +5,15 @@ import {getUserById, followUser, getUserFollowers, getUserFollowings} from "../.
 
 
 class UserProfileScreenContainer extends React.Component {
+  state = {
+    loadingProfile: true
+  };
+
   componentDidMount() {
     const { navigation, dispatch } = this.props;
     const navigationParams = navigation.state.params;
-    dispatch(getUserById(navigationParams.userId))
+    this.setState({ loadingProfile: true });
+    dispatch(getUserById(navigationParams.userId));
   }
 
   handleFollowUp = () => {
@@ -16,6 +21,7 @@ class UserProfileScreenContainer extends React.Component {
   };
 
   handleFollowerFollowingClick = (user) => {
+    this.setState({ loadingProfile: true });
     this.props.dispatch(getUserById(user.id));
   };
 
@@ -28,7 +34,10 @@ class UserProfileScreenContainer extends React.Component {
         followingUser={user ? user.isFollowing : false}
         onFollowUpClick={this.handleFollowUp}
         onFollowerFollowingClick={this.handleFollowerFollowingClick}
-        mySongs={this.props.usersSongs}/>
+        mySongs={this.props.usersSongs}
+        loadingProfile={this.state.loadingProfile}
+        onStopLoading={() => this.setState({ loadingProfile: false })}
+      />
     );
   }
 }

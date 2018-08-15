@@ -51,6 +51,10 @@ class ProfileComponent extends React.Component {
     if(nextProps.mySongs){
       this.setState({userFolders: nextProps.mySongs.data});
     }
+
+    if (this.props.profile !== nextProps.profile) {
+      this.props.onStopLoading()
+    }
   }
 
   goToScreen = (rota, params = {}) => {
@@ -213,9 +217,9 @@ class ProfileComponent extends React.Component {
   }
 
   renderContent(profile) {
-    const { me } = this.props;
+    const { me, loadingProfile } = this.props;
 
-    if (!profile) {
+    if (loadingProfile) {
       return (
         <View style={styles.containerLoading}>
           <View style={styles.contentLoading}>

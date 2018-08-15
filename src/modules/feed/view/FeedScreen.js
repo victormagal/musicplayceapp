@@ -336,7 +336,7 @@ class FeedScreenContainer extends React.Component {
         </View>
         }
         <MPUserNotification />
-        <MPLoading visible={this.props.searching || this.props.loading}/>
+        <MPLoading visible={this.props.searching}/>
       </View>
     );
   }
