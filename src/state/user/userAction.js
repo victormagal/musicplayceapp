@@ -159,12 +159,17 @@ export const patchNotificationSettings = (settings) => {
   };
 };
 
-export const getFollowNotifications = () => {
-  return (dispatch) => {
+export const getFollowNotifications = (reset = false) => {
+  return (dispatch, getState) => {
+    let page = 1;
     dispatch(userNotificationsStartLoading());
+    let { userFollowNotifications } = getState().userReducer
+    if(!!reset && userFollowNotifications.meta && userFollowNotifications.meta.pagination.current_page < userFollowNotifications.meta.pagination.total_pages ){
+      page = userFollowNotifications.meta.current_page + 1;
+    }
 
-    return UserService.getFollowNotifications().then(response => {
-      dispatch(userNotificationsFollowersFetched(response));
+    return UserService.getFollowNotifications(page).then(response => {
+      dispatch(userNotificationsFollowersFetched({...response, reset}));
     }).catch(e => {
       console.log('getFollowNotificationsError', e.response);
       dispatch(userNotificationsFinishedLoading());

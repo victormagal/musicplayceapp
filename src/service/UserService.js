@@ -139,9 +139,8 @@ class UserService {
     });
   }
 
-  static getFollowNotifications(){
-    return axios.get(`${API_USER}/me/notifications?searchType=following`).then((response) => {
-      console.log(response);
+  static getFollowNotifications(page){
+    return axios.get(`${API_USER}/me/notifications?page=${page}&searchType=following`).then((response) => {
       return response.data;
     });
   }
