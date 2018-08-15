@@ -5,41 +5,6 @@ const API_FOLDER = `${API}/folders`;
 
 class FolderService {
 
-  static transformFolderSongs(folders, favoriteSongs){
-    let i,j;
-
-    if(!favoriteSongs || favoriteSongs.length === 0 ){
-      return [];
-    }
-
-    if(folders.length === 0){
-      return [{id: 99, name: 'Outras', songs: favoriteSongs, songCount: favoriteSongs.length, editable: false }];
-    }
-
-    for(i = 0; i < folders.length; i++){
-      for(j = 0; j < favoriteSongs.length; j++){
-        if(folders[i].id === favoriteSongs[j].attributes.pivot.folder_id){
-          folders[i].editable = true
-          folders[i].songs = [];
-          folders[i].songs.push(favoriteSongs[j].attributes);
-        }
-      }
-    }
-
-    folders = folders.filter((folder)=>{
-      return folder.songs;
-    });
-    
-    let noFolderSongs = favoriteSongs.filter((song) => {
-      return song.attributes.pivot && song.attributes.pivot.folder_id;
-    });
-
-    if(noFolderSongs && noFolderSongs.length > 0){
-      folders.push({id: 99, name: 'Outras', songs: noFolderSongs, songCount: noFolderSongs.length, editable: false });
-    }
-    
-    return folders;
-  }
 
   static create(folder){
     let data = {
@@ -64,15 +29,22 @@ class FolderService {
                  });
   }
 
-  static getUserSongsFolders(){
-    return axios.get(`${API_FOLDER}?query={"type":"userSongs"}&queryTable=folders`)
-                 .then(response => {
-                   let {data} = response.data;
-                   data = transformResponseData(data);
-                   return {data};
-                 }).catch(e =>{
-                   console.log('getUserSongsFoldersError', e);
-                 });
+  static getUserSongsFolders(id, page){
+    let params = {
+      query: '{"type":"userSongs"}',
+      queryTable: 'folders',
+      'page[size]': 6
+    };
+
+    if(page){
+      params['page[number]'] = page;
+    }
+
+    return axios.get(`${API_FOLDER}/user/${id}`, {params}).then(response => {
+      let {data, meta} = response.data;
+      data = transformResponseData(data);
+      return {data, ...meta};
+    });
   }
 
   static getFavoriteSongsWithFolders(){
@@ -89,11 +61,12 @@ class FolderService {
   }
 
   static getFavoriteSongsFolders(){
-    return axios.get(`${API_FOLDER}?query={"type":"favoriteSongs"}&queryTable=folders&include=favoriteSongs`)
+    return axios.get(`${API_FOLDER}?query={"type":"favoriteSongs"}&queryTable=folders`)
                  .then(response => {
+                   console.log("AQUI", response);
                    let {data} = response.data;
                    data = transformResponseData(data);
-                   return {data};
+                   return {data, meta};
                  }).catch(e =>{
                    console.log('getFavoriteSongsFoldersError', e);
                  });

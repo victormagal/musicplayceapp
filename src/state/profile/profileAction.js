@@ -70,9 +70,9 @@ export const fetchProfile = () => {
     return UserService.me()
       .then(response =>{
         dispatch(fetchedProfile((response)));
-        UserService.getUserFollowers(response.id).then(responseFollowers => dispatch(fetchedProfileFollowers(responseFollowers)));
-        UserService.getUserFollowings(response.id).then(responseFollowings => dispatch(fetchedProfileFollowing(responseFollowings)));
-        SongService.songsByUser(response.id).then(songs => dispatch(fetchedUserSongs(songs)));
+        //UserService.getUserFollowers(response.id).then(responseFollowers => dispatch(fetchedProfileFollowers(responseFollowers)));
+        //UserService.getUserFollowings(response.id).then(responseFollowings => dispatch(fetchedProfileFollowing(responseFollowings)));
+        //SongService.songsByUser(response.id).then(songs => dispatch(fetchedUserSongs(songs)));
       })
       .catch((e) => {
         console.log('fetchProfileError', e);

@@ -54,26 +54,18 @@ export const getUserSongsWithFolders = () => {
   }
 }
 
-export const getUserSongsFolders = () => {
+export const getUserSongsFolders = (page = 0) => {
   return (dispatch, getState) => {
+    const id = getState().profileReducer.profile.id;
     dispatch(folderStartLoading());
 
-    return FolderService.getUserSongsFolders().then(response => {
+    return FolderService.getUserSongsFolders(id, page).then(response => {
+      console.log(response);
       dispatch(fetchedFolders(response));
     }).catch(e => {
       //TODO: handle error
       dispatch(folderFinishLoading());
     });
-    // if(shouldFetchFolders(getState())) {
-    //   return FolderService.getUserSongsFolders().then(response => {
-    //     dispatch(fetchedFolders(response));
-    //   }).catch(e => {
-    //     //TODO: handle error
-    //     dispatch(folderFinishLoading());
-    //   });
-    // }
-
-    return Promise.resolve().then(() => dispatch(folderFinishLoading()));
   };
 };
 

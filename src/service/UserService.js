@@ -110,6 +110,18 @@ class UserService {
       });
   }
 
+  static favoriteFolders(){
+    return axios.get(`${API}/folders?query={"type":"favoriteSongs"}&queryTable=folders`).then(response => {
+      console.log("FAVORITE FOLDERS", response);
+    });
+  }
+
+  static myFolders(id){
+    return axios.get(`${API}/folders/user/${id}?query={"type":"userSongs"}&queryTable=folders`).then(response => {
+        console.log("MY FOLDERS", response);
+    });
+  }
+
   static getUserFollowings(user){
     return axios.get(`${API_USER}/${user}?include=userFollower`)
       .then(response => {

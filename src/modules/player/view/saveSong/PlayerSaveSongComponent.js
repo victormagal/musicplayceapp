@@ -25,7 +25,7 @@ class PlayerSaveSongComponent extends React.Component {
   renderFolder = (item, index) => {
     return (
       <View key={index} style={styles.folder}>
-        <MPFolder folderName={item.name} selected={item.selected} musicAmount={item.songCount.toString()} onPress={this.handleSelectFolder.bind(this, index)}/>
+        <MPFolder folderName={item.name} selected={item.selected} musicAmount={item.song_count} onPress={this.handleSelectFolder.bind(this, index)}/>
       </View>
     )
   };

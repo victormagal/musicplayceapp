@@ -26,10 +26,19 @@ const folderReducer = (state, action) => {
       };
 
     case FETCHED_FOLDERS:
+      let folders = action.payload;
+      if(state.folders) {
+        folders = {...state.folders};
+        if (action.payload.pagination.current_page > 1) {
+          folders.data = folders.data.concat(action.payload.data);
+          folders.pagination = action.payload.pagination;
+        }
+      }
+
       return {
         ...state,
         loading: false,
-        folders: action.payload
+        folders
       };
 
     case FETCHED_FAVORITES_FOLDERS_SONGS:

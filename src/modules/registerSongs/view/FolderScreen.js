@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {StyleSheet, View, ScrollView, Keyboard} from 'react-native';
+import {StyleSheet, View, ScrollView, Keyboard, FlatList} from 'react-native';
 import {
   MPFolder, MPHeader, MPInput, MPForm, MPFormButton, MPGradientButton,
   MPIconButton, MPLoading, MPFloatingNotification
@@ -24,36 +24,36 @@ class FolderScreenContainer extends React.Component {
     };
   }
 
-  componentDidMount(){
+  componentDidMount() {
     this.props.dispatch(getUserSongsFolders());
   }
 
-  componentWillReceiveProps(nextProps){
-    if(nextProps.folders && nextProps.folders.data && nextProps.folders.data.length !== this.state.folders.length){
-      let { data } = nextProps.folders;
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.folders && nextProps.folders.data && nextProps.folders.data.length !== this.state.folders.length) {
+      let {data} = nextProps.folders;
       const {song} = this.props;
 
-      if(song.folder){
+      if (song.folder) {
         data = data.map(f => {
-          if(f.id === song.folder.id){
+          if (f.id === song.folder.id) {
             f.selected = true;
           }
           return f;
         })
       }
 
-      this.setState({ folders: data, folderName: ''});
+      this.setState({folders: data, folderName: ''});
     }
   }
 
-  componentWillUnmount(){
-    if(this.timerError){
+  componentWillUnmount() {
+    if (this.timerError) {
       clearTimeout(this.timerError);
     }
   }
 
   handleChangeText = ({value}) => {
-    this.setState({ folderName: value });
+    this.setState({folderName: value});
   };
 
   handleCreateFolder = () => {
@@ -73,11 +73,11 @@ class FolderScreenContainer extends React.Component {
     let selected = this.state.folders.filter(item => item.selected);
     let song = {...this.props.song};
 
-    if(selected.length > 0){
+    if (selected.length > 0) {
       song.folder = selected[0];
       this.props.dispatch(updateSongRegisterData(song));
       this.handleBackClick();
-    }else{
+    } else {
       this.setState({showError: true});
       this.timerError = setTimeout(() => {
         this.setState({showError: false});
@@ -87,30 +87,35 @@ class FolderScreenContainer extends React.Component {
   };
 
   handleSelectFolder = (index) => {
-    let newState = {...this.state};
+    let folders = Object.assign([], this.state.folders);
 
-    for(let i in newState.folders){
-      newState.folders[i].selected = false;
+    for (let i in folders) {
+      folders[i].selected = false;
     }
 
-    newState.folders[index].selected = true;
-    this.setState(newState);
+    folders[index].selected = true;
+    this.setState({folders});
   };
 
   handleFolderValidate = () => {
     this.setState({invalid: !this.state.folderName});
   };
 
-  renderFolder = (item, index) => {
+  handleFolderPagination = () => {
+    console.log("ON END REACH")
+    if(this.state.folders.length > 0 && this.props.folders.pagination.current_page < this.props.folders.pagination.total_pages){
+      this.props.dispatch(getUserSongsFolders(this.props.folders.pagination.current_page + 1));
+    }
+  };
+
+  renderFolder = ({item, index}) => {
     return (
-      <View key={index}>
-        <MPFolder
-          folderName={item.name}
-          selected={item.selected}
-          musicAmount={item.songCount.toString()}
-          onPress={() => this.handleSelectFolder(index)}
-        />
-      </View>
+      <MPFolder
+        folderName={item.name}
+        selected={item.selected}
+        musicAmount={item.song_count}
+        onPress={() => this.handleSelectFolder(index)}
+      />
     )
   };
 
@@ -137,11 +142,14 @@ class FolderScreenContainer extends React.Component {
           icons={this.renderHeaderMenuSave()}
         />
         <View style={styles.content}>
-          <ScrollView style={styles.scroll}>
-            { this.state.folders.map((item, index) => (
-              this.renderFolder(item, index)
-            ))}
-          </ScrollView>
+          <FlatList
+            style={styles.scroll}
+            data={this.state.folders}
+            renderItem={this.renderFolder}
+            keyExtractor={(item) => item.id}
+            onEndReached={this.handleFolderPagination}
+            onEndReachedThreshold={0.1}
+          />
           <View style={styles.inputFolderContainer}>
             <MPForm>
               <MPInput
@@ -163,7 +171,7 @@ class FolderScreenContainer extends React.Component {
             </MPForm>
           </View>
         </View>
-        <MPLoading visible={this.props.loading} />
+        <MPLoading visible={this.props.loading}/>
         <MPFloatingNotification visible={this.state.showError}
                                 text='Selecione uma pasta'
                                 icon={<MPAlertIcon />}/>
