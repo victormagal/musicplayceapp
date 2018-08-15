@@ -49,7 +49,12 @@ export const applyValidator = (FormFieldComponent) => {
     };
 
     handleBlur = () => {
+      let {onBlur} = this.props;
       this.handleValidate();
+
+      if(onBlur){
+        onBlur();
+      }
     };
 
     render(){

@@ -6,11 +6,15 @@ import {songRegisterClear} from '../../../../state/songs/songsType';
 
 
 class MyProfileScreenContainer extends React.Component {
-
   timerSuccess = null;
+
+  state = {
+    loadingProfile: true
+  };
 
   componentDidMount() {
     const {dispatch} = this.props;
+    this.setState({ loadingProfile: true });
     dispatch(fetchProfile()).then(_ => {
       dispatch(getFavoriteSongsWithFolders());
     });
@@ -80,6 +84,8 @@ class MyProfileScreenContainer extends React.Component {
         onFollowersEmptyClick={this.handleFollowersEmptyClick}
         onFollowerFollowingClick={this.handleFollowerFollowingClick}
         onLogoutClick={this.handleLogout}
+        loadingProfile={this.state.loadingProfile}
+        onStopLoading={() => this.setState({ loadingProfile: false })}
       />
     )
   }

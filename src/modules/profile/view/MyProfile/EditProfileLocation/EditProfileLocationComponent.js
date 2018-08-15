@@ -42,7 +42,7 @@ class EditProfileLocationComponent extends React.Component {
   componentDidUpdate(prevProps, prevState) {
     const { selectedState, isCurrentLocation } = this.state;
 
-    if (prevProps.states === null && !this.props.loading && this.props.location.state !== null) {
+    if (prevState.selectedState === null && !this.props.loading && prevProps.location.state !== null) {
       const selectedState = this.props.states.filter(s => s.sigla === this.state.state)[0].id;
       this.setState({ selectedState, isCurrentLocation: true });
     }
@@ -62,14 +62,14 @@ class EditProfileLocationComponent extends React.Component {
 
   requestPermissionLocation = () => {
     Permissions.check('location').then(response => {
-      if(response === 'authorized'){
+      if (response === 'authorized') {
         this.requestLocation();
-      }else{
+      } else {
         Permissions.request('location').then(locationResponse => {
-          if(locationResponse === 'allow'){
+          if (locationResponse === 'authorized'){
             this.requestLocation();
-          }else{
-            this.setState({error: 'Sem acesso a localização.'});
+          } else {
+            this.setState({ error: 'Sem acesso a localização.' });
           }
         });
       }
@@ -82,21 +82,25 @@ class EditProfileLocationComponent extends React.Component {
     navigator.geolocation.getCurrentPosition(
       (position) => {
         const coords = position.coords;
-        console.log(coords);
-        GeneralService.getAddressFromCoordinates(coords.latitude, coords.longitude).then(response => {
-          console.log(response);
-          const result = response.data.results[0];
-          const statePosition = result.address_components.length - 3;
-          const cityPosition = result.address_components.length - 4;
 
-          const city = result.address_components[cityPosition].short_name;
-          const state = result.address_components[statePosition].short_name;
-          const selectedState = states.filter(s => s.sigla === state)[0].id;
-          this.setState({city, state, selectedState, isCurrentLocation: true});
+        GeneralService.getAddressFromCoordinates(coords.latitude, coords.longitude).then(response => {
+          let result = response.data.results;
+          if (result.length > 0) {
+            result = result[0];
+            const statePosition = result.address_components.length - 3;
+            const cityPosition = result.address_components.length - 4;
+
+            const city = result.address_components[cityPosition].short_name;
+            const state = result.address_components[statePosition].short_name;
+            const selectedState = states.filter(s => s.sigla === state)[0].id;
+            this.setState({city, state, selectedState, isCurrentLocation: true});
+          } else {
+            this.setState({ error: response.data.error_message });
+          }
           this.props.dispatch(generalFinishLoading());
         }).catch(e => {
           console.log(e);
-          console.log(e.response);
+          this.props.dispatch(generalFinishLoading());
         });
       },
       (e) => {
@@ -151,15 +155,15 @@ class EditProfileLocationComponent extends React.Component {
         />
         <ScrollView style={styles.scroll}>
           <View style={styles.container}>
-            {/*<TouchableOpacity style={styles.currentPosition} onPress={() => this.handleCurrentPosition()}>*/}
-              {/*<MPLocationPinIcon/>*/}
-              {/*<MPText style={styles.currentPositionText}>*/}
-                {/*Usar minha localização atual*/}
-              {/*</MPText>*/}
-            {/*</TouchableOpacity>*/}
-            {/*<MPText style={styles.randomText}>*/}
-              {/*ou*/}
-            {/*</MPText>*/}
+            <TouchableOpacity style={styles.currentPosition} onPress={() => this.handleCurrentPosition()}>
+              <MPLocationPinIcon/>
+              <MPText style={styles.currentPositionText}>
+                Usar minha localização atual
+              </MPText>
+            </TouchableOpacity>
+            <MPText style={styles.randomText}>
+              ou
+            </MPText>
             { states &&
               <View style={{ marginHorizontal: 20 }}>
                 <MPSelect
@@ -232,7 +236,8 @@ const styles = StyleSheet.create({
     marginTop: 15,
     textAlign: 'center',
     color: '#e13223',
-    fontFamily: 'Montserrat-Regular'
+    fontFamily: 'Montserrat-Regular',
+    marginHorizontal: 20
   },
   currentPosition: {
     padding: 20,

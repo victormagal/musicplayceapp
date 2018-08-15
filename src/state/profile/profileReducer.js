@@ -81,13 +81,13 @@ const profileReducer = (state, action) => {
       return {
         ...state,
         imageLoading: false,
-        saveProfileSuccess: true
+        saveProfileSuccess: false
       };
 
     case PROFILE_IMAGE_UPLOADED:
       return {
         ...state,
-        imageLoading: false,
+        saveProfileSuccess: true
       }
 
     case PROFILE_FINISH_LOADING:
