@@ -13,8 +13,12 @@ class StartScreenComponent extends Component {
       const { navigation, dispatch } = this.props;
       if (token) {
         StorageService.getUser().then(user => {
-          dispatch(authSetStorageUser(user));
-          navigation.replace('home');
+          if(user) {
+            dispatch(authSetStorageUser(user));
+            navigation.replace('home');
+          }else{
+            navigation.replace('login');
+          }
         });
       } else {
         navigation.replace('login');
