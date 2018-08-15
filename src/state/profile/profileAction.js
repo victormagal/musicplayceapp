@@ -1,19 +1,115 @@
 import {createAction} from 'redux-actions';
-
-
-export const FETCH_PROFILE = 'FETCH_PROFILE';
-export const fetchProfile = () => {
-    return (dispatch) => {
-        return Promise.resolve().then(() => {
-           dispatch(fetchedProfile({
-               name: 'Jhonatas Martins',
-               username: 'jhonatasmartins'
-           }));
-        });
-    };
-};
+import {UserService, SongService} from '../../service';
+import { fetchedUserSongs } from '../songs/songsType';
 
 export const FETCHED_PROFILE = 'FETCHED_PROFILE';
-export const fetchedProfile = createAction(FETCHED_PROFILE, (data) => {
-    return {...data};
+export const FETCHED_MY_INDICATIONS = 'FETCHED_MY_INDICATIONS';
+export const SAVE_PROFILE_SUCCESS = 'SAVE_PROFILE_SUCCESS';
+export const SAVE_PROFILE_ERROR = 'SAVE_PROFILE_ERROR';
+export const PROFILE_START_LOADING = 'PROFILE_START_LOADING';
+export const IMAGE_PROFILE_START_LOADING = 'IMAGE_PROFILE_START_LOADING';
+export const IMAGE_PROFILE_FINISHED_LOADING = 'IMAGE_PROFILE_FINISHED_LOADING';
+export const PROFILE_FINISH_LOADING = 'PROFILE_FINISH_LOADING';
+export const PROFILE_CREATE_USER_SUCCESS = 'PROFILE_CREATE_USER_SUCCESS';
+export const PROFILE_CREATE_USER_ERROR = 'PROFILE_CREATE_USER_ERROR';
+export const UPDATE_PROFILE_DATA = 'UPDATE_PROFILE_DATA';
+export const PROFILE_IMAGE_UPLOADED = 'PROFILE_IMAGE_UPLOADED';
+export const PROFILE_FOLLOWERS_FETCHED = 'PROFILE_FOLLOWERS_FETCHED';
+export const PROFILE_FOLLOWING_FETCHED = 'PROFILE_FOLLOWING_FETCHED';
+
+export const profileStartLoading = createAction(PROFILE_START_LOADING);
+export const profileFinishLoading = createAction(PROFILE_FINISH_LOADING);
+export const fetchedProfile= createAction(FETCHED_PROFILE, (data) => data);
+export const fetchedProfileFollowers = createAction(PROFILE_FOLLOWERS_FETCHED, (data) => data);
+export const fetchedProfileFollowing = createAction(PROFILE_FOLLOWING_FETCHED, (data) => data);
+export const fetchedMyIndications = createAction(FETCHED_MY_INDICATIONS, (data) => data);
+export const saveProfileSucessfully = createAction(SAVE_PROFILE_SUCCESS, (data) => {
+  return {...data};
 });
+export const saveProfileError = createAction(SAVE_PROFILE_ERROR, (error) => error);
+export const createUserSuccess = createAction(PROFILE_CREATE_USER_SUCCESS);
+export const createUserError = createAction(PROFILE_CREATE_USER_ERROR);
+export const updateProfileData = createAction(UPDATE_PROFILE_DATA, (data) => {
+  return {...data};
+});
+export const imageProfileStartLoading = createAction(IMAGE_PROFILE_START_LOADING);
+export const profileImageUploaded = createAction(PROFILE_IMAGE_UPLOADED);
+export const imageProfileFinishedLoading = createAction(IMAGE_PROFILE_FINISHED_LOADING);
+
+export const createUser = (user) => {
+  return (dispatch) => {
+    dispatch(profileStartLoading());
+    return UserService.createUser(user).then(response => {
+      dispatch(createUserSuccess());
+      return response;
+    }).catch(e => {
+      console.log(e);
+      dispatch(createUserError());
+    });
+  };
+};
+
+export const uploadImage = (picture) => {
+  return (dispatch) => {
+    dispatch(imageProfileStartLoading());
+    return UserService.uploadImage(picture).then(() => {
+      dispatch(profileImageUploaded());
+      dispatch(imageProfileFinishedLoading());
+    }).catch(e => {
+      console.log('uploadImageError', e);
+      dispatch(imageProfileFinishedLoading());
+    })
+  }
+}
+
+export const fetchProfile = () => {
+  return (dispatch) => {
+    dispatch(profileStartLoading());
+    dispatch(fetchMyIndications());
+
+    return UserService.me()
+      .then(response =>{
+        dispatch(fetchedProfile((response)));
+        UserService.getUserFollowers(response.id).then(responseFollowers => dispatch(fetchedProfileFollowers(responseFollowers)));
+        UserService.getUserFollowings(response.id).then(responseFollowings => dispatch(fetchedProfileFollowing(responseFollowings)));
+        SongService.songsByUser(response.id).then(songs => dispatch(fetchedUserSongs(songs)));
+      })
+      .catch((e) => {
+        console.log('fetchProfileError', e);
+        dispatch(profileFinishLoading());
+      });
+  };
+};
+
+export const fetchMyIndications = () => {
+  return (dispatch) => {
+    return UserService.indications()
+      .then(response => {
+        dispatch(fetchedMyIndications(response))
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+};
+
+export const saveProfile = (data, section) => {
+  return (dispatch) => {
+    dispatch(profileStartLoading());
+
+    UserService.updateUser(data).then((response) => {
+      if (response.error) {
+        dispatch(saveProfileError(response.error));
+      } else {
+        const responseData = response.data.attributes;
+        dispatch(saveProfileSucessfully({ section, responseData }));
+      }
+      dispatch(profileFinishLoading());
+
+    }).catch(e => {
+      console.log('error', e);
+      console.log(e.response);
+      dispatch(profileFinishLoading());
+    });
+  };
+};

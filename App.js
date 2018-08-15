@@ -1,56 +1,130 @@
 import React from 'react';
-import { createStore, applyMiddleware } from 'redux';
-import { Provider } from 'react-redux';
+import {NetInfo, NativeModules, NativeEventEmitter, View} from 'react-native';
+import {
+  applyMiddleware,
+  createStore
+} from 'redux';
+import {Provider} from 'react-redux';
 import thunkMiddleware from 'redux-thunk'
-import { createStackNavigator } from 'react-navigation';
-import { DangerZone } from 'expo';
-import { ProfileScreen } from './src/profile';
-import { HomeScreen } from './src/home';
-import { ConfigurationScreen } from './src/configuration';
-import { reducers } from './src/state/reducer';
-import { changeLanguage } from './src/state/action';
+import {createBottomTabNavigator, createStackNavigator} from 'react-navigation';
+import MusicControl from 'react-native-music-control';
+import {
+  LoginScreens,
+  ProfileScreensNavigation,
+  IndicateSongScreensNavigation,
+  FeedScreensNavigation,
+  NotificationScreensNavigation,
+  StartScreen,
+  MessageScreen
+} from './src/modules';
+import {reducers} from './src/state/reducer';
+import {
+  loadFont, updateNetwork, playerSongPause,
+  playerSongUpdateProgress, songResume, songPause, songStop
+} from './src/state/action';
+import {MPTabBottomComponent, MPNetworkNotification} from './src/components';
+import {checkConnection} from './src/connectors';
+import {MPTabConfigurationIcon, MPTabNotificationIcon, MPTabProfileIcon} from './src/assets/svg/custom';
 
-const { Localization } = DangerZone;
+const { RNMusicPlayer } = NativeModules;
+const RNMusicPlayerEmitter = new NativeEventEmitter(RNMusicPlayer);
+
 const store = createStore(reducers, applyMiddleware(thunkMiddleware));
 
-const HomeNavigation = createStackNavigator(
-    {
-        home: {
-            screen: HomeScreen,
-            navigationOptions: {
-                header: null
-            }
-        },
-        profile: {
-            screen: ProfileScreen,
-            navigationOptions: {
-                header: null
-            }
-        },
-        configuration: {
-            screen: ConfigurationScreen,
-            navigationOptions: {
-                header: null
-            }
-        }
-    },
-    {
-        initialRouteName: 'configuration'
+const HomeTabBottomNavigation = createBottomTabNavigator({
+  feed: {
+    screen: FeedScreensNavigation,
+    navigationOptions: {
+      tabBarIcon: MPTabConfigurationIcon
     }
+  },
+  notification: {
+    screen: NotificationScreensNavigation,
+    navigationOptions: {
+      tabBarIcon: MPTabNotificationIcon
+    }
+  },
+  profile: {
+    screen: ProfileScreensNavigation,
+    navigationOptions: {
+      tabBarIcon: MPTabProfileIcon
+    }
+  }
+}, {
+  initialRouteName: 'feed',
+  tabBarComponent: MPTabBottomComponent
+});
+
+const StartNavigation = createStackNavigator(
+  {
+    start: StartScreen,
+    ...LoginScreens,
+    home: HomeTabBottomNavigation,
+    message: MessageScreen,
+    indicateSong: IndicateSongScreensNavigation
+  },
+  {
+    initialRouteName: 'start',
+    headerMode: 'none'
+  }
 );
 
 export default class App extends React.Component {
 
-    async componentDidMount(){
-        const currentLocale = await Localization.getCurrentLocaleAsync();
-        store.dispatch(changeLanguage(currentLocale));
-    }
+  componentWillMount() {
+    store.dispatch(loadFont(true));
+    NetInfo.isConnected.addEventListener('connectionChange', this.handleConnectionChange);
+  }
 
-    render() {
-        return (
-            <Provider store={store}>
-                <HomeNavigation />
-            </Provider>
-        );
+  componentDidMount() {
+    this.playerPauseListener = RNMusicPlayerEmitter.addListener('playerDidPause', this.handleSongPauseListener);
+    this.playerUpdateListener = RNMusicPlayerEmitter.addListener('playerDidUpdateWithProgress', this.handleSongUpdateListener);
+
+    MusicControl.on('play', ()=> {
+      store.dispatch(songResume());
+    });
+
+    MusicControl.on('pause', () => {
+      store.dispatch(songPause());
+    });
+
+    MusicControl.on('stop', () => {
+      store.dispatch(songStop());
+    });
+
+    checkConnection(store);
+  }
+
+  componentWillUnmount() {
+    NetInfo.isConnected.removeEventListener('connectionChange', this.handleConnectionChange);
+    this.playerPauseListener.remove();
+    this.playerUpdateListener.remove();
+  }
+
+  handleSongPauseListener = () => {
+    store.dispatch(playerSongPause());
+  };
+
+  handleSongUpdateListener = (state) => {
+    let currentPlayerState = state["state"];
+
+    if (RNMusicPlayer.statePlaying == currentPlayerState) {
+      store.dispatch(playerSongUpdateProgress(state["progress"]));
     }
+  };
+
+  handleConnectionChange = (isConnected) => {
+    store.dispatch(updateNetwork(isConnected));
+  };
+
+  render() {
+    return (
+      <Provider store={store}>
+        <View style={{flex: 1}}>
+          <StartNavigation />
+          <MPNetworkNotification />
+        </View>
+      </Provider>
+    );
+  }
 }

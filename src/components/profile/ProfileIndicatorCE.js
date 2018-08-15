@@ -1,93 +1,108 @@
 import React, {Component} from 'react';
-import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
+import {StyleSheet, View, TouchableOpacity} from 'react-native';
+import {MPText} from '../general';
 import PropTypes from 'prop-types';
 
-class ProfileIndicatorCE extends Component{
+class ProfileIndicatorCE extends Component {
+  renderEmpty() {
+    const { style, titlePlural, subtitle, onEmptyClick } = this.props;
+    return (
+      <View style={style}>
+        <MPText style={styles.titleEmpty}>
+          { titlePlural.toUpperCase() }
+        </MPText>
+        <View style={styles.top}/>
+        <TouchableOpacity onPress={onEmptyClick}>
+          <MPText style={styles.subtitle}>
+            { subtitle }
+          </MPText>
+        </TouchableOpacity>
+      </View>
+    );
+  }
 
-    renderEmpty(){
-        let {style, title, subtitle} = this.props;
+  renderIndicator() {
+    let { style, title, titlePlural, titleZero, count} = this.props;
 
-        return (
-            <View style={style}>
-                <Text style={styles.titleEmpty}>
-                    {title}
-                </Text>
-                <View style={styles.top}/>
-                <TouchableOpacity>
-                    <Text style={styles.subtitle}>
-                        {subtitle}
-                    </Text>
-                </TouchableOpacity>
-            </View>
-        );
+    if(typeof count === 'undefined'){
+      count = 0;
     }
 
-    renderIndicator(){
-        let {style, title, count} = this.props;
+    let label = count <= 1 ? title : titlePlural;
+    label = count === 0 ? titlePlural : label;
 
-        return (
-            <View style={style}>
-                <View style={styles.top}/>
+    const moreThan1k = count > 1000 ? `${ count/1000 }K` : count;
+    const finalCount = count > 1000000 ? `${ count/1000000 }M` : moreThan1k;
 
-                <TouchableOpacity>
-                    <View style={{flexDirection: 'row'}}>
-                        <Text style={styles.count}>{count}K</Text>
-                        <Text style={styles.title} numberOfLines={2}>{title.toUpperCase()}</Text>
-                    </View>
-                </TouchableOpacity>
-            </View>
-        );
+    return (
+      <View style={style}>
+        <View style={styles.top}/>
+        <View style={{ flexDirection: 'row' }}>
+          <MPText style={styles.countText}>
+            { finalCount }
+          </MPText>
+          <MPText style={styles.labelText} numberOfLines={2}>
+            { label.toUpperCase() }
+          </MPText>
+        </View>
+      </View>
+    );
+  }
+
+  render() {
+    const { count, me } = this.props;
+    if (!me || count || count > 0) {
+      return this.renderIndicator()
     }
-
-    render() {
-        let {count} = this.props;
-
-        if(count){
-            return this.renderIndicator()
-        }
-
-        return this.renderEmpty()
-    }
+    return this.renderEmpty()
+  }
 }
 
 ProfileIndicatorCE.propTypes = {
-    style: PropTypes.any,
-    title: PropTypes.string.isRequired,
-    subtitle: PropTypes.string.isRequired
+  style: PropTypes.any,
+  title: PropTypes.string.isRequired,
+  titlePlural: PropTypes.string.isRequired,
+  subtitle: PropTypes.string.isRequired,
+  me : PropTypes.bool,
+  onEmptyClick : PropTypes.func
 };
 
 const styles = StyleSheet.create({
-    top: {
-        width: 40,
-        height: 1,
-        backgroundColor: '#000000'
-    },
-    count: {
-        fontSize: 24,
-        fontWeight: "900",
-        color: "#ffffff",
-        marginRight: 4
-    },
-    titleEmpty: {
-        color: '#000000',
-        fontWeight: "500",
-        fontSize: 11,
-        marginBottom: 11
-    },
-    title: {
-        color: '#000000',
-        fontWeight: "500",
-        fontSize: 11,
-        marginBottom: 11,
-        width: 100
-    },
-    subtitle: {
-        fontSize: 12,
-        fontWeight: "bold",
-        color: "#ffffff",
-        textDecorationLine: "underline",
-        marginTop: 9
-    }
+  top: {
+    width: 40,
+    marginBottom: 5,
+    borderWidth: 1,
+    borderColor: '#000',
+  },
+  countText: {
+    fontSize: 24,
+    fontFamily: 'Montserrat-Black',
+    fontWeight: "900",
+    color: "#FFF",
+    marginRight: 4
+  },
+  titleEmpty: {
+    color: '#000',
+    fontFamily: 'Montserrat-Medium',
+    fontWeight: "500",
+    fontSize: 12,
+    marginBottom: 11,
+  },
+  labelText: {
+    color: '#000',
+    fontWeight: "500",
+    fontSize: 12,
+    width: 100,
+    marginTop: 6,
+    fontFamily: 'Montserrat-Medium'
+  },
+  subtitle: {
+    fontSize: 13,
+    marginTop: 9,
+    color: "#FFF",
+    fontFamily: 'Montserrat-Bold',
+    textDecorationLine: "underline"
+  }
 });
 
 export {ProfileIndicatorCE};

@@ -1,0 +1,3 @@
+app_identifier("br.com.musicplayce")
+team_id("WT836546AW")
+git_url("git@gitlab.com:musicplayce/apple-certificates.git")

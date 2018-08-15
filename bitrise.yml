@@ -1,0 +1,139 @@
+---
+format_version: '5'
+default_step_lib_source: https://github.com/bitrise-io/bitrise-steplib.git
+project_type: react-native
+trigger_map:
+- push_branch: "*"
+  workflow: release_android
+- pull_request_source_branch: "*"
+  workflow: primary
+workflows:
+  release_android:
+    steps:
+    - install-missing-android-tools: {}
+    - change-android-versioncode-and-versionname@1.1.1:
+        inputs:
+        - build_gradle_path: "$BITRISE_SOURCE_DIR/android/app/build.gradle"
+        - new_version_name: "$BITRISE_BUILD_NUMBER"
+    - android-build@0.9.4:
+        inputs:
+        - project_location: "$PROJECT_LOCATION"
+        - module: "$MODULE"
+        - variant: "$BUILD_VARIANT"
+    - sign-apk@1.2.2: {}
+    - deploy-to-bitrise-io@1.3.12: {}
+    - create-install-page-qr-code@1.0.0: {}
+    - slack@2.7.3:
+        inputs:
+        - channel: "#musicplayce-bitrise"
+        - webhook_url: https://hooks.slack.com/services/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
+        - message: Android - Baixe o aplicativo aqui (v$BITRISE_BUILD_NUMBER)
+        - message_on_error: Android - Erro
+        - title_link: "$BITRISE_PUBLIC_INSTALL_PAGE_URL"
+        - fields: |-
+            Branch|${BITRISE_GIT_BRANCH}
+            Workflow|${BITRISE_TRIGGERED_WORKFLOW_ID}
+            Build Number|$BITRISE_BUILD_NUMBER
+            Autor|$GIT_CLONE_COMMIT_AUTHOR_NAME
+        - buttons: |-
+            View App|${BITRISE_APP_URL}
+            View Build|${BITRISE_BUILD_URL}
+            View Commit|https://gitlab.com/dev_squad/musicplayce-app/commit/$BITRISE_GIT_COMMIT
+            Install Page|${BITRISE_PUBLIC_INSTALL_PAGE_URL}
+    before_run:
+    - release_ios
+  primary:
+    steps:
+    - activate-ssh-key:
+        run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
+    - git-clone@4.0.11: {}
+    - script@1.1.5:
+        title: Set BUILD_NUMBER Env Var
+        inputs:
+        - content: |-
+            #!/usr/bin/env bash
+            # fail if any commands fails
+            set -e
+            # debug log
+            set -x
+
+            # write your script here
+            envman add --key BUILD_NUMBER --value $BITRISE_BUILD_NUMBER
+
+            # or run a script from your repository, like:
+            # bash ./path/to/script.sh
+            # not just bash, e.g.:
+            # ruby ./path/to/script.rb
+    - npm@0.9.1:
+        inputs:
+        - command: install
+    - npm@0.9.1:
+        inputs:
+        - command: run bundle:android
+  release_ios:
+    steps:
+    - set-xcode-build-number@1.0.7:
+        inputs:
+        - build_short_version_string: "$BITRISE_BUILD_NUMBER"
+        - plist_path: ios/musicplayce/Info.plist
+    - fastlane@2.3.12:
+        inputs:
+        - lane: ios beta
+        - work_dir: "$IOS_PROJECT_LOCATION"
+    - slack@2.7.3:
+        inputs:
+        - channel: "#musicplayce-bitrise"
+        - webhook_url: https://hooks.slack.com/services/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
+        - message: iOS - Baixe o aplicativo aqui (v$BITRISE_BUILD_NUMBER)
+        - message_on_error: iOS - Erro
+        - title_link: "$BITRISE_PUBLIC_INSTALL_PAGE_URL"
+        - fields: |-
+            Branch|${BITRISE_GIT_BRANCH}
+            Workflow|${BITRISE_TRIGGERED_WORKFLOW_ID}
+            Build Number|$BITRISE_BUILD_NUMBER
+            Autor|$GIT_CLONE_COMMIT_AUTHOR_NAME
+        - buttons: |-
+            View App|${BITRISE_APP_URL}
+            View Build|${BITRISE_BUILD_URL}
+            View Commit|https://gitlab.com/dev_squad/musicplayce-app/commit/$BITRISE_GIT_COMMIT
+            Install Page|${BITRISE_PUBLIC_INSTALL_PAGE_URL}
+    before_run:
+    - primary
+app:
+  envs:
+  - opts:
+      is_expand: false
+    PROJECT_LOCATION: android
+  - opts:
+      is_expand: false
+    GRADLEW_PATH: android/gradlew
+  - opts:
+      is_expand: false
+    MODULE: app
+  - opts:
+      is_expand: false
+    BUILD_VARIANT: Debug
+  - opts:
+      is_expand: false
+    BITRISE_PROJECT_PATH: ios/musicplayce.xcodeproj
+  - opts:
+      is_expand: false
+    BITRISE_SCHEME: musicplayce
+  - opts:
+      is_expand: false
+    BITRISE_EXPORT_METHOD: development
+  - opts:
+      is_expand: false
+    IOS_PROJECT_LOCATION: ios
+  - opts:
+      is_expand: false
+    MATCH_USERNAME: apple@devsquad.email
+  - opts:
+      is_expand: false
+    MATCH_READONLY: 'true'
+  - opts:
+      is_expand: false
+    PILOT_USERNAME: apple@devsquad.email
+  - opts:
+      is_expand: false
+    PILOT_SKIP_WAITING_FOR_BUILD_PROCESSING: 'true'
