@@ -11,6 +11,7 @@ import Swiper from 'react-native-swiper';
 import images from '../../../assets/img';
 import {MPSearchRedIcon, MPCloseFilledRedIcon} from '../../../assets/svg';
 import {fetchFeeds, searchUsers, getFollowNotifications, followUser} from '../../../state/action';
+import {MPLoading} from "../../../components/general";
 
 
 class FeedScreenContainer extends React.Component {
@@ -335,6 +336,7 @@ class FeedScreenContainer extends React.Component {
         </View>
         }
         <MPUserNotification />
+        <MPLoading visible={this.props.searching || this.props.loading}/>
       </View>
     );
   }
