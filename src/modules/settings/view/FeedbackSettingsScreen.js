@@ -22,6 +22,12 @@ class FeedbackSettingsScreenContainer extends React.Component {
     options: ['Interface', 'Navegação', 'Experiência']
   };
 
+  componentWillReceiveProps(nextProps){
+    if(nextProps.feedbackSaveSuccess){
+      this.handleBack();
+    }
+  }
+
   handleBack = () => {
     this.props.navigation.pop();
   };
@@ -33,13 +39,7 @@ class FeedbackSettingsScreenContainer extends React.Component {
       message,
       subject: options[selectedOption]
     };
-    dispatch(createFeedback(feedback)).then(() => {
-      if (feedbackSaveSuccess) {
-        this.handleBack()
-      } else {
-        this.scrollView.scrollToEnd()
-      }
-    });
+    dispatch(createFeedback(feedback));
   };
 
   renderHeaderMenuRight() {
