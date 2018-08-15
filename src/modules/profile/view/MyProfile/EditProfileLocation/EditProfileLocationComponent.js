@@ -95,7 +95,7 @@ class EditProfileLocationComponent extends React.Component {
             const selectedState = states.filter(s => s.sigla === state)[0].id;
             this.setState({city, state, selectedState, isCurrentLocation: true});
           } else {
-            this.setState({ error: 'Não foi possível usar a localização atual. Verifique se o GPS está habilitado.' });
+            this.setState({ error: response.data.error_message });
           }
           this.props.dispatch(generalFinishLoading());
         }).catch(e => {
@@ -236,7 +236,8 @@ const styles = StyleSheet.create({
     marginTop: 15,
     textAlign: 'center',
     color: '#e13223',
-    fontFamily: 'Montserrat-Regular'
+    fontFamily: 'Montserrat-Regular',
+    marginHorizontal: 20
   },
   currentPosition: {
     padding: 20,
