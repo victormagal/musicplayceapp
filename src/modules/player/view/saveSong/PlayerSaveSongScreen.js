@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {PlayerSaveSongComponent} from './PlayerSaveSongComponent';
-import { fetchFolders, favoriteSong, createFolder, getFavoriteSongsFolders, updateFolderName} from '../../../../state/action';
+import { fetchFolders, favoriteSong, createFolder, getFavoriteSongsFolders} from '../../../../state/action';
 
 
 class PlayerSaveSongContainer extends React.Component {

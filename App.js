@@ -20,8 +20,9 @@ import {
 import {reducers} from './src/state/reducer';
 import {
   loadFont, updateNetwork, playerSongPause,
-  playerSongUpdateProgress, songResume, songPause, songStop
+  playerSongUpdateProgress, songResume, songPause, songStop, playerSongStop
 } from './src/state/action';
+import {PlayerService} from './src/service';
 import {MPTabBottomComponent, MPNetworkNotification} from './src/components';
 import {checkConnection} from './src/connectors';
 import {MPTabConfigurationIcon, MPTabNotificationIcon, MPTabProfileIcon} from './src/assets/svg/custom';
@@ -108,8 +109,15 @@ export default class App extends React.Component {
   handleSongUpdateListener = (state) => {
     let currentPlayerState = state["state"];
 
+    console.log(state, RNMusicPlayer);
+
     if (RNMusicPlayer.statePlaying == currentPlayerState) {
       store.dispatch(playerSongUpdateProgress(state["progress"]));
+    }else if(RNMusicPlayer.statePaused == currentPlayerState || RNMusicPlayer.stateStopped === currentPlayerState){
+      if(store.getState().playerReducer.player.isPlaying){
+        store.dispatch(playerSongStop());
+        PlayerService.stopNotification();
+      }
     }
   };
 

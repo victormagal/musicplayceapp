@@ -74,13 +74,7 @@ class MPSongRating extends Component {
   }
 
   render() {
-    const {
-      song,
-      style,
-      indicateSong,
-      indications,
-      isNew
-    } = this.props;
+    const {song, style, indicateSong, indications, isNew} = this.props;
 
     return (
       <View style={style || {}}>
@@ -105,8 +99,7 @@ class MPSongRating extends Component {
                   )}
                 </View>
                 <View>
-                  <MPText style={ styles.simpleUserCardText }
-                          onPress={this.toggleState.bind(this)}>{ song && song.name || '' }</MPText>
+                  <MPText style={ styles.simpleUserCardText }>{ song && song.name || '' }</MPText>
                   <MPShowRating rating={song.rating}/>
                 </View>
                 {

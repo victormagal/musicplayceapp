@@ -36,9 +36,7 @@ class PlayerService{
 
   static pause(){
     RNMusicPlayer.pause();
-    MusicControl.updatePlayback({
-      state: MusicControl.STATE_PAUSED
-    });
+    PlayerService.pauseNotification();
   }
 
   static resume(){
@@ -55,7 +53,17 @@ class PlayerService{
   static stop(){
     //TODO: implement on IOS
     RNMusicPlayer.stop && RNMusicPlayer.stop();
+    PlayerService.stopNotification();
+  }
+
+  static stopNotification(){
     MusicControl.stopControl();
+  }
+
+  static pauseNotification(){
+    MusicControl.updatePlayback({
+      state: MusicControl.STATE_PAUSED
+    });
   }
 }
 
