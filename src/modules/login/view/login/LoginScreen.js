@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {LoginComponent} from './LoginComponent';
 import {ForgotPasswordMessage} from '../forgot/ForgotPasswordMessage';
-import {login} from '../../../../state/action';
+import {login, recoverPassword} from '../../../../state/action';
 import {fetchProfile} from "../../../../state/profile/profileAction";
 
 

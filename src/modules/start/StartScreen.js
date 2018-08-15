@@ -1,16 +1,21 @@
 import React, { Component } from 'react';
+import {connect} from 'react-redux';
 import { StyleSheet, View, StatusBar } from 'react-native';
 import { MPText } from '../../components';
 import { MPLogoRegisterIcon } from '../../assets/svg';
 import LinearGradient from 'react-native-linear-gradient';
 import { StorageService } from '../../service';
+import { authSetStorageUser } from '../../state/action';
 
-class StartScreen extends Component {
+class StartScreenComponent extends Component {
   componentDidMount() {
     StorageService.getToken().then(token => {
-      const { navigation } = this.props;
+      const { navigation, dispatch } = this.props;
       if (token) {
-        navigation.replace('home');
+        StorageService.getUser().then(user => {
+          dispatch(authSetStorageUser(user));
+          navigation.replace('home');
+        });
       } else {
         navigation.replace('login');
       }
@@ -60,4 +65,6 @@ const styles = StyleSheet.create({
   }
 });
 
+const mapStateToProps = () => { return {}; };
+const StartScreen = connect(mapStateToProps)(StartScreenComponent);
 export {StartScreen}

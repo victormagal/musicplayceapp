@@ -119,14 +119,17 @@ class FeedScreenContainer extends React.Component {
     this.setState({tabIndex: index});
   };
 
-  renderSearchUsers = (from, {item}) => (
-    <MPUser
-      key={item.id}
-      user={item}
-      onPress={() => this.handleNavigateUserProfile(item.id)}
-      onToggleFollowUser={this.handleToggleFollowUser.bind(this, from)}
-    />
-  );
+  renderSearchUsers = (from, {item}) => {
+    return (
+      <MPUser
+        key={item.id}
+        user={item}
+        onPress={() => this.handleNavigateUserProfile(item.id)}
+        onToggleFollowUser={this.handleToggleFollowUser.bind(this, from)}
+        hideSettings={this.props.loggedUser.id === item.id}
+      />
+    );
+  };
 
   handleSongNavigate = (song) => {
     this.props.navigation.navigate('player', {song});
@@ -310,7 +313,7 @@ class FeedScreenContainer extends React.Component {
             <View style={styles.secondSliderContainer}>
                 <FlatList
                   data={userFollowNotifications}
-                  keyExtractor={(item) => item.id}
+                  keyExtractor={(item) => String(item.id)}
                   refreshing={this.state.refreshUserFollowings}
                   onRefresh={() => {
                     this.setState({refreshUserFollowings: true});
@@ -437,8 +440,8 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = ({feedsReducer, userReducer}) => {
-  return {...feedsReducer, ...userReducer};
+const mapStateToProps = ({feedsReducer, userReducer, authReducer}) => {
+  return {...feedsReducer, ...userReducer, loggedUser: authReducer.loggedUser};
 };
 
 const FeedScreen = connect(mapStateToProps)(FeedScreenContainer);

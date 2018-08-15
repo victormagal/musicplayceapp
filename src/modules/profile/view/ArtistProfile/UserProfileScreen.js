@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {ProfileComponent} from '../ProfileComponent';
-import {getUserById, followUser, getUserFollowers, getUserFollowings} from "../../../../state/action";
+import {getUserById, followUser} from "../../../../state/action";
 
 
 class UserProfileScreenContainer extends React.Component {
@@ -21,8 +21,13 @@ class UserProfileScreenContainer extends React.Component {
   };
 
   handleFollowerFollowingClick = (user) => {
-    this.setState({ loadingProfile: true });
-    this.props.dispatch(getUserById(user.id));
+
+    if(user.id === this.props.loggedUser.id){
+      this.props.navigation.navigate('MyProfileScreen');
+    }else {
+      this.setState({loadingProfile: true});
+      this.props.dispatch(getUserById(user.id));
+    }
   };
 
   render() {
@@ -42,8 +47,8 @@ class UserProfileScreenContainer extends React.Component {
   }
 }
 
-const mapStateToProps = ({userReducer}) => {
-  return {...userReducer};
+const mapStateToProps = ({userReducer, authReducer}) => {
+  return {...userReducer, loggedUser: authReducer.loggedUser};
 };
 
 const UserProfileScreen = connect(mapStateToProps)(UserProfileScreenContainer);
