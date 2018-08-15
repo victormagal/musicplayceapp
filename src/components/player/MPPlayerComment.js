@@ -7,12 +7,12 @@ import { MPValidatedRedIcon } from '../../assets/svg';
 class MPPlayerComment extends Component{
   render() {
     const { style, comment } = this.props;
+    let image = comment.data.picture_url ? {uri: comment.data.picture_url} : require('../../assets/img/avatar-male.jpg');
     return (
       <View style={style}>
         <View style={styles.container}>
           <Image
-            // source={comment ? {uri: comment.data.picture_url} : require('../../assets/img/david-burn-60.png')}
-            source={require('../../assets/img/david-burn-60.png')}
+            source={image}
             style={styles.avatar}
           />
           <View style={styles.commentContainer}>
@@ -26,10 +26,21 @@ class MPPlayerComment extends Component{
             <MPText style={styles.comment}>
               {comment ? comment.text : null }
             </MPText>
-            <MPText style={styles.commentLike} onPress={comment ? () => this.props.onLikeComment(comment.id) : null}>
-              Curtir
-              <MPText style={styles.countCommentLike}>({comment ? comment.likesCount : null})</MPText>
-            </MPText>
+            {
+              comment.liked && (
+                <MPText style={styles.commentLike}>
+                  Curtiu
+                  <MPText style={styles.countCommentLike}>({comment ? comment.likesCount : null})</MPText>
+                </MPText>    
+              )
+            }
+            {
+            !comment.liked && (
+              <MPText style={styles.commentLike} onPress={comment ? () => this.props.onLikeComment(comment.id) : null}>
+                Curtir
+                <MPText style={styles.countCommentLike}>({comment ? comment.likesCount : null})</MPText>
+              </MPText>
+            )}
           </View>
         </View>
         <View style={styles.divider}/>

@@ -134,8 +134,7 @@ export const likeSongComment = (commentId) => {
   return (dispatch) => {
     dispatch(songStartLoading());
     return SongService.likeComment(commentId).then((response) => {
-      console.log(response);
-      dispatch(likedCommentSuccess());
+      dispatch(likedCommentSuccess(response.data));
     }).catch(e => {
       dispatch(likedCommentError())
     });

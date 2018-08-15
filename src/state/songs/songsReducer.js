@@ -148,11 +148,18 @@ const songsReducer = (state, action) => {
       };
     
     case SONG_LIKE_COMMENT_SUCCESS:
-    console.log(action);
+      let playerSong = {...state.fetchedSong}
+      let playerComment = action.payload.attributes;
+      playerComment.id = action.payload.id;
+      playerSong.comments = Object.assign([], playerSong.comments);
+      playerSong.comments = playerSong.comments.map((element) => {
+          return element.id == playerComment.id ? playerComment : element;
+      });
       return {
         ...state,
         loading: false,
-        likedCommentSuccess: true
+        likedCommentSuccess: true,
+        fetchedSong: playerSong,
       };
 
     case SONG_COMMENT_SUCCESS:
