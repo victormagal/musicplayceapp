@@ -50,7 +50,7 @@ export const songUnfavoriteSuccess = createAction(SONG_UNFAVORITE_SUCCESS);
 export const songIndicateSuccess = createAction(SONG_INDICATE_SUCCESS);
 export const songNotificationRemove = createAction(SONG_NOTIFICATION_REMOVE);
 export const songIndicateError = createAction(SONG_INDICATE_ERROR);
-export const likedCommentSuccess = createAction(SONG_LIKE_COMMENT_SUCCESS);
+export const likedCommentSuccess = createAction(SONG_LIKE_COMMENT_SUCCESS, data => data);
 export const likedCommentError = createAction(SONG_LIKE_COMMENT_ERROR);
 export const commentStartLoading = createAction(SONG_COMMENT_START_LOADING);
 export const commentSongError = createAction(SONG_COMMENT_ERROR);
