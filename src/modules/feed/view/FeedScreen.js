@@ -61,7 +61,7 @@ class FeedScreenContainer extends React.Component {
           time: notification.attributes.time
         };
       });
-      this.setState({userFollowNotifications: followingNotifications});
+      this.setState({userFollowNotifications: followingNotifications, refreshUserFollowings: false});
     }
   }
 
@@ -160,6 +160,7 @@ class FeedScreenContainer extends React.Component {
       searchingNotFound,
       userFollowNotifications
     } = this.state;
+    console.log(this.props);
 
     if (feed === null || feed === {}) {
       return <ActivityIndicator />
@@ -315,13 +316,11 @@ class FeedScreenContainer extends React.Component {
                   data={userFollowNotifications}
                   keyExtractor={(item) => String(item.id)}
                   refreshing={this.state.refreshUserFollowings}
+                  onEndReachedThreshold={0.1}
+                  onEndReached={() => this.props.dispatch(getFollowNotifications())}
                   onRefresh={() => {
                     this.setState({refreshUserFollowings: true});
-                    console.log('atualizando');
-                    setTimeout(() => {
-                      this.setState({refreshUserFollowings: false});
-                      console.log('atualizado');
-                    }, 3000);
+                    this.props.dispatch(getFollowNotifications(reset=true));
                   }}
                   renderItem={({item}) => {
                     return (

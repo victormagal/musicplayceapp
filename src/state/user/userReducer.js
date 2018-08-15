@@ -148,6 +148,16 @@ const userReducer = (state, action) => {
       };
 
     case USER_NOTIFICATIONS_FOLLOWERS_FETCHED:
+      let userFollowNotifications = action.payload;
+      console.log('teste');
+      if(state.userFollowNotifications && action.payload.reset == false){
+        console.log('abcajdiasje');
+        userFollowNotifications = {...state.userFollowNotifications};
+        if(action.payload.meta.pagination.current_page > 1){
+          userFollowNotifications.data = userFollowNotifications.data.concat(action.payload.data);
+          userFollowNotifications.meta = action.payload.meta;
+        }
+      }
       return {
         ...state,
         loading: false,

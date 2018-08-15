@@ -42,13 +42,13 @@ class InitialSettingsScreenContainer extends React.Component {
 				icon: MPNotificationConfigIcon,
 				iconNext: MPArrowRightIcon
 			},
-			{
-				id: '02',
-				onChooseOption: () => this.props.navigation.navigate('inviteSettings'),
-				title: 'Convide seus amigos',
-				icon: MPInviteConfigIcon,
-				iconNext: MPArrowRightIcon
-			},
+			// {
+			// 	id: '02',
+			// 	onChooseOption: () => this.props.navigation.navigate('inviteSettings'),
+			// 	title: 'Convide seus amigos',
+			// 	icon: MPInviteConfigIcon,
+			// 	iconNext: MPArrowRightIcon
+			// },
 			{
 				id: '03',
 				onChooseOption: () => this.props.navigation.navigate('helpSettings'),
