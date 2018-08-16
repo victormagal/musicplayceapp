@@ -1,13 +1,11 @@
 import {
   FETCHED_PROFILE,
-  FETCHED_MY_INDICATIONS,
   PROFILE_START_LOADING,
   PROFILE_FINISH_LOADING,
   SAVE_PROFILE_SUCCESS,
   PROFILE_CREATE_USER_SUCCESS,
   PROFILE_CREATE_USER_ERROR,
   SAVE_PROFILE_ERROR,
-  UPDATE_PROFILE_DATA,
   PROFILE_IMAGE_UPLOADED,
   PROFILE_FOLLOWERS_FETCHED,
   PROFILE_FOLLOWING_FETCHED,
@@ -36,7 +34,6 @@ const profileReducer = (state, action) => {
       profile: null,
       followers: null,
       following: null,
-      indications: null,
       imageLoading: false,
       mySongs: null,
       myFavoriteSongs: null
@@ -156,23 +153,11 @@ const profileReducer = (state, action) => {
         createUserError: true
       };
 
-    case FETCHED_MY_INDICATIONS:
-      return {
-        ...state,
-        indications: action.payload
-      };
-
     case AUTH_LOGOUT:
       return {
         ...state,
         loading: false,
         profile: null
-      };
-
-    case UPDATE_PROFILE_DATA:
-      return {
-        ...state,
-        profile: {...action.payload}
       };
 
     case PROFILE_FOLLOWERS_FETCHED:
