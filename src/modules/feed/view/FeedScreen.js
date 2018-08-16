@@ -159,7 +159,6 @@ class FeedScreenContainer extends React.Component {
       searchingNotFound,
       userFollowNotifications
     } = this.state;
-    console.log(this.props);
 
     if (feed === null || feed === {}) {
       return <ActivityIndicator />
