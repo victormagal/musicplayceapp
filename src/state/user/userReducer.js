@@ -25,6 +25,7 @@ const userReducer = (state, action) => {
     notificationSettings: null,
     isUserNotificationsSaved: false,
     refreshUserFollowings: false,
+    refreshNotifications: false,
   };
 
   let user = {};
@@ -63,12 +64,16 @@ const userReducer = (state, action) => {
         isUserSaved: true
       };
 
-    case USER_NOTIFICATIONS_FINISHED_LOADING:
     case USER_FOLLOW_ERROR:
     case USER_SAVE_ERROR:
       return {
         ...state,
-        loading: false
+        loading: false,
+      }
+    case USER_NOTIFICATIONS_FINISHED_LOADING:
+      return {
+        ...state,
+        refreshNotifications: false
       };
 
     case USER_NOTIFICATIONS_SETTINGS_FINISHED_LOADING:
@@ -135,10 +140,15 @@ const userReducer = (state, action) => {
     
     case USER_REPORT_STARTED:
     case USER_NOTIFICATIONS_SETTINGS_START_LOADING:
-    case USER_NOTIFICATIONS_START_LOADING:
       return {
         ...state,
         loading: true,
+      }
+
+    case USER_NOTIFICATIONS_START_LOADING:
+      return {
+        ...state,
+        refreshNotifications: true,
       };
     
     case USER_FOLLOW_NOTIFICATIONS_START_LOADING: 
@@ -154,20 +164,27 @@ const userReducer = (state, action) => {
       }
 
     case USER_NOTIFICATIONS_FETCHED:
+    console.log(action);
+      let userNotifications = action.payload;
+      if(state.userNotifications && action.payload.reset == false){
+        userNotifications = {...state.userNotifications};
+        if(action.payload.meta.pagination.current_page > 1){
+          userNotifications.data = userNotifications.data.concat(action.payload.data);
+          userNotifications.meta = action.payload.meta;
+        }
+      }
       return {
         ...state,
         loading: false,
+        refreshNotifications: false,
         userNotifications: action.payload,
       };
 
     case USER_NOTIFICATIONS_FOLLOWERS_FETCHED:
       let userFollowNotifications = action.payload;
-      console.log('teste');
       if(state.userFollowNotifications && action.payload.reset == false){
-        console.log('abcajdiasje');
         userFollowNotifications = {...state.userFollowNotifications};
         if(action.payload.meta.pagination.current_page > 1){
-          console.log('12345mil');
           userFollowNotifications.data = userFollowNotifications.data.concat(action.payload.data);
           userFollowNotifications.meta = action.payload.meta;
         }

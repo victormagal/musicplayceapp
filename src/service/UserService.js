@@ -132,9 +132,8 @@ class UserService {
     return axios.delete(`${API_USER}/me/following/${user}`);
   }
 
-  static getNotifications(){
-    return axios.get(`${API_USER}/me/notifications`).then((response) => {
-      console.log(response);
+  static getNotifications(page){
+    return axios.get(`${API_USER}/me/notifications?page=${page}`).then((response) => {
       return response.data;
     });
   }

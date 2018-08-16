@@ -119,14 +119,11 @@ class NotificationScreenContainer extends React.Component {
             <FlatList
               data={this.state.notifications}
               keyExtractor={item => item.id}
-              refreshing={this.state.refresh}
+              refreshing={this.props.refreshNotifications}
+              onEndReachedThreshold={0.1}
+                  onEndReached={() => this.props.dispatch(getNotifications())}
               onRefresh={() => {
-                this.setState({refresh: true});
-                console.log('atualizando');
-                setTimeout(() => {
-                  this.setState({refresh: false});
-                  console.log('atualizado');
-                }, 3000);
+                this.props.dispatch(getNotifications(true));
               }}
               renderItem={({ item }) => {
                 return (

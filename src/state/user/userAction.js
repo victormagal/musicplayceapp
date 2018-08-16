@@ -121,7 +121,7 @@ export const getFollowNotifications = (reset = false) => {
     if(!!reset && 
       userFollowNotifications.meta && 
       userFollowNotifications.meta.pagination.current_page < userFollowNotifications.meta.pagination.total_pages ){
-      page = userFollowNotifications.meta.current_page + 1;
+      page = userFollowNotifications.meta.pagination.current_page + 1;
     }
 
     return UserService.getFollowNotifications(page).then(response => {
@@ -133,12 +133,19 @@ export const getFollowNotifications = (reset = false) => {
   };
 };
 
-export const getNotifications = () => {
-  return (dispatch) => {
+export const getNotifications = (reset = false) => {
+  return (dispatch, getState) => {
+    let page = 1;
     dispatch(userNotificationsStartLoading());
 
-    return UserService.getNotifications().then(response => {
-      dispatch(userNotificationsFetched(response));
+    let { userNotifications } = getState().userReducer
+    if(!reset && userNotifications.meta && 
+      userNotifications.meta.pagination.current_page < userNotifications.meta.pagination.total_pages ){
+        page = userNotifications.meta.pagination.current_page + 1;
+    }
+
+    return UserService.getNotifications(page).then(response => {
+      dispatch(userNotificationsFetched({...response, reset}));
     }).catch(e => {
       console.log('getNotificationsError', e.response);
       dispatch(userNotificationsFinishedLoading());
