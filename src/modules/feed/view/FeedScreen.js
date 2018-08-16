@@ -316,7 +316,7 @@ class FeedScreenContainer extends React.Component {
                   keyExtractor={(item) => String(item.id)}
                   refreshing={this.props.refreshUserFollowings}
                   onEndReachedThreshold={0.1}
-                  onEndReached={() => this.props.dispatch(getFollowNotifications())}
+                  // onEndReached={() => this.props.dispatch(getFollowNotifications())}
                   onRefresh={() => {
                     this.props.dispatch(getFollowNotifications(reset=true));
                   }}

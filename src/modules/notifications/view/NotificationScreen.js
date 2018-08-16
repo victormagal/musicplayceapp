@@ -121,7 +121,7 @@ class NotificationScreenContainer extends React.Component {
               keyExtractor={item => item.id}
               refreshing={this.props.refreshNotifications}
               onEndReachedThreshold={0.1}
-                  onEndReached={() => this.props.dispatch(getNotifications())}
+              // onEndReached={() => this.props.dispatch(getNotifications())}
               onRefresh={() => {
                 this.props.dispatch(getNotifications(true));
               }}
