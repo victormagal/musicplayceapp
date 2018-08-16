@@ -21,6 +21,7 @@ import {
 import {
   USER_FOLLOW_SUCCESS, USER_STOP_FOLLOW_SUCCESS
 } from '../user/userTypes';
+import { SONG_INDICATE_SUCCESS } from '../songs/songsType';
 
 
 const profileReducer = (state, action) => {
@@ -92,6 +93,16 @@ const profileReducer = (state, action) => {
         ...state,
         mySongs
       };
+
+    case SONG_INDICATE_SUCCESS:
+      if(state.profile){
+        let profile = {...state.profile, indicationsCount: state.profile.indicationsCount + 1}
+        return {
+          ...state,
+          profile
+        }
+      }
+      break;
 
     case PROFILE_START_LOADING:
       return {
