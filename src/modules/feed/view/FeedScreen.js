@@ -27,7 +27,6 @@ class FeedScreenContainer extends React.Component {
       searching: false,
       searchingNotFound: false,
       feed: null,
-      refreshUserFollowings: false,
     };
     this.swiperRef = React.createRef();
   }
@@ -61,7 +60,7 @@ class FeedScreenContainer extends React.Component {
           time: notification.attributes.time
         };
       });
-      this.setState({userFollowNotifications: followingNotifications, refreshUserFollowings: false});
+      this.setState({userFollowNotifications: followingNotifications});
     }
   }
 
@@ -315,11 +314,10 @@ class FeedScreenContainer extends React.Component {
                 <FlatList
                   data={userFollowNotifications}
                   keyExtractor={(item) => String(item.id)}
-                  refreshing={this.state.refreshUserFollowings}
+                  refreshing={this.props.refreshUserFollowings}
                   onEndReachedThreshold={0.1}
                   onEndReached={() => this.props.dispatch(getFollowNotifications())}
                   onRefresh={() => {
-                    this.setState({refreshUserFollowings: true});
                     this.props.dispatch(getFollowNotifications(reset=true));
                   }}
                   renderItem={({item}) => {

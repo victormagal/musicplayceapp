@@ -23,7 +23,8 @@ const userReducer = (state, action) => {
     userFollowers: [],
     userFollowings: [],
     notificationSettings: null,
-    isUserNotificationsSaved: false
+    isUserNotificationsSaved: false,
+    refreshUserFollowings: false,
   };
 
   let user = {};
@@ -137,7 +138,8 @@ const userReducer = (state, action) => {
     case USER_NOTIFICATIONS_START_LOADING:
       return {
         ...state,
-        loading: true
+        loading: true,
+        refreshUserFollowings: true,
       };
     
     case USER_NOTIFICATIONS_FETCHED:
@@ -154,6 +156,7 @@ const userReducer = (state, action) => {
         console.log('abcajdiasje');
         userFollowNotifications = {...state.userFollowNotifications};
         if(action.payload.meta.pagination.current_page > 1){
+          console.log('12345mil');
           userFollowNotifications.data = userFollowNotifications.data.concat(action.payload.data);
           userFollowNotifications.meta = action.payload.meta;
         }
@@ -161,6 +164,7 @@ const userReducer = (state, action) => {
       return {
         ...state,
         loading: false,
+        refreshUserFollowings: false,
         userFollowNotifications: action.payload,
       };
 
