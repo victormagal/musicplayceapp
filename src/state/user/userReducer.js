@@ -5,7 +5,7 @@ import {
   USER_SAVE_ERROR, USER_NOTIFICATIONS_SETTINGS_START_LOADING, USER_NOTIFICATIONS_SETTINGS_FINISHED_LOADING,
   USER_NOTIFICATIONS_SETTINGS_FETCHED, USER_NOTIFICATIONS_SETTINGS_PATCHED, USER_STOP_FOLLOW_SUCCESS,
   USER_FOLLOWERS_FETCHED, USER_FOLLOWINGS_FETCHED, USER_REPORT_SUCCESS, USER_REPORT_ERROR,
-  USER_REPORT_STARTED, USER_HIDE_NOTIFICATION
+  USER_REPORT_STARTED, USER_HIDE_NOTIFICATION, USER_FOLLOW_NOTIFICATIONS_START_LOADING, USER_FOLLOW_NOTIFICATIONS_FINISHED_LOADING
 } from './userTypes';
 
 const userReducer = (state, action) => {
@@ -139,9 +139,20 @@ const userReducer = (state, action) => {
       return {
         ...state,
         loading: true,
-        refreshUserFollowings: true,
       };
     
+    case USER_FOLLOW_NOTIFICATIONS_START_LOADING: 
+      return {
+        ...state,
+        refreshUserFollowings: true,
+      }
+
+    case USER_FOLLOW_NOTIFICATIONS_FINISHED_LOADING:
+      return {
+        ...state,
+        refreshUserFollowings: false,
+      }
+
     case USER_NOTIFICATIONS_FETCHED:
       return {
         ...state,

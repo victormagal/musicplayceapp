@@ -22,7 +22,9 @@ import {
   userFollowingsFetched,
   userReportStarted,
   userReportSuccess,
-  userReportError
+  userReportError,
+  userFollowNotificationsStartLoading,
+  userFollowNotificationsFinishedLoading
 } from './userTypes';
 import {transformResponseData} from '../../service/api';
 
@@ -114,7 +116,7 @@ export const stopFollowUser = (user, from) => {
 export const getFollowNotifications = (reset = false) => {
   return (dispatch, getState) => {
     let page = 1;
-    dispatch(userNotificationsStartLoading());
+    dispatch(userFollowNotificationsStartLoading());
     let { userFollowNotifications } = getState().userReducer
     if(!!reset && 
       userFollowNotifications.meta && 
@@ -126,7 +128,7 @@ export const getFollowNotifications = (reset = false) => {
       dispatch(userNotificationsFollowersFetched({...response, reset}));
     }).catch(e => {
       console.log('getFollowNotificationsError', e.response);
-      dispatch(userNotificationsFinishedLoading());
+      dispatch(userFollowNotificationsFinishedLoading());
     });
   };
 };
