@@ -78,6 +78,7 @@ class ProfileComponent extends React.Component {
   };
 
   handlePlaySong = (song) => {
+    //TODO: REFACTOR ERRADO, TUDO ERRADO, nao pode mandar o profile quando tiver vendo musicas salvas
     song.artist = this.props.profile;
     this.props.navigation.navigate('player', {song});
   };
