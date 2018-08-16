@@ -88,9 +88,11 @@ class MPSongRating extends Component {
                     style={{ width: 100, height: 100 }}
                     source={ song.picture_url ? { uri: song.picture_url } : require('../../assets/img/album-default.png')}/>
 
-                  <TouchableOpacity style={styles.playIcon} onPress={this.handlePlayClick}>
-                    <MPPlayIcon />
-                  </TouchableOpacity>
+                  {song.path && (
+                    <TouchableOpacity style={styles.playIcon} onPress={this.handlePlayClick}>
+                      <MPPlayIcon />
+                    </TouchableOpacity>
+                  )}
                   { this.renderTopIcons() }
                   {song && !song.published_at && (
                     <View style={ styles.draftContainer}>

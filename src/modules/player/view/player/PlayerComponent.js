@@ -133,6 +133,13 @@ class PlayerComponent extends React.Component {
     }
   };
 
+  renderRating = (song) => {
+    if (song && song.rating){
+      return parseFloat(song.rating).toFixed(1);
+    }
+    return "0.0";
+  };
+
   renderComment = ({item}) => {
     return (
       <MPPlayerComment comment={item} onLikeComment={this.props.onLikeComment} />
@@ -275,11 +282,11 @@ class PlayerComponent extends React.Component {
                 <View style={styles.row}>
                   {
                     song && stars.map((_, i) => {
-                      return i < song.rating ? <MPFilledStarIcon key={i}/> : <MPStarIcon key={i}/>
+                      return song.rating && i < song.rating ? <MPFilledStarIcon key={i}/> : <MPStarIcon key={i}/>
                     })
                   }
                 </View>
-                <MPText style={styles.gradeText}>{song && song.rating.toFixed(1)}</MPText>
+                <MPText style={styles.gradeText}>{this.renderRating(song)}</MPText>
               </View>
 
               <MPText style={styles.timeTotalText}>{song && this.handleSongDuration(song.duration)}</MPText>

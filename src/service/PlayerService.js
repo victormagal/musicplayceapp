@@ -51,8 +51,11 @@ class PlayerService{
   }
 
   static stop(){
-    //TODO: implement on IOS
-    RNMusicPlayer.stop && RNMusicPlayer.stop();
+    if(RNMusicPlayer.stop){
+      RNMusicPlayer.stop();
+    }else{
+      RNMusicPlayer.pause();
+    }
     PlayerService.stopNotification();
   }
 
