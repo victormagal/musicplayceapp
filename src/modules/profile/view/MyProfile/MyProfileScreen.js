@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {ProfileComponent} from '../ProfileComponent';
-import {fetchProfile, logout, fetchMySongs} from '../../../../state/action';
+import {fetchProfile, logout, fechyMySongsByFolder} from '../../../../state/action';
 import {songRegisterClear} from '../../../../state/songs/songsType';
 
 
@@ -71,6 +71,22 @@ class MyProfileScreenContainer extends React.Component {
     this.props.navigation.navigate('UserProfileScreen', {userId: user.id});
   };
 
+  handleSongFavoritePagination = (folder) => {
+    let {current_page, total_pages} = folder.songs.pagination;
+
+    if(current_page < total_pages){
+      this.props.dispatch(fechyMySongsByFolder(folder, current_page + 1));
+    }
+  };
+
+  handleSongPagination = (folder) => {
+    let {current_page, total_pages} = folder.songs.pagination;
+
+    if(current_page < total_pages){
+      this.props.dispatch(fechyMySongsByFolder(folder, current_page + 1));
+    }
+  };
+
   render() {
     return (
       <ProfileComponent
@@ -85,6 +101,8 @@ class MyProfileScreenContainer extends React.Component {
         onLogoutClick={this.handleLogout}
         loadingProfile={this.state.loadingProfile}
         onStopLoading={() => this.setState({ loadingProfile: false })}
+        onFavoriteSongPagination={this.handleSongFavoritePagination}
+        onSongPagination={this.handleSongPagination}
       />
     )
   }

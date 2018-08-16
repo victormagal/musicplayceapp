@@ -10,6 +10,10 @@ class MPShowFolderSongs extends Component {
     this.props.navigation.navigate('IndicateSongFullScreen', {song});
   };
 
+  handleSongPagination = (folder) => {
+    this.props.onSongPagination(folder);
+  };
+
   renderSongs = ({item}) => {
     let {me, hideSettings} = this.props;
 
@@ -31,8 +35,7 @@ class MPShowFolderSongs extends Component {
   };
 
   render() {
-    let {folderName, edit, onEditFolder, songs, songDraft} = this.props;
-    let folderSongs = [].concat(songs);
+    let {folder, edit, onEditFolder, songs, songDraft} = this.props;
 
     if(songDraft){
      // folderSongs.push({type: 'draft', id: Math.random()});
@@ -41,7 +44,7 @@ class MPShowFolderSongs extends Component {
     return (
       <View style={ styles.parent }>
         <View style={ styles.topBarContainer }>
-          <MPText style={ styles.topBarText}>{ folderName }</MPText>
+          <MPText style={ styles.topBarText}>{ folder.name }</MPText>
           {edit && (
             <View style={ styles.topBarButton}>
               <MPGradientBorderButton onPress={onEditFolder}/>
@@ -50,10 +53,12 @@ class MPShowFolderSongs extends Component {
         </View>
         <View style={ styles.sliderContainer}>
           <FlatList
-            data={folderSongs}
+            data={songs}
             keyExtractor={(item) => item.id}
             renderItem={this.renderSongs}
             horizontal={true}
+            onEndReached={this.handleSongPagination.bind(this, folder)}
+            onEndReachedThreshold={0.1}
           />
         </View>
       </View>

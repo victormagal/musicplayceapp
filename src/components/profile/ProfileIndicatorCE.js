@@ -22,7 +22,7 @@ class ProfileIndicatorCE extends Component {
   }
 
   renderIndicator() {
-    let { style, title, titlePlural, titleZero, count} = this.props;
+    let { style, title, titlePlural, count} = this.props;
 
     if(typeof count === 'undefined'){
       count = 0;
@@ -93,7 +93,6 @@ const styles = StyleSheet.create({
     fontWeight: "500",
     fontSize: 12,
     width: 100,
-    marginTop: 6,
     fontFamily: 'Montserrat-Medium'
   },
   subtitle: {

@@ -15,6 +15,7 @@ import {StorageService} from './StorageService';
 // });
 
 StorageService.getToken().then((token) => {
+  console.log("TOKEN", token);
   if(token) {
     axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
   }else{

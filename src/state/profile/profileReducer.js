@@ -1,20 +1,19 @@
 import {
   FETCHED_PROFILE,
-  FETCHED_MY_INDICATIONS,
   PROFILE_START_LOADING,
   PROFILE_FINISH_LOADING,
   SAVE_PROFILE_SUCCESS,
   PROFILE_CREATE_USER_SUCCESS,
   PROFILE_CREATE_USER_ERROR,
   SAVE_PROFILE_ERROR,
-  UPDATE_PROFILE_DATA,
   PROFILE_IMAGE_UPLOADED,
   PROFILE_FOLLOWERS_FETCHED,
   PROFILE_FOLLOWING_FETCHED,
   IMAGE_PROFILE_START_LOADING,
   IMAGE_PROFILE_FINISHED_LOADING,
   FETCHED_PROFILE_MY_SONGS,
-  FETCHED_PROFILE_MY_FAVORITE_SONGS
+  FETCHED_PROFILE_MY_FAVORITE_SONGS,
+  FETCHED_PROFILE_MY_SONGS_WITHOUT_FOLDER
 } from './profileAction';
 import {
   AUTH_LOGOUT
@@ -35,11 +34,12 @@ const profileReducer = (state, action) => {
       profile: null,
       followers: null,
       following: null,
-      indications: null,
       imageLoading: false,
       mySongs: null,
       myFavoriteSongs: null
     };
+
+  let folder = null;
 
   switch (action.type) {
     case USER_FOLLOW_SUCCESS:
@@ -79,6 +79,18 @@ const profileReducer = (state, action) => {
       return {
         ...state,
         mySongs: action.payload
+      };
+
+    case FETCHED_PROFILE_MY_SONGS_WITHOUT_FOLDER:
+      let mySongs = {...state.mySongs};
+      folder = mySongs.data.find(f => f.id === action.payload.folder.id);
+      folder.songs = {...folder.songs, data: Object.assign([], folder.songs.data)}
+      folder.songs.data = folder.songs.data.concat(action.payload.data);
+      folder.songs.pagination = action.payload.pagination;
+
+      return {
+        ...state,
+        mySongs
       };
 
     case PROFILE_START_LOADING:
@@ -141,23 +153,11 @@ const profileReducer = (state, action) => {
         createUserError: true
       };
 
-    case FETCHED_MY_INDICATIONS:
-      return {
-        ...state,
-        indications: action.payload
-      };
-
     case AUTH_LOGOUT:
       return {
         ...state,
         loading: false,
         profile: null
-      };
-
-    case UPDATE_PROFILE_DATA:
-      return {
-        ...state,
-        profile: {...action.payload}
       };
 
     case PROFILE_FOLLOWERS_FETCHED:

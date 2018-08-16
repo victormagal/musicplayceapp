@@ -254,8 +254,8 @@ class ProfileComponent extends React.Component {
   }
 
   renderProfileData(profile) {
-    const { me, indications, navigation, loggedUser } = this.props;
-    const countIndications =  (indications && indications.count);
+    const { me, navigation, loggedUser } = this.props;
+    const countIndications =  profile.indicationsCount || 0;
     const hiddenFollow = loggedUser && loggedUser.id === profile.id;
 
     return (
@@ -341,9 +341,10 @@ class ProfileComponent extends React.Component {
                   {...this.props}
                   edit={me && userFolder.editable}
                   key={userFolder.id}
-                  folderName={userFolder.name}
+                  folder={userFolder}
                   me={me}
                   songs={userFolder.songs.data}
+                  onSongPagination={this.props.onSongPagination}
                   onEditClick={this.handleEditSong}
                   onEditFolder={this.handleEditFolder.bind(this, userFolder.id)}
                   onRemoveClick={this.handleRemoveSong}
@@ -369,11 +370,12 @@ class ProfileComponent extends React.Component {
               <MPShowFolderSongs
                 {...this.props}
                 key={favoriteFolder.id}
-                folderName={favoriteFolder.name}
+                folder={favoriteFolder}
                 edit={me && favoriteFolder.editable}
                 me={me}
                 hideSettings={true}
                 songs={favoriteFolder.songs.data}
+                onSongPagination={this.props.onFavoriteSongPagination}
                 onEditClick={this.handleEditSong}
                 onEditFolder={this.handleEditFolder.bind(this, favoriteFolder.id)}
                 onIndicateClick={this.handleIndicateSong}

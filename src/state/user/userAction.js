@@ -24,9 +24,9 @@ import {
   userReportSuccess,
   userReportError,
   userFollowNotificationsStartLoading,
-  userFollowNotificationsFinishedLoading
+  userFollowNotificationsFinishedLoading,
+  userSongsByFolderFetched
 } from './userTypes';
-import {transformResponseData} from '../../service/api';
 
 
 export const searchUsers = (name) => {
@@ -87,6 +87,22 @@ export const userSongs = (id, page = 1) => {
     });
   };
 };
+
+export const userSongsByFolder= (id, folder, page = 1) => {
+  return (dispatch) => {
+    if(folder.id === -1) {
+      return SongService.userSongsWithoutFolder(id, page).then(response => {
+        dispatch(userSongsByFolderFetched({folder, ...response}));
+      });
+    }
+
+    return SongService.songsByFolder(folder.id, page).then(response => {
+      //TODO: finish
+      console.log("FETCHED ANOTHER SONGS", response);
+    });
+  };
+};
+
 
 export const followUser = (user, from) => {
   return (dispatch) => {
