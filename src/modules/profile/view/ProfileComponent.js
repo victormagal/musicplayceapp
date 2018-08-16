@@ -254,7 +254,7 @@ class ProfileComponent extends React.Component {
   }
 
   renderProfileData(profile) {
-    const { me, indications, navigation, loggedUser } = this.props;
+    const { me, navigation, loggedUser } = this.props;
     const countIndications =  profile.indicationsCount || 0;
     const hiddenFollow = loggedUser && loggedUser.id === profile.id;
 
