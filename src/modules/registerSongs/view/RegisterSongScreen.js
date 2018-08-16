@@ -97,9 +97,12 @@ class RegisterSongContainer extends React.Component {
   };
 
   handlePublishClick = () => {
-    const {songFile, cardErrors} = this.state;
+    let {songFile, cardErrors} = this.state;
     let {song, dispatch} = this.props;
-    let songError = songFile === null && !song.path;
+    let songError = songFile === null && (typeof song.path === 'undefined' || song.path === null);
+
+    cardErrors = Object.assign({}, cardErrors);
+    delete cardErrors.songFile;
 
     let valid = this.validate(cardErrors, () => {
       let errors = {...this.state.errors, songFile: songError};
