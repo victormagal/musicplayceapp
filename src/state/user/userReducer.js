@@ -18,7 +18,7 @@ const userReducer = (state, action) => {
     followSuccess: false,
     stopFollowSuccess: false,
     userNotifications: null,
-    userFollowNotifications: [],
+    userFollowNotifications: null,
     followingUser: false,
     userFollowers: [],
     userFollowings: [],
@@ -171,7 +171,6 @@ const userReducer = (state, action) => {
         if(action.payload.meta.pagination.current_page > 1){
           notificationList.data = Object.assign([], state.userNotifications.data.concat(action.payload.data));
           notificationList.meta = action.payload.meta;
-          console.log(notificationList, action);
         }
       }
       return {
@@ -182,19 +181,19 @@ const userReducer = (state, action) => {
       };
 
     case USER_NOTIFICATIONS_FOLLOWERS_FETCHED:
-      let userFollowNotifications = action.payload;
-      if(state.userFollowNotifications && action.payload.reset == false){
-        userFollowNotifications = {...state.userFollowNotifications};
+      let followNotificationList = action.payload;
+      if(state.userFollowNotifications && !action.payload.reset){
+        followNotificationList = {...state.userFollowNotifications};
         if(action.payload.meta.pagination.current_page > 1){
-          userFollowNotifications.data = userFollowNotifications.data.concat(action.payload.data);
-          userFollowNotifications.meta = action.payload.meta;
+          followNotificationList.data = Object.assign([], state.userFollowNotifications.data.concat(action.payload.data));
+          followNotificationList.meta = action.payload.meta;
         }
       }
       return {
         ...state,
         loading: false,
         refreshUserFollowings: false,
-        userFollowNotifications: action.payload,
+        userFollowNotifications: followNotificationList
       };
 
     case USER_NOTIFICATIONS_SETTINGS_PATCHED:
