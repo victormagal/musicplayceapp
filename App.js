@@ -1,5 +1,5 @@
 import React from 'react';
-import {NetInfo, NativeModules, NativeEventEmitter, View} from 'react-native';
+import {NetInfo, NativeModules, NativeEventEmitter, View, Platform} from 'react-native';
 import {
   applyMiddleware,
   createStore
@@ -111,13 +111,19 @@ export default class App extends React.Component {
 
     if (RNMusicPlayer.statePlaying == currentPlayerState) {
       store.dispatch(playerSongUpdateProgress(state["progress"]));
-    }else if(RNMusicPlayer.statePaused == currentPlayerState || RNMusicPlayer.stateStopped === currentPlayerState){
+    }else if(RNMusicPlayer.stateStopped === currentPlayerState){
       if(store.getState().playerReducer.player.isPlaying){
         store.dispatch(playerSongStop());
         PlayerService.stopNotification();
       }
+    }else if(RNMusicPlayer.statePaused == currentPlayerState){
+      if(Platform.OS === 'ios' && store.getState().playerReducer.player.isPlaying){
+        store.dispatch(playerSongStop());
+        PlayerService.stopNotification();
+      }
     }
-  };
+
+};
 
   handleConnectionChange = (isConnected) => {
     store.dispatch(updateNetwork(isConnected));

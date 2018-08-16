@@ -1,5 +1,5 @@
 import moment from 'moment';
-import {NativeModules} from 'react-native';
+import {NativeModules, Platform} from 'react-native';
 const { RNMusicPlayer } = NativeModules;
 import MusicControl from 'react-native-music-control';
 
@@ -51,10 +51,10 @@ class PlayerService{
   }
 
   static stop(){
-    if(RNMusicPlayer.stop){
-      RNMusicPlayer.stop();
-    }else{
+    if(Platform.OS === 'ios'){
       RNMusicPlayer.pause();
+    }else{
+      RNMusicPlayer.stop();
     }
     PlayerService.stopNotification();
   }

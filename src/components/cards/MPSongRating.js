@@ -74,7 +74,7 @@ class MPSongRating extends Component {
   }
 
   render() {
-    const {song, style, indicateSong, indications, isNew} = this.props;
+    const {song, style, isNew} = this.props;
 
     return (
       <View style={style || {}}>
@@ -105,7 +105,7 @@ class MPSongRating extends Component {
                   <MPShowRating rating={song.rating}/>
                 </View>
                 {
-                  indicateSong && indications == null && isNew == null && (
+                  !song.is_indication && (
                     <TouchableOpacity style={ styles.indicateSongContainer }
                                       onPress={() => this.props.onIndicateClick(song)}>
                       <MPSongIndicateIcon />
@@ -113,11 +113,10 @@ class MPSongRating extends Component {
                     </TouchableOpacity>
                   )
                 }
-                {
-                  indications != null && isNew == null && (
+                {song.is_indication && (
                     <View style={styles.indicateSongContainer}>
                       <MPSongIndicateFullIcon />
-                      <MPText style={styles.indicateSongText}>{ indications } INDICAÇÕES</MPText>
+                      <MPText style={styles.indicateSongText}>{ song.indications_count } {"\n"}INDICAÇÕES</MPText>
                     </View>
                   )
                 }
@@ -196,7 +195,7 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     margin: 0,
     padding: 0,
-    height: 190,
+    height: 195,
     overflow: 'hidden',
     width: 100,
     marginBottom: 5,
@@ -222,8 +221,7 @@ const styles = StyleSheet.create({
   indicateSongContainer: {
     flexDirection: 'row',
     paddingHorizontal: 10,
-    marginBottom: 10,
-    height: 16
+    marginBottom: 10
   },
   indicateSongText: {
     fontSize: 9,
