@@ -102,14 +102,6 @@ class UserService {
       });
   }
 
-  static indications(){
-    return axios.get(`${API_USER}/me/indications`)
-      .then(response => {
-        const { attributes } = response.data.data;
-        return { ...attributes };
-      });
-  }
-
   static getUserFollowings(user){
     return axios.get(`${API_USER}/${user}?include=userFollower`)
       .then(response => {

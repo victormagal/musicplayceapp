@@ -14,7 +14,8 @@ import {
   IMAGE_PROFILE_START_LOADING,
   IMAGE_PROFILE_FINISHED_LOADING,
   FETCHED_PROFILE_MY_SONGS,
-  FETCHED_PROFILE_MY_FAVORITE_SONGS
+  FETCHED_PROFILE_MY_FAVORITE_SONGS,
+  FETCHED_PROFILE_MY_SONGS_WITHOUT_FOLDER
 } from './profileAction';
 import {
   AUTH_LOGOUT
@@ -40,6 +41,8 @@ const profileReducer = (state, action) => {
       mySongs: null,
       myFavoriteSongs: null
     };
+
+  let folder = null;
 
   switch (action.type) {
     case USER_FOLLOW_SUCCESS:
@@ -79,6 +82,18 @@ const profileReducer = (state, action) => {
       return {
         ...state,
         mySongs: action.payload
+      };
+
+    case FETCHED_PROFILE_MY_SONGS_WITHOUT_FOLDER:
+      let mySongs = {...state.mySongs};
+      folder = mySongs.data.find(f => f.id === action.payload.folder.id);
+      folder.songs = {...folder.songs, data: Object.assign([], folder.songs.data)}
+      folder.songs.data = folder.songs.data.concat(action.payload.data);
+      folder.songs.pagination = action.payload.pagination;
+
+      return {
+        ...state,
+        mySongs
       };
 
     case PROFILE_START_LOADING:

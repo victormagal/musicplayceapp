@@ -2,6 +2,7 @@ import { createAction } from "redux-actions";
 
 export const USERS_FETCHED = 'USERS_FETCHED';
 export const USER_SONGS_FETCHED = 'USER_SONGS_FETCHED';
+export const USER_SONGS_BY_FOLDER_FETCHED = 'USER_SONGS_BY_FOLDER_FETCHED';
 export const USER_START_LOADING = 'USER_START_LOADING';
 export const USER_FINISH_LOADING = 'USER_FINISH_LOADING';
 export const USER_BY_ID_FETCHED = 'USER_BY_ID_FETCHED';
@@ -37,6 +38,7 @@ export const userStopFollowSuccess = createAction(USER_STOP_FOLLOW_SUCCESS, data
 export const userFollowSuccess = createAction(USER_FOLLOW_SUCCESS, data => data);
 export const userFollowError = createAction(USER_FOLLOW_ERROR);
 export const userSongsFetched = createAction(USER_SONGS_FETCHED, (data) => data);
+export const userSongsByFolderFetched = createAction(USER_SONGS_BY_FOLDER_FETCHED, (data) => data);
 export const userNotificationsStartLoading = createAction(USER_NOTIFICATIONS_START_LOADING);
 export const userFollowNotificationsStartLoading = createAction(USER_FOLLOW_NOTIFICATIONS_START_LOADING);
 export const userNotificationsFetched = createAction(USER_NOTIFICATIONS_FETCHED, (data) => data);

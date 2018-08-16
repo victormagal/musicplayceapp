@@ -5,6 +5,7 @@ import { fetchedUserSongs } from '../songs/songsType';
 export const FETCHED_PROFILE = 'FETCHED_PROFILE';
 export const FETCHED_PROFILE_MY_SONGS = 'FETCHED_PROFILE_MY_SONGS';
 export const FETCHED_PROFILE_MY_FAVORITE_SONGS = 'FETCHED_PROFILE_MY_FAVORITE_SONGS';
+export const FETCHED_PROFILE_MY_SONGS_WITHOUT_FOLDER = 'FETCHED_PROFILE_MY_SONGS_WITHOUT_FOLDER';
 export const FETCHED_MY_INDICATIONS = 'FETCHED_MY_INDICATIONS';
 export const SAVE_PROFILE_SUCCESS = 'SAVE_PROFILE_SUCCESS';
 export const SAVE_PROFILE_ERROR = 'SAVE_PROFILE_ERROR';
@@ -23,6 +24,7 @@ export const profileStartLoading = createAction(PROFILE_START_LOADING);
 export const profileFinishLoading = createAction(PROFILE_FINISH_LOADING);
 export const fetchedProfile= createAction(FETCHED_PROFILE, (data) => data);
 export const fetchedProfileSongs= createAction(FETCHED_PROFILE_MY_SONGS, (data) => data);
+export const fetchedProfileMySongsWithoutFolder= createAction(FETCHED_PROFILE_MY_SONGS_WITHOUT_FOLDER, (data) => data);
 export const fetchedProfileFavoriteSongs= createAction(FETCHED_PROFILE_MY_FAVORITE_SONGS, (data) => data);
 export const fetchedProfileFollowers = createAction(PROFILE_FOLLOWERS_FETCHED, (data) => data);
 export const fetchedProfileFollowing = createAction(PROFILE_FOLLOWING_FETCHED, (data) => data);
@@ -69,7 +71,6 @@ export const uploadImage = (picture) => {
 export const fetchProfile = () => {
   return (dispatch) => {
     dispatch(profileStartLoading());
-    dispatch(fetchMyIndications());
 
     return UserService.me()
       .then(response =>{
@@ -98,23 +99,26 @@ export const fetchMySongs = (id, page = 1) => {
   };
 };
 
+export const fechyMySongsByFolder = (folder, page = 1) => {
+  return (dispatch) => {
+    if(folder.id === -1) {
+      return SongService.mySongsWithoutFolder(page).then(response => {
+        dispatch(fetchedProfileMySongsWithoutFolder({folder, ...response}));
+      });
+    }
+
+    return SongService.songsByFolder(folder.id, page).then(response => {
+      //TODO: finish
+       console.log("FETCHED ANOTHER SONGS", response);
+    });
+  };
+};
+
 export const fetchMyFavoriteSongs = (page = 1) => {
   return (dispatch) => {
     return SongService.mySongsFavorites(page).then(response => {
       dispatch(fetchedProfileFavoriteSongs(response));
     });
-  };
-};
-
-export const fetchMyIndications = () => {
-  return (dispatch) => {
-    return UserService.indications()
-      .then(response => {
-        dispatch(fetchedMyIndications(response))
-      })
-      .catch((e) => {
-        console.log(e);
-      });
   };
 };
 

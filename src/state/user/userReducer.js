@@ -5,7 +5,8 @@ import {
   USER_SAVE_ERROR, USER_NOTIFICATIONS_SETTINGS_START_LOADING, USER_NOTIFICATIONS_SETTINGS_FINISHED_LOADING,
   USER_NOTIFICATIONS_SETTINGS_FETCHED, USER_NOTIFICATIONS_SETTINGS_PATCHED, USER_STOP_FOLLOW_SUCCESS,
   USER_FOLLOWERS_FETCHED, USER_FOLLOWINGS_FETCHED, USER_REPORT_SUCCESS, USER_REPORT_ERROR,
-  USER_REPORT_STARTED, USER_HIDE_NOTIFICATION, USER_FOLLOW_NOTIFICATIONS_START_LOADING, USER_FOLLOW_NOTIFICATIONS_FINISHED_LOADING
+  USER_REPORT_STARTED, USER_HIDE_NOTIFICATION, USER_FOLLOW_NOTIFICATIONS_START_LOADING,
+  USER_FOLLOW_NOTIFICATIONS_FINISHED_LOADING, USER_SONGS_BY_FOLDER_FETCHED
 } from './userTypes';
 
 const userReducer = (state, action) => {
@@ -29,6 +30,7 @@ const userReducer = (state, action) => {
   };
 
   let user = {};
+  let folder = null;
 
   switch (action.type) {
     case USER_START_LOADING:
@@ -242,7 +244,19 @@ const userReducer = (state, action) => {
         ...state,
         followSuccess: false,
         stopFollowSuccess: false
-      }
+      };
+
+    case USER_SONGS_BY_FOLDER_FETCHED:
+      let mySongs = {...state.usersSongs};
+      folder = mySongs.data.find(f => f.id === action.payload.folder.id);
+      folder.songs = {...folder.songs, data: Object.assign([], folder.songs.data)}
+      folder.songs.data = folder.songs.data.concat(action.payload.data);
+      folder.songs.pagination = action.payload.pagination;
+
+      return {
+        ...state,
+        usersSongs: mySongs
+      };
   }
 
   return state;
