@@ -17,7 +17,7 @@ const userReducer = (state, action) => {
     usersSongs: null,
     followSuccess: false,
     stopFollowSuccess: false,
-    userNotifications: [],
+    userNotifications: null,
     userFollowNotifications: [],
     followingUser: false,
     userFollowers: [],
@@ -73,7 +73,8 @@ const userReducer = (state, action) => {
     case USER_NOTIFICATIONS_FINISHED_LOADING:
       return {
         ...state,
-        refreshNotifications: false
+        refreshNotifications: false,
+        loading: false,
       };
 
     case USER_NOTIFICATIONS_SETTINGS_FINISHED_LOADING:
@@ -164,20 +165,20 @@ const userReducer = (state, action) => {
       }
 
     case USER_NOTIFICATIONS_FETCHED:
-    console.log(action);
-      let userNotifications = action.payload;
-      if(state.userNotifications && action.payload.reset == false){
-        userNotifications = {...state.userNotifications};
+      let notificationList = action.payload;
+      if(state.userNotifications && !action.payload.reset){
+        notificationList = {...state.userNotifications};
         if(action.payload.meta.pagination.current_page > 1){
-          userNotifications.data = userNotifications.data.concat(action.payload.data);
-          userNotifications.meta = action.payload.meta;
+          notificationList.data = Object.assign([], state.userNotifications.data.concat(action.payload.data));
+          notificationList.meta = action.payload.meta;
+          console.log(notificationList, action);
         }
       }
       return {
         ...state,
         loading: false,
         refreshNotifications: false,
-        userNotifications: action.payload,
+        userNotifications: notificationList,
       };
 
     case USER_NOTIFICATIONS_FOLLOWERS_FETCHED:

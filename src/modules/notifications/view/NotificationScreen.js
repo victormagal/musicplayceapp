@@ -5,7 +5,7 @@ import {
 } from 'react-native';
 import Swiper from 'react-native-swiper';
 import {
-  MPHeader, MPNotificationList, MPMessageList, MPTabBar
+  MPHeader, MPNotificationList, MPMessageList, MPTabBar, MPLoading
 } from '../../../components';
 import { getNotifications } from '../../../state/action';
 
@@ -17,6 +17,16 @@ class NotificationScreenContainer extends React.Component {
     this.state = {
       tabIndex: 0,
       refresh: false,
+      notifications: []
+    }
+  }
+
+  handleEndlessNotifications = () => {
+    let {meta} = this.props.userNotifications
+    let current_page = meta.pagination.current_page;
+    if(this.state.notifications.length > 0 &&
+        current_page < meta.pagination.total_pages){
+      this.props.dispatch(getNotifications(current_page + 1));
     }
   }
 
@@ -94,12 +104,11 @@ class NotificationScreenContainer extends React.Component {
   }
 
   componentWillReceiveProps(nextProps){
-    if(nextProps.userNotifications.data){
+    if(nextProps.userNotifications &&  nextProps.userNotifications.data.length !== this.state.notifications.length){
       let notificationList = nextProps.userNotifications.data.map((notification, index)=>{
         obj = {id: index, type: notification.attributes.type, data: JSON.parse(notification.attributes.data), time: notification.attributes.time};
         return obj;
       });
-      console.log(notificationList);
       this.setState({notifications: notificationList});
     }
   }
@@ -120,10 +129,10 @@ class NotificationScreenContainer extends React.Component {
               data={this.state.notifications}
               keyExtractor={item => item.id}
               refreshing={this.props.refreshNotifications}
-              onEndReachedThreshold={0.1}
-              // onEndReached={() => this.props.dispatch(getNotifications())}
+              onEndReachedThreshold={0.3}
+              onEndReached={this.handleEndlessNotifications}
               onRefresh={() => {
-                this.props.dispatch(getNotifications(true));
+                this.props.dispatch(getNotifications(0, true));
               }}
               renderItem={({ item }) => {
                 return (
@@ -144,6 +153,7 @@ class NotificationScreenContainer extends React.Component {
             />
           </View>
         </Swiper>
+        <MPLoading visible={this.props.loading} />
       </View>
     );
   }

@@ -133,17 +133,13 @@ export const getFollowNotifications = (reset = false) => {
   };
 };
 
-export const getNotifications = (reset = false) => {
+export const getNotifications = (page = 1, reset = false) => {
   return (dispatch, getState) => {
-    let page = 1;
-    dispatch(userNotificationsStartLoading());
-
-    let { userNotifications } = getState().userReducer
-    if(!reset && userNotifications.meta && 
-      userNotifications.meta.pagination.current_page < userNotifications.meta.pagination.total_pages ){
-        page = userNotifications.meta.pagination.current_page + 1;
-    }
-
+    
+    page = reset ? 1 : page;
+    if(reset) dispatch(userNotificationsStartLoading());
+    if(!reset) dispatch(userStartLoading());
+    
     return UserService.getNotifications(page).then(response => {
       dispatch(userNotificationsFetched({...response, reset}));
     }).catch(e => {

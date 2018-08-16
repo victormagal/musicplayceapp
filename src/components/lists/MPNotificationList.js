@@ -12,7 +12,7 @@ class MPNotificationListComponent extends React.Component {
   render() {
     let { item } = this.props;
     let notificationType = item.type.split("\\")[item.type.split("\\").length - 1];
-    console.log(notificationType);
+    // console.log(notificationType);
     let types = [
       'AlertIndicationYourSongNotification',
       'AlertFaqNotification',
