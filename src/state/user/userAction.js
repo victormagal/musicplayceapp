@@ -113,16 +113,12 @@ export const stopFollowUser = (user, from) => {
   };
 };
 
-export const getFollowNotifications = (reset = false) => {
-  return (dispatch, getState) => {
-    let page = 1;
-    dispatch(userFollowNotificationsStartLoading());
-    let { userFollowNotifications } = getState().userReducer
-    if(!!reset && 
-      userFollowNotifications.meta && 
-      userFollowNotifications.meta.pagination.current_page < userFollowNotifications.meta.pagination.total_pages ){
-      page = userFollowNotifications.meta.pagination.current_page + 1;
-    }
+export const getFollowNotifications = (page = 1,reset = false) => {
+  return (dispatch) => {
+        
+    page = reset ? 1 : page;
+    if(reset) dispatch(userFollowNotificationsStartLoading());
+    if(!reset) dispatch(userStartLoading());
 
     return UserService.getFollowNotifications(page).then(response => {
       dispatch(userNotificationsFollowersFetched({...response, reset}));
@@ -134,7 +130,7 @@ export const getFollowNotifications = (reset = false) => {
 };
 
 export const getNotifications = (page = 1, reset = false) => {
-  return (dispatch, getState) => {
+  return (dispatch) => {
     
     page = reset ? 1 : page;
     if(reset) dispatch(userNotificationsStartLoading());

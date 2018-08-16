@@ -28,21 +28,10 @@ class MPPlayerComment extends Component{
             <MPText style={styles.comment}>
               {comment ? comment.text : null }
             </MPText>
-            {
-              comment.liked && (
-                <MPText style={styles.commentLike}>
-                  Curtiu
-                  <MPText style={styles.countCommentLike}>({comment ? comment.likesCount : null})</MPText>
-                </MPText>    
-              )
-            }
-            {
-            !comment.liked && (
-              <MPText style={styles.commentLike} onPress={comment ? () => this.props.onLikeComment(comment.id) : null}>
-                Curtir
-                <MPText style={styles.countCommentLike}>({comment ? comment.likesCount : null})</MPText>
-              </MPText>
-            )}
+            <MPText style={styles.commentLike} onPress={comment ? () => this.props.onLikeComment(comment.id) : null}>
+              {comment && comment.liked ? 'Descurtir' : 'Curtir' }
+              <MPText style={styles.countCommentLike}>({comment ? comment.likesCount : null})</MPText>
+            </MPText>
           </View>
         </View>
         <View style={styles.divider}/>

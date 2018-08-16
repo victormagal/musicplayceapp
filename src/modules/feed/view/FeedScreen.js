@@ -31,6 +31,15 @@ class FeedScreenContainer extends React.Component {
     this.swiperRef = React.createRef();
   }
 
+  handleEndlessNotifications = () => {
+    let {meta} = this.props.userFollowNotifications
+    let current_page = meta.pagination.current_page;
+    if(this.state.userFollowNotifications.length > 0 &&
+        current_page < meta.pagination.total_pages){
+      this.props.dispatch(getFollowNotifications(current_page + 1));
+    }
+  }
+
   componentDidMount() {
     this.props.dispatch(searchUsers(''));
     this.props.dispatch(fetchFeeds(''));
@@ -51,7 +60,7 @@ class FeedScreenContainer extends React.Component {
       this.setState({feed, searchingNotFound: false});
     }
 
-    if (userFollowNotifications.data) {
+    if (userFollowNotifications) {
       const followingNotifications = userFollowNotifications.data.map((notification, index) => {
         return {
           id: index,
@@ -60,6 +69,7 @@ class FeedScreenContainer extends React.Component {
           time: notification.attributes.time
         };
       });
+      console.log(followingNotifications);
       this.setState({userFollowNotifications: followingNotifications});
     }
   }
@@ -159,7 +169,6 @@ class FeedScreenContainer extends React.Component {
       searchingNotFound,
       userFollowNotifications
     } = this.state;
-
     if (feed === null || feed === {}) {
       return <ActivityIndicator />
     }
@@ -314,10 +323,10 @@ class FeedScreenContainer extends React.Component {
                   data={userFollowNotifications}
                   keyExtractor={(item) => String(item.id)}
                   refreshing={this.props.refreshUserFollowings}
-                  onEndReachedThreshold={0.1}
-                  // onEndReached={() => this.props.dispatch(getFollowNotifications())}
+                  onEndReachedThreshold={0.3}
+                  onEndReached={this.handleEndlessNotifications}
                   onRefresh={() => {
-                    this.props.dispatch(getFollowNotifications(reset=true));
+                    this.props.dispatch(getFollowNotifications(0, true));
                   }}
                   renderItem={({item}) => {
                     return (
