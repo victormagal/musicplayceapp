@@ -4,13 +4,13 @@ import {
   TouchableWithoutFeedback, Modal
 } from 'react-native';
 import {
-  MPHeader, MPIconButton, MPFolder, MPTextField, MPGradientButton, MPInput
+  MPHeader, MPIconButton, MPFolder, MPGradientButton, MPInput
 } from '../../../../components';
 import {withFixedBottom} from '../../../../connectors/withFixedBottom';
 
 const InputFolder = withFixedBottom(MPInput);
 
-//TODO: switch scroll to flat list and add infinite scroll
+
 class PlayerSaveSongComponent extends React.Component {
 
   handleSelectFolder = (index) => {
@@ -23,11 +23,9 @@ class PlayerSaveSongComponent extends React.Component {
     ];
   }
 
-  renderFolder = (item, index) => {
+  renderFolder = ({item, index}) => {
     return (
-      <View key={index} style={styles.folder}>
-        <MPFolder folderName={item.name} selected={item.selected} musicAmount={item.song_count} onPress={this.handleSelectFolder.bind(this, index)}/>
-      </View>
+      <MPFolder folderName={item.name} selected={item.selected} musicAmount={item.song_count} onPress={this.handleSelectFolder.bind(this, index)}/>
     )
   };
 
@@ -37,9 +35,13 @@ class PlayerSaveSongComponent extends React.Component {
 
         <MPHeader title="Escolha ou crie uma pasta para salvar" back={true} onBack={this.props.onBack} icons={this.renderHeaderMenu()}/>
 
-        <ScrollView style={styles.folderList}>
-          {this.props.folders.map((item, index) => this.renderFolder(item, index))}
-        </ScrollView>
+        <FlatList
+          style={styles.folderList}
+          data={this.props.folders}
+          renderItem={this.renderFolder}
+          keyExtractor={(item) => item.id}
+          onEndReached={this.props.onEndReached}
+          onEndReachedThreshold={0.1}/>
 
         <View style={styles.inputFolderContainer}>
           <InputFolder label="Nome da nova pasta" value={this.props.folderName} onChangeText={this.props.onChangeText} />
@@ -57,12 +59,10 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fcfcfc'
   },
-  folder:{
-    marginHorizontal: 30
-  },
   folderList:{
     paddingTop: 20,
-    marginTop: 10
+    marginTop: 10,
+    marginHorizontal: 30
   },
   inputFolderContainer: {
     marginHorizontal: 40,

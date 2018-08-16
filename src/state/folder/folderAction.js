@@ -32,7 +32,7 @@ export const getFavoriteSongsFolders = (page = 0) => {
   return (dispatch) => {
     dispatch(folderStartLoading());
 
-    return FolderService.getFavoriteSongsFolders().then(response => {
+    return FolderService.getFavoriteSongsFolders(page).then(response => {
       dispatch(fetchedFavoriteFolders(response));
     }).catch(e => {
       dispatch(folderFinishLoading());

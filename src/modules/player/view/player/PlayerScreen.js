@@ -14,8 +14,7 @@ import {MPHeartRedIcon} from '../../../../assets/svg';
 class PlayerContainer extends React.Component {
   songTimer = null;
   state = {
-    coAuthors: [],
-    artist: null
+    coAuthors: []
   };
 
   componentDidMount() {
@@ -23,7 +22,6 @@ class PlayerContainer extends React.Component {
     if (navigation.state && navigation.state.params) {
       const {song} = navigation.state.params;
       if (song) {
-        song.artist = this.props.navigation.state.params.song.artist;
         this.handleSetupPlay(song);
       }
     }
@@ -65,10 +63,7 @@ class PlayerContainer extends React.Component {
     }
 
     this.props.dispatch(songStop()).then(_ => {
-      this.setState({artist: song.artist});
-
       this.props.dispatch(fetchOneSong(song)).then(s => {
-        s.artist = song.artist;
         let coAuthors = this.getUsersList(s);
         this.setState({coAuthors});
         this.props.dispatch(getUsersSongs(coAuthors));
@@ -93,7 +88,6 @@ class PlayerContainer extends React.Component {
   };
 
   handleLikeComment = (commentId) => {
-    console.log('comentou', commentId);
     this.props.dispatch(likeSongComment(commentId));
   };
 
@@ -102,15 +96,10 @@ class PlayerContainer extends React.Component {
   };
 
   render() {
-    let newProps = {...this.props};
-    if (newProps.song && !newProps.song.artist && this.state.artist) {
-      newProps.song.artist = this.state.artist;
-    }
-
     return (
       <View style={styles.container}>
         <PlayerComponent
-          {...newProps}
+          {...this.props}
           coAuthors={this.state.coAuthors}
           onPlayClick={this.handleSetupPlay}
           onSongUnfavorite={this.handleSongUnfavorite}
@@ -121,7 +110,7 @@ class PlayerContainer extends React.Component {
           onLikeComment={this.handleLikeComment}/>
 
         <MPFloatingNotification visible={this.props.songFavoriteSuccess}
-                                text={"Salvo em " + (newProps.song && newProps.song.folder) }
+                                text={"Salvo em " + (this.props.song && this.props.song.folder) }
                                 icon={<MPHeartRedIcon />}/>
       </View>
     );
