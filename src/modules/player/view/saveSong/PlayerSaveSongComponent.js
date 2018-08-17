@@ -1,15 +1,9 @@
 import React from 'react';
-import {
-  Text, View, StyleSheet, TouchableOpacity, FlatList, ScrollView, Image,
-  TouchableWithoutFeedback, Modal
-} from 'react-native';
+import { View, StyleSheet, FlatList } from 'react-native';
 import {
   MPHeader, MPIconButton, MPFolder, MPGradientButton, MPInput
 } from '../../../../components';
 import {withFixedBottom} from '../../../../connectors/withFixedBottom';
-
-const InputFolder = withFixedBottom(MPInput);
-
 
 class PlayerSaveSongComponent extends React.Component {
 
@@ -32,23 +26,32 @@ class PlayerSaveSongComponent extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-
-        <MPHeader title="Escolha ou crie uma pasta para salvar" back={true} onBack={this.props.onBack} icons={this.renderHeaderMenu()}/>
-
+        <MPHeader
+          title="Escolha ou crie uma pasta para salvar"
+          back={true}
+          onBack={this.props.onBack}
+          icons={this.renderHeaderMenu()}
+        />
         <FlatList
           style={styles.folderList}
           data={this.props.folders}
           renderItem={this.renderFolder}
           keyExtractor={(item) => item.id}
           onEndReached={this.props.onEndReached}
-          onEndReachedThreshold={0.1}/>
-
+          onEndReachedThreshold={0.1}
+        />
         <View style={styles.inputFolderContainer}>
-          <InputFolder label="Nome da nova pasta" value={this.props.folderName} onChangeText={this.props.onChangeText} />
-          <MPGradientButton style={styles.inputButtonAdd} title="Criar"
-                            onPress={this.props.onAddFolder}/>
+          <MPInput
+            label="Nome da nova pasta"
+            value={this.props.folderName}
+            onChangeText={this.props.onChangeText}
+          />
+          <MPGradientButton
+            style={styles.inputButtonAdd}
+            title="Criar"
+            onPress={this.props.onAddFolder}
+          />
         </View>
-
       </View>
     );
   }
@@ -65,17 +68,18 @@ const styles = StyleSheet.create({
     marginHorizontal: 30
   },
   inputFolderContainer: {
-    marginHorizontal: 40,
-    marginVertical: 30
+    paddingHorizontal: 25,
+    paddingBottom: 20,
+    paddingTop: 0
   },
   inputButtonAdd: {
     position: 'absolute',
     width: 61,
     height: 24,
-    right: 0,
-    bottom: 14
+    right: 25,
+    bottom: 35
   }
 });
 
-
-export {PlayerSaveSongComponent};
+const PlayerSaveSong = withFixedBottom(PlayerSaveSongComponent);
+export {PlayerSaveSong};
