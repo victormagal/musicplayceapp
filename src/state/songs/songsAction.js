@@ -23,6 +23,7 @@ import {
   commentSongSuccess,
   commentStartLoading
 } from "./songsType";
+import { profileSongFavoritedSuccess } from '../profile/profileAction';
 
 export const createPermanentSong = (song) => {
   return (dispatch, getState) => {
@@ -140,13 +141,16 @@ export const likeSongComment = (commentId) => {
   };
 };
 
-export const favoriteSong = (songId, folder) => {
+export const favoriteSong = (song, folder) => {
   return (dispatch) => {
     dispatch(songStartLoading());
-    return SongService.favoriteSong(songId, folder.id).then(() => {
+    return SongService.favoriteSong(song.id, folder.id).then(() => {
       dispatch(songFavoriteSuccess(folder));
+      setTimeout(() => {
+        dispatch(profileSongFavoritedSuccess({song, folder}));
+      }, 2000)
     }).catch(e => {
-      console.log('favoriteSongError', e.response);
+      console.log('favoriteSongError', e);
       dispatch(songFavoriteError())
     });
   };

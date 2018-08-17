@@ -13,7 +13,8 @@ import {
   IMAGE_PROFILE_FINISHED_LOADING,
   FETCHED_PROFILE_MY_SONGS,
   FETCHED_PROFILE_MY_FAVORITE_SONGS,
-  FETCHED_PROFILE_MY_SONGS_WITHOUT_FOLDER
+  FETCHED_PROFILE_MY_SONGS_WITHOUT_FOLDER,
+  PROFILE_SONG_FAVORITED_SUCCESS
 } from './profileAction';
 import {
   AUTH_LOGOUT
@@ -102,6 +103,34 @@ const profileReducer = (state, action) => {
           profile
         }
       }
+      break;
+
+    case PROFILE_SONG_FAVORITED_SUCCESS:
+      let myFavoriteSongs = {...state.myFavoriteSongs};
+      let folderList = Object.assign([], myFavoriteSongs);
+      
+      if(myFavoriteSongs && myFavoriteSongs.data && myFavoriteSongs.data.length > 0){
+        let song = action.payload.song;
+        let favoritedFolder = action.payload.folder;
+        if(myFavoriteSongs.data.find((obj) => {return obj.id === favoritedFolder.id})){
+          let idx = myFavoriteSongs.data.map((obj) => {return obj.id}).indexOf(favoritedFolder.id);
+          if(folderList.data[idx].songs.data){
+            folderList.data[idx].songs.data.push(song);
+          }else{
+            folderList.data[idx].songs.data = [song];
+          }
+        }else{
+          let newFavoriteFolder = favoritedFolder;
+          newFavoriteFolder.song_count = 1;
+          newFavoriteFolder.editable = true;
+          newFavoriteFolder.songs = {data: [song], pagination: {current_page: 1, total_pages: 1}};
+          folderList.data.push(newFavoriteFolder);
+        }
+        return {
+          ...state,
+          myFavoriteSongs: folderList,
+        }
+      } 
       break;
 
     case PROFILE_START_LOADING:
