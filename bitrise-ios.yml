@@ -4,39 +4,17 @@ default_step_lib_source: https://github.com/bitrise-io/bitrise-steplib.git
 project_type: react-native
 trigger_map:
 - push_branch: "*"
-  workflow: release_ios
+  workflow: dev
+- push_branch: release/*
+  workflow: staging
+- push_branch: master
+  workflow: live
 - pull_request_source_branch: "*"
-  workflow: primary
+  workflow: dev
+- tag: "*"
+  workflow: live
 workflows:
-  primary:
-    steps:
-    - activate-ssh-key:
-        run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
-    - git-clone@4.0.11: {}
-    - script@1.1.5:
-        title: Set BUILD_NUMBER Env Var
-        inputs:
-        - content: |-
-            #!/usr/bin/env bash
-            # fail if any commands fails
-            set -e
-            # debug log
-            set -x
-
-            # write your script here
-            envman add --key BUILD_NUMBER --value $BITRISE_BUILD_NUMBER
-
-            # or run a script from your repository, like:
-            # bash ./path/to/script.sh
-            # not just bash, e.g.:
-            # ruby ./path/to/script.rb
-    - npm@0.9.1:
-        inputs:
-        - command: install
-    - npm@0.9.1:
-        inputs:
-        - command: run bundle:android
-  release_ios:
+  release:
     steps:
     - set-xcode-build-number@1.0.7:
         inputs:
@@ -63,8 +41,103 @@ workflows:
             View Build|${BITRISE_BUILD_URL}
             View Commit|https://gitlab.com/dev_squad/musicplayce-app/commit/$BITRISE_GIT_COMMIT
             Install Page|${BITRISE_PUBLIC_INSTALL_PAGE_URL}
+  primary:
+    steps:
+    - activate-ssh-key:
+        run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
+    - git-clone@4.0.11: {}
+    - script@1.1.5:
+        title: Set BUILD_NUMBER Env Var
+        inputs:
+        - content: |-
+            #!/usr/bin/env bash
+            # fail if any commands fails
+            set -e
+            # debug log
+            set -x
+
+            # write your script here
+            envman add --key BUILD_NUMBER --value $BITRISE_BUILD_NUMBER
+
+            # or run a script from your repository, like:
+            # bash ./path/to/script.sh
+            # not just bash, e.g.:
+            # ruby ./path/to/script.rb
+    - npm@0.9.1:
+        inputs:
+        - command: install
+  live:
     before_run:
     - primary
+    steps:
+    - script@1.1.5:
+        inputs:
+        - content: |-
+            #!/usr/bin/env bash
+            # fail if any commands fails
+            set -e
+            # debug log
+            set -x
+
+            # write your script here
+            envman add --key API_URL --value $LIVE_API_URL
+
+            # or run a script from your repository, like:
+            # bash ./path/to/script.sh
+            # not just bash, e.g.:
+            # ruby ./path/to/script.rb
+        title: Applying LIVE API URL
+    after_run:
+    - release
+  dev:
+    before_run:
+    - primary
+    steps:
+    - script@1.1.5:
+        inputs:
+        - content: |-
+            #!/usr/bin/env bash
+            # fail if any commands fails
+            set -e
+            # debug log
+            set -x
+
+            # write your script here
+            envman add --key API_URL --value $DEV_API_URL
+            export API_URL=$DEV_API_URL
+            find src/service/api.js -type f -print0 | xargs -0 sed -ie 's,'${DEFAULT_API_URL}','${API_URL}',g'
+            rm -rf src/service/api.jse
+
+            # or run a script from your repository, like:
+            # bash ./path/to/script.sh
+            # not just bash, e.g.:
+            # ruby ./path/to/script.rb
+        title: Applying DEV API URL
+    after_run:
+    - release
+  staging:
+    before_run:
+    - primary
+    steps:
+    - script@1.1.5:
+        inputs:
+        - content: |-
+            #!/usr/bin/env bash
+            # fail if any commands fails
+            set -e
+            # debug log
+            set -x
+
+            # write your script here
+            envman add --key API_URL --value $STAGING_API_URL
+
+            # or run a script from your repository, like:
+            # bash ./path/to/script.sh
+            # not just bash, e.g.:
+            # ruby ./path/to/script.rb
+        title: Applying STG API URL
+    after_run:
+    - release
 app:
   envs:
   - opts:
