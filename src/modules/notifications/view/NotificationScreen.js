@@ -11,14 +11,17 @@ import { getNotifications } from '../../../state/action';
 
 
 class NotificationScreenContainer extends React.Component {
-  
+
+  swiperRef = null;
+
   constructor(props) {
     super(props);
     this.state = {
       tabIndex: 0,
       refresh: false,
       notifications: []
-    }
+    };
+    this.swiperRef = React.createRef();
   }
 
   handleEndlessNotifications = () => {
@@ -31,6 +34,11 @@ class NotificationScreenContainer extends React.Component {
   }
 
   handleChangeTab = (index) => {
+    this.swiperRef.current.scrollBy(index === 1 ? 1 : -1, true);
+    this.setState({tabIndex: index});
+  };
+
+  handleChangeTabSwipe = (index) => {
     this.setState({tabIndex: index});
   };
   
@@ -118,12 +126,13 @@ class NotificationScreenContainer extends React.Component {
       <View style={styles.container}>
         <MPHeader />
         <MPTabBar titles={['ALERTAS', 'MENSAGENS']}
-                  onTabChange={this.handleChangeTab} index={this.state.tabIndex}/>
+                  onTabChange={this.handleChangeTab}
+                  index={this.state.tabIndex}/>
         <Swiper
+          ref={this.swiperRef}
           showsPagination={false}
           loop={false}
-          index={this.state.tabIndex}
-          onIndexChanged={this.handleChangeTab}>
+          onIndexChanged={this.handleChangeTabSwipe}>
           <View style={styles.firstSliderContainer}>
             <FlatList
               data={this.state.notifications}

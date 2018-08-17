@@ -13,8 +13,10 @@ import {
   IMAGE_PROFILE_FINISHED_LOADING,
   FETCHED_PROFILE_MY_SONGS,
   FETCHED_PROFILE_MY_FAVORITE_SONGS,
-  FETCHED_PROFILE_MY_SONGS_WITHOUT_FOLDER,
-  PROFILE_SONG_FAVORITED_SUCCESS
+  PROFILE_SONG_FAVORITED_SUCCESS,
+  FETCHED_PROFILE_MY_FAVORITE_SONGS_PARTIAL,
+  FETCHED_PROFILE_MY_SONGS_BY_FOLDER_PARTIAL,
+  FETCHED_PROFILE_MY_SONGS_WITHOUT_FOLDER
 } from './profileAction';
 import {
   AUTH_LOGOUT
@@ -24,6 +26,14 @@ import {
 } from '../user/userTypes';
 import { SONG_INDICATE_SUCCESS } from '../songs/songsType';
 
+const appendData = ({folder, data, pagination}, songs) => {
+  songs = {...songs};
+  let folderRes = songs.data.find(f => f.id === folder.id);
+  folderRes.songs = {...folder.songs, data: Object.assign([], folderRes.songs.data)};
+  folderRes.songs.data = folder.songs.data.concat(data);
+  folderRes.songs.pagination = pagination;
+  return songs;
+};
 
 const profileReducer = (state, action) => {
   state = state || {
@@ -40,8 +50,6 @@ const profileReducer = (state, action) => {
       mySongs: null,
       myFavoriteSongs: null
     };
-
-  let folder = null;
 
   switch (action.type) {
     case USER_FOLLOW_SUCCESS:
@@ -77,6 +85,18 @@ const profileReducer = (state, action) => {
         myFavoriteSongs: action.payload
       };
 
+    case FETCHED_PROFILE_MY_SONGS_BY_FOLDER_PARTIAL:
+      return {
+        ...state,
+        mySongs: appendData(action.payload, state.mySongs)
+      };
+
+    case FETCHED_PROFILE_MY_FAVORITE_SONGS_PARTIAL:
+      return {
+        ...state,
+        myFavoriteSongs: appendData(action.payload, state.myFavoriteSongs)
+      };
+
     case FETCHED_PROFILE_MY_SONGS:
       return {
         ...state,
@@ -84,15 +104,9 @@ const profileReducer = (state, action) => {
       };
 
     case FETCHED_PROFILE_MY_SONGS_WITHOUT_FOLDER:
-      let mySongs = {...state.mySongs};
-      folder = mySongs.data.find(f => f.id === action.payload.folder.id);
-      folder.songs = {...folder.songs, data: Object.assign([], folder.songs.data)}
-      folder.songs.data = folder.songs.data.concat(action.payload.data);
-      folder.songs.pagination = action.payload.pagination;
-
       return {
         ...state,
-        mySongs
+        mySongs: appendData(action.payload, state.mySongs)
       };
 
     case SONG_INDICATE_SUCCESS:
@@ -101,7 +115,7 @@ const profileReducer = (state, action) => {
         return {
           ...state,
           profile
-        }
+        };
       }
       break;
 
@@ -156,7 +170,7 @@ const profileReducer = (state, action) => {
       return {
         ...state,
         saveProfileSuccess: true
-      }
+      };
 
     case PROFILE_FINISH_LOADING:
       return {

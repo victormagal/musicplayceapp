@@ -79,11 +79,22 @@ class LoginComponent extends Component {
             )}
 
               <MPForm>
-                <MPInput label="Email ou Usuário" name="login" value={this.state.form.login}
-                         onChangeText={this.handleChangeText} validators={['required']} />
-                <MPInput label={"Senha"} name="password" value={this.state.form.password}
-                         onChangeText={this.handleChangeText} validators={['required']}
-                         secureTextEntry={true}/>
+                <MPInput
+                  label="Email ou Usuário"
+                  name="login" value={this.state.form.login}
+                  onChangeText={this.handleChangeText}
+                  validators={['required']}
+                  autoCapitalize={'none'}
+                />
+                <MPInput
+                  label={"Senha"}
+                  name="password"
+                  value={this.state.form.password}
+                  onChangeText={this.handleChangeText}
+                  validators={['required']}
+                  secureTextEntry={true}
+                  autoCapitalize={'none'}
+                />
 
                 <View style={styles.signinContainer}>
                   <MPFormButton>

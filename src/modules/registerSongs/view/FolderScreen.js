@@ -199,8 +199,9 @@ const styles = StyleSheet.create({
     padding: 0
   },
   inputFolderContainer: {
-    marginVertical: 30,
-    marginHorizontal: 40,
+    marginBottom: 20,
+    marginTop: 0,
+    marginHorizontal: 25,
   },
   inputButtonAdd: {
     position: 'absolute',

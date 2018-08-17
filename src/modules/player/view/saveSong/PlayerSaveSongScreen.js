@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {PlayerSaveSongComponent} from './PlayerSaveSongComponent';
+import {PlayerSaveSong} from './PlayerSaveSongComponent';
 import { favoriteSong, createFolder, getFavoriteSongsFolders} from '../../../../state/action';
 
 
@@ -80,7 +80,7 @@ class PlayerSaveSongContainer extends React.Component {
 
   render() {
     return (
-      <PlayerSaveSongComponent
+      <PlayerSaveSong
         folders={this.state.folders}
         folderName={this.state.folderName}
         onBack={this.handleBack}
