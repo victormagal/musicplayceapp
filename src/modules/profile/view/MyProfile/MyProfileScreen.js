@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {ProfileComponent} from '../ProfileComponent';
-import {fetchProfile, logout, fechyMySongsByFolder} from '../../../../state/action';
+import {fetchProfile, logout, fechyMySongsByFolder, fechyMyFavoriteSongsByFolder} from '../../../../state/action';
 import {songRegisterClear} from '../../../../state/songs/songsType';
 
 
@@ -75,7 +75,7 @@ class MyProfileScreenContainer extends React.Component {
     let {current_page, total_pages} = folder.songs.pagination;
 
     if(current_page < total_pages){
-      this.props.dispatch(fechyMySongsByFolder(folder, current_page + 1));
+      this.props.dispatch(fechyMyFavoriteSongsByFolder(folder, current_page + 1));
     }
   };
 

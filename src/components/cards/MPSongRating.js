@@ -310,7 +310,8 @@ const styles = StyleSheet.create({
   },
   playIcon: {
     position: 'absolute',
-    alignSelf: 'center'
+    alignSelf: 'center',
+    padding: 15
   }
 
 });

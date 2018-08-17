@@ -97,8 +97,7 @@ export const userSongsByFolder= (id, folder, page = 1) => {
     }
 
     return SongService.songsByFolder(folder.id, page).then(response => {
-      //TODO: finish
-      console.log("FETCHED ANOTHER SONGS", response);
+      dispatch(userSongsByFolderFetched({folder, ...response}));
     });
   };
 };
