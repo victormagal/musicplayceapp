@@ -100,11 +100,40 @@ class RegisterComponent extends Component {
             )}
 
             <MPForm>
-              <MPInput label="Email" name="email" value={this.state.form.email} validators={['required', 'email']} onChangeText={this.handleChange}/>
-              <MPInput label="Nome" name="name" value={this.state.form.name} validators={['required']} onChangeText={this.handleChange}/>
-              <MPInput label="Sobrenome" name="last_name" value={this.state.form.last_name} validators={['required']} onChangeText={this.handleChange}/>
-              <MPInput label="Usuário" name="username" value={this.state.form.username} validators={['required']} onChangeText={this.handleChange}/>
-              <MPInput label="Senha" name="password" value={this.state.form.password} validators={['required']} secureTextEntry={true} onChangeText={this.handleChange}/>
+              <MPInput
+                label="Email"
+                name="email"
+                autoCapitalize={'none'}
+                value={this.state.form.email}
+                validators={['required', 'email']}
+                onChangeText={this.handleChange}/>
+              <MPInput
+                label="Nome"
+                name="name"
+                value={this.state.form.name}
+                validators={['required']}
+                onChangeText={this.handleChange}/>
+              <MPInput
+                label="Sobrenome"
+                name="last_name"
+                value={this.state.form.last_name}
+                validators={['required']}
+                onChangeText={this.handleChange}/>
+              <MPInput
+                label="Usuário"
+                name="username"
+                autoCapitalize={'none'}
+                value={this.state.form.username}
+                validators={['required']}
+                onChangeText={this.handleChange}/>
+              <MPInput
+                label="Senha"
+                name="password"
+                autoCapitalize={'none'}
+                value={this.state.form.password}
+                validators={['required']}
+                secureTextEntry={true}
+                onChangeText={this.handleChange}/>
 
               <MPText style={styles.termsMessage}>
                 Ao criar sua conta você está aceitando os
