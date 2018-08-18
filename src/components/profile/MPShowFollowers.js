@@ -21,6 +21,14 @@ class MPShowFollowers extends Component {
     this.setState({ tabIndex });
   };
 
+  handlePagination = () => {
+    if(this.state.tabIndex === 0){
+      this.props.onFollowingsPagination();
+    }else{
+      this.props.onFollowersPagination();
+    }
+  };
+
   renderUsers = ({ item }) => (
     <MPUser
       key={item.id}
@@ -33,7 +41,9 @@ class MPShowFollowers extends Component {
 
   render() {
     const { tabIndex } = this.state;
-    const  { followers, following } = this.props;
+    const  { followers, following, userFollowingLoading, userFollowersLoading } = this.props;
+
+    console.log(userFollowersLoading, userFollowingLoading);
 
     return (
       <View>
@@ -64,20 +74,45 @@ class MPShowFollowers extends Component {
           </TouchableOpacity>
         </View>
         <View style={styles.sliderContainer}>
-          <FlatList
-            data={tabIndex === 0 ? following : followers}
-            keyExtractor={(item) => item.id}
-            renderItem={this.renderUsers}
-            horizontal={true}
-            ListEmptyComponent={() => (
-              <View style={{ width: Dimensions.get('screen').width - 40, alignItems: 'center' }}>
-                <MPGroupIcon style={{ width: 50, height: 50 }}/>
-                <MPText style={styles.noContent}>
-                  { `Ainda não ${ tabIndex === 0 ? 'está \nseguindo' : 'é \nseguido por' } ninguém.` }
-                </MPText>
-              </View>
-            )}
-          />
+          {this.state.tabIndex == 0 && (
+            <FlatList
+              data={following}
+              keyExtractor={(item) => item.id}
+              refreshing={this.props.userFollowingLoading}
+              renderItem={this.renderUsers}
+              onEndReached={this.handlePagination}
+              onEndReachedThreshold={0.1}
+              horizontal={true}
+              ListEmptyComponent={() => (
+                <View style={{ width: Dimensions.get('screen').width - 40, alignItems: 'center' }}>
+                  <MPGroupIcon style={{ width: 50, height: 50 }}/>
+                  <MPText style={styles.noContent}>
+                    { `Ainda não ${ tabIndex === 0 ? 'está \nseguindo' : 'é \nseguido por' } ninguém.` }
+                  </MPText>
+                </View>
+              )}
+            />
+          )}
+
+          {this.state.tabIndex == 1 && (
+            <FlatList
+              data={followers}
+              keyExtractor={(item) => item.id}
+              refreshing={this.props.userFollowersLoading}
+              renderItem={this.renderUsers}
+              onEndReached={this.handlePagination}
+              onEndReachedThreshold={0.1}
+              horizontal={true}
+              ListEmptyComponent={() => (
+                <View style={{ width: Dimensions.get('screen').width - 40, alignItems: 'center' }}>
+                  <MPGroupIcon style={{ width: 50, height: 50 }}/>
+                  <MPText style={styles.noContent}>
+                    { `Ainda não ${ tabIndex === 0 ? 'está \nseguindo' : 'é \nseguido por' } ninguém.` }
+                  </MPText>
+                </View>
+              )}
+            />
+          )}
         </View>
       </View>
     )

@@ -1,6 +1,10 @@
 import {createAction} from 'redux-actions';
+import {
+  userFollowingsPartialStartLoading,
+  userFollowersPartialStartLoading,
+  userFollowPartialFinishLoading
+} from '../user/userTypes';
 import {UserService, SongService} from '../../service';
-import { fetchedUserSongs } from '../songs/songsType';
 
 export const FETCHED_PROFILE = 'FETCHED_PROFILE';
 export const FETCHED_PROFILE_MY_SONGS = 'FETCHED_PROFILE_MY_SONGS';
@@ -24,26 +28,25 @@ export const PROFILE_SONG_UNFAVORITED_SUCCESS = 'PROFILE_SONG_UNFAVORITED_SUCCES
 
 export const profileStartLoading = createAction(PROFILE_START_LOADING);
 export const profileFinishLoading = createAction(PROFILE_FINISH_LOADING);
-export const fetchedProfile= createAction(FETCHED_PROFILE, (data) => data);
-export const fetchedProfileSongs= createAction(FETCHED_PROFILE_MY_SONGS, (data) => data);
-export const fetchedProfileMySongsWithoutFolder= createAction(FETCHED_PROFILE_MY_SONGS_WITHOUT_FOLDER, (data) => data);
-export const fetchedProfileMySongsByFolderPartial= createAction(FETCHED_PROFILE_MY_SONGS_BY_FOLDER_PARTIAL, (data) => data);
-export const fetchedProfileFavoriteSongs= createAction(FETCHED_PROFILE_MY_FAVORITE_SONGS, (data) => data);
-export const fetchedProfileFavoriteSongsPartial= createAction(FETCHED_PROFILE_MY_FAVORITE_SONGS_PARTIAL, (data) => data);
+export const fetchedProfile = createAction(FETCHED_PROFILE, (data) => data);
+export const fetchedProfileSongs = createAction(FETCHED_PROFILE_MY_SONGS, (data) => data);
+export const fetchedProfileMySongsWithoutFolder = createAction(FETCHED_PROFILE_MY_SONGS_WITHOUT_FOLDER, (data) => data);
+export const fetchedProfileMySongsByFolderPartial = createAction(FETCHED_PROFILE_MY_SONGS_BY_FOLDER_PARTIAL, (data) => data);
+export const fetchedProfileFavoriteSongs = createAction(FETCHED_PROFILE_MY_FAVORITE_SONGS, (data) => data);
+export const fetchedProfileFavoriteSongsPartial = createAction(FETCHED_PROFILE_MY_FAVORITE_SONGS_PARTIAL, (data) => data);
 export const fetchedProfileFollowers = createAction(PROFILE_FOLLOWERS_FETCHED, (data) => data);
 export const fetchedProfileFollowing = createAction(PROFILE_FOLLOWING_FETCHED, (data) => data);
-export const saveProfileSucessfully = createAction(SAVE_PROFILE_SUCCESS, (data) => {
-  return {...data};
-});
+export const saveProfileSucessfully = createAction(SAVE_PROFILE_SUCCESS, (data) => data);
 export const saveProfileError = createAction(SAVE_PROFILE_ERROR, (error) => error);
 export const createUserSuccess = createAction(PROFILE_CREATE_USER_SUCCESS);
 export const createUserError = createAction(PROFILE_CREATE_USER_ERROR);
 
 export const imageProfileStartLoading = createAction(IMAGE_PROFILE_START_LOADING);
-export const profileImageUploaded = createAction(PROFILE_IMAGE_UPLOADED);
 export const imageProfileFinishedLoading = createAction(IMAGE_PROFILE_FINISHED_LOADING);
+export const profileImageUploaded = createAction(PROFILE_IMAGE_UPLOADED);
 export const profileSongFavoritedSuccess = createAction(PROFILE_SONG_FAVORITED_SUCCESS, data => data);
 export const profileSongUnfavoriteSuccess = createAction(PROFILE_SONG_UNFAVORITED_SUCCESS, data => data);
+
 
 export const createUser = (user) => {
   return (dispatch) => {
@@ -76,7 +79,7 @@ export const fetchProfile = () => {
     dispatch(profileStartLoading());
 
     return UserService.me()
-      .then(response =>{
+      .then(response => {
         dispatch(fetchedProfile((response)));
         UserService.getUserFollowers(response.id).then(responseFollowers => dispatch(fetchedProfileFollowers(responseFollowers)));
         UserService.getUserFollowings(response.id).then(responseFollowings => dispatch(fetchedProfileFollowing(responseFollowings)));
@@ -102,7 +105,7 @@ export const fetchMySongs = (id, page = 1) => {
 
 export const fechyMySongsByFolder = (folder, page = 1) => {
   return (dispatch) => {
-    if(folder.id === -1) {
+    if (folder.id === -1) {
       return SongService.mySongsWithoutFolder(page).then(response => {
         dispatch(fetchedProfileMySongsWithoutFolder({folder, ...response}));
       });
@@ -130,6 +133,22 @@ export const fetchMyFavoriteSongs = (page = 1) => {
   };
 };
 
+export const fetchMyFollowings = (id, page = 1,) => {
+  return fetchFollowersFollowing(
+    UserService.getUserFollowings(id, page),
+    fetchedProfileFollowing,
+    userFollowingsPartialStartLoading
+  );
+};
+
+export const fetchMyFollowers = (id, page = 1) => {
+  return fetchFollowersFollowing(
+    UserService.getUserFollowers(id, page),
+    fetchedProfileFollowers,
+    userFollowersPartialStartLoading
+  );
+};
+
 export const saveProfile = (data, section) => {
   return (dispatch) => {
     dispatch(profileStartLoading());
@@ -139,7 +158,7 @@ export const saveProfile = (data, section) => {
         dispatch(saveProfileError(response.error));
       } else {
         const responseData = response.data.attributes;
-        dispatch(saveProfileSucessfully({ section, responseData }));
+        dispatch(saveProfileSucessfully({section, responseData}));
       }
       dispatch(profileFinishLoading());
 
@@ -147,6 +166,17 @@ export const saveProfile = (data, section) => {
       console.log('error', e);
       console.log(e.response);
       dispatch(profileFinishLoading());
+    });
+  };
+};
+
+const fetchFollowersFollowing = (promise, action, actionStartLoading) => {
+  return (dispatch) => {
+    dispatch(actionStartLoading());
+    return promise.then((response) => {
+      dispatch(action(response));
+    }).catch(e => {
+      dispatch(userFollowPartialFinishLoading());
     });
   };
 };

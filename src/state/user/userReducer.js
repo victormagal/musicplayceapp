@@ -6,8 +6,20 @@ import {
   USER_NOTIFICATIONS_SETTINGS_FETCHED, USER_NOTIFICATIONS_SETTINGS_PATCHED, USER_STOP_FOLLOW_SUCCESS,
   USER_FOLLOWERS_FETCHED, USER_FOLLOWINGS_FETCHED, USER_REPORT_SUCCESS, USER_REPORT_ERROR,
   USER_REPORT_STARTED, USER_HIDE_NOTIFICATION, USER_FOLLOW_NOTIFICATIONS_START_LOADING,
-  USER_FOLLOW_NOTIFICATIONS_FINISHED_LOADING, USER_SONGS_BY_FOLDER_FETCHED
+  USER_FOLLOW_NOTIFICATIONS_FINISHED_LOADING, USER_SONGS_BY_FOLDER_FETCHED,
+  USER_FOLLOWERS_PARTIAL_FETCHED, USER_FOLLOWINGS_PARTIAL_FETCHED,
+  USER_FOLLOWERS_PARTIAL_START_LOADING, USER_FOLLOWINGS_PARTIAL_START_LOADING,
+  USER_FOLLOW_PARTIAL_FINISH_LOADING
 } from './userTypes';
+
+
+const appendData = ({data, pagination}, result) => {
+  result = {...result};
+  result.data = Object.assign([], result.data);
+  result.data = result.data.concat(data);
+  result.pagination = pagination;
+  return result;
+};
 
 const userReducer = (state, action) => {
   state = state || {
@@ -27,6 +39,8 @@ const userReducer = (state, action) => {
     isUserNotificationsSaved: false,
     refreshUserFollowings: false,
     refreshNotifications: false,
+    userFollowersLoading: false,
+    userFollowingLoading: false
   };
 
   let user = {};
@@ -255,6 +269,40 @@ const userReducer = (state, action) => {
       return {
         ...state,
         usersSongs: mySongs
+      };
+
+    case USER_FOLLOWINGS_PARTIAL_FETCHED:
+      console.log("TESTEEE FOLLOWING ", appendData(action.payload, state.userFollowings));
+      return{
+        ...state,
+        userFollowingLoading: false,
+        userFollowings: appendData(action.payload, state.userFollowings)
+      };
+
+    case USER_FOLLOWERS_PARTIAL_FETCHED:
+      return{
+        ...state,
+        userFollowersLoading: false,
+        userFollowers: appendData(action.payload, state.userFollowers)
+      };
+
+    case USER_FOLLOWERS_PARTIAL_START_LOADING:
+      return {
+        ...state,
+        userFollowersLoading: true
+      };
+
+    case USER_FOLLOWINGS_PARTIAL_START_LOADING:
+      return{
+        ...state,
+        userFollowingLoading: true,
+      };
+
+    case USER_FOLLOW_PARTIAL_FINISH_LOADING:
+      return {
+        ...state,
+        userFollowingLoading: false,
+        userFollowersLoading: false
       };
   }
 

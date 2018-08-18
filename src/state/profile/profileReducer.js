@@ -36,6 +36,15 @@ const appendData = ({folder, data, pagination}, songs) => {
   return songs;
 };
 
+
+const appendDataFollows = ({data, pagination}, result) => {
+  result = {...result};
+  result.data = Object.assign([], result.data);
+  result.data = result.data.concat(data);
+  result.pagination = pagination;
+  return result;
+};
+
 const profileReducer = (state, action) => {
   state = state || {
       saveProfileError: null,
@@ -250,16 +259,28 @@ const profileReducer = (state, action) => {
       };
 
     case PROFILE_FOLLOWERS_FETCHED:
+      let followers = action.payload;
+
+      if(action.payload.pagination.current_page > 1){
+        followers = appendDataFollows(action.payload, state.followers)
+      }
+
       return {
         ...state,
-        followers: action.payload
+        followers
       };
 
     case PROFILE_FOLLOWING_FETCHED:
+      let following = action.payload;
+
+      if(action.payload.pagination.current_page > 1){
+        following = appendDataFollows(action.payload, state.following)
+      }
+
       return {
         ...state,
-        following: action.payload
-      }
+        following
+      };
   }
   return state;
 };

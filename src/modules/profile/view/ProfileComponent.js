@@ -242,7 +242,11 @@ class ProfileComponent extends React.Component {
           following={(this.props.userFollowings && this.props.userFollowings.data) || []}
           followers={(this.props.userFollowers && this.props.userFollowers.data) || []}
           onFollowerFollowingClick={this.props.onFollowerFollowingClick}
+          onFollowingsPagination={this.props.onFollowingsPagination}
+          onFollowersPagination={this.props.onFollowersPagination}
           onToggleFollowUser={this.handleToggleFollowUser}
+          userFollowingLoading={this.props.userFollowingLoading}
+          userFollowersLoading={this.props.userFollowersLoading}
         />
         { me ?
           <View style={{ backgroundColor: '#FFF', height: 90 }} />

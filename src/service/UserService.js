@@ -102,17 +102,24 @@ class UserService {
       });
   }
 
-  static getUserFollowings(user){
-    return axios.get(`${API_USER}/${user}/following`)
-      .then(response => {
-        let {data, meta} = response.data;
-        data = transformResponseData(data);
-        return {data, ...meta};
-      });
+  static getUserFollowings(user, page){
+    return UserService._followersOrFollowing(`${API_USER}/${user}/following`, page);
   }
 
-  static getUserFollowers(user){
-    return axios.get(`${API_USER}/${user}/followers`)
+  static getUserFollowers(user, page){
+    return UserService._followersOrFollowing(`${API_USER}/${user}/followers`, page);
+  }
+
+  static _followersOrFollowing(url, page){
+    let params = {
+      'page[size]': 7
+    };
+
+    if(page){
+      params['page[number]'] = page;
+    }
+
+    return axios.get(url, {params})
       .then(response => {
         let {data, meta} = response.data;
         data = transformResponseData(data);
