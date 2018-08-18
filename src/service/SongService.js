@@ -2,6 +2,7 @@ import {Platform} from "react-native";
 import axios from 'axios';
 import {API, transformResponseData, getIncludes} from './api';
 import {FolderService} from "./FolderService";
+import {updateSongRegisterData} from "../state/songs/songsType";
 
 const API_SONG = `${API}/songs`;
 
@@ -253,27 +254,56 @@ class SongService {
     });
   }
 
+  static sendLyricsFile(file, song) {
+    let formData = new FormData();
+
+    if (!file) {
+      return Promise.resolve();
+    }
+
+    formData.append('file', {
+      uri: file.uri,
+      name: file.fileName,
+      type: 'plain/text'
+    });
+
+    return axios.post(`${ API_SONG }/${ song.id }/file`, formData, {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'multipart/form-data'
+      }
+    }).then(response => {
+      let {data} = response.data;
+      let {id, attributes} = data;
+      return {id, ...attributes};
+    });
+  }
+
   static createSong(song, publish) {
-    let {songFile, imageFile} = song;
+    let {songFile, imageFile, lyricsFile} = song;
     delete song.songFile;
     delete song.imageFile;
+    delete song.lyricsFile;
 
     return SongService.create(song).then(response => {
       return SongService.uploadImage(response.id, imageFile).then(() => {
-        return SongService.sendSongFile(songFile, response).then(() => {
-          if (publish) {
-            return SongService.publish(response.id).then(_ => response);
-          }
-          return response;
+        return SongService.sendLyricsFile(lyricsFile, response).then(() => {
+          return SongService.sendSongFile(songFile, response).then(() => {
+            if (publish) {
+              return SongService.publish(response.id).then(_ => response);
+            }
+            return response;
+          });
         });
       });
     });
   }
 
   static updateSong(song) {
-    let {songFile, imageFile} = song;
+    let {songFile, imageFile, lyricsFile} = song;
     delete song.songFile;
     delete song.imageFile;
+    delete song.lyricsFile;
 
     return SongService.uploadImage(song.id, imageFile).then((response) => {
       response = response || song;
@@ -281,8 +311,10 @@ class SongService {
         if (fileResponse) {
           song.path = fileResponse.path;
         }
-        return SongService.update(response).then(() => {
-          return SongService.publish(song.id);
+        return SongService.sendLyricsFile(lyricsFile, response).then(() => {
+          return SongService.update(response).then(() => {
+            return SongService.publish(song.id);
+          });
         });
       });
     });
