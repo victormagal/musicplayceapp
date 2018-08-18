@@ -1,19 +1,43 @@
 import {
-  USER_START_LOADING, USER_FINISH_LOADING, USERS_FETCHED, USER_SAVE_SUCCESS, USER_BY_ID_FETCHED,
-  USER_SONGS_FETCHED, USER_FOLLOW_SUCCESS, USER_FOLLOW_ERROR, USER_NOTIFICATIONS_START_LOADING,
-  USER_NOTIFICATIONS_FETCHED, USER_NOTIFICATIONS_FOLLOWERS_FETCHED, USER_NOTIFICATIONS_FINISHED_LOADING,
-  USER_SAVE_ERROR, USER_NOTIFICATIONS_SETTINGS_START_LOADING, USER_NOTIFICATIONS_SETTINGS_FINISHED_LOADING,
-  USER_NOTIFICATIONS_SETTINGS_FETCHED, USER_NOTIFICATIONS_SETTINGS_PATCHED, USER_STOP_FOLLOW_SUCCESS,
-  USER_FOLLOWERS_FETCHED, USER_FOLLOWINGS_FETCHED, USER_REPORT_SUCCESS, USER_REPORT_ERROR,
-  USER_REPORT_STARTED, USER_HIDE_NOTIFICATION, USER_FOLLOW_NOTIFICATIONS_START_LOADING,
-  USER_FOLLOW_NOTIFICATIONS_FINISHED_LOADING, USER_SONGS_BY_FOLDER_FETCHED,
-  USER_FOLLOWERS_PARTIAL_FETCHED, USER_FOLLOWINGS_PARTIAL_FETCHED,
-  USER_FOLLOWERS_PARTIAL_START_LOADING, USER_FOLLOWINGS_PARTIAL_START_LOADING,
-  USER_FOLLOW_PARTIAL_FINISH_LOADING
+  USER_START_LOADING,
+  USER_FINISH_LOADING,
+  USERS_FETCHED,
+  USER_SAVE_SUCCESS,
+  USER_BY_ID_FETCHED,
+  USER_SONGS_FETCHED,
+  USER_FOLLOW_SUCCESS,
+  USER_FOLLOW_ERROR,
+  USER_NOTIFICATIONS_START_LOADING,
+  USER_NOTIFICATIONS_FETCHED,
+  USER_NOTIFICATIONS_FOLLOWERS_FETCHED,
+  USER_NOTIFICATIONS_FINISHED_LOADING,
+  USER_SAVE_ERROR,
+  USER_NOTIFICATIONS_SETTINGS_START_LOADING,
+  USER_NOTIFICATIONS_SETTINGS_FINISHED_LOADING,
+  USER_NOTIFICATIONS_SETTINGS_FETCHED,
+  USER_NOTIFICATIONS_SETTINGS_PATCHED,
+  USER_STOP_FOLLOW_SUCCESS,
+  USER_FOLLOWERS_FETCHED,
+  USER_FOLLOWINGS_FETCHED,
+  USER_REPORT_SUCCESS,
+  USER_REPORT_ERROR,
+  USER_REPORT_STARTED,
+  USER_HIDE_NOTIFICATION,
+  USER_FOLLOW_NOTIFICATIONS_START_LOADING,
+  USER_FOLLOW_NOTIFICATIONS_FINISHED_LOADING,
+  USER_SONGS_BY_FOLDER_FETCHED,
+  USER_FOLLOWERS_PARTIAL_FETCHED,
+  USER_FOLLOWINGS_PARTIAL_FETCHED,
+  USER_FOLLOWERS_PARTIAL_START_LOADING,
+  USER_FOLLOWINGS_PARTIAL_START_LOADING,
+  USER_FOLLOW_PARTIAL_FINISH_LOADING,
+  USER_SONGS_START_LOADING,
+  USER_SONGS_FINISH_LOADING,
+  _appendSongsData
 } from './userTypes';
 
 
-const appendData = ({data, pagination}, result) => {
+const appendDataUserFollow = ({data, pagination}, result) => {
   result = {...result};
   result.data = Object.assign([], result.data);
   result.data = result.data.concat(data);
@@ -40,11 +64,11 @@ const userReducer = (state, action) => {
     refreshUserFollowings: false,
     refreshNotifications: false,
     userFollowersLoading: false,
-    userFollowingLoading: false
+    userFollowingLoading: false,
+    userSongsLoading: false
   };
 
   let user = {};
-  let folder = null;
 
   switch (action.type) {
     case USER_START_LOADING:
@@ -148,12 +172,14 @@ const userReducer = (state, action) => {
         loading: false,
       };
 
+    case USER_SONGS_BY_FOLDER_FETCHED:
     case USER_SONGS_FETCHED:
       return {
         ...state,
-        usersSongs: action.payload
+        userSongsLoading: false,
+        usersSongs: _appendSongsData(action.payload, state.usersSongs)
       };
-    
+
     case USER_REPORT_STARTED:
     case USER_NOTIFICATIONS_SETTINGS_START_LOADING:
       return {
@@ -166,8 +192,8 @@ const userReducer = (state, action) => {
         ...state,
         refreshNotifications: true,
       };
-    
-    case USER_FOLLOW_NOTIFICATIONS_START_LOADING: 
+
+    case USER_FOLLOW_NOTIFICATIONS_START_LOADING:
       return {
         ...state,
         refreshUserFollowings: true,
@@ -259,31 +285,18 @@ const userReducer = (state, action) => {
         stopFollowSuccess: false
       };
 
-    case USER_SONGS_BY_FOLDER_FETCHED:
-      let mySongs = {...state.usersSongs};
-      folder = mySongs.data.find(f => f.id === action.payload.folder.id);
-      folder.songs = {...folder.songs, data: Object.assign([], folder.songs.data)}
-      folder.songs.data = folder.songs.data.concat(action.payload.data);
-      folder.songs.pagination = action.payload.pagination;
-
-      return {
-        ...state,
-        usersSongs: mySongs
-      };
-
     case USER_FOLLOWINGS_PARTIAL_FETCHED:
-      console.log("TESTEEE FOLLOWING ", appendData(action.payload, state.userFollowings));
       return{
         ...state,
         userFollowingLoading: false,
-        userFollowings: appendData(action.payload, state.userFollowings)
+        userFollowings: appendDataUserFollow(action.payload, state.userFollowings)
       };
 
     case USER_FOLLOWERS_PARTIAL_FETCHED:
       return{
         ...state,
         userFollowersLoading: false,
-        userFollowers: appendData(action.payload, state.userFollowers)
+        userFollowers: appendDataUserFollow(action.payload, state.userFollowers)
       };
 
     case USER_FOLLOWERS_PARTIAL_START_LOADING:
@@ -303,6 +316,18 @@ const userReducer = (state, action) => {
         ...state,
         userFollowingLoading: false,
         userFollowersLoading: false
+      };
+
+    case USER_SONGS_START_LOADING:
+      return {
+        ...state,
+        userSongsLoading: true
+      };
+
+    case USER_SONGS_FINISH_LOADING:
+      return {
+        ...state,
+        userSongsLoading: false
       };
   }
 

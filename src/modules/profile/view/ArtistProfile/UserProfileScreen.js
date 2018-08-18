@@ -62,6 +62,7 @@ class UserProfileScreenContainer extends React.Component {
       <ProfileComponent
        {...this.props}
         profile={this.props.user}
+        songsLoading={this.props.userSongsLoading}
         followingUser={user ? user.isFollowing : false}
         onFollowUpClick={this.handleFollowUp}
         onFollowerFollowingClick={this.handleFollowerFollowingClick}

@@ -334,12 +334,23 @@ class ProfileComponent extends React.Component {
   }
 
   renderTabsContent(profile, tabIndex) {
-    const { me, mySongs, songDraft } = this.props;
+    const { me, mySongs, songDraft, songsLoading } = this.props;
     switch (tabIndex) {
       case 0:
         return (
           <View>
-            { this.state.userFolders && this.state.userFolders.length > 0 ?
+            {songsLoading && (
+              <View style={{ backgroundColor: '#FFF' }}>
+                <View style={[styles.contentLoading, {paddingVertical: 40}]}>
+                  <ActivityIndicator size='large' color='#BB1A1A' />
+                  <MPText style={styles.textLoading}>
+                    Carregando...
+                  </MPText>
+                </View>
+              </View>
+            )}
+
+            {!songsLoading && this.state.userFolders && this.state.userFolders.length > 0 ?
             this.state.userFolders.map(userFolder => (
               <MPShowFolderSongs
                   {...this.props}

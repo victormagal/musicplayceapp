@@ -14,10 +14,12 @@ export const FETCHED_PROFILE_MY_SONGS_WITHOUT_FOLDER = 'FETCHED_PROFILE_MY_SONGS
 export const FETCHED_PROFILE_MY_SONGS_BY_FOLDER_PARTIAL = 'FETCHED_PROFILE_MY_SONGS_BY_FOLDER_PARTIAL';
 export const SAVE_PROFILE_SUCCESS = 'SAVE_PROFILE_SUCCESS';
 export const SAVE_PROFILE_ERROR = 'SAVE_PROFILE_ERROR';
-export const PROFILE_START_LOADING = 'PROFILE_START_LOADING';
 export const IMAGE_PROFILE_START_LOADING = 'IMAGE_PROFILE_START_LOADING';
 export const IMAGE_PROFILE_FINISHED_LOADING = 'IMAGE_PROFILE_FINISHED_LOADING';
+export const PROFILE_START_LOADING = 'PROFILE_START_LOADING';
 export const PROFILE_FINISH_LOADING = 'PROFILE_FINISH_LOADING';
+export const PROFILE_SONGS_START_LOADING = 'PROFILE_SONGS_START_LOADING';
+export const PROFILE_SONGS_FINISH_LOADING = 'PROFILE_SONGS_FINISH_LOADING';
 export const PROFILE_CREATE_USER_SUCCESS = 'PROFILE_CREATE_USER_SUCCESS';
 export const PROFILE_CREATE_USER_ERROR = 'PROFILE_CREATE_USER_ERROR';
 export const PROFILE_IMAGE_UPLOADED = 'PROFILE_IMAGE_UPLOADED';
@@ -28,6 +30,8 @@ export const PROFILE_SONG_UNFAVORITED_SUCCESS = 'PROFILE_SONG_UNFAVORITED_SUCCES
 
 export const profileStartLoading = createAction(PROFILE_START_LOADING);
 export const profileFinishLoading = createAction(PROFILE_FINISH_LOADING);
+export const profileSongsStartLoading = createAction(PROFILE_SONGS_START_LOADING);
+export const profileSongsFinishLoading = createAction(PROFILE_SONGS_FINISH_LOADING);
 export const fetchedProfile = createAction(FETCHED_PROFILE, (data) => data);
 export const fetchedProfileSongs = createAction(FETCHED_PROFILE_MY_SONGS, (data) => data);
 export const fetchedProfileMySongsWithoutFolder = createAction(FETCHED_PROFILE_MY_SONGS_WITHOUT_FOLDER, (data) => data);
@@ -96,9 +100,13 @@ export const fetchProfile = () => {
 
 export const fetchMySongs = (id, page = 1) => {
   return (dispatch) => {
+    dispatch(profileSongsStartLoading());
+
     return SongService.mySongs(id, page, true).then(response => {
       dispatch(fetchedProfileSongs(response));
       //TODO: FINISH PAGINATION FOLDER
+    }).catch(e => {
+      dispatch(profileSongsFinishLoading());
     });
   };
 };

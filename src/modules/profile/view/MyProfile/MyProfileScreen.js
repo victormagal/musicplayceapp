@@ -111,6 +111,7 @@ class MyProfileScreenContainer extends React.Component {
       <ProfileComponent
         {...this.props}
         me={true}
+        songsLoading={this.props.profileSongsLoading}
         favoritesFolder={this.props.myFavoriteSongs && this.props.myFavoriteSongs.data}
         userFollowers={this.props.followers}
         userFollowings={this.props.following}

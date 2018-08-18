@@ -5,6 +5,8 @@ export const USER_SONGS_FETCHED = 'USER_SONGS_FETCHED';
 export const USER_SONGS_BY_FOLDER_FETCHED = 'USER_SONGS_BY_FOLDER_FETCHED';
 export const USER_START_LOADING = 'USER_START_LOADING';
 export const USER_FINISH_LOADING = 'USER_FINISH_LOADING';
+export const USER_SONGS_START_LOADING = 'USER_SONGS_START_LOADING';
+export const USER_SONGS_FINISH_LOADING = 'USER_SONGS_FINISH_LOADING';
 export const USER_BY_ID_FETCHED = 'USER_BY_ID_FETCHED';
 export const USER_SAVE_SUCCESS = 'USER_SAVE_SUCCESS';
 export const USER_SAVE_ERROR = 'USER_SAVE_ERROR';
@@ -37,6 +39,8 @@ export const usersFetched = createAction(USERS_FETCHED, (data) => data);
 export const userByIdFetched = createAction(USER_BY_ID_FETCHED, (data) => data);
 export const userStartLoading = createAction(USER_START_LOADING);
 export const userFinishLoading = createAction(USER_FINISH_LOADING);
+export const userSongsStartLoading = createAction(USER_SONGS_START_LOADING);
+export const userSongsFinishLoading = createAction(USER_SONGS_FINISH_LOADING);
 export const userSaveSuccess = createAction(USER_SAVE_SUCCESS);
 export const userSaveError = createAction(USER_SAVE_ERROR);
 export const userStopFollowSuccess = createAction(USER_STOP_FOLLOW_SUCCESS, data => data);
@@ -77,3 +81,17 @@ export const _fetchFollowersFollowing = (promise, action, actionStartLoading) =>
     });
   };
 };
+
+export const _appendSongsData = ({folder, data, pagination}, songs) => {
+  if(songs != null) {
+    songs = {...songs};
+    let folderRes = songs.data.find(f => f.id === folder.id);
+    folderRes.songs = {...folder.songs, data: Object.assign([], folderRes.songs.data)};
+    folderRes.songs.data = folder.songs.data.concat(data);
+    folderRes.songs.pagination = pagination;
+    return songs;
+  }
+
+  return {data, pagination}
+};
+
