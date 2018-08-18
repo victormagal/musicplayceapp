@@ -20,6 +20,7 @@ export const PROFILE_IMAGE_UPLOADED = 'PROFILE_IMAGE_UPLOADED';
 export const PROFILE_FOLLOWERS_FETCHED = 'PROFILE_FOLLOWERS_FETCHED';
 export const PROFILE_FOLLOWING_FETCHED = 'PROFILE_FOLLOWING_FETCHED';
 export const PROFILE_SONG_FAVORITED_SUCCESS = 'PROFILE_SONG_FAVORITED_SUCCESS';
+export const PROFILE_SONG_UNFAVORITED_SUCCESS = 'PROFILE_SONG_UNFAVORITED_SUCCESS';
 
 export const profileStartLoading = createAction(PROFILE_START_LOADING);
 export const profileFinishLoading = createAction(PROFILE_FINISH_LOADING);
@@ -42,6 +43,7 @@ export const imageProfileStartLoading = createAction(IMAGE_PROFILE_START_LOADING
 export const profileImageUploaded = createAction(PROFILE_IMAGE_UPLOADED);
 export const imageProfileFinishedLoading = createAction(IMAGE_PROFILE_FINISHED_LOADING);
 export const profileSongFavoritedSuccess = createAction(PROFILE_SONG_FAVORITED_SUCCESS, data => data);
+export const profileSongUnfavoriteSuccess = createAction(PROFILE_SONG_UNFAVORITED_SUCCESS, data => data);
 
 export const createUser = (user) => {
   return (dispatch) => {

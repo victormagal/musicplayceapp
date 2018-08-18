@@ -69,7 +69,7 @@ class FeedScreenContainer extends React.Component {
           time: notification.attributes.time
         };
       });
-      console.log(followingNotifications);
+      // console.log(followingNotifications);
       this.setState({userFollowNotifications: followingNotifications});
     }
   }

@@ -4,24 +4,8 @@ import PropTypes from 'prop-types';
 import {MPText} from '../general/MPText';
 
 class MPIconButton extends Component {
-
-  state = {
-    selected: false
-  };
-
-  componentWillReceiveProps(nextProps){
-    if(typeof nextProps.selected !== 'undefined'){
-      this.setState({selected: nextProps.selected});
-    }
-  }
-
   handlePress = (e) => {
-    let {iconSelected, onPress} = this.props;
-
-    if(iconSelected){
-      this.setState({selected: !this.state.selected});
-    }
-
+    let {onPress} = this.props;
     onPress && onPress(e);
   };
 
@@ -32,7 +16,7 @@ class MPIconButton extends Component {
     let Icon = icon;
     let IconSelected = iconSelected;
 
-    if(this.state.selected){
+    if(this.props.selected){
       return <IconSelected style={[styles.icon, iconStyle]} />
     }
 
