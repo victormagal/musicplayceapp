@@ -157,7 +157,6 @@ class FolderScreenContainer extends React.Component {
             <MPForm>
               <InputFolder
                 label="Nome da nova pasta"
-                validators={['required']}
                 value={this.state.folderName}
                 onBlur={this.handleFolderValidate}
                 onChangeText={this.handleChangeText}
