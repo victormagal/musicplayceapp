@@ -28,12 +28,10 @@ const folderReducer = (state, action) => {
 
     case FETCHED_USER_FOLDERS:
       let folders = action.payload;
-      if(state.userFolders) {
+      if(state.userFolders && action.payload.pagination.current_page > 1) {
         folders = {...state.userFolders};
-        if (action.payload.pagination.current_page > 1) {
-          folders.data = folders.data.concat(action.payload.data);
-          folders.pagination = action.payload.pagination;
-        }
+        folders.data = folders.data.concat(action.payload.data);
+        folders.pagination = action.payload.pagination;
       }
 
       return {
@@ -43,10 +41,16 @@ const folderReducer = (state, action) => {
       };
 
     case FETCHED_FAVORITES_FOLDERS:
+      let favoriteFolders = action.payload;
+      if(state.favoritesFolder && action.payload.pagination.current_page > 1) {
+        favoriteFolders = {...state.favoritesFolder};
+        favoriteFolders.data = favoriteFolders.data.concat(action.payload.data);
+        favoriteFolders.pagination = action.payload.pagination;
+      }
       return {
         ...state,
         loading: false,
-        favoritesFolder: action.payload
+        favoritesFolder: favoriteFolders
       };
   }
 
