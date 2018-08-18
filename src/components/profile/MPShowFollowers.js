@@ -4,7 +4,7 @@ import {
   View,
   FlatList,
   Dimensions,
-  TouchableHighlight
+  TouchableOpacity
 } from 'react-native';
 import {
   MPUser,
@@ -19,11 +19,6 @@ class MPShowFollowers extends Component {
 
   changeTabIndex = (tabIndex) => {
     this.setState({ tabIndex });
-    const { following, followers } = this.props;
-    // const hasToScroll = tabIndex === 0 ? following.length > 0 : followers.length > 0;
-    // if (hasToScroll) {
-    //   this.flatList.scrollToIndex({ index: 0 });
-    // }
   };
 
   renderUsers = ({ item }) => (
@@ -43,7 +38,7 @@ class MPShowFollowers extends Component {
     return (
       <View>
         <View style={ styles.tabTitlesContainer }>
-          <TouchableHighlight
+          <TouchableOpacity
             underlayColor="transparent"
             onPress={() => this.changeTabIndex(0)}
             style={[ styles.tabMargin, tabIndex === 0
@@ -54,8 +49,8 @@ class MPShowFollowers extends Component {
             <MPText style={ tabIndex === 0 ? styles.selectedTitleText : styles.notSelectedTitleText }>
               SEGUINDO
             </MPText>
-          </TouchableHighlight>
-          <TouchableHighlight
+          </TouchableOpacity>
+          <TouchableOpacity
             underlayColor="transparent"
             onPress={() => this.changeTabIndex(1)}
             style={[ styles.tabMargin, tabIndex === 1
@@ -66,11 +61,10 @@ class MPShowFollowers extends Component {
             <MPText style={ tabIndex === 1 ? styles.selectedTitleText : styles.notSelectedTitleText }>
               SEGUIDORES
             </MPText>
-          </TouchableHighlight>
+          </TouchableOpacity>
         </View>
         <View style={styles.sliderContainer}>
           <FlatList
-            ref={ref => this.flatList = ref}
             data={tabIndex === 0 ? following : followers}
             keyExtractor={(item) => item.id}
             renderItem={this.renderUsers}

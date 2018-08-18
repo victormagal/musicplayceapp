@@ -239,8 +239,8 @@ class ProfileComponent extends React.Component {
         { this.renderSongsData(profile) }
         <MPShowFollowers
           hideSettings={!me}
-          following={this.props.userFollowings}
-          followers={this.props.userFollowers}
+          following={(this.props.userFollowings && this.props.userFollowings.data) || []}
+          followers={(this.props.userFollowers && this.props.userFollowers.data) || []}
           onFollowerFollowingClick={this.props.onFollowerFollowingClick}
           onToggleFollowUser={this.handleToggleFollowUser}
         />

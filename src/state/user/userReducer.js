@@ -99,8 +99,8 @@ const userReducer = (state, action) => {
         state.users.data = data;
       }
 
-      if(state.userFollowings && state.userFollowings.length > 0) {
-        state.userFollowings.push(action.payload.user);
+      if(state.userFollowings && state.userFollowings.data.length > 0) {
+        state.userFollowings.data.push(action.payload.user);
       }
 
       return {
@@ -123,8 +123,8 @@ const userReducer = (state, action) => {
         state.users.data = data;
       }
 
-      if(state.userFollowers && state.userFollowers.length > 0) {
-        state.userFollowers.splice(state.userFollowers.indexOf(state.userFollowers.find(i => i.id === user.id)), 1);
+      if(state.userFollowers && state.userFollowers.data.length > 0) {
+        state.userFollowers.splice(state.userFollowers.data.indexOf(state.userFollowers.data.find(i => i.id === user.id)), 1);
       }
 
       return {

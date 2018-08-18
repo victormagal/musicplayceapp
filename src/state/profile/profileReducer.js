@@ -55,7 +55,7 @@ const profileReducer = (state, action) => {
   switch (action.type) {
     case USER_FOLLOW_SUCCESS:
       if (state.following) {
-        state.following.push(action.payload.user);
+        state.following.data.push(action.payload.user);
         return {
           ...state
         };
@@ -64,11 +64,11 @@ const profileReducer = (state, action) => {
 
     case USER_STOP_FOLLOW_SUCCESS:
       if (state.following && typeof action.payload.user !== 'undefined') {
-        let data = Object.assign([], state.following);
-        data.splice(state.following.indexOf(data.find(i => i.id === action.payload.user.id)), 1);
+        let data = Object.assign([], state.following.data);
+        data.splice(data.indexOf(data.find(i => i.id === action.payload.user.id)), 1);
         return {
           ...state,
-          following: data
+          following: {...state.following, data}
         };
       }
       break;
