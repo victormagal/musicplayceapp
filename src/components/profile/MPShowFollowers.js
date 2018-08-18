@@ -43,6 +43,7 @@ class MPShowFollowers extends Component {
     const { tabIndex } = this.state;
     const  { followers, following, userFollowingLoading, userFollowersLoading } = this.props;
 
+    //TODO: replace flat list when is loading
     console.log(userFollowersLoading, userFollowingLoading);
 
     return (

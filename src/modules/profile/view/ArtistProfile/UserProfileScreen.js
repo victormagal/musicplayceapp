@@ -41,7 +41,7 @@ class UserProfileScreenContainer extends React.Component {
   };
 
   handleFollowerPagination = () => {
-    let {current_page, total_pages} = this.props.followers.pagination;
+    let {current_page, total_pages} = this.props.userFollowers.pagination;
 
     if(current_page < total_pages) {
       this.props.dispatch(userFollowers(this.props.user.id, current_page + 1));
@@ -49,7 +49,7 @@ class UserProfileScreenContainer extends React.Component {
   };
 
   handleFollowingPagination = () => {
-    let {current_page, total_pages} = this.props.following.pagination;
+    let {current_page, total_pages} = this.props.userFollowings.pagination;
 
     if(current_page < total_pages) {
       this.props.dispatch(userFollowings(this.props.user.id, current_page + 1));
