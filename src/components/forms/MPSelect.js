@@ -90,7 +90,6 @@ const styles = StyleSheet.create({
   },
   boxFoward: {
     flex: 0.1,
-    marginBottom: 15
   }
 });
 

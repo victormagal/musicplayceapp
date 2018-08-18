@@ -1,7 +1,9 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {ProfileComponent} from '../ProfileComponent';
-import {getUserById, followUser, userSongsByFolder} from "../../../../state/action";
+import {
+  getUserById, followUser, userSongsByFolder, userFollowers, userFollowings
+} from "../../../../state/action";
 
 
 class UserProfileScreenContainer extends React.Component {
@@ -38,12 +40,29 @@ class UserProfileScreenContainer extends React.Component {
     }
   };
 
+  handleFollowerPagination = () => {
+    let {current_page, total_pages} = this.props.userFollowers.pagination;
+
+    if(current_page < total_pages) {
+      this.props.dispatch(userFollowers(this.props.user.id, current_page + 1));
+    }
+  };
+
+  handleFollowingPagination = () => {
+    let {current_page, total_pages} = this.props.userFollowings.pagination;
+
+    if(current_page < total_pages) {
+      this.props.dispatch(userFollowings(this.props.user.id, current_page + 1));
+    }
+  };
+
   render() {
     const { user } = this.props;
     return (
       <ProfileComponent
        {...this.props}
         profile={this.props.user}
+        songsLoading={this.props.userSongsLoading}
         followingUser={user ? user.isFollowing : false}
         onFollowUpClick={this.handleFollowUp}
         onFollowerFollowingClick={this.handleFollowerFollowingClick}
@@ -51,6 +70,8 @@ class UserProfileScreenContainer extends React.Component {
         loadingProfile={this.state.loadingProfile}
         onSongPagination={this.handleSongPagination}
         onStopLoading={() => this.setState({ loadingProfile: false })}
+        onFollowersPagination={this.handleFollowerPagination}
+        onFollowingsPagination={this.handleFollowingPagination}
       />
     );
   }

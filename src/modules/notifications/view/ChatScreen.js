@@ -16,8 +16,6 @@ import {MPSendMessageIcon} from '../../../assets/svg'
 const linearMenuColor = ["#bb1a1a", "#2e2c9d"];
 const CHATKIT_TOKEN_PROVIDER_ENDPOINT = "https://us1.pusherplatform.io/services/chatkit_token_provider/v1/3c5c921c-df76-41c3-8a1f-e5f38c6f9726/token";
 const CHATKIT_INSTANCE_LOCATOR = "v1:us1:3c5c921c-df76-41c3-8a1f-e5f38c6f9726";
-const CHATKIT_ROOM_ID = 14119556;
-const CHATKIT_USER_NAME = "musicplayce";
 
 
 class ChatScreenContainer extends React.Component {
@@ -34,7 +32,7 @@ class ChatScreenContainer extends React.Component {
 
     const chatManager = new Chatkit.ChatManager({
       instanceLocator: CHATKIT_INSTANCE_LOCATOR,
-      userId: CHATKIT_USER_NAME,
+      userId: this.props.loggedUser.id,
       tokenProvider: tokenProvider,
       connectionTimeout: 30000
     });
@@ -42,9 +40,11 @@ class ChatScreenContainer extends React.Component {
     // In order to subscribe to the messages this user is receiving in this room, we need to `connect()` the `chatManager` and have a hook on `onNewMessage`. There are several other hooks that you can use for various scenarios. A comprehensive list can be found [here](https://docs.pusher.com/chatkit/reference/javascript#connection-hooks).
     chatManager.connect().then(currentUser => {
       this.currentUser = currentUser;
-      console.log("TESTEE", currentUser);
+      const roomId = this.currentUser.rooms[0].id;
+      this.setState({roomId});
+
       this.currentUser.subscribeToRoom({
-        roomId: CHATKIT_ROOM_ID,
+        roomId: roomId,
         hooks: {
           onNewMessage: this.onReceive
         }
@@ -76,7 +76,7 @@ class ChatScreenContainer extends React.Component {
   onSend([message]) {
     this.currentUser.sendMessage({
       text: message.text,
-      roomId: CHATKIT_ROOM_ID
+      roomId: this.state.roomId
     });
   }
 
@@ -199,7 +199,7 @@ class ChatScreenContainer extends React.Component {
           renderSend={this.renderSend}
           renderInputToolbar={this.renderInputToolbar}
           user={{
-            _id: CHATKIT_USER_NAME,
+            _id: this.props.loggedUser.id,
           }}
         />
 
@@ -264,8 +264,8 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = ({fontReducer}) => {
-  return {...fontReducer};
+const mapStateToProps = ({fontReducer, authReducer}) => {
+  return {...fontReducer, ...authReducer};
 };
 
 const ChatScreen = connect(mapStateToProps)(ChatScreenContainer);

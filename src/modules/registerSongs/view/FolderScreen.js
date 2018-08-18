@@ -8,7 +8,10 @@ import {
 import {createFolder, getUserSongsFolders} from '../../../state/action';
 import {updateSongRegisterData} from "../../../state/songs/songsType";
 import {MPAlertIcon} from '../../../assets/svg';
+import { withFixedBottom } from '../../../connectors/withFixedBottom';
 
+const InputFolder = withFixedBottom(MPInput);
+const GradientButton = withFixedBottom(MPGradientButton);
 
 class FolderScreenContainer extends React.Component {
 
@@ -29,7 +32,7 @@ class FolderScreenContainer extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.userFolders && nextProps.userFolders.data && nextProps.userFolders.data.length !== this.state.folders.length) {
+    if (nextProps.userFolders && nextProps.userFolders.data) {
       let {data} = nextProps.userFolders;
       const {song} = this.props;
 
@@ -41,7 +44,7 @@ class FolderScreenContainer extends React.Component {
           return f;
         })
       }
-
+      Keyboard.dismiss();
       this.setState({folders: data, folderName: ''});
     }
   }
@@ -57,12 +60,13 @@ class FolderScreenContainer extends React.Component {
   };
 
   handleCreateFolder = () => {
-    let folder = {
-      'name': this.state.folderName,
-      'type': 'userSongs',
-    };
-    this.props.dispatch(createFolder(folder));
-    Keyboard.dismiss();
+    if(this.state.folderName){
+      let folder = {
+        'name': this.state.folderName,
+        'type': 'userSongs',
+      };
+      this.props.dispatch(createFolder(folder));
+    }
   };
 
   handleBackClick = () => {
@@ -151,16 +155,15 @@ class FolderScreenContainer extends React.Component {
           />
           <View style={styles.inputFolderContainer}>
             <MPForm>
-              <MPInput
+              <InputFolder
                 label="Nome da nova pasta"
-                validators={['required']}
                 value={this.state.folderName}
                 onBlur={this.handleFolderValidate}
                 onChangeText={this.handleChangeText}
               />
               <View>
                 <MPFormButton>
-                  <MPGradientButton
+                  <GradientButton
                     style={[styles.inputButtonAdd, bottomButtonStyle]}
                     title="Criar"
                     onPress={this.handleCreateFolder}

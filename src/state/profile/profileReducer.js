@@ -1,5 +1,7 @@
 import {
   FETCHED_PROFILE,
+  PROFILE_SONGS_START_LOADING,
+  PROFILE_SONGS_FINISH_LOADING,
   PROFILE_START_LOADING,
   PROFILE_FINISH_LOADING,
   SAVE_PROFILE_SUCCESS,
@@ -14,6 +16,7 @@ import {
   FETCHED_PROFILE_MY_SONGS,
   FETCHED_PROFILE_MY_FAVORITE_SONGS,
   PROFILE_SONG_FAVORITED_SUCCESS,
+  PROFILE_SONG_UNFAVORITED_SUCCESS,
   FETCHED_PROFILE_MY_FAVORITE_SONGS_PARTIAL,
   FETCHED_PROFILE_MY_SONGS_BY_FOLDER_PARTIAL,
   FETCHED_PROFILE_MY_SONGS_WITHOUT_FOLDER
@@ -22,17 +25,16 @@ import {
   AUTH_LOGOUT
 } from '../auth/authAction';
 import {
-  USER_FOLLOW_SUCCESS, USER_STOP_FOLLOW_SUCCESS
+  USER_FOLLOW_SUCCESS, USER_STOP_FOLLOW_SUCCESS, _appendSongsData
 } from '../user/userTypes';
 import { SONG_INDICATE_SUCCESS } from '../songs/songsType';
 
-const appendData = ({folder, data, pagination}, songs) => {
-  songs = {...songs};
-  let folderRes = songs.data.find(f => f.id === folder.id);
-  folderRes.songs = {...folder.songs, data: Object.assign([], folderRes.songs.data)};
-  folderRes.songs.data = folder.songs.data.concat(data);
-  folderRes.songs.pagination = pagination;
-  return songs;
+const appendDataFollows = ({data, pagination}, result) => {
+  result = {...result};
+  result.data = Object.assign([], result.data);
+  result.data = result.data.concat(data);
+  result.pagination = pagination;
+  return result;
 };
 
 const profileReducer = (state, action) => {
@@ -48,13 +50,14 @@ const profileReducer = (state, action) => {
       following: null,
       imageLoading: false,
       mySongs: null,
-      myFavoriteSongs: null
+      myFavoriteSongs: null,
+      profileSongsLoading: false
     };
 
   switch (action.type) {
     case USER_FOLLOW_SUCCESS:
       if (state.following) {
-        state.following.push(action.payload.user);
+        state.following.data.push(action.payload.user);
         return {
           ...state
         };
@@ -63,11 +66,11 @@ const profileReducer = (state, action) => {
 
     case USER_STOP_FOLLOW_SUCCESS:
       if (state.following && typeof action.payload.user !== 'undefined') {
-        let data = Object.assign([], state.following);
-        data.splice(state.following.indexOf(data.find(i => i.id === action.payload.user.id)), 1);
+        let data = Object.assign([], state.following.data);
+        data.splice(data.indexOf(data.find(i => i.id === action.payload.user.id)), 1);
         return {
           ...state,
-          following: data
+          following: {...state.following, data}
         };
       }
       break;
@@ -80,33 +83,19 @@ const profileReducer = (state, action) => {
       };
 
     case FETCHED_PROFILE_MY_FAVORITE_SONGS:
-      return {
-        ...state,
-        myFavoriteSongs: action.payload
-      };
-
-    case FETCHED_PROFILE_MY_SONGS_BY_FOLDER_PARTIAL:
-      return {
-        ...state,
-        mySongs: appendData(action.payload, state.mySongs)
-      };
-
     case FETCHED_PROFILE_MY_FAVORITE_SONGS_PARTIAL:
       return {
         ...state,
-        myFavoriteSongs: appendData(action.payload, state.myFavoriteSongs)
+        myFavoriteSongs: _appendSongsData(action.payload, state.myFavoriteSongs)
       };
 
     case FETCHED_PROFILE_MY_SONGS:
-      return {
-        ...state,
-        mySongs: action.payload
-      };
-
+    case FETCHED_PROFILE_MY_SONGS_BY_FOLDER_PARTIAL:
     case FETCHED_PROFILE_MY_SONGS_WITHOUT_FOLDER:
       return {
         ...state,
-        mySongs: appendData(action.payload, state.mySongs)
+        profileSongsLoading: false,
+        mySongs: _appendSongsData(action.payload, state.mySongs)
       };
 
     case SONG_INDICATE_SUCCESS:
@@ -122,9 +111,10 @@ const profileReducer = (state, action) => {
     case PROFILE_SONG_FAVORITED_SUCCESS:
       let myFavoriteSongs = {...state.myFavoriteSongs};
       let folderList = Object.assign([], myFavoriteSongs);
-      
+
       if(myFavoriteSongs && myFavoriteSongs.data && myFavoriteSongs.data.length > 0){
         let song = action.payload.song;
+        song.is_favorited = true;
         let favoritedFolder = action.payload.folder;
         if(myFavoriteSongs.data.find((obj) => {return obj.id === favoritedFolder.id})){
           let idx = myFavoriteSongs.data.map((obj) => {return obj.id}).indexOf(favoritedFolder.id);
@@ -144,7 +134,40 @@ const profileReducer = (state, action) => {
           ...state,
           myFavoriteSongs: folderList,
         }
-      } 
+      }
+      break;
+
+      case PROFILE_SONG_UNFAVORITED_SUCCESS:
+      let pMyFavoriteSongs = {...state.myFavoriteSongs};
+      let pFolderList = Object.assign([], pMyFavoriteSongs);
+
+      if(pMyFavoriteSongs && pMyFavoriteSongs.data && pMyFavoriteSongs.data.length > 0){
+        let song = action.payload;
+        let folderIndex = -1;
+        let songIndex = -1;
+        let curFolder = pFolderList.data.filter((folder, fIndex) =>{
+          if(folder.songs && folder.songs.data && folder.songs.data.length > 0 && folder.songs.data.filter((currSong, index) => {
+            if(currSong.id == song){
+              songIndex = index;
+              folderIndex = fIndex;
+            }
+            return currSong.id == song;
+          }).length > 0){
+              return true;
+            }
+        });
+
+        if(curFolder[0].songs.data.length > 1){
+          curFolder[0].songs.data.splice(songIndex, 1);
+        }else if (curFolder[0].songs.data.length == 1){
+          pFolderList.data.splice(folderIndex, 1);
+        }
+
+        return {
+          ...state,
+          myFavoriteSongs: pFolderList,
+        }
+      }
       break;
 
     case PROFILE_START_LOADING:
@@ -215,16 +238,40 @@ const profileReducer = (state, action) => {
       };
 
     case PROFILE_FOLLOWERS_FETCHED:
+      let followers = action.payload;
+
+      if(action.payload.pagination.current_page > 1){
+        followers = appendDataFollows(action.payload, state.followers)
+      }
+
       return {
         ...state,
-        followers: action.payload
+        followers
       };
 
     case PROFILE_FOLLOWING_FETCHED:
+      let following = action.payload;
+
+      if(action.payload.pagination.current_page > 1){
+        following = appendDataFollows(action.payload, state.following)
+      }
+
       return {
         ...state,
-        following: action.payload
-      }
+        following
+      };
+
+    case PROFILE_SONGS_START_LOADING:
+      return {
+        ...state,
+        profileSongsLoading: true
+      };
+
+    case PROFILE_SONGS_FINISH_LOADING:
+      return {
+        ...state,
+        profileSongsLoading: false
+      };
   }
   return state;
 };

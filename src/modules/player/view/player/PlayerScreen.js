@@ -91,8 +91,8 @@ class PlayerContainer extends React.Component {
     this.props.dispatch(likeSongComment(commentId));
   };
 
-  handleSongUnfavorite = (songId) => {
-    this.props.dispatch(unFavoriteSong(songId));
+  handleSongUnfavorite = (song) => {
+    this.props.dispatch(unFavoriteSong(song));
   };
 
   render() {

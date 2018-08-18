@@ -1,14 +1,9 @@
 import React, {Component} from 'react';
 import {
-  StyleSheet,
-  View,
-  FlatList,
-  Dimensions,
-  TouchableHighlight
+  StyleSheet, View, FlatList, Dimensions, TouchableOpacity, ActivityIndicator
 } from 'react-native';
 import {
-  MPUser,
-  MPText
+  MPUser, MPText
 } from '../../components'
 import { MPGroupIcon } from "../../assets/svg";
 
@@ -19,11 +14,26 @@ class MPShowFollowers extends Component {
 
   changeTabIndex = (tabIndex) => {
     this.setState({ tabIndex });
-    const { following, followers } = this.props;
-    // const hasToScroll = tabIndex === 0 ? following.length > 0 : followers.length > 0;
-    // if (hasToScroll) {
-    //   this.flatList.scrollToIndex({ index: 0 });
-    // }
+  };
+
+  handlePagination = () => {
+    if(this.state.tabIndex === 0){
+      this.props.onFollowingsPagination();
+    }else{
+      this.props.onFollowersPagination();
+    }
+  };
+
+  renderFooter = () => {
+    if(this.props.userFollowingLoading || this.props.userFollowersLoading) {
+      return (
+        <View style={styles.containerLoading}>
+          <ActivityIndicator size="large" color="#BB1A1A" style={styles.loading}/>
+        </View>
+      );
+    }
+
+    return null;
   };
 
   renderUsers = ({ item }) => (
@@ -38,12 +48,12 @@ class MPShowFollowers extends Component {
 
   render() {
     const { tabIndex } = this.state;
-    const  { followers, following } = this.props;
+    const  { followers, following, userFollowingLoading, userFollowersLoading } = this.props;
 
     return (
       <View>
         <View style={ styles.tabTitlesContainer }>
-          <TouchableHighlight
+          <TouchableOpacity
             underlayColor="transparent"
             onPress={() => this.changeTabIndex(0)}
             style={[ styles.tabMargin, tabIndex === 0
@@ -54,8 +64,8 @@ class MPShowFollowers extends Component {
             <MPText style={ tabIndex === 0 ? styles.selectedTitleText : styles.notSelectedTitleText }>
               SEGUINDO
             </MPText>
-          </TouchableHighlight>
-          <TouchableHighlight
+          </TouchableOpacity>
+          <TouchableOpacity
             underlayColor="transparent"
             onPress={() => this.changeTabIndex(1)}
             style={[ styles.tabMargin, tabIndex === 1
@@ -66,24 +76,48 @@ class MPShowFollowers extends Component {
             <MPText style={ tabIndex === 1 ? styles.selectedTitleText : styles.notSelectedTitleText }>
               SEGUIDORES
             </MPText>
-          </TouchableHighlight>
+          </TouchableOpacity>
         </View>
         <View style={styles.sliderContainer}>
-          <FlatList
-            ref={ref => this.flatList = ref}
-            data={tabIndex === 0 ? following : followers}
-            keyExtractor={(item) => item.id}
-            renderItem={this.renderUsers}
-            horizontal={true}
-            ListEmptyComponent={() => (
-              <View style={{ width: Dimensions.get('screen').width - 40, alignItems: 'center' }}>
-                <MPGroupIcon style={{ width: 50, height: 50 }}/>
-                <MPText style={styles.noContent}>
-                  { `Ainda não ${ tabIndex === 0 ? 'está \nseguindo' : 'é \nseguido por' } ninguém.` }
-                </MPText>
-              </View>
-            )}
-          />
+          {this.state.tabIndex == 0 && (
+            <FlatList
+              data={following}
+              keyExtractor={(item) => item.id}
+              renderItem={this.renderUsers}
+              onEndReached={this.handlePagination}
+              onEndReachedThreshold={0.1}
+              horizontal={true}
+              ListFooterComponent={this.renderFooter}
+              ListEmptyComponent={() => (
+                <View style={{ width: Dimensions.get('screen').width - 40, alignItems: 'center' }}>
+                  <MPGroupIcon style={{ width: 50, height: 50 }}/>
+                  <MPText style={styles.noContent}>
+                    { `Ainda não ${ tabIndex === 0 ? 'está \nseguindo' : 'é \nseguido por' } ninguém.` }
+                  </MPText>
+                </View>
+              )}
+            />
+          )}
+
+          {this.state.tabIndex == 1 && (
+            <FlatList
+              data={followers}
+              keyExtractor={(item) => item.id}
+              renderItem={this.renderUsers}
+              onEndReached={this.handlePagination}
+              onEndReachedThreshold={0.1}
+              horizontal={true}
+              ListFooterComponent={this.renderFooter}
+              ListEmptyComponent={() => (
+                <View style={{ width: Dimensions.get('screen').width - 40, alignItems: 'center' }}>
+                  <MPGroupIcon style={{ width: 50, height: 50 }}/>
+                  <MPText style={styles.noContent}>
+                    { `Ainda não ${ tabIndex === 0 ? 'está \nseguindo' : 'é \nseguido por' } ninguém.` }
+                  </MPText>
+                </View>
+              )}
+            />
+          )}
         </View>
       </View>
     )
@@ -139,6 +173,14 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textAlign: 'center',
     fontFamily: 'Montserrat-Regular'
+  },
+  containerLoading: {
+    width: 100,
+    height: 152,
+    justifyContent: 'center'
+  },
+  loading: {
+    alignSelf:'center'
   }
 });
 

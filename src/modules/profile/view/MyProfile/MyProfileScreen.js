@@ -1,7 +1,10 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {ProfileComponent} from '../ProfileComponent';
-import {fetchProfile, logout, fechyMySongsByFolder, fechyMyFavoriteSongsByFolder} from '../../../../state/action';
+import {
+  fetchProfile, logout, fechyMySongsByFolder, fechyMyFavoriteSongsByFolder,
+  fetchMyFollowers, fetchMyFollowings
+} from '../../../../state/action';
 import {songRegisterClear} from '../../../../state/songs/songsType';
 import {fetchMySongs} from "../../../../state/profile/profileAction";
 
@@ -86,11 +89,28 @@ class MyProfileScreenContainer extends React.Component {
     }
   };
 
+  handleFollowerPagination = () => {
+    let {current_page, total_pages} = this.props.followers.pagination;
+
+    if(current_page < total_pages) {
+      this.props.dispatch(fetchMyFollowers(this.props.profile.id, current_page + 1));
+    }
+  };
+
+  handleFollowingPagination = () => {
+    let {current_page, total_pages} = this.props.following.pagination;
+
+    if(current_page < total_pages) {
+      this.props.dispatch(fetchMyFollowings(this.props.profile.id, current_page + 1));
+    }
+  };
+
   render() {
     return (
       <ProfileComponent
         {...this.props}
         me={true}
+        songsLoading={this.props.profileSongsLoading}
         favoritesFolder={this.props.myFavoriteSongs && this.props.myFavoriteSongs.data}
         userFollowers={this.props.followers}
         userFollowings={this.props.following}
@@ -102,6 +122,8 @@ class MyProfileScreenContainer extends React.Component {
         onStopLoading={() => this.setState({ loadingProfile: false })}
         onFavoriteSongPagination={this.handleSongFavoritePagination}
         onSongPagination={this.handleSongPagination}
+        onFollowersPagination={this.handleFollowerPagination}
+        onFollowingsPagination={this.handleFollowingPagination}
       />
     )
   }
@@ -112,12 +134,14 @@ const mapStateToProps = ({profileReducer, songsReducer, userReducer, folderReduc
     songCreateSuccess, songRemoveSuccess, songPublishSuccess, songUnpublishSuccess,
     songDraftSuccess, songDraft, song
   } = songsReducer;
-  const {isUserSaved} = userReducer;
+  const {isUserSaved, userFollowingLoading, userFollowersLoading} = userReducer;
 
   return {
     ...profileReducer,
     ...folderReducer,
     isUserSaved,
+    userFollowingLoading,
+    userFollowersLoading,
     songCreateSuccess,
     songRemoveSuccess,
     songPublishSuccess,

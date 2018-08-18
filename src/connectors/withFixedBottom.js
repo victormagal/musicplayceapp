@@ -14,7 +14,9 @@ export const withFixedBottom = (WrappedComponent) => {
     componentDidMount () {
       this.keyboardDidShowListener = Keyboard.addListener(
         'keyboardDidShow',
-        (e) => this.setState({ btnLocation: e.endCoordinates.height - 50 })
+        (e) => {
+          this.setState({ btnLocation: e.endCoordinates.height - 50 })
+        }
       );
       this.keyboardDidHideListener = Keyboard.addListener(
         'keyboardDidHide',
@@ -31,7 +33,6 @@ export const withFixedBottom = (WrappedComponent) => {
       const style = this.props.style;
       const newProps = {...this.props};
       delete newProps.style;
-      console.log( style, newProps);
       return (
           <WrappedComponent {...newProps} style={[style, {marginBottom: this.state.btnLocation}]} />
       )
