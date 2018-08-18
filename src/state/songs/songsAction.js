@@ -1,5 +1,6 @@
 import {SongService} from '../../service';
 import {
+  fetchedUserSongs,
   fetchedSong,
   songDraftError,
   songDraftSuccess,
@@ -87,7 +88,7 @@ export const removeSong = (id) => {
     return SongService.delete(id).then(() => {
       dispatch(songRemoveSuccess(id));
     }).catch((e) => {
-      console.log('removeSongError', e.response);
+      console.log('removeSongError', e);
       dispatch(songRemoveError())
     });
   };

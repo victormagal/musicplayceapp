@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {ProfileComponent} from '../ProfileComponent';
 import {fetchProfile, logout, fechyMySongsByFolder, fechyMyFavoriteSongsByFolder} from '../../../../state/action';
 import {songRegisterClear} from '../../../../state/songs/songsType';
+import {fetchMySongs} from "../../../../state/profile/profileAction";
 
 
 class MyProfileScreenContainer extends React.Component {
@@ -19,13 +20,11 @@ class MyProfileScreenContainer extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    const { profile, mySongs } = this.props;
     const navigationParams = nextProps.navigation.state.params;
 
     if (navigationParams && navigationParams.backFromPublishedOrDraft) {
-      const timer = setTimeout(() => {
-        //this.props.dispatch(getFavoriteSongs());
-        clearTimeout(timer);
-      }, 500);
+      this.props.dispatch(fetchMySongs(profile.id, mySongs.current_page));
       nextProps.navigation.setParams({backFromPublishedOrDraft: false});
     }
 

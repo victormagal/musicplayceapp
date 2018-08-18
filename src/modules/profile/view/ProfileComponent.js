@@ -206,7 +206,6 @@ class ProfileComponent extends React.Component {
 
   renderContent(profile) {
     const { me, loadingProfile } = this.props;
-
     if (loadingProfile) {
       return (
         <View style={styles.containerLoading}>
