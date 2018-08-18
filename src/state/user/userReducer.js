@@ -185,7 +185,7 @@ const userReducer = (state, action) => {
       return {
         ...state,
         loading: true,
-      }
+      };
 
     case USER_NOTIFICATIONS_START_LOADING:
       return {

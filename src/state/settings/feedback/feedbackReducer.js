@@ -4,6 +4,7 @@ import {
   FEEDBACK_START_LOADING,
   FEEDBACK_FINISH_LOADING
 } from './feedbackAction';
+import {REMOVE_NOTIFICATION} from '../../general/generalAction'
 
 const feedbackReducer = (state, action) => {
   state = state || {
@@ -32,6 +33,11 @@ const feedbackReducer = (state, action) => {
       return {
         ...state,
         feedbackSaveError: true
+      };
+    case REMOVE_NOTIFICATION:
+      return {
+        ...state,
+        feedbackSaveSuccess: false
       };
   }
 
