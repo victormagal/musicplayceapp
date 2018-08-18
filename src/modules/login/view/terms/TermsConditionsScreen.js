@@ -19,7 +19,7 @@ class TermsConditionsScreen extends Component {
   render() {
     return (
       <View style={{ flex: 1, backgroundColor: '#FFF', paddingBottom: 40 }}>
-        <TermsSettingsScreen />
+        <TermsSettingsScreen navigation={this.props.navigation}/>
         <View style={styles.acceptButton}>
           <MPGradientButton title={"Aceitar"}
                             textSize={16}

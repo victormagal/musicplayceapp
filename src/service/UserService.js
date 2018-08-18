@@ -160,7 +160,7 @@ class UserService {
         type: 'reports',
         attributes : report
       }
-    }
+    };
     return axios.post(`${API}/reports`, params).then(response => {
       return response;
     });
