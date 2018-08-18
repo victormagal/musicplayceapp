@@ -175,6 +175,7 @@ const fetchFollowersFollowing = (promise, action, actionStartLoading) => {
     dispatch(actionStartLoading());
     return promise.then((response) => {
       dispatch(action(response));
+      dispatch(userFollowPartialFinishLoading());
     }).catch(e => {
       dispatch(userFollowPartialFinishLoading());
     });

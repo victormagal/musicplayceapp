@@ -1,14 +1,9 @@
 import React, {Component} from 'react';
 import {
-  StyleSheet,
-  View,
-  FlatList,
-  Dimensions,
-  TouchableOpacity
+  StyleSheet, View, FlatList, Dimensions, TouchableOpacity, ActivityIndicator
 } from 'react-native';
 import {
-  MPUser,
-  MPText
+  MPUser, MPText
 } from '../../components'
 import { MPGroupIcon } from "../../assets/svg";
 
@@ -29,6 +24,18 @@ class MPShowFollowers extends Component {
     }
   };
 
+  renderFooter = () => {
+    if(this.props.userFollowingLoading || this.props.userFollowersLoading) {
+      return (
+        <View style={styles.containerLoading}>
+          <ActivityIndicator size="large" color="#BB1A1A" style={styles.loading}/>
+        </View>
+      );
+    }
+
+    return null;
+  };
+
   renderUsers = ({ item }) => (
     <MPUser
       key={item.id}
@@ -42,9 +49,6 @@ class MPShowFollowers extends Component {
   render() {
     const { tabIndex } = this.state;
     const  { followers, following, userFollowingLoading, userFollowersLoading } = this.props;
-
-    //TODO: replace flat list when is loading
-    console.log(userFollowersLoading, userFollowingLoading);
 
     return (
       <View>
@@ -79,11 +83,11 @@ class MPShowFollowers extends Component {
             <FlatList
               data={following}
               keyExtractor={(item) => item.id}
-              refreshing={this.props.userFollowingLoading}
               renderItem={this.renderUsers}
               onEndReached={this.handlePagination}
               onEndReachedThreshold={0.1}
               horizontal={true}
+              ListFooterComponent={this.renderFooter}
               ListEmptyComponent={() => (
                 <View style={{ width: Dimensions.get('screen').width - 40, alignItems: 'center' }}>
                   <MPGroupIcon style={{ width: 50, height: 50 }}/>
@@ -99,11 +103,11 @@ class MPShowFollowers extends Component {
             <FlatList
               data={followers}
               keyExtractor={(item) => item.id}
-              refreshing={this.props.userFollowersLoading}
               renderItem={this.renderUsers}
               onEndReached={this.handlePagination}
               onEndReachedThreshold={0.1}
               horizontal={true}
+              ListFooterComponent={this.renderFooter}
               ListEmptyComponent={() => (
                 <View style={{ width: Dimensions.get('screen').width - 40, alignItems: 'center' }}>
                   <MPGroupIcon style={{ width: 50, height: 50 }}/>
@@ -169,6 +173,14 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textAlign: 'center',
     fontFamily: 'Montserrat-Regular'
+  },
+  containerLoading: {
+    width: 100,
+    height: 152,
+    justifyContent: 'center'
+  },
+  loading: {
+    alignSelf:'center'
   }
 });
 
