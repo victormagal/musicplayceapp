@@ -2,7 +2,7 @@ import {createAction} from 'redux-actions';
 import {
   userFollowingsPartialStartLoading,
   userFollowersPartialStartLoading,
-  userFollowPartialFinishLoading
+  _fetchFollowersFollowing
 } from '../user/userTypes';
 import {UserService, SongService} from '../../service';
 
@@ -134,7 +134,7 @@ export const fetchMyFavoriteSongs = (page = 1) => {
 };
 
 export const fetchMyFollowings = (id, page = 1,) => {
-  return fetchFollowersFollowing(
+  return _fetchFollowersFollowing(
     UserService.getUserFollowings(id, page),
     fetchedProfileFollowing,
     userFollowingsPartialStartLoading
@@ -142,7 +142,7 @@ export const fetchMyFollowings = (id, page = 1,) => {
 };
 
 export const fetchMyFollowers = (id, page = 1) => {
-  return fetchFollowersFollowing(
+  return _fetchFollowersFollowing(
     UserService.getUserFollowers(id, page),
     fetchedProfileFollowers,
     userFollowersPartialStartLoading
@@ -166,18 +166,6 @@ export const saveProfile = (data, section) => {
       console.log('error', e);
       console.log(e.response);
       dispatch(profileFinishLoading());
-    });
-  };
-};
-
-const fetchFollowersFollowing = (promise, action, actionStartLoading) => {
-  return (dispatch) => {
-    dispatch(actionStartLoading());
-    return promise.then((response) => {
-      dispatch(action(response));
-      dispatch(userFollowPartialFinishLoading());
-    }).catch(e => {
-      dispatch(userFollowPartialFinishLoading());
     });
   };
 };

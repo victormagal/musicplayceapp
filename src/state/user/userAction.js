@@ -29,8 +29,8 @@ import {
   userFollowingsPartialFetched,
   userFollowersPartialFetched,
   userFollowersPartialStartLoading,
-  userFollowPartialFinishLoading,
-  userFollowingsPartialStartLoading
+  userFollowingsPartialStartLoading,
+  _fetchFollowersFollowing
 } from './userTypes';
 
 
@@ -197,25 +197,19 @@ export const patchNotificationSettings = (settings) => {
 };
 
 export const userFollowings = (id, page = 1) => {
-  return (dispatch) => {
-    dispatch(userFollowingsPartialStartLoading());
-    return UserService.getUserFollowings(id, page).then((response) => {
-      dispatch(userFollowingsPartialFetched(response));
-    }).catch(e => {
-      dispatch(userFollowPartialFinishLoading());
-    });
-  };
+  return _fetchFollowersFollowing(
+    UserService.getUserFollowings(id, page),
+    userFollowingsPartialFetched,
+    userFollowingsPartialStartLoading
+  );
 };
 
 export const userFollowers = (id, page = 1) => {
-  return (dispatch) => {
-    dispatch(userFollowersPartialStartLoading());
-    return UserService.getUserFollowers(id, page).then((response) => {
-      dispatch(userFollowersPartialFetched(response));
-    }).catch(e => {
-      dispatch(userFollowPartialFinishLoading());
-    });
-  };
+  return _fetchFollowersFollowing(
+    UserService.getUserFollowers(id, page),
+    userFollowersPartialFetched,
+    userFollowersPartialStartLoading
+  );
 };
 
 export const reportProfile = (report) => {

@@ -65,3 +65,15 @@ export const userReportError = createAction(USER_REPORT_ERROR);
 export const userNotificationsSettingsFetched = createAction(USER_NOTIFICATIONS_SETTINGS_FETCHED, (data) => data);
 export const userNotificationsSettingsPatched = createAction(USER_NOTIFICATIONS_SETTINGS_PATCHED, (data) => data);
 export const userHiddenNotification = createAction(USER_HIDE_NOTIFICATION);
+
+export const _fetchFollowersFollowing = (promise, action, actionStartLoading) => {
+  return (dispatch) => {
+    dispatch(actionStartLoading());
+    return promise.then((response) => {
+      dispatch(action(response));
+      dispatch(userFollowPartialFinishLoading());
+    }).catch(e => {
+      dispatch(userFollowPartialFinishLoading());
+    });
+  };
+};
