@@ -23,7 +23,7 @@ import {
   commentSongSuccess,
   commentStartLoading
 } from "./songsType";
-import { profileSongFavoritedSuccess } from '../profile/profileAction';
+import { profileSongFavoritedSuccess, profileSongUnfavoriteSuccess } from '../profile/profileAction';
 
 export const createPermanentSong = (song) => {
   return (dispatch, getState) => {
@@ -161,6 +161,9 @@ export const unFavoriteSong = (songId) => {
     dispatch(songStartLoading());
     return SongService.unfavoriteSong(songId).then(() => {
       dispatch(songUnfavoriteSuccess());
+      setTimeout(()=> {
+        dispatch(profileSongUnfavoriteSuccess(songId));
+      }, 2000)
     }).catch(e => {
       dispatch(songUnfavoriteError())
     });

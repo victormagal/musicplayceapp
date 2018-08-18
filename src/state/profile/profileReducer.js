@@ -14,6 +14,7 @@ import {
   FETCHED_PROFILE_MY_SONGS,
   FETCHED_PROFILE_MY_FAVORITE_SONGS,
   PROFILE_SONG_FAVORITED_SUCCESS,
+  PROFILE_SONG_UNFAVORITED_SUCCESS,
   FETCHED_PROFILE_MY_FAVORITE_SONGS_PARTIAL,
   FETCHED_PROFILE_MY_SONGS_BY_FOLDER_PARTIAL,
   FETCHED_PROFILE_MY_SONGS_WITHOUT_FOLDER
@@ -125,6 +126,7 @@ const profileReducer = (state, action) => {
       
       if(myFavoriteSongs && myFavoriteSongs.data && myFavoriteSongs.data.length > 0){
         let song = action.payload.song;
+        song.is_favorited = true;
         let favoritedFolder = action.payload.folder;
         if(myFavoriteSongs.data.find((obj) => {return obj.id === favoritedFolder.id})){
           let idx = myFavoriteSongs.data.map((obj) => {return obj.id}).indexOf(favoritedFolder.id);
@@ -143,6 +145,39 @@ const profileReducer = (state, action) => {
         return {
           ...state,
           myFavoriteSongs: folderList,
+        }
+      } 
+      break;
+
+      case PROFILE_SONG_UNFAVORITED_SUCCESS:
+      let pMyFavoriteSongs = {...state.myFavoriteSongs};
+      let pFolderList = Object.assign([], pMyFavoriteSongs);
+      
+      if(pMyFavoriteSongs && pMyFavoriteSongs.data && pMyFavoriteSongs.data.length > 0){
+        let song = action.payload;
+        let folderIndex = -1;
+        let songIndex = -1;
+        let curFolder = pFolderList.data.filter((folder, fIndex) =>{
+          if(folder.songs && folder.songs.data && folder.songs.data.length > 0 && folder.songs.data.filter((currSong, index) => {
+            if(currSong.id == song){
+              songIndex = index;
+              folderIndex = fIndex;
+            }
+            return currSong.id == song;
+          }).length > 0){
+              return true;
+            }
+        });
+
+        if(curFolder[0].songs.data.length > 1){
+          curFolder[0].songs.data.splice(songIndex, 1);
+        }else if (curFolder[0].songs.data.length == 1){
+          pFolderList.data.splice(folderIndex, 1);
+        }
+
+        return {
+          ...state,
+          myFavoriteSongs: pFolderList,
         }
       } 
       break;

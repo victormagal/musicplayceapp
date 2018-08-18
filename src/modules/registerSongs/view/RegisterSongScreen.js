@@ -334,7 +334,7 @@ class RegisterSongContainer extends React.Component {
                 <MPSongInfo
                   style={styles.songItem}
                   invalid={errors.lyrics}
-                  selected={!!song.lyrics}
+                  selected={!!song.lyrics || !!song.lyricsFile || !!song.lyrics_url}
                   title={'Qual é a letra?'}
                   info={song.lyrics}
                   onPress={() => this.goToScreen('MusicLetterScreen')}
