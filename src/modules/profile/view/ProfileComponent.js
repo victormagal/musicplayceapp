@@ -126,7 +126,7 @@ class ProfileComponent extends React.Component {
         const timer = setTimeout(() => {
           this.setState({ imageSizeError: false });
           clearTimeout(timer);
-        }, 1000);
+        }, 2000);
       } else {
         this.props.dispatch(uploadImage(response))
       }

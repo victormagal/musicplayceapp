@@ -15,7 +15,11 @@ class StartScreenComponent extends Component {
         StorageService.getUser().then(user => {
           if(user) {
             dispatch(authSetStorageUser(user));
-            navigation.replace('home');
+            if (user.accepted_terms_at === null) {
+              navigation.replace('termsAndConditions', {back: false});
+            }else{
+              navigation.replace('home');
+            }
           }else{
             navigation.replace('login');
           }

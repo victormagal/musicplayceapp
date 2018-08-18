@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import { MPPlusIcon,  } from '../../../assets/svg';
 
 import images from '../../../assets/img';
-import { fetchOneSong } from '../../../state/action';
 
 class IndicateSongFeedbackScreenContainer extends React.Component {
   constructor(props){
@@ -20,10 +19,6 @@ class IndicateSongFeedbackScreenContainer extends React.Component {
     this.props.navigation.popToTop();
   };
 
-  goToScreen = (route) => {
-    this.props.navigation.navigate(route);
-  }
-
   render() {
     return (
       <View style={styles.container}>
@@ -35,8 +30,8 @@ class IndicateSongFeedbackScreenContainer extends React.Component {
             <MPPlusIcon   style={ styles.partnershipIcon }/>
             <MPUser user={this.state.artist} imagePath={this.state.artist.picture_url} onPress={() => {}} style={{}} />
           </View>
-          <MPText style={ styles.infoText }><MPText style={ styles.infoTextEmph }>203</MPText> outras pessoas sugeriram esta parceria também!</MPText>
-          <MPGradientButton title={'Fechar'} textSize={16} style={{marginHorizontal: 133}} onPress={this.handleBackClick} />
+          <MPText style={ styles.infoText }><MPText style={ styles.infoTextEmph }>{this.state.song.indications_count}</MPText> outras pessoas sugeriram esta parceria também!</MPText>
+          <MPGradientButton title='Fechar' textSize={16} style={{marginHorizontal: 133}} onPress={this.handleBackClick} />
         </ScrollView>
       </View>
     );

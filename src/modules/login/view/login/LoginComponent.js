@@ -5,7 +5,7 @@ import {
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import {
   MPGradientButton, MPHeader, MPText, MPInput, MPForm,
-  MPFormButton, MPLoading, MPButton
+  MPFormButton, MPLoading
 } from '../../../../components';
 import {
   MPFacebookIcon, MPGoogleIcon
