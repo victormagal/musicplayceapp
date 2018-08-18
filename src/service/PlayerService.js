@@ -10,8 +10,8 @@ MusicControl.enableControl('stop', false);
 class PlayerService{
 
   static play(song){
-    const duration = moment(song.duration || '0:00', 'm:ss').diff(moment().startOf('day'), 'seconds');
-
+    const duration = parseInt(moment.duration(song.duration).asSeconds())
+ 
     RNMusicPlayer.play({
       id: song.id || String(Math.random()),
       title: (song && song.name) ||  "Music 1",
@@ -64,9 +64,20 @@ class PlayerService{
   }
 
   static pauseNotification(){
-    MusicControl.updatePlayback({
-      state: MusicControl.STATE_PAUSED
-    });
+    if(Platform.OS === 'ios'){
+      // when pausing set the elapsedTime so notification bar 
+      // would represent corrent state
+      RNMusicPlayer.getCurrentState((state) => {
+        MusicControl.updatePlayback({
+          state: MusicControl.STATE_PAUSED,
+          elapsedTime: Math.floor(state['progress'])
+        });
+      });
+    } else {
+      MusicControl.updatePlayback({
+        state: MusicControl.STATE_PAUSED,
+      });
+    }
   }
 }
 
