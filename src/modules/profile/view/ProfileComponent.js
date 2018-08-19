@@ -206,7 +206,6 @@ class ProfileComponent extends React.Component {
 
   renderContent(profile) {
     const { me, loadingProfile } = this.props;
-
     if (loadingProfile) {
       return (
         <View style={styles.containerLoading}>
@@ -239,10 +238,14 @@ class ProfileComponent extends React.Component {
         { this.renderSongsData(profile) }
         <MPShowFollowers
           hideSettings={!me}
-          following={this.props.userFollowings}
-          followers={this.props.userFollowers}
+          following={(this.props.userFollowings && this.props.userFollowings.data) || []}
+          followers={(this.props.userFollowers && this.props.userFollowers.data) || []}
           onFollowerFollowingClick={this.props.onFollowerFollowingClick}
+          onFollowingsPagination={this.props.onFollowingsPagination}
+          onFollowersPagination={this.props.onFollowersPagination}
           onToggleFollowUser={this.handleToggleFollowUser}
+          userFollowingLoading={this.props.userFollowingLoading}
+          userFollowersLoading={this.props.userFollowersLoading}
         />
         { me ?
           <View style={{ backgroundColor: '#FFF', height: 90 }} />
@@ -330,12 +333,23 @@ class ProfileComponent extends React.Component {
   }
 
   renderTabsContent(profile, tabIndex) {
-    const { me, mySongs, songDraft } = this.props;
+    const { me, mySongs, songDraft, songsLoading } = this.props;
     switch (tabIndex) {
       case 0:
         return (
           <View>
-            { this.state.userFolders && this.state.userFolders.length > 0 ?
+            {songsLoading && (
+              <View style={{ backgroundColor: '#FFF' }}>
+                <View style={[styles.contentLoading, {paddingVertical: 40}]}>
+                  <ActivityIndicator size='large' color='#BB1A1A' />
+                  <MPText style={styles.textLoading}>
+                    Carregando...
+                  </MPText>
+                </View>
+              </View>
+            )}
+
+            {!songsLoading && this.state.userFolders && this.state.userFolders.length > 0 ?
             this.state.userFolders.map(userFolder => (
               <MPShowFolderSongs
                   {...this.props}

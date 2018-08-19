@@ -25,7 +25,14 @@ import {
   userReportError,
   userFollowNotificationsStartLoading,
   userFollowNotificationsFinishedLoading,
-  userSongsByFolderFetched
+  userSongsByFolderFetched,
+  userFollowingsPartialFetched,
+  userFollowersPartialFetched,
+  userFollowersPartialStartLoading,
+  userFollowingsPartialStartLoading,
+  userSongsStartLoading,
+  userSongsFinishLoading,
+  _fetchFollowersFollowing
 } from './userTypes';
 
 
@@ -80,10 +87,13 @@ export const getUserById = (id) => {
 
 export const userSongs = (id, page = 1) => {
   return (dispatch) => {
+    dispatch(userSongsStartLoading());
+
     return SongService.mySongs(id, page).then(response => {
+      //TODO: finish folder pagination
       dispatch(userSongsFetched(response));
     }).catch(e => {
-      console.log('userSongsError', e.response);
+      dispatch(userSongsFinishLoading());
     });
   };
 };
@@ -191,7 +201,21 @@ export const patchNotificationSettings = (settings) => {
   };
 };
 
+export const userFollowings = (id, page = 1) => {
+  return _fetchFollowersFollowing(
+    UserService.getUserFollowings(id, page),
+    userFollowingsPartialFetched,
+    userFollowingsPartialStartLoading
+  );
+};
 
+export const userFollowers = (id, page = 1) => {
+  return _fetchFollowersFollowing(
+    UserService.getUserFollowers(id, page),
+    userFollowersPartialFetched,
+    userFollowersPartialStartLoading
+  );
+};
 
 export const reportProfile = (report) => {
   return (dispatch) => {

@@ -1,6 +1,7 @@
 import React from 'react';
+import {Keyboard} from 'react-native';
 import {connect} from 'react-redux';
-import {PlayerSaveSong} from './PlayerSaveSongComponent';
+import {PlayerSaveSongComponent} from './PlayerSaveSongComponent';
 import { favoriteSong, createFolder, getFavoriteSongsFolders} from '../../../../state/action';
 
 
@@ -25,8 +26,9 @@ class PlayerSaveSongContainer extends React.Component {
 
   componentWillReceiveProps(nextProps){
     if(nextProps.favoritesFolder){
-      if (nextProps.favoritesFolder && nextProps.favoritesFolder.data && nextProps.favoritesFolder.data.length !== this.state.folders.length) {
-        this.setState({folders: nextProps.favoritesFolder.data});
+      if (nextProps.favoritesFolder && nextProps.favoritesFolder.data) {
+        Keyboard.dismiss();
+        this.setState({folders: nextProps.favoritesFolder.data, folderName: ''});
       }
     }
 
@@ -80,7 +82,7 @@ class PlayerSaveSongContainer extends React.Component {
 
   render() {
     return (
-      <PlayerSaveSong
+      <PlayerSaveSongComponent
         folders={this.state.folders}
         folderName={this.state.folderName}
         onBack={this.handleBack}

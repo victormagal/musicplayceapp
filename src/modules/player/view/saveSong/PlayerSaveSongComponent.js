@@ -5,6 +5,9 @@ import {
 } from '../../../../components';
 import {withFixedBottom} from '../../../../connectors/withFixedBottom';
 
+const InputFolder = withFixedBottom(MPInput);
+const GradientButton = withFixedBottom(MPGradientButton);
+
 class PlayerSaveSongComponent extends React.Component {
 
   handleSelectFolder = (index) => {
@@ -41,12 +44,12 @@ class PlayerSaveSongComponent extends React.Component {
           onEndReachedThreshold={0.1}
         />
         <View style={styles.inputFolderContainer}>
-          <MPInput
+          <InputFolder
             label="Nome da nova pasta"
             value={this.props.folderName}
             onChangeText={this.props.onChangeText}
           />
-          <MPGradientButton
+          <GradientButton
             style={styles.inputButtonAdd}
             title="Criar"
             onPress={this.props.onAddFolder}
@@ -81,5 +84,4 @@ const styles = StyleSheet.create({
   }
 });
 
-const PlayerSaveSong = withFixedBottom(PlayerSaveSongComponent);
-export {PlayerSaveSong};
+export {PlayerSaveSongComponent};

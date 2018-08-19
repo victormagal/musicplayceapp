@@ -27,7 +27,7 @@ class MPConfirmExcludeSongComponent extends React.Component {
 
   handleRemoveSong = () => {
     let {song} = this.props.navigation.state.params;
-    this.props.dispatch(removeSong(song.id))
+    this.props.dispatch(removeSong(song.id));
   };
 
   render() {

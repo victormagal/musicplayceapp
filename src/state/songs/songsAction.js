@@ -1,5 +1,6 @@
 import {SongService} from '../../service';
 import {
+  fetchedUserSongs,
   fetchedSong,
   songDraftError,
   songDraftSuccess,
@@ -23,7 +24,7 @@ import {
   commentSongSuccess,
   commentStartLoading
 } from "./songsType";
-import { profileSongFavoritedSuccess } from '../profile/profileAction';
+import { profileSongFavoritedSuccess, profileSongUnfavoriteSuccess } from '../profile/profileAction';
 
 export const createPermanentSong = (song) => {
   return (dispatch, getState) => {
@@ -87,7 +88,7 @@ export const removeSong = (id) => {
     return SongService.delete(id).then(() => {
       dispatch(songRemoveSuccess(id));
     }).catch((e) => {
-      console.log('removeSongError', e.response);
+      console.log('removeSongError', e);
       dispatch(songRemoveError())
     });
   };
@@ -161,6 +162,9 @@ export const unFavoriteSong = (songId) => {
     dispatch(songStartLoading());
     return SongService.unfavoriteSong(songId).then(() => {
       dispatch(songUnfavoriteSuccess());
+      setTimeout(()=> {
+        dispatch(profileSongUnfavoriteSuccess(songId));
+      }, 2000)
     }).catch(e => {
       dispatch(songUnfavoriteError())
     });

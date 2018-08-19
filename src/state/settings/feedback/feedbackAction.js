@@ -1,5 +1,6 @@
 import {createAction} from 'redux-actions';
-import {FeedbackService} from '../../../service/index';
+import {scheduleRemoveNotifications} from '../../general/generalAction';
+import {FeedbackService} from '../../../service';
 
 
 export const FEEDBACK_START_LOADING = 'FEEDBACK_START_LOADING';
@@ -12,12 +13,14 @@ export const feedbackEndLoading = createAction(FEEDBACK_FINISH_LOADING);
 export const sendFeedbackSuccess = createAction(FEEDBACK_SAVE_SUCCESS);
 export const sendFeedbackError = createAction(FEEDBACK_SAVE_ERROR);
 
+
 export const createFeedback = (feedback) => {
   return (dispatch) => {
     dispatch(feedbackStartLoading());
     return FeedbackService.createFeedback(feedback).then(response => {
       dispatch(sendFeedbackSuccess());
       dispatch(feedbackEndLoading());
+      dispatch(scheduleRemoveNotifications());
       return response;
     }).catch(e => {
       console.log('error', e);

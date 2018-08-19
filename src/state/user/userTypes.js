@@ -5,6 +5,8 @@ export const USER_SONGS_FETCHED = 'USER_SONGS_FETCHED';
 export const USER_SONGS_BY_FOLDER_FETCHED = 'USER_SONGS_BY_FOLDER_FETCHED';
 export const USER_START_LOADING = 'USER_START_LOADING';
 export const USER_FINISH_LOADING = 'USER_FINISH_LOADING';
+export const USER_SONGS_START_LOADING = 'USER_SONGS_START_LOADING';
+export const USER_SONGS_FINISH_LOADING = 'USER_SONGS_FINISH_LOADING';
 export const USER_BY_ID_FETCHED = 'USER_BY_ID_FETCHED';
 export const USER_SAVE_SUCCESS = 'USER_SAVE_SUCCESS';
 export const USER_SAVE_ERROR = 'USER_SAVE_ERROR';
@@ -23,6 +25,11 @@ export const USER_NOTIFICATIONS_SETTINGS_FETCHED = 'USER_NOTIFICATIONS_SETTINGS_
 export const USER_NOTIFICATIONS_SETTINGS_PATCHED = 'USER_NOTIFICATIONS_SETTINGS_PATCHED';
 export const USER_FOLLOWERS_FETCHED = 'USER_FOLLOWERS_FETCHED';
 export const USER_FOLLOWINGS_FETCHED = 'USER_FOLLOWINGS_FETCHED';
+export const USER_FOLLOWERS_PARTIAL_START_LOADING = 'USER_FOLLOWERS_PARTIAL_START_LOADING';
+export const USER_FOLLOWINGS_PARTIAL_START_LOADING = 'USER_FOLLOWINGS_PARTIAL_START_LOADING';
+export const USER_FOLLOW_PARTIAL_FINISH_LOADING = 'USER_FOLLOW_PARTIAL_FINISH_LOADING';
+export const USER_FOLLOWERS_PARTIAL_FETCHED = 'USER_FOLLOWERS_PARTIAL_FETCHED';
+export const USER_FOLLOWINGS_PARTIAL_FETCHED = 'USER_FOLLOWINGS_PARTIAL_FETCHED';
 export const USER_REPORT_STARTED = 'USER_REPORT_STARTED';
 export const USER_REPORT_SUCCESS = 'USER_REPORT_SUCCESS';
 export const USER_REPORT_ERROR = 'USER_REPORT_ERROR';
@@ -32,6 +39,8 @@ export const usersFetched = createAction(USERS_FETCHED, (data) => data);
 export const userByIdFetched = createAction(USER_BY_ID_FETCHED, (data) => data);
 export const userStartLoading = createAction(USER_START_LOADING);
 export const userFinishLoading = createAction(USER_FINISH_LOADING);
+export const userSongsStartLoading = createAction(USER_SONGS_START_LOADING);
+export const userSongsFinishLoading = createAction(USER_SONGS_FINISH_LOADING);
 export const userSaveSuccess = createAction(USER_SAVE_SUCCESS);
 export const userSaveError = createAction(USER_SAVE_ERROR);
 export const userStopFollowSuccess = createAction(USER_STOP_FOLLOW_SUCCESS, data => data);
@@ -49,9 +58,40 @@ export const userNotificationsSettingsStartLoading = createAction(USER_NOTIFICAT
 export const userNotificationsSettingsFinishedLoading = createAction(USER_NOTIFICATIONS_SETTINGS_FINISHED_LOADING);
 export const userFollowersFetched = createAction(USER_FOLLOWERS_FETCHED, (data) => data);
 export const userFollowingsFetched = createAction(USER_FOLLOWINGS_FETCHED, (data) => data);
+export const userFollowersPartialStartLoading = createAction(USER_FOLLOWERS_PARTIAL_START_LOADING);
+export const userFollowingsPartialStartLoading = createAction(USER_FOLLOWINGS_PARTIAL_START_LOADING);
+export const userFollowPartialFinishLoading = createAction(USER_FOLLOW_PARTIAL_FINISH_LOADING);
+export const userFollowingsPartialFetched = createAction(USER_FOLLOWINGS_PARTIAL_FETCHED, (data) => data);
+export const userFollowersPartialFetched = createAction(USER_FOLLOWERS_PARTIAL_FETCHED, (data) => data);
 export const userReportStarted = createAction(USER_REPORT_STARTED);
 export const userReportSuccess = createAction(USER_REPORT_SUCCESS, data => data);
 export const userReportError = createAction(USER_REPORT_ERROR);
 export const userNotificationsSettingsFetched = createAction(USER_NOTIFICATIONS_SETTINGS_FETCHED, (data) => data);
 export const userNotificationsSettingsPatched = createAction(USER_NOTIFICATIONS_SETTINGS_PATCHED, (data) => data);
 export const userHiddenNotification = createAction(USER_HIDE_NOTIFICATION);
+
+export const _fetchFollowersFollowing = (promise, action, actionStartLoading) => {
+  return (dispatch) => {
+    dispatch(actionStartLoading());
+    return promise.then((response) => {
+      dispatch(action(response));
+      dispatch(userFollowPartialFinishLoading());
+    }).catch(e => {
+      dispatch(userFollowPartialFinishLoading());
+    });
+  };
+};
+
+export const _appendSongsData = ({folder, data, pagination}, songs) => {
+  if(songs != null) {
+    songs = {...songs};
+    let folderRes = songs.data.find(f => f.id === folder.id);
+    folderRes.songs = {...folder.songs, data: Object.assign([], folderRes.songs.data)};
+    folderRes.songs.data = folder.songs.data.concat(data);
+    folderRes.songs.pagination = pagination;
+    return songs;
+  }
+
+  return {data, pagination}
+};
+
