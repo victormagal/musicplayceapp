@@ -5,12 +5,25 @@ import { PlayerCommentSongComponent } from './PlayerCommentSongComponent';
 
 
 class PlayerCommentSongScreenContainer extends React.Component {
-  constructor(props){
-    super(props);
-    this.state = {
-        commentText: '',
-        song: null,
-    };
+
+  state = {
+    commentText: '',
+    song: null
+  };
+
+  componentDidMount(){
+    if(this.props.navigation.state && this.props.navigation.state.params){
+      let {song} = this.props.navigation.state.params;
+      if(song) {
+        this.setState({song: song});
+      }
+    }
+  };
+
+  componentWillReceiveProps(nextProps){
+    if(nextProps.songCommentedSuccess){
+      this.props.navigation.pop();
+    }
   }
 
   handleBack = () => {
@@ -20,31 +33,16 @@ class PlayerCommentSongScreenContainer extends React.Component {
   handleSave = () => {
     let {song, commentText} = this.state;
       this.props.dispatch(commentSong(song.id, commentText));
-  }
-
-  handleChangeText = (value) => {
-    this.setState({commentText: value});
   };
 
-  componentDidMount = () => {
-    if(this.props.navigation.state && this.props.navigation.state.params){
-      let {song} = this.props.navigation.state.params;
-      if(song) {
-        this.setState({song: song});
-      }
-    }
-  }
-
-  componentWillReceiveProps(nextProps){
-    if(nextProps.songCommentedSuccess){
-      this.props.navigation.pop(); 
-    }
-  }
+  handleChangeText = ({value}) => {
+    this.setState({commentText: value});
+  };
 
   render() {
     return (
       <PlayerCommentSongComponent
-        folderName={this.state.commentText}
+        commentText={this.state.commentText}
         onBack={this.handleBack}
         onSave={this.handleSave}
         onChangeText={this.handleChangeText}

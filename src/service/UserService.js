@@ -102,25 +102,28 @@ class UserService {
       });
   }
 
-  static indications(){
-    return axios.get(`${API_USER}/me/indications`)
-      .then(response => {
-        const { attributes } = response.data.data;
-        return { ...attributes };
-      });
+  static getUserFollowings(user, page){
+    return UserService._followersOrFollowing(`${API_USER}/${user}/following`, page);
   }
 
-  static getUserFollowings(user){
-    return axios.get(`${API_USER}/${user}?include=userFollower`)
-      .then(response => {
-        return transformResponseData(response.data.included || []);
-      });
+  static getUserFollowers(user, page){
+    return UserService._followersOrFollowing(`${API_USER}/${user}/followers`, page);
   }
 
-  static getUserFollowers(user){
-    return axios.get(`${API_USER}/${user}?include=userFollowing`)
+  static _followersOrFollowing(url, page){
+    let params = {
+      'page[size]': 7
+    };
+
+    if(page){
+      params['page[number]'] = page;
+    }
+
+    return axios.get(url, {params})
       .then(response => {
-        return transformResponseData(response.data.included || []);
+        let {data, meta} = response.data;
+        data = transformResponseData(data);
+        return {data, ...meta};
       });
   }
 
@@ -132,16 +135,14 @@ class UserService {
     return axios.delete(`${API_USER}/me/following/${user}`);
   }
 
-  static getNotifications(){
-    return axios.get(`${API_USER}/me/notifications`).then((response) => {
-      console.log(response);
+  static getNotifications(page){
+    return axios.get(`${API_USER}/me/notifications?page=${page}`).then((response) => {
       return response.data;
     });
   }
 
-  static getFollowNotifications(){
-    return axios.get(`${API_USER}/me/notifications?searchType=following`).then((response) => {
-      console.log(response);
+  static getFollowNotifications(page){
+    return axios.get(`${API_USER}/me/notifications?page=${page}&searchType=following`).then((response) => {
       return response.data;
     });
   }
@@ -170,7 +171,7 @@ class UserService {
         type: 'reports',
         attributes : report
       }
-    }
+    };
     return axios.post(`${API}/reports`, params).then(response => {
       return response;
     });

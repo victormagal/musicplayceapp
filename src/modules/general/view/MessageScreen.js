@@ -9,13 +9,17 @@ import {
 
 class MessageScreen extends React.Component {
 
+  handleBackClick = () => {
+    this.props.navigation.pop();
+  };
+
   render() {
     let {component, title, ...rest} =  this.props.navigation.state.params;
     let Content = component || View;
 
     return (
       <View style={styles.parent}>
-        <MPHeader title={title}/>
+        <MPHeader title={title} back={rest.back} onBack={this.handleBackClick}/>
         <Content {...this.props} {...rest} />
       </View>
     );

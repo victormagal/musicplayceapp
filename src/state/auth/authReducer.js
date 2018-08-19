@@ -1,6 +1,6 @@
 import {
   AUTH_START_LOADING, AUTH_LOGIN_ERROR, AUTH_LOGIN_SUCCESS, AUTH_RECOVER_PASSWORD_ERROR,
-  AUTH_RECOVER_PASSWORD_SUCCESS
+  AUTH_RECOVER_PASSWORD_SUCCESS, AUTH_SET_STORAGE_USER
 } from './authAction';
 
 const authReducer = (state, action) => {
@@ -9,8 +9,11 @@ const authReducer = (state, action) => {
       loginSuccess: false,
       recoverPasswordError: false,
       recoverPasswordSuccess: false,
-      loading: false
-  };
+      loading: false,
+      loggedUser: null
+    };
+
+  state.loginSuccess = false;
 
   switch (action.type) {
     case AUTH_START_LOADING:
@@ -26,11 +29,18 @@ const authReducer = (state, action) => {
         loginError: true
       };
 
+    case AUTH_SET_STORAGE_USER:
+      return {
+        ...state,
+        loggedUser: action.payload
+      };
+
     case AUTH_LOGIN_SUCCESS:
       return {
         ...state,
         loading: false,
-        loginSuccess: true
+        loginSuccess: true,
+        loggedUser: action.payload
       };
 
     case AUTH_RECOVER_PASSWORD_SUCCESS:

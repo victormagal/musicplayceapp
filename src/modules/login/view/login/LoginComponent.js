@@ -4,7 +4,7 @@ import {
 } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import {
-  MPButton, MPGradientButton, MPHeader, MPText, MPInput, MPForm,
+  MPGradientButton, MPHeader, MPText, MPInput, MPForm,
   MPFormButton, MPLoading
 } from '../../../../components';
 import {
@@ -34,8 +34,8 @@ class LoginComponent extends Component {
 
   state = {
     form: {
-      login: 'user@gmail.com',
-      password: '123456'
+      login: '',
+      password: ''
     }
   };
 
@@ -58,16 +58,15 @@ class LoginComponent extends Component {
         <MPHeader style={styles.header} inverse={true}/>
 
         <KeyboardAwareScrollView>
-        {/*<ScrollView>*/}
           <View style={styles.container}>
             <MPText style={styles.title}>Bem-vindo ao MusicPlayce</MPText>
 
-            <MPButton icon={FacebookIcon} title="Entre com Facebook" textSize={16} onPress={() => {}} style={styles.signinFB}/>
-            <MPButton icon={GoogleIcon} title="Entre com Google+" textSize={16} onPress={() => {}} style={styles.signinGoogle}/>
+            {/*<MPButton icon={FacebookIcon} title="Entre com Facebook" textSize={16} onPress={() => {}} style={styles.signinFB}/>*/}
+            {/*<MPButton icon={GoogleIcon} title="Entre com Google+" textSize={16} onPress={() => {}} style={styles.signinGoogle}/>*/}
 
             {!this.props.error && (
               <View>
-                <MPText style={styles.ouText}>ou</MPText>
+                {/*<MPText style={styles.ouText}>ou</MPText>*/}
                 <MPText style={styles.signinUser}>Entre com seu usuário</MPText>
               </View>
             )}
@@ -80,11 +79,22 @@ class LoginComponent extends Component {
             )}
 
               <MPForm>
-                <MPInput label="Email ou Usuário" name="login" value={this.state.form.login}
-                         onChangeText={this.handleChangeText} validators={['required']} />
-                <MPInput label={"Senha"} name="password" value={this.state.form.password}
-                         onChangeText={this.handleChangeText} validators={['required']}
-                         secureTextEntry={true}/>
+                <MPInput
+                  label="Email ou Usuário"
+                  name="login" value={this.state.form.login}
+                  onChangeText={this.handleChangeText}
+                  validators={['required']}
+                  autoCapitalize={'none'}
+                />
+                <MPInput
+                  label={"Senha"}
+                  name="password"
+                  value={this.state.form.password}
+                  onChangeText={this.handleChangeText}
+                  validators={['required']}
+                  secureTextEntry={true}
+                  autoCapitalize={'none'}
+                />
 
                 <View style={styles.signinContainer}>
                   <MPFormButton>
@@ -99,10 +109,7 @@ class LoginComponent extends Component {
 
           </View>
         </KeyboardAwareScrollView>
-        {/*</ScrollView>*/}
-
         <MPLoading visible={this.props.loading} />
-
       </LinearGradient>
     );
   }

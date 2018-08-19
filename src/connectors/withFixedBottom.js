@@ -2,8 +2,8 @@ import React from 'react';
 import {View, Keyboard} from 'react-native'
 import hoistNonReactStatics from 'hoist-non-react-statics';
 
-export default () => (WrappedComponent) => {
-  class newClass extends React.Component {
+export const withFixedBottom = (WrappedComponent) => {
+  return class extends React.Component {
     constructor(props) {
       super(props);
       this.state = {
@@ -14,7 +14,9 @@ export default () => (WrappedComponent) => {
     componentDidMount () {
       this.keyboardDidShowListener = Keyboard.addListener(
         'keyboardDidShow',
-        (e) => this.setState({ btnLocation: e.endCoordinates.height - 50 })
+        (e) => {
+          this.setState({ btnLocation: e.endCoordinates.height - 50 })
+        }
       );
       this.keyboardDidHideListener = Keyboard.addListener(
         'keyboardDidHide',
@@ -28,12 +30,12 @@ export default () => (WrappedComponent) => {
     }
 
     render() {
+      const style = this.props.style;
+      const newProps = {...this.props};
+      delete newProps.style;
       return (
-        <View style={{ flex: 1, marginBottom: this.state.btnLocation }}>
-          <WrappedComponent {...this.props} />
-        </View>
+          <WrappedComponent {...newProps} style={[style, {marginBottom: this.state.btnLocation}]} />
       )
     }
   }
-  return hoistNonReactStatics(newClass, WrappedComponent);
 }

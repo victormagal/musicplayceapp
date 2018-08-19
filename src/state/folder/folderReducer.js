@@ -1,12 +1,12 @@
 import {
-  FOLDER_START_LOADING, FOLDER_FINISH_LOADING, FETCHED_FOLDERS, FETCHED_FAVORITES_FOLDERS_SONGS, FETCHED_USER_FOLDERS_SONGS
+  FOLDER_START_LOADING, FOLDER_FINISH_LOADING,
+  CREATE_FOLDER_ERROR, FETCHED_USER_FOLDERS, FETCHED_FAVORITES_FOLDERS
 } from './folderAction';
 
 
 const folderReducer = (state, action) => {
   state = state || {
       loading: false,
-      folders: null,
       favoritesFolder: null,
       userFolders: null
     };
@@ -19,31 +19,38 @@ const folderReducer = (state, action) => {
         loading: true
       };
 
+    case CREATE_FOLDER_ERROR:
     case FOLDER_FINISH_LOADING:
       return {
         ...state,
         loading: false
       };
 
-    case FETCHED_FOLDERS:
+    case FETCHED_USER_FOLDERS:
+      let folders = action.payload;
+      if(state.userFolders && action.payload.pagination.current_page > 1) {
+        folders = {...state.userFolders};
+        folders.data = folders.data.concat(action.payload.data);
+        folders.pagination = action.payload.pagination;
+      }
+
       return {
         ...state,
         loading: false,
-        folders: action.payload
+        userFolders: folders
       };
 
-    case FETCHED_FAVORITES_FOLDERS_SONGS:
+    case FETCHED_FAVORITES_FOLDERS:
+      let favoriteFolders = action.payload;
+      if(state.favoritesFolder && action.payload.pagination.current_page > 1) {
+        favoriteFolders = {...state.favoritesFolder};
+        favoriteFolders.data = favoriteFolders.data.concat(action.payload.data);
+        favoriteFolders.pagination = action.payload.pagination;
+      }
       return {
         ...state,
         loading: false,
-        favoritesFolder: action.payload
-      };
-
-    case FETCHED_USER_FOLDERS_SONGS:
-      return {
-        ...state,
-        loading: false,
-        userFolders: action.payload
+        favoritesFolder: favoriteFolders
       };
   }
 

@@ -16,6 +16,7 @@ import {
   MPConfirmRemovePayment
 } from '../../../components';
 import { connect } from 'react-redux';
+import { KeyboardAwareScrollView } from '../../../../node_modules/react-native-keyboard-aware-scroll-view';
 
 class PaymentTypesScreenContainer extends React.Component {
 
@@ -104,7 +105,7 @@ class PaymentTypesScreenContainer extends React.Component {
           onBack={this.handleBack}
           title={"Mantenha sua carteira atualizada"}
         />
-        <ScrollView style={styles.scroll}>
+        <KeyboardAwareScrollView style={styles.scroll}>
           <MPPaymentTypes 
             cards={this.state.cards}
             onAddPayment={this.addPayment.bind(this)}
@@ -120,7 +121,7 @@ class PaymentTypesScreenContainer extends React.Component {
               <MPShowBonuses bonus={this.state.bonus}/>
             ) : null
           }
-        </ScrollView>
+        </KeyboardAwareScrollView>
       </View>
     );
   }

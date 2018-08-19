@@ -74,13 +74,7 @@ class MPSongRating extends Component {
   }
 
   render() {
-    const {
-      song,
-      style,
-      indicateSong,
-      indications,
-      isNew
-    } = this.props;
+    const {song, style, isNew} = this.props;
 
     return (
       <View style={style || {}}>
@@ -94,9 +88,11 @@ class MPSongRating extends Component {
                     style={{ width: 100, height: 100 }}
                     source={ song.picture_url ? { uri: song.picture_url } : require('../../assets/img/album-default.png')}/>
 
-                  <TouchableOpacity style={styles.playIcon} onPress={this.handlePlayClick}>
-                    <MPPlayIcon />
-                  </TouchableOpacity>
+                  {song.path && (
+                    <TouchableOpacity style={styles.playIcon} onPress={this.handlePlayClick}>
+                      <MPPlayIcon />
+                    </TouchableOpacity>
+                  )}
                   { this.renderTopIcons() }
                   {song && !song.published_at && (
                     <View style={ styles.draftContainer}>
@@ -105,12 +101,11 @@ class MPSongRating extends Component {
                   )}
                 </View>
                 <View>
-                  <MPText style={ styles.simpleUserCardText }
-                          onPress={this.toggleState.bind(this)}>{ song && song.name || '' }</MPText>
+                  <MPText style={ styles.simpleUserCardText }>{ song && song.name || '' }</MPText>
                   <MPShowRating rating={song.rating}/>
                 </View>
                 {
-                  indicateSong && indications == null && isNew == null && (
+                  !song.is_indication && (
                     <TouchableOpacity style={ styles.indicateSongContainer }
                                       onPress={() => this.props.onIndicateClick(song)}>
                       <MPSongIndicateIcon />
@@ -118,11 +113,10 @@ class MPSongRating extends Component {
                     </TouchableOpacity>
                   )
                 }
-                {
-                  indications != null && isNew == null && (
+                {song.is_indication && (
                     <View style={styles.indicateSongContainer}>
                       <MPSongIndicateFullIcon />
-                      <MPText style={styles.indicateSongText}>{ indications } INDICAÇÕES</MPText>
+                      <MPText style={styles.indicateSongText}>{ song.indications_count } {"\n"}INDICAÇÕES</MPText>
                     </View>
                   )
                 }
@@ -201,7 +195,7 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     margin: 0,
     padding: 0,
-    height: 190,
+    height: 195,
     overflow: 'hidden',
     width: 100,
     marginBottom: 5,
@@ -227,8 +221,7 @@ const styles = StyleSheet.create({
   indicateSongContainer: {
     flexDirection: 'row',
     paddingHorizontal: 10,
-    marginBottom: 10,
-    height: 16
+    marginBottom: 10
   },
   indicateSongText: {
     fontSize: 9,
@@ -317,7 +310,8 @@ const styles = StyleSheet.create({
   },
   playIcon: {
     position: 'absolute',
-    alignSelf: 'center'
+    alignSelf: 'center',
+    padding: 15
   }
 
 });

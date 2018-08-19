@@ -19,11 +19,17 @@ class AuthService {
     return axios.post(`${API_AUTH}/login`, params)
       .then(response => {
         StorageService.setToken(response.data);
-        return response.data;
+        return AuthService.me().then(({data}) => {
+          let {id, attributes} = data.data;
+          let user = {id, ...attributes};
+          StorageService.setUser(user);
+          return user;
+        });
       });
   }
 
   static logout() {
+    delete axios.defaults.headers.common['Authorization'];
     StorageService.clear();
   }
 

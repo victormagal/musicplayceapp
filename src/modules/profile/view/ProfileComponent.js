@@ -1,12 +1,7 @@
 import React from 'react';
 import {
-  View,
-  StyleSheet,
-  ScrollView,
-  TouchableOpacity,
-  ActivityIndicator,
-  ImageBackground,
-  Dimensions
+  View, StyleSheet, ScrollView, TouchableOpacity,
+  ActivityIndicator, ImageBackground, Dimensions
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import PropTypes from 'prop-types';
@@ -15,17 +10,14 @@ import {
   MPFollowButton, ProfileIndicatorCE, MPAddSongButton, MPAddChangePhoto,
   MPUploadFirstSong, MPShowFollowers, MPShowAgencies, MPReportProfile, MPShowFolderSongs, MPGradientButton,
   MPConfirmStopFollow, MPConfirmExcludeSong, MPConfirmUnpublishSong, MPConfirmReportProfile, MPIconButton,
-  MPText,
-  MPLoading
+  MPText, MPLoading
 } from '../../../components/';
 import {
-  MPProfileArrowIcon,
-  MPSettingsIcon,
-  MPSongAddIcon
+  MPProfileArrowIcon, MPSettingsIcon, MPSongAddIcon
 } from '../../../assets/svg/'
-import {uploadImage, followUser, getFavoriteSongsWithFolders} from "../../../state/action";
+import {uploadImage, followUser} from "../../../state/action";
 import ImagePicker from 'react-native-image-picker';
-import {MPCameraIcon, MPGroupIcon, MPProfileIcon} from "../../../assets/svg";
+import {MPGroupIcon, MPProfileIcon} from "../../../assets/svg";
 import {MPFloatingNotification} from "../../../components/general";
 
 class ProfileComponent extends React.Component {
@@ -50,6 +42,10 @@ class ProfileComponent extends React.Component {
 
     if(nextProps.mySongs){
       this.setState({userFolders: nextProps.mySongs.data});
+    }
+
+    if (this.props.profile !== nextProps.profile) {
+      this.props.onStopLoading()
     }
   }
 
@@ -82,8 +78,6 @@ class ProfileComponent extends React.Component {
   };
 
   handlePlaySong = (song) => {
-    song.artist = this.props.profile;
-    console.log(song);
     this.props.navigation.navigate('player', {song});
   };
 
@@ -101,8 +95,6 @@ class ProfileComponent extends React.Component {
 
 
   handleToggleFollowUser = (user) => {
-    console.log("PROFILE", "HERE", user);
-
     if (user.isFollowing) {
       this.props.navigation.navigate('message', { component: MPConfirmStopFollow, profile: user});
     }else{
@@ -134,7 +126,7 @@ class ProfileComponent extends React.Component {
         const timer = setTimeout(() => {
           this.setState({ imageSizeError: false });
           clearTimeout(timer);
-        }, 1000);
+        }, 2000);
       } else {
         this.props.dispatch(uploadImage(response))
       }
@@ -213,9 +205,8 @@ class ProfileComponent extends React.Component {
   }
 
   renderContent(profile) {
-    const { me } = this.props;
-
-    if (!profile) {
+    const { me, loadingProfile } = this.props;
+    if (loadingProfile) {
       return (
         <View style={styles.containerLoading}>
           <View style={styles.contentLoading}>
@@ -247,10 +238,14 @@ class ProfileComponent extends React.Component {
         { this.renderSongsData(profile) }
         <MPShowFollowers
           hideSettings={!me}
-          following={this.props.userFollowings}
-          followers={this.props.userFollowers}
+          following={(this.props.userFollowings && this.props.userFollowings.data) || []}
+          followers={(this.props.userFollowers && this.props.userFollowers.data) || []}
           onFollowerFollowingClick={this.props.onFollowerFollowingClick}
+          onFollowingsPagination={this.props.onFollowingsPagination}
+          onFollowersPagination={this.props.onFollowersPagination}
           onToggleFollowUser={this.handleToggleFollowUser}
+          userFollowingLoading={this.props.userFollowingLoading}
+          userFollowersLoading={this.props.userFollowersLoading}
         />
         { me ?
           <View style={{ backgroundColor: '#FFF', height: 90 }} />
@@ -262,17 +257,19 @@ class ProfileComponent extends React.Component {
   }
 
   renderProfileData(profile) {
-    const { me, indications, navigation } = this.props;
-    const countIndications =  (indications && indications.count);
+    const { me, navigation, loggedUser } = this.props;
+    const countIndications =  profile.indicationsCount || 0;
+    const hiddenFollow = loggedUser && loggedUser.id === profile.id;
+
     return (
-      <View>
+      <View style={styles.infoContainer}>
         { me ?
           <MPAddChangePhoto
             onPressPhoto={this.handleClickPhoto}
             hasPhoto={profile.picture_url}
           />
           :
-          <MPFollowButton isFollowing={this.props.followingUser} onPress={() => this.toggleFollow()}/>
+          !hiddenFollow && <MPFollowButton isFollowing={this.props.followingUser} onPress={() => this.toggleFollow()}/>
         }
         <MPProfileInfo
           isMe={me}
@@ -336,20 +333,32 @@ class ProfileComponent extends React.Component {
   }
 
   renderTabsContent(profile, tabIndex) {
-    const { me, mySongs, songDraft } = this.props;
+    const { me, mySongs, songDraft, songsLoading } = this.props;
     switch (tabIndex) {
       case 0:
         return (
           <View>
-            { this.state.userFolders && this.state.userFolders.length > 0 ?
+            {songsLoading && (
+              <View style={{ backgroundColor: '#FFF' }}>
+                <View style={[styles.contentLoading, {paddingVertical: 40}]}>
+                  <ActivityIndicator size='large' color='#BB1A1A' />
+                  <MPText style={styles.textLoading}>
+                    Carregando...
+                  </MPText>
+                </View>
+              </View>
+            )}
+
+            {!songsLoading && this.state.userFolders && this.state.userFolders.length > 0 ?
             this.state.userFolders.map(userFolder => (
               <MPShowFolderSongs
                   {...this.props}
                   edit={me && userFolder.editable}
                   key={userFolder.id}
-                  folderName={userFolder.name}
+                  folder={userFolder}
                   me={me}
-                  songs={userFolder.songs}
+                  songs={userFolder.songs.data}
+                  onSongPagination={this.props.onSongPagination}
                   onEditClick={this.handleEditSong}
                   onEditFolder={this.handleEditFolder.bind(this, userFolder.id)}
                   onRemoveClick={this.handleRemoveSong}
@@ -375,11 +384,12 @@ class ProfileComponent extends React.Component {
               <MPShowFolderSongs
                 {...this.props}
                 key={favoriteFolder.id}
-                folderName={favoriteFolder.name}
+                folder={favoriteFolder}
                 edit={me && favoriteFolder.editable}
                 me={me}
                 hideSettings={true}
-                songs={favoriteFolder.songs}
+                songs={favoriteFolder.songs.data}
+                onSongPagination={this.props.onFavoriteSongPagination}
                 onEditClick={this.handleEditSong}
                 onEditFolder={this.handleEditFolder.bind(this, favoriteFolder.id)}
                 onIndicateClick={this.handleIndicateSong}
@@ -416,6 +426,9 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
     paddingHorizontal: 50,
     backgroundColor: '#FFF',
+  },
+  infoContainer: {
+    paddingTop: 180
   },
   profileIndicatorContainer: {
     flexDirection: 'row',

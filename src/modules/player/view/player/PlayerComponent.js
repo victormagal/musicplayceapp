@@ -29,7 +29,6 @@ import {
   MPTriangleUpGrayIcon,
   MPFilledStarIcon
 } from '../../../../assets/svg';
-import { commentSong } from '../../../../state/action';
 
 
 const stars = new Array(5).fill(true);
@@ -134,6 +133,13 @@ class PlayerComponent extends React.Component {
     }
   };
 
+  renderRating = (song) => {
+    if (song && song.rating){
+      return parseFloat(song.rating).toFixed(1);
+    }
+    return "0.0";
+  };
+
   renderComment = ({item}) => {
     return (
       <MPPlayerComment comment={item} onLikeComment={this.props.onLikeComment} />
@@ -157,12 +163,12 @@ class PlayerComponent extends React.Component {
         <View style={styles.flexOne}>
           <View style={styles.coverCommentContainer}>
             <Image
-              source={require('../../../../assets/img/fernandinho-cover.jpeg')}
+              source={require('../../../../assets/img/album-default.png')}
               style={styles.coverImage}/>
 
             <LinearGradient
               style={styles.linearGradient}
-              colors={['#000000', '#000000D9']}
+              colors={['#00000099', '#00000033']}
               start={{x: 0, y: 0.9}}
               end={{x:0, y:0}}>
             </LinearGradient>
@@ -211,18 +217,17 @@ class PlayerComponent extends React.Component {
 
   renderCommentContent() {
     let {song} = this.props;
-    console.log(song);
     return (
       <MPFade style={styles.modalContent} visible={this.state.showComments}>
         <View style={{flex: 1}}>
           <View style={styles.coverCommentContainer}>
             <Image
-              source={require('../../../../assets/img/fernandinho-cover.jpeg')}
-              style={styles.coverImage}/>
+              source={require('../../../../assets/img/album-default.png')}
+              style={styles.coverImageComment}/>
 
             <LinearGradient
               style={styles.linearGradient}
-              colors={['#000000', '#000000D9']}
+              colors={['#00000099', '#00000033']}
               start={{x:0, y:0.9}}
               end={{x:0, y:0}}>
             </LinearGradient>
@@ -255,19 +260,18 @@ class PlayerComponent extends React.Component {
 
   renderMain() {
     let {song} = this.props;
-    let hasAuthors = this.props.coAuthors && this.props.coAuthors.length > 0;
 
     return (
       <MPFade style={styles.modalContent} visible={this.state.showPlayer}>
         <ScrollView style={styles.flexOne}>
           <View style={styles.coverContainer}>
             <Image
-              source={require('../../../../assets/img/fernandinho-cover.jpeg')}
+              source={require('../../../../assets/img/album-default.png')}
               style={styles.coverImage}/>
 
             <LinearGradient
               style={styles.linearGradient}
-              colors={['#000000', '#000000D9']}
+              colors={['#00000099', '#00000066']}
               start={{x:0, y:0.9}}
               end={{x:0, y:0}}>
             </LinearGradient>
@@ -278,11 +282,11 @@ class PlayerComponent extends React.Component {
                 <View style={styles.row}>
                   {
                     song && stars.map((_, i) => {
-                      return i < song.rating ? <MPFilledStarIcon key={i}/> : <MPStarIcon key={i}/>
+                      return song.rating && i < song.rating ? <MPFilledStarIcon key={i}/> : <MPStarIcon key={i}/>
                     })
                   }
                 </View>
-                <MPText style={styles.gradeText}>{song && song.rating.toFixed(1)}</MPText>
+                <MPText style={styles.gradeText}>{this.renderRating(song)}</MPText>
               </View>
 
               <MPText style={styles.timeTotalText}>{song && this.handleSongDuration(song.duration)}</MPText>
@@ -458,6 +462,10 @@ const styles = StyleSheet.create({
   coverImage: {
     width: '100%',
     height: 330
+  },
+  coverImageComment: {
+    width: '100%',
+    height: 120,
   },
   coverCommentContainer: {
     height: 120,

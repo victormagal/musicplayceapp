@@ -1,5 +1,6 @@
 import {SongService} from '../../service';
 import {
+  fetchedUserSongs,
   fetchedSong,
   songDraftError,
   songDraftSuccess,
@@ -23,6 +24,7 @@ import {
   commentSongSuccess,
   commentStartLoading
 } from "./songsType";
+import { profileSongFavoritedSuccess, profileSongUnfavoriteSuccess } from '../profile/profileAction';
 
 export const createPermanentSong = (song) => {
   return (dispatch, getState) => {
@@ -35,7 +37,6 @@ export const createPermanentSong = (song) => {
     }).catch(e => {
       dispatch(songPublishError());
       console.log('createPermanentSongError', e);
-      console.log(e.response);
     });
   };
 };
@@ -87,7 +88,7 @@ export const removeSong = (id) => {
     return SongService.delete(id).then(() => {
       dispatch(songRemoveSuccess(id));
     }).catch((e) => {
-      console.log('removeSongError', e.response);
+      console.log('removeSongError', e);
       dispatch(songRemoveError())
     });
   };
@@ -134,20 +135,23 @@ export const likeSongComment = (commentId) => {
   return (dispatch) => {
     dispatch(songStartLoading());
     return SongService.likeComment(commentId).then((response) => {
-      dispatch(likedCommentSuccess());
+      dispatch(likedCommentSuccess(response.data));
     }).catch(e => {
       dispatch(likedCommentError())
     });
   };
 };
 
-export const favoriteSong = (songId, folder) => {
+export const favoriteSong = (song, folder) => {
   return (dispatch) => {
     dispatch(songStartLoading());
-    return SongService.favoriteSong(songId, folder.id).then(() => {
+    return SongService.favoriteSong(song.id, folder.id).then(() => {
       dispatch(songFavoriteSuccess(folder));
+      setTimeout(() => {
+        dispatch(profileSongFavoritedSuccess({song, folder}));
+      }, 2000)
     }).catch(e => {
-      console.log('favoriteSongError', e.response);
+      console.log('favoriteSongError', e);
       dispatch(songFavoriteError())
     });
   };
@@ -158,6 +162,9 @@ export const unFavoriteSong = (songId) => {
     dispatch(songStartLoading());
     return SongService.unfavoriteSong(songId).then(() => {
       dispatch(songUnfavoriteSuccess());
+      setTimeout(()=> {
+        dispatch(profileSongUnfavoriteSuccess(songId));
+      }, 2000)
     }).catch(e => {
       dispatch(songUnfavoriteError())
     });
@@ -183,3 +190,13 @@ export const fetchOneSong = (song) => {
     });
   };
 };
+
+
+// export const userSongs = (id, page = 1) => {
+//   return (dispatch) => {
+//     return SongService.mySongs(id, page, false).then(i => {
+//       console.log("MY SONGS WITH FOLDER", i);
+//       //TODO: dispatch()
+//     });
+//   };
+// };

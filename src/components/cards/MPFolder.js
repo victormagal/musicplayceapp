@@ -14,6 +14,14 @@ class MPFolderContainer extends Component {
     onPress && onPress();
   };
 
+  countPluralize(count){
+    if(!count){
+      return 'Nenhuma música';
+    }
+
+    return `${count} ${count === 1 ? 'música' : 'músicas'}`
+  }
+
   render() {
     let {folderName, musicAmount, selected} = this.props;
     let borderStyle = {};
@@ -41,7 +49,7 @@ class MPFolderContainer extends Component {
               </View>
               <View>
                 <MPText style={ styles.chooseFolderText}>{ folderName }</MPText>
-                <MPText style={ styles.chooseFolderSubText}>{ musicAmount } músicas</MPText>
+                <MPText style={ styles.chooseFolderSubText}>{ this.countPluralize(musicAmount) }</MPText>
               </View>
             </View>
           </Card>
@@ -54,7 +62,7 @@ class MPFolderContainer extends Component {
 
 MPFolderContainer.propTypes = {
   folderName: PropTypes.string.isRequired,
-  musicAmount: PropTypes.string.isRequired,
+  musicAmount: PropTypes.number,
   onPress: PropTypes.func,
   selected: PropTypes.bool
 };

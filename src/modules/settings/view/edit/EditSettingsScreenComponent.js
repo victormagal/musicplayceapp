@@ -13,6 +13,7 @@ import {
 } from '../../../../components';
 import {connect} from "react-redux";
 import withFixedBottom from "../../../../connectors/withFixedBottom";
+import { KeyboardAwareScrollView } from '../../../../../node_modules/react-native-keyboard-aware-scroll-view';
 
 class EditSettingsScreenComponent extends React.Component {
 	
@@ -50,7 +51,7 @@ class EditSettingsScreenComponent extends React.Component {
           onBack={onBack}
           title={"Mantenha seus dados cadastrais atualizados"}
         />
-				<ScrollView style={styles.scroll}>
+				<KeyboardAwareScrollView style={styles.scroll}>
 					<View style={styles.container}>
 						<MPTitleFormContainer title={"Identificação"}
                                   textButton={"ALTERAR"}
@@ -82,7 +83,7 @@ class EditSettingsScreenComponent extends React.Component {
                          value={form.cell_phone || ''}
                          onChangeText={(value) => this.onChangeValue({ field: 'cell_phone', value })} />
 					</View>
-				</ScrollView>
+				</KeyboardAwareScrollView>
 				<MPLoading visible={this.props.loading}/>
       </View>
 		);

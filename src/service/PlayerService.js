@@ -1,5 +1,5 @@
 import moment from 'moment';
-import {NativeModules} from 'react-native';
+import {NativeModules, Platform} from 'react-native';
 const { RNMusicPlayer } = NativeModules;
 import MusicControl from 'react-native-music-control';
 
@@ -36,9 +36,7 @@ class PlayerService{
 
   static pause(){
     RNMusicPlayer.pause();
-    MusicControl.updatePlayback({
-      state: MusicControl.STATE_PAUSED
-    });
+    PlayerService.pauseNotification();
   }
 
   static resume(){
@@ -53,9 +51,22 @@ class PlayerService{
   }
 
   static stop(){
-    //TODO: implement on IOS
-    RNMusicPlayer.stop && RNMusicPlayer.stop();
+    if(Platform.OS === 'ios'){
+      RNMusicPlayer.pause();
+    }else{
+      RNMusicPlayer.stop();
+    }
+    PlayerService.stopNotification();
+  }
+
+  static stopNotification(){
     MusicControl.stopControl();
+  }
+
+  static pauseNotification(){
+    MusicControl.updatePlayback({
+      state: MusicControl.STATE_PAUSED
+    });
   }
 }
 
