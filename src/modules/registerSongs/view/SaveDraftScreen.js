@@ -1,10 +1,12 @@
-import React from 'react';
+import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { StyleSheet, View } from 'react-native';
-import { MPGradientButton, MPHeader, MPText, MPLoading } from '../../../components';
-import {createDraftSong, removeSong, updateDraftSong} from "../../../state/songs/songsAction";
+import { MPGradientButton, MPHeader, MPText, MPLoading, MPFloatingNotification } from '../../../components';
+import {createDraftSong, removeSong, updateDraftSong} from '../../../state/action';
+import {MPAlertIcon} from '../../../assets/svg';
 
-class SaveDraftScreenContainer extends React.Component {
+
+class SaveDraftScreenContainer extends Component {
 
   componentWillReceiveProps(nextProps){
     if (nextProps.songDraftSuccess){
@@ -50,6 +52,10 @@ class SaveDraftScreenContainer extends React.Component {
           }
         </View>
         <MPLoading visible={this.props.loading}/>
+        <MPFloatingNotification
+          icon={<MPAlertIcon />}
+          visible={this.props.songDraftError}
+          text="Não foi possível salvar a música"/>
       </View>
     );
   }

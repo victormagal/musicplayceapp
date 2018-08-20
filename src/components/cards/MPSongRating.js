@@ -228,7 +228,8 @@ const styles = StyleSheet.create({
   indicateSongContainer: {
     flexDirection: 'row',
     paddingHorizontal: 10,
-    marginBottom: 10
+    marginBottom: 10,
+    alignItems: 'center'
   },
   indicateSongText: {
     fontSize: 9,

@@ -25,6 +25,7 @@ import {
   SONG_COMMENT_SUCCESS,
   SONG_COMMENT_START_LOADING
 } from './songsType';
+import {REMOVE_NOTIFICATION} from '../general/generalAction';
 
 const defaultSong = {
   name: '',
@@ -37,25 +38,28 @@ const defaultSong = {
   path: '',
 };
 
+const defaultStateCallback = {
+  songPublishSuccess: false,
+  songDraftSuccess: false,
+  songDraftError: false,
+  songRemoveSuccess: false,
+  songUnpublishSuccess: false,
+  songIndicateSuccess: false,
+  songFavoriteSuccess: false,
+  songUploadedPictureSuccess: false,
+  likedCommentSuccess: false,
+  songCommentedSuccess: false
+};
+
 const songsReducer = (state, action) => {
   state = state || {
     loading: false,
     fetchedSong: null,
     mySongs: null,
-    song: {...defaultSong}
+    song: {...defaultSong},
+    songDraft: false,
+    ...defaultStateCallback
   };
-
-  state.songPublishSuccess = false;
-  state.songDraftSuccess = false;
-  state.songRemoveSuccess = false;
-  state.songPublishSuccess = false;
-  state.songUnpublishSuccess = false;
-  state.songIndicateSuccess = false;
-  state.songFavoriteSuccess = false;
-  state.songUploadedPictureSuccess = false;
-  state.likedCommentSuccess = false;
-  state.songDraft = false;
-  state.songCommentedSuccess = false;
 
   switch (action.type) {
     case SONG_REGISTER_DATA:
@@ -80,6 +84,12 @@ const songsReducer = (state, action) => {
       };
 
     case SONG_DRAFT_ERROR:
+      return {
+        ...state,
+        loading: false,
+        songDraftError: true
+      };
+
     case SONG_FAVORITE_ERROR:
     case SONG_INDICATE_ERROR:
     case SONG_LIKE_COMMENT_ERROR:
@@ -162,7 +172,7 @@ const songsReducer = (state, action) => {
         loading: false,
         fetchedSong: song,
         songCommentedSuccess: true,
-      }
+      };
 
     case SONG_FAVORITE_SUCCESS:
       let fetchedSong = {...state.fetchedSong};
@@ -204,6 +214,12 @@ const songsReducer = (state, action) => {
         fetchedSong: action.payload,
         loading: false
       };
+
+    case REMOVE_NOTIFICATION:
+      return {
+        ...state,
+        ...defaultStateCallback
+      }
   }
 
   return state;

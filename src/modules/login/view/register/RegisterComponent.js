@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
-  ScrollView, StyleSheet, TouchableWithoutFeedback, View
+  ScrollView, StyleSheet, TouchableWithoutFeedback, View, TouchableOpacity
 } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import LinearGradient from 'react-native-linear-gradient';
@@ -9,8 +9,12 @@ import {
   MPButton, MPGradientButton, MPText, MPLoading, MPInput, MPForm, MPFormButton, MPHeader
 } from '../../../../components';
 import {
-  MPArrowDownRedIcon, MPArrowUpRedIcon, MPFacebookIcon, MPGoogleIcon, MPLogoRegisterIcon
+  MPArrowDownRedIcon, MPArrowUpRedIcon, MPCameraIcon, MPFacebookIcon, MPGoogleIcon, MPLogoRegisterIcon, MPProfileIcon
 } from '../../../../assets/svg';
+import {MPCircleGradientButton} from "../../../../components/buttons";
+import {uploadImage} from "../../../../state/action";
+import ImagePicker from "react-native-image-picker";
+import {MPFloatingNotification} from "../../../../components/general";
 
 
 const BaseIcon = (props, Icon) => (
@@ -40,22 +44,49 @@ class RegisterComponent extends Component {
       name: '',
       last_name: '',
       username: '',
-      password: ''
-    }
+      password: '',
+      imageFile: null
+    },
+    imageSizeError: false,
+    linearGradientHeight: 0
   };
 
   icons = {
     up: MPArrowUpRedIcon,
     down: MPArrowDownRedIcon
   };
-  
-  constructor(props){
-    super(props);
-    this.scrollViewRef = React.createRef();
-  }
 
   handleToggleRegisterForm = () => {
-    this.scrollViewRef.current.scrollToEnd();
+    this.scrollViewRef.scrollToPosition(0, this.state.linearGradientHeight + 21);
+  };
+
+  handleClickPhoto = () => {
+    const options = {
+      title: 'Selecionar uma foto',
+      storageOptions: {
+        skipBackup: true,
+        path: 'images'
+      }
+    };
+
+    ImagePicker.showImagePicker(options, (response) => {
+      if (response.didCancel) {
+        this.handleChange({ name: 'imageFile', value: null });
+        console.log('User cancelled image picker');
+      } else if (response.error) {
+        this.handleChange({ name: 'imageFile', value: null });
+        console.log('ImagePicker Error: ', response.error);
+      } else if (response.fileSize > 2000000) {
+        this.handleChange({ name: 'imageFile', value: null });
+        this.setState({ imageSizeError: true });
+        const timer = setTimeout(() => {
+          this.setState({ imageSizeError: false });
+          clearTimeout(timer);
+        }, 2000);
+      } else {
+        this.handleChange({ name: 'imageFile', value: response });
+      }
+    });
   };
 
   handleRegister = () => {
@@ -73,8 +104,10 @@ class RegisterComponent extends Component {
 
     return (
       <View style={styles.container}>
-        <KeyboardAwareScrollView style={styles.container} ref={this.scrollViewRef}>
-          <LinearGradient colors={["#e1322373", "#ffffff8C"]} style={styles.gradient} start={{x:0, y:0}} end={{x:0, y:1}}>
+        <KeyboardAwareScrollView style={styles.container} ref={ref => this.scrollViewRef = ref}>
+          <LinearGradient
+            onLayout={event => this.setState({ linearGradientHeight: event.nativeEvent.layout.height })}
+            colors={["#e1322373", "#ffffff8C"]} style={styles.gradient} start={{x:0, y:0}} end={{x:0, y:1}}>
             <MPHeader back={true} onBack={this.props.onBackClick} withoutLogo={true} inverse={true} redBack={true}/>
             <View style={styles.contentCreateAccount}>
               <MPLogoRegisterIcon style={styles.logo}/>
@@ -95,11 +128,27 @@ class RegisterComponent extends Component {
 
             {this.props.error && (
               <View>
-                <MPText style={styles.deuRuimText}>Deu ruim! Confirme se os dados foram digitados corretamente.</MPText>
+                <MPText style={styles.deuRuimText}>
+                  Deu ruim! Confirme se os dados foram digitados corretamente.
+                </MPText>
               </View>
             )}
 
-            <MPForm>
+            <MPForm style={{ marginTop: 42 }}>
+              <View style={{ alignItems: 'center', marginBottom: 15 }}>
+                <MPCircleGradientButton
+                  icon={this.state.form.imageFile ? this.state.form.imageFile.uri : MPCameraIcon}
+                  label='Adicionar foto'
+                  isImage={this.state.form.imageFile !== null}
+                  style={{ height: 100, width: 100 }}
+                  onPress={this.handleClickPhoto}
+                />
+                <TouchableOpacity style={styles.plusButton} onPress={this.handleClickPhoto}>
+                  <MPText style={styles.plusText}>
+                    +
+                  </MPText>
+                </TouchableOpacity>
+              </View>
               <MPInput
                 label="E-mail"
                 name="email"
@@ -152,6 +201,11 @@ class RegisterComponent extends Component {
           </View>
         </KeyboardAwareScrollView>
         <MPLoading visible={this.props.loading} />
+        <MPFloatingNotification
+          visible={this.state.imageSizeError}
+          icon={<MPProfileIcon/>}
+          text="Imagem muito grande. Tente usar outra."
+        />
       </View>
     );
   }
@@ -182,6 +236,25 @@ const styles = StyleSheet.create({
   logo: {
     marginTop: 40,
     alignSelf: 'center'
+  },
+  plusButton: {
+    zIndex: 999,
+    position: 'absolute',
+    width: 27,
+    height: 27,
+    bottom: 0,
+    right: '35%',
+    borderRadius: 27/2,
+    borderWidth: 1,
+    borderColor: "#CCC",
+    backgroundColor: '#FFF'
+  },
+  plusText: {
+    fontSize: 25,
+    fontWeight: '500',
+    color: '#657BDE',
+    textAlign: 'center',
+    marginTop: -7
   },
   title: {
     fontFamily: 'ProbaPro-Regular',
