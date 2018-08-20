@@ -55,3 +55,11 @@ export const scheduleRemoveNotifications = () => {
     }, 3000);
   }
 };
+
+/**
+ * dispatch action error and schedule task to remove notification
+ */
+export const dispatchAndScheduleError = (dispatch, action) => {
+  dispatch(action);
+  dispatch(scheduleRemoveNotifications());
+};

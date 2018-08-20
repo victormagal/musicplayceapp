@@ -1,6 +1,5 @@
 import {SongService} from '../../service';
 import {
-  fetchedUserSongs,
   fetchedSong,
   songDraftError,
   songDraftSuccess,
@@ -25,6 +24,8 @@ import {
   commentStartLoading
 } from "./songsType";
 import { profileSongFavoritedSuccess, profileSongUnfavoriteSuccess } from '../profile/profileAction';
+import { dispatchAndScheduleError  } from '../general/generalAction';
+
 
 export const createPermanentSong = (song) => {
   return (dispatch, getState) => {
@@ -50,7 +51,7 @@ export const createDraftSong = (song) => {
     return SongService.createSong(song).then(() => {
       dispatch(songDraftSuccess());
     }).catch(e => {
-      dispatch(songDraftError());
+      dispatchAndScheduleError(dispatch, songDraftError);
       console.log('createDraftSongError', e.response);
     });
   };
@@ -75,7 +76,7 @@ export const updateDraftSong = (song) => {
     return SongService.updateSong(song).then(() => {
       dispatch(songDraftSuccess());
     }).catch(e => {
-      dispatch(songDraftError());
+      dispatchAndScheduleError(dispatch, songDraftError);
       console.log('updateDraftSong', e.response);
     });
   };
