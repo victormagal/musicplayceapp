@@ -172,8 +172,14 @@ const userReducer = (state, action) => {
         loading: false,
       };
 
-    case USER_SONGS_BY_FOLDER_FETCHED:
     case USER_SONGS_FETCHED:
+      return {
+        ...state,
+        userSongsLoading: false,
+        usersSongs: action.payload
+      };
+
+    case USER_SONGS_BY_FOLDER_FETCHED:
       return {
         ...state,
         userSongsLoading: false,

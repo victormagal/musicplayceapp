@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {StyleSheet, View, TouchableOpacity} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import { MPAddMusicIcon } from '../../assets/svg';
+import { MPAddMusicIcon, MPAddMusicRedIcon } from '../../assets/svg';
 
 class MPAddSongButton extends Component{
   render() {
@@ -18,7 +18,7 @@ class MPAddSongButton extends Component{
           style={styles.linear}
           selected={true}>
             <View style={styles.buttonContainer}>
-              <MPAddMusicIcon style={styles.icon} />
+              {isColored ? <MPAddMusicIcon style={styles.icon} /> : <MPAddMusicRedIcon style={styles.icon} />}
             </View>
         </LinearGradient>
       </TouchableOpacity>
