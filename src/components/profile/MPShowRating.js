@@ -14,7 +14,7 @@ class MPShowRatingComponent extends Component {
       <View style={styles.ratingContainer}>
 
         {stars.map((_, index) => {
-          if(index <= rating){
+          if(rating && index < rating){
             return  <MPFilledStarIcon key={index} style={styles.ratingItem}/>;
           }
 

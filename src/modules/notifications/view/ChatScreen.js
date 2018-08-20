@@ -1,30 +1,22 @@
 import React from 'react';
 import {
-  StyleSheet,
-  View,
-  Text,
-  TouchableWithoutFeedback,
-  Modal
+  StyleSheet, View, Text, TouchableWithoutFeedback, Modal
 } from 'react-native';
-import {
-  MPHeader,
-  MPText,
-  MPConfirmChatDelete,
-  MPChatDeleted,
-  MPBlockProfile,
-  MPUnblockProfile
-} from '../../../components';
-import {
-  Bubble,
-  GiftedChat,
-  InputToolbar,
-  Send
-} from 'react-native-gifted-chat';
-import {MPSendMessageIcon} from '../../../assets/svg'
 import {connect} from 'react-redux';
+import Chatkit from "@pusher/chatkit";
 import LinearGradient from 'react-native-linear-gradient';
+import {
+  Bubble, GiftedChat, InputToolbar, Send
+} from 'react-native-gifted-chat';
+import {
+  MPHeader, MPText, MPConfirmChatDelete, MPBlockProfile
+} from '../../../components';
+import {MPSendMessageIcon} from '../../../assets/svg'
 
 const linearMenuColor = ["#bb1a1a", "#2e2c9d"];
+const CHATKIT_TOKEN_PROVIDER_ENDPOINT = "https://us1.pusherplatform.io/services/chatkit_token_provider/v1/3c5c921c-df76-41c3-8a1f-e5f38c6f9726/token";
+const CHATKIT_INSTANCE_LOCATOR = "v1:us1:3c5c921c-df76-41c3-8a1f-e5f38c6f9726";
+
 
 class ChatScreenContainer extends React.Component {
 
@@ -33,26 +25,59 @@ class ChatScreenContainer extends React.Component {
     menuVisible: false
   };
 
-  componentWillMount() {
-    this.setState({
-      messages: [
-        {
-          _id: 1,
-          text: 'Gostei sim. Podemos marcar uma conversa? Gostaria de conversar com você. Acho que essa música pode funcionar muito bem em um dos meus artistas.',
-          createdAt: new Date(),
-          user: {
-            _id: 2,
-            name: 'Marcelo Marra'
-          },
-        },
-      ],
-    })
+  componentDidMount(){
+    const tokenProvider = new Chatkit.TokenProvider({
+      url: CHATKIT_TOKEN_PROVIDER_ENDPOINT
+    });
+
+    const chatManager = new Chatkit.ChatManager({
+      instanceLocator: CHATKIT_INSTANCE_LOCATOR,
+      userId: this.props.loggedUser.id,
+      tokenProvider: tokenProvider,
+      connectionTimeout: 30000
+    });
+
+    // In order to subscribe to the messages this user is receiving in this room, we need to `connect()` the `chatManager` and have a hook on `onNewMessage`. There are several other hooks that you can use for various scenarios. A comprehensive list can be found [here](https://docs.pusher.com/chatkit/reference/javascript#connection-hooks).
+    chatManager.connect().then(currentUser => {
+      this.currentUser = currentUser;
+      const roomId = this.currentUser.rooms[0].id;
+      this.setState({roomId});
+
+      this.currentUser.subscribeToRoom({
+        roomId: roomId,
+        hooks: {
+          onNewMessage: this.onReceive
+        }
+      });
+
+    }).catch(e => {
+      console.log("ERROR", e);
+    });
   }
 
-  onSend(messages = []) {
+  onReceive = (data) =>  {
+    const { id, senderId, text, createdAt } = data;
+    const incomingMessage = {
+      _id: id,
+      text: text,
+      createdAt: new Date(createdAt),
+      user: {
+        _id: senderId,
+        name: senderId,
+        avatar: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmXGGuS_PrRhQt73sGzdZvnkQrPXvtA-9cjcPxJLhLo8rW-sVA"
+      }
+    };
+
     this.setState(previousState => ({
-      messages: GiftedChat.append(previousState.messages, messages),
-    }))
+      messages: GiftedChat.append(previousState.messages, incomingMessage)
+    }));
+  }
+
+  onSend([message]) {
+    this.currentUser.sendMessage({
+      text: message.text,
+      roomId: this.state.roomId
+    });
   }
 
   handleBackClick = () => {
@@ -91,9 +116,7 @@ class ChatScreenContainer extends React.Component {
         start={{x:0, y:0}}
         end={{x:1, y:0}}
         style={style}>
-
         <MPText style={styles.menuItem} onPress={this.handleMenuItemClick.bind(this, name)}>{label}</MPText>
-
       </LinearGradient>
     );
   }
@@ -176,7 +199,7 @@ class ChatScreenContainer extends React.Component {
           renderSend={this.renderSend}
           renderInputToolbar={this.renderInputToolbar}
           user={{
-            _id: 1,
+            _id: this.props.loggedUser.id,
           }}
         />
 
@@ -241,8 +264,8 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = ({fontReducer}) => {
-  return {...fontReducer};
+const mapStateToProps = ({fontReducer, authReducer}) => {
+  return {...fontReducer, ...authReducer};
 };
 
 const ChatScreen = connect(mapStateToProps)(ChatScreenContainer);

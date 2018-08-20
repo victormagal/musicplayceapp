@@ -1,12 +1,12 @@
 import React from 'react';
+import { View, StyleSheet, FlatList } from 'react-native';
 import {
-  Text, View, StyleSheet, TouchableOpacity, FlatList, ScrollView, Image,
-  TouchableWithoutFeedback, Modal
-} from 'react-native';
-import {
-  MPHeader, MPIconButton, MPFolder, MPTextField, MPGradientButton
+  MPHeader, MPIconButton, MPFolder, MPGradientButton, MPInput
 } from '../../../../components';
+import {withFixedBottom} from '../../../../connectors/withFixedBottom';
 
+const InputFolder = withFixedBottom(MPInput);
+const GradientButton = withFixedBottom(MPGradientButton);
 
 class PlayerSaveSongComponent extends React.Component {
 
@@ -20,30 +20,41 @@ class PlayerSaveSongComponent extends React.Component {
     ];
   }
 
-  renderFolder = (item, index) => {
+  renderFolder = ({item, index}) => {
     return (
-      <View key={index} style={styles.folder}>
-        <MPFolder folderName={item.name} selected={item.selected} musicAmount={item.songCount.toString()} onPress={this.handleSelectFolder.bind(this, index)}/>
-      </View>
+      <MPFolder folderName={item.name} selected={item.selected} musicAmount={item.song_count} onPress={this.handleSelectFolder.bind(this, index)}/>
     )
   };
 
   render() {
     return (
       <View style={styles.container}>
-
-        <MPHeader title="Escolha ou crie uma pasta para salvar" back={true} onBack={this.props.onBack} icons={this.renderHeaderMenu()}/>
-
-        <ScrollView style={styles.folderList}>
-          {this.props.folders.map((item, index) => this.renderFolder(item, index))}
-        </ScrollView>
-
+        <MPHeader
+          title="Escolha ou crie uma pasta para salvar"
+          back={true}
+          onBack={this.props.onBack}
+          icons={this.renderHeaderMenu()}
+        />
+        <FlatList
+          style={styles.folderList}
+          data={this.props.folders}
+          renderItem={this.renderFolder}
+          keyExtractor={(item) => item.id}
+          onEndReached={this.props.onEndReached}
+          onEndReachedThreshold={0.1}
+        />
         <View style={styles.inputFolderContainer}>
-          <MPTextField label="Nome da nova pasta" value={this.props.folderName} onChangeText={this.props.onChangeText} />
-          <MPGradientButton style={styles.inputButtonAdd} title="Criar"
-                            onPress={this.props.onAddFolder}/>
+          <InputFolder
+            label="Nome da nova pasta"
+            value={this.props.folderName}
+            onChangeText={this.props.onChangeText}
+          />
+          <GradientButton
+            style={styles.inputButtonAdd}
+            title="Criar"
+            onPress={this.props.onAddFolder}
+          />
         </View>
-
       </View>
     );
   }
@@ -54,25 +65,23 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fcfcfc'
   },
-  folder:{
-    marginHorizontal: 30
-  },
   folderList:{
     paddingTop: 20,
-    marginTop: 10
+    marginTop: 10,
+    marginHorizontal: 30
   },
   inputFolderContainer: {
-    marginHorizontal: 40,
-    marginVertical: 30
+    paddingHorizontal: 25,
+    paddingBottom: 20,
+    paddingTop: 0
   },
   inputButtonAdd: {
     position: 'absolute',
     width: 61,
     height: 24,
-    right: 0,
-    bottom: 14
+    right: 25,
+    bottom: 35
   }
 });
-
 
 export {PlayerSaveSongComponent};

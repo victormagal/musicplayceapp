@@ -5,22 +5,40 @@ import {
 } from 'react-native';
 import Swiper from 'react-native-swiper';
 import {
-  MPHeader, MPNotificationList, MPMessageList, MPTabBar
+  MPHeader, MPNotificationList, MPMessageList, MPTabBar, MPLoading
 } from '../../../components';
 import { getNotifications } from '../../../state/action';
 
 
 class NotificationScreenContainer extends React.Component {
-  
+
+  swiperRef = null;
+
   constructor(props) {
     super(props);
     this.state = {
       tabIndex: 0,
       refresh: false,
+      notifications: []
+    };
+    this.swiperRef = React.createRef();
+  }
+
+  handleEndlessNotifications = () => {
+    let {meta} = this.props.userNotifications
+    let current_page = meta.pagination.current_page;
+    if(this.state.notifications.length > 0 &&
+        current_page < meta.pagination.total_pages){
+      this.props.dispatch(getNotifications(current_page + 1));
     }
   }
 
   handleChangeTab = (index) => {
+    this.swiperRef.current.scrollBy(index === 1 ? 1 : -1, true);
+    this.setState({tabIndex: index});
+  };
+
+  handleChangeTabSwipe = (index) => {
     this.setState({tabIndex: index});
   };
   
@@ -94,12 +112,11 @@ class NotificationScreenContainer extends React.Component {
   }
 
   componentWillReceiveProps(nextProps){
-    if(nextProps.userNotifications.data){
+    if(nextProps.userNotifications &&  nextProps.userNotifications.data.length !== this.state.notifications.length){
       let notificationList = nextProps.userNotifications.data.map((notification, index)=>{
         obj = {id: index, type: notification.attributes.type, data: JSON.parse(notification.attributes.data), time: notification.attributes.time};
         return obj;
       });
-      console.log(notificationList);
       this.setState({notifications: notificationList});
     }
   }
@@ -109,24 +126,22 @@ class NotificationScreenContainer extends React.Component {
       <View style={styles.container}>
         <MPHeader />
         <MPTabBar titles={['ALERTAS', 'MENSAGENS']}
-                  onTabChange={this.handleChangeTab} index={this.state.tabIndex}/>
+                  onTabChange={this.handleChangeTab}
+                  index={this.state.tabIndex}/>
         <Swiper
+          ref={this.swiperRef}
           showsPagination={false}
           loop={false}
-          index={this.state.tabIndex}
-          onIndexChanged={this.handleChangeTab}>
+          onIndexChanged={this.handleChangeTabSwipe}>
           <View style={styles.firstSliderContainer}>
             <FlatList
               data={this.state.notifications}
               keyExtractor={item => item.id}
-              refreshing={this.state.refresh}
+              refreshing={this.props.refreshNotifications}
+              onEndReachedThreshold={0.3}
+              onEndReached={this.handleEndlessNotifications}
               onRefresh={() => {
-                this.setState({refresh: true});
-                console.log('atualizando');
-                setTimeout(() => {
-                  this.setState({refresh: false});
-                  console.log('atualizado');
-                }, 3000);
+                this.props.dispatch(getNotifications(0, true));
               }}
               renderItem={({ item }) => {
                 return (
@@ -147,6 +162,7 @@ class NotificationScreenContainer extends React.Component {
             />
           </View>
         </Swiper>
+        <MPLoading visible={this.props.loading} />
       </View>
     );
   }

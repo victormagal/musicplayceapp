@@ -1,5 +1,5 @@
 import React from 'react';
-import {NetInfo, NativeModules, NativeEventEmitter, View} from 'react-native';
+import {NetInfo, NativeModules, NativeEventEmitter, View, Platform} from 'react-native';
 import {
   applyMiddleware,
   createStore
@@ -20,8 +20,9 @@ import {
 import {reducers} from './src/state/reducer';
 import {
   loadFont, updateNetwork, playerSongPause,
-  playerSongUpdateProgress, songResume, songPause, songStop
+  playerSongUpdateProgress, songResume, songPause, songStop, playerSongStop
 } from './src/state/action';
+import {PlayerService} from './src/service';
 import {MPTabBottomComponent, MPNetworkNotification} from './src/components';
 import {checkConnection} from './src/connectors';
 import {MPTabConfigurationIcon, MPTabNotificationIcon, MPTabProfileIcon} from './src/assets/svg/custom';
@@ -110,8 +111,19 @@ export default class App extends React.Component {
 
     if (RNMusicPlayer.statePlaying == currentPlayerState) {
       store.dispatch(playerSongUpdateProgress(state["progress"]));
+    }else if(RNMusicPlayer.stateStopped === currentPlayerState){
+      if(store.getState().playerReducer.player.isPlaying){
+        store.dispatch(playerSongStop());
+        PlayerService.stopNotification();
+      }
+    }else if(RNMusicPlayer.statePaused == currentPlayerState){
+      if(Platform.OS === 'ios' && store.getState().playerReducer.player.isPlaying){
+        store.dispatch(playerSongStop());
+        PlayerService.stopNotification();
+      }
     }
-  };
+
+};
 
   handleConnectionChange = (isConnected) => {
     store.dispatch(updateNetwork(isConnected));

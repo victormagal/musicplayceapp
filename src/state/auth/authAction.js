@@ -8,9 +8,11 @@ export const AUTH_LOGIN_ERROR = 'AUTH_LOGIN_ERROR';
 export const AUTH_RECOVER_PASSWORD_SUCCESS = 'AUTH_RECOVER_PASSWORD_SUCCESS';
 export const AUTH_RECOVER_PASSWORD_ERROR = 'AUTH_RECOVER_PASSWORD_ERROR';
 export const AUTH_LOGOUT = 'AUTH_LOGOUT';
+export const AUTH_SET_STORAGE_USER = 'AUTH_SET_STORAGE_USER';
 
 export const authStartLoading = createAction(AUTH_START_LOADING, () => null);
 export const authLogout = createAction(AUTH_LOGOUT, () => null);
+export const authSetStorageUser = createAction(AUTH_SET_STORAGE_USER, (data) => data);
 
 export const loginSuccess = createAction(AUTH_LOGIN_SUCCESS, (data) => {
   return {...data};

@@ -27,9 +27,17 @@ class FeedScreenContainer extends React.Component {
       searching: false,
       searchingNotFound: false,
       feed: null,
-      refreshUserFollowings: false,
     };
     this.swiperRef = React.createRef();
+  }
+
+  handleEndlessNotifications = () => {
+    let {meta} = this.props.userFollowNotifications
+    let current_page = meta.pagination.current_page;
+    if(this.state.userFollowNotifications.length > 0 &&
+        current_page < meta.pagination.total_pages){
+      this.props.dispatch(getFollowNotifications(current_page + 1));
+    }
   }
 
   componentDidMount() {
@@ -52,7 +60,7 @@ class FeedScreenContainer extends React.Component {
       this.setState({feed, searchingNotFound: false});
     }
 
-    if (userFollowNotifications.data) {
+    if (userFollowNotifications) {
       const followingNotifications = userFollowNotifications.data.map((notification, index) => {
         return {
           id: index,
@@ -61,6 +69,7 @@ class FeedScreenContainer extends React.Component {
           time: notification.attributes.time
         };
       });
+      // console.log(followingNotifications);
       this.setState({userFollowNotifications: followingNotifications});
     }
   }
@@ -119,14 +128,17 @@ class FeedScreenContainer extends React.Component {
     this.setState({tabIndex: index});
   };
 
-  renderSearchUsers = (from, {item}) => (
-    <MPUser
-      key={item.id}
-      user={item}
-      onPress={() => this.handleNavigateUserProfile(item.id)}
-      onToggleFollowUser={this.handleToggleFollowUser.bind(this, from)}
-    />
-  );
+  renderSearchUsers = (from, {item}) => {
+    return (
+      <MPUser
+        key={item.id}
+        user={item}
+        onPress={() => this.handleNavigateUserProfile(item.id)}
+        onToggleFollowUser={this.handleToggleFollowUser.bind(this, from)}
+        hideSettings={this.props.loggedUser.id === item.id}
+      />
+    );
+  };
 
   handleSongNavigate = (song) => {
     this.props.navigation.navigate('player', {song});
@@ -157,7 +169,6 @@ class FeedScreenContainer extends React.Component {
       searchingNotFound,
       userFollowNotifications
     } = this.state;
-
     if (feed === null || feed === {}) {
       return <ActivityIndicator />
     }
@@ -310,15 +321,12 @@ class FeedScreenContainer extends React.Component {
             <View style={styles.secondSliderContainer}>
                 <FlatList
                   data={userFollowNotifications}
-                  keyExtractor={(item) => item.id}
-                  refreshing={this.state.refreshUserFollowings}
+                  keyExtractor={(item) => String(item.id)}
+                  refreshing={this.props.refreshUserFollowings}
+                  onEndReachedThreshold={0.3}
+                  onEndReached={this.handleEndlessNotifications}
                   onRefresh={() => {
-                    this.setState({refreshUserFollowings: true});
-                    console.log('atualizando');
-                    setTimeout(() => {
-                      this.setState({refreshUserFollowings: false});
-                      console.log('atualizado');
-                    }, 3000);
+                    this.props.dispatch(getFollowNotifications(0, true));
                   }}
                   renderItem={({item}) => {
                     return (
@@ -336,7 +344,7 @@ class FeedScreenContainer extends React.Component {
         </View>
         }
         <MPUserNotification />
-        <MPLoading visible={this.props.searching || this.props.loading}/>
+        <MPLoading visible={this.props.searching}/>
       </View>
     );
   }
@@ -437,8 +445,8 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = ({feedsReducer, userReducer}) => {
-  return {...feedsReducer, ...userReducer};
+const mapStateToProps = ({feedsReducer, userReducer, authReducer}) => {
+  return {...feedsReducer, ...userReducer, loggedUser: authReducer.loggedUser};
 };
 
 const FeedScreen = connect(mapStateToProps)(FeedScreenContainer);

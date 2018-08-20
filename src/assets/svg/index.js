@@ -35,9 +35,7 @@ export const MPAddSongWhitePlusIcon = (props) => {
 
 export const MPAlertIcon = (props) => { 
  let newProps = applyStyle(props, 24, 24); 
- return (<Svg {...newProps} viewBox='0 0 24 24'><Path d='M12.8089,17.46414c0,0.44659-0.3624,0.80908-0.80899,0.80908s-0.80908-0.36249-0.80908-0.80908
-	s0.36249-0.80899,0.80908-0.80899S12.8089,17.01755,12.8089,17.46414 M11.59532,15.44157h0.80908V9.77835h-0.80908V15.44157z
-	 M11.99981,4.52587l9.01146,15.7702H2.98835L11.99981,4.52587z M11.99981,2.89531L1.59437,21.10469h20.81126L11.99981,2.89531z' fill='#E55C54'/></Svg>); 
+ return (<Svg {...newProps} viewBox='0 0 24 24'><Path d='M12.8089,17.46414c0,0.44659-0.3624,0.80908-0.80899,0.80908s-0.80908-0.36249-0.80908-0.80908 s0.36249-0.80899,0.80908-0.80899S12.8089,17.01755,12.8089,17.46414 M11.59532,15.44157h0.80908V9.77835h-0.80908V15.44157z M11.99981,4.52587l9.01146,15.7702H2.98835L11.99981,4.52587z M11.99981,2.89531L1.59437,21.10469h20.81126L11.99981,2.89531z' fill='#E55C54'/></Svg>);
 };
 
 export const MPArrowDownRedIcon = (props) => { 
@@ -73,6 +71,11 @@ export const MPArrowUpIcon = (props) => {
 export const MPBackBlackIcon = (props) => { 
  let newProps = applyStyle(props, 10, 12); 
  return (<Svg {...newProps} viewBox='0 0 10 12'><Path d='M9.214 0c.434 0 .786.352.786.786l-.003 10.43a.783.783 0 0 1-1.194.666L.383 6.675a.784.784 0 0 1-.01-1.34L8.743.157A.783.783 0 0 1 9.214 0z' fill='#000'/></Svg>); 
+};
+
+export const MPBackRedIcon = (props) => { 
+ let newProps = applyStyle(props, 10, 12); 
+ return (<Svg {...newProps} viewBox='0 0 10 12'><Path d='M9.214 0c.434 0 .786.352.786.786l-.003 10.43a.783.783 0 0 1-1.194.666L.383 6.675a.784.784 0 0 1-.01-1.34L8.743.157A.783.783 0 0 1 9.214 0z' fill='#E13223'/></Svg>); 
 };
 
 export const MPBackIcon = (props) => { 

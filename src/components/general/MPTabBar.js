@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  StyleSheet, TouchableHighlight, View
+  StyleSheet, TouchableOpacity, View
 } from 'react-native';
 import { MPText } from '../general/MPText';
 
@@ -32,16 +32,14 @@ class MPTabBar extends React.Component {
       <View style={{ backgroundColor: '#FFF' }}>
         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
           { titles.map((title, index) => (
-            <TouchableHighlight
+            <TouchableOpacity
               key={index}
-              underlayColor="transparent"
               onPress={() => this.changeTabIndex(index)}
-              style={selected === index ? styles.selectedTitleContainer : styles.notSelectedTitleContainer }
-            >
+              style={selected === index ? styles.selectedTitleContainer : styles.notSelectedTitleContainer }>
               <MPText style={selected === index ? styles.selectedTitleText : styles.notSelectedTitleText}>
                 { title }
               </MPText>
-            </TouchableHighlight>
+            </TouchableOpacity>
           ))}
         </View>
       </View>

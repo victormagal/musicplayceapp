@@ -3,7 +3,7 @@ import {
   View, StyleSheet, ScrollView
 } from 'react-native';
 import {
-  MPHeader, MPIconButton, MPTextField, MPLoading, MPText
+  MPHeader, MPIconButton, MPLoading, MPInput, MPText
 } from '../../../../components';
 
 
@@ -20,7 +20,7 @@ class PlayerCommentSongComponent extends React.Component {
         <MPHeader title="Deixe seu comentário" back={true} onBack={this.props.onBack} icons={this.renderHeaderMenu()}/>
         <ScrollView style={{flex: 2, marginHorizontal: 20,}}>
             <MPText style={styles.textTop}>Deixe aqui seu comentário:</MPText>
-            <MPTextField label="Comentário" value={this.props.folderName} multiline={true} onChangeText={this.props.onChangeText} />
+            <MPInput label="Comentário" value={this.props.commentText} multiline={true} onChangeText={this.props.onChangeText} />
         </ScrollView>
         <MPLoading visible={this.props.loading} />
       </View>

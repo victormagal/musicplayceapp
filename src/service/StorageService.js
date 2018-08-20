@@ -4,12 +4,27 @@ import {AuthService} from './AuthService';
 
 
 const TOKEN_KEY = 'user_token_key';
+const USER_KEY = 'user_storage_key';
 
 
 class StorageService {
 
   static clear(){
     AsyncStorage.clear();
+  }
+
+  static setUser(user){
+    AsyncStorage.setItem(USER_KEY, JSON.stringify(user));
+  }
+
+  static getUser(){
+    return AsyncStorage.getItem(USER_KEY).then((user) => {
+      if(!user){
+        return null;
+      }
+
+      return JSON.parse(user);
+    });
   }
 
   static setToken(token) {

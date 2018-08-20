@@ -1,15 +1,9 @@
 import React from 'react';
 import { 
-  ScrollView, 
-  StyleSheet, 
-  View,
-  TouchableOpacity
+  ScrollView, StyleSheet, View, TouchableOpacity
 } from 'react-native';
 import { 
-  MPHeader, 
-  MPSelect, 
-  MPTextField,
-  MPText
+  MPHeader, MPSelect, MPTextField, MPText
 } from '../../../components';
 import {createFeedback} from "../../../state/action";
 import {connect} from "react-redux";
@@ -23,23 +17,18 @@ class FeedbackSettingsScreenContainer extends React.Component {
   };
 
   handleBack = () => {
-    this.props.navigation.pop();
+    this.props.navigation.popToTop();
   };
 
   handleSendPress = () => {
-    const { feedbackSaveSuccess, dispatch } = this.props;
+    const { dispatch } = this.props;
     const { options, message, selectedOption } = this.state;
     const feedback = {
       message,
       subject: options[selectedOption]
     };
-    dispatch(createFeedback(feedback)).then(() => {
-      if (feedbackSaveSuccess) {
-        this.handleBack()
-      } else {
-        this.scrollView.scrollToEnd()
-      }
-    });
+    dispatch(createFeedback(feedback));
+    this.handleBack();
   };
 
   renderHeaderMenuRight() {
@@ -67,7 +56,7 @@ class FeedbackSettingsScreenContainer extends React.Component {
                   onBack={this.handleBack}
                   icons={this.renderHeaderMenuRight()}
                   title={"Alguma sugestão? Ajude-nos a melhorar a plataforma"} />
-        <ScrollView ref={ref => this.scrollView = ref} style={styles.scroll}>
+        <ScrollView style={styles.scroll}>
           <View style={styles.container}>
             <MPSelect label={"Assunto do feedback"}
                       value={selectedOption}

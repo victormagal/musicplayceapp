@@ -79,6 +79,13 @@ class ModalPlayerComponent extends React.Component {
     ];
   }
 
+  renderRating = (song) => {
+    if (song && song.rating){
+      return parseFloat(song.rating).toFixed(1);
+    }
+    return "0.0";
+  };
+
   renderPlayer() {
     const progress = Math.ceil(this.props.player.progress);
     const progressLabel = moment.utc(progress * 1000).format('m:ss');
@@ -160,10 +167,10 @@ class ModalPlayerComponent extends React.Component {
             <View style={styles.row}>
               <View style={styles.row}>
                 {song && stars.map((_, i) => {
-                    return i < song.rating ? <Icon key={i} filled={true} onPress={this.handleRateSong.bind(this,song, i)}/> : <Icon key={i} filled={false} onPress={this.handleRateSong.bind(this, song, i)}/>;
+                    return song.rating && i < song.rating ? <Icon key={i} filled={true} onPress={this.handleRateSong.bind(this,song, i)}/> : <Icon key={i} filled={false} onPress={this.handleRateSong.bind(this, song, i)}/>;
                 })}
               </View>
-              <MPText style={styles.modalGradeText}>{song && song.rating.toFixed(1)}</MPText>
+              <MPText style={styles.modalGradeText}>{this.renderRating(song)}</MPText>
             </View>
           </View>
 

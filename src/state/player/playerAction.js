@@ -58,6 +58,8 @@ export const songStop = () => {
       PlayerService.stop();
       dispatch(playerSongStop());
     }
+
+    return Promise.resolve();
   };
 };
 

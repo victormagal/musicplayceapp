@@ -1,15 +1,15 @@
 import axios from 'axios';
-import { GOOGLE_API_KEY } from "./api";
+import { GOOGLE_API_KEY, API } from "./api";
 
 class GeneralService {
   static fetchCityBrazil(state) {
-    return axios.get(`http://servicodados.ibge.gov.br/api/v1/localidades/estados/${state}/municipios`).then(response =>
+    return axios.get(`${API}/states/${state}/cities`).then(response =>
       response.data
     );
   }
 
   static fetchStateBrazil() {
-    return axios.get('http://servicodados.ibge.gov.br/api/v1/localidades/estados').then(response =>
+    return axios.get(`${API}/states`).then(response =>
       response.data
     );
   }

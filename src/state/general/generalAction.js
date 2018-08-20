@@ -3,6 +3,7 @@ import { GeneralService } from '../../service/GeneralService';
 
 export const LOAD_FONT = 'LOAD_FONT';
 export const UPDATE_NETWORK = 'UPDATE_NETWORK';
+export const REMOVE_NOTIFICATION = 'REMOVE_NOTIFICATION';
 export const SHOW_NETWORK_ERROR = 'SHOW_NETWORK_ERROR';
 export const HIDE_NETWORK_ERROR = 'HIDE_NETWORK_ERROR';
 export const GENERAL_START_LOADING = 'GENERAL_START_LOADING';
@@ -22,6 +23,7 @@ export const generalStartLoading = createAction(GENERAL_START_LOADING);
 export const generalFinishLoading = createAction(GENERAL_FINISH_LOADING);
 export const fetchedCityBrazil = createAction(FETCHED_CITY_BRAZIL, data => data);
 export const fetchedStateBrazil = createAction(FETCHED_STATE_BRAZIL, data => data);
+export const generalRemoveNotification = createAction(REMOVE_NOTIFICATION);
 
 export const fetchCityBrazil = (state) => {
   return (dispatch) => {
@@ -43,4 +45,13 @@ export const fetchStateBrazil = () => {
       dispatch(generalFinishLoading());
     })
   };
+};
+
+export const scheduleRemoveNotifications = () => {
+  return (dispatch) => {
+    let timer = setTimeout(() => {
+      dispatch(generalRemoveNotification());
+      clearTimeout(timer);
+    }, 3000);
+  }
 };

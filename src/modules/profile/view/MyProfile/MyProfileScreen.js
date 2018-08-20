@@ -1,29 +1,33 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {ProfileComponent} from '../ProfileComponent';
-import {fetchProfile, logout, getFavoriteSongsWithFolders} from '../../../../state/action';
+import {
+  fetchProfile, logout, fechyMySongsByFolder, fechyMyFavoriteSongsByFolder,
+  fetchMyFollowers, fetchMyFollowings
+} from '../../../../state/action';
 import {songRegisterClear} from '../../../../state/songs/songsType';
+import {fetchMySongs} from "../../../../state/profile/profileAction";
 
 
 class MyProfileScreenContainer extends React.Component {
-
   timerSuccess = null;
+
+  state = {
+    loadingProfile: true
+  };
 
   componentDidMount() {
     const {dispatch} = this.props;
-    dispatch(fetchProfile()).then(_ => {
-      dispatch(getFavoriteSongsWithFolders());
-    });
+    this.setState({loadingProfile: true});
+    dispatch(fetchProfile());
   }
 
   componentWillReceiveProps(nextProps) {
+    const { profile, mySongs } = this.props;
     const navigationParams = nextProps.navigation.state.params;
 
     if (navigationParams && navigationParams.backFromPublishedOrDraft) {
-      const timer = setTimeout(() => {
-        this.props.dispatch(getFavoriteSongsWithFolders());
-        clearTimeout(timer);
-      }, 500);
+      this.props.dispatch(fetchMySongs(profile.id, mySongs.current_page));
       nextProps.navigation.setParams({backFromPublishedOrDraft: false});
     }
 
@@ -69,17 +73,57 @@ class MyProfileScreenContainer extends React.Component {
     this.props.navigation.navigate('UserProfileScreen', {userId: user.id});
   };
 
+  handleSongFavoritePagination = (folder) => {
+    let {current_page, total_pages} = folder.songs.pagination;
+
+    if(current_page < total_pages){
+      this.props.dispatch(fechyMyFavoriteSongsByFolder(folder, current_page + 1));
+    }
+  };
+
+  handleSongPagination = (folder) => {
+    let {current_page, total_pages} = folder.songs.pagination;
+
+    if(current_page < total_pages){
+      this.props.dispatch(fechyMySongsByFolder(folder, current_page + 1));
+    }
+  };
+
+  handleFollowerPagination = () => {
+    let {current_page, total_pages} = this.props.followers.pagination;
+
+    if(current_page < total_pages) {
+      this.props.dispatch(fetchMyFollowers(this.props.profile.id, current_page + 1));
+    }
+  };
+
+  handleFollowingPagination = () => {
+    let {current_page, total_pages} = this.props.following.pagination;
+
+    if(current_page < total_pages) {
+      this.props.dispatch(fetchMyFollowings(this.props.profile.id, current_page + 1));
+    }
+  };
+
   render() {
     return (
       <ProfileComponent
         {...this.props}
         me={true}
+        songsLoading={this.props.profileSongsLoading}
+        favoritesFolder={this.props.myFavoriteSongs && this.props.myFavoriteSongs.data}
         userFollowers={this.props.followers}
         userFollowings={this.props.following}
         onSongAddClick={this.handleSongAddClick}
         onFollowersEmptyClick={this.handleFollowersEmptyClick}
         onFollowerFollowingClick={this.handleFollowerFollowingClick}
         onLogoutClick={this.handleLogout}
+        loadingProfile={this.state.loadingProfile}
+        onStopLoading={() => this.setState({ loadingProfile: false })}
+        onFavoriteSongPagination={this.handleSongFavoritePagination}
+        onSongPagination={this.handleSongPagination}
+        onFollowersPagination={this.handleFollowerPagination}
+        onFollowingsPagination={this.handleFollowingPagination}
       />
     )
   }
@@ -88,20 +132,21 @@ class MyProfileScreenContainer extends React.Component {
 const mapStateToProps = ({profileReducer, songsReducer, userReducer, folderReducer}) => {
   const {
     songCreateSuccess, songRemoveSuccess, songPublishSuccess, songUnpublishSuccess,
-    songDraftSuccess, mySongs, songDraft, song
+    songDraftSuccess, songDraft, song
   } = songsReducer;
-  const {isUserSaved} = userReducer;
+  const {isUserSaved, userFollowingLoading, userFollowersLoading} = userReducer;
 
   return {
     ...profileReducer,
     ...folderReducer,
     isUserSaved,
+    userFollowingLoading,
+    userFollowersLoading,
     songCreateSuccess,
     songRemoveSuccess,
     songPublishSuccess,
     songUnpublishSuccess,
     songDraftSuccess,
-    mySongs,
     songDraft,
     song
   };

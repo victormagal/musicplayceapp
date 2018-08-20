@@ -41,7 +41,6 @@ MPAddChangePhotoComponent.propTypes = {
 
 const styles = StyleSheet.create({
   container: {
-    height: 220,
     flexDirection: 'column',
     marginHorizontal: 20,
     marginBottom: 20

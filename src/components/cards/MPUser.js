@@ -78,8 +78,7 @@ const styles = StyleSheet.create({
   },
   simpleUserCardImage: {
     width: 100,
-    height: 100,
-    backgroundColor: '#f60'
+    height: 100
   },
   image: {
     width: 100,

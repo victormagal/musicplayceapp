@@ -1,36 +1,34 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { View, StyleSheet } from 'react-native';
-import { MPFloatingNotification } from '../../../../components';
+import {connect} from 'react-redux';
+import {View, StyleSheet} from 'react-native';
+import {MPFloatingNotification} from '../../../../components';
 import {PlayerComponent} from './PlayerComponent';
 import {
   songStop, songPlay, songPause, songResume, songSeekTo,
   fetchOneSong, getUsersSongs, likeSongComment, unFavoriteSong
 } from '../../../../state/action';
 import {songNotificationRemove} from '../../../../state/songs/songsType';
-import { MPHeartRedIcon } from '../../../../assets/svg';
+import {MPHeartRedIcon} from '../../../../assets/svg';
 
 
 class PlayerContainer extends React.Component {
   songTimer = null;
   state = {
-    coAuthors: [],
-    artist: null
+    coAuthors: []
   };
 
-  componentDidMount(){
-    const { navigation } = this.props;
+  componentDidMount() {
+    const {navigation} = this.props;
     if (navigation.state && navigation.state.params) {
-      const { song } = navigation.state.params;
-      if(song) {
-        song.artist = this.props.navigation.state.params.song.artist;
+      const {song} = navigation.state.params;
+      if (song) {
         this.handleSetupPlay(song);
       }
     }
   }
 
-  componentWillReceiveProps(nextProps){
-    if(nextProps.songUnfavoriteSuccess || nextProps.songFavoriteSuccess){
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.songUnfavoriteSuccess || nextProps.songFavoriteSuccess) {
       this.songTimer = setTimeout(() => {
         this.props.dispatch(songNotificationRemove());
         clearTimeout(this.songTimer);
@@ -38,16 +36,16 @@ class PlayerContainer extends React.Component {
     }
   }
 
-  componentWillUnmount(){
+  componentWillUnmount() {
     this.props.dispatch(songStop());
 
-    if(this.songTimer){
+    if (this.songTimer) {
       clearTimeout(this.songTimer);
     }
   }
 
   getUsersList = (song) => {
-    if(!song){
+    if (!song) {
       return [];
     }
     let users = [song.artist];
@@ -60,18 +58,16 @@ class PlayerContainer extends React.Component {
   };
 
   handleSetupPlay = (song) => {
-    if(this.props.song && this.props.song.id === song.id) {
+    if (this.props.song && this.props.song.id === song.id) {
       return;
     }
 
-    this.props.dispatch(songStop());
-    this.setState({artist: song.artist});
-
-    this.props.dispatch(fetchOneSong(song)).then(s => {
-      s.artist = song.artist;
-      let coAuthors = this.getUsersList(s);
-      this.setState({coAuthors});
-      this.props.dispatch(getUsersSongs(coAuthors));
+    this.props.dispatch(songStop()).then(_ => {
+      this.props.dispatch(fetchOneSong(song)).then(s => {
+        let coAuthors = this.getUsersList(s);
+        this.setState({coAuthors});
+        this.props.dispatch(getUsersSongs(coAuthors));
+      });
     });
   };
 
@@ -95,20 +91,15 @@ class PlayerContainer extends React.Component {
     this.props.dispatch(likeSongComment(commentId));
   };
 
-  handleSongUnfavorite = (songId) => {
-    this.props.dispatch(unFavoriteSong(songId));
+  handleSongUnfavorite = (song) => {
+    this.props.dispatch(unFavoriteSong(song));
   };
 
   render() {
-    let newProps = {...this.props};
-    if(newProps.song && !newProps.song.artist && this.state.artist) {
-      newProps.song.artist = this.state.artist;
-    }
-
     return (
       <View style={styles.container}>
         <PlayerComponent
-          {...newProps}
+          {...this.props}
           coAuthors={this.state.coAuthors}
           onPlayClick={this.handleSetupPlay}
           onSongUnfavorite={this.handleSongUnfavorite}
@@ -116,10 +107,10 @@ class PlayerContainer extends React.Component {
           onSongResume={this.handleSongResume}
           onSongPlay={this.handleSongPlay}
           onSongSliderChange={this.handleSongSliderChange}
-          onLikeComment={this.handleLikeComment} />
+          onLikeComment={this.handleLikeComment}/>
 
         <MPFloatingNotification visible={this.props.songFavoriteSuccess}
-                                text={"Salvo em " + (newProps.song && newProps.song.folder) }
+                                text={"Salvo em " + (this.props.song && this.props.song.folder) }
                                 icon={<MPHeartRedIcon />}/>
       </View>
     );
@@ -144,10 +135,10 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = ({ playerReducer, songsReducer }) => {
+const mapStateToProps = ({playerReducer, songsReducer}) => {
   let {songUnfavoriteSuccess, songFavoriteSuccess, fetchedSong} = songsReducer;
-  return { ...playerReducer, song: fetchedSong, songUnfavoriteSuccess, songFavoriteSuccess};
+  return {...playerReducer, song: fetchedSong, songUnfavoriteSuccess, songFavoriteSuccess};
 };
 
 const PlayerScreen = connect(mapStateToProps)(PlayerContainer);
-export { PlayerScreen };
+export {PlayerScreen};

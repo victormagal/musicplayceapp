@@ -15,6 +15,7 @@ import {StorageService} from './StorageService';
 // });
 
 StorageService.getToken().then((token) => {
+  console.log("TOKEN", token);
   if(token) {
     axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
   }else{
@@ -53,13 +54,18 @@ export const getItemRelations = (data, includes) => {
     for(let key in data.relationships){
       let relationData = data.relationships[key].data;
 
-      for(let e of relationData){
-        let {type, id} = e;
+      if(Array.isArray(relationData)) {
+        for (let e of relationData) {
+          let {type, id} = e;
 
-        if(!relations[key]){
-          relations[key] = [];
+          if (!relations[key]) {
+            relations[key] = [];
+          }
+          relations[key].push(includes[type][id]);
         }
-        relations[key].push(includes[type][id]);
+      }else{
+        let {type, id} = relationData;
+        relations[key] = includes[type][id];
       }
     }
 
