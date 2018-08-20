@@ -31,7 +31,8 @@ class ProfileComponent extends React.Component {
       linearGradientHeight: 0,
       favoritesFolder: [],
       isFollowing: false,
-      imageSizeError: false
+      imageSizeError: false,
+      addSongButtonRed: true
     };
   }
 
@@ -141,6 +142,13 @@ class ProfileComponent extends React.Component {
     this.setState({ tabIndex });
   };
 
+  handleScrollChange = (e) => {
+    console.log("CHANGE")
+    this.setState({
+      addSongButtonRed: e.nativeEvent.contentOffset.y <= 10
+    });
+  };
+
   renderHeaderMenuRight() {
     return [
       <MPIconButton
@@ -168,14 +176,18 @@ class ProfileComponent extends React.Component {
     return (
       <View style={{ flex: 1 }}>
         {this.renderHeader(me)}
-        <ScrollView style={{ flex: 1 }} ref={this.scrollViewRef}>
+        <ScrollView
+          style={{ flex: 1 }}
+          ref={this.scrollViewRef}
+          nestedScrollEnabled={true}
+          onScroll={this.handleScrollChange}>
           { this.renderContent(profile) }
           {
             me && <MPLoading visible={this.props.imageLoading} />
           }
         </ScrollView>
         { (profile && me) &&
-          <MPAddSongButton isColored={true} onPress={this.props.onSongAddClick} />
+          <MPAddSongButton isColored={!this.state.addSongButtonRed} onPress={this.props.onSongAddClick} />
         }
         <MPFloatingNotification
           visible={this.state.imageSizeError}
