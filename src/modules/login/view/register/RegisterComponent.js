@@ -101,7 +101,7 @@ class RegisterComponent extends Component {
 
             <MPForm>
               <MPInput
-                label="Email"
+                label="E-mail"
                 name="email"
                 autoCapitalize={'none'}
                 value={this.state.form.email}

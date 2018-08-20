@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {
-  ScrollView, StyleSheet, View
+  ScrollView, StyleSheet, View, TouchableWithoutFeedback
 } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import {
@@ -104,9 +104,12 @@ class LoginComponent extends Component {
                 </View>
               </MPForm>
 
-            <MPText style={styles.noAccount} onPress={this.props.onRegister}>Não tem conta?</MPText>
-            <MPText style={styles.register} onPress={this.props.onRegister}>Faça seu cadastro.</MPText>
-
+              <TouchableWithoutFeedback onPress={this.props.onRegister}>
+                <View>
+                  <MPText style={styles.noAccount}>Não tem conta?</MPText>
+                  <MPText style={styles.register}>Faça seu cadastro.</MPText>
+                </View>
+              </TouchableWithoutFeedback>
           </View>
         </KeyboardAwareScrollView>
         <MPLoading visible={this.props.loading} />

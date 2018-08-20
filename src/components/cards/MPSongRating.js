@@ -4,9 +4,8 @@ import {Card} from 'react-native-elements';
 import PropTypes from 'prop-types';
 import {
   MPSongListIcon, MPPlayIcon, MPSongMenuIcon, MPSongIndicateIcon,
-  MPSongIndicateFullIcon, MPAddSongWhiteNoteIcon
+  MPSongIndicateFullIcon, MPAddSongWhiteNoteIcon, MPPlayDisabledIcon
 } from '../../assets/svg';
-import images from '../../assets/img';
 import {MPText} from '../general';
 import {MPShowRating} from '../profile';
 
@@ -30,6 +29,7 @@ class MPSongRating extends Component {
 
   handlePlayClick = () => {
     let {onPlayClick, song} = this.props;
+    const hasPath = !!song.path;
     onPlayClick && onPlayClick(song);
   };
 
@@ -75,6 +75,7 @@ class MPSongRating extends Component {
 
   render() {
     const {song, style, isNew} = this.props;
+    const hasPath = !!song.path;
 
     return (
       <View style={style || {}}>
@@ -88,11 +89,18 @@ class MPSongRating extends Component {
                     style={{ width: 100, height: 100 }}
                     source={ song.picture_url ? { uri: song.picture_url } : require('../../assets/img/album-default.png')}/>
 
-                  {song.path && (
+                  {hasPath && (
                     <TouchableOpacity style={styles.playIcon} onPress={this.handlePlayClick}>
                       <MPPlayIcon />
                     </TouchableOpacity>
                   )}
+
+                  {!hasPath &&
+                    <View style={styles.playIcon}>
+                      <MPPlayDisabledIcon />
+                    </View>
+                  }
+
                   { this.renderTopIcons() }
                   {song && !song.published_at && (
                     <View style={ styles.draftContainer}>
@@ -205,8 +213,7 @@ const styles = StyleSheet.create({
   simpleUserCardImage: {
     width: 100,
     height: 100,
-    justifyContent: 'center',
-    backgroundColor: '#f60',
+    justifyContent: 'center'
   },
   simpleUserCardText: {
     height: 40,

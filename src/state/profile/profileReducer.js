@@ -90,6 +90,13 @@ const profileReducer = (state, action) => {
       };
 
     case FETCHED_PROFILE_MY_SONGS:
+      //TODO: do reset and pagination folders if exists
+      return {
+        ...state,
+        profileSongsLoading: false,
+        mySongs: action.payload
+      };
+
     case FETCHED_PROFILE_MY_SONGS_BY_FOLDER_PARTIAL:
     case FETCHED_PROFILE_MY_SONGS_WITHOUT_FOLDER:
       return {
