@@ -2,16 +2,14 @@ import React from 'react';
 import {
   FlatList, ScrollView, StyleSheet, View, ActivityIndicator
 } from 'react-native';
-import {
-  MPUser, MPUserFull, MPFeedNotification, MPHeader, MPTabBar, MPText,
-  MPTextField, MPIconButton, MPConfirmStopFollow, MPUserNotification
-} from '../../../components'
 import {connect} from 'react-redux';
 import Swiper from 'react-native-swiper';
-import images from '../../../assets/img';
+import {
+  MPUser, MPUserFull, MPFeedNotification, MPHeader, MPTabBar, MPText,
+  MPTextField, MPIconButton, MPConfirmStopFollow, MPUserNotification, MPLoading
+} from '../../../components'
 import {MPSearchRedIcon, MPCloseFilledRedIcon} from '../../../assets/svg';
 import {fetchFeeds, searchUsers, getFollowNotifications, followUser} from '../../../state/action';
-import {MPLoading} from "../../../components/general";
 
 
 class FeedScreenContainer extends React.Component {
@@ -227,7 +225,6 @@ class FeedScreenContainer extends React.Component {
                 userName={song.artist && song.artist.name}
                 songName={song.name}
                 song={song}
-                imagePath={images.daftPunk120}
                 userImagePath={song.artist && song.artist.picture_url}
                 onPressUser={() => this.handleNavigateUserProfile(song.artist && song.artist.id)}
                 onPressMusic={this.handleNavigateMusic}

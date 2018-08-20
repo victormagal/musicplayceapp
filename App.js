@@ -24,7 +24,7 @@ import {
 } from './src/state/action';
 import {PlayerService} from './src/service';
 import {MPTabBottomComponent, MPNetworkNotification} from './src/components';
-import {checkConnection} from './src/connectors';
+import {applyAxiosInterceptops} from './src/connectors';
 import {MPTabConfigurationIcon, MPTabNotificationIcon, MPTabProfileIcon} from './src/assets/svg/custom';
 
 const { RNMusicPlayer } = NativeModules;
@@ -93,7 +93,7 @@ export default class App extends React.Component {
       store.dispatch(songStop());
     });
 
-    checkConnection(store);
+    applyAxiosInterceptops(store);
   }
 
   componentWillUnmount() {
@@ -116,14 +116,8 @@ export default class App extends React.Component {
         store.dispatch(playerSongStop());
         PlayerService.stopNotification();
       }
-    }else if(RNMusicPlayer.statePaused == currentPlayerState){
-      if(Platform.OS === 'ios' && store.getState().playerReducer.player.isPlaying){
-        store.dispatch(playerSongStop());
-        PlayerService.stopNotification();
-      }
     }
-
-};
+  };
 
   handleConnectionChange = (isConnected) => {
     store.dispatch(updateNetwork(isConnected));

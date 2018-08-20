@@ -24,7 +24,7 @@ import {
   commentStartLoading
 } from "./songsType";
 import { profileSongFavoritedSuccess, profileSongUnfavoriteSuccess } from '../profile/profileAction';
-import { dispatchAndScheduleError  } from '../general/generalAction';
+import { dispatchAndScheduleRemoveNotifications  } from '../general/generalAction';
 
 
 export const createPermanentSong = (song) => {
@@ -34,7 +34,7 @@ export const createPermanentSong = (song) => {
 
     dispatch(songStartLoading());
     return SongService.createSong(song, true).then(() => {
-      dispatch(songPublishSuccess());
+      dispatchAndScheduleRemoveNotifications(dispatch, songPublishSuccess);
     }).catch(e => {
       dispatch(songPublishError());
       console.log('createPermanentSongError', e);
@@ -49,9 +49,9 @@ export const createDraftSong = (song) => {
 
     dispatch(songStartLoading());
     return SongService.createSong(song).then(() => {
-      dispatch(songDraftSuccess());
+      dispatchAndScheduleRemoveNotifications(dispatch, songDraftSuccess);
     }).catch(e => {
-      dispatchAndScheduleError(dispatch, songDraftError);
+      dispatchAndScheduleRemoveNotifications(dispatch, songDraftError);
       console.log('createDraftSongError', e.response);
     });
   };
@@ -62,10 +62,10 @@ export const updatePermanentSong = (song) => {
     dispatch(songStartLoading());
 
     return SongService.updateSong(song, true).then(() => {
-      dispatch(songPublishSuccess());
+      dispatchAndScheduleRemoveNotifications(dispatch, songPublishSuccess);
     }).catch(e => {
       console.log('updatePermanentSongError', e);
-      dispatch(songPublishError())
+      dispatchAndScheduleRemoveNotifications(dispatch, songPublishError);
     });
   };
 };
@@ -74,9 +74,9 @@ export const updateDraftSong = (song) => {
   return (dispatch) => {
     dispatch(songStartLoading());
     return SongService.updateSong(song).then(() => {
-      dispatch(songDraftSuccess());
+      dispatchAndScheduleRemoveNotifications(dispatch, songDraftSuccess);
     }).catch(e => {
-      dispatchAndScheduleError(dispatch, songDraftError);
+      dispatchAndScheduleRemoveNotifications(dispatch, songDraftError);
       console.log('updateDraftSong', e.response);
     });
   };
@@ -147,7 +147,8 @@ export const favoriteSong = (song, folder) => {
   return (dispatch) => {
     dispatch(songStartLoading());
     return SongService.favoriteSong(song.id, folder.id).then(() => {
-      dispatch(songFavoriteSuccess(folder));
+      dispatchAndScheduleRemoveNotifications(dispatch, songFavoriteSuccess, folder);
+
       setTimeout(() => {
         dispatch(profileSongFavoritedSuccess({song, folder}));
       }, 2000)
@@ -162,7 +163,8 @@ export const unFavoriteSong = (songId) => {
   return (dispatch) => {
     dispatch(songStartLoading());
     return SongService.unfavoriteSong(songId).then(() => {
-      dispatch(songUnfavoriteSuccess());
+      dispatchAndScheduleRemoveNotifications(dispatch, songUnfavoriteSuccess);
+
       setTimeout(()=> {
         dispatch(profileSongUnfavoriteSuccess(songId));
       }, 2000)

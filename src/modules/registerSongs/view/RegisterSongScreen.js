@@ -6,7 +6,7 @@ import {
   MPGradientButton, MPHeader, MPSongInfo, MPText, MPLoading, MPFloatingNotification
 } from '../../../components'
 import {MPSongUploadIcon, MPSongUploadEditIcon, MPCameraIcon, MPAlertIcon} from '../../../assets/svg';
-import {createPermanentSong, updatePermanentSong, fetchOneSong, fetchProfile} from "../../../state/action";
+import {createPermanentSong, updatePermanentSong, fetchOneSong} from "../../../state/action";
 import {updateSongRegisterData} from "../../../state/songs/songsType";
 import ImagePicker from "react-native-image-picker";
 
@@ -73,7 +73,6 @@ class RegisterSongContainer extends React.Component {
       if (nextProps.songPublishSuccess) {
         this.goToScreen('ConfirmationScreen');
       }
-      this.props.dispatch(fetchProfile());
     }
 
     if (nextProps.fetchedSong && this.state.shouldFetchSong) {

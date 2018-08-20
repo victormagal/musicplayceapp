@@ -23,19 +23,12 @@ class MyProfileScreenContainer extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { profile, mySongs } = this.props;
+    const { profile } = this.props;
     const navigationParams = nextProps.navigation.state.params;
 
     if (navigationParams && navigationParams.backFromPublishedOrDraft) {
-      this.props.dispatch(fetchMySongs(profile.id, mySongs.current_page));
+      this.props.dispatch(fetchMySongs(profile.id));
       nextProps.navigation.setParams({backFromPublishedOrDraft: false});
-    }
-
-    if(nextProps.songDraftSuccess) {
-      this.timerSuccess = setTimeout(() => {
-        this.props.dispatch(fetchProfile());
-        clearTimeout(this.timerSuccess);
-      }, 3000);
     }
 
     if ((this.props.isUserSaved !== nextProps.isUserSaved && nextProps.isUserSaved) ||
@@ -84,7 +77,7 @@ class MyProfileScreenContainer extends React.Component {
   handleSongPagination = (folder) => {
     let {current_page, total_pages} = folder.songs.pagination;
 
-    if(current_page < total_pages){
+    if(current_page < total_pages && !folder.loading){
       this.props.dispatch(fechyMySongsByFolder(folder, current_page + 1));
     }
   };
@@ -105,6 +98,14 @@ class MyProfileScreenContainer extends React.Component {
     }
   };
 
+  handleFolderPagination = () => {
+    let {current_page, total_pages} = this.props.mySongs.pagination;
+
+    if(current_page < total_pages && !this.props.mySongs.loading){
+      this.props.dispatch(fetchMySongs(this.props.profile.id, current_page + 1));
+    }
+  };
+
   render() {
     return (
       <ProfileComponent
@@ -122,6 +123,7 @@ class MyProfileScreenContainer extends React.Component {
         onStopLoading={() => this.setState({ loadingProfile: false })}
         onFavoriteSongPagination={this.handleSongFavoritePagination}
         onSongPagination={this.handleSongPagination}
+        onFolderPagination={this.handleFolderPagination}
         onFollowersPagination={this.handleFollowerPagination}
         onFollowingsPagination={this.handleFollowingPagination}
       />

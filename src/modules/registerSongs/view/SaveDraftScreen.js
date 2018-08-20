@@ -10,7 +10,7 @@ class SaveDraftScreenContainer extends Component {
 
   componentWillReceiveProps(nextProps){
     if (nextProps.songDraftSuccess){
-      this.props.navigation.popToTop();
+      this.props.navigation.navigate('MyProfileScreen', { backFromPublishedOrDraft: true });
     }
   }
 

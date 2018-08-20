@@ -366,7 +366,7 @@ class SongService {
   }
 
   static _userSongsFolders(id, page) {
-    return FolderService.getUserSongsFolders(id, page, 30).then(response => {
+    return FolderService.getUserSongsFolders(id, page, 10).then(response => {
       let data = response.data.filter(f => f.song_count > 0);
 
       return Promise.all(SongService._mapFolders(data)).then(songs => {

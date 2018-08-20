@@ -19,13 +19,15 @@ import {
   PROFILE_SONG_UNFAVORITED_SUCCESS,
   FETCHED_PROFILE_MY_FAVORITE_SONGS_PARTIAL,
   FETCHED_PROFILE_MY_SONGS_BY_FOLDER_PARTIAL,
-  FETCHED_PROFILE_MY_SONGS_WITHOUT_FOLDER
+  FETCHED_PROFILE_MY_SONGS_WITHOUT_FOLDER,
+  PROFILE_FOLDER_START_LOADING,
+  PROFILE_FOLDER_PAGINATION_LOADING,
 } from './profileAction';
 import {
   AUTH_LOGOUT
 } from '../auth/authAction';
 import {
-  USER_FOLLOW_SUCCESS, USER_STOP_FOLLOW_SUCCESS, _appendSongsData
+  USER_FOLLOW_SUCCESS, USER_STOP_FOLLOW_SUCCESS, _appendSongsData, _appendFoldersData
 } from '../user/userTypes';
 import { SONG_INDICATE_SUCCESS } from '../songs/songsType';
 
@@ -90,11 +92,10 @@ const profileReducer = (state, action) => {
       };
 
     case FETCHED_PROFILE_MY_SONGS:
-      //TODO: do reset and pagination folders if exists
       return {
         ...state,
         profileSongsLoading: false,
-        mySongs: action.payload
+        mySongs: _appendFoldersData(action.payload, state.mySongs)
       };
 
     case FETCHED_PROFILE_MY_SONGS_BY_FOLDER_PARTIAL:
@@ -107,7 +108,7 @@ const profileReducer = (state, action) => {
 
     case SONG_INDICATE_SUCCESS:
       if(state.profile){
-        let profile = {...state.profile, indicationsCount: state.profile.indicationsCount + 1}
+        let profile = {...state.profile, indicationsCount: state.profile.indicationsCount + 1};
         return {
           ...state,
           profile
@@ -176,6 +177,22 @@ const profileReducer = (state, action) => {
         }
       }
       break;
+
+    case PROFILE_FOLDER_START_LOADING:
+      let data = Object.assign([], state.mySongs.data);
+      let folder = data.find(f => f.id === action.payload.id);
+      folder.loading = true;
+
+      return {
+        ...state,
+        mySongs: {...state.mySongs, data}
+      };
+
+    case PROFILE_FOLDER_PAGINATION_LOADING:
+      return {
+        ...state,
+        mySongs: {...state.mySongs, loading: true}
+      };
 
     case PROFILE_START_LOADING:
       return {
