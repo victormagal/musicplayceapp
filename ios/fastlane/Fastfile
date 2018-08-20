@@ -23,16 +23,19 @@ platform :ios do
   end
 
   desc "Push a new beta build to TestFlight"
-  lane :beta do
+  lane :release do
     match(type: "development")
     match(type: "appstore")
     gym(scheme: "musicplayce", export_options: "./musicplayce/Release.plist")
+  end
+
+  desc "Push a new beta build to TestFlight"
+  lane :beta do
     upload_to_testflight
   end
 
   desc "Push a new release build to the App Store"
-  lane :release do
-    build_app(scheme: "musicplayce")
+  lane :store do
     upload_to_app_store(skip_metadata: true, skip_screenshots: true)
   end
 end
