@@ -150,7 +150,7 @@ class RegisterComponent extends Component {
                 </TouchableOpacity>
               </View>
               <MPInput
-                label="Email"
+                label="E-mail"
                 name="email"
                 autoCapitalize={'none'}
                 value={this.state.form.email}
