@@ -116,7 +116,8 @@ class FeedScreenContainer extends React.Component {
   };
 
   handleClearClick = () => {
-    this.setState({textValue: '', feed: [], searching: false, searchingNotFound: false});
+    this.setState({textValue: '', feed: {}, searching: false, searchingNotFound: false});
+    this.props.dispatch(fetchFeeds(''));
   };
 
   handleChangeTab = (index) => {

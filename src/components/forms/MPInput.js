@@ -3,7 +3,6 @@ import {
   StyleSheet, View, TouchableOpacity
 } from 'react-native';
 import {TextField} from 'react-native-material-textfield';
-import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {applyValidator} from './applyValidator';
 import {MPInputEyeIcon, MPInputEyeVisibleIcon} from '../../assets/svg';
