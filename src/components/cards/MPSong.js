@@ -5,6 +5,9 @@ import {MPText} from '../general';
 import {MPPlayBlackIcon} from '../../assets/svg';
 
 class MPSong extends Component {
+  state = {
+    multipleComposers: false,
+  }
 
   handleSongComposers = (song) => {
     // TODO: handle songs without composers
@@ -18,13 +21,13 @@ class MPSong extends Component {
           composerString = composerString.concat(`, ${coAuthor.name}`);
         }
       })
+      this.setState({multipleComposers: true});
     }
     return composerString;
   }
 
   render() {
     let {song, style} = this.props;
-    let multipleComposers = (song.coAuthors && song.coAuthors.length > 0) ? true : false;
 
     return (
       <TouchableOpacity style={[styles.parent, style]}>
@@ -34,7 +37,7 @@ class MPSong extends Component {
               <MPPlayBlackIcon style={ styles.songHeaderIcon}/>
               <MPText style={ styles.songHeaderText}>{song ? song.name : 'Tocando em Frente'}</MPText>
             </View>
-            <MPText style={ styles.songCardTitle}>{ multipleComposers ?  'COMPOSITORES' : 'COMPOSITOR'}</MPText>
+            <MPText style={ styles.songCardTitle}>{ this.state.multipleComposers ?  'COMPOSITORES' : 'COMPOSITOR'}</MPText>
             <MPText>
               <MPText style={ styles.songCardUser}>{song ? this.handleSongComposers(song): 'Almir Sater'}</MPText>
             </MPText>
