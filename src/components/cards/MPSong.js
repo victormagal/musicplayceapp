@@ -7,25 +7,24 @@ import {MPPlayBlackIcon} from '../../assets/svg';
 class MPSong extends Component {
 
   handleSongComposers = (song) => {
-    if(song.user && song.coAuthors){
-      // TODO: handle songs without composers
-      let composerString = song.user.name;
-      if(song.coAuthors && song.coAuthors.length > 0){
-        let coAuthors = song.coAuthors;
-        coAuthors.map((coAuthor, index, array) => {
-          if(index == array.length - 1){
-            composerString = composerString.concat(` e ${coAuthor.name}`);
-          }else{
-            composerString = composerString.concat(`, ${coAuthor.name}`);
-          }
-        })
-      }
-      return composerString;
+    // TODO: handle songs without composers
+    let composerString = song.artist.name;
+    if(song.coAuthors && song.coAuthors.length > 0){
+      let coAuthors = song.coAuthors;
+      coAuthors.map((coAuthor, index, array) => {
+        if(index == array.length - 1){
+          composerString = composerString.concat(` e ${coAuthor.name}`);
+        }else{
+          composerString = composerString.concat(`, ${coAuthor.name}`);
+        }
+      })
     }
+    return composerString;
   }
 
   render() {
     let {song, style} = this.props;
+    let multipleComposers = (song.coAuthors && song.coAuthors.length > 0) ? true : false;
 
     return (
       <TouchableOpacity style={[styles.parent, style]}>
@@ -35,7 +34,7 @@ class MPSong extends Component {
               <MPPlayBlackIcon style={ styles.songHeaderIcon}/>
               <MPText style={ styles.songHeaderText}>{song ? song.name : 'Tocando em Frente'}</MPText>
             </View>
-            <MPText style={ styles.songCardTitle}>COMPOSITORES</MPText>
+            <MPText style={ styles.songCardTitle}>{ multipleComposers ?  'COMPOSITORES' : 'COMPOSITOR'}</MPText>
             <MPText>
               <MPText style={ styles.songCardUser}>{song ? this.handleSongComposers(song): 'Almir Sater'}</MPText>
             </MPText>
