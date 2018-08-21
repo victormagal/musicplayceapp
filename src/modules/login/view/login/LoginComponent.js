@@ -80,11 +80,12 @@ class LoginComponent extends Component {
 
               <MPForm>
                 <MPInput
-                  label="Email ou Usuário"
+                  label="E-mail ou Usuário"
                   name="login" value={this.state.form.login}
                   onChangeText={this.handleChangeText}
                   validators={['required']}
                   autoCapitalize={'none'}
+                  error={this.props.error}
                 />
                 <MPInput
                   label={"Senha"}
