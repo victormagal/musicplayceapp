@@ -17,6 +17,7 @@ export const SAVE_PROFILE_ERROR = 'SAVE_PROFILE_ERROR';
 export const IMAGE_PROFILE_START_LOADING = 'IMAGE_PROFILE_START_LOADING';
 export const IMAGE_PROFILE_FINISHED_LOADING = 'IMAGE_PROFILE_FINISHED_LOADING';
 export const PROFILE_FOLDER_PAGINATION_LOADING = 'PROFILE_FOLDER_PAGINATION_LOADING';
+export const PROFILE_FOLDER_FAVORITE_PAGINATION_LOADING = 'PROFILE_FOLDER_FAVORITE_PAGINATION_LOADING';
 export const PROFILE_FOLDER_START_LOADING = 'PROFILE_FOLDER_START_LOADING';
 export const PROFILE_START_LOADING = 'PROFILE_START_LOADING';
 export const PROFILE_FINISH_LOADING = 'PROFILE_FINISH_LOADING';
@@ -30,6 +31,8 @@ export const PROFILE_FOLLOWING_FETCHED = 'PROFILE_FOLLOWING_FETCHED';
 export const PROFILE_SONG_FAVORITED_SUCCESS = 'PROFILE_SONG_FAVORITED_SUCCESS';
 export const PROFILE_SONG_UNFAVORITED_SUCCESS = 'PROFILE_SONG_UNFAVORITED_SUCCESS';
 
+
+export const profileFolderFavoriteLoading = createAction(PROFILE_FOLDER_FAVORITE_PAGINATION_LOADING);
 export const profileFolderStartLoading = createAction(PROFILE_FOLDER_START_LOADING, data => data);
 export const profileStartLoading = createAction(PROFILE_START_LOADING);
 export const profileFinishLoading = createAction(PROFILE_FINISH_LOADING);
@@ -148,6 +151,10 @@ export const fechyMyFavoriteSongsByFolder = (folder, page) => {
 
 export const fetchMyFavoriteSongs = (page = 1) => {
   return (dispatch) => {
+    if(page > 1){
+      dispatch(profileFolderFavoriteLoading());
+    }
+
     return SongService.mySongsFavorites(page).then(response => {
       dispatch(fetchedProfileFavoriteSongs(response));
     });

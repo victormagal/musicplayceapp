@@ -22,6 +22,7 @@ import {
   FETCHED_PROFILE_MY_SONGS_WITHOUT_FOLDER,
   PROFILE_FOLDER_START_LOADING,
   PROFILE_FOLDER_PAGINATION_LOADING,
+  PROFILE_FOLDER_FAVORITE_PAGINATION_LOADING
 } from './profileAction';
 import {
   AUTH_LOGOUT
@@ -85,6 +86,11 @@ const profileReducer = (state, action) => {
       };
 
     case FETCHED_PROFILE_MY_FAVORITE_SONGS:
+      return {
+        ...state,
+        myFavoriteSongs: _appendFoldersData(action.payload, state.myFavoriteSongs)
+      };
+
     case FETCHED_PROFILE_MY_FAVORITE_SONGS_PARTIAL:
       return {
         ...state,
@@ -188,10 +194,13 @@ const profileReducer = (state, action) => {
         mySongs: {...state.mySongs, data}
       };
 
+    case PROFILE_FOLDER_FAVORITE_PAGINATION_LOADING:
     case PROFILE_FOLDER_PAGINATION_LOADING:
+      const variableName = action.type === PROFILE_FOLDER_PAGINATION_LOADING ? 'mySongs' : 'myFavoriteSongs';
+
       return {
         ...state,
-        mySongs: {...state.mySongs, loading: true}
+        [variableName]: {...state[variableName], loading: true}
       };
 
     case PROFILE_START_LOADING:
