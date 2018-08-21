@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { StyleSheet, TouchableWithoutFeedback, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, TouchableWithoutFeedback, View, TouchableOpacity, Platform } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import LinearGradient from 'react-native-linear-gradient';
 import {MPGradientButton, MPText, MPLoading, MPInput, MPForm, MPFormButton, MPHeader} from '../../../../components';
@@ -16,6 +16,7 @@ import {
 import {MPCircleGradientButton} from "../../../../components/buttons";
 import ImagePicker from "react-native-image-picker";
 import {MPFloatingNotification} from "../../../../components/general";
+import {fetchTermsAndConditions} from "../../../../state/settings/termsAndConditions/termsAction";
 
 
 const BaseIcon = (props, Icon) => (
@@ -58,13 +59,14 @@ class RegisterComponent extends Component {
   };
 
   componentDidUpdate() {
-    if (this.props.error !== null) {
+    if (this.props.error) {
       this.handleToggleRegisterForm();
     }
   }
 
   handleToggleRegisterForm = () => {
-    this.scrollViewRef.scrollToPosition(0, this.state.linearGradientHeight + 21);
+    const extraMargin = Platform.OS === 'ios' ? 15 : 21;
+    this.scrollViewRef.scrollToPosition(0, this.state.linearGradientHeight + extraMargin);
   };
 
   handleClickPhoto = () => {
@@ -106,6 +108,10 @@ class RegisterComponent extends Component {
     this.setState({newState});
   };
 
+  getTerms = () => {
+    this.props.navigation.navigate('termsAndConditions', { justFetch: true, back: false })
+  }
+
   render() {
     let IconRegister = this.state.formVisible ? this.icons.up : this.icons.down;
     return (
@@ -130,8 +136,7 @@ class RegisterComponent extends Component {
               </TouchableWithoutFeedback>
             </View>
           </LinearGradient>
-          <View style={styles.form}>
-
+          <View style={[styles.form, { marginTop: 42 }]}>
             {this.props.error && (
               <View>
                 <MPText style={styles.deuRuimText}>
@@ -142,13 +147,12 @@ class RegisterComponent extends Component {
 
             {this.props.formError && (
               <View>
-                <MPText style={[styles.deuRuimText, { marginTop: 10 }]}>
+                <MPText style={[styles.deuRuimText, { marginTop: 10, marginBottom: 20 }]}>
                   { this.props.formError }
                 </MPText>
               </View>
             )}
-
-            <MPForm style={{ marginTop: 42 }}>
+            <MPForm>
               <View style={{ alignItems: 'center', marginBottom: 15 }}>
                 <MPCircleGradientButton
                   icon={this.state.form.imageFile ? this.state.form.imageFile.uri : MPCameraIcon}
@@ -198,10 +202,12 @@ class RegisterComponent extends Component {
                 secureTextEntry={true}
                 onChangeText={this.handleChange}/>
 
-              <MPText style={styles.termsMessage}>
-                Ao criar sua conta você está aceitando os
-                <MPText style={styles.termsText}> termos e condições de uso</MPText> da Music Playce.
-              </MPText>
+              <TouchableOpacity onPress={this.getTerms} opacity={1}>
+                <MPText style={styles.termsMessage}>
+                  Ao criar sua conta você está aceitando os
+                  <MPText style={styles.termsText}> termos e condições de uso</MPText> da Music Playce.
+                </MPText>
+              </TouchableOpacity>
 
               <View>
                 <MPFormButton>
@@ -345,7 +351,6 @@ const styles = StyleSheet.create({
     alignSelf: 'center'
   },
   deuRuimText: {
-    marginTop: 20,
     fontFamily: 'Montserrat-Regular',
     fontSize: 12,
     color: '#e13223'

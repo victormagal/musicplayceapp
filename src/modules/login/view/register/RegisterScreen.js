@@ -41,6 +41,7 @@ class RegisterScreenContainer extends Component {
   render() {
     return (
       <RegisterComponent
+        navigation={this.props.navigation}
         onBackClick={this.handleBackClick}
         onRegister={this.handleRegister}
         loading={this.props.loading}
