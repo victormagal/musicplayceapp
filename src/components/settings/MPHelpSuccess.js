@@ -5,6 +5,7 @@ import {
   MPGradientButton,
   MPText
 } from '../../components';
+import { MPNotFillledSettingsIcon } from '../../assets/svg';
 
 class MPHelpSuccessComponent extends React.Component {
   handleGoTo = (route) => {
@@ -25,6 +26,7 @@ class MPHelpSuccessComponent extends React.Component {
         />
         <MPGradientButton
           style={styles.button}
+          icon={MPNotFillledSettingsIcon}
           textSize={16}
           title="Voltar para configurações"
           onPress={() => this.handleGoTo('homeSettings')}
