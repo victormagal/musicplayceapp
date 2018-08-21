@@ -32,6 +32,8 @@ import {
   userFollowingsPartialStartLoading,
   userSongsStartLoading,
   userSongsFinishLoading,
+  userFolderPaginationLoading,
+  userFolderSongsPaginationLoading,
   _fetchFollowersFollowing
 } from './userTypes';
 
@@ -87,10 +89,13 @@ export const getUserById = (id) => {
 
 export const userSongs = (id, page = 1) => {
   return (dispatch) => {
-    dispatch(userSongsStartLoading());
+    if(page > 1){
+      dispatch(userFolderPaginationLoading());
+    }else {
+      dispatch(userSongsStartLoading());
+    }
 
     return SongService.mySongs(id, page).then(response => {
-      //TODO: finish folder pagination
       dispatch(userSongsFetched(response));
     }).catch(e => {
       dispatch(userSongsFinishLoading());
@@ -100,6 +105,9 @@ export const userSongs = (id, page = 1) => {
 
 export const userSongsByFolder= (id, folder, page = 1) => {
   return (dispatch) => {
+
+    dispatch(userFolderSongsPaginationLoading(folder));
+
     if(folder.id === -1) {
       return SongService.userSongsWithoutFolder(id, page).then(response => {
         dispatch(userSongsByFolderFetched({folder, ...response}));

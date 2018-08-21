@@ -112,8 +112,7 @@ class MPSongRating extends Component {
                   <MPText style={ styles.simpleUserCardText }>{ song && song.name || '' }</MPText>
                   <MPShowRating rating={song.rating}/>
                 </View>
-                {
-                  !song.is_indication && (
+                {song.published_at && !song.is_indication && (
                     <TouchableOpacity style={ styles.indicateSongContainer }
                                       onPress={() => this.props.onIndicateClick(song)}>
                       <MPSongIndicateIcon />
@@ -121,7 +120,7 @@ class MPSongRating extends Component {
                     </TouchableOpacity>
                   )
                 }
-                {song.is_indication && (
+                {song.published_at && song.is_indication && (
                     <View style={styles.indicateSongContainer}>
                       <MPSongIndicateFullIcon />
                       <MPText style={styles.indicateSongText}>{ song.indications_count } {"\n"}INDICAÇÕES</MPText>
