@@ -95,9 +95,9 @@ class FeedScreenContainer extends React.Component {
     }
 
     if (textValue) {
-      this.setState({searching: false, searchingNotFound: false});
+      this.setState({searching: true, searchingNotFound: false});
     } else {
-      this.setState({feed: [], searching: false, searchingNotFound: false});
+      this.setState({textVallue: '',feed: [], searching: false, searchingNotFound: false});
     }
   };
 
@@ -114,7 +114,8 @@ class FeedScreenContainer extends React.Component {
   };
 
   handleClearClick = () => {
-    this.setState({textValue: '', feed: [], searching: false, searchingNotFound: false});
+    this.setState({textValue: '', feed: {}, searching: false, searchingNotFound: false});
+    this.props.dispatch(fetchFeeds(''));
   };
 
   handleChangeTab = (index) => {

@@ -63,8 +63,9 @@ export const createUser = (user) => {
       dispatch(createUserSuccess());
       return response;
     }).catch(e => {
-      console.log(e);
+      console.log('error', e.response);
       dispatch(createUserError());
+      return e.response;
     });
   };
 };
