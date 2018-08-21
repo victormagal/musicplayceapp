@@ -41,26 +41,21 @@ class UserProfileScreenContainer extends React.Component {
   };
 
   handleFollowerPagination = () => {
-    let {current_page, total_pages} = this.props.userFollowers.pagination;
-
-    if(current_page < total_pages) {
-      this.props.dispatch(userFollowers(this.props.user.id, current_page + 1));
-    }
+    this._handlePagination('userFollowers', userFollowers);
   };
 
   handleFollowingPagination = () => {
-    let {current_page, total_pages} = this.props.userFollowings.pagination;
-
-    if(current_page < total_pages) {
-      this.props.dispatch(userFollowings(this.props.user.id, current_page + 1));
-    }
+    this._handlePagination('userFollowings', userFollowings);
   };
 
   handleFolderPagination = () => {
-    let {current_page, total_pages} = this.props.usersSongs.pagination;
+    this._handlePagination('usersSongs', userSongs);
+  };
 
-    if(current_page < total_pages && !this.props.usersSongs.loading){
-      this.props.dispatch(userSongs(this.props.user.id, current_page + 1));
+  _handlePagination = (propName, fetchAction) => {
+    let {current_page, total_pages} = this.props[propName].pagination;
+    if(current_page < total_pages && !this.props[propName].loading){
+      this.props.dispatch(fetchAction(this.props.user.id, current_page + 1));
     }
   };
 

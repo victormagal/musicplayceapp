@@ -3,15 +3,13 @@ import {connect} from 'react-redux';
 import {ProfileComponent} from '../ProfileComponent';
 import {
   fetchProfile, logout, fechyMySongsByFolder, fechyMyFavoriteSongsByFolder,
-  fetchMyFollowers, fetchMyFollowings
+  fetchMyFollowers, fetchMyFollowings, fetchMyFavoriteSongs
 } from '../../../../state/action';
 import {songRegisterClear} from '../../../../state/songs/songsType';
 import {fetchMySongs} from "../../../../state/profile/profileAction";
 
 
 class MyProfileScreenContainer extends React.Component {
-  timerSuccess = null;
-
   state = {
     loadingProfile: true
   };
@@ -35,12 +33,6 @@ class MyProfileScreenContainer extends React.Component {
       (this.props.saveProfileSuccess !== nextProps.saveProfileSuccess && nextProps.saveProfileSuccess)
     ) {
       this.props.dispatch(fetchProfile());
-    }
-  }
-
-  componentWillUnmount(){
-    if(this.timerSuccess){
-      clearTimeout(this.timerSuccess);
     }
   }
 
@@ -83,26 +75,26 @@ class MyProfileScreenContainer extends React.Component {
   };
 
   handleFollowerPagination = () => {
-    let {current_page, total_pages} = this.props.followers.pagination;
-
-    if(current_page < total_pages) {
-      this.props.dispatch(fetchMyFollowers(this.props.profile.id, current_page + 1));
-    }
+    this._handlePagination('followers', fetchMyFollowers);
   };
 
   handleFollowingPagination = () => {
-    let {current_page, total_pages} = this.props.following.pagination;
-
-    if(current_page < total_pages) {
-      this.props.dispatch(fetchMyFollowings(this.props.profile.id, current_page + 1));
-    }
+    this._handlePagination('following', fetchMyFollowings);
   };
 
   handleFolderPagination = () => {
-    let {current_page, total_pages} = this.props.mySongs.pagination;
+    this._handlePagination('mySongs', fetchMySongs);
+  };
 
-    if(current_page < total_pages && !this.props.mySongs.loading){
-      this.props.dispatch(fetchMySongs(this.props.profile.id, current_page + 1));
+  handleFavoriteFolderPagination = () => {
+    this._handlePagination('myFavoriteSongs', fetchMyFavoriteSongs);
+  };
+
+  _handlePagination = (propName, fetchAction) => {
+    let {current_page, total_pages} = this.props[propName].pagination;
+
+    if(current_page < total_pages && !this.props[propName].loading){
+      this.props.dispatch(fetchAction(this.props.profile.id, current_page + 1));
     }
   };
 
@@ -112,7 +104,6 @@ class MyProfileScreenContainer extends React.Component {
         {...this.props}
         me={true}
         songsLoading={this.props.profileSongsLoading}
-        favoritesFolder={this.props.myFavoriteSongs && this.props.myFavoriteSongs.data}
         userFollowers={this.props.followers}
         userFollowings={this.props.following}
         onSongAddClick={this.handleSongAddClick}
@@ -124,6 +115,7 @@ class MyProfileScreenContainer extends React.Component {
         onFavoriteSongPagination={this.handleSongFavoritePagination}
         onSongPagination={this.handleSongPagination}
         onFolderPagination={this.handleFolderPagination}
+        onFavoriteFolderPagination={this.handleFavoriteFolderPagination}
         onFollowersPagination={this.handleFollowerPagination}
         onFollowingsPagination={this.handleFollowingPagination}
       />

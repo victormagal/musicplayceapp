@@ -29,7 +29,6 @@ class ProfileComponent extends React.Component {
     this.state = {
       tabIndex: 0,
       linearGradientHeight: 0,
-      favoritesFolder: [],
       isFollowing: false,
       imageSizeError: false,
       addSongButtonRed: true
@@ -37,14 +36,6 @@ class ProfileComponent extends React.Component {
   }
 
   componentWillReceiveProps(nextProps){
-    if(nextProps.favoritesFolder){
-      this.setState({favoritesFolder: nextProps.favoritesFolder});
-    }
-
-    if(nextProps.mySongs){
-      this.setState({userFolders: nextProps.mySongs.data});
-    }
-
     if (this.props.profile !== nextProps.profile) {
       this.props.onStopLoading()
     }
@@ -150,7 +141,6 @@ class ProfileComponent extends React.Component {
   };
 
   renderListLoadingFooter = (loading) => {
-    console.log("LOADING", loading);
     if(loading) {
       return (
         <View style={styles.listFooterLoading}>
@@ -380,7 +370,7 @@ class ProfileComponent extends React.Component {
   }
 
   renderTabsContent(profile, tabIndex) {
-    const { me, mySongs, songDraft, songsLoading } = this.props;
+    const { me, mySongs, myFavoriteSongs, songDraft, songsLoading } = this.props;
 
     if(tabIndex === 0) {
       return (
@@ -396,11 +386,11 @@ class ProfileComponent extends React.Component {
             </View>
           )}
 
-          {!songsLoading && this.state.userFolders && this.state.userFolders.length > 0 ?
+          {!songsLoading && mySongs && mySongs.data.length > 0 ?
             <FlatList
               style={styles.songsScroll}
               nestedScrollEnabled={true}
-              data={this.state.userFolders}
+              data={ mySongs.data}
               renderItem={this.renderFolder}
               keyExtractor={(item) => item.id}
               onEndReached={this.props.onFolderPagination}
@@ -420,14 +410,15 @@ class ProfileComponent extends React.Component {
 
     return (
       <View style={{ backgroundColor: '#FFF' }}>
-        {this.state.favoritesFolder && this.state.favoritesFolder.length > 0 ?
+        {myFavoriteSongs && myFavoriteSongs.data.length > 0 ?
           <FlatList
             style={styles.songsScroll}
             nestedScrollEnabled={true}
-            data={this.state.favoritesFolder}
+            data={myFavoriteSongs.data}
             renderItem={this.renderFolder}
             keyExtractor={(item) => item.id}
-            ListFooterComponent={this.renderListLoadingFooter}
+            onEndReached={this.props.onFavoriteFolderPagination}
+            ListFooterComponent={() => this.renderListLoadingFooter(myFavoriteSongs && myFavoriteSongs.loading)}
           />
           :
           <View style={styles.noSongsSaved}>
