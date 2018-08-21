@@ -13,7 +13,7 @@ class MPUserHorizontal extends Component {
     let borderStyle = {};
     let iconStyle = {};
 
-    if (selected == true) {
+    if (selected) {
       borderStyle = {
         borderColor: "#e13223",
         borderWidth: 2
@@ -31,8 +31,13 @@ class MPUserHorizontal extends Component {
         <TouchableOpacity onPress={ onPress }>
           <Card containerStyle={[styles.stretchedUserCardContainer, borderStyle]}>
             <View style={styles.content}>
-              <Image style={styles.stretchedUserImage} source={image ? {uri: image} : null}/>
-              <MPText style={ styles.stretchedUserText}>{ user }</MPText>
+              <Image
+                style={styles.stretchedUserImage}
+                source={image ? {uri: image} : require('../../assets/img/avatar-male.jpg')}
+              />
+              <MPText style={ styles.stretchedUserText}>
+                { user }
+                </MPText>
             </View>
           </Card>
         </TouchableOpacity>
@@ -43,7 +48,7 @@ class MPUserHorizontal extends Component {
 }
 
 MPUserHorizontal.propTypes = {
-  artist: PropTypes.string.isRequired,
+  user: PropTypes.string.isRequired,
   image: PropTypes.any,
   onPress: PropTypes.func,
   selected: PropTypes.bool,
