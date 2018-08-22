@@ -94,7 +94,6 @@ class PaymentTypesScreenContainer extends React.Component {
   }
 
   handleAddChangeCard = (card) => {
-    console.log('enviou');
     this.handleBack();
   }
 
@@ -102,8 +101,8 @@ class PaymentTypesScreenContainer extends React.Component {
     this.props.navigation.navigate('message', { component: MPAddNewPayment, title: 'Cadastre seu cartão, é 100% seguro', headerLeft: this.headerLeft(), headerRight: this.headerRight()});
   }
 
-  editPayment(){
-    this.props.navigation.navigate('message', { component: MPChangeRemovePayment, title: 'Cadastre seu cartão, é 100% seguro', headerLeft: this.headerLeft(), headerRight: this.headerRight()});
+  editPayment(card){
+    this.props.navigation.navigate('message', { component: MPChangeRemovePayment, title: 'Cadastre seu cartão, é 100% seguro', headerLeft: this.headerLeft(), headerRight: this.headerRight(), card: card});
   }
 
   handleBack = () => {
