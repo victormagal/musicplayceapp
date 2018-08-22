@@ -13,7 +13,8 @@ import {
   MPShowBonuses,
   MPAddNewPayment,
   MPChangeRemovePayment,
-  MPConfirmRemovePayment
+  MPConfirmRemovePayment,
+  MPIconButton
 } from '../../../components';
 import { connect } from 'react-redux';
 import { KeyboardAwareScrollView } from '../../../../node_modules/react-native-keyboard-aware-scroll-view';
@@ -84,12 +85,25 @@ class PaymentTypesScreenContainer extends React.Component {
     ]
   }
 
+  headerLeft = () => {
+    return [<MPIconButton onPress={this.handleBack}  key={1} title={'Cancelar'}/>];
+  }
+  
+  headerRight = () => {
+    return [<MPIconButton onPress={this.handleAddChangeCard}  key={2} title={'Enviar'}/>];
+  }
+
+  handleAddChangeCard = (card) => {
+    console.log('enviou');
+    this.handleBack();
+  }
+
   addPayment(){
-    this.props.navigation.navigate('message', { component: MPAddNewPayment, title: 'Cadastre seu cartão, é 100% seguro' });
+    this.props.navigation.navigate('message', { component: MPAddNewPayment, title: 'Cadastre seu cartão, é 100% seguro', headerLeft: this.headerLeft(), headerRight: this.headerRight()});
   }
 
   editPayment(){
-    this.props.navigation.navigate('message', { component: MPChangeRemovePayment, title: 'Cadastre seu cartão, é 100% seguro' });
+    this.props.navigation.navigate('message', { component: MPChangeRemovePayment, title: 'Cadastre seu cartão, é 100% seguro', headerLeft: this.headerLeft(), headerRight: this.headerRight()});
   }
 
   handleBack = () => {
