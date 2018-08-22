@@ -32,6 +32,7 @@ const defaultSong = {
   lyrics: '',
   description: '',
   interpreter_name: '',
+  indicationCount: null,
   coAuthors: null,
   folder: null,
   tags: null,
@@ -147,6 +148,7 @@ const songsReducer = (state, action) => {
         loading: false,
         songIndicateSuccess: true,
         fetchedSong: indicatedSong,
+        indicationCount: action.payload,
       };
     
     case SONG_LIKE_COMMENT_SUCCESS:
