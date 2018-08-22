@@ -33,8 +33,8 @@ export const createPermanentSong = (song) => {
     song.artist_id = profile.id;
 
     dispatch(songStartLoading());
-    return SongService.createSong(song, true).then(() => {
-      dispatchAndScheduleRemoveNotifications(dispatch, songPublishSuccess);
+    return SongService.createSong(song, true).then((response) => {
+      dispatchAndScheduleRemoveNotifications(dispatch, songPublishSuccess, response);
     }).catch(e => {
       dispatch(songPublishError());
       console.log('createPermanentSongError', e);
@@ -61,8 +61,8 @@ export const updatePermanentSong = (song) => {
   return (dispatch) => {
     dispatch(songStartLoading());
 
-    return SongService.updateSong(song, true).then(() => {
-      dispatchAndScheduleRemoveNotifications(dispatch, songPublishSuccess);
+    return SongService.updateSong(song, true).then((response) => {
+      dispatchAndScheduleRemoveNotifications(dispatch, songPublishSuccess, response);
     }).catch(e => {
       console.log('updatePermanentSongError', e);
       dispatchAndScheduleRemoveNotifications(dispatch, songPublishError);

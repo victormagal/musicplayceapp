@@ -1,21 +1,36 @@
 import React from 'react';
 import {StyleSheet, ScrollView, View, FlatList} from 'react-native';
 import {MPGradientButton, MPHeader, MPUser, MPText} from '../../../components';
-import {fetchFeeds} from '../../../state/action';
+import {indicateSong} from '../../../state/action';
 import {connect} from 'react-redux';
 
 
 class ConfirmationScreenContainer extends React.Component {
-  componentDidMount() {
-    this.props.dispatch(fetchFeeds(''));
+
+  state = {
+    song: null,
+    artist: null,
+    indicationCount: 0
+  };
+
+  componentWillReceiveProps(nextProps){
+    if(nextProps.songIndicateSuccess){
+      this.props.navigation.navigate('IndicateSongFeedbackScreen', {...this.state, registerSong: true});
+    }
   }
 
   handleClose = () => {
     this.props.navigation.navigate('MyProfileScreen', { backFromPublishedOrDraft: true });
   };
 
+  handleIndicate = (user) => {
+    let {song} = this.props.navigation.state.params;
+    this.setState({song, artist: user, indicationCount: song.indications_count});
+    this.props.dispatch(indicateSong(song.id, user.id));
+  };
+
   renderItem = ({item}) => {
-    return <MPUser user={item}/>;
+    return <MPUser user={item} onPress={this.handleIndicate.bind(this, item)}/>;
   };
 
   render() {
@@ -38,7 +53,6 @@ class ConfirmationScreenContainer extends React.Component {
                   keyExtractor={(item) => item.id}
                   renderItem={this.renderItem}
                   numColumns={3}
-                  columnWrapperStyle={{flexWrap: 'wrap', justifyContent: 'center'}}
                 />
               )
             }
@@ -103,8 +117,8 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = ({feedsReducer}) => {
-  return {...feedsReducer};
+const mapStateToProps = ({feedsReducer, songsReducer}) => {
+  return {...feedsReducer, songIndicateSuccess: songsReducer.songIndicateSuccess};
 };
 
 const ConfirmationScreen = connect(mapStateToProps)(ConfirmationScreenContainer);
