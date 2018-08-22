@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {API, transformResponseData, getIncludes} from './api';
+import {API, transformResponseData} from './api';
 
 const API_FOLDER = `${API}/folders`;
 
@@ -20,7 +20,8 @@ class FolderService {
     let params = {
       query: '{"type":"userSongs"}',
       queryTable: 'folders',
-      'page[size]': size || 6
+      'page[size]': size || 6,
+      'sort': JSON.stringify({'created_at': 'desc'})
     };
 
     if(page){
@@ -38,7 +39,8 @@ class FolderService {
     let params = {
       query: '{"type":"favoriteSongs"}',
       queryTable: 'folders',
-      'page[size]': size || 6
+      'page[size]': size || 6,
+      'sort': JSON.stringify({'created_at': 'desc'})
     };
 
     if(page){

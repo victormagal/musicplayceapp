@@ -61,8 +61,8 @@ class ProfileComponent extends React.Component {
     }
   };
 
-  handleEditFolder = (folderId) => {
-    this.goToScreen('EditFolder', {folderId})
+  handleEditFolder = (folder) => {
+    this.goToScreen('EditFolder', {folder})
   };
 
   handleEditSong = (song) => {
@@ -166,7 +166,7 @@ class ProfileComponent extends React.Component {
         songs={item.songs.data}
         onSongPagination={onSongPagination}
         onEditClick={this.handleEditSong}
-        onEditFolder={this.handleEditFolder.bind(this, item.id)}
+        onEditFolder={this.handleEditFolder.bind(this, item)}
         onRemoveClick={this.handleRemoveSong}
         onUnpublishClick={this.handleUnpublishSong}
         onPlayClick={this.handlePlaySong}
@@ -388,6 +388,7 @@ class ProfileComponent extends React.Component {
 
           {!songsLoading && mySongs && mySongs.data.length > 0 ?
             <FlatList
+              contentContainerStyle={styles.innerContainerList}
               style={styles.songsScroll}
               nestedScrollEnabled={true}
               data={ mySongs.data}
@@ -412,6 +413,7 @@ class ProfileComponent extends React.Component {
       <View style={{ backgroundColor: '#FFF' }}>
         {myFavoriteSongs && myFavoriteSongs.data.length > 0 ?
           <FlatList
+            contentContainerStyle={styles.innerContainerList}
             style={styles.songsScroll}
             nestedScrollEnabled={true}
             data={myFavoriteSongs.data}
@@ -507,6 +509,9 @@ const styles = StyleSheet.create({
   },
   listLoading: {
     alignSelf:'center'
+  },
+  innerContainerList: {
+    paddingBottom: 16
   }
 });
 
