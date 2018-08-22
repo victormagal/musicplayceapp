@@ -388,6 +388,7 @@ class ProfileComponent extends React.Component {
 
           {!songsLoading && mySongs && mySongs.data.length > 0 ?
             <FlatList
+              contentContainerStyle={styles.innerContainerList}
               style={styles.songsScroll}
               nestedScrollEnabled={true}
               data={ mySongs.data}
@@ -412,6 +413,7 @@ class ProfileComponent extends React.Component {
       <View style={{ backgroundColor: '#FFF' }}>
         {myFavoriteSongs && myFavoriteSongs.data.length > 0 ?
           <FlatList
+            contentContainerStyle={styles.innerContainerList}
             style={styles.songsScroll}
             nestedScrollEnabled={true}
             data={myFavoriteSongs.data}
@@ -507,6 +509,9 @@ const styles = StyleSheet.create({
   },
   listLoading: {
     alignSelf:'center'
+  },
+  innerContainerList: {
+    paddingBottom: 16
   }
 });
 

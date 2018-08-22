@@ -40,6 +40,7 @@ class FeedScreenContainer extends React.Component {
 
   componentDidMount() {
     this.props.dispatch(fetchFeeds(''));
+    this.props.dispatch(searchUsers(''));
     this.props.dispatch(getFollowNotifications());
   }
 
