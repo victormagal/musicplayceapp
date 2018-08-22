@@ -97,11 +97,12 @@ class FeedScreenContainer extends React.Component {
     if (textValue) {
       this.setState({searching: true, searchingNotFound: false});
     } else {
-      this.setState({textVallue: '',feed: [], searching: false, searchingNotFound: false});
+      this.handleClearClick();
     }
   };
 
   handleSearch = (value) => {
+
     if (this.searchTimer) {
       clearTimeout(this.searchTimer);
     }
