@@ -3,13 +3,14 @@ import { connect } from 'react-redux';
 import { StyleSheet, View } from 'react-native';
 import { MPGradientButton, MPHeader, MPText, MPLoading, MPFloatingNotification } from '../../../components';
 import {createDraftSong, removeSong, updateDraftSong} from '../../../state/action';
+import {songRegisterClear} from '../../../state/songs/songsType';
 import {MPAlertIcon} from '../../../assets/svg';
 
 
 class SaveDraftScreenContainer extends Component {
 
   componentWillReceiveProps(nextProps){
-    if (nextProps.songDraftSuccess){
+    if (nextProps.songDraftSuccess || nextProps.songRemoveSuccess){
       this.props.navigation.navigate('MyProfileScreen', { backFromPublishedOrDraft: true });
     }
   }
@@ -20,7 +21,12 @@ class SaveDraftScreenContainer extends Component {
   };
 
   handleRemoveSongClick = () => {
-    this.props.dispatch(removeSong(this.props.song.id));
+    if(this.props.song.id) {
+      this.props.dispatch(removeSong(this.props.song.id));
+    }else{
+      this.props.dispatch(songRegisterClear());
+      this.props.navigation.popToTop();
+    }
   };
 
   handleBack = () => {
@@ -28,7 +34,6 @@ class SaveDraftScreenContainer extends Component {
   };
 
   render() {
-    const { song } = this.props;
     return (
       <View style={styles.container}>
         <MPHeader back={true} onBack={this.handleBack}  />
@@ -42,14 +47,13 @@ class SaveDraftScreenContainer extends Component {
             title="Salvar rascunho"
             onPress={this.handleSaveDraftClick}
           />
-          { song.created_at &&
-            <MPGradientButton
-              style={styles.button}
-              textSize={16}
-              title="Apagar música"
-              onPress={this.handleRemoveSongClick}
-            />
-          }
+
+          <MPGradientButton
+            style={styles.button}
+            textSize={16}
+            title="Apagar música"
+            onPress={this.handleRemoveSongClick}
+          />
         </View>
         <MPLoading visible={this.props.loading}/>
         <MPFloatingNotification

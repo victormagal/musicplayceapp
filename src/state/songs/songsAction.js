@@ -111,8 +111,9 @@ export const unpublishSong = (id) => {
 export const indicateSong = (songId, userId) => {
   return (dispatch) => {
     dispatch(songStartLoading());
-    return SongService.indicateSong(songId, userId).then(() => {
-      dispatch(songIndicateSuccess());
+    return SongService.indicateSong(songId, userId).then((response) => {
+      let indicationCount = response.data.attributes.artist_count;
+      dispatch(songIndicateSuccess(indicationCount));
     }).catch(e => {
       console.log('indicateSongError', e.response);
       dispatch(songIndicateError())

@@ -14,12 +14,11 @@ class IndicateSongFullScreenContainer extends React.Component {
       textValue: '',
       songHeader: true,
       notFoundUser: false,
-      songIndicateSuccess: false,
       artists: [],
       indication: {
         song: {},
         artist: {},
-      }
+      },
     };
   }
 
@@ -39,7 +38,10 @@ class IndicateSongFullScreenContainer extends React.Component {
     }
 
     if (nextProps.songIndicateSuccess) {
-      this.goToScreen('IndicateSongFeedbackScreen')
+      let {indicationCount} = nextProps;
+      if(indicationCount){
+        this.goToScreen(indicationCount - 1);
+      }
     }
   }
 
@@ -54,10 +56,12 @@ class IndicateSongFullScreenContainer extends React.Component {
     this.props.dispatch(indicateSong(songId, artistId));
   }
 
-  goToScreen = () => {
+  goToScreen = (indicationCount) => {
     let artist = this.state.indication.artist;
     let song = this.state.indication.song;
-    this.props.navigation.navigate('IndicateSongFeedbackScreen', {artist, song});
+    if(song.id && artist.id){
+      this.props.navigation.navigate('IndicateSongFeedbackScreen', {artist, song, indicationCount});
+    }
   };
 
   renderItem = ({item}) => (
