@@ -1,9 +1,10 @@
 import React from 'react';
 import {StyleSheet, ScrollView, View, TextInput, FlatList} from 'react-native';
 import {connect} from 'react-redux';
-import {MPHeader, MPTextField, MPUser, MPSong, MPGradientButton, MPText, MPLoading} from '../../../components'
+import {MPHeader, MPTextField, MPUser, MPSong, MPGradientButton, MPText, MPLoading, MPIconButton} from '../../../components'
 import {searchUsers, fetchOneSong, indicateSong} from '../../../state/action';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { MPSearchRedIcon, MPCloseFilledRedIcon } from '../../../assets/svg';
 
 class IndicateSongFullScreenContainer extends React.Component {
 
@@ -72,13 +73,17 @@ class IndicateSongFullScreenContainer extends React.Component {
 
     if (value == "") {
       this.props.dispatch(searchUsers(''));
-      this.setState({notFoundUser: false});
+      this.setState({notFoundUser: false, songHeader: true});
     }
 
     if (value.length > 3) {
       this.props.dispatch(searchUsers(value))
     }
   }
+
+  handleClearClick = () => {
+    this.handleSearch('');
+  };
 
   render() {
     return (
@@ -94,12 +99,21 @@ class IndicateSongFullScreenContainer extends React.Component {
                 <MPText style={ styles.detailsText}>Sabe aquela história de que todo artista tem de ir aonde o povo está? Vamos mostrar sua criação para o mundo. Aproveite para convocar seus seguidores ou você mesmo pode achar uma banda perfeita para esse hit.</MPText>
               </View>
             )}
-            <MPTextField label={'Encontre um artista'}
-                         value={this.state.textValue}
-                         style={{marginHorizontal: 20}}
-                         onFocus={this.toggleState.bind(this, 'songHeader')}
-                         onBlur={this.toggleState.bind(this, 'songHeader')}
-                         onChangeText={ this.handleSearch }/>
+            <View style={{margin: 20}}>
+              <MPTextField label={'Encontre um artista'}
+                value={this.state.textValue}
+                onFocus={this.toggleState.bind(this, 'songHeader')}
+                onChangeText={ this.handleSearch }/>
+              { this.state.textValue.length < 3 ?
+                <MPSearchRedIcon style={styles.searchIcon}/>
+                :
+                <MPIconButton
+                  style={styles.searchIcon}
+                  icon={MPCloseFilledRedIcon}
+                  onPress={this.handleClearClick}
+                />
+              }
+            </View>
             {this.state.notFoundUser && (
               <View>
                 <MPText style={ styles.textFieldSubText}><MPText style={ styles.textFieldSubTextEmph}>"{this.state.textValue} "</MPText> ainda não está no MusicPlayce.</MPText>
@@ -187,6 +201,11 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     marginLeft: 20,
     marginTop: 30
+  },
+  searchIcon: {
+    position: 'absolute',
+    right: 0,
+    bottom: 15
   },
   indicateButton: {
     marginTop: 10,
