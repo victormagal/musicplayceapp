@@ -93,7 +93,6 @@ const styles = StyleSheet.create({
   },
   icons: {
     flex: 0,
-    width: 50,
     marginRight: 10,
     marginTop: 12,
     flexDirection: 'row',
@@ -101,7 +100,6 @@ const styles = StyleSheet.create({
   },
   iconsLeft: {
     flex: 0,
-    width: 50,
     marginLeft: 10,
     justifyContent: 'center'
   }
