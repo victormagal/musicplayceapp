@@ -34,11 +34,17 @@ class MPSongInfo extends Component {
       <View style={[styles.container, style]}>
         <TouchableOpacity onPress={onPress}>
           <Card containerStyle={[styles.parent, borderStyle]}>
-            <MPText style={styles.titleText}>{ title }</MPText>
-            <MPText style={styles.infoText}>{ info || placeholder }</MPText>
+            <MPText style={styles.titleText}>
+              { title }
+            </MPText>
+            <MPText numberOfLines={2} style={styles.infoText}>
+              { info || placeholder }
+            </MPText>
           </Card>
         </TouchableOpacity>
-        { selected && <MPValidatedFilledRedIcon style={ iconStyle }/> }
+        { selected &&
+          <MPValidatedFilledRedIcon style={ iconStyle }/>
+        }
       </View>
     );
   }
