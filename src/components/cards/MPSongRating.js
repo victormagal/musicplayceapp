@@ -170,18 +170,19 @@ class MPSongRating extends Component {
           {this.state.menuOpen && (
             <View style={ styles.menuContainer }>
               <MPText style={ styles.menuCloseText} onPress={this.toggleState.bind(this)}>X</MPText>
+              <View style={{ marginTop: 30 }}>
+              <MPText style={styles.menuText} onPress={this.handleEditClick}>EDITAR</MPText>
+                <View style={ styles.menuSeparator }/>
 
-              <MPText style={[styles.menuText, styles.menuTextFirst]} onPress={this.handleEditClick}>EDITAR</MPText>
-              <View style={ styles.menuSeparator }/>
+                {song.published_at && (
+                  <View>
+                    <MPText style={ styles.menuText } onPress={this.handleUnpublishClick}>DESPUBLICAR</MPText>
+                    <View style={ styles.menuSeparator }/>
+                  </View>
+                )}
 
-              {song.published_at && (
-                <View>
-                  <MPText style={ styles.menuText } onPress={this.handleUnpublishClick}>DESPUBLICAR</MPText>
-                  <View style={ styles.menuSeparator }/>
-                </View>
-              )}
-
-              <MPText style={ styles.menuText } onPress={this.handleRemoveClick}>EXCLUIR</MPText>
+                <MPText style={ styles.menuText } onPress={this.handleRemoveClick}>EXCLUIR</MPText>
+              </View>
             </View>
           )}
         </Card>
@@ -261,10 +262,11 @@ const styles = StyleSheet.create({
     fontFamily: 'Montserrat-Medium',
     color: '#FFF',
     textAlign: 'center',
-    paddingVertical: 18
+    paddingVertical: 10,
+    marginVertical: 8
   },
   menuTextFirst: {
-    marginTop: 20
+    marginTop: 28
   },
   menuSeparator: {
     width: 20,
@@ -274,8 +276,9 @@ const styles = StyleSheet.create({
   },
   menuCloseText: {
     position: 'absolute',
-    top: 8,
-    right: 8,
+    top: 0,
+    right: 0,
+    padding: 8,
     fontSize: 13,
     color: '#FFF',
     fontFamily: 'Montserrat-Bold',
@@ -306,9 +309,10 @@ const styles = StyleSheet.create({
     height: 30
   },
   menuIcon: {
+    padding: 10,
     position: 'absolute',
-    top: 8,
-    right: 8
+    top: 0,
+    right: 0
   },
   addSongIcon: {
     position: 'absolute',
