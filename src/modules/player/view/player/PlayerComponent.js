@@ -174,7 +174,6 @@ class PlayerComponent extends React.Component {
             </LinearGradient>
 
             <View style={[styles.commentMusicContent, styles.row]}>
-              <MPPlayIcon style={styles.musicPlayIcon}/>
               <MPText style={styles.musicTitleText}>{song ? song.title : 'Tocando em Frente'}</MPText>
             </View>
 

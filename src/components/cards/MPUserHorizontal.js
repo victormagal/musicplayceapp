@@ -35,7 +35,7 @@ class MPUserHorizontal extends Component {
                 style={styles.stretchedUserImage}
                 source={image ? {uri: image} : require('../../assets/img/avatar-male.jpg')}
               />
-              <MPText style={ styles.stretchedUserText}>
+              <MPText style={ styles.stretchedUserText} numberOfLines={1}>
                 { user }
                 </MPText>
             </View>
@@ -76,6 +76,7 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 4
   },
   stretchedUserText: {
+    flex: 1,
     color: "#000",
     fontSize: 20,
     paddingStart: 20,

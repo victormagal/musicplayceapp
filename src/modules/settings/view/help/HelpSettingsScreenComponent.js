@@ -1,5 +1,6 @@
 import React from 'react';
 import { ScrollView, StyleSheet, TouchableHighlight, View } from 'react-native';
+import {Card} from 'react-native-elements';
 import { 
 	MPHeader,
 	MPTextField,
@@ -47,6 +48,7 @@ class HelpSettingsScreenComponent extends React.Component {
                 underlayColor="transparent"
                 onPress={() => onQuestionNotFound('sendHelp')}
               >
+							<Card style={{margin: 20, paddingHorizontal: 10, paddingVertical: 15,}}>
 								<View style={styles.item}>
 									<MPText style={styles.textItem}>
                     Não encontrei minha dúvida
@@ -55,6 +57,7 @@ class HelpSettingsScreenComponent extends React.Component {
 									  <MPArrowRightIcon />
                   </View>
 								</View>
+							</Card>
 							</TouchableHighlight>
 						</View>
 						<MPLoading visible={this.props.loading} />
@@ -100,7 +103,6 @@ const styles = StyleSheet.create({
 	},
 	item: {
 		backgroundColor: '#FFFFFF',
-		margin: 20,
 		flexDirection: 'row',
     alignItems: 'center'
 	},

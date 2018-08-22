@@ -34,6 +34,8 @@ export const USER_REPORT_STARTED = 'USER_REPORT_STARTED';
 export const USER_REPORT_SUCCESS = 'USER_REPORT_SUCCESS';
 export const USER_REPORT_ERROR = 'USER_REPORT_ERROR';
 export const USER_HIDE_NOTIFICATION = 'USER_HIDE_NOTIFICATION';
+export const USER_FOLDER_PAGINATION_LOADING = 'USER_FOLDER_PAGINATION_LOADING';
+export const USER_FOLDER_SONGS_PAGINATION_LOADING = 'USER_FOLDER_SONGS_PAGINATION_LOADING';
 
 export const usersFetched = createAction(USERS_FETCHED, (data) => data);
 export const userByIdFetched = createAction(USER_BY_ID_FETCHED, (data) => data);
@@ -69,6 +71,9 @@ export const userReportError = createAction(USER_REPORT_ERROR);
 export const userNotificationsSettingsFetched = createAction(USER_NOTIFICATIONS_SETTINGS_FETCHED, (data) => data);
 export const userNotificationsSettingsPatched = createAction(USER_NOTIFICATIONS_SETTINGS_PATCHED, (data) => data);
 export const userHiddenNotification = createAction(USER_HIDE_NOTIFICATION);
+export const userFolderPaginationLoading = createAction(USER_FOLDER_PAGINATION_LOADING);
+export const userFolderSongsPaginationLoading = createAction(USER_FOLDER_SONGS_PAGINATION_LOADING, data => data);
+
 
 export const _fetchFollowersFollowing = (promise, action, actionStartLoading) => {
   return (dispatch) => {
@@ -86,6 +91,7 @@ export const _appendSongsData = ({folder, data, pagination}, songs) => {
   if(songs != null) {
     songs = {...songs};
     let folderRes = songs.data.find(f => f.id === folder.id);
+    folderRes.loading = false;
     folderRes.songs = {...folder.songs, data: Object.assign([], folderRes.songs.data)};
     folderRes.songs.data = folder.songs.data.concat(data);
     folderRes.songs.pagination = pagination;
@@ -95,3 +101,14 @@ export const _appendSongsData = ({folder, data, pagination}, songs) => {
   return {data, pagination}
 };
 
+
+export const _appendFoldersData = ({data, pagination}, folders) => {
+
+  if(pagination.current_page === 1){
+    return {data, pagination, loading: false};
+  }
+
+  folders.data =  folders.data.concat(data);
+  folders.pagination = pagination;
+  return {...folders, loading: false};
+};

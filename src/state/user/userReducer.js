@@ -33,7 +33,10 @@ import {
   USER_FOLLOW_PARTIAL_FINISH_LOADING,
   USER_SONGS_START_LOADING,
   USER_SONGS_FINISH_LOADING,
-  _appendSongsData
+  USER_FOLDER_PAGINATION_LOADING,
+  USER_FOLDER_SONGS_PAGINATION_LOADING,
+  _appendSongsData,
+  _appendFoldersData
 } from './userTypes';
 
 
@@ -176,7 +179,7 @@ const userReducer = (state, action) => {
       return {
         ...state,
         userSongsLoading: false,
-        usersSongs: action.payload
+        usersSongs: _appendFoldersData(action.payload, state.usersSongs)
       };
 
     case USER_SONGS_BY_FOLDER_FETCHED:
@@ -334,6 +337,22 @@ const userReducer = (state, action) => {
       return {
         ...state,
         userSongsLoading: false
+      };
+
+    case USER_FOLDER_PAGINATION_LOADING:
+      return {
+        ...state,
+        usersSongs: {...state.usersSongs, loading: true}
+      };
+
+    case USER_FOLDER_SONGS_PAGINATION_LOADING:
+      let data = Object.assign([], state.usersSongs.data);
+      let folder = data.find(f => f.id === action.payload.id);
+      folder.loading = true;
+
+      return {
+        ...state,
+        usersSongs: {...state.usersSongs, data}
       };
   }
 

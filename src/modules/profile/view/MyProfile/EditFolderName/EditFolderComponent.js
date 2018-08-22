@@ -5,9 +5,6 @@ import {MPHeader, MPInput, MPText, MPIconButton, MPLoading, MPUserHorizontal} fr
 import {MPSearchRedIcon, MPCloseFilledRedIcon} from '../../../../../assets/svg';
 
 class EditFolderComponent extends React.Component {
-  state = {
-	  foldername : '',
-  }
 
   renderHeaderMenuSave() {
     return [
@@ -18,10 +15,6 @@ class EditFolderComponent extends React.Component {
         onPress={() => this.props.onSave(this.state.foldername)}
       />
     ];
-  }
-
-  handleTextChange = (value) => {
-	  this.setState({foldername: value});
   }
 
   render() {
@@ -35,11 +28,10 @@ class EditFolderComponent extends React.Component {
         />
         <ScrollView style={styles.content}>
           <View style={styles.contentSearch}>
-              <MPInput
-                label='Pesquise pelo nome:'
-                value={this.state.foldername}
-                onChangeText={this.handleTextChange}
-              />
+            <MPInput
+              label='Nome da pasta'
+              value={this.props.folder}
+              onChangeText={this.props.onFolderNameChange} />
           </View>
         </ScrollView>
         <MPLoading visible={this.props.loading} />

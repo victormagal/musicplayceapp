@@ -3,6 +3,7 @@ import {StyleSheet, ScrollView, View, TextInput, FlatList} from 'react-native';
 import {connect} from 'react-redux';
 import {MPHeader, MPTextField, MPUser, MPSong, MPGradientButton, MPText, MPLoading} from '../../../components'
 import {searchUsers, fetchOneSong, indicateSong} from '../../../state/action';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 class IndicateSongFullScreenContainer extends React.Component {
 
@@ -84,7 +85,7 @@ class IndicateSongFullScreenContainer extends React.Component {
       <View style={styles.container}>
         <MPHeader back={true} onBack={this.handleBackClick}/>
         <MPLoading visible={this.props.loading}/>
-        <ScrollView>
+        <KeyboardAwareScrollView>
           <View>
             { this.state.songHeader && this.state.song && (
               <View>
@@ -101,8 +102,7 @@ class IndicateSongFullScreenContainer extends React.Component {
                          onChangeText={ this.handleSearch }/>
             {this.state.notFoundUser && (
               <View>
-                <MPText style={ styles.textFieldSubText}><MPText style={ styles.textFieldSubTextEmph}>"{this.state.textValue}" </MPText>
-                  ainda não está no MusicPlayce.</MPText>
+                <MPText style={ styles.textFieldSubText}><MPText style={ styles.textFieldSubTextEmph}>"{this.state.textValue} "</MPText> ainda não está no MusicPlayce.</MPText>
                 <View style={styles.infoTextContainer}>
                   <MPText style={styles.infoText}>Quando <MPText
                     style={styles.infoTextEmph}>{this.state.textValue} </MPText>fizer o cadastro, vamos mostrar sua indicação!</MPText>
@@ -122,7 +122,7 @@ class IndicateSongFullScreenContainer extends React.Component {
                 columnWrapperStyle={{justifyContent: 'space-around'}}/>
             </View>
           </View>
-        </ScrollView>
+        </KeyboardAwareScrollView>
       </View>
     );
   }
