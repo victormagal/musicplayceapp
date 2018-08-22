@@ -47,7 +47,7 @@ export const songFavoriteSuccess = createAction(SONG_FAVORITE_SUCCESS, data => d
 export const songFavoriteError = createAction(SONG_FAVORITE_ERROR);
 export const songUnfavoriteError = createAction(SONG_UNFAVORITE_ERROR);
 export const songUnfavoriteSuccess = createAction(SONG_UNFAVORITE_SUCCESS);
-export const songIndicateSuccess = createAction(SONG_INDICATE_SUCCESS);
+export const songIndicateSuccess = createAction(SONG_INDICATE_SUCCESS, data => data);
 export const songNotificationRemove = createAction(SONG_NOTIFICATION_REMOVE);
 export const songIndicateError = createAction(SONG_INDICATE_ERROR);
 export const likedCommentSuccess = createAction(SONG_LIKE_COMMENT_SUCCESS, data => data);

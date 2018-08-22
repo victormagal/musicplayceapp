@@ -10,8 +10,8 @@ class IndicateSongFeedbackScreenContainer extends React.Component {
   constructor(props){
     super(props);
     if(this.props.navigation.state && this.props.navigation.state.params){
-      let {artist, song } = this.props.navigation.state.params;
-      this.state = {artist, song};
+      let {artist, song, indicationCount } = this.props.navigation.state.params;
+      this.state = {artist, song, indicationCount};
     }
   }
 
@@ -30,7 +30,7 @@ class IndicateSongFeedbackScreenContainer extends React.Component {
             <MPPlusIcon   style={ styles.partnershipIcon }/>
             <MPUser user={this.state.artist} imagePath={this.state.artist.picture_url} onPress={() => {}} style={{}} />
           </View>
-          <MPText style={ styles.infoText }><MPText style={ styles.infoTextEmph }>{this.state.song.indications_count}</MPText> outras pessoas sugeriram esta parceria também!</MPText>
+          <MPText style={ styles.infoText }><MPText style={ styles.infoTextEmph }>{this.state.indicationCount}</MPText> outras pessoas sugeriram esta parceria também!</MPText>
           <MPGradientButton title='Fechar' textSize={16} style={{marginHorizontal: 133}} onPress={this.handleBackClick} />
         </ScrollView>
       </View>
