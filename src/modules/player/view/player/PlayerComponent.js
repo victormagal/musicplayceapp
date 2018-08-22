@@ -26,7 +26,8 @@ import {
   MPSongIcon,
   MPTriangleUpIcon,
   MPTriangleUpGrayIcon,
-  MPFilledStarIcon
+  MPFilledStarIcon,
+  MPTriangleDownIcon
 } from '../../../../assets/svg';
 
 
@@ -344,7 +345,7 @@ class PlayerComponent extends React.Component {
                 <MPSongIcon />
                 <MPText style={styles.seeLyricsText}>ACOMPANHA A LETRA</MPText>
               </View>
-              <MPTriangleUpIcon style={styles.alignCenter}/>
+              <MPTriangleDownIcon style={styles.alignCenter}/>
             </View>
           </TouchableWithoutFeedback>
 
