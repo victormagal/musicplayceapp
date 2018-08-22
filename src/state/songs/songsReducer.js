@@ -131,6 +131,7 @@ const songsReducer = (state, action) => {
         ...state,
         loading: false,
         songPublishSuccess: true,
+        fetchedSong: action.payload,
         song: {...defaultSong},
         songDraft: false
       };

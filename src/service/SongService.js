@@ -74,7 +74,11 @@ class SongService {
     };
 
     return axios.put(`${API_SONG}/${song.id}`, data)
-      .then(response => response.data);
+      .then(response => {
+        let {data} = response.data;
+        let {id, attributes} = data;
+        return {id, ...attributes};
+      });
   }
 
   static delete(id) {
@@ -321,8 +325,8 @@ class SongService {
           song.path = fileResponse.path;
         }
         return SongService.sendLyricsFile(lyricsFile, response).then(() => {
-          return SongService.update(response).then(() => {
-            return SongService.publish(song.id);
+          return SongService.update(response).then((updatedSong) => {
+            return SongService.publish(song.id).then(_ => updatedSong);;
           });
         });
       });

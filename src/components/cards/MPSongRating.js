@@ -74,13 +74,20 @@ class MPSongRating extends Component {
   }
 
   render() {
-    const {song, style, isNew} = this.props;
+    const {song, style, isNew, indication} = this.props;
     const hasPath = !!song.path;
+    let cardStyle = [styles.simpleUserCardContainer];
+    let titleStyle = [styles.simpleUserCardText];
+
+    if(indication){
+      cardStyle.push(styles.indicationCardContainer);
+      titleStyle.push(styles.indicationSimpleUserCardText);
+    }
 
     return (
       <View style={style || {}}>
 
-        <Card containerStyle={[styles.simpleUserCardContainer]}>
+        <Card containerStyle={cardStyle}>
           {!this.state.menuOpen && (
             <View>
               <View>
@@ -109,7 +116,7 @@ class MPSongRating extends Component {
                   )}
                 </View>
                 <View>
-                  <MPText style={ styles.simpleUserCardText }>{ song && song.name || '' }</MPText>
+                  <MPText style={ titleStyle }>{ song && song.name || '' }</MPText>
                   <MPShowRating rating={song.rating}/>
                 </View>
                 {song.published_at && !song.is_indication && (
@@ -210,6 +217,9 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     marginHorizontal: 5
   },
+  indicationCardContainer: {
+    height: 152,
+  },
   simpleUserCardImage: {
     width: 100,
     height: 100,
@@ -224,6 +234,9 @@ const styles = StyleSheet.create({
     paddingEnd: 10,
     fontFamily: 'ProbaPro-Regular',
     flexWrap: 'wrap',
+  },
+  indicationSimpleUserCardText: {
+    height: 25
   },
   indicateSongContainer: {
     flexDirection: 'row',
