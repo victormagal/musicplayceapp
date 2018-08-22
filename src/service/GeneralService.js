@@ -3,9 +3,9 @@ import { GOOGLE_API_KEY, API } from "./api";
 
 class GeneralService {
   static fetchCityBrazil(state) {
-    return axios.get(`${API}/states/${state}/cities`).then(response =>
-      response.data
-    );
+    return axios.get(`${API}/states/${state}/cities`).then(response => {
+      return response.data
+    });
   }
 
   static fetchStateBrazil() {

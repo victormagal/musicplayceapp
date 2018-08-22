@@ -4,25 +4,25 @@ import { StyleSheet, View, ScrollView, TouchableOpacity } from 'react-native';
 import {
   MPText,
   MPSelect,
-  MPTextField,
-  MPGradientButton,
-  MPHelpSuccess
+  MPTextField
 } from '../../components';
 import {sendQuestion} from "../../state/settings/help/helpAction";
 import {MPHeader} from "../general";
 
 class MPHelpComponent extends React.Component {
   state = {
-    options: ['Música', 'Usera', 'Compositor', 'Cadastro', 'Perfil'],
+    options: ['Música', 'Usuário', 'Compositor', 'Cadastro', 'Perfil'],
     selectedOption: null,
     message: ''
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.sentSuccess) {
-      this.props.navigation.replace('message', { component: MPHelpSuccess });
-    } else {
-      this.scrollView.scrollToEnd()
+    if (nextProps.sentSuccess !== this.props.sentSuccess ) {
+      if (nextProps.sentSuccess) {
+        this.props.navigation.replace('helpSuccess');
+      } else {
+        this.scrollView.scrollToEnd()
+      }
     }
   }
 
@@ -59,7 +59,6 @@ class MPHelpComponent extends React.Component {
   }
 
   render() {
-    console.log('props', this.props);
     const { sentSuccess } = this.props;
     const { options, message, selectedOption } = this.state;
     return (

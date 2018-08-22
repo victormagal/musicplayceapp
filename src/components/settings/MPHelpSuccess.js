@@ -6,6 +6,7 @@ import {
   MPText
 } from '../../components';
 import { MPNotFillledSettingsIcon } from '../../assets/svg';
+import {MPHeader} from "../general";
 
 class MPHelpSuccessComponent extends React.Component {
   handleGoTo = (route) => {
@@ -14,23 +15,31 @@ class MPHelpSuccessComponent extends React.Component {
 
   render() {
     return (
-      <View style={{ marginVertical: 30 }}>
-        <MPText style={styles.title}>
-          Retornaremos em até 24 horas úteis. Obrigado pelo contato.
-        </MPText>
-        <MPGradientButton
-          style={styles.button}
-          textSize={16}
-          title="Enviar outra dúvida"
-          onPress={() => this.handleGoTo('helpSettings')}
+      <View style={{ flex: 1 }}>
+        <MPHeader
+          title={'Mensagem enviada!'}
         />
-        <MPGradientButton
-          style={styles.button}
-          icon={MPNotFillledSettingsIcon}
-          textSize={16}
-          title="Voltar para configurações"
-          onPress={() => this.handleGoTo('homeSettings')}
-        />
+        <View style={{ marginVertical: 30, alignItems: 'center' }}>
+          <MPText style={styles.title}>
+            Retornaremos em até 24 horas úteis.
+          </MPText>
+          <MPText style={styles.title}>
+            Obrigado pelo contato!
+          </MPText>
+          <MPGradientButton
+            style={styles.button}
+            textSize={16}
+            title="Enviar outra dúvida"
+            onPress={() => this.handleGoTo('helpSettings')}
+          />
+          <MPGradientButton
+            style={styles.button}
+            icon={MPNotFillledSettingsIcon}
+            textSize={16}
+            title="Voltar para configurações"
+            onPress={() => this.handleGoTo('homeSettings')}
+          />
+        </View>
       </View>
     );
   }
@@ -42,10 +51,10 @@ const styles = StyleSheet.create({
     fontSize: 20,
     textAlign: 'center',
     color: 'black',
-    marginHorizontal: 40
+    width: '60%'
   },
   button: {
-    marginHorizontal: 20,
+    width: '70%',
     marginTop: 20
   }
 });
