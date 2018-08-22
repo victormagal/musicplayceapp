@@ -70,9 +70,7 @@ class RegisterSongContainer extends React.Component {
     this.setState({progressContentWidth: `${Math.ceil(width)}%`});
 
     if (nextProps.songPublishSuccess) {
-      if (nextProps.songPublishSuccess) {
-        this.goToScreen('ConfirmationScreen');
-      }
+      this.goToScreen('ConfirmationScreen');
     }
 
     if (nextProps.fetchedSong && this.state.shouldFetchSong) {

@@ -113,11 +113,6 @@ const songsReducer = (state, action) => {
       };
 
     case SONG_REMOVE_SUCCESS:
-      const songs = state.mySongs;
-      songs && songs.data && songs.data.forEach((folder) => {
-        folder.songs = folder.songs.filter(song => song.id !== action.payload);
-      });
-
       return {
         ...state,
         loading: false,
