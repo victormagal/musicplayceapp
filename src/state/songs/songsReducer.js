@@ -140,10 +140,13 @@ const songsReducer = (state, action) => {
       };
     
     case SONG_INDICATE_SUCCESS:
+      let indicatedSong = {...state.fetchedSong};
+      indicatedSong.indications_count = indicatedSong.indications_count + 1;
       return {
         ...state,
         loading: false,
-        songIndicateSuccess: true
+        songIndicateSuccess: true,
+        fetchedSong: indicatedSong,
       };
     
     case SONG_LIKE_COMMENT_SUCCESS:
