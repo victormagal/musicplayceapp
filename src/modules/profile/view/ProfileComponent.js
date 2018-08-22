@@ -61,8 +61,8 @@ class ProfileComponent extends React.Component {
     }
   };
 
-  handleEditFolder = (folderId) => {
-    this.goToScreen('EditFolder', {folderId})
+  handleEditFolder = (folder) => {
+    this.goToScreen('EditFolder', {folder})
   };
 
   handleEditSong = (song) => {
@@ -166,7 +166,7 @@ class ProfileComponent extends React.Component {
         songs={item.songs.data}
         onSongPagination={onSongPagination}
         onEditClick={this.handleEditSong}
-        onEditFolder={this.handleEditFolder.bind(this, item.id)}
+        onEditFolder={this.handleEditFolder.bind(this, item)}
         onRemoveClick={this.handleRemoveSong}
         onUnpublishClick={this.handleUnpublishSong}
         onPlayClick={this.handlePlaySong}
