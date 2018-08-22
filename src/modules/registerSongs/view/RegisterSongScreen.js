@@ -228,7 +228,7 @@ class RegisterSongContainer extends React.Component {
   getFilledString(key) {
     const {song} = this.props;
     if (song[key]) {
-      return song[key].map(i => i.name + ' ' + i.last_name).slice(0, 2).join(", ");
+      return song[key].map(i => i.name).slice(0, 2).join(", ");
     }
   }
 

@@ -3,7 +3,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import {Slider} from 'react-native-elements'
 import {
   Text, View, StyleSheet, TouchableOpacity, FlatList, ScrollView, Image,
-  TouchableWithoutFeedback, Modal
+  TouchableWithoutFeedback, Modal, ActivityIndicator
 } from 'react-native';
 import moment from 'moment';
 import {
@@ -13,7 +13,6 @@ import {
 import {ModalPlayer} from '../ModalPlayer';
 import {
   MPStarIcon,
-  MPPlayIcon,
   MPSongListIcon,
   MPHeartIcon,
   MPHeartRedIcon,
@@ -79,9 +78,9 @@ class PlayerComponent extends React.Component {
   };
 
   handleSaveSong = (song) => {
-    if(song.is_favorited){
+    if (song.is_favorited) {
       this.props.onSongUnfavorite(song.id);
-    }else{
+    } else {
       this.setState({playerVisible: false});
       this.props.navigation.navigate('playerSaveSong', {song});
     }
@@ -90,7 +89,7 @@ class PlayerComponent extends React.Component {
   renderComposers = (song) => {
     let composerString = song.artist ? song.artist.name : '';
 
-    if(song.coAuthors && song.coAuthors.length > 0){
+    if (song.coAuthors && song.coAuthors.length > 0) {
       let composerTempString = '';
       composerTempString = composerTempString.concat(song.coAuthors.map((coAuthor, index, array) => {
         return index == array.length - 1 ? ` e ${coAuthor.name}` : `, ${coAuthor.name}`;
@@ -102,23 +101,23 @@ class PlayerComponent extends React.Component {
   };
 
   handleSongDuration = (songDuration) => {
-    if(songDuration){
+    if (songDuration) {
       let songArray = songDuration.split(':');
       let hours = Number.parseInt(songArray[0]);
       let minutes = Number.parseInt(songArray[1]);
       let seconds = Number.parseInt(songArray[2]);
       let songDurationString = `${minutes}m${seconds}s`
-      if(hours > 0){
+      if (hours > 0) {
         songDurationString = `${hours}h`.concat(songDurationString);
       }
       return songDurationString;
-    }else{
+    } else {
       return '0ms0s';
     }
   }
 
   handleSongTags = (songTags) => {
-    if(songTags.length > 0){
+    if (songTags.length > 0) {
       return songTags.map((tag, index) => {
         return (<MPText key={index} style={styles.tagText}>#{tag.name}</MPText>)
       })
@@ -126,15 +125,26 @@ class PlayerComponent extends React.Component {
   };
 
   togglePlayerPause = () => {
-    if(this.props.player.inProgress){
+    if (this.props.player.inProgress) {
       this.props.player.isPlaying ? this.props.onSongPause() : this.props.onSongResume();
-    } else{
+    } else {
       this.props.onSongPlay(this.props.song);
     }
   };
 
+  renderLoadingSongPagination = (songsFolder) => {
+    if (songsFolder.loading) {
+      return (
+        <View style={styles.loadMoreContainer}>
+          <ActivityIndicator size="large" color="#BB1A1A" style={styles.loadMore}/>
+        </View>
+      );
+    }
+    return null;
+  };
+
   renderRating = (song) => {
-    if (song && song.rating){
+    if (song && song.rating) {
       return parseFloat(song.rating).toFixed(1);
     }
     return "0.0";
@@ -142,7 +152,7 @@ class PlayerComponent extends React.Component {
 
   renderComment = ({item}) => {
     return (
-      <MPPlayerComment comment={item} onLikeComment={this.props.onLikeComment} />
+      <MPPlayerComment comment={item} onLikeComment={this.props.onLikeComment}/>
     );
   };
 
@@ -196,12 +206,12 @@ class PlayerComponent extends React.Component {
               <View style={styles.lyricsScrollContent}>
                 {song ? (<MPText style={styles.lyricLine}>{song.lyrics}</MPText>) : null}
                 {/* {this.state.lyric.map((p, index) => (
-                  <View style={index === 0 ? {} : styles.lyricParagraph} key={index}>
-                    {p.map((line, lineIndex) => (
-                      <MPText style={styles.lyricLine} key={lineIndex}>{line}</MPText>
-                    ))}
-                  </View>
-                ))} */}
+                 <View style={index === 0 ? {} : styles.lyricParagraph} key={index}>
+                 {p.map((line, lineIndex) => (
+                 <MPText style={styles.lyricLine} key={lineIndex}>{line}</MPText>
+                 ))}
+                 </View>
+                 ))} */}
               </View>
             </ScrollView>
             <LinearGradient style={styles.lyricsGradientTop}
@@ -295,14 +305,17 @@ class PlayerComponent extends React.Component {
                 <MPText style={styles.musicTitleText}>{ song && song.name ? song.name : 'Tocando em Frente'}</MPText>
               </View>
 
-              <MPText style={styles.musicUploadDate}>{song ? this.handleSongDate(song.created_at) : '10/05/2018 às 13:49'}</MPText>
+              <MPText
+                style={styles.musicUploadDate}>{song ? this.handleSongDate(song.created_at) : '10/05/2018 às 13:49'}</MPText>
               <MPText style={styles.compositorText}>{song && song.description ? song.description : ''}</MPText>
 
-              <MPText style={styles.compositorTitle}>{song && song.coAuthors && song.coAuthors.length > 0 ? 'COMPOSITORES' : 'COMPOSITOR'}</MPText>
+              <MPText
+                style={styles.compositorTitle}>{song && song.coAuthors && song.coAuthors.length > 0 ? 'COMPOSITORES' : 'COMPOSITOR'}</MPText>
               <MPText style={styles.compositorText}>{ song ? this.renderComposers(song) : 'Almir Sater'}</MPText>
 
               <MPText style={styles.compositorTitle}>INTÉRPRETE</MPText>
-              <MPText style={styles.compositorText}>{song && song.interpreter_name ? song.interpreter_name : 'Não há interpretes'}</MPText>
+              <MPText
+                style={styles.compositorText}>{song && song.interpreter_name ? song.interpreter_name : 'Não há interpretes'}</MPText>
 
               <View style={[styles.row, styles.indicationContainer]}>
                 <View style={styles.row}>
@@ -337,9 +350,9 @@ class PlayerComponent extends React.Component {
 
           <View style={[styles.row, styles.tagContainer]}>
             <View style={[styles.row, styles.tagContent]}>
-            {
-              song && song.tags && this.handleSongTags(song.tags)
-            }
+              {
+                song && song.tags && this.handleSongTags(song.tags)
+              }
             </View>
             <MPCircleGradientButton onPress={this.handleCommentSong.bind(this, song)} icon={MPBalloonTalkIcon}/>
           </View>
@@ -347,13 +360,17 @@ class PlayerComponent extends React.Component {
             this.props.userSongs.map((songList, index) =>
               <View key={index}>
                 <View style={[styles.sectionHeader, styles.row]}>
-                  <MPText style={styles.sectionTitle}>Outras de {this.props.coAuthors[index] && this.props.coAuthors[index].name}</MPText>
+                  <MPText
+                    style={styles.sectionTitle}>Outras de {this.props.coAuthors[index] && this.props.coAuthors[index].name}</MPText>
                 </View>
                 <FlatList
                   data={songList.data}
                   keyExtractor={(item) => item.id}
                   renderItem={this.renderItem.bind(this, this.props.coAuthors[index])}
-                  horizontal={true}/>
+                  horizontal={true}
+                  ListFooterComponent={this.renderLoadingSongPagination.bind(this, songList)}
+                  onEndReached={this.props.onSongPagination.bind(this, songList, index, this.props.coAuthors[index])}
+                  onEndReachedThreshold={0.1}/>
               </View>
             )
           )}
@@ -383,18 +400,22 @@ class PlayerComponent extends React.Component {
   renderHeaderMenu() {
     let {song} = this.props;
     return [
-      <MPIconButton key={1} title={song && song.comments ? song.comments.length : null} titleStyle={styles.headerMenuText} icon={MPCommentWhiteIcon}
+      <MPIconButton key={1} title={song && song.comments ? song.comments.length : null}
+                    titleStyle={styles.headerMenuText} icon={MPCommentWhiteIcon}
                     style={styles.headerMenuItem}
                     onPress={this.handleToggleComments.bind(this, true)}/>,
-      <MPIconButton  key={2} titleStyle={styles.headerMenuText} icon={MPShareWhiteIcon}/>
+      <MPIconButton key={2} titleStyle={styles.headerMenuText} icon={MPShareWhiteIcon}/>
     ];
   }
 
   renderDetailPlayer() {
     let {song} = this.props;
     const progress = Math.ceil(this.props.player.progress);
-    const duration = moment((this.props.song && this.props.song.duration) || '00:00:00', 'hh:mm:ss')
-                        .diff(moment().startOf('day'), 'seconds');
+    let duration = 0;
+
+    if(song && song.duration){
+      duration = moment(song.duration, 'hh:mm:ss').diff(moment().startOf('day'), 'seconds');
+    }
 
     return (
       <View style={styles.player}>
@@ -754,7 +775,7 @@ const styles = StyleSheet.create({
     marginTop: 40,
     alignSelf: 'center'
   },
-  modalCompositorText :{
+  modalCompositorText: {
     color: '#393939',
     alignSelf: 'center'
   },
@@ -796,6 +817,14 @@ const styles = StyleSheet.create({
     width: 64,
     height: 64,
     justifyContent: 'center'
+  },
+  loadMoreContainer: {
+    width: 100,
+    paddingVertical: 80,
+    justifyContent: 'center'
+  },
+  loadingMore: {
+    alignSelf: 'center'
   }
 });
 
