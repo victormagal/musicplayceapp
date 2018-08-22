@@ -16,7 +16,7 @@ class IndicateSongFeedbackScreenContainer extends React.Component {
   }
 
   handleBackClick = () => {
-    this.props.navigation.popToTop();
+    this.props.navigation.navigate('player', {song: this.state.song})
   };
 
   render() {
