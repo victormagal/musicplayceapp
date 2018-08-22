@@ -12,6 +12,7 @@ class MPUserHorizontal extends Component {
     let {user, image, selected, style, onPress} = this.props;
     let borderStyle = {};
     let iconStyle = {};
+    let selectedImageStyle = {};
 
     if (selected) {
       borderStyle = {
@@ -24,6 +25,9 @@ class MPUserHorizontal extends Component {
         right: 5,
         zIndex: 9999999
       };
+      selectedImageStyle = {
+        height: 56
+      };
     }
 
     return (
@@ -32,7 +36,7 @@ class MPUserHorizontal extends Component {
           <Card containerStyle={[styles.stretchedUserCardContainer, borderStyle]}>
             <View style={styles.content}>
               <Image
-                style={styles.stretchedUserImage}
+                style={[styles.stretchedUserImage, selectedImageStyle]}
                 source={image ? {uri: image} : require('../../assets/img/avatar-male.jpg')}
               />
               <MPText style={ styles.stretchedUserText} numberOfLines={1}>
