@@ -1,7 +1,7 @@
 import React from 'react';
-import { View, StyleSheet, FlatList } from 'react-native';
+import {View, StyleSheet, FlatList, ActivityIndicator} from 'react-native';
 import {
-  MPHeader, MPIconButton, MPFolder, MPGradientButton, MPInput
+  MPHeader, MPIconButton, MPFolder, MPGradientButton, MPInput, MPLoading
 } from '../../../../components';
 import {withFixedBottom} from '../../../../connectors/withFixedBottom';
 
@@ -14,6 +14,18 @@ class PlayerSaveSongComponent extends React.Component {
     this.props.onSelectFolder(index);
   };
 
+  renderListFooter = () => {
+    let {loadingMore} = this.props;
+    if (loadingMore) {
+      return (
+        <View style={styles.containerLoading}>
+          <ActivityIndicator size="large" color="#BB1A1A" style={styles.loading}/>
+        </View>
+      );
+    }
+    return null;
+  };
+
   renderHeaderMenu() {
     return [
       <MPIconButton key={1} title="Salvar" titleStyle={styles.headerMenuText} onPress={this.props.onSave}/>
@@ -22,7 +34,8 @@ class PlayerSaveSongComponent extends React.Component {
 
   renderFolder = ({item, index}) => {
     return (
-      <MPFolder folderName={item.name} selected={item.selected} musicAmount={item.song_count} onPress={this.handleSelectFolder.bind(this, index)}/>
+      <MPFolder folderName={item.name} selected={item.selected} musicAmount={item.song_count}
+                onPress={this.handleSelectFolder.bind(this, index)}/>
     )
   };
 
@@ -36,13 +49,14 @@ class PlayerSaveSongComponent extends React.Component {
           icons={this.renderHeaderMenu()}
         />
         <FlatList
+          contentContainerStyle={{paddingBottom: 16}}
           style={styles.folderList}
           data={this.props.folders}
           renderItem={this.renderFolder}
           keyExtractor={(item) => item.id}
           onEndReached={this.props.onEndReached}
           onEndReachedThreshold={0.1}
-        />
+          ListFooterComponent={this.renderListFooter}/>
         <View style={styles.inputFolderContainer}>
           <InputFolder
             label="Nome da nova pasta"
@@ -55,6 +69,7 @@ class PlayerSaveSongComponent extends React.Component {
             onPress={this.props.onAddFolder}
           />
         </View>
+        <MPLoading visible={this.props.loading}/>
       </View>
     );
   }
@@ -65,7 +80,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fcfcfc'
   },
-  folderList:{
+  folderList: {
     paddingTop: 20,
     marginTop: 10,
     marginHorizontal: 30
@@ -81,6 +96,14 @@ const styles = StyleSheet.create({
     height: 24,
     right: 25,
     bottom: 35
+  },
+  containerLoading: {
+    width: '100%',
+    paddingVertical: 30,
+    justifyContent: 'center'
+  },
+  loading: {
+    alignSelf: 'center'
   }
 });
 

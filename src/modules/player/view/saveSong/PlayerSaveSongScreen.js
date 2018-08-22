@@ -2,7 +2,7 @@ import React from 'react';
 import {Keyboard} from 'react-native';
 import {connect} from 'react-redux';
 import {PlayerSaveSongComponent} from './PlayerSaveSongComponent';
-import { favoriteSong, createFolder, getFavoriteSongsFolders} from '../../../../state/action';
+import {favoriteSong, createFolder, getFavoriteSongsFolders} from '../../../../state/action';
 
 
 class PlayerSaveSongContainer extends React.Component {
@@ -14,25 +14,22 @@ class PlayerSaveSongContainer extends React.Component {
     songFavoriteSuccess: false,
   };
 
-  componentDidMount(){
+  componentDidMount() {
     this.props.dispatch(getFavoriteSongsFolders());
-    if(this.props.navigation.state && this.props.navigation.state.params){
+    if (this.props.navigation.state && this.props.navigation.state.params) {
       let {song} = this.props.navigation.state.params;
-      if(song) {
+      if (song) {
         this.setState({song: song});
       }
     }
   }
 
-  componentWillReceiveProps(nextProps){
-    if(nextProps.favoritesFolder){
-      if (nextProps.favoritesFolder && nextProps.favoritesFolder.data) {
-        Keyboard.dismiss();
-        this.setState({folders: nextProps.favoritesFolder.data, folderName: ''});
-      }
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.favoritesFolder && nextProps.favoritesFolder.data) {
+      this.setState({folders: nextProps.favoritesFolder.data, folderName: ''});
     }
 
-    if(nextProps.songFavoriteSuccess){
+    if (nextProps.songFavoriteSuccess) {
       this.handleBack();
     }
   }
@@ -42,11 +39,12 @@ class PlayerSaveSongContainer extends React.Component {
   };
 
   handleAdd = () => {
-    if(this.state.folderName){
+    if (this.state.folderName) {
       let folder = {
         'name': this.state.folderName,
         'type': 'favoriteSongs',
       };
+      Keyboard.dismiss();
       this.props.dispatch(createFolder(folder));
     }
   };
@@ -59,7 +57,7 @@ class PlayerSaveSongContainer extends React.Component {
     let folders = Object.assign([], this.state.folders);
 
 
-    for(let i in folders){
+    for (let i in folders) {
       folders[i].selected = false;
     }
 
@@ -73,14 +71,16 @@ class PlayerSaveSongContainer extends React.Component {
   };
 
   handleFolderPagination = () => {
-    if(this.state.folders.length > 0 &&
-       this.props.favoritesFolder.pagination.current_page < this.props.favoritesFolder.pagination.total_pages){
+    if (this.state.folders.length > 0 &&
+      this.props.favoritesFolder.pagination.current_page < this.props.favoritesFolder.pagination.total_pages &&
+      !this.props.favoritesFolder.loading) {
       this.props.dispatch(getFavoriteSongsFolders(this.props.favoritesFolder.pagination.current_page + 1));
     }
   };
 
 
   render() {
+    console.log(this.props.favoritesFolder)
     return (
       <PlayerSaveSongComponent
         folders={this.state.folders}
@@ -91,13 +91,15 @@ class PlayerSaveSongContainer extends React.Component {
         onChangeText={this.handleChangeText}
         onAddFolder={this.handleAdd}
         onEndReached={this.handleFolderPagination}
+        loadingMore={this.props.favoritesFolder && this.props.favoritesFolder.loading}
         loading={this.props.loading}/>
     );
   }
 }
 
 const mapStateToProps = ({folderReducer, songsReducer}) => {
-  return {...folderReducer, ...songsReducer};
+  const {songFavoriteSuccess} = songsReducer;
+  return {...folderReducer, songFavoriteSuccess};
 };
 
 const PlayerSaveSongScreen = connect(mapStateToProps)(PlayerSaveSongContainer);
