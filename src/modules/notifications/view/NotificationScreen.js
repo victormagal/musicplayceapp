@@ -48,7 +48,7 @@ class NotificationScreenContainer extends React.Component {
         id: '00',
         avatar: true,
         rota: 'chatScreen',
-        title: 'Ivete Sangalo te indicou para Chitãozinho e Xororó',
+        title: 'Ivete Sangalo te indicou para Chitãozinho e Xororó teste de tamanho de texto com utilizacao de ellipsize',
         name: 'Fernanda Almeida',
         time: '1m'
       },
@@ -70,7 +70,7 @@ class NotificationScreenContainer extends React.Component {
       {
         id: '03',
         rota: 'chatScreen',
-        title: '678 pessoas indicaram Camaro Amarelo de Fulano Compositor',
+        title: '678 pessoas indicaram Camaro Amarelo de Fulano Compositor 1234567890 1234567890 1234567890',
         name: 'Ítalo Queiroz',
         time: '2h'
       },

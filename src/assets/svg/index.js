@@ -95,6 +95,11 @@ export const MPBalloonTalkIcon = (props) => {
  return (<Svg {...newProps} viewBox='0 0 24 19'><Path d='M8.795 13.558c-.817 0-1.605-.092-2.355-.253L3.015 16.73v-4.85C1.171 10.639 0 8.817 0 6.78 0 3.034 3.938 0 8.795 0c4.857 0 8.794 3.035 8.794 6.78 0 3.743-3.937 6.778-8.794 6.778zm8.333-11.305c1.1 1.291 1.744 2.85 1.744 4.526 0 3.916-3.51 7.186-8.145 7.91 1.312.602 2.84.953 4.478.953.817 0 1.604-.092 2.355-.253l3.424 3.425v-4.85C22.83 12.723 24 10.9 24 8.865c0-3.235-2.941-5.935-6.872-6.611z' fill='#FFF'/></Svg>); 
 };
 
+export const MPBlockedProfileIcon = (props) => { 
+ let newProps = applyStyle(props, 40, 40); 
+ return (<Svg {...newProps} viewBox='0 0 40 40'><Path d='M20 39c10.493 0 19-8.507 19-19s-8.507-19-19-19-19 8.507-19 19 8.507 19 19 19z' fill='none' fillOpacity='0.5' stroke='#171616' strokeWidth='2' strokeMiterlimit={4} strokeLinecap='butt' strokeLinejoin='miter'/><Path d='M5.858 32.728l26.87-26.87 1.414 1.414-26.87 26.87z' fill='#000' fillOpacity='0.5'/></Svg>); 
+};
+
 export const MPBonusDisabledIcon = (props) => { 
  let newProps = applyStyle(props, 44, 44); 
  return (<Svg {...newProps} viewBox='0 0 44 44'><Path d='M0 29.097l4.258 4.258 0.355-0.355c1.768-1.768 4.619-1.768 6.387 0s1.768 4.619 0 6.387l-0.355 0.355 4.258 4.258 29.097-29.097-4.258-4.258-0.355 0.355c-1.768 1.768-4.619 1.768-6.387 0s-1.768-4.619 0-6.387l0.355-0.355-4.258-4.258-29.097 29.097z' fill='#fff' fillOpacity='0.5'/><Path d='M1.414 29.097l2.859 2.859c2.17-1.815 5.394-1.703 7.433 0.337s2.152 5.264 0.337 7.433l2.859 2.859 27.683-27.683-2.859-2.859c-2.17 1.815-5.394 1.703-7.433-0.337s-2.152-5.263-0.337-7.433l-2.859-2.859-27.683 27.683z' fill='none' fillOpacity='0.5' stroke='#d1d1d1' strokeWidth='2' strokeMiterlimit={4} strokeLinecap='butt' strokeLinejoin='miter'/><Path d='M20 11l12.9 12.9' fill='none' fillOpacity='0.5' stroke='#d1d1d1' strokeWidth='2' strokeMiterlimit={4} strokeLinecap='butt' strokeLinejoin='miter'/></Svg>); 
