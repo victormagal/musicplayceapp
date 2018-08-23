@@ -36,7 +36,7 @@ class InterpreterScreenContainer extends React.Component {
   }
 
   componentWillReceiveProps(nextProps){
-    if (nextProps.users){
+    if (nextProps.users && nextProps.users.data){
       const users = nextProps.users.data;
       users.map(user => {
         const selecteds = this.state.usersSelected.filter(selected => selected.id === user.id);
