@@ -255,6 +255,11 @@ export const MPInputEyeIcon = (props) => {
  return (<Svg {...newProps} viewBox='0 0 28 16'><Path d='M27.424 7.702C24.474 3.672 19.934.5 14.015.5 8.102.5 3.67 3.604.593 7.72a.47.47 0 0 0 .01.572C3.55 12.325 8.093 15.5 14.014 15.5c5.914 0 10.347-3.104 13.406-7.198a.565.565 0 0 0 .003-.6zM14 13.5A5.486 5.486 0 0 1 8.5 8c0-3.048 2.452-5.5 5.5-5.5s5.5 2.452 5.5 5.5-2.452 5.5-5.5 5.5zm0-2a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z' fill='none' stroke='#000'/></Svg>); 
 };
 
+export const MPInvitationIcon = (props) => { 
+ let newProps = applyStyle(props, 30, 22); 
+ return (<Svg {...newProps} viewBox='0 0 30 22'><Path d='M0 0h30.25v22h-30.25z' fill='#fff'/><Path d='M0.688 0.688h28.875v20.625h-28.875z' fill='none' stroke='#5994db' strokeWidth='1.375' strokeMiterlimit={4} strokeLinecap='butt' strokeLinejoin='miter'/><Path d='M1.375 1.375l13.74 12.356 13.74-12.349' fill='none' stroke='#5994db' strokeWidth='1.375' strokeMiterlimit={4} strokeLinecap='butt' strokeLinejoin='miter'/></Svg>); 
+};
+
 export const MPInviteConfigIcon = (props) => { 
  let newProps = applyStyle(props, 23, 20); 
  return (<Svg {...newProps} viewBox='0 0 23 20'><Path d='M8.5 0.5c-2.266 0-3.862 1.49-3.862 3.805 0 2.454 1.744 4.42 3.862 4.42 2.12 0 3.863-1.966 3.863-4.42 0-2.315-1.596-3.805-3.863-3.805zM16.495 17.212l-0.004-0.248c-0.004-0.256-0.008-0.462-0.014-0.668l0.002 0.078-0.005-0.137c-0.352-2.951-3.177-4.4-7.85-4.4l-0.057 0.002-0.077 0.002-0.057-0.002h-0.003l-0.055-0.001c-4.674 0-7.499 1.448-7.85 4.4-0.003 0.023-0.009 0.285-0.017 0.725l-0.004 0.251c2.246 1.51 4.926 2.287 7.996 2.286 3.016 0 5.742-0.794 7.995-2.288z' fill='none' stroke='#e13223' strokeWidth='1' strokeMiterlimit={4} strokeLinecap='butt' strokeLinejoin='miter'/><Path d='M18.5 4c0.276 0 0.5 0.224 0.5 0.5v8c0 0.276-0.224 0.5-0.5 0.5s-0.5-0.224-0.5-0.5v-8c0-0.276 0.224-0.5 0.5-0.5z' fill='#e13223'/><Path d='M14.5 8h8c0.276 0 0.5 0.224 0.5 0.5s-0.224 0.5-0.5 0.5h-8c-0.276 0-0.5-0.224-0.5-0.5s0.224-0.5 0.5-0.5z' fill='#e13223'/></Svg>); 

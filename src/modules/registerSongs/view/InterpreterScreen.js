@@ -1,10 +1,14 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {StyleSheet, View, ScrollView, TouchableOpacity} from 'react-native';
-import {MPHeader, MPInput, MPText, MPIconButton, MPLoading, MPUserHorizontal} from '../../../components';
+import {MPHeader, MPInput, MPText, MPIconButton, MPLoading, MPUserHorizontal, MPGradientButton, MPForm, MPFormButton, MPInvitation} from '../../../components';
 import {searchUsers} from '../../../state/action';
 import {MPSearchRedIcon, MPCloseFilledRedIcon} from '../../../assets/svg';
 import {updateSongRegisterData} from "../../../state/songs/songsType";
+import { withFixedBottom } from '../../../connectors/withFixedBottom'
+
+InputInvitation = withFixedBottom(MPInput);
+InvitationGradientButton = withFixedBottom(MPGradientButton);
 
 class InterpreterScreenContainer extends React.Component {
   constructor(props) {
@@ -14,7 +18,9 @@ class InterpreterScreenContainer extends React.Component {
       waiting: false,
       users: [],
       usersSelected: [],
-      usersSelectedTemp: {}
+      invitations: [],
+      usersSelectedTemp: {},
+      invitaionMail: ''
     };
   }
 
@@ -119,6 +125,25 @@ class InterpreterScreenContainer extends React.Component {
     this.setState(newState);
   };
 
+  handleChangeText = ({value}) => {
+    this.setState({invitaionMail: value});
+  };
+
+  handleInvite = () => {
+    let {invitaionMail} = this.state;
+    if(invitaionMail){
+      // TODO
+      let invitationData = {
+        name: this.state.search,
+        email: this.state.invitaionMail,
+      }
+      let invList = Object.assign([], this.state.invitations);
+      invList.push(invitationData);
+      this.setState({invitations: invList});
+      this.handleClearClick();
+    }
+  }
+
   renderHeaderMenuSave() {
     return [
       <MPIconButton
@@ -135,6 +160,7 @@ class InterpreterScreenContainer extends React.Component {
       search,
       users,
       waiting,
+      invitations,
       usersSelected
     } = this.state;
     return (
@@ -159,7 +185,20 @@ class InterpreterScreenContainer extends React.Component {
               ))}
             </View>
           )}
-
+          {usersSelected.length == 0 && invitations.length > 0 && (
+            <View style={{width: '100%', height: 20}}></View>
+          )}
+          { invitations.length > 0 && (
+            <View>
+              { invitations.map((item, index) => (
+                <MPInvitation
+                  key={index}
+                  userName={item.name}
+                  userEmail={item.email}
+                />
+              ))}
+            </View>
+          )}
           <View style={styles.contentSearch}>
             <MPText style={styles.textTop}>
               Essa música tem intérpretes?
@@ -193,6 +232,24 @@ class InterpreterScreenContainer extends React.Component {
                 <MPText style={ styles.textInputSubTextSuggestion}>
                   Convide-o para se juntar ao MusicPlayce.
                 </MPText>
+                <View >
+                  <MPForm>
+                    <InputInvitation
+                      label="E-mail"
+                      value={this.state.invitaionMail}
+                      onChangeText={this.handleChangeText}
+                    />
+                    <View>
+                      <MPFormButton>
+                        <InvitationGradientButton
+                          style={[styles.inputButtonAdd]}
+                          title="Criar"
+                          onPress={this.handleInvite}
+                        />
+                      </MPFormButton>
+                    </View>
+                  </MPForm>
+                </View>
               </View>
             )}
           </View>
@@ -275,7 +332,14 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: '#686868',
     fontFamily: 'Montserrat-Italic'
-  }
+  },
+  inputButtonAdd: {
+    position: 'absolute',
+    width: 61,
+    height: 24,
+    right: 0,
+    bottom: 14
+  },
 });
 const mapStateToProps = ({userReducer, songsReducer}) => {
   return {...userReducer, song: songsReducer.song};
