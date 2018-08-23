@@ -5,8 +5,8 @@ import {
 } from 'react-native';
 import { 
 	MPHeader, 
-	MPTitleFormContainer, 
-	MPTextField,
+	MPTitleFormContainer,
+  MPInput,
 	MPLoading,
 } from '../../../../components';
 import { KeyboardAwareScrollView } from '../../../../../node_modules/react-native-keyboard-aware-scroll-view';
@@ -26,11 +26,11 @@ class EditSettingsScreenComponent extends React.Component {
 		}
 	}
 
-  onChangeValue = ({ field, value }) => {
+  onChangeValue = ({ name, value }) => {
 	  let { form } = this.state;
-	  form[field] = value;
+	  form[name] = value;
 	  this.setState({ form });
-  }
+  };
 
   numberFormat(text) {
     const maskPhone = text.length > 10
@@ -65,20 +65,23 @@ class EditSettingsScreenComponent extends React.Component {
               disabledButton={isProfileDisabled}
               onPress={() => this.handleUpdateIdentificacao('profile')}
             />
-						<MPTextField
+						<MPInput
+              name="username"
               label={"Usuário"}
               value={form.username}
-              onChangeText={(value) => this.onChangeValue({ field: 'username', value })}
+              onChangeText={this.onChangeValue}
             />
-						<MPTextField
+						<MPInput
+              name="name"
               label={"Nome"}
               value={form.name}
-              onChangeText={(value) => this.onChangeValue({ field: 'name', value })}
+              onChangeText={this.onChangeValue}
             />
-						<MPTextField
+						<MPInput
+              name="last_name"
               label={"Sobrenome"}
               value={form.last_name}
-              onChangeText={(value) => this.onChangeValue({ field: 'last_name', value })}
+              onChangeText={this.onChangeValue}
             />
 						<View style={styles.separator}/>
 						<MPTitleFormContainer
@@ -87,10 +90,12 @@ class EditSettingsScreenComponent extends React.Component {
               disabledButton={form.email === ''}
               onPress={() => this.handleUpdateIdentificacao('email')}
             />
-						<MPTextField
-              label={"E-mail"}
+						<MPInput
+              name="email"
+              label="E-mail"
+              validators={['email']}
               value={form.email}
-              onChangeText={(value) => this.onChangeValue({ field: 'email', value })}
+              onChangeText={this.onChangeValue}
             />
 						<View style={styles.separator}/>
 						<MPTitleFormContainer
@@ -99,11 +104,12 @@ class EditSettingsScreenComponent extends React.Component {
               disabledButton={form.cell_phone === ''}
               onPress={() => this.handleUpdateIdentificacao('cell_phone')}
             />
-						<MPTextField
+						<MPInput
+              name="cell_phone"
               label={"Nº de telefone"}
               value={this.numberFormat(form.cell_phone || '')}
               maxLength={15}
-              onChangeText={(value) => this.onChangeValue({ field: 'cell_phone', value: value.replace(/[^0-9]+/g,'') })}
+              onChangeText={({name,value}) => this.onChangeValue({name, value: value.replace(/[^0-9]+/g,'') })}
             />
 					</View>
 				</KeyboardAwareScrollView>
