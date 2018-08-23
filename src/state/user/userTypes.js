@@ -51,7 +51,7 @@ export const userFollowError = createAction(USER_FOLLOW_ERROR);
 export const userSongsFetched = createAction(USER_SONGS_FETCHED, (data) => data);
 export const userSongsByFolderFetched = createAction(USER_SONGS_BY_FOLDER_FETCHED, (data) => data);
 export const userNotificationsStartLoading = createAction(USER_NOTIFICATIONS_START_LOADING);
-export const userFollowNotificationsStartLoading = createAction(USER_FOLLOW_NOTIFICATIONS_START_LOADING);
+export const userFollowNotificationsStartLoading = createAction(USER_FOLLOW_NOTIFICATIONS_START_LOADING, data => data);
 export const userNotificationsFetched = createAction(USER_NOTIFICATIONS_FETCHED, (data) => data);
 export const userNotificationsFollowersFetched = createAction(USER_NOTIFICATIONS_FOLLOWERS_FETCHED, (data) => data);
 export const userNotificationsFinishedLoading = createAction(USER_NOTIFICATIONS_FINISHED_LOADING);

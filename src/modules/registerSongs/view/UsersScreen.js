@@ -32,7 +32,7 @@ class UsersScreenContainer extends React.Component {
   }
 
   componentWillReceiveProps(nextProps){
-    if (nextProps.users){
+    if (nextProps.users && nextProps.users.data){
       this.setState({ users: nextProps.users.data, waiting: false });
     }
   }
