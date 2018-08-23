@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {
-  ScrollView, StyleSheet, View, TouchableWithoutFeedback
+  ScrollView, StyleSheet, View, TouchableWithoutFeedback, ImageBackground
 } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import {
@@ -51,70 +51,74 @@ class LoginComponent extends Component {
 
   render() {
     return (
-      <LinearGradient
-        colors={["#e1322373", "#ffffff8C"]}
-        style={styles.gradient}>
+      <View style={{flex: 1, backgroundColor: 'white'}}>
+        <ImageBackground style={{flex: 1, width: '100%'}} source={require('../../../../assets/img/album-default.png')}>
+          <LinearGradient
+            colors={["#f0cfcf73", "#ffffffFF"]}
+            style={styles.gradient}
+            start={{x:0, y:0.0}} end={{x:0, y:0.7}}>
+            <MPHeader style={styles.header} inverse={true}/>
 
-        <MPHeader style={styles.header} inverse={true}/>
+            <KeyboardAwareScrollView>
+                <View style={styles.container}>
+                  <MPText style={styles.title}>Bem-vindo ao MusicPlayce</MPText>
 
-        <KeyboardAwareScrollView>
-          <View style={styles.container}>
-            <MPText style={styles.title}>Bem-vindo ao MusicPlayce</MPText>
+                  {/*<MPButton icon={FacebookIcon} title="Entre com Facebook" textSize={16} onPress={() => {}} style={styles.signinFB}/>*/}
+                  {/*<MPButton icon={GoogleIcon} title="Entre com Google+" textSize={16} onPress={() => {}} style={styles.signinGoogle}/>*/}
 
-            {/*<MPButton icon={FacebookIcon} title="Entre com Facebook" textSize={16} onPress={() => {}} style={styles.signinFB}/>*/}
-            {/*<MPButton icon={GoogleIcon} title="Entre com Google+" textSize={16} onPress={() => {}} style={styles.signinGoogle}/>*/}
+                  {!this.props.error && (
+                    <View>
+                      {/*<MPText style={styles.ouText}>ou</MPText>*/}
+                      <MPText style={styles.signinUser}>Entre com seu usuário</MPText>
+                    </View>
+                  )}
 
-            {!this.props.error && (
-              <View>
-                {/*<MPText style={styles.ouText}>ou</MPText>*/}
-                <MPText style={styles.signinUser}>Entre com seu usuário</MPText>
-              </View>
-            )}
+                  {this.props.error && (
+                    <View>
+                      <MPText style={styles.deuRuimText}>Deu ruim! Confirme se o login e senha foram digitados corretamente.</MPText>
+                      <MPText style={styles.confiraText}>Confira os dados do usuário</MPText>
+                    </View>
+                  )}
 
-            {this.props.error && (
-              <View>
-                <MPText style={styles.deuRuimText}>Deu ruim! Confirme se o login e senha foram digitados corretamente.</MPText>
-                <MPText style={styles.confiraText}>Confira os dados do usuário</MPText>
-              </View>
-            )}
+                    <MPForm>
+                      <MPInput
+                        label="E-mail ou Usuário"
+                        name="login" value={this.state.form.login}
+                        onChangeText={this.handleChangeText}
+                        validators={['required']}
+                        autoCapitalize={'none'}
+                        error={this.props.error}
+                      />
+                      <MPInput
+                        label={"Senha"}
+                        name="password"
+                        value={this.state.form.password}
+                        onChangeText={this.handleChangeText}
+                        validators={['required']}
+                        secureTextEntry={true}
+                        autoCapitalize={'none'}
+                      />
 
-              <MPForm>
-                <MPInput
-                  label="E-mail ou Usuário"
-                  name="login" value={this.state.form.login}
-                  onChangeText={this.handleChangeText}
-                  validators={['required']}
-                  autoCapitalize={'none'}
-                  error={this.props.error}
-                />
-                <MPInput
-                  label={"Senha"}
-                  name="password"
-                  value={this.state.form.password}
-                  onChangeText={this.handleChangeText}
-                  validators={['required']}
-                  secureTextEntry={true}
-                  autoCapitalize={'none'}
-                />
+                      <View style={styles.signinContainer}>
+                        <MPFormButton>
+                          <MPGradientButton title={"Entrar"} textSize={16} style={styles.signinButton} onPress={this.handleSubmit} />
+                        </MPFormButton>
+                        <MPText style={styles.forgotPassword} onPress={this.props.onForgotPassword}>Esqueceu a senha?</MPText>
+                      </View>
+                    </MPForm>
 
-                <View style={styles.signinContainer}>
-                  <MPFormButton>
-                    <MPGradientButton title={"Entrar"} textSize={16} style={styles.signinButton} onPress={this.handleSubmit} />
-                  </MPFormButton>
-                  <MPText style={styles.forgotPassword} onPress={this.props.onForgotPassword}>Esqueceu a senha?</MPText>
+                    <TouchableWithoutFeedback onPress={this.props.onRegister}>
+                      <View>
+                        <MPText style={styles.noAccount}>Não tem conta?</MPText>
+                        <MPText style={styles.register}>Faça seu cadastro.</MPText>
+                      </View>
+                    </TouchableWithoutFeedback>
                 </View>
-              </MPForm>
-
-              <TouchableWithoutFeedback onPress={this.props.onRegister}>
-                <View>
-                  <MPText style={styles.noAccount}>Não tem conta?</MPText>
-                  <MPText style={styles.register}>Faça seu cadastro.</MPText>
-                </View>
-              </TouchableWithoutFeedback>
-          </View>
-        </KeyboardAwareScrollView>
-        <MPLoading visible={this.props.loading} />
-      </LinearGradient>
+            </KeyboardAwareScrollView>
+            <MPLoading visible={this.props.loading} />
+          </LinearGradient>
+        </ImageBackground>
+      </View>
     );
   }
 }
@@ -127,7 +131,6 @@ const styles = StyleSheet.create({
   },
   gradient: {
     flex: 1,
-    backgroundColor: 'white'
   },
   header: {
     marginTop: 20,

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { StyleSheet, TouchableWithoutFeedback, View, TouchableOpacity, Platform } from 'react-native';
+import { StyleSheet, TouchableWithoutFeedback, View, TouchableOpacity, Platform, ImageBackground } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import LinearGradient from 'react-native-linear-gradient';
 import {MPGradientButton, MPText, MPLoading, MPInput, MPForm, MPFormButton, MPHeader} from '../../../../components';
@@ -117,25 +117,27 @@ class RegisterComponent extends Component {
     return (
       <View style={styles.container}>
         <KeyboardAwareScrollView style={styles.container} ref={ref => this.scrollViewRef = ref}>
-          <LinearGradient
-            onLayout={event => this.setState({ linearGradientHeight: event.nativeEvent.layout.height })}
-            colors={["#e1322373", "#ffffff8C"]} style={styles.gradient} start={{x:0, y:0}} end={{x:0, y:1}}>
-            <MPHeader back={true} onBack={this.props.onBackClick} withoutLogo={true} inverse={true} redBack={true}/>
-            <View style={styles.contentCreateAccount}>
-              <MPLogoRegisterIcon style={styles.logo}/>
-              <MPText style={styles.title}>O seu lugar de música</MPText>
-              <MPText style={styles.register}>Crie sua conta</MPText>
-              {/*<MPButton icon={FacebookIcon} title="Entre com Facebook" textSize={16} onPress={() => {}} style={styles.signinFB}/>*/}
-              {/*<MPButton icon={GoogleIcon} title="Entre com Google+" textSize={16} onPress={() => {}} style={styles.signinGoogle}/>*/}
-              {/*<MPText style={styles.ouText}>ou</MPText>*/}
-              <TouchableWithoutFeedback onPress={this.handleToggleRegisterForm}>
-                <View>
-                  <MPText style={styles.fillForm}>Preencha o cadastro</MPText>
-                  <IconRegister style={styles.fillFormArrow}/>
-                </View>
-              </TouchableWithoutFeedback>
-            </View>
-          </LinearGradient>
+          <ImageBackground style={{flex: 1, width: '100%'}} source={require('../../../../assets/img/album-default.png')}>
+            <LinearGradient
+              onLayout={event => this.setState({ linearGradientHeight: event.nativeEvent.layout.height })}
+              colors={["#f0cfcf73", "#ffffffff"]} style={styles.gradient} start={{x:0, y:0}} end={{x:0, y:1}}>
+              <MPHeader back={true} onBack={this.props.onBackClick} withoutLogo={true} inverse={true} redBack={true}/>
+              <View style={styles.contentCreateAccount}>
+                <MPLogoRegisterIcon style={styles.logo}/>
+                <MPText style={styles.title}>O seu lugar de música</MPText>
+                <MPText style={styles.register}>Crie sua conta</MPText>
+                {/*<MPButton icon={FacebookIcon} title="Entre com Facebook" textSize={16} onPress={() => {}} style={styles.signinFB}/>*/}
+                {/*<MPButton icon={GoogleIcon} title="Entre com Google+" textSize={16} onPress={() => {}} style={styles.signinGoogle}/>*/}
+                {/*<MPText style={styles.ouText}>ou</MPText>*/}
+                <TouchableWithoutFeedback onPress={this.handleToggleRegisterForm}>
+                  <View>
+                    <MPText style={styles.fillForm}>Preencha o cadastro</MPText>
+                    <IconRegister style={styles.fillFormArrow}/>
+                  </View>
+                </TouchableWithoutFeedback>
+              </View>
+            </LinearGradient>
+          </ImageBackground>
           <View style={[styles.form, { marginTop: 42 }]}>
             {this.props.error && (
               <View>
