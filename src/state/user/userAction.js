@@ -151,7 +151,11 @@ export const getFollowNotifications = (page = 1,reset = false) => {
         
     page = reset ? 1 : page;
     if(reset) dispatch(userFollowNotificationsStartLoading());
-    if(!reset) dispatch(userStartLoading());
+    if(page > 1){
+      dispatch(userFollowNotificationsStartLoading(true));
+    }else{
+      dispatch(userStartLoading());
+    }
 
     return UserService.getFollowNotifications(page).then(response => {
       dispatch(userNotificationsFollowersFetched({...response, reset}));

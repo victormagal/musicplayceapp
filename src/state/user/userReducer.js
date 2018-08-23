@@ -68,6 +68,7 @@ const userReducer = (state, action) => {
     refreshNotifications: false,
     userFollowersLoading: false,
     userFollowingLoading: false,
+    userFollowingPaginationLoading: false,
     userSongsLoading: false
   };
 
@@ -203,16 +204,24 @@ const userReducer = (state, action) => {
       };
 
     case USER_FOLLOW_NOTIFICATIONS_START_LOADING:
+      if(action.payload){
+        return {
+          ...state,
+          userFollowingPaginationLoading: true
+        };
+      }
+
       return {
         ...state,
         refreshUserFollowings: true,
-      }
+      };
 
     case USER_FOLLOW_NOTIFICATIONS_FINISHED_LOADING:
       return {
         ...state,
-        refreshUserFollowings: false,
-      }
+        userFollowingPaginationLoading: false,
+        refreshUserFollowings: false
+      };
 
     case USER_NOTIFICATIONS_FETCHED:
       let notificationList = action.payload;
@@ -243,6 +252,7 @@ const userReducer = (state, action) => {
         ...state,
         loading: false,
         refreshUserFollowings: false,
+        userFollowingPaginationLoading: false,
         userFollowNotifications: followNotificationList
       };
 

@@ -226,8 +226,8 @@ export const MPGoogleIcon = (props) => {
 };
 
 export const MPGroupIcon = (props) => { 
- let newProps = applyStyle(props, 1024, 1024); 
- return (<Svg {...newProps} viewBox='0 0 1024 1024'><Path d='M512 998.4c268.621 0 486.4-217.779 486.4-486.4s-217.779-486.4-486.4-486.4-486.4 217.779-486.4 486.4 217.779 486.4 486.4 486.4z' fill='none' fillOpacity='0.5' stroke='#171616' strokeWidth='51.2' strokeMiterlimit={4} strokeLinecap='butt' strokeLinejoin='miter'/><Path d='M149.961 837.835l687.873-687.873 36.204 36.204-687.873 687.873z' fill='#000' fillOpacity='0.5'/></Svg>); 
+ let newProps = applyStyle(props, 50, 50); 
+ return (<Svg {...newProps} viewBox='0 0 50 50'><Path d='M25 48.75c13.116 0 23.75-10.634 23.75-23.75s-10.634-23.75-23.75-23.75-23.75 10.634-23.75 23.75 10.634 23.75 23.75 23.75z' fill='none' stroke='#000' strokeOpacity='0.3' strokeWidth='2.5' strokeMiterlimit={4} strokeLinecap='butt' strokeLinejoin='miter'/><Path d='M7.322 40.91l33.588-33.588 1.768 1.768-33.588 33.588z' fillOpacity='0.3'/></Svg>); 
 };
 
 export const MPHeartRedIcon = (props) => { 
