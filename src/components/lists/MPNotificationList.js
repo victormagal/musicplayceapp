@@ -17,7 +17,8 @@ class MPNotificationListComponent extends React.Component {
       'AlertIndicationYourSongNotification',
       'AlertFaqNotification',
       'AlertFollowingMeNotification',
-      'AlertIndicationMeNotification'
+      'AlertIndicationMeNotification',
+      'AlertIndicationMeCountNotification'
     ]
     return (
         <View style={styles.item}>
@@ -38,9 +39,9 @@ class MPNotificationListComponent extends React.Component {
           {
             notificationType == types[0] && (
               <MPText style={styles.notificationText}>
-                <MPText style={styles.notificationTextEmpth}>{item.data.userLogged.name}</MPText> indicou a sua música
-                <MPText style={styles.notificationTextEmpth}> {item.data.song.name}</MPText> para 
-                <MPText style={styles.notificationTextEmpth}> {item.data.artistIndicate.name}</MPText>
+                <MPText style={styles.notificationTextEmpth}>{item.data.userLogged.name}</MPText>{' indicou a sua música '}
+                <MPText style={styles.notificationTextEmpth}>{item.data.song.name}</MPText>{' para '} 
+                <MPText style={styles.notificationTextEmpth}>{item.data.artistIndicate.name}</MPText>
               </MPText>
             )
           }
@@ -61,8 +62,16 @@ class MPNotificationListComponent extends React.Component {
           {
             notificationType == types[3] && (
               <MPText style={styles.notificationText}>
-                <MPText style={styles.notificationTextEmpth}>{item.data.users.name}</MPText> te indicou para música
-                <MPText style={styles.notificationTextEmpth}> {item.data.songs.name}</MPText>
+                <MPText style={styles.notificationTextEmpth}>{item.data.users.name}</MPText>{' te indicou para música '}
+                <MPText style={styles.notificationTextEmpth}>{item.data.songs.name}</MPText>
+              </MPText>
+            )
+          }
+          {
+            notificationType == types[4] && (
+              <MPText style={styles.notificationText}>
+                <MPText style={styles.notificationTextEmpthBlack}>{item.data.count} {item.data.count > 1 ? 'pessoas' : 'pessoa'}</MPText>{item.data.count > 1 ? ' te indicaram ' : ' te indicou '}
+                <MPText style={styles.notificationTextEmpth}>{item.data.songs.name}</MPText>
               </MPText>
             )
           }
@@ -112,6 +121,9 @@ const styles = StyleSheet.create({
   notificationTextEmpth: {
     color:'#4a90e2',
     textDecorationLine: 'underline',
+  },
+  notificationTextEmpthBlack: {
+    color : '#171616',
   },
   boxFoward: {
     flex: 0.2,
