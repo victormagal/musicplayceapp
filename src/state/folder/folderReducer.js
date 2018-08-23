@@ -17,9 +17,13 @@ const folderReducer = (state, action) => {
     case FOLDER_START_LOADING:
       if(action.payload && action.payload.page > 1){
         const propName = action.payload.type === 'favoriteSongs' ? 'favoritesFolder' : 'userFolders';
+        const newOb = Object.assign({}, state[propName]);
+        newOb.data = Object.assign([], newOb.data);
+        newOb.loading = true;
+        state[propName] = newOb;
+
         return {
-          ...state,
-          [propName]: {...state[propName], loading: true}
+          ...state
         };
       }
 

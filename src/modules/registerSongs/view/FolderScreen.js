@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {StyleSheet, View, ScrollView, Keyboard, FlatList} from 'react-native';
+import {StyleSheet, View, ScrollView, Keyboard, FlatList, ActivityIndicator} from 'react-native';
 import {
   MPFolder, MPHeader, MPInput, MPForm, MPFormButton, MPGradientButton,
   MPIconButton, MPLoading, MPFloatingNotification
@@ -106,9 +106,21 @@ class FolderScreenContainer extends React.Component {
   };
 
   handleFolderPagination = () => {
-    if(this.state.folders.length > 0 && this.props.userFolders.pagination.current_page < this.props.userFolders.pagination.total_pages){
+    let {pagination, loading} = this.props.userFolders;
+    if(this.state.folders.length > 0 && pagination.current_page < pagination.total_pages && !loading){
       this.props.dispatch(getUserSongsFolders(this.props.userFolders.pagination.current_page + 1));
     }
+  };
+
+  renderListFooter = () => {
+    if (this.props.userFolders && this.props.userFolders.loading) {
+      return (
+        <View style={styles.containerLoading}>
+          <ActivityIndicator size="large" color="#BB1A1A" style={styles.loading}/>
+        </View>
+      );
+    }
+    return null;
   };
 
   renderFolder = ({item, index}) => {
@@ -134,8 +146,6 @@ class FolderScreenContainer extends React.Component {
   }
 
   render() {
-    let bottomButtonStyle = {bottom: this.state.invalid ? 30 : 14};
-
     return (
       <View style={styles.container}>
         <MPHeader
@@ -146,12 +156,13 @@ class FolderScreenContainer extends React.Component {
         />
         <View style={styles.content}>
           <FlatList
-            style={styles.scroll}
+            contentContainerStyle={styles.scroll}
             data={this.state.folders}
             renderItem={this.renderFolder}
             keyExtractor={(item) => item.id}
             onEndReached={this.handleFolderPagination}
             onEndReachedThreshold={0.1}
+            ListFooterComponent={this.renderListFooter}
           />
           <View style={styles.inputFolderContainer}>
             <MPForm>
@@ -164,7 +175,7 @@ class FolderScreenContainer extends React.Component {
               <View>
                 <MPFormButton>
                   <GradientButton
-                    style={[styles.inputButtonAdd, bottomButtonStyle]}
+                    style={styles.inputButtonAdd}
                     title="Criar"
                     onPress={this.handleCreateFolder}
                   />
@@ -195,14 +206,8 @@ const styles = StyleSheet.create({
   scroll: {
     paddingHorizontal: 30
   },
-  textFieldWithButtonContainer: {
-    flexDirection: 'row',
-    borderBottomWidth: 1,
-    borderColor: "#b1b1b1",
-    padding: 0
-  },
   inputFolderContainer: {
-    marginBottom: 20,
+    height: 90,
     marginTop: 0,
     marginHorizontal: 25,
   },
@@ -210,12 +215,21 @@ const styles = StyleSheet.create({
     position: 'absolute',
     width: 61,
     height: 24,
+    bottom: 14,
     right: 0
   },
   headerMenuText: {
     fontFamily: 'Montserrat-Regular',
     fontSize: 14,
     color: '#fff'
+  },
+  containerLoading: {
+    width: '100%',
+    paddingVertical: 30,
+    justifyContent: 'center'
+  },
+  loading: {
+    alignSelf: 'center'
   }
 });
 

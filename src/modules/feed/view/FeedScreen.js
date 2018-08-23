@@ -9,7 +9,7 @@ import {
   MPTextField, MPIconButton, MPConfirmStopFollow, MPUserNotification, MPLoading
 } from '../../../components'
 import {MPSearchRedIcon, MPCloseFilledRedIcon} from '../../../assets/svg';
-import {fetchFeeds, searchUsers, getFollowNotifications, followUser} from '../../../state/action';
+import {fetchFeeds, getFollowNotifications, followUser} from '../../../state/action';
 
 
 class FeedScreenContainer extends React.Component {
@@ -83,8 +83,8 @@ class FeedScreenContainer extends React.Component {
     let songsListTwo = [];
 
     if(songs && songs.length) {
-      songsListOne = songs.splice(0, 3);
-      songsListTwo = songs.splice(3, songs.length);
+      songsListOne = songs.slice(0, 3);
+      songsListTwo = songs.slice(3);
     }
 
     return {songsListOne, songsListTwo};
