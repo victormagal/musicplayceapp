@@ -151,7 +151,7 @@ class ProfileComponent extends React.Component {
     return null;
   };
 
-  renderFolder = ({item}) => {
+  renderFolder = (item) => {
     const { me, songDraft} = this.props;
     const onSongPagination = this.state.tabIndex === 1 ? this.props.onFavoriteSongPagination : this.props.onSongPagination;
 
@@ -387,17 +387,9 @@ class ProfileComponent extends React.Component {
           )}
 
           {!songsLoading && mySongs && mySongs.data.length > 0 ?
-            <FlatList
-              contentContainerStyle={styles.innerContainerList}
-              style={styles.songsScroll}
-              nestedScrollEnabled={true}
-              data={ mySongs.data}
-              renderItem={this.renderFolder}
-              keyExtractor={(item) => item.id}
-              onEndReached={this.props.onFolderPagination}
-              onEndReachedThreshold={0.2}
-              ListFooterComponent={() => this.renderListLoadingFooter(mySongs && mySongs.loading)}
-            />
+            <View style={styles.songsScroll}>
+              {mySongs.data.map(folder => this.renderFolder(folder))}
+            </View>
             :
             <View>
               { (me && (!mySongs || mySongs.data.length === 0)) &&
@@ -412,16 +404,9 @@ class ProfileComponent extends React.Component {
     return (
       <View style={{ backgroundColor: '#FFF' }}>
         {myFavoriteSongs && myFavoriteSongs.data.length > 0 ?
-          <FlatList
-            contentContainerStyle={styles.innerContainerList}
-            style={styles.songsScroll}
-            nestedScrollEnabled={true}
-            data={myFavoriteSongs.data}
-            renderItem={this.renderFolder}
-            keyExtractor={(item) => item.id}
-            onEndReached={this.props.onFavoriteFolderPagination}
-            ListFooterComponent={() => this.renderListLoadingFooter(myFavoriteSongs && myFavoriteSongs.loading)}
-          />
+          <View style={styles.songsScroll}>
+            {myFavoriteSongs.data.map(folder => this.renderFolder(folder))}
+          </View>
           :
           <View style={styles.noSongsSaved}>
             <MPGroupIcon style={{ width: 50, height: 50 }}/>
@@ -498,8 +483,8 @@ const styles = StyleSheet.create({
     fontFamily: 'Montserrat-Regular'
   },
   songsScroll: {
-    height: 430,
-    backgroundColor: '#fff'
+    backgroundColor: '#fff',
+    paddingBottom: 16
   },
   listFooterLoading: {
     width: '100%',
@@ -510,9 +495,6 @@ const styles = StyleSheet.create({
   listLoading: {
     alignSelf:'center'
   },
-  innerContainerList: {
-    paddingBottom: 16
-  }
 });
 
 export {ProfileComponent};

@@ -159,13 +159,13 @@ class SongService {
       });
   }
 
-  static mySongs(id, page, me) {
+  static mySongs(id, page, me, size = 10) {
     let folder = {id: -1, name: 'Outras', songs: {}};
 
     if (!page || page <= 1) {
       let defaultPromise = me ? SongService.mySongsWithoutFolder(page) : SongService.userSongsWithoutFolder(id);
       return defaultPromise.then(response => {
-        return SongService._userSongsFolders(id, page).then(folders => {
+        return SongService._userSongsFolders(id, page, size).then(folders => {
           if (response.data.length > 0) {
             folder.songs = response;
             folders.data.unshift(folder);
@@ -178,8 +178,8 @@ class SongService {
     return SongService._userSongsFolders(id, page);
   }
 
-  static mySongsFavorites(page){
-    return FolderService.getFavoriteSongsFolders(page, 30).then(response => {
+  static mySongsFavorites(page, size = 10){
+    return FolderService.getFavoriteSongsFolders(page, size).then(response => {
       let data = response.data.filter(f => f.song_count > 0);
       return Promise.all(SongService._mapFolders(data)).then(songs => {
         data = data.map((folder, index) => {
@@ -378,8 +378,8 @@ class SongService {
     return data.map(folder => SongService.songsByFolder(folder.id));
   }
 
-  static _userSongsFolders(id, page) {
-    return FolderService.getUserSongsFolders(id, page, 10).then(response => {
+  static _userSongsFolders(id, page, size) {
+    return FolderService.getUserSongsFolders(id, page, size).then(response => {
       let data = response.data.filter(f => f.song_count > 0);
 
       return Promise.all(SongService._mapFolders(data)).then(songs => {

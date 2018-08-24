@@ -114,7 +114,7 @@ export const fetchMySongs = (id, page = 1) => {
       dispatch(profileSongsStartLoading());
     }
 
-    return SongService.mySongs(id, page, true).then(response => {
+    return SongService.mySongs(id, page, true, 50).then(response => {
       dispatch(fetchedProfileSongs(response));
     }).catch(e => {
       dispatch(profileSongsFinishLoading());
@@ -155,7 +155,7 @@ export const fetchMyFavoriteSongs = (page = 1) => {
       dispatch(profileFolderFavoriteLoading());
     }
 
-    return SongService.mySongsFavorites(page).then(response => {
+    return SongService.mySongsFavorites(page, 50).then(response => {
       dispatch(fetchedProfileFavoriteSongs(response));
     });
   };

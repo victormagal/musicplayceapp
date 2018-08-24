@@ -26,11 +26,17 @@ class InterpreterScreenContainer extends React.Component {
 
   componentDidMount(){
     if(this.props.song.interpreter_name && this.props.song.interpreter_name.length > 0){
+      const selecteds = this.props.song.interpreter_name.map((interpreter) => {
+        interpreter.selected = true;
+        return interpreter;
+      });
+
       this.setState({
-        usersSelected: this.props.song.interpreter_name.map((interpreter) => {
-          interpreter.selected = true;
-          return interpreter;
-        })
+        usersSelected: selecteds,
+        usersSelectedTemp: selecteds.reduce((result, user) => {
+          result[user.id] = user;
+          return result;
+        }, {})
       });
     }
   }
@@ -65,6 +71,10 @@ class InterpreterScreenContainer extends React.Component {
     this.setState({ search: value, waiting: true });
     this.handleSearch(value);
 
+    if (value.length === 0){
+      this.setState({ usersSelected: Object.values(this.state.usersSelectedTemp) });
+    }
+
     if (value.length < 3){
       this.setState({users: []});
     }
@@ -87,18 +97,27 @@ class InterpreterScreenContainer extends React.Component {
   };
 
   handleSaveClick = () => {
-    const {usersSelected} = this.state;
-    if (usersSelected.length > 0){
+    const {usersSelectedTemp} = this.state;
+    const selecteds = Object.values(usersSelectedTemp);
+
+    if (selecteds.length > 0){
       const song = {...this.props.song};
 
-      song.interpreter_name = usersSelected;
+      song.interpreter_name = selecteds;
       this.props.dispatch(updateSongRegisterData(song));
       this.handleBackClick();
     }
   };
 
+  handleMeClick = () => {
+    let song = {...this.props.song};
+    song.interpreter_name = [];
+    this.props.dispatch(updateSongRegisterData(song));
+    this.handleBackClick();
+  };
+
   handleClearClick = () => {
-    this.setState({ users: [], search: '' });
+    this.setState({ users: [], search: '', usersSelected: Object.values(this.state.usersSelectedTemp) });
   };
 
   handleUserClick = (index) => {
@@ -108,14 +127,10 @@ class InterpreterScreenContainer extends React.Component {
 
     if (user.selected){
       newState.usersSelectedTemp[user.id] = user;
-      if (newState.users.length === 0) {
-        newState.onlyUserIsSelected = true;
-      }
     } else {
       delete newState.usersSelectedTemp[user.id];
     }
 
-    newState.usersSelected = Object.values(newState.usersSelectedTemp);
     this.setState(newState);
   };
 
@@ -239,19 +254,18 @@ class InterpreterScreenContainer extends React.Component {
                 <View >
                   <MPForm>
                     <InputInvitation
+                      contentStyle={styles.innerInputEmail}
                       label="E-mail"
                       value={this.state.invitationMail}
                       onChangeText={this.handleChangeText}
                     />
-                    <View>
-                      <MPFormButton>
-                        <InvitationGradientButton
-                          style={[styles.inputButtonAdd]}
-                          title="Criar"
-                          onPress={this.handleInvite}
-                        />
-                      </MPFormButton>
-                    </View>
+                    <MPFormButton>
+                      <InvitationGradientButton
+                        style={[styles.inputButtonAdd]}
+                        title="Criar"
+                        onPress={this.handleInvite}
+                      />
+                    </MPFormButton>
                   </MPForm>
                 </View>
               </View>
@@ -272,7 +286,7 @@ class InterpreterScreenContainer extends React.Component {
           }
           { usersSelected.length === 0 &&
             <View style={{ marginTop: 152 }}>
-              <TouchableOpacity style={styles.clickableTextContainer} onPress={this.handleBackClick}>
+              <TouchableOpacity style={styles.clickableTextContainer} onPress={this.handleMeClick}>
                 <MPText style={styles.clickableText}>
                   Não, apenas eu
                 </MPText>
@@ -339,11 +353,14 @@ const styles = StyleSheet.create({
   },
   inputButtonAdd: {
     position: 'absolute',
+    top: '40%',
     width: 61,
     height: 24,
-    right: 0,
-    bottom: 14
+    right: 0
   },
+  innerInputEmail: {
+    paddingRight: 60
+  }
 });
 const mapStateToProps = ({userReducer, songsReducer, profileReducer}) => {
   return {...userReducer, song: songsReducer.song, ...profileReducer};

@@ -47,10 +47,15 @@ class MPInputComponent extends React.Component {
   render() {
     let {
       label, multiline, style, value, onBlur, secureTextEntry,
-      textProps, autoCapitalize, error
+      textProps, autoCapitalize, error, contentStyle
     } = this.props;
     let inputIcon = this.state.isPassword ? <MPInputEyeIcon /> : <MPInputEyeVisibleIcon />;
     let iconStyle = [styles.eye];
+    let inputContentStyle = [styles.textField];
+
+    if(contentStyle){
+      inputContentStyle.push(contentStyle);
+    }
 
     if (textProps && Object.keys(textProps).length > 0) {
       iconStyle.push(styles.eyeError)
@@ -64,7 +69,7 @@ class MPInputComponent extends React.Component {
           tintColor='#5994db'
           multiline={multiline}
           labelFontSize={12}
-          style={styles.textField}
+          style={inputContentStyle}
           labelTextStyle={styles.labelStyle}
           onBlur={onBlur}
           autoCapitalize={autoCapitalize}

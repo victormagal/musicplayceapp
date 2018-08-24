@@ -24,11 +24,17 @@ class UsersScreenContainer extends React.Component {
 
   componentDidMount(){
     if(this.props.song.coAuthors && this.props.song.coAuthors.length > 0){
+      const selecteds = this.props.song.coAuthors.map((author) => {
+        author.selected = true;
+        return author;
+      });
+
       this.setState({
-        usersSelected: this.props.song.coAuthors.map((author) => {
-          author.selected = true;
-          return author;
-        })
+        usersSelected: selecteds,
+        usersSelectedTemp: selecteds.reduce((result, user) => {
+          result[user.id] = user;
+          return result;
+        }, {})
       });
     }
   }
@@ -73,6 +79,10 @@ class UsersScreenContainer extends React.Component {
       clearTimeout(this.debounceTimer);
     }
 
+    if (value.length === 0){
+      this.setState({ usersSelected: Object.values(this.state.usersSelectedTemp) });
+    }
+
     this.debounceTimer = setTimeout(() => {
       if(value.length >= 3) {
         this.props.dispatch(searchUsers(value));
@@ -90,7 +100,6 @@ class UsersScreenContainer extends React.Component {
 
     if (selecteds.length > 0){
       let song = {...this.props.song};
-
       song.coAuthors = selecteds;
       this.props.dispatch(updateSongRegisterData(song));
       this.handleBackClick();
@@ -99,24 +108,27 @@ class UsersScreenContainer extends React.Component {
     //TODO: must choose one to save
   };
 
+  handleMeClick = () => {
+    let song = {...this.props.song};
+    song.coAuthors = [];
+    this.props.dispatch(updateSongRegisterData(song));
+    this.handleBackClick();
+  };
+
   handleClearClick = () => {
-    this.setState({ users: [], search: '' });
+    this.setState({ users: [], search: '', usersSelected: Object.values(this.state.usersSelectedTemp) });
   };
 
   handleUserClick = (index) => {
     let newState = {...this.state};
     const user = newState.users[index];
-    newState.users[index].selected = !user.selected;
+    user.selected = !user.selected;
 
     if (user.selected){
       newState.usersSelectedTemp[user.id] = user;
-      if (newState.users.length === 0) {
-        newState.onlyUserIsSelected = true;
-      }
     } else {
       delete newState.usersSelectedTemp[user.id];
     }
-    newState.usersSelected = Object.values(newState.usersSelectedTemp);
     this.setState(newState);
   };
 
@@ -141,7 +153,7 @@ class UsersScreenContainer extends React.Component {
       }
       this.props.dispatch(inviteUser(invitationData))
     }
-  }
+  };
 
   renderHeaderMenuSave() {
     return [
@@ -155,7 +167,6 @@ class UsersScreenContainer extends React.Component {
   }
 
   render() {
-    console.log(this.props);
     const hasSelected = Object.keys(this.state.usersSelectedTemp).length > 0;
     let {usersSelected, invitations} = this.state;
     return (
@@ -172,7 +183,7 @@ class UsersScreenContainer extends React.Component {
               { usersSelected.map((item, index) => (
                 <MPUserHorizontal
                   key={index}
-                  user={item.name}
+                  user={`${item.name} ${item.last_name}`}
                   selected={item.selected}
                   image={item.picture_url}
                   onPress={() => this.handleUserSelectedClick(index, item.id)}
@@ -226,28 +237,28 @@ class UsersScreenContainer extends React.Component {
                 <MPText style={ styles.textInputSubTextSuggestion}>
                   Convide-o para se juntar ao MusicPlayce.
                 </MPText>
-                <View >
+                <View>
                   <MPForm>
                     <MPInput
+                      contentStyle={styles.innerInputEmail}
                       label="E-mail"
                       value={this.state.invitationMail}
+                      validators={['email']}
                       onChangeText={this.handleChangeText}
                     />
-                    <View>
-                      <MPFormButton>
-                        <MPGradientButton
-                          style={[styles.inputButtonAdd]}
-                          title="Criar"
-                          onPress={this.handleInvite}
-                        />
-                      </MPFormButton>
-                    </View>
+                    <MPFormButton>
+                      <MPGradientButton
+                        style={[styles.inputButtonAdd]}
+                        title="Criar"
+                        onPress={this.handleInvite}
+                      />
+                    </MPFormButton>
                   </MPForm>
                 </View>
               </View>
             )}
             { (!this.state.search && !hasSelected) &&
-              <TouchableOpacity style={styles.clickableTextContainer} onPress={this.handleBackClick}>
+              <TouchableOpacity style={styles.clickableTextContainer} onPress={this.handleMeClick}>
                 <MPText style={styles.clickableText}>
                   Não, apenas eu
                 </MPText>
@@ -330,11 +341,14 @@ const styles = StyleSheet.create({
   },
   inputButtonAdd: {
     position: 'absolute',
+    top: '40%',
     width: 61,
     height: 24,
-    right: 0,
-    bottom: 14
+    right: 0
   },
+  innerInputEmail: {
+    paddingRight: 60
+  }
 });
 const mapStateToProps = ({userReducer, songsReducer, profileReducer}) => {
   return {...userReducer, song: songsReducer.song, ...profileReducer};

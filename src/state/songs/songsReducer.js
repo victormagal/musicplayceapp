@@ -31,7 +31,7 @@ const defaultSong = {
   name: '',
   lyrics: '',
   description: '',
-  interpreter_name: '',
+  interpreter_name: null,
   indicationCount: null,
   coAuthors: null,
   folder: null,

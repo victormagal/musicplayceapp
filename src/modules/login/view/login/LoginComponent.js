@@ -87,7 +87,7 @@ class LoginComponent extends Component {
                         onChangeText={this.handleChangeText}
                         validators={['required']}
                         autoCapitalize={'none'}
-                        error={this.props.error}
+                        error={this.props.error ? 'E-mail ou usuário inválido' : ''}
                       />
                       <MPInput
                         label={"Senha"}
@@ -97,6 +97,7 @@ class LoginComponent extends Component {
                         validators={['required']}
                         secureTextEntry={true}
                         autoCapitalize={'none'}
+                        error={this.props.error ? 'Senha inválida' : ''}
                       />
 
                       <View style={styles.signinContainer}>

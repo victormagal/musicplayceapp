@@ -95,7 +95,6 @@ export default class App extends React.Component {
     });
 
     MusicControl.enableBackgroundMode(true);
-    checkConnection(store);
     applyAxiosInterceptops(store);
   }
 
