@@ -12,8 +12,9 @@ class MPUserHorizontal extends Component {
     let {user, image, selected, style, onPress} = this.props;
     let borderStyle = {};
     let iconStyle = {};
+    let selectedImageStyle = {};
 
-    if (selected == true) {
+    if (selected) {
       borderStyle = {
         borderColor: "#e13223",
         borderWidth: 2
@@ -24,6 +25,9 @@ class MPUserHorizontal extends Component {
         right: 5,
         zIndex: 9999999
       };
+      selectedImageStyle = {
+        height: 56
+      };
     }
 
     return (
@@ -31,8 +35,13 @@ class MPUserHorizontal extends Component {
         <TouchableOpacity onPress={ onPress }>
           <Card containerStyle={[styles.stretchedUserCardContainer, borderStyle]}>
             <View style={styles.content}>
-              <Image style={styles.stretchedUserImage} source={image ? {uri: image} : null}/>
-              <MPText style={ styles.stretchedUserText}>{ user }</MPText>
+              <Image
+                style={[styles.stretchedUserImage, selectedImageStyle]}
+                source={image ? {uri: image} : require('../../assets/img/avatar-male.jpg')}
+              />
+              <MPText style={ styles.stretchedUserText} numberOfLines={1}>
+                { user }
+                </MPText>
             </View>
           </Card>
         </TouchableOpacity>
@@ -43,7 +52,7 @@ class MPUserHorizontal extends Component {
 }
 
 MPUserHorizontal.propTypes = {
-  artist: PropTypes.string.isRequired,
+  user: PropTypes.string.isRequired,
   image: PropTypes.any,
   onPress: PropTypes.func,
   selected: PropTypes.bool,
@@ -71,6 +80,7 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 4
   },
   stretchedUserText: {
+    flex: 1,
     color: "#000",
     fontSize: 20,
     paddingStart: 20,

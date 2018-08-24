@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet, View, ScrollView, TouchableOpacity} from 'react-native';
 import {connect} from 'react-redux';
-import {MPHeader, MPText, MPIconButton, MPTextField} from '../../../components';
+import {MPHeader, MPText, MPIconButton, MPTextField, MPSelect} from '../../../components';
 import {updateSongRegisterData} from "../../../state/songs/songsType";
 import {DocumentPicker, DocumentPickerUtil} from "react-native-document-picker";
 import {MPSongIcon} from "../../../assets/svg";
@@ -13,7 +13,9 @@ class MusicLetterScreenContainer extends React.Component {
     this.state = {
       lyrics: (props.song && props.song.lyrics) || '',
       language: 'default',
-      error: null
+      selectedOption: null,
+      error: null,
+      idiomas: ['Português', 'Inglês', 'Espanhol']
     };
   }
 
@@ -107,7 +109,7 @@ class MusicLetterScreenContainer extends React.Component {
             }
             </MPText>
           }
-          {/*<MPSelect style={styles.idioma} label="Idioma" />*/}
+          <MPSelect style={styles.idioma} label="Idioma" value={this.state.selectedOption} options={this.state.idiomas} onChangeOption={(selectedOption) => this.setState({selectedOption})} />
         </ScrollView>
         <MPFloatingNotification
           visible={this.state.error !== null}
@@ -162,7 +164,7 @@ const styles = StyleSheet.create({
     color: '#fff'
   },
   idioma: {
-    marginTop: 52
+
   },
   ouText: {
     fontFamily: 'Montserrat-Regular'

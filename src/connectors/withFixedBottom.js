@@ -1,6 +1,5 @@
 import React from 'react';
-import {View, Keyboard} from 'react-native'
-import hoistNonReactStatics from 'hoist-non-react-statics';
+import {View, Keyboard, Platform} from 'react-native'
 
 export const withFixedBottom = (WrappedComponent) => {
   return class extends React.Component {
@@ -14,7 +13,9 @@ export const withFixedBottom = (WrappedComponent) => {
     componentDidMount () {
       this.keyboardDidShowListener = Keyboard.addListener(
         'keyboardDidShow',
-        (e) => this.setState({ btnLocation: e.endCoordinates.height - 50 })
+        (e) => {
+          this.setState({ btnLocation: e.endCoordinates.height })
+        }
       );
       this.keyboardDidHideListener = Keyboard.addListener(
         'keyboardDidHide',
@@ -28,12 +29,16 @@ export const withFixedBottom = (WrappedComponent) => {
     }
 
     render() {
-      const style = this.props.style;
-      const newProps = {...this.props};
-      delete newProps.style;
-      console.log( style, newProps);
+      if(Platform.OS === 'ios') {
+        const style = this.props.style;
+        const newProps = {...this.props};
+        delete newProps.style;
+        return (
+          <WrappedComponent {...newProps} style={[style, {marginBottom: this.state.btnLocation}]}/>
+        );
+      }
       return (
-          <WrappedComponent {...newProps} style={[style, {marginBottom: this.state.btnLocation}]} />
+        <WrappedComponent {...this.props}/>
       )
     }
   }

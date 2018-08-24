@@ -4,9 +4,8 @@ import {Card} from 'react-native-elements';
 import PropTypes from 'prop-types';
 import {
   MPSongListIcon, MPPlayIcon, MPSongMenuIcon, MPSongIndicateIcon,
-  MPSongIndicateFullIcon, MPAddSongWhiteNoteIcon
+  MPSongIndicateFullIcon, MPAddSongWhiteNoteIcon, MPPlayDisabledIcon
 } from '../../assets/svg';
-import images from '../../assets/img';
 import {MPText} from '../general';
 import {MPShowRating} from '../profile';
 
@@ -30,6 +29,7 @@ class MPSongRating extends Component {
 
   handlePlayClick = () => {
     let {onPlayClick, song} = this.props;
+    const hasPath = !!song.path;
     onPlayClick && onPlayClick(song);
   };
 
@@ -74,12 +74,20 @@ class MPSongRating extends Component {
   }
 
   render() {
-    const {song, style, isNew} = this.props;
+    const {song, style, isNew, indication} = this.props;
+    const hasPath = !!song.path;
+    let cardStyle = [styles.simpleUserCardContainer];
+    let titleStyle = [styles.simpleUserCardText];
+
+    if(indication){
+      cardStyle.push(styles.indicationCardContainer);
+      titleStyle.push(styles.indicationSimpleUserCardText);
+    }
 
     return (
       <View style={style || {}}>
 
-        <Card containerStyle={[styles.simpleUserCardContainer]}>
+        <Card containerStyle={cardStyle}>
           {!this.state.menuOpen && (
             <View>
               <View>
@@ -88,11 +96,18 @@ class MPSongRating extends Component {
                     style={{ width: 100, height: 100 }}
                     source={ song.picture_url ? { uri: song.picture_url } : require('../../assets/img/album-default.png')}/>
 
-                  {song.path && (
+                  {hasPath && (
                     <TouchableOpacity style={styles.playIcon} onPress={this.handlePlayClick}>
                       <MPPlayIcon />
                     </TouchableOpacity>
                   )}
+
+                  {!hasPath &&
+                    <View style={styles.playIcon}>
+                      <MPPlayDisabledIcon />
+                    </View>
+                  }
+
                   { this.renderTopIcons() }
                   {song && !song.published_at && (
                     <View style={ styles.draftContainer}>
@@ -101,11 +116,10 @@ class MPSongRating extends Component {
                   )}
                 </View>
                 <View>
-                  <MPText style={ styles.simpleUserCardText }>{ song && song.name || '' }</MPText>
+                  <MPText style={ titleStyle }>{ song && song.name || '' }</MPText>
                   <MPShowRating rating={song.rating}/>
                 </View>
-                {
-                  !song.is_indication && (
+                {song.published_at && !song.is_indication && (
                     <TouchableOpacity style={ styles.indicateSongContainer }
                                       onPress={() => this.props.onIndicateClick(song)}>
                       <MPSongIndicateIcon />
@@ -113,7 +127,7 @@ class MPSongRating extends Component {
                     </TouchableOpacity>
                   )
                 }
-                {song.is_indication && (
+                {song.published_at && song.is_indication && (
                     <View style={styles.indicateSongContainer}>
                       <MPSongIndicateFullIcon />
                       <MPText style={styles.indicateSongText}>{ song.indications_count } {"\n"}INDICAÇÕES</MPText>
@@ -163,18 +177,19 @@ class MPSongRating extends Component {
           {this.state.menuOpen && (
             <View style={ styles.menuContainer }>
               <MPText style={ styles.menuCloseText} onPress={this.toggleState.bind(this)}>X</MPText>
+              <View style={{ marginTop: 30 }}>
+              <MPText style={styles.menuText} onPress={this.handleEditClick}>EDITAR</MPText>
+                <View style={ styles.menuSeparator }/>
 
-              <MPText style={[styles.menuText, styles.menuTextFirst]} onPress={this.handleEditClick}>EDITAR</MPText>
-              <View style={ styles.menuSeparator }/>
+                {song.published_at && (
+                  <View>
+                    <MPText style={ styles.menuText } onPress={this.handleUnpublishClick}>DESPUBLICAR</MPText>
+                    <View style={ styles.menuSeparator }/>
+                  </View>
+                )}
 
-              {song.published_at && (
-                <View>
-                  <MPText style={ styles.menuText } onPress={this.handleUnpublishClick}>DESPUBLICAR</MPText>
-                  <View style={ styles.menuSeparator }/>
-                </View>
-              )}
-
-              <MPText style={ styles.menuText } onPress={this.handleRemoveClick}>EXCLUIR</MPText>
+                <MPText style={ styles.menuText } onPress={this.handleRemoveClick}>EXCLUIR</MPText>
+              </View>
             </View>
           )}
         </Card>
@@ -202,11 +217,13 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     marginHorizontal: 5
   },
+  indicationCardContainer: {
+    height: 152,
+  },
   simpleUserCardImage: {
     width: 100,
     height: 100,
-    justifyContent: 'center',
-    backgroundColor: '#f60',
+    justifyContent: 'center'
   },
   simpleUserCardText: {
     height: 40,
@@ -218,10 +235,14 @@ const styles = StyleSheet.create({
     fontFamily: 'ProbaPro-Regular',
     flexWrap: 'wrap',
   },
+  indicationSimpleUserCardText: {
+    height: 25
+  },
   indicateSongContainer: {
     flexDirection: 'row',
     paddingHorizontal: 10,
-    marginBottom: 10
+    marginBottom: 10,
+    alignItems: 'center'
   },
   indicateSongText: {
     fontSize: 9,
@@ -254,10 +275,11 @@ const styles = StyleSheet.create({
     fontFamily: 'Montserrat-Medium',
     color: '#FFF',
     textAlign: 'center',
-    paddingVertical: 18
+    paddingVertical: 10,
+    marginVertical: 8
   },
   menuTextFirst: {
-    marginTop: 20
+    marginTop: 28
   },
   menuSeparator: {
     width: 20,
@@ -267,8 +289,9 @@ const styles = StyleSheet.create({
   },
   menuCloseText: {
     position: 'absolute',
-    top: 8,
-    right: 8,
+    top: 0,
+    right: 0,
+    padding: 8,
     fontSize: 13,
     color: '#FFF',
     fontFamily: 'Montserrat-Bold',
@@ -299,9 +322,10 @@ const styles = StyleSheet.create({
     height: 30
   },
   menuIcon: {
+    padding: 10,
     position: 'absolute',
-    top: 8,
-    right: 8
+    top: 0,
+    right: 0
   },
   addSongIcon: {
     position: 'absolute',

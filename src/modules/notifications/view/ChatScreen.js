@@ -40,8 +40,11 @@ class ChatScreenContainer extends React.Component {
     // In order to subscribe to the messages this user is receiving in this room, we need to `connect()` the `chatManager` and have a hook on `onNewMessage`. There are several other hooks that you can use for various scenarios. A comprehensive list can be found [here](https://docs.pusher.com/chatkit/reference/javascript#connection-hooks).
     chatManager.connect().then(currentUser => {
       this.currentUser = currentUser;
+      const roomId = this.currentUser.rooms[0].id;
+      this.setState({roomId});
+
       this.currentUser.subscribeToRoom({
-        roomId: this.currentUser.rooms[0].id,
+        roomId: roomId,
         hooks: {
           onNewMessage: this.onReceive
         }
@@ -73,7 +76,7 @@ class ChatScreenContainer extends React.Component {
   onSend([message]) {
     this.currentUser.sendMessage({
       text: message.text,
-      roomId: CHATKIT_ROOM_ID
+      roomId: this.state.roomId
     });
   }
 
@@ -196,7 +199,7 @@ class ChatScreenContainer extends React.Component {
           renderSend={this.renderSend}
           renderInputToolbar={this.renderInputToolbar}
           user={{
-            _id: CHATKIT_USER_NAME,
+            _id: this.props.loggedUser.id,
           }}
         />
 

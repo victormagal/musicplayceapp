@@ -23,7 +23,7 @@ class UserService {
       .then(response => response.data);
   }
 
-  static uploadImage(file) {
+  static uploadImage(file, id) {
     let formData = new FormData();
 
     if (!file) {
@@ -36,7 +36,11 @@ class UserService {
       type: `images/${ file.fileName.split('.')[1] }`
     });
 
-    return axios.post(`${ API_USER }/me/picture`, formData, {
+    let endpointUrl = `${ API_USER }/me/picture`;
+    if (id) {
+      endpointUrl = `${ API_USER }/${ id }/picture`;
+    }
+    return axios.post(endpointUrl, formData, {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'multipart/form-data'
@@ -102,17 +106,28 @@ class UserService {
       });
   }
 
-  static getUserFollowings(user){
-    return axios.get(`${API_USER}/${user}?include=userFollower`)
-      .then(response => {
-        return transformResponseData(response.data.included || []);
-      });
+  static getUserFollowings(user, page){
+    return UserService._followersOrFollowing(`${API_USER}/${user}/following`, page);
   }
 
-  static getUserFollowers(user){
-    return axios.get(`${API_USER}/${user}?include=userFollowing`)
+  static getUserFollowers(user, page){
+    return UserService._followersOrFollowing(`${API_USER}/${user}/followers`, page);
+  }
+
+  static _followersOrFollowing(url, page){
+    let params = {
+      'page[size]': 7
+    };
+
+    if(page){
+      params['page[number]'] = page;
+    }
+
+    return axios.get(url, {params})
       .then(response => {
-        return transformResponseData(response.data.included || []);
+        let {data, meta} = response.data;
+        data = transformResponseData(data);
+        return {data, ...meta};
       });
   }
 
@@ -162,6 +177,15 @@ class UserService {
       }
     };
     return axios.post(`${API}/reports`, params).then(response => {
+      return response;
+    });
+  }
+
+  static inviteUser(user){
+    let params = {
+      email: user.email
+    };
+    return axios.post(`${API}/invite/${user.id}`, params).then(response => {
       return response;
     });
   }

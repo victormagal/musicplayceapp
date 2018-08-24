@@ -20,7 +20,7 @@ class MPExcludedSongComponent extends React.Component {
     return (
       <View style={styles.container}>
         <MPText style={ styles.title }>Música excluída com sucesso!</MPText>
-        <MPGradientButton style={ styles.button } title={'OK'}   textSize={16} onPress={this.handleBack.bind(this)}/>
+        <MPGradientButton style={ styles.button } title={'OK'}   textSize={16} onPress={this.handleBack}/>
 
       </View>
     );

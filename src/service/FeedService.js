@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {API, transformResponseData} from './api';
+import {API} from './api';
 const API_FEED = `${API}/full-text-search`;
 
 class FeedService {

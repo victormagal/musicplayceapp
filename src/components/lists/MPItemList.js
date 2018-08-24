@@ -5,6 +5,7 @@ import {
   TouchableHighlight, 
   View
 } from 'react-native';
+import {Card} from 'react-native-elements';
 import { MPText } from '../../components';
 import { connect } from 'react-redux';
 
@@ -15,47 +16,44 @@ class MPItemListComponent extends React.Component {
     const IconNext = item.iconNext;
     return (
       <TouchableHighlight onPress={item.onChooseOption} underlayColor="transparent">
-        <View style={styles.item}>
-          {
-            item.icon ?
-              <View style={styles.boxIcon}>
-                <Icon />
-              </View>
-            : null
-          }
-          <View style={styles.boxText}>
-            <MPText numberOfLines={1} style={styles.text}>
-              { item.title }
-            </MPText>
+        <Card containerStyle={styles.container}>
+          <View style={styles.item}>
+            {
+              item.icon ?
+                <View style={styles.boxIcon}>
+                  <Icon />
+                </View>
+              : null
+            }
+            <View style={styles.boxText}>
+              <MPText numberOfLines={1} style={styles.text}>
+                { item.title }
+              </MPText>
+            </View>
+            <View style={styles.boxFoward}>
+              <IconNext />
+            </View>
           </View>
-          <View style={styles.boxFoward}>
-            <IconNext />
-          </View>
-        </View>
+        </Card>
       </TouchableHighlight>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  item: {
+  container: {
     backgroundColor: '#FFFFFF',
-    paddingVertical: 15,
-    marginHorizontal: Dimensions.get('window').width < 375 ? 15 : 20,
+    marginTop: 0,
     marginBottom: 20,
+    marginHorizontal: Dimensions.get('window').width < 375 ? 15 : 20,
+    paddingVertical: 15,
+    borderRadius: 4
+  },
+  item: {
     flexDirection: 'row',
-    display: 'flex',
-    flex: 1,
     alignItems: 'center',
     justifyContent: 'space-around',
-    borderRadius: 4,
-    shadowColor: '#000000',
-    shadowOpacity: 0.15,
-    shadowRadius: 2,
-    shadowOffset: {
-      width: 1,
-      height: 1
-    }
+    borderRadius: 4
   },
   boxIcon: {
     display: 'flex',

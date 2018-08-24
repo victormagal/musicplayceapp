@@ -3,7 +3,6 @@ import {
   StyleSheet, View, TouchableOpacity
 } from 'react-native';
 import {TextField} from 'react-native-material-textfield';
-import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {applyValidator} from './applyValidator';
 import {MPInputEyeIcon, MPInputEyeVisibleIcon} from '../../assets/svg';
@@ -46,7 +45,10 @@ class MPInputComponent extends React.Component {
   };
 
   render() {
-    let { label, multiline, style, value, onBlur, secureTextEntry, textProps, autoCapitalize} = this.props;
+    let {
+      label, multiline, style, value, onBlur, secureTextEntry,
+      textProps, autoCapitalize, error
+    } = this.props;
     let inputIcon = this.state.isPassword ? <MPInputEyeIcon /> : <MPInputEyeVisibleIcon />;
     let iconStyle = [styles.eye];
 
@@ -57,21 +59,18 @@ class MPInputComponent extends React.Component {
     return (
       <View style={[styles.parent, style]}>
         <TextField
-          lineWidth={0.5}
-          activeLineWidth={0.5}
-          disabledLineWidth={0.5}
-          multiline={multiline}
           label={label}
           value={value}
+          tintColor='#5994db'
+          multiline={multiline}
           labelFontSize={12}
-          baseColor={'rgba(104, 104, 104, 0.8)'}
-          tintColor={'rgba(177, 177, 177, 0.8)'}
-          labelTextStyle={styles.labelStyle}
           style={styles.textField}
+          labelTextStyle={styles.labelStyle}
           onBlur={onBlur}
           autoCapitalize={autoCapitalize}
-          onChangeText={ this.handleChangeText }
           secureTextEntry={this.state.isPassword}
+          onChangeText={ this.handleChangeText }
+          error={error}
           {...this.props.textProps}/>
 
         {secureTextEntry && (
@@ -94,11 +93,10 @@ const styles = StyleSheet.create({
     display: 'flex'
   },
   labelStyle: {
-    fontFamily: 'Montserrat-Regular'
+    fontFamily: 'Montserrat-Regular',
   },
   textField: {
     fontSize: 16,
-    paddingRight: 30,
     fontFamily: 'Montserrat-Regular'
   },
   eye: {

@@ -21,17 +21,10 @@ class MPTextField extends React.Component {
   }
 
   render() {
-    let {
-      value,
+    const {
       label,
-      multiline,
       style,
-      onFocus,
-      onBlur,
-      onChangeText,
       textProps,
-      onSubmitEditing,
-      secureTextEntry
     } = this.props;
 
     return (
@@ -40,19 +33,13 @@ class MPTextField extends React.Component {
           lineWidth={0.5}
           activeLineWidth={0.5}
           disabledLineWidth={0.5}
-          multiline={multiline}
           label={label}
-          value={value}
           labelFontSize={12}
           baseColor={'rgba(104, 104, 104, 0.8)'}
           tintColor={'rgba(177, 177, 177, 0.8)'}
           labelTextStyle={this.getLabelStyle()}
           style={this.getTextFieldStyle()}
-          onFocus={ onFocus }
-          onBlur={ onBlur }
-          secureTextEntry={secureTextEntry}
-          onChangeText={ onChangeText }
-          onSubmitEditing={onSubmitEditing}
+          { ...this.props }
           {...textProps}
         />
       </View>

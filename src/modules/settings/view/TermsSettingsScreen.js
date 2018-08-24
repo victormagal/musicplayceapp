@@ -36,12 +36,12 @@ class TermsSettingsScreenContainer extends React.Component {
 
   render() {
     const { error, loading } = this.props;
-
     const noBack = !(this.props.navigation.state.params && this.props.navigation.state.params['back'] === false);
     return (
       <View style={styles.parent}>
         <MPHeader
           back={noBack}
+          terms={true}
           onBack={this.handleBackButton}
           title="Termos e condições de uso"
         />

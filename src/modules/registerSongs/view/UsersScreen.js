@@ -1,8 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {StyleSheet, View, ScrollView, TouchableOpacity} from 'react-native';
-import {MPHeader, MPInput, MPText, MPIconButton, MPLoading, MPUserHorizontal} from '../../../components';
-import {searchUsers} from '../../../state/action';
+import {MPHeader, MPInput, MPText, MPIconButton, MPLoading, MPUserHorizontal, MPInvitation, MPGradientButton, MPForm, MPFormButton} from '../../../components';
+import {searchUsers, inviteUser} from '../../../state/action';
 import {MPSearchRedIcon, MPCloseFilledRedIcon} from '../../../assets/svg';
 import {updateSongRegisterData} from "../../../state/songs/songsType";
 
@@ -16,7 +16,9 @@ class UsersScreenContainer extends React.Component {
       waiting: false,
       users: [],
       usersSelected: [],
-      usersSelectedTemp: {}
+      usersSelectedTemp: {},
+      invitations: [],
+      invitationMail: '',
     };
   }
 
@@ -32,8 +34,22 @@ class UsersScreenContainer extends React.Component {
   }
 
   componentWillReceiveProps(nextProps){
-    if (nextProps.users){
-      this.setState({ users: nextProps.users.data, waiting: false });
+    if (nextProps.users && nextProps.users.data){
+      const users = nextProps.users.data;
+      users.map(user => {
+        const selecteds = this.state.usersSelected.filter(selected => selected.id === user.id);
+        if (selecteds.length > 0) {
+          user.selected = true;
+        }
+      });
+      this.setState({ users, waiting: false });
+    }
+
+    if(nextProps.invitationSuccess){
+      let invList = Object.assign([], this.state.invitations);
+      invList.push({name: this.state.search, email: this.state.invitationMail});
+      this.setState({invitations: invList});
+      this.handleClearClick();
     }
   }
 
@@ -46,10 +62,6 @@ class UsersScreenContainer extends React.Component {
   handleSearchChange = ({value}) => {
     this.setState({ search: value, waiting: true });
     this.handleSearch(value);
-
-    if (value.length === 0){
-      this.setState({ usersSelected: Object.values(this.state.usersSelectedTemp) });
-    }
 
     if (value.length < 3){
       this.setState({users: []});
@@ -98,10 +110,13 @@ class UsersScreenContainer extends React.Component {
 
     if (user.selected){
       newState.usersSelectedTemp[user.id] = user;
+      if (newState.users.length === 0) {
+        newState.onlyUserIsSelected = true;
+      }
     } else {
       delete newState.usersSelectedTemp[user.id];
     }
-
+    newState.usersSelected = Object.values(newState.usersSelectedTemp);
     this.setState(newState);
   };
 
@@ -111,6 +126,22 @@ class UsersScreenContainer extends React.Component {
     delete newState.usersSelectedTemp[id];
     this.setState(newState);
   };
+
+  handleChangeText = ({value}) => {
+    this.setState({invitationMail: value});
+  };
+
+  handleInvite = () => {
+    let {invitationMail} = this.state;
+    if(invitationMail){
+      let invitationData = {
+        id: this.props.profile.id,
+        name: this.state.search,
+        email: this.state.invitationMail,
+      }
+      this.props.dispatch(inviteUser(invitationData))
+    }
+  }
 
   renderHeaderMenuSave() {
     return [
@@ -124,8 +155,9 @@ class UsersScreenContainer extends React.Component {
   }
 
   render() {
+    console.log(this.props);
     const hasSelected = Object.keys(this.state.usersSelectedTemp).length > 0;
-    
+    let {usersSelected, invitations} = this.state;
     return (
       <View style={styles.container}>
         <MPHeader
@@ -135,9 +167,9 @@ class UsersScreenContainer extends React.Component {
           icons={this.renderHeaderMenuSave()}
         />
         <ScrollView style={styles.content}>
-          { this.state.usersSelected.length > 0 && (
+          { usersSelected.length > 0 && (
             <View style={styles.contentUsers}>
-              { this.state.usersSelected.map((item, index) => (
+              { usersSelected.map((item, index) => (
                 <MPUserHorizontal
                   key={index}
                   user={item.name}
@@ -148,7 +180,20 @@ class UsersScreenContainer extends React.Component {
               ))}
             </View>
           )}
-
+          {usersSelected.length == 0 && invitations.length > 0 && (
+            <View style={{width: '100%', height: 20}}></View>
+          )}
+          { invitations.length > 0 && (
+            <View>
+              { invitations.map((item, index) => (
+                <MPInvitation
+                  key={index}
+                  userName={item.name}
+                  userEmail={item.email}
+                />
+              ))}
+            </View>
+          )}
           <View style={styles.contentSearch}>
             <MPText style={styles.textTop}>
               Essa música tem outros autores?
@@ -181,7 +226,24 @@ class UsersScreenContainer extends React.Component {
                 <MPText style={ styles.textInputSubTextSuggestion}>
                   Convide-o para se juntar ao MusicPlayce.
                 </MPText>
-                <MPInput label='E-mail' />
+                <View >
+                  <MPForm>
+                    <MPInput
+                      label="E-mail"
+                      value={this.state.invitationMail}
+                      onChangeText={this.handleChangeText}
+                    />
+                    <View>
+                      <MPFormButton>
+                        <MPGradientButton
+                          style={[styles.inputButtonAdd]}
+                          title="Criar"
+                          onPress={this.handleInvite}
+                        />
+                      </MPFormButton>
+                    </View>
+                  </MPForm>
+                </View>
               </View>
             )}
             { (!this.state.search && !hasSelected) &&
@@ -265,10 +327,17 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: '#686868',
     fontFamily: 'Montserrat-Italic'
-  }
+  },
+  inputButtonAdd: {
+    position: 'absolute',
+    width: 61,
+    height: 24,
+    right: 0,
+    bottom: 14
+  },
 });
-const mapStateToProps = ({userReducer, songsReducer}) => {
-  return {...userReducer, song: songsReducer.song};
+const mapStateToProps = ({userReducer, songsReducer, profileReducer}) => {
+  return {...userReducer, song: songsReducer.song, ...profileReducer};
 };
 
 const UsersScreen = connect(mapStateToProps)(UsersScreenContainer);

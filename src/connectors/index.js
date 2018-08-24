@@ -1,1 +1,1 @@
-export * from './checkConnection';
+export * from './applyAxiosInterceptors';

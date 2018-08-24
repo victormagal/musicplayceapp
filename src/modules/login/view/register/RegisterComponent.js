@@ -1,16 +1,22 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {
-  ScrollView, StyleSheet, TouchableWithoutFeedback, View
-} from 'react-native';
+import { StyleSheet, TouchableWithoutFeedback, View, TouchableOpacity, Platform, ImageBackground } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import LinearGradient from 'react-native-linear-gradient';
+import {MPGradientButton, MPText, MPLoading, MPInput, MPForm, MPFormButton, MPHeader} from '../../../../components';
 import {
-  MPButton, MPGradientButton, MPText, MPLoading, MPInput, MPForm, MPFormButton, MPHeader
-} from '../../../../components';
-import {
-  MPArrowDownRedIcon, MPArrowUpRedIcon, MPFacebookIcon, MPGoogleIcon, MPLogoRegisterIcon
+  MPArrowDownRedIcon,
+  MPArrowUpRedIcon,
+  MPCameraIcon,
+  MPFacebookIcon,
+  MPGoogleIcon,
+  MPLogoRegisterIcon,
+  MPProfileIcon
 } from '../../../../assets/svg';
+import {MPCircleGradientButton} from "../../../../components/buttons";
+import ImagePicker from "react-native-image-picker";
+import {MPFloatingNotification} from "../../../../components/general";
+import {fetchTermsAndConditions} from "../../../../state/settings/termsAndConditions/termsAction";
 
 
 const BaseIcon = (props, Icon) => (
@@ -40,22 +46,56 @@ class RegisterComponent extends Component {
       name: '',
       last_name: '',
       username: '',
-      password: ''
-    }
+      password: '',
+      imageFile: null
+    },
+    imageSizeError: false,
+    linearGradientHeight: 0
   };
 
   icons = {
     up: MPArrowUpRedIcon,
     down: MPArrowDownRedIcon
   };
-  
-  constructor(props){
-    super(props);
-    this.scrollViewRef = React.createRef();
+
+  componentDidUpdate() {
+    if (this.props.error) {
+      this.handleToggleRegisterForm();
+    }
   }
 
   handleToggleRegisterForm = () => {
-    this.scrollViewRef.current.scrollToEnd();
+    const extraMargin = Platform.OS === 'ios' ? 15 : 21;
+    this.scrollViewRef.scrollToPosition(0, this.state.linearGradientHeight + extraMargin);
+  };
+
+  handleClickPhoto = () => {
+    const options = {
+      title: 'Selecionar uma foto',
+      storageOptions: {
+        skipBackup: true,
+        path: 'images'
+      }
+    };
+
+    ImagePicker.showImagePicker(options, (response) => {
+      if (response.didCancel) {
+        this.handleChange({ name: 'imageFile', value: null });
+        console.log('User cancelled image picker');
+      } else if (response.error) {
+        this.handleChange({ name: 'imageFile', value: null });
+        console.log('ImagePicker Error: ', response.error);
+      } else if (response.fileSize > 2000000) {
+        this.handleChange({ name: 'imageFile', value: null });
+        this.setState({ imageSizeError: true });
+        const timer = setTimeout(() => {
+          this.setState({ imageSizeError: false });
+          clearTimeout(timer);
+        }, 2000);
+      } else {
+        this.handleChange({ name: 'imageFile', value: response });
+      }
+    });
   };
 
   handleRegister = () => {
@@ -68,40 +108,69 @@ class RegisterComponent extends Component {
     this.setState({newState});
   };
 
+  getTerms = () => {
+    this.props.navigation.navigate('termsAndConditions', { justFetch: true, back: false })
+  }
+
   render() {
     let IconRegister = this.state.formVisible ? this.icons.up : this.icons.down;
-
     return (
       <View style={styles.container}>
-        <KeyboardAwareScrollView style={styles.container} ref={this.scrollViewRef}>
-          <LinearGradient colors={["#e1322373", "#ffffff8C"]} style={styles.gradient} start={{x:0, y:0}} end={{x:0, y:1}}>
-            <MPHeader back={true} onBack={this.props.onBackClick} withoutLogo={true} inverse={true} redBack={true}/>
-            <View style={styles.contentCreateAccount}>
-              <MPLogoRegisterIcon style={styles.logo}/>
-              <MPText style={styles.title}>O seu lugar de música</MPText>
-              <MPText style={styles.register}>Crie sua conta</MPText>
-              {/*<MPButton icon={FacebookIcon} title="Entre com Facebook" textSize={16} onPress={() => {}} style={styles.signinFB}/>*/}
-              {/*<MPButton icon={GoogleIcon} title="Entre com Google+" textSize={16} onPress={() => {}} style={styles.signinGoogle}/>*/}
-              {/*<MPText style={styles.ouText}>ou</MPText>*/}
-              <TouchableWithoutFeedback onPress={this.handleToggleRegisterForm}>
-                <View>
-                  <MPText style={styles.fillForm}>Preencha o cadastro</MPText>
-                  <IconRegister style={styles.fillFormArrow}/>
-                </View>
-              </TouchableWithoutFeedback>
-            </View>
-          </LinearGradient>
-          <View style={styles.form}>
-
+        <KeyboardAwareScrollView style={styles.container} ref={ref => this.scrollViewRef = ref}>
+          <ImageBackground style={{flex: 1, width: '100%'}} source={require('../../../../assets/img/album-default.png')}>
+            <LinearGradient
+              onLayout={event => this.setState({ linearGradientHeight: event.nativeEvent.layout.height })}
+              colors={["#f0cfcf73", "#ffffffff"]} style={styles.gradient} start={{x:0, y:0}} end={{x:0, y:1}}>
+              <MPHeader back={true} onBack={this.props.onBackClick} withoutLogo={true} inverse={true} redBack={true}/>
+              <View style={styles.contentCreateAccount}>
+                <MPLogoRegisterIcon style={styles.logo}/>
+                <MPText style={styles.title}>O seu lugar de música</MPText>
+                <MPText style={styles.register}>Crie sua conta</MPText>
+                {/*<MPButton icon={FacebookIcon} title="Entre com Facebook" textSize={16} onPress={() => {}} style={styles.signinFB}/>*/}
+                {/*<MPButton icon={GoogleIcon} title="Entre com Google+" textSize={16} onPress={() => {}} style={styles.signinGoogle}/>*/}
+                {/*<MPText style={styles.ouText}>ou</MPText>*/}
+                <TouchableWithoutFeedback onPress={this.handleToggleRegisterForm}>
+                  <View>
+                    <MPText style={styles.fillForm}>Preencha o cadastro</MPText>
+                    <IconRegister style={styles.fillFormArrow}/>
+                  </View>
+                </TouchableWithoutFeedback>
+              </View>
+            </LinearGradient>
+          </ImageBackground>
+          <View style={[styles.form, { marginTop: 42 }]}>
             {this.props.error && (
               <View>
-                <MPText style={styles.deuRuimText}>Deu ruim! Confirme se os dados foram digitados corretamente.</MPText>
+                <MPText style={styles.deuRuimText}>
+                  Deu ruim! Confirme se os dados foram digitados corretamente.
+                </MPText>
               </View>
             )}
 
+            {this.props.formError && (
+              <View>
+                <MPText style={[styles.deuRuimText, { marginTop: 10, marginBottom: 20 }]}>
+                  { this.props.formError }
+                </MPText>
+              </View>
+            )}
             <MPForm>
+              <View style={{ alignItems: 'center', marginBottom: 15 }}>
+                <MPCircleGradientButton
+                  icon={this.state.form.imageFile ? this.state.form.imageFile.uri : MPCameraIcon}
+                  label='Adicionar foto'
+                  isImage={!!this.state.form.imageFile}
+                  style={{ height: 100, width: 100 }}
+                  onPress={this.handleClickPhoto}
+                />
+                <TouchableOpacity style={styles.plusButton} onPress={this.handleClickPhoto}>
+                  <MPText style={styles.plusText}>
+                    +
+                  </MPText>
+                </TouchableOpacity>
+              </View>
               <MPInput
-                label="Email"
+                label="E-mail"
                 name="email"
                 autoCapitalize={'none'}
                 value={this.state.form.email}
@@ -135,10 +204,12 @@ class RegisterComponent extends Component {
                 secureTextEntry={true}
                 onChangeText={this.handleChange}/>
 
-              <MPText style={styles.termsMessage}>
-                Ao criar sua conta você está aceitando os
-                <MPText style={styles.termsText}> termos e condições de uso</MPText> da Music Playce.
-              </MPText>
+              <TouchableOpacity onPress={this.getTerms} opacity={1}>
+                <MPText style={styles.termsMessage}>
+                  Ao criar sua conta você está aceitando os
+                  <MPText style={styles.termsText}> termos e condições de uso</MPText> da Music Playce.
+                </MPText>
+              </TouchableOpacity>
 
               <View>
                 <MPFormButton>
@@ -152,6 +223,11 @@ class RegisterComponent extends Component {
           </View>
         </KeyboardAwareScrollView>
         <MPLoading visible={this.props.loading} />
+        <MPFloatingNotification
+          visible={this.state.imageSizeError}
+          icon={<MPProfileIcon/>}
+          text="Imagem muito grande. Tente usar outra."
+        />
       </View>
     );
   }
@@ -182,6 +258,25 @@ const styles = StyleSheet.create({
   logo: {
     marginTop: 40,
     alignSelf: 'center'
+  },
+  plusButton: {
+    zIndex: 999,
+    position: 'absolute',
+    width: 27,
+    height: 27,
+    bottom: 0,
+    right: '35%',
+    borderRadius: 27/2,
+    borderWidth: 1,
+    borderColor: "#CCC",
+    backgroundColor: '#FFF'
+  },
+  plusText: {
+    fontSize: 25,
+    fontWeight: '500',
+    color: '#657BDE',
+    textAlign: 'center',
+    marginTop: -7
   },
   title: {
     fontFamily: 'ProbaPro-Regular',
@@ -258,7 +353,6 @@ const styles = StyleSheet.create({
     alignSelf: 'center'
   },
   deuRuimText: {
-    marginTop: 20,
     fontFamily: 'Montserrat-Regular',
     fontSize: 12,
     color: '#e13223'

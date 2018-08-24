@@ -14,7 +14,7 @@ import { MPAddPlanSuccess } from './MPAddPlanSuccess';
 
 class MPAddPaymentComponent extends React.Component {
     confirmPayment(){
-        this.props.navigation.navigate('message', { component: MPAddPlanSuccess, title: 'Cadastre seu cartão, é 100% seguro' });
+        this.props.navigation.navigate('message', { component: MPAddPlanSuccess, title: 'Assinatura ativa!' });
     }
   render() {
     return (

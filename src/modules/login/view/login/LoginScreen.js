@@ -9,6 +9,7 @@ import {fetchProfile} from "../../../../state/profile/profileAction";
 class LoginScreenContainer extends Component {
 
   componentWillReceiveProps(nextProps){
+
     if(nextProps.loginSuccess){
       this.props.dispatch(fetchProfile()).then(response => {
         if (response && response.accepted_terms_at === null) {

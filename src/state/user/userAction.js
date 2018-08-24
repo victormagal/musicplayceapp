@@ -25,7 +25,19 @@ import {
   userReportError,
   userFollowNotificationsStartLoading,
   userFollowNotificationsFinishedLoading,
-  userSongsByFolderFetched
+  userSongsByFolderFetched,
+  userFollowingsPartialFetched,
+  userFollowersPartialFetched,
+  userFollowersPartialStartLoading,
+  userFollowingsPartialStartLoading,
+  userSongsStartLoading,
+  userSongsFinishLoading,
+  userFolderPaginationLoading,
+  userFolderSongsPaginationLoading,
+  _fetchFollowersFollowing,
+  userInviteStarted,
+  userInviteSuccess,
+  userInviteFinished
 } from './userTypes';
 
 
@@ -80,16 +92,25 @@ export const getUserById = (id) => {
 
 export const userSongs = (id, page = 1) => {
   return (dispatch) => {
+    if(page > 1){
+      dispatch(userFolderPaginationLoading());
+    }else {
+      dispatch(userSongsStartLoading());
+    }
+
     return SongService.mySongs(id, page).then(response => {
       dispatch(userSongsFetched(response));
     }).catch(e => {
-      console.log('userSongsError', e.response);
+      dispatch(userSongsFinishLoading());
     });
   };
 };
 
 export const userSongsByFolder= (id, folder, page = 1) => {
   return (dispatch) => {
+
+    dispatch(userFolderSongsPaginationLoading(folder));
+
     if(folder.id === -1) {
       return SongService.userSongsWithoutFolder(id, page).then(response => {
         dispatch(userSongsByFolderFetched({folder, ...response}));
@@ -133,7 +154,11 @@ export const getFollowNotifications = (page = 1,reset = false) => {
         
     page = reset ? 1 : page;
     if(reset) dispatch(userFollowNotificationsStartLoading());
-    if(!reset) dispatch(userStartLoading());
+    if(page > 1){
+      dispatch(userFollowNotificationsStartLoading(true));
+    }else{
+      dispatch(userStartLoading());
+    }
 
     return UserService.getFollowNotifications(page).then(response => {
       dispatch(userNotificationsFollowersFetched({...response, reset}));
@@ -191,7 +216,21 @@ export const patchNotificationSettings = (settings) => {
   };
 };
 
+export const userFollowings = (id, page = 1) => {
+  return _fetchFollowersFollowing(
+    UserService.getUserFollowings(id, page),
+    userFollowingsPartialFetched,
+    userFollowingsPartialStartLoading
+  );
+};
 
+export const userFollowers = (id, page = 1) => {
+  return _fetchFollowersFollowing(
+    UserService.getUserFollowers(id, page),
+    userFollowersPartialFetched,
+    userFollowersPartialStartLoading
+  );
+};
 
 export const reportProfile = (report) => {
   return (dispatch) => {
@@ -202,6 +241,19 @@ export const reportProfile = (report) => {
     }).catch(e => {
       console.log(e);
       dispatch(userReportError());
+    })
+  };
+};
+
+export const inviteUser = (user) => {
+  return (dispatch) => {
+    dispatch(userInviteStarted());
+
+    return UserService.inviteUser(user).then(_ => {
+      dispatch(userInviteSuccess());
+    }).catch(e => {
+      console.log(e);
+      dispatch(userInviteFinished());
     })
   };
 };

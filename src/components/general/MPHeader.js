@@ -2,12 +2,13 @@ import React from 'react';
 import { View, StyleSheet, Platform, Text, StatusBar, TouchableOpacity } from 'react-native';
 import PropTypes from 'prop-types';
 import { MPText } from '../general/MPText';
-import {MPBackIcon, MPBackBlackIcon, MPLogoIcon, MPLogoBlackIcon, MPBackRedIcon} from '../../assets/svg';
+import {MPBackIcon, MPBackBlackIcon, MPLogoIcon, MPLogoBlackIcon, MPBackRedIcon, MPEmailTermsIcon} from '../../assets/svg';
+import { MPGradientButton } from '../buttons';
 
 class MPHeader extends React.Component {
 
   render() {
-    let { title, back, onBack, inverse, transparent, icons, style, iconsLeft, withoutLogo, redBack } = this.props;
+    let { terms,title, back, onBack, inverse, transparent, icons, style, iconsLeft, withoutLogo, redBack } = this.props;
     let logo = inverse ? <MPLogoBlackIcon style={styles.logo} /> :
                          <MPLogoIcon style={styles.logo} />;
     let backIcon = inverse ? <MPBackBlackIcon style={styles.back} /> : <MPBackIcon style={styles.back}/>;
@@ -41,6 +42,10 @@ class MPHeader extends React.Component {
           <MPText style={styles.title}>
             {title}
           </MPText>
+        )}
+        {
+          terms  && (
+          <MPGradientButton icon={MPEmailTermsIcon} title={'Enviar para meu e-mail'} style={{position: 'absolute', bottom: -18, paddingVertical: 8, alignSelf: 'center'}} textStyle={{paddingStart: 18}}/>
         )}
       </View>
     );
@@ -93,7 +98,6 @@ const styles = StyleSheet.create({
   },
   icons: {
     flex: 0,
-    width: 50,
     marginRight: 10,
     marginTop: 12,
     flexDirection: 'row',
@@ -101,7 +105,6 @@ const styles = StyleSheet.create({
   },
   iconsLeft: {
     flex: 0,
-    width: 50,
     marginLeft: 10,
     justifyContent: 'center'
   }

@@ -2,6 +2,7 @@ import {
   FOLDER_START_LOADING, FOLDER_FINISH_LOADING,
   CREATE_FOLDER_ERROR, FETCHED_USER_FOLDERS, FETCHED_FAVORITES_FOLDERS
 } from './folderAction';
+import {_appendFoldersData} from '../user/userTypes';
 
 
 const folderReducer = (state, action) => {
@@ -14,6 +15,18 @@ const folderReducer = (state, action) => {
   switch (action.type) {
 
     case FOLDER_START_LOADING:
+      if(action.payload && action.payload.page > 1){
+        const propName = action.payload.type === 'favoriteSongs' ? 'favoritesFolder' : 'userFolders';
+        const newOb = Object.assign({}, state[propName]);
+        newOb.data = Object.assign([], newOb.data);
+        newOb.loading = true;
+        state[propName] = newOb;
+
+        return {
+          ...state
+        };
+      }
+
       return {
         ...state,
         loading: true
@@ -27,26 +40,17 @@ const folderReducer = (state, action) => {
       };
 
     case FETCHED_USER_FOLDERS:
-      let folders = action.payload;
-      if(state.userFolders) {
-        folders = {...state.userFolders};
-        if (action.payload.pagination.current_page > 1) {
-          folders.data = folders.data.concat(action.payload.data);
-          folders.pagination = action.payload.pagination;
-        }
-      }
-
       return {
         ...state,
         loading: false,
-        userFolders: folders
+        userFolders: _appendFoldersData(action.payload, state.userFolders)
       };
 
     case FETCHED_FAVORITES_FOLDERS:
       return {
         ...state,
         loading: false,
-        favoritesFolder: action.payload
+        favoritesFolder: _appendFoldersData(action.payload, state.favoritesFolder)
       };
   }
 
