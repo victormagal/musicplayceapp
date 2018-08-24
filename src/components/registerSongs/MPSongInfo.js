@@ -79,6 +79,7 @@ const styles = StyleSheet.create({
   titleText: {
     color: "#000",
     paddingStart: 10,
+    paddingEnd: 10,
     fontSize: 12,
     fontFamily: 'Montserrat-Medium',
     fontWeight: '500'
@@ -88,6 +89,7 @@ const styles = StyleSheet.create({
     fontSize: 10,
     fontFamily: 'Montserrat-Regular',
     paddingStart: 10,
+    paddingEnd: 10
   }
 });
 

@@ -7,6 +7,5 @@ export * from './TitleScreen';
 export * from './MusicLetterScreen';
 export * from './ConfirmationScreen';
 export * from './UsersScreen';
-export * from './AddUserByEmailScreen';
 export * from './FolderScreen';
 export * from './RegisterSongScreen';

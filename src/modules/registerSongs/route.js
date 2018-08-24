@@ -24,5 +24,6 @@ export const SongsScreens = {
   FolderScreen: FolderScreen,
   ConfirmationScreen: ConfirmationScreen,
   SaveDraftScreen: SaveDraftScreen,
-  MyProfileScreen: MyProfileScreen
+  MyProfileScreen: MyProfileScreen,
+  ISRCScreen
 };

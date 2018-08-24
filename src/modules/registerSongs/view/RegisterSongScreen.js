@@ -368,14 +368,21 @@ class RegisterSongContainer extends React.Component {
                   placeholder={'*Opcional'}
                   onPress={() => this.goToScreen('InterpreterScreen')}
                 />
-              </View>
-              <View style={ styles.horizontalFolder }>
                 <MPSongInfo
+                  style={styles.songItem}
                   title={(song.folder && 'Pasta') || 'Organize suas músicas em pastas'}
                   placeholder={'*Opcional'}
                   selected={song.folder && typeof song.folder.name !== 'undefined'}
                   info={(song.folder && song.folder.name) || '' }
                   onPress={() => this.goToScreen('FolderScreen')}
+                />
+                <MPSongInfo
+                  style={styles.songItem}
+                  title={'Tem número de registro'}
+                  info={song.isrc_number}
+                  selected={!!song.isrc_number}
+                  placeholder={'*Opcional'}
+                  onPress={() => this.goToScreen('ISRCScreen')}
                 />
               </View>
               <MPGradientButton
@@ -489,6 +496,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#e13223'
   },
   publishButton: {
+    marginTop: 10,
     marginBottom: 20,
     marginHorizontal: 20
   },

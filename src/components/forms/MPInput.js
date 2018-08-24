@@ -47,7 +47,7 @@ class MPInputComponent extends React.Component {
   render() {
     let {
       label, multiline, style, value, onBlur, secureTextEntry,
-      textProps, autoCapitalize, error, contentStyle
+      textProps, autoCapitalize, error, contentStyle, keyboardType
     } = this.props;
     let inputIcon = this.state.isPassword ? <MPInputEyeIcon /> : <MPInputEyeVisibleIcon />;
     let iconStyle = [styles.eye];
@@ -76,6 +76,7 @@ class MPInputComponent extends React.Component {
           secureTextEntry={this.state.isPassword}
           onChangeText={ this.handleChangeText }
           error={error}
+          keyboardType={keyboardType || 'default'}
           {...this.props.textProps}/>
 
         {secureTextEntry && (
