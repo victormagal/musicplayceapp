@@ -81,6 +81,7 @@ export default class App extends React.Component {
     this.playerPauseListener = RNMusicPlayerEmitter.addListener('playerDidPause', this.handleSongPauseListener);
     this.playerUpdateListener = RNMusicPlayerEmitter.addListener('playerDidUpdateWithProgress', this.handleSongUpdateListener);
 
+
     MusicControl.on('play', ()=> {
       store.dispatch(songResume());
     });
@@ -93,6 +94,8 @@ export default class App extends React.Component {
       store.dispatch(songStop());
     });
 
+    MusicControl.enableBackgroundMode(true);
+    checkConnection(store);
     applyAxiosInterceptops(store);
   }
 
