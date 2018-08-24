@@ -41,6 +41,7 @@ class TermsSettingsScreenContainer extends React.Component {
       <View style={styles.parent}>
         <MPHeader
           back={noBack}
+          terms={true}
           onBack={this.handleBackButton}
           title="Termos e condições de uso"
         />

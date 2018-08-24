@@ -3,11 +3,12 @@ import { View, StyleSheet, Platform, Text, StatusBar, TouchableOpacity } from 'r
 import PropTypes from 'prop-types';
 import { MPText } from '../general/MPText';
 import {MPBackIcon, MPBackBlackIcon, MPLogoIcon, MPLogoBlackIcon, MPBackRedIcon} from '../../assets/svg';
+import { MPGradientButton } from '../buttons';
 
 class MPHeader extends React.Component {
 
   render() {
-    let { title, back, onBack, inverse, transparent, icons, style, iconsLeft, withoutLogo, redBack } = this.props;
+    let { terms,title, back, onBack, inverse, transparent, icons, style, iconsLeft, withoutLogo, redBack } = this.props;
     let logo = inverse ? <MPLogoBlackIcon style={styles.logo} /> :
                          <MPLogoIcon style={styles.logo} />;
     let backIcon = inverse ? <MPBackBlackIcon style={styles.back} /> : <MPBackIcon style={styles.back}/>;
@@ -41,6 +42,10 @@ class MPHeader extends React.Component {
           <MPText style={styles.title}>
             {title}
           </MPText>
+        )}
+        {
+          terms  && (
+          <MPGradientButton title={'Enviar para meu e-mail'} style={{position: 'absolute', bottom: -18, paddingVertical: 8, alignSelf: 'center'}}/>
         )}
       </View>
     );
