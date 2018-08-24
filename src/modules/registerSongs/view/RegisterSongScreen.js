@@ -378,7 +378,7 @@ class RegisterSongContainer extends React.Component {
                 />
                 <MPSongInfo
                   style={styles.songItem}
-                  title={'Tem número de registro'}
+                  title={'Nº ISRC'}
                   info={song.isrc_number}
                   selected={!!song.isrc_number}
                   placeholder={'*Opcional'}
