@@ -36,6 +36,9 @@ export const USER_REPORT_ERROR = 'USER_REPORT_ERROR';
 export const USER_HIDE_NOTIFICATION = 'USER_HIDE_NOTIFICATION';
 export const USER_FOLDER_PAGINATION_LOADING = 'USER_FOLDER_PAGINATION_LOADING';
 export const USER_FOLDER_SONGS_PAGINATION_LOADING = 'USER_FOLDER_SONGS_PAGINATION_LOADING';
+export const USER_INVITE_STARTED = 'USER_INVITE_STARTED';
+export const USER_INVITE_FINISHED = 'USER_INVITE_FINISHED';
+export const USER_INVITE_SUCCESS = 'USER_INVITE_SUCCESS';
 
 export const usersFetched = createAction(USERS_FETCHED, (data) => data);
 export const userByIdFetched = createAction(USER_BY_ID_FETCHED, (data) => data);
@@ -73,6 +76,9 @@ export const userNotificationsSettingsPatched = createAction(USER_NOTIFICATIONS_
 export const userHiddenNotification = createAction(USER_HIDE_NOTIFICATION);
 export const userFolderPaginationLoading = createAction(USER_FOLDER_PAGINATION_LOADING);
 export const userFolderSongsPaginationLoading = createAction(USER_FOLDER_SONGS_PAGINATION_LOADING, data => data);
+export const userInviteStarted = createAction(USER_INVITE_STARTED);
+export const userInviteFinished = createAction(USER_INVITE_FINISHED);
+export const userInviteSuccess = createAction(USER_INVITE_SUCCESS, data => data);
 
 
 export const _fetchFollowersFollowing = (promise, action, actionStartLoading) => {

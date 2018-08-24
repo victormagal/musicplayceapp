@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {StyleSheet, View, ScrollView, TouchableOpacity} from 'react-native';
 import {MPHeader, MPInput, MPText, MPIconButton, MPLoading, MPUserHorizontal, MPGradientButton, MPForm, MPFormButton, MPInvitation} from '../../../components';
-import {searchUsers} from '../../../state/action';
+import {searchUsers, inviteUser} from '../../../state/action';
 import {MPSearchRedIcon, MPCloseFilledRedIcon} from '../../../assets/svg';
 import {updateSongRegisterData} from "../../../state/songs/songsType";
 import { withFixedBottom } from '../../../connectors/withFixedBottom'
@@ -20,7 +20,7 @@ class InterpreterScreenContainer extends React.Component {
       usersSelected: [],
       invitations: [],
       usersSelectedTemp: {},
-      invitaionMail: ''
+      invitationMail: ''
     };
   }
 
@@ -45,6 +45,13 @@ class InterpreterScreenContainer extends React.Component {
         }
       });
       this.setState({ users, waiting: false });
+    }
+
+    if(nextProps.invitationSuccess){
+      let invList = Object.assign([], this.state.invitations);
+      invList.push({name: this.state.search, email: this.state.invitationMail});
+      this.setState({invitations: invList});
+      this.handleClearClick();
     }
   }
 
@@ -126,21 +133,18 @@ class InterpreterScreenContainer extends React.Component {
   };
 
   handleChangeText = ({value}) => {
-    this.setState({invitaionMail: value});
+    this.setState({invitationMail: value});
   };
 
   handleInvite = () => {
-    let {invitaionMail} = this.state;
-    if(invitaionMail){
-      // TODO
+    let {invitationMail} = this.state;
+    if(invitationMail){
       let invitationData = {
+        id: this.props.profile.id,
         name: this.state.search,
-        email: this.state.invitaionMail,
+        email: this.state.invitationMail,
       }
-      let invList = Object.assign([], this.state.invitations);
-      invList.push(invitationData);
-      this.setState({invitations: invList});
-      this.handleClearClick();
+      this.props.dispatch(inviteUser(invitationData));
     }
   }
 
@@ -236,7 +240,7 @@ class InterpreterScreenContainer extends React.Component {
                   <MPForm>
                     <InputInvitation
                       label="E-mail"
-                      value={this.state.invitaionMail}
+                      value={this.state.invitationMail}
                       onChangeText={this.handleChangeText}
                     />
                     <View>
@@ -341,8 +345,8 @@ const styles = StyleSheet.create({
     bottom: 14
   },
 });
-const mapStateToProps = ({userReducer, songsReducer}) => {
-  return {...userReducer, song: songsReducer.song};
+const mapStateToProps = ({userReducer, songsReducer, profileReducer}) => {
+  return {...userReducer, song: songsReducer.song, ...profileReducer};
 };
 
 const InterpreterScreen = connect(mapStateToProps)(InterpreterScreenContainer);

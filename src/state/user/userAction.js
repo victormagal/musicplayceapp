@@ -34,7 +34,10 @@ import {
   userSongsFinishLoading,
   userFolderPaginationLoading,
   userFolderSongsPaginationLoading,
-  _fetchFollowersFollowing
+  _fetchFollowersFollowing,
+  userInviteStarted,
+  userInviteSuccess,
+  userInviteFinished
 } from './userTypes';
 
 
@@ -238,6 +241,19 @@ export const reportProfile = (report) => {
     }).catch(e => {
       console.log(e);
       dispatch(userReportError());
+    })
+  };
+};
+
+export const inviteUser = (user) => {
+  return (dispatch) => {
+    dispatch(userInviteStarted());
+
+    return UserService.inviteUser(user).then(_ => {
+      dispatch(userInviteSuccess());
+    }).catch(e => {
+      console.log(e);
+      dispatch(userInviteFinished());
     })
   };
 };

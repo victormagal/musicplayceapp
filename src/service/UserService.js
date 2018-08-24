@@ -180,6 +180,15 @@ class UserService {
       return response;
     });
   }
+
+  static inviteUser(user){
+    let params = {
+      email: user.email
+    };
+    return axios.post(`${API}/invite/${user.id}`, params).then(response => {
+      return response;
+    });
+  }
 }
 
 export {UserService};

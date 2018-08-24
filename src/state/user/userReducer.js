@@ -35,6 +35,9 @@ import {
   USER_SONGS_FINISH_LOADING,
   USER_FOLDER_PAGINATION_LOADING,
   USER_FOLDER_SONGS_PAGINATION_LOADING,
+  USER_INVITE_STARTED,
+  USER_INVITE_FINISHED,
+  USER_INVITE_SUCCESS,
   _appendSongsData,
   _appendFoldersData
 } from './userTypes';
@@ -69,7 +72,8 @@ const userReducer = (state, action) => {
     userFollowersLoading: false,
     userFollowingLoading: false,
     userFollowingPaginationLoading: false,
-    userSongsLoading: false
+    userSongsLoading: false,
+    invitationSuccess: false,
   };
 
   let user = {};
@@ -364,6 +368,25 @@ const userReducer = (state, action) => {
         ...state,
         usersSongs: {...state.usersSongs, data}
       };
+
+    case USER_INVITE_STARTED:
+      return {
+        ...state,
+        loading: true,
+      }
+
+    case USER_INVITE_FINISHED:
+      return {
+        ...state,
+        loading: false,
+      }
+
+    case USER_INVITE_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        invitationSuccess: true,
+      }
   }
 
   return state;
