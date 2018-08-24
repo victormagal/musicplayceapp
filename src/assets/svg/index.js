@@ -190,6 +190,11 @@ export const MPEditConfigIcon = (props) => {
  return (<Svg {...newProps} viewBox='0 0 20 20'><Path d='M19.5 8.232l-7.117-7.732h-10.278c-0.873 0-1.605 0.818-1.605 1.853v15.294c0 1.035 0.732 1.853 1.605 1.853h15.79c0.873 0 1.605-0.818 1.605-1.853v-9.415z' fill='none' stroke='#e13223' strokeWidth='1' strokeMiterlimit={4} strokeLinecap='butt' strokeLinejoin='miter'/><Path d='M7.825 14.5l11.462-11.6-2.31-2.2-11.477 11.47v2.33h2.325z' fill='none' stroke='#e13223' strokeWidth='1' strokeMiterlimit={4} strokeLinecap='butt' strokeLinejoin='miter'/></Svg>); 
 };
 
+export const MPEmailTermsIcon = (props) => { 
+ let newProps = applyStyle(props, 18, 18); 
+ return (<Svg {...newProps} viewBox='0 0 18 18'><Path d='M15.849 14.565h-13.699c-0.708 0-1.284-0.576-1.284-1.284v-8.562c0-0.708 0.576-1.284 1.284-1.284h13.699c0.708 0 1.284 0.576 1.284 1.284v8.562c0 0.708-0.576 1.284-1.284 1.284zM2.342 4.291c0.015 0.008 0.031 0.009 0.045 0.018l6.656 4.4 6.569-4.398c0.015-0.010 0.032-0.012 0.048-0.020h-13.317zM16.278 4.719c0-0.072-0.022-0.136-0.054-0.196 0.067 0.181 0.031 0.387-0.136 0.499l-6.805 4.557c-0.072 0.048-0.155 0.072-0.238 0.072s-0.164-0.024-0.236-0.071l-6.894-4.557c-0.168-0.111-0.205-0.318-0.139-0.499-0.031 0.059-0.053 0.124-0.053 0.195v8.562c0 0.236 0.192 0.428 0.428 0.428h13.699c0.236 0 0.428-0.192 0.428-0.428v-8.562z' stroke='#fff'/></Svg>); 
+};
+
 export const MPFacebookIcon = (props) => { 
  let newProps = applyStyle(props, 9, 19); 
  return (<Svg {...newProps} viewBox='0 0 9 19'><Path d='M1.945 3.827v2.72H0v3.325h1.945V19h3.996V9.872h2.682s.251-1.594.373-3.338h-3.04V4.26c0-.34.437-.796.867-.796H9V0H6.04C1.846 0 1.945 3.33 1.945 3.827' fill='#FFF'/></Svg>); 
@@ -491,8 +496,8 @@ export const MPTermsConfigIcon = (props) => {
 };
 
 export const MPTriangleDownIcon = (props) => { 
- let newProps = applyStyle(props, 10, 8); 
- return (<Svg {...newProps} viewBox='0 0 10 8'><Path d='M12.5 0.789c-0.010-0.443-0.376-0.794-0.819-0.785l-10.865 0.003c-0.151-0-0.299 0.040-0.429 0.117-0.182 0.104-0.314 0.278-0.364 0.481s-0.015 0.419 0.098 0.595l5.426 8.421c0.154 0.235 0.414 0.377 0.695 0.379s0.543-0.136 0.7-0.369l5.395-8.37c0.105-0.134 0.163-0.3 0.162-0.471v-0.001z' fill='#fff'/></Svg>); 
+ let newProps = applyStyle(props, 10, 10); 
+ return (<Svg {...newProps} viewBox='0 0 10 10'><Path d='M9.519 1.953c0-0.314-0.265-0.568-0.592-0.568l-7.856 0.002c-0.106-0-0.213 0.027-0.31 0.084-0.277 0.164-0.363 0.513-0.192 0.779l3.923 6.088c0.047 0.076 0.113 0.142 0.197 0.192 0.277 0.164 0.641 0.082 0.812-0.184l3.9-6.053c0.074-0.095 0.117-0.212 0.117-0.34z' fill='#fff'/></Svg>); 
 };
 
 export const MPTriangleUpBlackIcon = (props) => { 

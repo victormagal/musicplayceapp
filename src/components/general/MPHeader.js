@@ -2,7 +2,7 @@ import React from 'react';
 import { View, StyleSheet, Platform, Text, StatusBar, TouchableOpacity } from 'react-native';
 import PropTypes from 'prop-types';
 import { MPText } from '../general/MPText';
-import {MPBackIcon, MPBackBlackIcon, MPLogoIcon, MPLogoBlackIcon, MPBackRedIcon} from '../../assets/svg';
+import {MPBackIcon, MPBackBlackIcon, MPLogoIcon, MPLogoBlackIcon, MPBackRedIcon, MPEmailTermsIcon} from '../../assets/svg';
 import { MPGradientButton } from '../buttons';
 
 class MPHeader extends React.Component {
@@ -45,7 +45,7 @@ class MPHeader extends React.Component {
         )}
         {
           terms  && (
-          <MPGradientButton title={'Enviar para meu e-mail'} style={{position: 'absolute', bottom: -18, paddingVertical: 8, alignSelf: 'center'}}/>
+          <MPGradientButton icon={MPEmailTermsIcon} title={'Enviar para meu e-mail'} style={{position: 'absolute', bottom: -18, paddingVertical: 8, alignSelf: 'center'}} textStyle={{paddingStart: 18}}/>
         )}
       </View>
     );
