@@ -95,8 +95,8 @@ class ProfileComponent extends React.Component {
   };
 
   reportProfile = () => {
-    let profile = this.props.profile;
-    this.goToScreen('message', { component: MPConfirmReportProfile, profile })
+    let {user} = this.props;
+    this.goToScreen('message', { component: MPConfirmReportProfile, user })
   };
 
   handleClickPhoto = () => {
