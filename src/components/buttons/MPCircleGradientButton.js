@@ -18,7 +18,7 @@ class MPCircleGradientButton extends Component {
       <TouchableOpacity style={[styles.container, style || {}]} onPress={onPress}>
         {isImage ?
           <Image
-            style={[styles.container, { borderRadius: 200 }, style || {}]}
+            style={[styles.container, style || {}]}
             source={{ uri: icon }}
           />
           :
@@ -49,13 +49,14 @@ MPCircleGradientButton.propTypes = {
 const styles = StyleSheet.create({
   container: {
     height: 44,
-    width: 44
+    width: 44,
+    borderRadius: 22,
+    overflow: 'hidden'
   },
   linear: {
     width: '100%',
     height: '100%',
-    justifyContent: 'center',
-    borderRadius: 200
+    justifyContent: 'center'
   },
   icon: {
     alignSelf: 'center'

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { StyleSheet, TouchableWithoutFeedback, View, TouchableOpacity, Platform, ImageBackground } from 'react-native';
+import { StyleSheet, TouchableWithoutFeedback, View, TouchableOpacity, Platform, ImageBackground, Image } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import LinearGradient from 'react-native-linear-gradient';
 import {MPGradientButton, MPText, MPLoading, MPInput, MPForm, MPFormButton, MPHeader} from '../../../../components';
@@ -110,7 +110,7 @@ class RegisterComponent extends Component {
 
   getTerms = () => {
     this.props.navigation.navigate('termsAndConditions', { justFetch: true, back: false })
-  }
+  };
 
   render() {
     let IconRegister = this.state.formVisible ? this.icons.up : this.icons.down;
@@ -154,13 +154,14 @@ class RegisterComponent extends Component {
                 </MPText>
               </View>
             )}
+
             <MPForm>
               <View style={{ alignItems: 'center', marginBottom: 15 }}>
                 <MPCircleGradientButton
                   icon={this.state.form.imageFile ? this.state.form.imageFile.uri : MPCameraIcon}
                   label='Adicionar foto'
                   isImage={!!this.state.form.imageFile}
-                  style={{ height: 100, width: 100 }}
+                  style={{ height: 100, width: 100, borderRadius: 50 }}
                   onPress={this.handleClickPhoto}
                 />
                 <TouchableOpacity style={styles.plusButton} onPress={this.handleClickPhoto}>

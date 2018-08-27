@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, View, ScrollView, TouchableOpacity} from 'react-native';
+import {StyleSheet, View, ScrollView, TouchableOpacity, Platform} from 'react-native';
 import {connect} from 'react-redux';
 import {MPHeader, MPText, MPIconButton, MPTextField, MPSelect} from '../../../components';
 import {updateSongRegisterData} from "../../../state/songs/songsType";
@@ -34,15 +34,21 @@ class MusicLetterScreenContainer extends React.Component {
   }
 
   handleChooseFileClick = () => {
+    const isIOS = Platform.OS === 'ios';
+
     DocumentPicker.show({
-      filetype: [DocumentPickerUtil.allFiles()],
+      filetype: [isIOS ? DocumentPickerUtil.plainText() : DocumentPickerUtil.allFiles()],
     }, (something, response) => {
       if (response) {
-        if (response.type === 'application/rtf' || response.type === 'text/plain') {
+        if(isIOS) {
           this.updateSong('lyricsFile', response);
-          this.setState({ error: null });
-        } else {
-          this.setState({ error: 'Esta extensão de arquivo não é suportada.' });
+        }else {
+          if (response.type === 'application/rtf' || response.type === 'text/plain') {
+            this.updateSong('lyricsFile', response);
+            this.setState({error: null});
+          } else {
+            this.setState({error: 'Esta extensão de arquivo não é suportada.'});
+          }
         }
       } else {
         this.setState({ error: 'Não conseguimos carregar o seu arquivo. Por favor tente novamente.' });
