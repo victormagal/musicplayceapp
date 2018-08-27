@@ -114,9 +114,6 @@ class RegisterComponent extends Component {
 
   render() {
     let IconRegister = this.state.formVisible ? this.icons.up : this.icons.down;
-
-    console.log(this.state.form);
-
     return (
       <View style={styles.container}>
         <KeyboardAwareScrollView style={styles.container} ref={ref => this.scrollViewRef = ref}>
