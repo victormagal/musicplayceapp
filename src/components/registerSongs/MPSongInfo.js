@@ -53,7 +53,7 @@ class MPSongInfo extends Component {
 MPSongInfo.propTypes = {
   title: PropTypes.string.isRequired,
   onPress: PropTypes.func.isRequired,
-  info: PropTypes.string,
+  info: PropTypes.any,
   selected: PropTypes.bool,
   style: PropTypes.any,
   placeholder: PropTypes.string,

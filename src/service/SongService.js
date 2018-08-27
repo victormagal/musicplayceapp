@@ -324,7 +324,11 @@ class SongService {
         if (fileResponse) {
           song.path = fileResponse.path;
         }
-        return SongService.sendLyricsFile(lyricsFile, response).then(() => {
+        return SongService.sendLyricsFile(lyricsFile, response).then((lryicsSong) => {
+          if(lryicsSong) {
+            response.lyrics = lryicsSong.lyrics;
+          }
+
           return SongService.update(response).then((updatedSong) => {
             return SongService.publish(song.id).then(_ => updatedSong);;
           });
