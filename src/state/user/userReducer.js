@@ -39,7 +39,7 @@ import {
   USER_INVITE_FINISHED,
   USER_INVITE_SUCCESS,
   _appendSongsData,
-  _appendFoldersData
+  _appendFoldersData, USER_START_CHECKING, USER_FINISH_CHECKING
 } from './userTypes';
 
 
@@ -74,6 +74,7 @@ const userReducer = (state, action) => {
     userFollowingPaginationLoading: false,
     userSongsLoading: false,
     invitationSuccess: false,
+    checking: false
   };
 
   let user = {};
@@ -90,6 +91,18 @@ const userReducer = (state, action) => {
         ...state,
         loading: false,
         isUserSaved: false
+      };
+
+    case USER_START_CHECKING:
+      return {
+        ...state,
+        checking: true
+      };
+
+    case USER_FINISH_CHECKING:
+      return {
+        ...state,
+        checking: false,
       };
 
     case USER_BY_ID_FETCHED:
