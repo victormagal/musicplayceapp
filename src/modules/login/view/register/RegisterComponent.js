@@ -1,6 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { StyleSheet, TouchableWithoutFeedback, View, TouchableOpacity, Platform, ImageBackground, Image } from 'react-native';
+import {
+  StyleSheet,
+  TouchableWithoutFeedback,
+  View,
+  TouchableOpacity,
+  Platform,
+  ImageBackground,
+  ActivityIndicator
+} from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import LinearGradient from 'react-native-linear-gradient';
 import {MPGradientButton, MPText, MPLoading, MPInput, MPForm, MPFormButton, MPHeader} from '../../../../components';
@@ -16,7 +24,8 @@ import {
 import {MPCircleGradientButton} from "../../../../components/buttons";
 import ImagePicker from "react-native-image-picker";
 import {MPFloatingNotification} from "../../../../components/general";
-import {fetchTermsAndConditions} from "../../../../state/settings/termsAndConditions/termsAction";
+import {checkUsernameOrEmail} from "../../../../state/user/userAction";
+import {connect} from "react-redux";
 
 
 const BaseIcon = (props, Icon) => (
@@ -36,8 +45,8 @@ const GoogleIcon = (props) => {
   return BaseIcon(props, MPGoogleIcon);
 };
 
-class RegisterComponent extends Component {
-
+class RegisterComponentScreen extends Component {
+  searchTimer = null;
   state = {
     error: false,
     formVisible: false,
@@ -49,6 +58,8 @@ class RegisterComponent extends Component {
       password: '',
       imageFile: null
     },
+    activeField: null,
+    unavailableField: null,
     imageSizeError: false,
     linearGradientHeight: 0
   };
@@ -105,7 +116,29 @@ class RegisterComponent extends Component {
   handleChange = ({name, value}) => {
     let newState = {...this.state};
     newState.form[name] = value;
+    if (name === 'email' || name === 'username') {
+      if (value.length >= 2) {
+        this.handleSearch(name, value);
+      }
+    }
     this.setState({newState});
+  };
+
+  handleSearch = (field, value) => {
+    this.setState({ activeField: field });
+    if (this.searchTimer) {
+      clearTimeout(this.searchTimer);
+    }
+
+    this.searchTimer = setTimeout(() => {
+      this.props.dispatch(checkUsernameOrEmail({ field, value })).then(response => {
+        this.setState({ activeField: null });
+        if (response !== 'available') {
+          this.setState({ unavailableField: field });
+        }
+      });
+      clearTimeout(this.searchTimer);
+    }, 400);
   };
 
   getTerms = () => {
@@ -113,25 +146,46 @@ class RegisterComponent extends Component {
   };
 
   render() {
-    let IconRegister = this.state.formVisible ? this.icons.up : this.icons.down;
+    const IconRegister = this.state.formVisible ? this.icons.up : this.icons.down;
+    const { formError, error, checking } = this.props;
+    const { form, activeField, unavailableField } = this.state;
     return (
       <View style={styles.container}>
         <KeyboardAwareScrollView style={styles.container} ref={ref => this.scrollViewRef = ref}>
-          <ImageBackground style={{flex: 1, width: '100%'}} source={require('../../../../assets/img/album-default.png')}>
+          <ImageBackground
+            style={{flex: 1, width: '100%'}}
+            source={require('../../../../assets/img/album-default.png')}
+          >
             <LinearGradient
               onLayout={event => this.setState({ linearGradientHeight: event.nativeEvent.layout.height })}
-              colors={["#f0cfcf73", "#ffffffff"]} style={styles.gradient} start={{x:0, y:0}} end={{x:0, y:1}}>
-              <MPHeader back={true} onBack={this.props.onBackClick} withoutLogo={true} inverse={true} redBack={true}/>
+              colors={["#f0cfcf73", "#ffffffff"]}
+              style={styles.gradient}
+              start={{x:0, y:0}}
+              end={{x:0, y:1}}
+            >
+              <MPHeader
+                back={true}
+                onBack={this.props.onBackClick}
+                withoutLogo={true}
+                inverse={true}
+                redBack={true}
+              />
               <View style={styles.contentCreateAccount}>
                 <MPLogoRegisterIcon style={styles.logo}/>
-                <MPText style={styles.title}>O seu lugar de música</MPText>
-                <MPText style={styles.register}>Crie sua conta</MPText>
+                <MPText style={styles.title}>
+                  O seu lugar de música
+                </MPText>
+                <MPText style={styles.register}>
+                  Crie sua conta
+                </MPText>
                 {/*<MPButton icon={FacebookIcon} title="Entre com Facebook" textSize={16} onPress={() => {}} style={styles.signinFB}/>*/}
                 {/*<MPButton icon={GoogleIcon} title="Entre com Google+" textSize={16} onPress={() => {}} style={styles.signinGoogle}/>*/}
                 {/*<MPText style={styles.ouText}>ou</MPText>*/}
                 <TouchableWithoutFeedback onPress={this.handleToggleRegisterForm}>
                   <View>
-                    <MPText style={styles.fillForm}>Preencha o cadastro</MPText>
+                    <MPText style={styles.fillForm}>
+                      Preencha o cadastro
+                    </MPText>
                     <IconRegister style={styles.fillFormArrow}/>
                   </View>
                 </TouchableWithoutFeedback>
@@ -139,28 +193,28 @@ class RegisterComponent extends Component {
             </LinearGradient>
           </ImageBackground>
           <View style={[styles.form, { marginTop: 42 }]}>
-            {this.props.error && (
+            {error &&
               <View>
                 <MPText style={styles.deuRuimText}>
                   Deu ruim! Confirme se os dados foram digitados corretamente.
                 </MPText>
               </View>
-            )}
+            }
 
-            {this.props.formError && (
+            {formError &&
               <View>
                 <MPText style={[styles.deuRuimText, { marginTop: 10, marginBottom: 20 }]}>
-                  { this.props.formError }
+                  { formError }
                 </MPText>
               </View>
-            )}
+            }
 
             <MPForm>
               <View style={{ alignItems: 'center', marginBottom: 15 }}>
                 <MPCircleGradientButton
-                  icon={this.state.form.imageFile ? this.state.form.imageFile.uri : MPCameraIcon}
+                  icon={form.imageFile ? form.imageFile.uri : MPCameraIcon}
                   label='Adicionar foto'
-                  isImage={!!this.state.form.imageFile}
+                  isImage={!!form.imageFile}
                   style={{ height: 100, width: 100, borderRadius: 50 }}
                   onPress={this.handleClickPhoto}
                 />
@@ -174,33 +228,39 @@ class RegisterComponent extends Component {
                 label="E-mail"
                 name="email"
                 autoCapitalize={'none'}
-                value={this.state.form.email}
+                value={form.email}
                 validators={['required', 'email']}
-                onChangeText={this.handleChange}/>
+                onChangeText={this.handleChange}
+                rightIcon={checking && activeField === 'email' ? <ActivityIndicator/> : null}
+                error={unavailableField === 'email' ? 'Este endereço de e-mail já está sendo usado.' : null}
+              />
               <MPInput
                 label="Nome"
                 name="name"
-                value={this.state.form.name}
+                value={form.name}
                 validators={['required']}
                 onChangeText={this.handleChange}/>
               <MPInput
                 label="Sobrenome"
                 name="last_name"
-                value={this.state.form.last_name}
+                value={form.last_name}
                 validators={['required']}
                 onChangeText={this.handleChange}/>
               <MPInput
                 label="Usuário"
                 name="username"
                 autoCapitalize={'none'}
-                value={this.state.form.username}
+                value={form.username}
                 validators={['required']}
-                onChangeText={this.handleChange}/>
+                onChangeText={this.handleChange}
+                rightIcon={checking && activeField === 'username' ? <ActivityIndicator/> : null}
+                error={unavailableField === 'username' ? 'Este nome de usuário já está sendo usado.' : null}
+              />
               <MPInput
                 label="Senha"
                 name="password"
                 autoCapitalize={'none'}
-                value={this.state.form.password}
+                value={form.password}
                 validators={['required']}
                 secureTextEntry={true}
                 onChangeText={this.handleChange}/>
@@ -234,7 +294,7 @@ class RegisterComponent extends Component {
   }
 }
 
-RegisterComponent.propTypes = {
+RegisterComponentScreen.propTypes = {
   onRegister: PropTypes.func.isRequired,
   onBackClick: PropTypes.func,
   loading: PropTypes.bool,
@@ -360,4 +420,9 @@ const styles = StyleSheet.create({
   }
 });
 
+const mapStateToProps = ({userReducer}) => {
+  return {...userReducer};
+};
+
+const RegisterComponent = connect(mapStateToProps)(RegisterComponentScreen);
 export {RegisterComponent}

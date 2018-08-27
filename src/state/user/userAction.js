@@ -37,7 +37,7 @@ import {
   _fetchFollowersFollowing,
   userInviteStarted,
   userInviteSuccess,
-  userInviteFinished
+  userInviteFinished, userStartChecking, userFinishChecking
 } from './userTypes';
 
 
@@ -50,6 +50,20 @@ export const searchUsers = (name) => {
     }).catch(e => {
       console.log('searchUsersError', e);
       dispatch(userFinishLoading());
+    });
+  };
+};
+
+export const checkUsernameOrEmail = ({ field, value }) => {
+  return (dispatch) => {
+    dispatch(userStartChecking());
+
+    return UserService.checkUsernameOrEmail({ field, value }).then(response => {
+      dispatch(userFinishChecking());
+      return response.status;
+    }).catch(e => {
+      console.log('checkUsernameOrEmailError', e);
+      dispatch(userFinishChecking());
     });
   };
 };

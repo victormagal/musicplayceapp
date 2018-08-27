@@ -96,6 +96,20 @@ class UserService {
       });
   }
 
+  static checkUsernameOrEmail({ field, value }) {
+    const data = {
+      data: {
+        type: field === 'email' ? 'check_email' : 'check_username',
+        attributes: {
+          [field]: value
+        }
+      }
+    };
+    const endpointUrl = field === 'email' ? `${ API_USER }/check-email` : `${ API_USER }/check-username`;
+    return axios.post(endpointUrl, data)
+      .then(response => response.data);
+  }
+
   //TODO: refactor
   static me() {
     return AuthService.me()

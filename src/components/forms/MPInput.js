@@ -47,7 +47,8 @@ class MPInputComponent extends React.Component {
   render() {
     let {
       label, multiline, style, value, onBlur, secureTextEntry,
-      textProps, autoCapitalize, error, contentStyle, keyboardType
+      textProps, autoCapitalize, error, contentStyle, keyboardType,
+      rightIcon
     } = this.props;
     let inputIcon = this.state.isPassword ? <MPInputEyeIcon /> : <MPInputEyeVisibleIcon />;
     let iconStyle = [styles.eye];
@@ -57,7 +58,7 @@ class MPInputComponent extends React.Component {
       inputContentStyle.push(contentStyle);
     }
 
-    if (textProps && Object.keys(textProps).length > 0) {
+    if (textProps && Object.keys(textProps).length > 0 || !!error) {
       iconStyle.push(styles.eyeError)
     }
 
@@ -84,6 +85,12 @@ class MPInputComponent extends React.Component {
             {inputIcon}
           </TouchableOpacity>
         )}
+
+        { rightIcon &&
+          <View style={iconStyle}>
+            {rightIcon}
+          </View>
+        }
       </View>
     );
   }

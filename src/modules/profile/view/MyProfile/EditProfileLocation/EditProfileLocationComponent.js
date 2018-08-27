@@ -21,6 +21,7 @@ import {MPTextField} from "../../../../../components/forms";
 
 class EditProfileLocationComponent extends React.Component {
   refSaveButton = null;
+  searchTimer = null;
 
   constructor(props) {
     super(props);
