@@ -59,7 +59,8 @@ class RegisterComponentScreen extends Component {
       imageFile: null
     },
     activeField: null,
-    unavailableField: null,
+    unavailableEmail: false,
+    unavailableUsername: false,
     imageSizeError: false,
     linearGradientHeight: 0
   };
@@ -133,8 +134,11 @@ class RegisterComponentScreen extends Component {
     this.searchTimer = setTimeout(() => {
       this.props.dispatch(checkUsernameOrEmail({ field, value })).then(response => {
         this.setState({ activeField: null });
-        if (response !== 'available') {
-          this.setState({ unavailableField: field });
+        const unavailable = field === 'email' ? 'unavailableEmail': 'unavailableUsername';
+        if (response === 'unavailable') {
+          this.setState({ [unavailable]: true });
+        } else {
+          this.setState({ [unavailable]: false });
         }
       });
       clearTimeout(this.searchTimer);
@@ -148,7 +152,7 @@ class RegisterComponentScreen extends Component {
   render() {
     const IconRegister = this.state.formVisible ? this.icons.up : this.icons.down;
     const { formError, error, checking } = this.props;
-    const { form, activeField, unavailableField } = this.state;
+    const { form, activeField, unavailableEmail, unavailableUsername } = this.state;
     return (
       <View style={styles.container}>
         <KeyboardAwareScrollView style={styles.container} ref={ref => this.scrollViewRef = ref}>
@@ -232,7 +236,7 @@ class RegisterComponentScreen extends Component {
                 validators={['required', 'email']}
                 onChangeText={this.handleChange}
                 rightIcon={checking && activeField === 'email' ? <ActivityIndicator/> : null}
-                error={unavailableField === 'email' ? 'Este endereço de e-mail já está sendo usado.' : null}
+                error={unavailableEmail ? 'Este endereço de e-mail já está sendo usado.' : null}
               />
               <MPInput
                 label="Nome"
@@ -254,7 +258,7 @@ class RegisterComponentScreen extends Component {
                 validators={['required']}
                 onChangeText={this.handleChange}
                 rightIcon={checking && activeField === 'username' ? <ActivityIndicator/> : null}
-                error={unavailableField === 'username' ? 'Este nome de usuário já está sendo usado.' : null}
+                error={unavailableUsername ? 'Este nome de usuário já está sendo usado.' : null}
               />
               <MPInput
                 label="Senha"
