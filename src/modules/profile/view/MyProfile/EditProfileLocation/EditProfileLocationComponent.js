@@ -13,9 +13,10 @@ import {
 import {connect} from 'react-redux';
 import {GeneralService} from '../../../../../service';
 import {
-  fetchCityBrazil, fetchStateBrazil, generalStartLoading, generalFinishLoading
+  fetchCityBrazil, fetchStateBrazil, generalStartLoading, generalFinishLoading, fetchFeeds
 } from "../../../../../state/action";
 import {MPLocationPinIcon} from "../../../../../assets/svg/index";
+import {MPTextField} from "../../../../../components/forms";
 
 
 class EditProfileLocationComponent extends React.Component {
@@ -27,9 +28,10 @@ class EditProfileLocationComponent extends React.Component {
     this.state = {
       city: props.location.city || '',
       state: props.location.state || '',
-      selectedCity: null,
+      cityTextValue: '',
       selectedState: null,
       error: null,
+      searching: false,
       isCurrentLocation: false
     };
   }
@@ -49,14 +51,20 @@ class EditProfileLocationComponent extends React.Component {
 
     if (selectedState !== prevState.selectedState) {
       if (prevState.selectedState !== null) {
-        this.setState({ selectedCity: null });
+        this.setState({ cityTextValue: '' });
       }
       this.props.dispatch(fetchCityBrazil(selectedState));
     }
 
     if (prevProps.cities !== this.props.cities && isCurrentLocation) {
-      const selectedCity = this.props.cities.filter(c => c.nome === this.state.city)[0].id;
-      this.setState({ selectedCity, isCurrentLocation: false });
+      let cityTextValue = '';
+      this.props.dispatch(fetchCityBrazil(selectedState, this.state.city)).then(response => {
+        if (response && response.data && response.data.length > 0) {
+          cityTextValue = response.data[0].nome;
+        }
+        this.setState({ cityTextValue });
+      });
+      this.setState({ isCurrentLocation: false });
     }
   }
 
@@ -116,13 +124,33 @@ class EditProfileLocationComponent extends React.Component {
     this.requestPermissionLocation();
   };
 
+  handleCitySearchChange = (cityTextValue) => {
+    this.setState({ cityTextValue, error: null });
+
+    if (cityTextValue.length >= 3) {
+      this.handleSearch(cityTextValue);
+    }
+  };
+
+  handleSearch = (value) => {
+    if (this.searchTimer) {
+      clearTimeout(this.searchTimer);
+    }
+
+    this.searchTimer = setTimeout(() => {
+      this.props.dispatch(fetchCityBrazil(this.state.selectedState, value));
+      this.setState({ searching: true });
+      clearTimeout(this.searchTimer);
+    }, 400);
+  };
+
   handleSave = () => {
-    const {selectedState, selectedCity} = this.state;
+    const {selectedState, cityTextValue} = this.state;
     let error = null;
 
     if (selectedState === null) {
       error = 'O estado não pode ficar em branco.';
-    } else if (selectedCity === null) {
+    } else if (cityTextValue === '') {
       error = 'A cidade não pode ficar em branco.';
     } else {
       this.props.onSave({...this.state});
@@ -143,7 +171,7 @@ class EditProfileLocationComponent extends React.Component {
 
   render() {
     const {onBack, cities, states} = this.props;
-    const {selectedState, selectedCity, error} = this.state;
+    const {selectedState, cityTextValue, error, searching} = this.state;
 
     return (
       <View style={styles.parent}>
@@ -177,18 +205,30 @@ class EditProfileLocationComponent extends React.Component {
                     state: states[selectedState].sigla
                   })}
                 />
-                { (selectedState && cities) &&
-                  <MPSelect
-                    label={'Selecione a cidade'}
-                    value={selectedCity ? selectedCity.id : null}
-                    customValue={selectedCity ? cities.filter(city => city.id === selectedCity)[0].nome : null}
-                    options={cities.map(city => city.nome)}
-                    style={styles.containerSelect}
-                    onChangeOption={(selectedCity) => this.setState({
-                      selectedCity: cities[selectedCity].id,
-                      city: cities[selectedCity].nome
-                    })}
+                {selectedState &&
+                  <MPTextField
+                    label='Digite o nome da cidade'
+                    value={cityTextValue}
+                    onChangeText={this.handleCitySearchChange}
                   />
+                }
+                {(selectedState && cities) &&
+                  <View style={{ marginTop: -8 }}>
+                    {(searching && cityTextValue !== '') && cities.map(city => (
+                      <TouchableOpacity
+                        key={city.id}
+                        style={styles.citiesItem}
+                        onPress={() => this.setState({
+                          cityTextValue: city.nome, city: city.nome,
+                          searching: false
+                        })}
+                      >
+                        <MPText>
+                          { city.nome }
+                        </MPText>
+                      </TouchableOpacity>
+                    )) }
+                  </View>
                 }
               </View>
             }
@@ -245,6 +285,13 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     flexDirection: 'row',
     alignItems: 'center'
+  },
+  citiesItem: {
+    paddingHorizontal: 8,
+    paddingVertical: 15,
+    borderWidth: 1,
+    borderColor: 'rgba(177, 177, 177, 0.8)',
+    borderTopWidth: 0,
   },
   currentPositionText: {
     fontSize: 16,
