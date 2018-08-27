@@ -21,11 +21,25 @@ import {
   songUnfavoriteError,
   commentSongError,
   commentSongSuccess,
-  commentStartLoading
+  commentStartLoading,
+  getLanguagesFetched
 } from "./songsType";
 import { profileSongFavoritedSuccess, profileSongUnfavoriteSuccess } from '../profile/profileAction';
 import { dispatchAndScheduleRemoveNotifications  } from '../general/generalAction';
 
+
+export const getLanguages = () => {
+  return (dispatch) => {
+
+    dispatch(songStartLoading());
+    return SongService.getLanguages().then((response) => {
+      dispatch(getLanguagesFetched(response.data));
+    }).catch(e => {
+      dispatch(songFinishLoading());
+      console.log('getLanguagesError', e);
+    });
+  };
+};
 
 export const createPermanentSong = (song) => {
   return (dispatch, getState) => {

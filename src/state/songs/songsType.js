@@ -27,6 +27,7 @@ export const SONG_LIKE_COMMENT_ERROR = 'SONG_LIKE_COMMENT_ERROR';
 export const SONG_COMMENT_START_LOADING = 'SONG_COMMENT_START_LOADING';
 export const SONG_COMMENT_SUCCESS = 'SONG_COMMENT_SUCCESS';
 export const SONG_COMMENT_ERROR = 'SONG_COMMENT_ERROR';
+export const SONG_LANGUAGES_FETCHED = 'SONG_LANGUAGES_FETCHED';
 
 
 export const updateSongRegisterData = createAction(SONG_REGISTER_DATA, data => ({ ...data }));
@@ -55,6 +56,7 @@ export const likedCommentError = createAction(SONG_LIKE_COMMENT_ERROR);
 export const commentStartLoading = createAction(SONG_COMMENT_START_LOADING);
 export const commentSongError = createAction(SONG_COMMENT_ERROR);
 export const commentSongSuccess = createAction(SONG_COMMENT_SUCCESS, data => data);
+export const getLanguagesFetched = createAction(SONG_LANGUAGES_FETCHED, data => data);
 
 
 

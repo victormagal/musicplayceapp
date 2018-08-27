@@ -6,6 +6,7 @@ import {updateSongRegisterData} from "../../../state/songs/songsType";
 import {DocumentPicker, DocumentPickerUtil} from "react-native-document-picker";
 import {MPSongIcon} from "../../../assets/svg";
 import {MPFloatingNotification} from "../../../components/general";
+import { getLanguages } from '../../../state/action';
 
 class MusicLetterScreenContainer extends React.Component {
   constructor(props) {
@@ -13,10 +14,24 @@ class MusicLetterScreenContainer extends React.Component {
     this.state = {
       lyrics: (props.song && props.song.lyrics) || '',
       language: 'default',
+      languages: [],
       selectedOption: null,
       error: null,
       idiomas: ['Português', 'Inglês', 'Espanhol']
     };
+  }
+
+  componentDidMount(){
+    this.props.dispatch(getLanguages());
+  }
+
+  componentWillReceiveProps(nextProps){
+    if(nextProps.songLanguages && nextProps.songLanguages.length > 0){
+      let lngs = nextProps.songLanguages.map(language => {
+        return language.attributes.name
+      })
+      this.setState({languages: lngs})
+    }
   }
 
   handleChangeLetter = (lyrics) => {
@@ -62,9 +77,15 @@ class MusicLetterScreenContainer extends React.Component {
 
   handleSaveClick = () => {
     let song = {...this.props.song, lyrics: this.state.lyrics};
+    console.log(song);
     this.props.dispatch(updateSongRegisterData(song));
     this.handleBackClick();
   };
+
+  handleChangeOption = (selectedOption) => {
+    this.updateSong('language_id', this.props.songLanguages[selectedOption].id);
+    this.setState({selectedOption});
+  }
 
   renderHeaderMenuSave() {
     return [
@@ -115,7 +136,7 @@ class MusicLetterScreenContainer extends React.Component {
             }
             </MPText>
           }
-          <MPSelect style={styles.idioma} label="Idioma" value={this.state.selectedOption} options={this.state.idiomas} onChangeOption={(selectedOption) => this.setState({selectedOption})} />
+          <MPSelect style={styles.idioma} label="Idioma" value={this.state.selectedOption} options={this.state.languages} onChangeOption={this.handleChangeOption} />
         </ScrollView>
         <MPFloatingNotification
           visible={this.state.error !== null}

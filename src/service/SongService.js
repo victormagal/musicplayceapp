@@ -159,6 +159,12 @@ class SongService {
       });
   }
 
+  static getLanguages(){
+    return axios.get(`${API}/languages`).then(response => {
+      return response.data;
+    })
+  }
+
   static mySongs(id, page, me, size = 10) {
     let folder = {id: -1, name: 'Outras', songs: {}};
 

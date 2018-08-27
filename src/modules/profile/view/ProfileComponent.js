@@ -39,6 +39,7 @@ class ProfileComponent extends React.Component {
     if (this.props.profile !== nextProps.profile) {
       this.props.onStopLoading()
     }
+    console.log(nextProps);
   }
 
   goToScreen = (rota, params = {}) => {

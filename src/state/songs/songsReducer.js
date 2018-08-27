@@ -23,7 +23,8 @@ import {
   SONG_NOTIFICATION_REMOVE,
   SONG_COMMENT_ERROR,
   SONG_COMMENT_SUCCESS,
-  SONG_COMMENT_START_LOADING
+  SONG_COMMENT_START_LOADING,
+  SONG_LANGUAGES_FETCHED
 } from './songsType';
 import {REMOVE_NOTIFICATION} from '../general/generalAction';
 
@@ -33,9 +34,11 @@ const defaultSong = {
   description: '',
   interpreter_name: null,
   indicationCount: null,
+  songLanguages: null,
   coAuthors: null,
   folder: null,
   tags: null,
+  language_id: null,
   path: '',
 };
 
@@ -71,6 +74,7 @@ const songsReducer = (state, action) => {
       };
 
     case SONG_REGISTER_CLEAR:
+    console.log(...defaultSong);
       return {
         ...state,
         song: {...defaultSong},
@@ -146,6 +150,13 @@ const songsReducer = (state, action) => {
         fetchedSong: indicatedSong,
         indicationCount: action.payload,
       };
+
+    case SONG_LANGUAGES_FETCHED:
+      return {
+        ...state,
+        loading: false,
+        songLanguages: action.payload
+      }
     
     case SONG_LIKE_COMMENT_SUCCESS:
       let playerSong = {...state.fetchedSong}
