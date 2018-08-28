@@ -39,7 +39,6 @@ class ProfileComponent extends React.Component {
     if (this.props.profile !== nextProps.profile) {
       this.props.onStopLoading()
     }
-    console.log(nextProps);
   }
 
   goToScreen = (rota, params = {}) => {
@@ -333,8 +332,8 @@ class ProfileComponent extends React.Component {
             onEmptyClick={this.props.onFollowersEmptyClick}
           />
         </View>
-        { profile.languages &&
-          <MPShowLanguages languages={profile.languages} />
+        { profile.language_songs &&
+          <MPShowLanguages languages={profile.language_songs} />
         }
         { profile.agencies && (
           <MPShowAgencies agencies={profile.agencies} isUser={profile.isUser}/>
