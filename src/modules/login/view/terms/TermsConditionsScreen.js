@@ -30,7 +30,11 @@ class TermsConditionsScreen extends Component {
   render() {
     return (
       <View style={{ flex: 1, backgroundColor: '#FFF', paddingBottom: 40 }}>
-        <TermsSettingsScreen navigation={this.props.navigation}/>
+        <TermsSettingsScreen
+          showTopics={false}
+          terms={false}
+          navigation={this.props.navigation}
+        />
         <View style={styles.acceptButton}>
           { this.state.justFetch ?
             <MPGradientButton

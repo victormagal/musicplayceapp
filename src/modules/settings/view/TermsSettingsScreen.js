@@ -35,13 +35,18 @@ class TermsSettingsScreenContainer extends React.Component {
   };
 
   render() {
-    const { error, loading } = this.props;
+    let { error, loading, terms } = this.props;
+
+    if (typeof terms === 'undefined') {
+      terms = true;
+    }
+
     const noBack = !(this.props.navigation.state.params && this.props.navigation.state.params['back'] === false);
     return (
       <View style={styles.parent}>
         <MPHeader
           back={noBack}
-          terms={true}
+          terms={terms}
           onBack={this.handleBackButton}
           title="Termos e condições de uso"
         />
@@ -62,17 +67,22 @@ class TermsSettingsScreenContainer extends React.Component {
   }
 
   renderTermsAndConditions() {
-    const { termsAndConditions } = this.props;
+    let { termsAndConditions, showTopics } = this.props;
     const { selectedOption, options } = this.state;
     const termsData = termsAndConditions && termsAndConditions.attributes.data;
+    if (typeof showTopics === 'undefined') {
+      showTopics = true;
+    }
     return (
       <View>
-        <MPSelect label={"Selecione um tópico"}
-                  value={selectedOption}
-                  options={options}
-                  style={styles.containerSelect}
-                  onChangeOption={(selectedOption) => this.setState({ selectedOption })}
-        />
+        { showTopics &&
+          <MPSelect label={"Selecione um tópico"}
+                    value={selectedOption}
+                    options={options}
+                    style={styles.containerSelect}
+                    onChangeOption={(selectedOption) => this.setState({ selectedOption })}
+          />
+        }
         { termsAndConditions && termsData
           .filter(term => {
             if (selectedOption !== null) {
