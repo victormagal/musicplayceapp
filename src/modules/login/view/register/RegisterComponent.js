@@ -84,6 +84,16 @@ class RegisterComponentScreen extends Component {
   handleClickPhoto = () => {
     const options = {
       title: 'Selecionar uma foto',
+      cancelButtonTitle: 'Cancelar',
+      takePhotoButtonTitle: 'Tirar foto ...',
+      // @todo android PermissionUtils      
+      permissionDenied: {
+        title: '',
+        text: '',
+        reTryTitle: '',
+        okTitle: '' 
+      },
+      chooseFromLibraryButtonTitle: 'Escolher foto ...',
       storageOptions: {
         skipBackup: true,
         path: 'images'
@@ -146,7 +156,7 @@ class RegisterComponentScreen extends Component {
   };
 
   getTerms = () => {
-    this.props.navigation.navigate('termsAndConditions', { justFetch: true, back: false })
+    this.props.navigation.navigate('termsAndConditions', { back: false })
   };
 
   render() {
