@@ -12,11 +12,7 @@ class LoginScreenContainer extends Component {
 
     if(nextProps.loginSuccess){
       this.props.dispatch(fetchProfile()).then(response => {
-        if (response && response.accepted_terms_at === null) {
-          this.props.navigation.replace('termsAndConditions');
-        } else {
-          this.props.navigation.replace('home');
-        }
+        this.props.navigation.replace('home');
       });
     }
   }

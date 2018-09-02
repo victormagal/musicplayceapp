@@ -2,30 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { View, StyleSheet, Dimensions } from 'react-native';
 import { TermsSettingsScreen } from '../../../settings/view/TermsSettingsScreen';
-import { acceptTermsAndConditions } from "../../../../state/settings/termsAndConditions/termsAction";
 import { MPGradientButton } from '../../../../components';
 
 class TermsConditionsScreen extends Component {
-  state = {
-    justFetch: false
-  };
-
-  componentDidMount() {
-    const { navigation } = this.props;
-    if (navigation.state.params && navigation.state.params.justFetch) {
-      this.setState({ justFetch: true });
-    }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.accepted) {
-      this.props.navigation.replace('home');
-    }
-  }
-
-  handleAcceptTerms = () => {
-    this.props.dispatch(acceptTermsAndConditions());
-  };
 
   render() {
     return (
@@ -35,22 +14,13 @@ class TermsConditionsScreen extends Component {
           terms={false}
           navigation={this.props.navigation}
         />
-        <View style={styles.acceptButton}>
-          { this.state.justFetch ?
-            <MPGradientButton
-              title={"Voltar"}
-              textSize={16}
-              style={{ width: Dimensions.get('screen').width - 40 }}
-              onPress={() => this.props.navigation.goBack()}
-            />
-            :
-            <MPGradientButton
-              title={"Aceitar"}
-              textSize={16}
-              style={{ width: Dimensions.get('screen').width - 40 }}
-              onPress={this.handleAcceptTerms}
-            />
-          }
+        <View style={styles.acceptButton}> 
+          <MPGradientButton
+            title={"Voltar"}
+            textSize={16}
+            style={{ width: Dimensions.get('screen').width - 40 }}
+            onPress={() => this.props.navigation.goBack()}
+          />
         </View>
       </View>
     );
