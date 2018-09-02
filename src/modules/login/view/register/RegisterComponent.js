@@ -82,11 +82,12 @@ class RegisterComponentScreen extends Component {
   };
 
   handleClickPhoto = () => {
+    // @todo refactoring to component capture image with options default and i18n
     const options = {
       title: 'Selecionar uma foto',
       cancelButtonTitle: 'Cancelar',
       takePhotoButtonTitle: 'Tirar foto ...',
-      // @todo android PermissionUtils      
+      // @todo android PermissionUtils
       permissionDenied: {
         title: '',
         text: '',
@@ -101,22 +102,24 @@ class RegisterComponentScreen extends Component {
     };
 
     ImagePicker.showImagePicker(options, (response) => {
-      if (response.didCancel) {
+      const isErrorFilesize = response.fileSize > 2000000;
+      const isError = response.didCancel || response.error || isErrorFilesize;
+    
+      if (isError) {
         this.handleChange({ name: 'imageFile', value: null });
-        console.log('User cancelled image picker');
-      } else if (response.error) {
-        this.handleChange({ name: 'imageFile', value: null });
-        console.log('ImagePicker Error: ', response.error);
-      } else if (response.fileSize > 2000000) {
-        this.handleChange({ name: 'imageFile', value: null });
-        this.setState({ imageSizeError: true });
-        const timer = setTimeout(() => {
-          this.setState({ imageSizeError: false });
-          clearTimeout(timer);
-        }, 2000);
-      } else {
-        this.handleChange({ name: 'imageFile', value: response });
+
+        if (isErrorFilesize) {
+          this.setState({ imageSizeError: true });
+          // @todo workaround timeout
+          const timer = setTimeout(() => {
+            this.setState({ imageSizeError: false });
+            clearTimeout(timer);
+          }, 2000);
+        }
+        return;
       }
+
+      this.handleChange({ name: 'imageFile', value: response });
     });
   };
 
