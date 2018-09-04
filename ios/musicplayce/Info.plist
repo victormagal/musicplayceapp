@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>musicplayce</string>
+	<string>MusicPlayce</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -13,7 +13,7 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>$(PRODUCT_NAME)</string>
+	<string>MusicPlayce</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
@@ -38,7 +38,7 @@
 	<key>NSCalendarsUsageDescription</key>
 	<string>$(PRODUCT_NAME) gostaria de acessar o calendário</string>
 	<key>NSCameraUsageDescription</key>
-	<string>$(PRODUCT_NAME): gostaria de usar sua camêra, para captura de imagem do perfil e pastas</string>
+	<string>MusicPlayce: gostaria de usar sua camêra, para captura de imagem do perfil e pastas</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>$(PRODUCT_NAME) gostaria de acessar sua localização</string>
 	<key>NSMicrophoneUsageDescription</key>
@@ -48,7 +48,7 @@
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>$(PRODUCT_NAME) would like to save photos to your photo gallery</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>$(PRODUCT_NAME): gostaria de acessar sua galeria de fotos, para seleção de imagem do perfil e pastas</string>
+	<string>MusicPlayce: gostaria de acessar sua galeria de fotos, para seleção de imagem do perfil e pastas</string>
 	<key>NSSpeechRecognitionUsageDescription</key>
 	<string>$(PRODUCT_NAME) speech</string>
 	<key>UIAppFonts</key>
