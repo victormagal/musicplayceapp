@@ -84,9 +84,10 @@ class RegisterComponentScreen extends Component {
   handleClickPhoto = () => {
     // @todo refactoring to component capture image with options default and i18n
     const options = {
-      title: 'Selecionar uma foto',
+      title: 'Selecionar imagem de perfil',
       cancelButtonTitle: 'Cancelar',
       takePhotoButtonTitle: 'Tirar foto ...',
+      chooseFromLibraryButtonTitle: 'Selecionar foto ...',
       cameraType: 'front',
       quality: 0, // @todo revisar ou aumentar tamanho de upload
       permissionDenied: {
@@ -95,7 +96,6 @@ class RegisterComponentScreen extends Component {
         reTryTitle: 'Permitir',
         okTitle: 'OK' 
       },
-      chooseFromLibraryButtonTitle: 'Escolher foto ...',
       storageOptions: {
         skipBackup: true,
         path: 'images'
