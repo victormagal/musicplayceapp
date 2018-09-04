@@ -5,8 +5,6 @@ import {
 import {
   MPGradientButton, MPText, MPInput, MPForm, MPFormButton
 } from '../../../../components';
-import {recoverPassword} from '../../../../state/action';
-
 
 class ForgotPasswordComponent extends Component {
 
