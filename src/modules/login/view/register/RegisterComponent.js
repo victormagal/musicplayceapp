@@ -87,12 +87,13 @@ class RegisterComponentScreen extends Component {
       title: 'Selecionar uma foto',
       cancelButtonTitle: 'Cancelar',
       takePhotoButtonTitle: 'Tirar foto ...',
-      // @todo android PermissionUtils
+      cameraType: 'front',
+      quality: 0, // @todo revisar ou aumentar tamanho de upload
       permissionDenied: {
-        title: '',
-        text: '',
-        reTryTitle: '',
-        okTitle: '' 
+        title: 'Permissão negada',
+        text: 'Para captura ou escolha do avatar é necessário conceder permissão à Câmera ou Storage',
+        reTryTitle: 'Permitir',
+        okTitle: 'OK' 
       },
       chooseFromLibraryButtonTitle: 'Escolher foto ...',
       storageOptions: {
