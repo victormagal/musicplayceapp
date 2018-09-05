@@ -23,7 +23,7 @@ class UserService {
       .then(response => response.data);
   }
 
-  static uploadImage(file, id) {
+  static uploadImage(file) {
     let formData = new FormData();
 
     if (!file) {
@@ -36,10 +36,7 @@ class UserService {
       type: `images/${ file.fileName.split('.')[1] }`
     });
 
-    let endpointUrl = `${ API_USER }/me/picture`;
-    if (id) {
-      endpointUrl = `${ API_USER }/${ id }/picture`;
-    }
+    const endpointUrl = `${ API_USER }/me/picture`;
     return axios.post(endpointUrl, formData, {
       headers: {
         'Accept': 'application/json',

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import {RegisterComponent} from './RegisterComponent';
-import {createUser, uploadImage} from '../../../../state/action';
+import {createUser} from '../../../../state/action';
 
 
 class RegisterScreenContainer extends Component {
@@ -18,7 +18,6 @@ class RegisterScreenContainer extends Component {
   }
 
   handleRegister = (user) => {
-    const { imageFile } = user;
     this.setState({ email: user.email, error: null });
     this.props.dispatch(createUser(user)).then(response => {
       if (response.status === 500) {
@@ -28,8 +27,6 @@ class RegisterScreenContainer extends Component {
         } else if (message.includes('users_username_unique')) {
           this.setState({ error: '- Este nome de usuário já está sendo usado.' });
         }
-      } else if (imageFile !== null) {
-        this.props.dispatch(uploadImage(imageFile, response.data.id))
       }
     });
   };

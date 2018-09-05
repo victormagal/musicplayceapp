@@ -228,20 +228,6 @@ class RegisterComponentScreen extends Component {
             }
 
             <MPForm>
-              <View style={{ alignItems: 'center', marginBottom: 15 }}>
-                <MPCircleGradientButton
-                  icon={form.imageFile ? form.imageFile.uri : MPCameraIcon}
-                  label='Adicionar foto'
-                  isImage={!!form.imageFile}
-                  style={{ height: 100, width: 100, borderRadius: 50 }}
-                  onPress={this.handleClickPhoto}
-                />
-                <TouchableOpacity style={styles.plusButton} onPress={this.handleClickPhoto}>
-                  <MPText style={styles.plusText}>
-                    +
-                  </MPText>
-                </TouchableOpacity>
-              </View>
               <MPInput
                 label="E-mail"
                 name="email"
@@ -286,7 +272,7 @@ class RegisterComponentScreen extends Component {
               <TouchableOpacity onPress={this.getTerms} opacity={1}>
                 <MPText style={styles.termsMessage}>
                   Ao criar sua conta você está aceitando os
-                  <MPText style={styles.termsText}> termos e condições de uso</MPText> da Music Playce.
+                  <MPText style={styles.termsText}> termos e condições de uso</MPText> da MusicPlayce.
                 </MPText>
               </TouchableOpacity>
 
@@ -296,7 +282,7 @@ class RegisterComponentScreen extends Component {
                 </MPFormButton>
               </View>
 
-              <MPText style={styles.copyright}>Copyright • Music Playce 2018</MPText>
+              <MPText style={styles.copyright}>Copyright • MusicPlayce 2018</MPText>
             </MPForm>
 
           </View>
