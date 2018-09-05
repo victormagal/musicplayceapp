@@ -39,7 +39,8 @@ export const sendQuestion = (data) => {
       dispatch(faqSentSuccess());
       dispatch(faqLoadingEnd());
     }).catch(e => {
-      console.log('error', e);
+      console.log('sendQuestionError', e);
+      console.log('sendQuestionError', e.response);
       dispatch(faqSentError());
       dispatch(faqLoadingEnd());
     })

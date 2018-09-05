@@ -5,6 +5,8 @@ export const USER_SONGS_FETCHED = 'USER_SONGS_FETCHED';
 export const USER_SONGS_BY_FOLDER_FETCHED = 'USER_SONGS_BY_FOLDER_FETCHED';
 export const USER_START_LOADING = 'USER_START_LOADING';
 export const USER_FINISH_LOADING = 'USER_FINISH_LOADING';
+export const USER_START_CHECKING = 'USER_START_CHECKING';
+export const USER_FINISH_CHECKING = 'USER_FINISH_CHECKING';
 export const USER_SONGS_START_LOADING = 'USER_SONGS_START_LOADING';
 export const USER_SONGS_FINISH_LOADING = 'USER_SONGS_FINISH_LOADING';
 export const USER_BY_ID_FETCHED = 'USER_BY_ID_FETCHED';
@@ -34,11 +36,18 @@ export const USER_REPORT_STARTED = 'USER_REPORT_STARTED';
 export const USER_REPORT_SUCCESS = 'USER_REPORT_SUCCESS';
 export const USER_REPORT_ERROR = 'USER_REPORT_ERROR';
 export const USER_HIDE_NOTIFICATION = 'USER_HIDE_NOTIFICATION';
+export const USER_FOLDER_PAGINATION_LOADING = 'USER_FOLDER_PAGINATION_LOADING';
+export const USER_FOLDER_SONGS_PAGINATION_LOADING = 'USER_FOLDER_SONGS_PAGINATION_LOADING';
+export const USER_INVITE_STARTED = 'USER_INVITE_STARTED';
+export const USER_INVITE_FINISHED = 'USER_INVITE_FINISHED';
+export const USER_INVITE_SUCCESS = 'USER_INVITE_SUCCESS';
 
 export const usersFetched = createAction(USERS_FETCHED, (data) => data);
 export const userByIdFetched = createAction(USER_BY_ID_FETCHED, (data) => data);
 export const userStartLoading = createAction(USER_START_LOADING);
 export const userFinishLoading = createAction(USER_FINISH_LOADING);
+export const userStartChecking = createAction(USER_START_CHECKING);
+export const userFinishChecking = createAction(USER_FINISH_CHECKING);
 export const userSongsStartLoading = createAction(USER_SONGS_START_LOADING);
 export const userSongsFinishLoading = createAction(USER_SONGS_FINISH_LOADING);
 export const userSaveSuccess = createAction(USER_SAVE_SUCCESS);
@@ -49,7 +58,7 @@ export const userFollowError = createAction(USER_FOLLOW_ERROR);
 export const userSongsFetched = createAction(USER_SONGS_FETCHED, (data) => data);
 export const userSongsByFolderFetched = createAction(USER_SONGS_BY_FOLDER_FETCHED, (data) => data);
 export const userNotificationsStartLoading = createAction(USER_NOTIFICATIONS_START_LOADING);
-export const userFollowNotificationsStartLoading = createAction(USER_FOLLOW_NOTIFICATIONS_START_LOADING);
+export const userFollowNotificationsStartLoading = createAction(USER_FOLLOW_NOTIFICATIONS_START_LOADING, data => data);
 export const userNotificationsFetched = createAction(USER_NOTIFICATIONS_FETCHED, (data) => data);
 export const userNotificationsFollowersFetched = createAction(USER_NOTIFICATIONS_FOLLOWERS_FETCHED, (data) => data);
 export const userNotificationsFinishedLoading = createAction(USER_NOTIFICATIONS_FINISHED_LOADING);
@@ -69,6 +78,12 @@ export const userReportError = createAction(USER_REPORT_ERROR);
 export const userNotificationsSettingsFetched = createAction(USER_NOTIFICATIONS_SETTINGS_FETCHED, (data) => data);
 export const userNotificationsSettingsPatched = createAction(USER_NOTIFICATIONS_SETTINGS_PATCHED, (data) => data);
 export const userHiddenNotification = createAction(USER_HIDE_NOTIFICATION);
+export const userFolderPaginationLoading = createAction(USER_FOLDER_PAGINATION_LOADING);
+export const userFolderSongsPaginationLoading = createAction(USER_FOLDER_SONGS_PAGINATION_LOADING, data => data);
+export const userInviteStarted = createAction(USER_INVITE_STARTED);
+export const userInviteFinished = createAction(USER_INVITE_FINISHED);
+export const userInviteSuccess = createAction(USER_INVITE_SUCCESS, data => data);
+
 
 export const _fetchFollowersFollowing = (promise, action, actionStartLoading) => {
   return (dispatch) => {
@@ -86,6 +101,7 @@ export const _appendSongsData = ({folder, data, pagination}, songs) => {
   if(songs != null) {
     songs = {...songs};
     let folderRes = songs.data.find(f => f.id === folder.id);
+    folderRes.loading = false;
     folderRes.songs = {...folder.songs, data: Object.assign([], folderRes.songs.data)};
     folderRes.songs.data = folder.songs.data.concat(data);
     folderRes.songs.pagination = pagination;
@@ -95,3 +111,14 @@ export const _appendSongsData = ({folder, data, pagination}, songs) => {
   return {data, pagination}
 };
 
+
+export const _appendFoldersData = ({data, pagination}, folders) => {
+
+  if(pagination.current_page === 1){
+    return {data, pagination, loading: false};
+  }
+
+  folders.data =  folders.data.concat(data);
+  folders.pagination = pagination;
+  return {...folders, loading: false};
+};

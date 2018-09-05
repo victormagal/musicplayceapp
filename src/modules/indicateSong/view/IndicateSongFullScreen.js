@@ -1,8 +1,10 @@
 import React from 'react';
 import {StyleSheet, ScrollView, View, TextInput, FlatList} from 'react-native';
 import {connect} from 'react-redux';
-import {MPHeader, MPTextField, MPUser, MPSong, MPGradientButton, MPText, MPLoading} from '../../../components'
+import {MPHeader, MPTextField, MPUser, MPSong, MPGradientButton, MPText, MPLoading, MPIconButton} from '../../../components'
 import {searchUsers, fetchOneSong, indicateSong} from '../../../state/action';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { MPSearchRedIcon, MPCloseFilledRedIcon } from '../../../assets/svg';
 
 class IndicateSongFullScreenContainer extends React.Component {
 
@@ -12,32 +14,34 @@ class IndicateSongFullScreenContainer extends React.Component {
       textValue: '',
       songHeader: true,
       notFoundUser: false,
-      songIndicateSuccess: false,
       artists: [],
       indication: {
         song: {},
         artist: {},
-      }
+      },
     };
   }
 
-  componentDidMount(){
+  componentDidMount() {
     this.props.dispatch(searchUsers(''));
-    if(this.props.navigation.state && this.props.navigation.state.params){
+    if (this.props.navigation.state && this.props.navigation.state.params) {
       let {song} = this.props.navigation.state.params;
       this.setState({song: song});
     }
   }
 
-  componentWillReceiveProps(nextProps){
-    if(nextProps.users && nextProps.users.data.length > 0){
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.users && nextProps.users.data.length > 0) {
       this.setState({artists: nextProps.users.data, notFoundUser: false});
-    }else if(nextProps.users && nextProps.users.data.length == 0){
+    } else if (nextProps.users && nextProps.users.data.length == 0) {
       this.setState({notFoundUser: true});
     }
 
-    if(nextProps.songIndicateSuccess){
-      this.goToScreen('IndicateSongFeedbackScreen')
+    if (nextProps.songIndicateSuccess) {
+      let {indicationCount} = nextProps;
+      if(indicationCount){
+        this.goToScreen(indicationCount - 1);
+      }
     }
   }
 
@@ -52,14 +56,16 @@ class IndicateSongFullScreenContainer extends React.Component {
     this.props.dispatch(indicateSong(songId, artistId));
   }
 
-  goToScreen = () => {
+  goToScreen = (indicationCount) => {
     let artist = this.state.indication.artist;
     let song = this.state.indication.song;
-    this.props.navigation.navigate('IndicateSongFeedbackScreen', {artist, song});
+    if(song.id && artist.id){
+      this.props.navigation.navigate('IndicateSongFeedbackScreen', {artist, song, indicationCount});
+    }
   };
 
   renderItem = ({item}) => (
-    <MPUser user={item} onPress={this.handleSongIndicate.bind(this, [item, this.state.song])} style={{marginBottom: 10}}/>
+    <MPUser user={item} onPress={this.handleSongIndicate.bind(this, [item, this.state.song])}/>
   );
 
   toggleState = (att) => {
@@ -69,54 +75,72 @@ class IndicateSongFullScreenContainer extends React.Component {
   handleSearch = (value) => {
     this.setState({textValue: value});
 
-    if(value == ""){
+    if (value == "") {
       this.props.dispatch(searchUsers(''));
-      this.setState({notFoundUser: false});
+      this.setState({notFoundUser: false, songHeader: true});
     }
 
-    if(value.length > 3){
+    if (value.length > 3) {
       this.props.dispatch(searchUsers(value))
     }
   }
+
+  handleClearClick = () => {
+    this.handleSearch('');
+  };
 
   render() {
     return (
       <View style={styles.container}>
         <MPHeader back={true} onBack={this.handleBackClick}/>
-        <MPLoading visible={this.props.loading} />
-        <ScrollView>
-                <View>
-                  { this.state.songHeader && this.state.song && (
-                      <View>
-                        <MPText style={ styles.headerText}>Com quem <MPText style={ styles.headerTextCustom }>combina</MPText>?</MPText>
-                        <MPSong song={this.state.song}/>
-                        <MPText style={ styles.detailsText}>Sabe aquela história de que todo artista tem de ir aonde o povo está? Vamos mostrar sua criação para o mundo. Aproveite para convocar seus seguidores ou você mesmo pode achar uma banda perfeita para esse hit.</MPText>
-                      </View>
-                  )}
-                  <MPTextField label={'Encontre um artista'}
-                               value={this.state.textValue}
-                               style={{marginHorizontal: 20}}
-                               onFocus={this.toggleState.bind(this, 'songHeader')}
-                               onBlur={this.toggleState.bind(this, 'songHeader')}
-                               onChangeText={ this.handleSearch }/>
-                  {this.state.notFoundUser && (
-                        <View>
-                          <MPText style={ styles.textFieldSubText}><MPText style={ styles.textFieldSubTextEmph}>"{this.state.textValue}"</MPText>ainda não está no MusicPlayce.</MPText>
-                          <View style={styles.infoTextContainer}>
-                            <MPText style={styles.infoText}>Quando <MPText style={styles.infoTextEmph}>{this.state.textValue}</MPText>fizer o cadastro, vamos mostrar sua indicação!</MPText>
-                            <MPGradientButton title={'Indicar'} textSize={16} style={{marginHorizontal: 113, marginTop: 10}} onPress={()=> {}} />
-                          </View>
-                        </View>
-                  )}
-                  <View>
-                    <FlatList data = {this.state.artists}
-                              keyExtractor={(item,index) => item.id}
-                              renderItem={this.renderItem}
-                              numColumns={3}
-                              columnWrapperStyle={{marginTop: 20,flexWrap: 'wrap', justifyContent: 'center'}}/>
-                  </View>
+        <MPLoading visible={this.props.loading}/>
+        <KeyboardAwareScrollView>
+          <View>
+            { this.state.songHeader && this.state.song && (
+              <View>
+                <MPText style={ styles.headerText}>Com quem <MPText style={ styles.headerTextCustom }>combina</MPText>?</MPText>
+                <MPSong song={this.state.song}/>
+                <MPText style={ styles.detailsText}>Sabe aquela história de que todo artista tem de ir aonde o povo está? Vamos mostrar sua criação para o mundo. Aproveite para convocar seus seguidores ou você mesmo pode achar uma banda perfeita para esse hit.</MPText>
+              </View>
+            )}
+            <View style={{margin: 20}}>
+              <MPTextField label={'Encontre um artista'}
+                value={this.state.textValue}
+                onFocus={this.toggleState.bind(this, 'songHeader')}
+                onChangeText={ this.handleSearch }/>
+              { this.state.textValue.length < 3 ?
+                <MPSearchRedIcon style={styles.searchIcon}/>
+                :
+                <MPIconButton
+                  style={styles.searchIcon}
+                  icon={MPCloseFilledRedIcon}
+                  onPress={this.handleClearClick}
+                />
+              }
+            </View>
+            {this.state.notFoundUser && (
+              <View>
+                <MPText style={ styles.textFieldSubText}><MPText style={ styles.textFieldSubTextEmph}>"{this.state.textValue} "</MPText> ainda não está no MusicPlayce.</MPText>
+                <View style={styles.infoTextContainer}>
+                  <MPText style={styles.infoText}>Quando <MPText
+                    style={styles.infoTextEmph}>{this.state.textValue} </MPText>fizer o cadastro, vamos mostrar sua indicação!</MPText>
+                  <MPGradientButton title='Indicar' textSize={16} style={styles.indicateButton}
+                                    onPress={()=> {}}/>
                 </View>
-        </ScrollView>
+              </View>
+            )}
+            <View>
+              {this.state.notFoundUser && <MPText style={styles.artistsTitle}>Artistas e bandas em alta</MPText>}
+              <FlatList
+                style={{marginHorizontal: 10}}
+                data={this.state.artists}
+                keyExtractor={(item,index) => item.id}
+                renderItem={this.renderItem}
+                numColumns={3}
+                columnWrapperStyle={{justifyContent: 'space-around'}}/>
+            </View>
+          </View>
+        </KeyboardAwareScrollView>
       </View>
     );
   }
@@ -174,6 +198,24 @@ const styles = StyleSheet.create({
   infoTextEmph: {
     fontFamily: 'Montserrat-Bold'
   },
+  artistsTitle: {
+    fontFamily: 'Montserrat-Medium',
+    fontSize: 16,
+    color: '#000',
+    fontWeight: '500',
+    marginLeft: 20,
+    marginTop: 30
+  },
+  searchIcon: {
+    position: 'absolute',
+    right: 0,
+    bottom: 15
+  },
+  indicateButton: {
+    marginTop: 10,
+    justifyContent: 'center',
+    alignSelf: 'center'
+  }
 });
 
 const mapStateToProps = ({userReducer, songsReducer}) => {

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, View, FlatList} from 'react-native';
+import {StyleSheet, View, FlatList, ActivityIndicator} from 'react-native';
 import {MPSongRating, MPText, MPUpgradeButton} from '../../components'
 import {MPGradientBorderButton} from './MPGradientBorderButton';
 
@@ -12,6 +12,18 @@ class MPShowFolderSongs extends Component {
 
   handleSongPagination = (folder) => {
     this.props.onSongPagination(folder);
+  };
+
+  renderFooter = () => {
+    let {folder} = this.props;
+    if(folder.loading) {
+      return (
+        <View style={styles.containerLoading}>
+          <ActivityIndicator size="large" color="#BB1A1A" style={styles.loading}/>
+        </View>
+      );
+    }
+    return null;
   };
 
   renderSongs = ({item}) => {
@@ -57,6 +69,7 @@ class MPShowFolderSongs extends Component {
             keyExtractor={(item) => item.id}
             renderItem={this.renderSongs}
             horizontal={true}
+            ListFooterComponent={this.renderFooter}
             onEndReached={this.handleSongPagination.bind(this, folder)}
             onEndReachedThreshold={0.1}
           />
@@ -71,7 +84,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FCFCFC',
     paddingVertical: 30,
     paddingHorizontal: 20,
-    height: 290,
+    height: 295,
     borderBottomWidth: 1,
     borderColor: '#fff',
   },
@@ -92,6 +105,14 @@ const styles = StyleSheet.create({
   sliderContainer: {
     paddingTop: 10,
     flex: 1,
+  },
+  containerLoading: {
+    width: 100,
+    paddingVertical: 100,
+    justifyContent: 'center'
+  },
+  loading: {
+    alignSelf:'center'
   }
 });
 

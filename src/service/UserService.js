@@ -36,7 +36,8 @@ class UserService {
       type: `images/${ file.fileName.split('.')[1] }`
     });
 
-    return axios.post(`${ API_USER }/me/picture`, formData, {
+    const endpointUrl = `${ API_USER }/me/picture`;
+    return axios.post(endpointUrl, formData, {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'multipart/form-data'
@@ -90,6 +91,13 @@ class UserService {
           pagination: meta.pagination
         };
       });
+  }
+
+  static checkUsernameOrEmail({ field, value }) {
+    const endpointUrl = field === 'email' ? `${ API_USER }/check-email` : `${ API_USER }/check-username`;
+    return axios.post(endpointUrl, {
+      [field]: value
+    }).then(response => response.data);
   }
 
   //TODO: refactor
@@ -173,6 +181,15 @@ class UserService {
       }
     };
     return axios.post(`${API}/reports`, params).then(response => {
+      return response;
+    });
+  }
+
+  static inviteUser(user){
+    let params = {
+      email: user.email
+    };
+    return axios.post(`${API}/invite/${user.id}`, params).then(response => {
       return response;
     });
   }

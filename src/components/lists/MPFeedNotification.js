@@ -13,9 +13,7 @@ class MPFeedNotification extends React.Component {
     let notificationType = notification.type.split("\\")[notification.type.split("\\").length - 1];
     let types = ['AlertFollowingMeIndicationNotification',
       'AlertFollowersMeNotification',
-      // 'AlertIndicationMeNotification',
-      // 'AlertFollowingMeNotification',
-      // 'AlertIndicationYourSongNotification' 
+      'AlertCommentNotification',
     ];
 
     let image = require('../../assets/img/avatar-male.jpg');
@@ -28,6 +26,8 @@ class MPFeedNotification extends React.Component {
     }else if(notificationType == types[1]){
       imageFirst = typeof notification.data.userFollower.picture_url === 'string' ? {uri : notification.data.userFollower.picture_url} : image;
       imageSecond = typeof notification.data.artists.picture_url === 'string' ? {uri : notification.data.artists.picture_url} : image;
+    }else if (notificationType == types[2]){
+      imageFirst = typeof notification.data.users.picture_url === 'string' ? {uri : notification.data.users.picture_url} : image;
     }
     // console.log(notification, imageFirst, imageSecond)
     return (
@@ -49,6 +49,13 @@ class MPFeedNotification extends React.Component {
           )
         }
         {
+          notificationType == types[2] && (
+            <View style={{width: 30, height: 30, marginEnd: 10}}>
+              <Image source={imageFirst} style={{width: 30, height: 30, borderRadius: 15}} />
+            </View>   
+          )
+        }
+        {
           notificationType == types[0] && (
             <MPText style={styles.notificationText} onPress={handleSongNavigate.bind(this,notification.data.song)}>
               <MPText style={styles.notificationTextEmpth}>{notification.data.song.name}</MPText> de
@@ -62,6 +69,14 @@ class MPFeedNotification extends React.Component {
             <MPText style={styles.notificationText} onPress={handleNavigateUserProfile.bind(this, notification.data.artists.id)}>
               <MPText style={styles.notificationTextEmpth}>{notification.data.userFollower.name}</MPText> começou a seguir   
               <MPText style={styles.notificationTextEmpth}> {notification.data.artists.name}</MPText>
+            </MPText>
+          )
+        } 
+        { 
+          notificationType == types[2] && (
+            <MPText style={styles.notificationText} onPress={handleNavigateUserProfile.bind(this, notification.data.users.id)}>
+              <MPText style={styles.notificationTextEmpth}>{notification.data.users.name} </MPText>comentou em
+              <MPText style={styles.notificationTextEmpth}> {notification.data.songs.name}</MPText>
             </MPText>
           )
         } 

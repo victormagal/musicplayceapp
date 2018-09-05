@@ -5,7 +5,7 @@ import {MPFloatingNotification} from '../../../../components';
 import {PlayerComponent} from './PlayerComponent';
 import {
   songStop, songPlay, songPause, songResume, songSeekTo,
-  fetchOneSong, getUsersSongs, likeSongComment, unFavoriteSong
+  fetchOneSong, getUsersSongs, likeSongComment, unFavoriteSong, getUsersSongsPagination
 } from '../../../../state/action';
 import {songNotificationRemove} from '../../../../state/songs/songsType';
 import {MPHeartRedIcon} from '../../../../assets/svg';
@@ -95,6 +95,14 @@ class PlayerContainer extends React.Component {
     this.props.dispatch(unFavoriteSong(song));
   };
 
+  handleSongPagination = (list, listIndex, user) => {
+    let {current_page, total_pages} = list.pagination;
+
+    if(user && current_page < total_pages && !list.loading) {
+      this.props.dispatch(getUsersSongsPagination(user, current_page + 1, listIndex));
+    }
+  };
+
   render() {
     return (
       <View style={styles.container}>
@@ -107,7 +115,8 @@ class PlayerContainer extends React.Component {
           onSongResume={this.handleSongResume}
           onSongPlay={this.handleSongPlay}
           onSongSliderChange={this.handleSongSliderChange}
-          onLikeComment={this.handleLikeComment}/>
+          onLikeComment={this.handleLikeComment}
+          onSongPagination={this.handleSongPagination}/>
 
         <MPFloatingNotification visible={this.props.songFavoriteSuccess}
                                 text={"Salvo em " + (this.props.song && this.props.song.folder) }

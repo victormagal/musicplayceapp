@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   View, StyleSheet, ScrollView, TouchableOpacity,
-  ActivityIndicator, ImageBackground, Dimensions
+  ActivityIndicator, ImageBackground, Dimensions, FlatList
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import PropTypes from 'prop-types';
@@ -29,21 +29,13 @@ class ProfileComponent extends React.Component {
     this.state = {
       tabIndex: 0,
       linearGradientHeight: 0,
-      favoritesFolder: [],
       isFollowing: false,
-      imageSizeError: false
+      imageSizeError: false,
+      addSongButtonRed: true
     };
   }
 
   componentWillReceiveProps(nextProps){
-    if(nextProps.favoritesFolder){
-      this.setState({favoritesFolder: nextProps.favoritesFolder});
-    }
-
-    if(nextProps.mySongs){
-      this.setState({userFolders: nextProps.mySongs.data});
-    }
-
     if (this.props.profile !== nextProps.profile) {
       this.props.onStopLoading()
     }
@@ -69,8 +61,8 @@ class ProfileComponent extends React.Component {
     }
   };
 
-  handleEditFolder = (folderId) => {
-    this.goToScreen('EditFolder', {folderId})
+  handleEditFolder = (folder) => {
+    this.goToScreen('EditFolder', {folder})
   };
 
   handleEditSong = (song) => {
@@ -103,8 +95,8 @@ class ProfileComponent extends React.Component {
   };
 
   reportProfile = () => {
-    let profile = this.props.profile;
-    this.goToScreen('message', { component: MPConfirmReportProfile, profile })
+    let {user} = this.props;
+    this.goToScreen('message', { component: MPConfirmReportProfile, user })
   };
 
   handleClickPhoto = () => {
@@ -141,6 +133,48 @@ class ProfileComponent extends React.Component {
     this.setState({ tabIndex });
   };
 
+  handleScrollChange = (e) => {
+    console.log( e.nativeEvent.contentOffset);
+    this.setState({
+      addSongButtonRed: e.nativeEvent.contentOffset.y <= 10
+    });
+  };
+
+  renderListLoadingFooter = (loading) => {
+    if(loading) {
+      return (
+        <View style={styles.listFooterLoading}>
+          <ActivityIndicator size="large" color="#BB1A1A" style={styles.listLoading}/>
+        </View>
+      );
+    }
+    return null;
+  };
+
+  renderFolder = (item) => {
+    const { me, songDraft} = this.props;
+    const onSongPagination = this.state.tabIndex === 1 ? this.props.onFavoriteSongPagination : this.props.onSongPagination;
+
+    return (
+      <MPShowFolderSongs
+        {...this.props}
+        edit={me && item.editable}
+        key={item.id}
+        folder={item}
+        me={me}
+        hideSettings={!me || this.state.tabIndex === 1}
+        songs={item.songs.data}
+        onSongPagination={onSongPagination}
+        onEditClick={this.handleEditSong}
+        onEditFolder={this.handleEditFolder.bind(this, item)}
+        onRemoveClick={this.handleRemoveSong}
+        onUnpublishClick={this.handleUnpublishSong}
+        onPlayClick={this.handlePlaySong}
+        songDraft={me && songDraft}
+      />
+    )
+  };
+
   renderHeaderMenuRight() {
     return [
       <MPIconButton
@@ -168,14 +202,17 @@ class ProfileComponent extends React.Component {
     return (
       <View style={{ flex: 1 }}>
         {this.renderHeader(me)}
-        <ScrollView style={{ flex: 1 }} ref={this.scrollViewRef}>
+        <ScrollView
+          style={{ flex: 1 }}
+          ref={this.scrollViewRef}
+          onScroll={this.handleScrollChange}>
           { this.renderContent(profile) }
           {
             me && <MPLoading visible={this.props.imageLoading} />
           }
         </ScrollView>
         { (profile && me) &&
-          <MPAddSongButton isColored={true} onPress={this.props.onSongAddClick} />
+          <MPAddSongButton isColored={!this.state.addSongButtonRed} onPress={this.props.onSongAddClick} />
         }
         <MPFloatingNotification
           visible={this.state.imageSizeError}
@@ -295,8 +332,8 @@ class ProfileComponent extends React.Component {
             onEmptyClick={this.props.onFollowersEmptyClick}
           />
         </View>
-        { profile.languages &&
-          <MPShowLanguages languages={profile.languages} />
+        { profile.language_songs &&
+          <MPShowLanguages languages={profile.language_songs} />
         }
         { profile.agencies && (
           <MPShowAgencies agencies={profile.agencies} isUser={profile.isUser}/>
@@ -333,81 +370,53 @@ class ProfileComponent extends React.Component {
   }
 
   renderTabsContent(profile, tabIndex) {
-    const { me, mySongs, songDraft, songsLoading } = this.props;
-    switch (tabIndex) {
-      case 0:
-        return (
-          <View>
-            {songsLoading && (
-              <View style={{ backgroundColor: '#FFF' }}>
-                <View style={[styles.contentLoading, {paddingVertical: 40}]}>
-                  <ActivityIndicator size='large' color='#BB1A1A' />
-                  <MPText style={styles.textLoading}>
-                    Carregando...
-                  </MPText>
-                </View>
-              </View>
-            )}
+    const { me, mySongs, myFavoriteSongs, songDraft, songsLoading } = this.props;
 
-            {!songsLoading && this.state.userFolders && this.state.userFolders.length > 0 ?
-            this.state.userFolders.map(userFolder => (
-              <MPShowFolderSongs
-                  {...this.props}
-                  edit={me && userFolder.editable}
-                  key={userFolder.id}
-                  folder={userFolder}
-                  me={me}
-                  songs={userFolder.songs.data}
-                  onSongPagination={this.props.onSongPagination}
-                  onEditClick={this.handleEditSong}
-                  onEditFolder={this.handleEditFolder.bind(this, userFolder.id)}
-                  onRemoveClick={this.handleRemoveSong}
-                  onUnpublishClick={this.handleUnpublishSong}
-                  onPlayClick={this.handlePlaySong}
-                  songDraft={me && songDraft}
-                />
-            ))
-              :
-              <View>
-                { (me && (!mySongs || mySongs.data.length === 0)) &&
-                  <MPUploadFirstSong onPress={this.props.onSongAddClick} />
-                }
-              </View>
-            }
-          </View>
-        )
-      case 1:
-        return (
-          <View style={{ backgroundColor: '#FFF' }}>
-            {this.state.favoritesFolder  && this.state.favoritesFolder.length > 0 ?
-            this.state.favoritesFolder.map(favoriteFolder => (
-              <MPShowFolderSongs
-                {...this.props}
-                key={favoriteFolder.id}
-                folder={favoriteFolder}
-                edit={me && favoriteFolder.editable}
-                me={me}
-                hideSettings={true}
-                songs={favoriteFolder.songs.data}
-                onSongPagination={this.props.onFavoriteSongPagination}
-                onEditClick={this.handleEditSong}
-                onEditFolder={this.handleEditFolder.bind(this, favoriteFolder.id)}
-                onIndicateClick={this.handleIndicateSong}
-                onRemoveClick={this.handleRemoveSong}
-                onUnpublishClick={this.handleUnpublishSong}
-                onPlayClick={this.handlePlaySong}
-              />
-            )):
-              <View style={styles.noSongsSaved}>
-                <MPGroupIcon style={{ width: 50, height: 50 }}/>
-                <MPText style={styles.noContent}>
-                  Você não salvou {'\n'} nenhuma música ainda.
+    if(tabIndex === 0) {
+      return (
+        <View>
+          {songsLoading && (
+            <View style={{ backgroundColor: '#FFF' }}>
+              <View style={[styles.contentLoading, {paddingVertical: 40}]}>
+                <ActivityIndicator size='large' color='#BB1A1A'/>
+                <MPText style={styles.textLoading}>
+                  Carregando...
                 </MPText>
               </View>
-            }
-          </View>
-        )
+            </View>
+          )}
+
+          {!songsLoading && mySongs && mySongs.data.length > 0 ?
+            <View style={styles.songsScroll}>
+              {mySongs.data.map(folder => this.renderFolder(folder))}
+            </View>
+            :
+            <View>
+              { (me && (!mySongs || mySongs.data.length === 0)) &&
+              <MPUploadFirstSong onPress={this.props.onSongAddClick}/>
+              }
+            </View>
+          }
+        </View>
+      );
     }
+
+    return (
+      <View style={{ backgroundColor: '#FFF' }}>
+        {myFavoriteSongs && myFavoriteSongs.data.length > 0 ?
+          <View style={styles.songsScroll}>
+            {myFavoriteSongs.data.map(folder => this.renderFolder(folder))}
+          </View>
+          :
+          <View style={styles.noSongsSaved}>
+            <MPGroupIcon style={{ width: 50, height: 50 }}/>
+            <MPText style={styles.noContent}>
+              Você não salvou {'\n'} nenhuma música ainda.
+            </MPText>
+          </View>
+        }
+      </View>
+    );
   }
 }
 
@@ -472,7 +481,20 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textAlign: 'center',
     fontFamily: 'Montserrat-Regular'
-  }
+  },
+  songsScroll: {
+    backgroundColor: '#fff',
+    paddingBottom: 16
+  },
+  listFooterLoading: {
+    width: '100%',
+    paddingVertical: 20,
+    justifyContent: 'center',
+    backgroundColor: '#FCFCFC'
+  },
+  listLoading: {
+    alignSelf:'center'
+  },
 });
 
 export {ProfileComponent};

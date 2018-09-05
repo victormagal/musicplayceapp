@@ -6,7 +6,7 @@ import {
   MPGradientButton, MPHeader, MPSongInfo, MPText, MPLoading, MPFloatingNotification
 } from '../../../components'
 import {MPSongUploadIcon, MPSongUploadEditIcon, MPCameraIcon, MPAlertIcon} from '../../../assets/svg';
-import {createPermanentSong, updatePermanentSong, fetchOneSong, fetchProfile} from "../../../state/action";
+import {createPermanentSong, updatePermanentSong, fetchOneSong} from "../../../state/action";
 import {updateSongRegisterData} from "../../../state/songs/songsType";
 import ImagePicker from "react-native-image-picker";
 
@@ -70,10 +70,7 @@ class RegisterSongContainer extends React.Component {
     this.setState({progressContentWidth: `${Math.ceil(width)}%`});
 
     if (nextProps.songPublishSuccess) {
-      if (nextProps.songPublishSuccess) {
-        this.goToScreen('ConfirmationScreen');
-      }
-      this.props.dispatch(fetchProfile());
+      this.props.navigation.navigate('ConfirmationScreen', {song: nextProps.fetchedSong});
     }
 
     if (nextProps.fetchedSong && this.state.shouldFetchSong) {
@@ -366,19 +363,26 @@ class RegisterSongContainer extends React.Component {
                 <MPSongInfo
                   title={'Tem intérpretes?'}
                   style={styles.songItem}
-                  selected={!!song.interpreter_name}
-                  info={song.interpreter_name}
+                  selected={song.interpreter_name && song.interpreter_name.length > 0}
+                  info={this.getFilledString('interpreter_name')}
                   placeholder={'*Opcional'}
                   onPress={() => this.goToScreen('InterpreterScreen')}
                 />
-              </View>
-              <View style={ styles.horizontalFolder }>
                 <MPSongInfo
+                  style={styles.songItem}
                   title={(song.folder && 'Pasta') || 'Organize suas músicas em pastas'}
                   placeholder={'*Opcional'}
                   selected={song.folder && typeof song.folder.name !== 'undefined'}
                   info={(song.folder && song.folder.name) || '' }
                   onPress={() => this.goToScreen('FolderScreen')}
+                />
+                <MPSongInfo
+                  style={styles.songItem}
+                  title={'Nº ISRC'}
+                  info={song.isrc_number}
+                  selected={!!song.isrc_number}
+                  placeholder={'*Opcional'}
+                  onPress={() => this.goToScreen('ISRCScreen')}
                 />
               </View>
               <MPGradientButton
@@ -492,6 +496,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#e13223'
   },
   publishButton: {
+    marginTop: 10,
     marginBottom: 20,
     marginHorizontal: 20
   },

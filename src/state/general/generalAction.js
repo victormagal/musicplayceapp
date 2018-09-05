@@ -25,11 +25,12 @@ export const fetchedCityBrazil = createAction(FETCHED_CITY_BRAZIL, data => data)
 export const fetchedStateBrazil = createAction(FETCHED_STATE_BRAZIL, data => data);
 export const generalRemoveNotification = createAction(REMOVE_NOTIFICATION);
 
-export const fetchCityBrazil = (state) => {
+export const fetchCityBrazil = (state, city) => {
   return (dispatch) => {
     dispatch(generalStartLoading());
-    return GeneralService.fetchCityBrazil(state).then(response => {
-      dispatch(fetchedCityBrazil(response));
+    return GeneralService.fetchCityBrazil(state, city).then(response => {
+      dispatch(fetchedCityBrazil(response.data));
+      return response;
     }).catch(() => {
       dispatch(generalFinishLoading());
     })
@@ -54,4 +55,12 @@ export const scheduleRemoveNotifications = () => {
       clearTimeout(timer);
     }, 3000);
   }
+};
+
+/**
+ * dispatch action error and schedule task to remove notification
+ */
+export const dispatchAndScheduleRemoveNotifications = (dispatch, action, ...params) => {
+  dispatch(action(...params));
+  dispatch(scheduleRemoveNotifications());
 };

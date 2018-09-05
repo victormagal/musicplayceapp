@@ -9,6 +9,7 @@ import {
   MPText,
   MPGradientButton
 } from '../../components';
+import { MPNotFillledSettingsIcon } from '../../assets/svg';
 
 class MPPasswordComponent extends React.Component {
 
@@ -40,6 +41,7 @@ class MPPasswordComponent extends React.Component {
         />
         <MPGradientButton
           style={styles.button}
+          icon={MPNotFillledSettingsIcon}
           textSize={16}
           title="Voltar para configurações"
           onPress={this.handleBack}

@@ -1,27 +1,45 @@
 import React from 'react';
 import {StyleSheet, ScrollView, View, FlatList} from 'react-native';
 import {MPGradientButton, MPHeader, MPUser, MPText} from '../../../components';
-import {searchUsers} from '../../../state/action';
+import {indicateSong} from '../../../state/action';
 import {connect} from 'react-redux';
 
 
 class ConfirmationScreenContainer extends React.Component {
 
+  state = {
+    song: null,
+    artist: null,
+    indicationCount: 0
+  };
+
+  componentWillReceiveProps(nextProps){
+    if(nextProps.songIndicateSuccess){
+      this.props.navigation.navigate('IndicateSongFeedbackScreen', {...this.state, registerSong: true});
+    }
+  }
+
   handleClose = () => {
     this.props.navigation.navigate('MyProfileScreen', { backFromPublishedOrDraft: true });
   };
 
+  handleIndicate = (user) => {
+    let {song} = this.props.navigation.state.params;
+    this.setState({song, artist: user, indicationCount: song.indications_count});
+    this.props.dispatch(indicateSong(song.id, user.id));
+  };
+
   renderItem = ({item}) => {
-    return <MPUser user={item}/>;
+    return <MPUser user={item} onPress={this.handleIndicate.bind(this, item)}/>;
   };
 
   render() {
-    console.log(this.props)
+    const { feed } = this.props;
     return (
       <View style={styles.container}>
         <MPHeader back={false} inverse={true}/>
         <ScrollView style={styles.scroll}>
-          <View>
+          <View style={{ marginHorizontal: 30 }}>
             <MPText style={styles.titleText}>
               Pronto! Tudo certo.
             </MPText>
@@ -29,13 +47,12 @@ class ConfirmationScreenContainer extends React.Component {
               Que tal indicar sua música pra uma banda que você goste?
             </MPText>
             {
-              this.props.users.data && this.props.users.data.length > 0 && (
+              feed && feed.artists.length > 0 && (
                 <FlatList
-                  data={this.props.users.data.slice(0,3)}
+                  data={feed.artists.slice(0,3)}
                   keyExtractor={(item) => item.id}
                   renderItem={this.renderItem}
                   numColumns={3}
-                  columnWrapperStyle={{flexWrap: 'wrap', justifyContent: 'center'}}
                 />
               )
             }
@@ -50,7 +67,7 @@ class ConfirmationScreenContainer extends React.Component {
                 textSize={16}
                 title={"Fechar"}
                 onPress={this.handleClose}
-                style={ styles.confirmationButtonBottom }
+                style={{ width: '45%' }}
               />
             </View>
           </View>
@@ -85,28 +102,23 @@ const styles = StyleSheet.create({
     alignContent: 'center',
     color: '#000',
     marginBottom: 20,
-    marginHorizontal: 40,
     fontFamily: 'Montserrat-Regular'
   },
   confirmationButtonsContainer: {
     flex: 1,
+    alignItems: 'center',
     flexDirection: 'column',
     alignContent: 'stretch',
-    marginTop: 30,
-    marginStart: 40,
-    marginEnd: 40
+    marginTop: 30
   },
   confirmationButtonTop: {
+    width: '100%',
     marginBottom: 20
-  },
-  confirmationButtonBottom: {
-    marginStart: 73,
-    marginEnd: 73
   }
 });
 
-const mapStateToProps = ({userReducer}) => {
-  return {...userReducer};
+const mapStateToProps = ({feedsReducer, songsReducer}) => {
+  return {...feedsReducer, songIndicateSuccess: songsReducer.songIndicateSuccess};
 };
 
 const ConfirmationScreen = connect(mapStateToProps)(ConfirmationScreenContainer);

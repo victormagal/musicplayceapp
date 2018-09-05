@@ -13,6 +13,7 @@ import { MPRegisterPayment } from './MPRegisterPayment';
 import { MPCheckBox } from '../forms';
 import { MPGradientBorderButton } from '../profile';
 import { MPConfirmRemovePayment } from './MPConfirmRemovePayment';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 class MPChangeRemovePaymentComponent extends React.Component {
 
@@ -21,13 +22,13 @@ class MPChangeRemovePaymentComponent extends React.Component {
   }
   
   render() {
-    let {onRemovePayment} = this.props;
+    let {card, onRemovePayment} = this.props;
     return (
-        <View style={styles.container}>
-            <MPRegisterPayment />
+        <KeyboardAwareScrollView style={styles.container}>
+            <MPRegisterPayment card={card} />
             <MPCheckBox style={{paddingHorizontal: 40, marginTop: 30}} title={'Esta é minha forma de pagamento preferida.'}/>
             <MPGradientBorderButton title={'REMOVER CARTÃO'} style={{alignSelf: 'center', marginTop: 174}} onPress={this.removePayment.bind(this)}/>
-        </View>
+        </KeyboardAwareScrollView>
     );
   }
 

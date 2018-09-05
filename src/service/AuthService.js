@@ -37,7 +37,9 @@ class AuthService {
     let params = {
       data: {
         type: "recoverPassword",
-        attributes: user
+        attributes: {
+          email: user
+        }
       }
     };
 

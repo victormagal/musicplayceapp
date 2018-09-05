@@ -74,7 +74,11 @@ class SongService {
     };
 
     return axios.put(`${API_SONG}/${song.id}`, data)
-      .then(response => response.data);
+      .then(response => {
+        let {data} = response.data;
+        let {id, attributes} = data;
+        return {id, ...attributes};
+      });
   }
 
   static delete(id) {
@@ -138,8 +142,16 @@ class SongService {
     });
   }
 
-  static songsByUserWithoutFolders(user) {
-    return axios.get(`${API}/song-artist/${user.id}`)
+  static songsByUserWithoutFolders(user, page) {
+    let params = {
+      'page[size]': 6
+    };
+
+    if (page) {
+      params['page[number]'] = page;
+    }
+
+    return axios.get(`${API}/song-artist/${user.id}`, {params})
       .then(response => {
         let {data, meta} = response.data;
         data = transformResponseData(data);
@@ -147,13 +159,19 @@ class SongService {
       });
   }
 
-  static mySongs(id, page, me) {
+  static getLanguages(){
+    return axios.get(`${API}/languages`).then(response => {
+      return response.data;
+    })
+  }
+
+  static mySongs(id, page, me, size = 10) {
     let folder = {id: -1, name: 'Outras', songs: {}};
 
     if (!page || page <= 1) {
       let defaultPromise = me ? SongService.mySongsWithoutFolder(page) : SongService.userSongsWithoutFolder(id);
       return defaultPromise.then(response => {
-        return SongService._userSongsFolders(id, page).then(folders => {
+        return SongService._userSongsFolders(id, page, size).then(folders => {
           if (response.data.length > 0) {
             folder.songs = response;
             folders.data.unshift(folder);
@@ -166,8 +184,8 @@ class SongService {
     return SongService._userSongsFolders(id, page);
   }
 
-  static mySongsFavorites(page){
-    return FolderService.getFavoriteSongsFolders(page, 30).then(response => {
+  static mySongsFavorites(page, size = 10){
+    return FolderService.getFavoriteSongsFolders(page, size).then(response => {
       let data = response.data.filter(f => f.song_count > 0);
       return Promise.all(SongService._mapFolders(data)).then(songs => {
         data = data.map((folder, index) => {
@@ -183,7 +201,9 @@ class SongService {
 
   static songsByFolder(folder, page) {
     let params = {
-      'page[size]': 10
+      'page[size]': 10,
+      'queryTable': 'folders',
+      'sort': JSON.stringify({'created_at': 'desc'})
     };
 
     if (page) {
@@ -197,36 +217,35 @@ class SongService {
     });
   }
 
-  static mySongsWithoutFolder(page) {
+  static _songsWithoutFolder(page, id){
+    let url = `${API_SONG}/folder-less/me`;
     let params = {
-      'page[size]': 10
+      'page[size]': 10,
+      'queryTable': 'songs',
+      'sort': JSON.stringify({'created_at': 'desc'})
     };
+
+    if(id){
+      url = `${API_SONG}/folder-less/${id}`;
+    }
 
     if (page) {
       params['page[number]'] = page;
     }
 
-    return axios.get(`${API_SONG}/folder-less/me`, {params}).then((response) => {
+    return axios.get(url, {params}).then((response) => {
       let {data, meta} = response.data;
       data = transformResponseData(data);
       return {data, pagination: meta.pagination};
     });
   }
 
+  static mySongsWithoutFolder(page) {
+    return SongService._songsWithoutFolder(page);
+  }
+
   static userSongsWithoutFolder(id, page) {
-    let params = {
-      'page[size]': 10
-    };
-
-    if (page) {
-      params['page[number]'] = page;
-    }
-
-    return axios.get(`${API_SONG}/folder-less/${id}`, {params}).then((response) => {
-      let {data, meta} = response.data;
-      data = transformResponseData(data);
-      return {data, pagination: meta.pagination};
-    });
+    return SongService._songsWithoutFolder(page, id);
   }
 
   static sendSongFile(file, song) {
@@ -311,9 +330,13 @@ class SongService {
         if (fileResponse) {
           song.path = fileResponse.path;
         }
-        return SongService.sendLyricsFile(lyricsFile, response).then(() => {
-          return SongService.update(response).then(() => {
-            return SongService.publish(song.id);
+        return SongService.sendLyricsFile(lyricsFile, response).then((lryicsSong) => {
+          if(lryicsSong) {
+            response.lyrics = lryicsSong.lyrics;
+          }
+
+          return SongService.update(response).then((updatedSong) => {
+            return SongService.publish(song.id).then(_ => updatedSong);;
           });
         });
       });
@@ -365,8 +388,8 @@ class SongService {
     return data.map(folder => SongService.songsByFolder(folder.id));
   }
 
-  static _userSongsFolders(id, page) {
-    return FolderService.getUserSongsFolders(id, page, 30).then(response => {
+  static _userSongsFolders(id, page, size) {
+    return FolderService.getUserSongsFolders(id, page, size).then(response => {
       let data = response.data.filter(f => f.song_count > 0);
 
       return Promise.all(SongService._mapFolders(data)).then(songs => {

@@ -1,6 +1,5 @@
 import {SongService} from '../../service';
 import {
-  fetchedUserSongs,
   fetchedSong,
   songDraftError,
   songDraftSuccess,
@@ -22,9 +21,25 @@ import {
   songUnfavoriteError,
   commentSongError,
   commentSongSuccess,
-  commentStartLoading
+  commentStartLoading,
+  getLanguagesFetched
 } from "./songsType";
 import { profileSongFavoritedSuccess, profileSongUnfavoriteSuccess } from '../profile/profileAction';
+import { dispatchAndScheduleRemoveNotifications  } from '../general/generalAction';
+
+
+export const getLanguages = () => {
+  return (dispatch) => {
+
+    dispatch(songStartLoading());
+    return SongService.getLanguages().then((response) => {
+      dispatch(getLanguagesFetched(response.data));
+    }).catch(e => {
+      dispatch(songFinishLoading());
+      console.log('getLanguagesError', e);
+    });
+  };
+};
 
 export const createPermanentSong = (song) => {
   return (dispatch, getState) => {
@@ -32,8 +47,8 @@ export const createPermanentSong = (song) => {
     song.artist_id = profile.id;
 
     dispatch(songStartLoading());
-    return SongService.createSong(song, true).then(() => {
-      dispatch(songPublishSuccess());
+    return SongService.createSong(song, true).then((response) => {
+      dispatchAndScheduleRemoveNotifications(dispatch, songPublishSuccess, response);
     }).catch(e => {
       dispatch(songPublishError());
       console.log('createPermanentSongError', e);
@@ -48,9 +63,9 @@ export const createDraftSong = (song) => {
 
     dispatch(songStartLoading());
     return SongService.createSong(song).then(() => {
-      dispatch(songDraftSuccess());
+      dispatchAndScheduleRemoveNotifications(dispatch, songDraftSuccess);
     }).catch(e => {
-      dispatch(songDraftError());
+      dispatchAndScheduleRemoveNotifications(dispatch, songDraftError);
       console.log('createDraftSongError', e.response);
     });
   };
@@ -60,11 +75,11 @@ export const updatePermanentSong = (song) => {
   return (dispatch) => {
     dispatch(songStartLoading());
 
-    return SongService.updateSong(song, true).then(() => {
-      dispatch(songPublishSuccess());
+    return SongService.updateSong(song, true).then((response) => {
+      dispatchAndScheduleRemoveNotifications(dispatch, songPublishSuccess, response);
     }).catch(e => {
       console.log('updatePermanentSongError', e);
-      dispatch(songPublishError())
+      dispatchAndScheduleRemoveNotifications(dispatch, songPublishError);
     });
   };
 };
@@ -73,9 +88,9 @@ export const updateDraftSong = (song) => {
   return (dispatch) => {
     dispatch(songStartLoading());
     return SongService.updateSong(song).then(() => {
-      dispatch(songDraftSuccess());
+      dispatchAndScheduleRemoveNotifications(dispatch, songDraftSuccess);
     }).catch(e => {
-      dispatch(songDraftError());
+      dispatchAndScheduleRemoveNotifications(dispatch, songDraftError);
       console.log('updateDraftSong', e.response);
     });
   };
@@ -110,8 +125,9 @@ export const unpublishSong = (id) => {
 export const indicateSong = (songId, userId) => {
   return (dispatch) => {
     dispatch(songStartLoading());
-    return SongService.indicateSong(songId, userId).then(() => {
-      dispatch(songIndicateSuccess());
+    return SongService.indicateSong(songId, userId).then((response) => {
+      let indicationCount = response.data.attributes.artist_count;
+      dispatch(songIndicateSuccess(indicationCount));
     }).catch(e => {
       console.log('indicateSongError', e.response);
       dispatch(songIndicateError())
@@ -146,7 +162,8 @@ export const favoriteSong = (song, folder) => {
   return (dispatch) => {
     dispatch(songStartLoading());
     return SongService.favoriteSong(song.id, folder.id).then(() => {
-      dispatch(songFavoriteSuccess(folder));
+      dispatchAndScheduleRemoveNotifications(dispatch, songFavoriteSuccess, folder);
+
       setTimeout(() => {
         dispatch(profileSongFavoritedSuccess({song, folder}));
       }, 2000)
@@ -161,7 +178,8 @@ export const unFavoriteSong = (songId) => {
   return (dispatch) => {
     dispatch(songStartLoading());
     return SongService.unfavoriteSong(songId).then(() => {
-      dispatch(songUnfavoriteSuccess());
+      dispatchAndScheduleRemoveNotifications(dispatch, songUnfavoriteSuccess);
+
       setTimeout(()=> {
         dispatch(profileSongUnfavoriteSuccess(songId));
       }, 2000)

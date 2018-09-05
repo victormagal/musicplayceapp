@@ -23,18 +23,36 @@ import {
   SONG_NOTIFICATION_REMOVE,
   SONG_COMMENT_ERROR,
   SONG_COMMENT_SUCCESS,
-  SONG_COMMENT_START_LOADING
+  SONG_COMMENT_START_LOADING,
+  SONG_LANGUAGES_FETCHED
 } from './songsType';
+import {REMOVE_NOTIFICATION} from '../general/generalAction';
 
 const defaultSong = {
   name: '',
   lyrics: '',
   description: '',
-  interpreter_name: '',
+  interpreter_name: null,
+  indicationCount: null,
+  songLanguages: null,
   coAuthors: null,
   folder: null,
   tags: null,
+  language_id: null,
   path: '',
+};
+
+const defaultStateCallback = {
+  songPublishSuccess: false,
+  songDraftSuccess: false,
+  songDraftError: false,
+  songRemoveSuccess: false,
+  songUnpublishSuccess: false,
+  songIndicateSuccess: false,
+  songFavoriteSuccess: false,
+  songUploadedPictureSuccess: false,
+  likedCommentSuccess: false,
+  songCommentedSuccess: false
 };
 
 const songsReducer = (state, action) => {
@@ -42,20 +60,10 @@ const songsReducer = (state, action) => {
     loading: false,
     fetchedSong: null,
     mySongs: null,
-    song: {...defaultSong}
+    song: {...defaultSong},
+    songDraft: false,
+    ...defaultStateCallback
   };
-
-  state.songPublishSuccess = false;
-  state.songDraftSuccess = false;
-  state.songRemoveSuccess = false;
-  state.songPublishSuccess = false;
-  state.songUnpublishSuccess = false;
-  state.songIndicateSuccess = false;
-  state.songFavoriteSuccess = false;
-  state.songUploadedPictureSuccess = false;
-  state.likedCommentSuccess = false;
-  state.songDraft = false;
-  state.songCommentedSuccess = false;
 
   switch (action.type) {
     case SONG_REGISTER_DATA:
@@ -66,6 +74,7 @@ const songsReducer = (state, action) => {
       };
 
     case SONG_REGISTER_CLEAR:
+    console.log(...defaultSong);
       return {
         ...state,
         song: {...defaultSong},
@@ -80,6 +89,12 @@ const songsReducer = (state, action) => {
       };
 
     case SONG_DRAFT_ERROR:
+      return {
+        ...state,
+        loading: false,
+        songDraftError: true
+      };
+
     case SONG_FAVORITE_ERROR:
     case SONG_INDICATE_ERROR:
     case SONG_LIKE_COMMENT_ERROR:
@@ -103,11 +118,6 @@ const songsReducer = (state, action) => {
       };
 
     case SONG_REMOVE_SUCCESS:
-      const songs = state.mySongs;
-      songs && songs.data && songs.data.forEach((folder) => {
-        folder.songs = folder.songs.filter(song => song.id !== action.payload);
-      });
-
       return {
         ...state,
         loading: false,
@@ -125,16 +135,28 @@ const songsReducer = (state, action) => {
         ...state,
         loading: false,
         songPublishSuccess: true,
+        fetchedSong: action.payload,
         song: {...defaultSong},
         songDraft: false
       };
     
     case SONG_INDICATE_SUCCESS:
+      let indicatedSong = {...state.fetchedSong};
+      indicatedSong.indications_count = indicatedSong.indications_count + 1;
       return {
         ...state,
         loading: false,
-        songIndicateSuccess: true
+        songIndicateSuccess: true,
+        fetchedSong: indicatedSong,
+        indicationCount: action.payload,
       };
+
+    case SONG_LANGUAGES_FETCHED:
+      return {
+        ...state,
+        loading: false,
+        songLanguages: action.payload
+      }
     
     case SONG_LIKE_COMMENT_SUCCESS:
       let playerSong = {...state.fetchedSong}
@@ -162,7 +184,7 @@ const songsReducer = (state, action) => {
         loading: false,
         fetchedSong: song,
         songCommentedSuccess: true,
-      }
+      };
 
     case SONG_FAVORITE_SUCCESS:
       let fetchedSong = {...state.fetchedSong};
@@ -204,6 +226,12 @@ const songsReducer = (state, action) => {
         fetchedSong: action.payload,
         loading: false
       };
+
+    case REMOVE_NOTIFICATION:
+      return {
+        ...state,
+        ...defaultStateCallback
+      }
   }
 
   return state;

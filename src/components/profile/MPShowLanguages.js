@@ -15,7 +15,7 @@ class MPShowLanguagesComponent extends Component{
           </MPText>
           { languages.map(language => (
             <MPText key={Math.random()} style={styles.languageText}>
-              { language }
+              { language.name }
             </MPText>
           ))}
         </View>

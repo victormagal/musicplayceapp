@@ -107,6 +107,7 @@ function buildPath(path) {
   let strokeLinecap = attributes['stroke-linecap'];
   let strokeLinejoin = attributes['stroke-linejoin'];
   let fillOpacity = attributes["opacity"];
+  let strokeOpacity = attributes["stroke-opacity"];
 
   svgPathString += `<Path d='${d}'`;
 
@@ -120,6 +121,10 @@ function buildPath(path) {
 
   if (stroke) {
     svgPathString += ` stroke='${stroke}'`;
+  }
+
+  if(strokeOpacity){
+    svgPathString += ` strokeOpacity='${strokeOpacity}'`;
   }
 
   if (strokeWidth) {

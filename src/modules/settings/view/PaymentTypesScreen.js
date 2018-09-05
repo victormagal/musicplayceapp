@@ -13,7 +13,8 @@ import {
   MPShowBonuses,
   MPAddNewPayment,
   MPChangeRemovePayment,
-  MPConfirmRemovePayment
+  MPConfirmRemovePayment,
+  MPIconButton
 } from '../../../components';
 import { connect } from 'react-redux';
 import { KeyboardAwareScrollView } from '../../../../node_modules/react-native-keyboard-aware-scroll-view';
@@ -26,28 +27,28 @@ class PaymentTypesScreenContainer extends React.Component {
         number: '1111 2222 3333 3535',
         dueDate: '17/12',
         cvv: '353',
-        cpf: '037.487.923-01',
+        cpf: '111.111.111-01',
         isFavorite: true,
       },
       {
         number: '1111 2222 3333 6578',
         dueDate: '18/12',
         cvv: '657',
-        cpf: '037.487.923-02',
+        cpf: '222.222.222-02',
         isFavorite: false,
       },
       {
         number: '1111 2222 3333 5565',
         dueDate: '19/12',
         cvv: '556',
-        cpf: '037.487.923-03',
+        cpf: '333.333.333-03',
         isFavorite: false,
       },
       {
         number: '1111 2222 3333 4465',
         dueDate: '20/12',
         cvv: '446',
-        cpf: '037.487.923-04',
+        cpf: '444.444.444-04',
         isFavorite: false,
       },
     ],
@@ -84,12 +85,24 @@ class PaymentTypesScreenContainer extends React.Component {
     ]
   }
 
-  addPayment(){
-    this.props.navigation.navigate('message', { component: MPAddNewPayment, title: 'Cadastre seu cartão, é 100% seguro' });
+  headerLeft = () => {
+    return [<MPIconButton onPress={this.handleBack}  key={1} title={'Cancelar'}/>];
+  }
+  
+  headerRight = () => {
+    return [<MPIconButton onPress={this.handleAddChangeCard}  key={2} title={'Enviar'}/>];
   }
 
-  editPayment(){
-    this.props.navigation.navigate('message', { component: MPChangeRemovePayment, title: 'Cadastre seu cartão, é 100% seguro' });
+  handleAddChangeCard = (card) => {
+    this.handleBack();
+  }
+
+  addPayment(){
+    this.props.navigation.navigate('message', { component: MPAddNewPayment, title: 'Cadastre seu cartão, é 100% seguro', headerLeft: this.headerLeft(), headerRight: this.headerRight()});
+  }
+
+  editPayment(card){
+    this.props.navigation.navigate('message', { component: MPChangeRemovePayment, title: 'Cadastre seu cartão, é 100% seguro', headerLeft: this.headerLeft(), headerRight: this.headerRight(), card: card});
   }
 
   handleBack = () => {

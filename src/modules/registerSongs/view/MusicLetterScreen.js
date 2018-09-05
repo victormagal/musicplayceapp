@@ -1,11 +1,12 @@
 import React from 'react';
-import {StyleSheet, View, ScrollView, TouchableOpacity} from 'react-native';
+import {StyleSheet, View, ScrollView, TouchableOpacity, Platform} from 'react-native';
 import {connect} from 'react-redux';
-import {MPHeader, MPText, MPIconButton, MPTextField} from '../../../components';
+import {MPHeader, MPText, MPIconButton, MPTextField, MPSelect} from '../../../components';
 import {updateSongRegisterData} from "../../../state/songs/songsType";
 import {DocumentPicker, DocumentPickerUtil} from "react-native-document-picker";
 import {MPSongIcon} from "../../../assets/svg";
 import {MPFloatingNotification} from "../../../components/general";
+import { getLanguages } from '../../../state/action';
 
 class MusicLetterScreenContainer extends React.Component {
   constructor(props) {
@@ -13,8 +14,24 @@ class MusicLetterScreenContainer extends React.Component {
     this.state = {
       lyrics: (props.song && props.song.lyrics) || '',
       language: 'default',
-      error: null
+      languages: [],
+      selectedOption: null,
+      error: null,
+      idiomas: ['Português', 'Inglês', 'Espanhol']
     };
+  }
+
+  componentDidMount(){
+    this.props.dispatch(getLanguages());
+  }
+
+  componentWillReceiveProps(nextProps){
+    if(nextProps.songLanguages && nextProps.songLanguages.length > 0){
+      let lngs = nextProps.songLanguages.map(language => {
+        return language.attributes.name
+      })
+      this.setState({languages: lngs})
+    }
   }
 
   handleChangeLetter = (lyrics) => {
@@ -32,15 +49,21 @@ class MusicLetterScreenContainer extends React.Component {
   }
 
   handleChooseFileClick = () => {
+    const isIOS = Platform.OS === 'ios';
+
     DocumentPicker.show({
-      filetype: [DocumentPickerUtil.allFiles()],
+      filetype: [isIOS ? DocumentPickerUtil.plainText() : DocumentPickerUtil.allFiles()],
     }, (something, response) => {
       if (response) {
-        if (response.type === 'application/rtf' || response.type === 'text/plain') {
+        if(isIOS) {
           this.updateSong('lyricsFile', response);
-          this.setState({ error: null });
-        } else {
-          this.setState({ error: 'Esta extensão de arquivo não é suportada.' });
+        }else {
+          if (response.type === 'application/rtf' || response.type === 'text/plain') {
+            this.updateSong('lyricsFile', response);
+            this.setState({error: null});
+          } else {
+            this.setState({error: 'Esta extensão de arquivo não é suportada.'});
+          }
         }
       } else {
         this.setState({ error: 'Não conseguimos carregar o seu arquivo. Por favor tente novamente.' });
@@ -54,9 +77,15 @@ class MusicLetterScreenContainer extends React.Component {
 
   handleSaveClick = () => {
     let song = {...this.props.song, lyrics: this.state.lyrics};
+    console.log(song);
     this.props.dispatch(updateSongRegisterData(song));
     this.handleBackClick();
   };
+
+  handleChangeOption = (selectedOption) => {
+    this.updateSong('language_id', this.props.songLanguages[selectedOption].id);
+    this.setState({selectedOption});
+  }
 
   renderHeaderMenuSave() {
     return [
@@ -107,7 +136,7 @@ class MusicLetterScreenContainer extends React.Component {
             }
             </MPText>
           }
-          {/*<MPSelect style={styles.idioma} label="Idioma" />*/}
+          <MPSelect style={styles.idioma} label="Idioma" value={this.state.selectedOption} options={this.state.languages} onChangeOption={this.handleChangeOption} />
         </ScrollView>
         <MPFloatingNotification
           visible={this.state.error !== null}
@@ -162,7 +191,7 @@ const styles = StyleSheet.create({
     color: '#fff'
   },
   idioma: {
-    marginTop: 52
+
   },
   ouText: {
     fontFamily: 'Montserrat-Regular'

@@ -14,12 +14,12 @@ class MessageScreen extends React.Component {
   };
 
   render() {
-    let {component, title, ...rest} =  this.props.navigation.state.params;
+    let {component, title, headerLeft, headerRight,...rest} =  this.props.navigation.state.params;
     let Content = component || View;
 
     return (
       <View style={styles.parent}>
-        <MPHeader title={title} back={rest.back} onBack={this.handleBackClick}/>
+        <MPHeader title={title} iconsLeft={headerLeft} icons={headerRight} back={rest.back} onBack={this.handleBackClick}/>
         <Content {...this.props} {...rest} />
       </View>
     );

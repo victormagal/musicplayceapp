@@ -34,11 +34,17 @@ class MPSongInfo extends Component {
       <View style={[styles.container, style]}>
         <TouchableOpacity onPress={onPress}>
           <Card containerStyle={[styles.parent, borderStyle]}>
-            <MPText style={styles.titleText}>{ title }</MPText>
-            <MPText style={styles.infoText}>{ info || placeholder }</MPText>
+            <MPText style={styles.titleText}>
+              { title }
+            </MPText>
+            <MPText numberOfLines={2} style={styles.infoText}>
+              { info || placeholder }
+            </MPText>
           </Card>
         </TouchableOpacity>
-        { selected && <MPValidatedFilledRedIcon style={ iconStyle }/> }
+        { selected &&
+          <MPValidatedFilledRedIcon style={ iconStyle }/>
+        }
       </View>
     );
   }
@@ -47,7 +53,7 @@ class MPSongInfo extends Component {
 MPSongInfo.propTypes = {
   title: PropTypes.string.isRequired,
   onPress: PropTypes.func.isRequired,
-  info: PropTypes.string,
+  info: PropTypes.any,
   selected: PropTypes.bool,
   style: PropTypes.any,
   placeholder: PropTypes.string,
@@ -73,6 +79,7 @@ const styles = StyleSheet.create({
   titleText: {
     color: "#000",
     paddingStart: 10,
+    paddingEnd: 10,
     fontSize: 12,
     fontFamily: 'Montserrat-Medium',
     fontWeight: '500'
@@ -82,6 +89,7 @@ const styles = StyleSheet.create({
     fontSize: 10,
     fontFamily: 'Montserrat-Regular',
     paddingStart: 10,
+    paddingEnd: 10
   }
 });
 

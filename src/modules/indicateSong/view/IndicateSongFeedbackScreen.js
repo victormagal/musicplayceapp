@@ -4,19 +4,22 @@ import { MPHeader, MPText, MPGradientButton, MPUser, MPSongRating } from '../../
 import { connect } from 'react-redux';
 import { MPPlusIcon,  } from '../../../assets/svg';
 
-import images from '../../../assets/img';
 
 class IndicateSongFeedbackScreenContainer extends React.Component {
   constructor(props){
     super(props);
     if(this.props.navigation.state && this.props.navigation.state.params){
-      let {artist, song } = this.props.navigation.state.params;
-      this.state = {artist, song};
+      let {artist, song, indicationCount } = this.props.navigation.state.params;
+      this.state = {artist, song, indicationCount};
     }
   }
 
   handleBackClick = () => {
-    this.props.navigation.popToTop();
+    if(this.props.navigation.state && this.props.navigation.state.params && this.props.navigation.state.params.registerSong){
+      this.props.navigation.navigate('MyProfileScreen', { backFromPublishedOrDraft: true });
+    }else {
+      this.props.navigation.navigate('player', {song: this.state.song})
+    }
   };
 
   render() {
@@ -25,13 +28,13 @@ class IndicateSongFeedbackScreenContainer extends React.Component {
         <MPHeader back={true} onBack={this.handleBackClick} />
         <ScrollView>
           <MPText style={ styles.headerText }>Indicação feita!</MPText>
-          <View style={ styles.partnershipContainer}>
-            <MPSongRating song={this.state.song} imagePath={images.daftPunk100} onPress={() => {}} style={{}} />
-            <MPPlusIcon   style={ styles.partnershipIcon }/>
+          <View style={styles.partnershipContainer}>
+            <MPSongRating song={this.state.song} indication={true} onPress={() => {}} style={{marginTop: 15}} />
+            <MPPlusIcon style={ styles.partnershipIcon }/>
             <MPUser user={this.state.artist} imagePath={this.state.artist.picture_url} onPress={() => {}} style={{}} />
           </View>
-          <MPText style={ styles.infoText }><MPText style={ styles.infoTextEmph }>{this.state.song.indications_count}</MPText> outras pessoas sugeriram esta parceria também!</MPText>
-          <MPGradientButton title='Fechar' textSize={16} style={{marginHorizontal: 133}} onPress={this.handleBackClick} />
+          <MPText style={ styles.infoText }><MPText style={ styles.infoTextEmph }>{this.state.indicationCount}</MPText> outras pessoas sugeriram esta parceria também!</MPText>
+          <MPGradientButton title='Fechar' textSize={16} style={styles.closeButton} onPress={this.handleBackClick} />
         </ScrollView>
       </View>
     );
@@ -77,6 +80,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignSelf: 'center',
     marginHorizontal: 20,
+  },
+  closeButton: {
+    justifyContent: 'center',
+    alignSelf: 'center'
   }
 });
 

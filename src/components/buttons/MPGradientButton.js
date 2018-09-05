@@ -38,7 +38,7 @@ class MPGradientButtonComponent extends Component {
     let newTextStyle = {...textStyle};
     newTextStyle.fontSize = textSize ? textSize : 12;
     newTextStyle.color = selected ? '#FFFFFF' : '#E13223';
-    if (this.props.icon){
+    if(this.props.icon && !this.props.textStyle){
       newTextStyle.paddingLeft = 30;
     }
 
@@ -46,11 +46,11 @@ class MPGradientButtonComponent extends Component {
   }
 
   render() {
-    let {style, title, selected, onPress, icon, disabled} = this.props;
+    let {style, title, selected, onPress, icon, disabled, textStyle} = this.props;
     if (selected == null) {
       selected = true;
     }
-
+    textStyle = textStyle || {};
     let borderStyle = selected ? {} : {borderWidth: 1, borderColor: '#E13223'};
     const gradient = disabled ? ['#A9A9A9', '#CCC'] : ['#BB1A1A', '#2E2C9D'];
     let linearColorOptions = [gradient, ['transparent', 'transparent']];
@@ -66,7 +66,7 @@ class MPGradientButtonComponent extends Component {
           end={{x: 1, y:0}}
           style={[styles.linear, borderStyle]}
           selected={true}>
-          <MPText style={this.state.textStyleRef} numberOfLines={1}>
+          <MPText style={[this.state.textStyleRef, textStyle]} numberOfLines={1}>
             {title}
           </MPText>
           {icon && <Icon style={styles.icon}/>}

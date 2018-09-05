@@ -51,7 +51,8 @@ const helpReducer = (state, action) => {
     case FAQ_LOADING_END:
       return {
         ...state,
-        loading: false
+        loading: false,
+        sentSuccess: null
       };
   }
 

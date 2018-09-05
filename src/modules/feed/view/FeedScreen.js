@@ -2,16 +2,14 @@ import React from 'react';
 import {
   FlatList, ScrollView, StyleSheet, View, ActivityIndicator
 } from 'react-native';
-import {
-  MPUser, MPUserFull, MPFeedNotification, MPHeader, MPTabBar, MPText,
-  MPTextField, MPIconButton, MPConfirmStopFollow, MPUserNotification
-} from '../../../components'
 import {connect} from 'react-redux';
 import Swiper from 'react-native-swiper';
-import images from '../../../assets/img';
+import {
+  MPUser, MPUserFull, MPFeedNotification, MPHeader, MPTabBar, MPText,
+  MPTextField, MPIconButton, MPConfirmStopFollow, MPUserNotification, MPLoading
+} from '../../../components'
 import {MPSearchRedIcon, MPCloseFilledRedIcon} from '../../../assets/svg';
-import {fetchFeeds, searchUsers, getFollowNotifications, followUser} from '../../../state/action';
-import {MPLoading} from "../../../components/general";
+import {fetchFeeds, getFollowNotifications, followUser} from '../../../state/action';
 
 
 class FeedScreenContainer extends React.Component {
@@ -27,12 +25,14 @@ class FeedScreenContainer extends React.Component {
       searching: false,
       searchingNotFound: false,
       feed: null,
-    };
+      songsListOne: [],
+      songsListTwo: []
+  };
     this.swiperRef = React.createRef();
   }
 
   handleEndlessNotifications = () => {
-    let {meta} = this.props.userFollowNotifications
+    let {meta} = this.props.userFollowNotifications;
     let current_page = meta.pagination.current_page;
     if(this.state.userFollowNotifications.length > 0 &&
         current_page < meta.pagination.total_pages){
@@ -41,7 +41,6 @@ class FeedScreenContainer extends React.Component {
   }
 
   componentDidMount() {
-    this.props.dispatch(searchUsers(''));
     this.props.dispatch(fetchFeeds(''));
     this.props.dispatch(getFollowNotifications());
   }
@@ -57,7 +56,7 @@ class FeedScreenContainer extends React.Component {
         this.setState({searchingNotFound: true});
       }
 
-      this.setState({feed, searchingNotFound: false});
+      this.setState({feed, ...this.splitSongs(feed.songs), searchingNotFound: false});
     }
 
     if (userFollowNotifications) {
@@ -69,7 +68,6 @@ class FeedScreenContainer extends React.Component {
           time: notification.attributes.time
         };
       });
-      // console.log(followingNotifications);
       this.setState({userFollowNotifications: followingNotifications});
     }
   }
@@ -79,6 +77,18 @@ class FeedScreenContainer extends React.Component {
       clearTimeout(this.searchTimer);
     }
   }
+
+  splitSongs = (songs) => {
+    let songsListOne = [];
+    let songsListTwo = [];
+
+    if(songs && songs.length) {
+      songsListOne = songs.slice(0, 3);
+      songsListTwo = songs.slice(3);
+    }
+
+    return {songsListOne, songsListTwo};
+  };
 
   handleNavigateMusic = (song) => {
     this.props.navigation.navigate('player', {song});
@@ -97,13 +107,14 @@ class FeedScreenContainer extends React.Component {
     }
 
     if (textValue) {
-      this.setState({searching: false, searchingNotFound: false});
+      this.setState({searching: true, searchingNotFound: false});
     } else {
-      this.setState({feed: [], searching: false, searchingNotFound: false});
+      this.handleClearClick();
     }
   };
 
   handleSearch = (value) => {
+
     if (this.searchTimer) {
       clearTimeout(this.searchTimer);
     }
@@ -116,7 +127,8 @@ class FeedScreenContainer extends React.Component {
   };
 
   handleClearClick = () => {
-    this.setState({textValue: '', feed: [], searching: false, searchingNotFound: false});
+    this.setState({textValue: '', feed: {}, searching: false, searchingNotFound: false});
+    this.props.dispatch(fetchFeeds(''));
   };
 
   handleChangeTab = (index) => {
@@ -152,14 +164,17 @@ class FeedScreenContainer extends React.Component {
     }
   };
 
-  renderItemFeed = ({item}) => (
-    <MPFeedNotification
-      key={item.id.toString()}
-      handleNavigateUserProfile={this.handleNavigateUserProfile}
-      handleSongNavigate={this.handleSongNavigate}
-      notification={item}
-    />
-  );
+  renderFooterFollowingLoading = () => {
+    if(this.props.userFollowingPaginationLoading){
+      return (
+        <View style={styles.followingFooterLoading}>
+          <ActivityIndicator size="large" color="#BB1A1A" style={styles.followingLoading}/>
+        </View>
+      );
+    }
+
+    return null;
+  };
 
   render() {
     const {
@@ -227,7 +242,6 @@ class FeedScreenContainer extends React.Component {
                 userName={song.artist && song.artist.name}
                 songName={song.name}
                 song={song}
-                imagePath={images.daftPunk120}
                 userImagePath={song.artist && song.artist.picture_url}
                 onPressUser={() => this.handleNavigateUserProfile(song.artist && song.artist.id)}
                 onPressMusic={this.handleNavigateMusic}
@@ -273,9 +287,8 @@ class FeedScreenContainer extends React.Component {
                 <MPText style={styles.maybeYouLike}>
                   Talvez você goste dessas músicas:
                 </MPText>
-                { feed.songs && feed.songs.length > 0 &&
                 <View>
-                  { feed.songs.map(song => (
+                  { this.state.songsListOne.map(song => (
                     <MPUserFull
                       key={song.id}
                       userName={song.artist && song.artist.name}
@@ -288,21 +301,19 @@ class FeedScreenContainer extends React.Component {
                     />
                   ))}
                 </View>
-                }
                 <View style={styles.topUsersContainer}>
                   <MPText style={styles.topArtists}>
                     Artistas em alta
                   </MPText>
                   <FlatList
-                    data={(this.props.users && this.props.users.data) || []}
+                    data={feed.artists || []}
                     keyExtractor={(item) => item.id}
                     renderItem={this.renderSearchUsers.bind(this, 'users')}
                     horizontal={true}
                   />
                 </View>
-                { feed.songs && feed.songs.length > 0 &&
                 <View>
-                  { feed.songs.map(song => (
+                  { this.state.songsListTwo.map(song => (
                     <MPUserFull
                       key={song.id}
                       userName={song.artist && song.artist.name}
@@ -315,7 +326,6 @@ class FeedScreenContainer extends React.Component {
                     />
                   ))}
                 </View>
-                }
               </ScrollView>
             </View>
             <View style={styles.secondSliderContainer}>
@@ -328,6 +338,7 @@ class FeedScreenContainer extends React.Component {
                   onRefresh={() => {
                     this.props.dispatch(getFollowNotifications(0, true));
                   }}
+                  ListFooterComponent={this.renderFooterFollowingLoading}
                   renderItem={({item}) => {
                     return (
                       <MPFeedNotification
@@ -442,11 +453,26 @@ const styles = StyleSheet.create({
   tabContainer: {
     flex: 1,
     marginTop: 20
+  },
+  followingFooterLoading: {
+    width: '100%',
+    paddingVertical: 20,
+    justifyContent: 'center'
+  },
+  followingLoading: {
+    alignSelf:'center'
   }
 });
 
 const mapStateToProps = ({feedsReducer, userReducer, authReducer}) => {
-  return {...feedsReducer, ...userReducer, loggedUser: authReducer.loggedUser};
+  const {userFollowNotifications, refreshUserFollowings, userFollowingPaginationLoading} = userReducer;
+  return {
+    ...feedsReducer,
+    userFollowNotifications,
+    refreshUserFollowings,
+    userFollowingPaginationLoading,
+    loggedUser: authReducer.loggedUser
+  };
 };
 
 const FeedScreen = connect(mapStateToProps)(FeedScreenContainer);

@@ -5,8 +5,6 @@ import {
 import {
   MPGradientButton, MPText, MPInput, MPForm, MPFormButton
 } from '../../../../components';
-import {recoverPassword} from '../../../../state/action';
-
 
 class ForgotPasswordComponent extends Component {
 
@@ -28,35 +26,58 @@ class ForgotPasswordComponent extends Component {
         <MPText style={styles.forgotTitle}>Esqueceu a senha?</MPText>
 
         {!this.props.error && (
-          <MPText style={styles.forgotText}>Digite o email cadastrado para enviarmos um link de redefinição
+          <MPText style={styles.forgotText}>Digite o e-mail cadastrado para enviarmos um link de redefinição
             de senha.
           </MPText>
         )}
 
         {this.props.error && (
-          <MPText style={styles.forgotTextError}>Não encontramos sua conta. Confira se e email foi digitado
+          <MPText style={styles.forgotTextError}>Não encontramos sua conta. Confira se o e-mail foi digitado
             corretamente.
           </MPText>
         )}
 
         <MPForm>
-          <MPInput label="E-mail" name="email" value={this.state.form.email}
-                   validators={['required']} onChangeText={this.handleChangeEmail}/>
+          <MPInput
+            label="E-mail"
+            name="email"
+            value={this.state.form.email}
+            validators={['required']}
+            onChangeText={this.handleChangeEmail}
+            error={this.props.error}
+            autoCapitalize={'none'}
+          />
           <MPFormButton>
             <MPGradientButton title="Enviar" textSize={16} style={styles.enviarText}
                               onPress={() => this.props.onSubmit(this.state.form.email)}/>
           </MPFormButton>
         </MPForm>
+        
+        { !this.props.error && (
+            <View style={{flex: 2}}>
+              <MPText style={styles.remember}>Lembrou?</MPText>
+              <MPText style={styles.tryAgain} onPress={this.props.onLoginAgain}>Tente fazer seu login novamente</MPText>
+            </View>
+        )}
+        {!this.props.error && (
+            <View style={{flex: 1}}>
+              <MPText style={styles.remember}>Não tem conta?</MPText>
+              <MPText style={styles.tryAgain} onPress={this.props.onRegister}>Faça seu cadastro</MPText>
+            </View>
+        )}
 
-        <View style={{flex: 2}}>
-          <MPText style={styles.remember}>Lembrou?</MPText>
-          <MPText style={styles.tryAgain} onPress={this.props.onLoginAgain}>Tente fazer seu login novamente</MPText>
-        </View>
-
-        <View style={{flex: 1}}>
-          <MPText style={styles.remember}>Não tem conta?</MPText>
-          <MPText style={styles.tryAgain} onPress={this.props.onRegister}>Faça seu cadastro</MPText>
-        </View>
+        { this.props.error && (
+            <View style={{flex: 2}}>
+              <MPText style={styles.remember}>Não tem conta?</MPText>
+              <MPText style={styles.tryAgain} onPress={this.props.onRegister}>Faça seu cadastro</MPText>
+            </View>
+        )}
+        { this.props.error && (
+            <View style={{flex: 1}}>
+              <MPText style={styles.remember}>Lembrou?</MPText>
+              <MPText style={styles.tryAgain} onPress={this.props.onLoginAgain}>Tente fazer seu login novamente</MPText>
+            </View>
+        )}
       </View>
     );
   }

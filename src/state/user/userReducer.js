@@ -33,7 +33,13 @@ import {
   USER_FOLLOW_PARTIAL_FINISH_LOADING,
   USER_SONGS_START_LOADING,
   USER_SONGS_FINISH_LOADING,
-  _appendSongsData
+  USER_FOLDER_PAGINATION_LOADING,
+  USER_FOLDER_SONGS_PAGINATION_LOADING,
+  USER_INVITE_STARTED,
+  USER_INVITE_FINISHED,
+  USER_INVITE_SUCCESS,
+  _appendSongsData,
+  _appendFoldersData, USER_START_CHECKING, USER_FINISH_CHECKING
 } from './userTypes';
 
 
@@ -65,7 +71,10 @@ const userReducer = (state, action) => {
     refreshNotifications: false,
     userFollowersLoading: false,
     userFollowingLoading: false,
-    userSongsLoading: false
+    userFollowingPaginationLoading: false,
+    userSongsLoading: false,
+    invitationSuccess: false,
+    checking: false
   };
 
   let user = {};
@@ -82,6 +91,18 @@ const userReducer = (state, action) => {
         ...state,
         loading: false,
         isUserSaved: false
+      };
+
+    case USER_START_CHECKING:
+      return {
+        ...state,
+        checking: true
+      };
+
+    case USER_FINISH_CHECKING:
+      return {
+        ...state,
+        checking: false,
       };
 
     case USER_BY_ID_FETCHED:
@@ -172,8 +193,14 @@ const userReducer = (state, action) => {
         loading: false,
       };
 
-    case USER_SONGS_BY_FOLDER_FETCHED:
     case USER_SONGS_FETCHED:
+      return {
+        ...state,
+        userSongsLoading: false,
+        usersSongs: _appendFoldersData(action.payload, state.usersSongs)
+      };
+
+    case USER_SONGS_BY_FOLDER_FETCHED:
       return {
         ...state,
         userSongsLoading: false,
@@ -194,16 +221,24 @@ const userReducer = (state, action) => {
       };
 
     case USER_FOLLOW_NOTIFICATIONS_START_LOADING:
+      if(action.payload){
+        return {
+          ...state,
+          userFollowingPaginationLoading: true
+        };
+      }
+
       return {
         ...state,
         refreshUserFollowings: true,
-      }
+      };
 
     case USER_FOLLOW_NOTIFICATIONS_FINISHED_LOADING:
       return {
         ...state,
-        refreshUserFollowings: false,
-      }
+        userFollowingPaginationLoading: false,
+        refreshUserFollowings: false
+      };
 
     case USER_NOTIFICATIONS_FETCHED:
       let notificationList = action.payload;
@@ -234,6 +269,7 @@ const userReducer = (state, action) => {
         ...state,
         loading: false,
         refreshUserFollowings: false,
+        userFollowingPaginationLoading: false,
         userFollowNotifications: followNotificationList
       };
 
@@ -329,6 +365,41 @@ const userReducer = (state, action) => {
         ...state,
         userSongsLoading: false
       };
+
+    case USER_FOLDER_PAGINATION_LOADING:
+      return {
+        ...state,
+        usersSongs: {...state.usersSongs, loading: true}
+      };
+
+    case USER_FOLDER_SONGS_PAGINATION_LOADING:
+      let data = Object.assign([], state.usersSongs.data);
+      let folder = data.find(f => f.id === action.payload.id);
+      folder.loading = true;
+
+      return {
+        ...state,
+        usersSongs: {...state.usersSongs, data}
+      };
+
+    case USER_INVITE_STARTED:
+      return {
+        ...state,
+        loading: true,
+      }
+
+    case USER_INVITE_FINISHED:
+      return {
+        ...state,
+        loading: false,
+      }
+
+    case USER_INVITE_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        invitationSuccess: true,
+      }
   }
 
   return state;

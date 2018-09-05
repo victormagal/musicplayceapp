@@ -3,7 +3,6 @@ import {
   StyleSheet, View, TouchableOpacity
 } from 'react-native';
 import {TextField} from 'react-native-material-textfield';
-import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {applyValidator} from './applyValidator';
 import {MPInputEyeIcon, MPInputEyeVisibleIcon} from '../../assets/svg';
@@ -46,32 +45,39 @@ class MPInputComponent extends React.Component {
   };
 
   render() {
-    let { label, multiline, style, value, onBlur, secureTextEntry, textProps, autoCapitalize} = this.props;
+    let {
+      label, multiline, style, value, onBlur, secureTextEntry,
+      textProps, autoCapitalize, error, contentStyle, keyboardType,
+      rightIcon
+    } = this.props;
     let inputIcon = this.state.isPassword ? <MPInputEyeIcon /> : <MPInputEyeVisibleIcon />;
     let iconStyle = [styles.eye];
+    let inputContentStyle = [styles.textField];
 
-    if (textProps && Object.keys(textProps).length > 0) {
+    if(contentStyle){
+      inputContentStyle.push(contentStyle);
+    }
+
+    if (textProps && Object.keys(textProps).length > 0 || !!error) {
       iconStyle.push(styles.eyeError)
     }
 
     return (
       <View style={[styles.parent, style]}>
         <TextField
-          lineWidth={0.5}
-          activeLineWidth={0.5}
-          disabledLineWidth={0.5}
-          multiline={multiline}
           label={label}
           value={value}
+          tintColor='#5994db'
+          multiline={multiline}
           labelFontSize={12}
-          baseColor={'rgba(104, 104, 104, 0.8)'}
-          tintColor={'rgba(177, 177, 177, 0.8)'}
+          style={inputContentStyle}
           labelTextStyle={styles.labelStyle}
-          style={styles.textField}
           onBlur={onBlur}
           autoCapitalize={autoCapitalize}
-          onChangeText={ this.handleChangeText }
           secureTextEntry={this.state.isPassword}
+          onChangeText={ this.handleChangeText }
+          error={error}
+          keyboardType={keyboardType || 'default'}
           {...this.props.textProps}/>
 
         {secureTextEntry && (
@@ -79,6 +85,12 @@ class MPInputComponent extends React.Component {
             {inputIcon}
           </TouchableOpacity>
         )}
+
+        { rightIcon &&
+          <View style={iconStyle}>
+            {rightIcon}
+          </View>
+        }
       </View>
     );
   }
@@ -94,11 +106,10 @@ const styles = StyleSheet.create({
     display: 'flex'
   },
   labelStyle: {
-    fontFamily: 'Montserrat-Regular'
+    fontFamily: 'Montserrat-Regular',
   },
   textField: {
     fontSize: 16,
-    paddingRight: 30,
     fontFamily: 'Montserrat-Regular'
   },
   eye: {

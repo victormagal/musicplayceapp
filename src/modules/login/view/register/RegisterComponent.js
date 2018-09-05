@@ -1,16 +1,31 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
-  ScrollView, StyleSheet, TouchableWithoutFeedback, View
+  StyleSheet,
+  TouchableWithoutFeedback,
+  View,
+  TouchableOpacity,
+  Platform,
+  ImageBackground,
+  ActivityIndicator
 } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import LinearGradient from 'react-native-linear-gradient';
+import {MPGradientButton, MPText, MPLoading, MPInput, MPForm, MPFormButton, MPHeader} from '../../../../components';
 import {
-  MPButton, MPGradientButton, MPText, MPLoading, MPInput, MPForm, MPFormButton, MPHeader
-} from '../../../../components';
-import {
-  MPArrowDownRedIcon, MPArrowUpRedIcon, MPFacebookIcon, MPGoogleIcon, MPLogoRegisterIcon
+  MPArrowDownRedIcon,
+  MPArrowUpRedIcon,
+  MPCameraIcon,
+  MPFacebookIcon,
+  MPGoogleIcon,
+  MPLogoRegisterIcon,
+  MPProfileIcon
 } from '../../../../assets/svg';
+import {MPCircleGradientButton} from "../../../../components/buttons";
+import ImagePicker from "react-native-image-picker";
+import {MPFloatingNotification} from "../../../../components/general";
+import {checkUsernameOrEmail} from "../../../../state/user/userAction";
+import {connect} from "react-redux";
 
 
 const BaseIcon = (props, Icon) => (
@@ -30,8 +45,8 @@ const GoogleIcon = (props) => {
   return BaseIcon(props, MPGoogleIcon);
 };
 
-class RegisterComponent extends Component {
-
+class RegisterComponentScreen extends Component {
+  searchTimer = null;
   state = {
     error: false,
     formVisible: false,
@@ -40,22 +55,73 @@ class RegisterComponent extends Component {
       name: '',
       last_name: '',
       username: '',
-      password: ''
-    }
+      password: '',
+      imageFile: null
+    },
+    activeField: null,
+    unavailableEmail: false,
+    unavailableUsername: false,
+    imageSizeError: false,
+    linearGradientHeight: 0
   };
 
   icons = {
     up: MPArrowUpRedIcon,
     down: MPArrowDownRedIcon
   };
-  
-  constructor(props){
-    super(props);
-    this.scrollViewRef = React.createRef();
+
+  componentDidUpdate() {
+    if (this.props.error) {
+      this.handleToggleRegisterForm();
+    }
   }
 
   handleToggleRegisterForm = () => {
-    this.scrollViewRef.current.scrollToEnd();
+    const extraMargin = Platform.OS === 'ios' ? 15 : 21;
+    this.scrollViewRef.scrollToPosition(0, this.state.linearGradientHeight + extraMargin);
+  };
+
+  handleClickPhoto = () => {
+    // @todo refactoring to component capture image with options default and i18n
+    const options = {
+      title: 'Selecionar imagem de perfil',
+      cancelButtonTitle: 'Cancelar',
+      takePhotoButtonTitle: 'Tirar foto ...',
+      chooseFromLibraryButtonTitle: 'Selecionar foto ...',
+      cameraType: 'front',
+      quality: 0, // @todo revisar ou aumentar tamanho de upload
+      permissionDenied: {
+        title: 'Permissão negada',
+        text: 'Para captura ou escolha do avatar é necessário conceder permissão à Câmera ou Storage',
+        reTryTitle: 'Permitir',
+        okTitle: 'OK' 
+      },
+      storageOptions: {
+        skipBackup: true,
+        path: 'images'
+      }
+    };
+
+    ImagePicker.showImagePicker(options, (response) => {
+      const isErrorFilesize = response.fileSize > 2000000;
+      const isError = response.didCancel || response.error || isErrorFilesize;
+    
+      if (isError) {
+        this.handleChange({ name: 'imageFile', value: null });
+
+        if (isErrorFilesize) {
+          this.setState({ imageSizeError: true });
+          // @todo workaround timeout
+          const timer = setTimeout(() => {
+            this.setState({ imageSizeError: false });
+            clearTimeout(timer);
+          }, 2000);
+        }
+        return;
+      }
+
+      this.handleChange({ name: 'imageFile', value: response });
+    });
   };
 
   handleRegister = () => {
@@ -65,80 +131,150 @@ class RegisterComponent extends Component {
   handleChange = ({name, value}) => {
     let newState = {...this.state};
     newState.form[name] = value;
+    if (name === 'email' || name === 'username') {
+      if (value.length >= 2) {
+        this.handleSearch(name, value);
+      }
+    }
     this.setState({newState});
   };
 
-  render() {
-    let IconRegister = this.state.formVisible ? this.icons.up : this.icons.down;
+  handleSearch = (field, value) => {
+    this.setState({ activeField: field });
+    if (this.searchTimer) {
+      clearTimeout(this.searchTimer);
+    }
 
+    this.searchTimer = setTimeout(() => {
+      this.props.dispatch(checkUsernameOrEmail({ field, value })).then(response => {
+        this.setState({ activeField: null });
+        const unavailable = field === 'email' ? 'unavailableEmail': 'unavailableUsername';
+        if (response === 'unavailable') {
+          this.setState({ [unavailable]: true });
+        } else {
+          this.setState({ [unavailable]: false });
+        }
+      });
+      clearTimeout(this.searchTimer);
+    }, 400);
+  };
+
+  getTerms = () => {
+    this.props.navigation.navigate('termsAndConditions', { back: false })
+  };
+
+  render() {
+    const IconRegister = this.state.formVisible ? this.icons.up : this.icons.down;
+    const { formError, error, checking } = this.props;
+    const { form, activeField, unavailableEmail, unavailableUsername } = this.state;
     return (
       <View style={styles.container}>
-        <KeyboardAwareScrollView style={styles.container} ref={this.scrollViewRef}>
-          <LinearGradient colors={["#e1322373", "#ffffff8C"]} style={styles.gradient} start={{x:0, y:0}} end={{x:0, y:1}}>
-            <MPHeader back={true} onBack={this.props.onBackClick} withoutLogo={true} inverse={true} redBack={true}/>
-            <View style={styles.contentCreateAccount}>
-              <MPLogoRegisterIcon style={styles.logo}/>
-              <MPText style={styles.title}>O seu lugar de música</MPText>
-              <MPText style={styles.register}>Crie sua conta</MPText>
-              {/*<MPButton icon={FacebookIcon} title="Entre com Facebook" textSize={16} onPress={() => {}} style={styles.signinFB}/>*/}
-              {/*<MPButton icon={GoogleIcon} title="Entre com Google+" textSize={16} onPress={() => {}} style={styles.signinGoogle}/>*/}
-              {/*<MPText style={styles.ouText}>ou</MPText>*/}
-              <TouchableWithoutFeedback onPress={this.handleToggleRegisterForm}>
-                <View>
-                  <MPText style={styles.fillForm}>Preencha o cadastro</MPText>
-                  <IconRegister style={styles.fillFormArrow}/>
-                </View>
-              </TouchableWithoutFeedback>
-            </View>
-          </LinearGradient>
-          <View style={styles.form}>
-
-            {this.props.error && (
-              <View>
-                <MPText style={styles.deuRuimText}>Deu ruim! Confirme se os dados foram digitados corretamente.</MPText>
+        <KeyboardAwareScrollView style={styles.container} ref={ref => this.scrollViewRef = ref}>
+          <ImageBackground
+            style={{flex: 1, width: '100%'}}
+            source={require('../../../../assets/img/album-default.png')}
+          >
+            <LinearGradient
+              onLayout={event => this.setState({ linearGradientHeight: event.nativeEvent.layout.height })}
+              colors={["#f0cfcf73", "#ffffffff"]}
+              style={styles.gradient}
+              start={{x:0, y:0}}
+              end={{x:0, y:1}}
+            >
+              <MPHeader
+                back={true}
+                onBack={this.props.onBackClick}
+                withoutLogo={true}
+                inverse={true}
+                redBack={true}
+              />
+              <View style={styles.contentCreateAccount}>
+                <MPLogoRegisterIcon style={styles.logo}/>
+                <MPText style={styles.title}>
+                  O seu lugar de música
+                </MPText>
+                <MPText style={styles.register}>
+                  Crie sua conta
+                </MPText>
+                {/*<MPButton icon={FacebookIcon} title="Entre com Facebook" textSize={16} onPress={() => {}} style={styles.signinFB}/>*/}
+                {/*<MPButton icon={GoogleIcon} title="Entre com Google+" textSize={16} onPress={() => {}} style={styles.signinGoogle}/>*/}
+                {/*<MPText style={styles.ouText}>ou</MPText>*/}
+                <TouchableWithoutFeedback onPress={this.handleToggleRegisterForm}>
+                  <View>
+                    <MPText style={styles.fillForm}>
+                      Preencha o cadastro
+                    </MPText>
+                    <IconRegister style={styles.fillFormArrow}/>
+                  </View>
+                </TouchableWithoutFeedback>
               </View>
-            )}
+            </LinearGradient>
+          </ImageBackground>
+          <View style={[styles.form, { marginTop: 42 }]}>
+            {error &&
+              <View>
+                <MPText style={styles.deuRuimText}>
+                  Deu ruim! Confirme se os dados foram digitados corretamente.
+                </MPText>
+              </View>
+            }
+
+            {formError &&
+              <View>
+                <MPText style={[styles.deuRuimText, { marginTop: 10, marginBottom: 20 }]}>
+                  { formError }
+                </MPText>
+              </View>
+            }
 
             <MPForm>
               <MPInput
-                label="Email"
+                label="E-mail"
                 name="email"
                 autoCapitalize={'none'}
-                value={this.state.form.email}
+                value={form.email}
                 validators={['required', 'email']}
-                onChangeText={this.handleChange}/>
+                onChangeText={this.handleChange}
+                rightIcon={checking && activeField === 'email' ? <ActivityIndicator/> : null}
+                error={unavailableEmail ? 'Este endereço de e-mail já está sendo usado.' : null}
+              />
               <MPInput
                 label="Nome"
                 name="name"
-                value={this.state.form.name}
+                value={form.name}
                 validators={['required']}
                 onChangeText={this.handleChange}/>
               <MPInput
                 label="Sobrenome"
                 name="last_name"
-                value={this.state.form.last_name}
+                value={form.last_name}
                 validators={['required']}
                 onChangeText={this.handleChange}/>
               <MPInput
                 label="Usuário"
                 name="username"
                 autoCapitalize={'none'}
-                value={this.state.form.username}
+                value={form.username}
                 validators={['required']}
-                onChangeText={this.handleChange}/>
+                onChangeText={this.handleChange}
+                rightIcon={checking && activeField === 'username' ? <ActivityIndicator/> : null}
+                error={unavailableUsername ? 'Este nome de usuário já está sendo usado.' : null}
+              />
               <MPInput
                 label="Senha"
                 name="password"
                 autoCapitalize={'none'}
-                value={this.state.form.password}
+                value={form.password}
                 validators={['required']}
                 secureTextEntry={true}
                 onChangeText={this.handleChange}/>
 
-              <MPText style={styles.termsMessage}>
-                Ao criar sua conta você está aceitando os
-                <MPText style={styles.termsText}> termos e condições de uso</MPText> da Music Playce.
-              </MPText>
+              <TouchableOpacity onPress={this.getTerms} opacity={1}>
+                <MPText style={styles.termsMessage}>
+                  Ao criar sua conta você está aceitando os
+                  <MPText style={styles.termsText}> termos e condições de uso</MPText> da MusicPlayce.
+                </MPText>
+              </TouchableOpacity>
 
               <View>
                 <MPFormButton>
@@ -146,18 +282,23 @@ class RegisterComponent extends Component {
                 </MPFormButton>
               </View>
 
-              <MPText style={styles.copyright}>Copyright • Music Playce 2018</MPText>
+              <MPText style={styles.copyright}>Copyright • MusicPlayce 2018</MPText>
             </MPForm>
 
           </View>
         </KeyboardAwareScrollView>
         <MPLoading visible={this.props.loading} />
+        <MPFloatingNotification
+          visible={this.state.imageSizeError}
+          icon={<MPProfileIcon/>}
+          text="Imagem muito grande. Tente usar outra."
+        />
       </View>
     );
   }
 }
 
-RegisterComponent.propTypes = {
+RegisterComponentScreen.propTypes = {
   onRegister: PropTypes.func.isRequired,
   onBackClick: PropTypes.func,
   loading: PropTypes.bool,
@@ -182,6 +323,25 @@ const styles = StyleSheet.create({
   logo: {
     marginTop: 40,
     alignSelf: 'center'
+  },
+  plusButton: {
+    zIndex: 999,
+    position: 'absolute',
+    width: 27,
+    height: 27,
+    bottom: 0,
+    right: '35%',
+    borderRadius: 27/2,
+    borderWidth: 1,
+    borderColor: "#CCC",
+    backgroundColor: '#FFF'
+  },
+  plusText: {
+    fontSize: 25,
+    fontWeight: '500',
+    color: '#657BDE',
+    textAlign: 'center',
+    marginTop: -7
   },
   title: {
     fontFamily: 'ProbaPro-Regular',
@@ -258,11 +418,15 @@ const styles = StyleSheet.create({
     alignSelf: 'center'
   },
   deuRuimText: {
-    marginTop: 20,
     fontFamily: 'Montserrat-Regular',
     fontSize: 12,
     color: '#e13223'
   }
 });
 
+const mapStateToProps = ({userReducer}) => {
+  return {...userReducer};
+};
+
+const RegisterComponent = connect(mapStateToProps)(RegisterComponentScreen);
 export {RegisterComponent}
