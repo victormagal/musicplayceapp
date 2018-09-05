@@ -73,10 +73,10 @@ export const createUser = (user) => {
   };
 };
 
-export const uploadImage = (picture, id) => {
+export const uploadImage = (picture) => {
   return (dispatch) => {
     dispatch(imageProfileStartLoading());
-    return UserService.uploadImage(picture, id).then(() => {
+    return UserService.uploadImage(picture).then(() => {
       dispatch(profileImageUploaded());
       dispatch(imageProfileFinishedLoading());
     }).catch(e => {

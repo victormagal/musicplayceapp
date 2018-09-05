@@ -1,5 +1,4 @@
 import {
-  TERMS_AND_CONDITIONS_ACCEPTED,
   TERMS_AND_CONDITIONS_FETCH_ERROR,
   TERMS_AND_CONDITIONS_FETCHED,
   TERMS_AND_CONDITIONS_LOADING_END,
@@ -10,8 +9,7 @@ const termsReducer = (state, action) => {
   state = state || {
     termsAndConditions: null,
     error: null,
-    loading: false,
-    accepted: false
+    loading: false
   };
 
   switch (action.type) {
@@ -27,13 +25,6 @@ const termsReducer = (state, action) => {
         ...state,
         error: action.payload,
         termsAndConditions: null
-      };
-
-    case TERMS_AND_CONDITIONS_ACCEPTED:
-      return {
-        ...state,
-        accepted: true,
-        error: null,
       };
 
     case TERMS_AND_CONDITIONS_LOADING_START:
