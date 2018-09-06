@@ -357,6 +357,7 @@ class RegisterSongContainer extends React.Component {
                   invalid={errors.coAuthors}
                   selected={song.coAuthors && song.coAuthors.length > 0}
                   title={'Tem outros autores?'}
+                  placeholder={'*Opcional'}
                   info={this.getFilledString('coAuthors')}
                   onPress={() => this.goToScreen('UsersScreen')}
                 />
