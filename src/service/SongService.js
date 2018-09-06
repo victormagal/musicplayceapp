@@ -248,7 +248,13 @@ class SongService {
     return SongService._songsWithoutFolder(page, id);
   }
 
-  static sendSongFile(file, song) {
+  /**
+   * @todo refactorar codigo repetido
+   * 
+   * @param {*} file 
+   * @param {*} id 
+   */
+  static sendSongFile(file, id) {
     let formData = new FormData();
 
     if (!file) {
@@ -261,7 +267,7 @@ class SongService {
       type: Platform.OS === 'android' ? file.type : ''
     });
 
-    return axios.post(`${ API_SONG }/${ song.id }/audio`, formData, {
+    return axios.post(`${ API_SONG }/${ id }/audio`, formData, {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'multipart/form-data'
@@ -273,7 +279,7 @@ class SongService {
     });
   }
 
-  static sendLyricsFile(file, song) {
+  static sendLyricsFile(file, id) {
     let formData = new FormData();
 
     if (!file) {
@@ -286,7 +292,7 @@ class SongService {
       type: 'plain/text'
     });
 
-    return axios.post(`${ API_SONG }/${ song.id }/file`, formData, {
+    return axios.post(`${ API_SONG }/${ id }/file`, formData, {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'multipart/form-data'
@@ -306,8 +312,8 @@ class SongService {
 
     return SongService.create(song).then(response => {
       return SongService.uploadImage(response.id, imageFile).then(() => {
-        return SongService.sendLyricsFile(lyricsFile, response).then(() => {
-          return SongService.sendSongFile(songFile, response).then(() => {
+        return SongService.sendLyricsFile(lyricsFile, response.id).then(() => {
+          return SongService.sendSongFile(songFile, response.id).then(() => {
             if (publish) {
               return SongService.publish(response.id).then(_ => response);
             }
