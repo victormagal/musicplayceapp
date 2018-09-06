@@ -100,8 +100,20 @@ class ProfileComponent extends React.Component {
   };
 
   handleClickPhoto = () => {
+    // @todo refactoring to component capture image with options default and i18n
     const options = {
-      title: 'Selecionar uma foto',
+      title: 'Selecionar imagem de perfil',
+      cancelButtonTitle: 'Cancelar',
+      takePhotoButtonTitle: 'Tirar foto ...',
+      chooseFromLibraryButtonTitle: 'Selecionar foto ...',
+      cameraType: 'front',
+      quality: 0, // @todo revisar ou aumentar tamanho de upload
+      permissionDenied: {
+        title: 'Permissão negada',
+        text: 'Para captura ou escolha do avatar é necessário conceder permissão à Câmera ou Storage',
+        reTryTitle: 'Permitir',
+        okTitle: 'OK' 
+      },
       storageOptions: {
         skipBackup: true,
         path: 'images'
@@ -109,19 +121,24 @@ class ProfileComponent extends React.Component {
     };
 
     ImagePicker.showImagePicker(options, (response) => {
-      if (response.didCancel) {
-        console.log('User cancelled image picker');
-      } else if (response.error) {
-        console.log('ImagePicker Error: ', response.error);
-      } else if (response.fileSize > 2000000) {
-        this.setState({ imageSizeError: true });
-        const timer = setTimeout(() => {
-          this.setState({ imageSizeError: false });
-          clearTimeout(timer);
-        }, 2000);
-      } else {
-        this.props.dispatch(uploadImage(response))
+      const isErrorFilesize = response.fileSize > 2000000;
+      const isError = response.didCancel || response.error || isErrorFilesize;
+    
+      if (isError) {
+        this.handleChange({ name: 'imageFile', value: null });
+
+        if (isErrorFilesize) {
+          this.setState({ imageSizeError: true });
+          // @todo workaround timeout
+          const timer = setTimeout(() => {
+            this.setState({ imageSizeError: false });
+            clearTimeout(timer);
+          }, 2000);
+        }
+        return;
       }
+
+      this.props.dispatch(uploadImage(response))
     });
   };
 
