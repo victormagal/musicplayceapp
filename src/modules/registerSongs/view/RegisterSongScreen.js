@@ -292,33 +292,6 @@ class RegisterSongContainer extends React.Component {
                   </TouchableOpacity>
                 )}
               </View>
-              <MPText style={[styles.headerText, { marginTop: 10 }]}>
-                {imageFile || song.picture_url ? 'Imagem de Capa Selecionada' : 'Upload de Imagem de Capa'}
-              </MPText>
-              <View style={styles.errorCard(errors)}>
-                <MPGradientButton
-                  style={styles.uploadIcon}
-                  icon={MPCameraIcon}
-                  title={imageFile || song.picture_url ? this.getImageName() : 'Escolher o arquivo'}
-                  textSize={16}
-                  onPress={this.handleChooseSongPictureClick}
-                />
-
-                {!imageFile && !song.picture_url && (
-                  <MPText style={ [styles.subText, errors.imageFile ? {color: '#e13223'}: {} ]}>
-                    Você pode fazer upload de imagens em JPG, JPEG e PNG.
-                  </MPText>
-                )}
-
-                {(!!imageFile || !!song.picture_url) && (
-                  <TouchableOpacity onPress={this.handleChooseSongPictureClick}>
-                    <MPText style={styles.replaceSong}>
-                      Substituir arquivo
-                    </MPText>
-                  </TouchableOpacity>
-                )}
-
-              </View>
               <View style={ styles.horizontalContainer }>
                 <MPSongInfo
                   style={styles.songItem}

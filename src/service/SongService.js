@@ -305,45 +305,40 @@ class SongService {
   }
 
   static createSong(song, publish) {
-    let {songFile, imageFile, lyricsFile} = song;
+    let {songFile, lyricsFile} = song;
     delete song.songFile;
     delete song.imageFile;
     delete song.lyricsFile;
 
     return SongService.create(song).then(response => {
-      return SongService.uploadImage(response.id, imageFile).then(() => {
-        return SongService.sendLyricsFile(lyricsFile, response.id).then(() => {
-          return SongService.sendSongFile(songFile, response.id).then(() => {
-            if (publish) {
-              return SongService.publish(response.id).then(_ => response);
-            }
-            return response;
-          });
+      return SongService.sendLyricsFile(lyricsFile, response.id).then(() => {
+        return SongService.sendSongFile(songFile, response.id).then(() => {
+          if (publish) {
+            return SongService.publish(response.id).then(_ => response);
+          }
+          return response;
         });
       });
     });
   }
 
   static updateSong(song) {
-    let {songFile, imageFile, lyricsFile} = song;
+    let {songFile, lyricsFile} = song;
     delete song.songFile;
     delete song.imageFile;
     delete song.lyricsFile;
 
-    return SongService.uploadImage(song.id, imageFile).then((response) => {
-      response = response || song;
-      return SongService.sendSongFile(songFile, response).then((fileResponse) => {
-        if (fileResponse) {
-          song.path = fileResponse.path;
+    return SongService.sendSongFile(songFile, song.id).then((fileResponse) => {
+      if (fileResponse) {
+        song.path = fileResponse.path;
+      }
+      return SongService.sendLyricsFile(lyricsFile, song.id).then((lryicsSong) => {
+        if(lryicsSong) {
+          response.lyrics = lryicsSong.lyrics;
         }
-        return SongService.sendLyricsFile(lyricsFile, response).then((lryicsSong) => {
-          if(lryicsSong) {
-            response.lyrics = lryicsSong.lyrics;
-          }
 
-          return SongService.update(response).then((updatedSong) => {
-            return SongService.publish(song.id).then(_ => updatedSong);;
-          });
+        return SongService.update(song).then((updatedSong) => {
+          return SongService.publish(song.id).then(_ => updatedSong);;
         });
       });
     });
@@ -362,31 +357,6 @@ class SongService {
     return axios.post(`${API_SONG}/${song.id}/rating`, params).then(response => {
       console.log(response);
       // return response;
-    });
-  }
-
-  static uploadImage(songId, file) {
-    let formData = new FormData();
-
-    if (!file) {
-      return Promise.resolve();
-    }
-
-    formData.append('picture', {
-      uri: file.uri,
-      name: file.fileName,
-      type: file.type || `image/${ file.fileName.split('.')[1] }`
-    });
-
-    return axios.post(`${ API_SONG }/${ songId }/picture`, formData, {
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'multipart/form-data'
-      }
-    }).then(response => {
-      const {data} = response.data;
-      const {id, attributes} = data;
-      return {id, ...attributes};
     });
   }
 
