@@ -77,7 +77,7 @@ class RegisterSongContainer extends React.Component {
       this.setState({shouldFetchSong: false});
     }
 
-    if (nextProps.songDraftSuccess || nextProps.songPublishSuccess) {
+    if (nextProps.songDraftSuccess) {
       this.props.navigation.navigate('MyProfileScreen', { backFromPublishedOrDraft: true });
     }
   }
