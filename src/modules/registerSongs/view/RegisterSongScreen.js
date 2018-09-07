@@ -8,8 +8,7 @@ import {
 import {MPSongUploadIcon, MPSongUploadEditIcon, MPCameraIcon, MPAlertIcon} from '../../../assets/svg';
 import {createPermanentSong, updatePermanentSong, fetchOneSong} from "../../../state/action";
 import {updateSongRegisterData} from "../../../state/songs/songsType";
-import ImagePicker from "react-native-image-picker";
-
+import {createDraftSong, updateDraftSong} from '../../../state/action';
 
 class RegisterSongContainer extends React.Component {
 
@@ -77,6 +76,10 @@ class RegisterSongContainer extends React.Component {
       this.props.dispatch(updateSongRegisterData(nextProps.fetchedSong));
       this.setState({shouldFetchSong: false});
     }
+
+    if (nextProps.songDraftSuccess || nextProps.songPublishSuccess) {
+      this.props.navigation.navigate('MyProfileScreen', { backFromPublishedOrDraft: true });
+    }
   }
 
   componentWillUnmount(){
@@ -117,14 +120,14 @@ class RegisterSongContainer extends React.Component {
 
   handleFinishLaterClick = () => {
     let {draftErrors} = this.state;
-
+    
     const isValid = this.validate(draftErrors, () => {
-      if (isValid) {
-        let {song} = this.props;
-        this.goToScreen('SaveDraftScreen', {song});
-      }else{
+      if (!isValid) {
         this.showNotificationError(this.state.errors);
+        return;
       }
+      let {song} = this.props;
+      song.created_at ? this.props.dispatch(updateDraftSong(song)) : this.props.dispatch(createDraftSong(song));
     });
 
   };
@@ -145,27 +148,6 @@ class RegisterSongContainer extends React.Component {
 
         this.updateSong('songFile', response)
         this.setState({songFile: response});
-      }
-    });
-  };
-
-  handleChooseSongPictureClick = () => {
-    const options = {
-      title: 'Selecionar uma imagem',
-      storageOptions: {
-        skipBackup: true,
-        path: 'images'
-      }
-    };
-
-    ImagePicker.showImagePicker(options, (response) => {
-      if (response.didCancel) {
-        console.log('User cancelled image picker');
-      } else if (response.error) {
-        console.log('ImagePicker Error: ', response.error);
-      } else {
-        this.setState({imageFile: response});
-        this.updateSong('imageFile', response)
       }
     });
   };
@@ -368,7 +350,7 @@ class RegisterSongContainer extends React.Component {
               { (song.published_at === null || song.unpublished_at !== null) &&
               <TouchableOpacity style={styles.clickableTextContainer} onPress={this.handleFinishLaterClick}>
                 <MPText style={styles.clickableText}>
-                  Terminar depois
+                  Salvar Rascunho
                 </MPText>
               </TouchableOpacity>
               }
