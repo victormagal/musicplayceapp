@@ -322,7 +322,7 @@ class SongService {
     });
   }
 
-  static updateSong(song) {
+  static updateSong(song, publish) {
     let {songFile, lyricsFile} = song;
     delete song.songFile;
     delete song.imageFile;
@@ -338,7 +338,9 @@ class SongService {
         }
 
         return SongService.update(song).then((updatedSong) => {
-          return SongService.publish(song.id).then(_ => updatedSong);;
+          if (publish) {
+            return SongService.publish(song.id).then(_ => updatedSong);
+          }
         });
       });
     });
