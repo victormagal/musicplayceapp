@@ -304,22 +304,24 @@ class SongService {
     });
   }
 
-  static createSong(song, publish) {
+  static async createSong(song, publish) {
     let {songFile, lyricsFile} = song;
     delete song.songFile;
     delete song.imageFile;
     delete song.lyricsFile;
 
-    return SongService.create(song).then(response => {
-      return SongService.sendLyricsFile(lyricsFile, response.id).then(() => {
-        return SongService.sendSongFile(songFile, response.id).then(() => {
-          if (publish) {
-            return SongService.publish(response.id).then(_ => response);
-          }
-          return response;
-        });
-      });
-    });
+    const response = await SongService.create(song);
+
+    const promises = [
+      SongService.sendLyricsFile(lyricsFile, response.id),
+      SongService.sendSongFile(songFile, response.id)
+    ];
+
+    if (publish) {
+      promises.push(SongService.publish(response.id).then(_ => response));
+    }
+
+    return Promise.all(promises);
   }
 
   static updateSong(song, publish) {
@@ -328,22 +330,17 @@ class SongService {
     delete song.imageFile;
     delete song.lyricsFile;
 
-    return SongService.sendSongFile(songFile, song.id).then((fileResponse) => {
-      if (fileResponse) {
-        song.path = fileResponse.path;
-      }
-      return SongService.sendLyricsFile(lyricsFile, song.id).then((lryicsSong) => {
-        if(lryicsSong) {
-          response.lyrics = lryicsSong.lyrics;
-        }
+    const promises = [
+      SongService.sendSongFile(songFile, song.id),
+      SongService.sendLyricsFile(lyricsFile, song.id),
+      SongService.update(song)
+    ];
 
-        return SongService.update(song).then((updatedSong) => {
-          if (publish) {
-            return SongService.publish(song.id).then(_ => updatedSong);
-          }
-        });
-      });
-    });
+    if (publish) {
+      promises.push(SongService.publish(song.id).then(_ => updatedSong));
+    }
+
+    return Promise.all(promises);
   }
 
   static rateSong(song, rating) {
