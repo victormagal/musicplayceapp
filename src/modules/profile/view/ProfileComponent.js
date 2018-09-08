@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  View, StyleSheet, ScrollView, TouchableOpacity,
+  Alert, View, StyleSheet, ScrollView, TouchableOpacity,
   ActivityIndicator, ImageBackground, Dimensions, FlatList
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
@@ -9,13 +9,13 @@ import {
   MPTabBar, MPProfileInfo, MPShowLanguages, MPHeader,
   MPFollowButton, ProfileIndicatorCE, MPAddSongButton, MPAddChangePhoto,
   MPUploadFirstSong, MPShowFollowers, MPShowAgencies, MPReportProfile, MPShowFolderSongs, MPGradientButton,
-  MPConfirmStopFollow, MPConfirmExcludeSong, MPConfirmUnpublishSong, MPConfirmReportProfile, MPIconButton,
+  MPConfirmStopFollow, MPConfirmUnpublishSong, MPConfirmReportProfile, MPIconButton,
   MPText, MPLoading
 } from '../../../components/';
 import {
   MPProfileArrowIcon, MPSettingsIcon, MPSongAddIcon
 } from '../../../assets/svg/'
-import {uploadImage, followUser} from "../../../state/action";
+import {uploadImage, followUser, fetchMySongs, removeSong} from "../../../state/action";
 import ImagePicker from 'react-native-image-picker';
 import {MPGroupIcon, MPProfileIcon} from "../../../assets/svg";
 import {MPFloatingNotification} from "../../../components/general";
@@ -36,7 +36,8 @@ class ProfileComponent extends React.Component {
   }
 
   componentWillReceiveProps(nextProps){
-    if (this.props.profile !== nextProps.profile) {
+    const { profile } = this.props;
+    if (profile !== nextProps.profile) {
       this.props.onStopLoading()
     }
   }
@@ -74,7 +75,22 @@ class ProfileComponent extends React.Component {
   };
 
   handleRemoveSong = (song) => {
-    this.goToScreen('message', { component: MPConfirmExcludeSong, song });
+    Alert.alert(
+      'Excluir',
+      'Deseja excluir essa música?',
+      [
+        {
+          text: 'Cancelar',
+          style: 'cancel'
+        },
+        {
+          text: 'OK',
+          onPress: () => {
+            this.props.dispatch(removeSong(song.id));
+          }
+        },
+      ]
+    );
   };
 
   handleUnpublishSong = (song) => {
