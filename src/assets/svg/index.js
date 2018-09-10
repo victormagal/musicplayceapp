@@ -320,6 +320,11 @@ export const MPPasswordConfigIcon = (props) => {
  return (<Svg {...newProps} viewBox='0 0 17 20'><Path d='M16.638 19.524c0.017 0 0.029-0.010 0.029-0.021v-10.434c0-0.010-0.011-0.021-0.029-0.021h-16.133c-0.017 0-0.029 0.010-0.029 0.021v10.434c0 0.010 0.011 0.021 0.029 0.021h16.133zM14.762 7.143v-0.738c0-3.208-2.766-5.819-6.19-5.819s-6.19 2.611-6.19 5.819v0.738h12.381z' fill='none' stroke='#e13223' strokeWidth='0.9524' strokeMiterlimit={4} strokeLinecap='butt' strokeLinejoin='miter'/></Svg>); 
 };
 
+export const MPPath2Icon = (props) => { 
+ let newProps = applyStyle(props, 26, 16); 
+ return (<Svg {...newProps} viewBox='0 0 26 16'><Path d='M1.6 14.344l11.171-11.144 11.229 11.2' fill='none' stroke='#fff' strokeWidth='3.2' strokeMiterlimit={4} strokeLinecap='butt' strokeLinejoin='miter'/></Svg>); 
+};
+
 export const MPPaymentConfigIcon = (props) => { 
  let newProps = applyStyle(props, 11, 20); 
  return (<Svg {...newProps} viewBox='0 0 11 20'><Path d='M0.909 13.682c0.285 2.394 1.83 3.591 4.635 3.591s4.285-0.985 4.443-2.955c0.128-1.575-0.67-2.733-2.395-3.475-2.588-1.114-5.655-1.525-6.358-3.945-0.705-2.418 1.5-4.171 4.311-4.171 2.491 0 4.415 1.611 4.443 3.16' fill='none' stroke='#e13223' strokeWidth='0.9091' strokeMiterlimit={4} strokeLinecap='round' strokeLinejoin='miter'/><Path d='M5.909 0c0.251 0 0.455 0.204 0.455 0.455v19.091c0 0.251-0.204 0.455-0.455 0.455s-0.455-0.204-0.455-0.455v-19.091c0-0.251 0.204-0.455 0.455-0.455z' fill='#e13223'/></Svg>); 
@@ -483,6 +488,11 @@ export const MPSongUploadIcon = (props) => {
 export const MPSongIcon = (props) => { 
  let newProps = applyStyle(props, 12, 18); 
  return (<Svg {...newProps} viewBox='0 0 12 18'><Path d='M3.653 18c2.016 0 3.654-1.366 3.654-3.024V3.805a13.6 13.6 0 0 1 1.99.927 1.635 1.635 0 0 1 .227 2.634l.302.39.328.366c.1-.073 2.217-1.854 1.789-4.024C11.615 2.463 9.953 1.17 6.979.22L6.3 0v12.902c-.655-.585-1.613-.95-2.646-.95C1.638 11.951 0 13.316 0 14.975 0 16.634 1.638 18 3.653 18z' fill='#FFF'/></Svg>); 
+};
+
+export const MPStackedGroupIcon = (props) => { 
+ let newProps = applyStyle(props, 80, 16); 
+ return (<Svg {...newProps} viewBox='0 0 80 16'><Path d='M72.008 15.992c-4.418 0-8-3.582-8-8s3.582-8 8-8c4.418 0 8 3.582 8 8s-3.582 8-8 8z' fill='#fff'/><Path d='M40.008 15.992c-4.418 0-8-3.582-8-8s3.582-8 8-8c4.418 0 8 3.582 8 8s-3.582 8-8 8z' fill='#fff'/><Path d='M8.008 15.992c-4.418 0-8-3.582-8-8s3.582-8 8-8c4.418 0 8 3.582 8 8s-3.582 8-8 8z' fill='#fff'/></Svg>); 
 };
 
 export const MPStarIcon = (props) => { 
