@@ -80,7 +80,6 @@ export const uploadImage = (picture) => {
       dispatch(profileImageUploaded());
       dispatch(imageProfileFinishedLoading());
     }).catch(e => {
-      console.log('uploadImageError', e);
       dispatch(imageProfileFinishedLoading());
     })
   }

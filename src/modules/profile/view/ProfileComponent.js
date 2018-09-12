@@ -23,6 +23,8 @@ import {MPFloatingNotification} from "../../../components/general";
 class ProfileComponent extends React.Component {
   scrollViewRef = null;
 
+  static UPLOAD_SIZE = 3;
+
   constructor(props) {
     super(props);
     this.scrollViewRef = React.createRef();
@@ -117,13 +119,22 @@ class ProfileComponent extends React.Component {
 
   handleClickPhoto = () => {
     // @todo refactoring to component capture image with options default and i18n
+    /* const options = {
+      title: 'Selecionar uma foto',
+      storageOptions: {
+        skipBackup: true,
+        path: 'images'
+      }
+    }; */
+
     const options = {
       title: 'Selecionar imagem de perfil',
       cancelButtonTitle: 'Cancelar',
       takePhotoButtonTitle: 'Tirar foto ...',
       chooseFromLibraryButtonTitle: 'Selecionar foto ...',
       cameraType: 'front',
-      quality: 0, // @todo revisar ou aumentar tamanho de upload
+      mediaType: 'photo',
+      quality: 0,
       permissionDenied: {
         title: 'Permissão negada',
         text: 'Para captura ou escolha do avatar é necessário conceder permissão à Câmera ou Storage',
@@ -137,24 +148,19 @@ class ProfileComponent extends React.Component {
     };
 
     ImagePicker.showImagePicker(options, (response) => {
-      const isErrorFilesize = response.fileSize > 2000000;
-      const isError = response.didCancel || response.error || isErrorFilesize;
-    
-      if (isError) {
-        this.handleChange({ name: 'imageFile', value: null });
-
-        if (isErrorFilesize) {
+      const { fileSize } = response;
+      if (fileSize) {
+        const megabytes = (fileSize / 1024) / 1024;
+        if (megabytes > ProfileComponent.UPLOAD_SIZE) {
+          // @todo state error
           this.setState({ imageSizeError: true });
-          // @todo workaround timeout
-          const timer = setTimeout(() => {
+          setTimeout(() => {
             this.setState({ imageSizeError: false });
-            clearTimeout(timer);
           }, 2000);
+          return;
         }
-        return;
-      }
-
-      this.props.dispatch(uploadImage(response))
+        this.props.dispatch(uploadImage(response))
+     }
     });
   };
 
@@ -231,7 +237,7 @@ class ProfileComponent extends React.Component {
   }
 
   render() {
-    const { me, profile } = this.props;
+    const { me, profile, imageLoading } = this.props;
     return (
       <View style={{ flex: 1 }}>
         {this.renderHeader(me)}
@@ -241,7 +247,7 @@ class ProfileComponent extends React.Component {
           onScroll={this.handleScrollChange}>
           { this.renderContent(profile) }
           {
-            me && <MPLoading visible={this.props.imageLoading} />
+            me && <MPLoading visible={imageLoading} />
           }
         </ScrollView>
         { (profile && me) &&
@@ -456,6 +462,7 @@ class ProfileComponent extends React.Component {
 ProfileComponent.propTypes = {
   profile: PropTypes.object,
   me: PropTypes.bool,
+  imageLoading: PropTypes.bool,
   onFollowersEmptyClick: PropTypes.func,
   onSongAddClick: PropTypes.func
 };
