@@ -83,7 +83,12 @@ class MusicLetterScreenContainer extends React.Component {
   };
 
   handleChangeOption = (selectedOption) => {
-    this.updateSong('language_id', this.props.songLanguages[selectedOption].id);
+    if (!selectedOption) {
+      return;
+    }
+
+    const { songLanguages } = this.props;
+    this.updateSong('language_id', songLanguages[selectedOption].id);
     this.setState({selectedOption});
   }
 

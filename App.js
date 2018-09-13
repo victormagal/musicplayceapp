@@ -32,6 +32,10 @@ const RNMusicPlayerEmitter = new NativeEventEmitter(RNMusicPlayer);
 
 const store = createStore(reducers, applyMiddleware(thunkMiddleware));
 
+if (__DEV__) {
+  NativeModules.DevSettings.setIsDebuggingRemotely(true)
+}
+
 const HomeTabBottomNavigation = createBottomTabNavigator({
   feed: {
     screen: FeedScreensNavigation,

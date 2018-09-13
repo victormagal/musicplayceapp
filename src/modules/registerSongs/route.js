@@ -6,7 +6,6 @@ import {
   MusicDescriptionScreen,
   MusicLetterScreen,
   InterpreterScreen,
-  SaveDraftScreen,
   StylesScreen,
   TitleScreen,
   RegisterSongScreen,
@@ -23,7 +22,6 @@ export const SongsScreens = {
   InterpreterScreen: InterpreterScreen,
   FolderScreen: FolderScreen,
   ConfirmationScreen: ConfirmationScreen,
-  SaveDraftScreen: SaveDraftScreen,
   MyProfileScreen: MyProfileScreen,
   ISRCScreen
 };

@@ -248,7 +248,13 @@ class SongService {
     return SongService._songsWithoutFolder(page, id);
   }
 
-  static sendSongFile(file, song) {
+  /**
+   * @todo refactorar codigo repetido
+   * 
+   * @param {*} file 
+   * @param {*} id 
+   */
+  static sendSongFile(file, id) {
     let formData = new FormData();
 
     if (!file) {
@@ -261,7 +267,7 @@ class SongService {
       type: Platform.OS === 'android' ? file.type : ''
     });
 
-    return axios.post(`${ API_SONG }/${ song.id }/audio`, formData, {
+    return axios.post(`${ API_SONG }/${ id }/audio`, formData, {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'multipart/form-data'
@@ -273,7 +279,7 @@ class SongService {
     });
   }
 
-  static sendLyricsFile(file, song) {
+  static sendLyricsFile(file, id) {
     let formData = new FormData();
 
     if (!file) {
@@ -286,7 +292,7 @@ class SongService {
       type: 'plain/text'
     });
 
-    return axios.post(`${ API_SONG }/${ song.id }/file`, formData, {
+    return axios.post(`${ API_SONG }/${ id }/file`, formData, {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'multipart/form-data'
@@ -298,49 +304,43 @@ class SongService {
     });
   }
 
-  static createSong(song, publish) {
-    let {songFile, imageFile, lyricsFile} = song;
+  static async createSong(song, publish) {
+    let {songFile, lyricsFile} = song;
     delete song.songFile;
     delete song.imageFile;
     delete song.lyricsFile;
 
-    return SongService.create(song).then(response => {
-      return SongService.uploadImage(response.id, imageFile).then(() => {
-        return SongService.sendLyricsFile(lyricsFile, response).then(() => {
-          return SongService.sendSongFile(songFile, response).then(() => {
-            if (publish) {
-              return SongService.publish(response.id).then(_ => response);
-            }
-            return response;
-          });
-        });
-      });
-    });
+    const response = await SongService.create(song);
+
+    const promises = [
+      SongService.sendLyricsFile(lyricsFile, response.id),
+      SongService.sendSongFile(songFile, response.id)
+    ];
+
+    if (publish) {
+      promises.push(SongService.publish(response.id).then(_ => response));
+    }
+
+    return Promise.all(promises);
   }
 
-  static updateSong(song) {
-    let {songFile, imageFile, lyricsFile} = song;
+  static updateSong(song, publish) {
+    let {songFile, lyricsFile} = song;
     delete song.songFile;
     delete song.imageFile;
     delete song.lyricsFile;
 
-    return SongService.uploadImage(song.id, imageFile).then((response) => {
-      response = response || song;
-      return SongService.sendSongFile(songFile, response).then((fileResponse) => {
-        if (fileResponse) {
-          song.path = fileResponse.path;
-        }
-        return SongService.sendLyricsFile(lyricsFile, response).then((lryicsSong) => {
-          if(lryicsSong) {
-            response.lyrics = lryicsSong.lyrics;
-          }
+    const promises = [
+      SongService.sendSongFile(songFile, song.id),
+      SongService.sendLyricsFile(lyricsFile, song.id),
+      SongService.update(song)
+    ];
 
-          return SongService.update(response).then((updatedSong) => {
-            return SongService.publish(song.id).then(_ => updatedSong);;
-          });
-        });
-      });
-    });
+    if (publish) {
+      promises.push(SongService.publish(song.id).then(_ => updatedSong));
+    }
+
+    return Promise.all(promises);
   }
 
   static rateSong(song, rating) {
@@ -356,31 +356,6 @@ class SongService {
     return axios.post(`${API_SONG}/${song.id}/rating`, params).then(response => {
       console.log(response);
       // return response;
-    });
-  }
-
-  static uploadImage(songId, file) {
-    let formData = new FormData();
-
-    if (!file) {
-      return Promise.resolve();
-    }
-
-    formData.append('picture', {
-      uri: file.uri,
-      name: file.fileName,
-      type: file.type || `image/${ file.fileName.split('.')[1] }`
-    });
-
-    return axios.post(`${ API_SONG }/${ songId }/picture`, formData, {
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'multipart/form-data'
-      }
-    }).then(response => {
-      const {data} = response.data;
-      const {id, attributes} = data;
-      return {id, ...attributes};
     });
   }
 
