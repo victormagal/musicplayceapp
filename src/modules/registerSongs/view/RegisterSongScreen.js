@@ -8,8 +8,7 @@ import {
 import {MPSongUploadIcon, MPSongUploadEditIcon, MPCameraIcon, MPAlertIcon} from '../../../assets/svg';
 import {createPermanentSong, updatePermanentSong, fetchOneSong} from "../../../state/action";
 import {updateSongRegisterData} from "../../../state/songs/songsType";
-import ImagePicker from "react-native-image-picker";
-
+import {createDraftSong, updateDraftSong} from '../../../state/action';
 
 class RegisterSongContainer extends React.Component {
 
@@ -77,6 +76,10 @@ class RegisterSongContainer extends React.Component {
       this.props.dispatch(updateSongRegisterData(nextProps.fetchedSong));
       this.setState({shouldFetchSong: false});
     }
+
+    if (nextProps.songDraftSuccess) {
+      this.props.navigation.navigate('MyProfileScreen', { backFromPublishedOrDraft: true });
+    }
   }
 
   componentWillUnmount(){
@@ -117,14 +120,14 @@ class RegisterSongContainer extends React.Component {
 
   handleFinishLaterClick = () => {
     let {draftErrors} = this.state;
-
+    
     const isValid = this.validate(draftErrors, () => {
-      if (isValid) {
-        let {song} = this.props;
-        this.goToScreen('SaveDraftScreen', {song});
-      }else{
+      if (!isValid) {
         this.showNotificationError(this.state.errors);
+        return;
       }
+      let {song} = this.props;
+      song.created_at ? this.props.dispatch(updateDraftSong(song)) : this.props.dispatch(createDraftSong(song));
     });
 
   };
@@ -145,27 +148,6 @@ class RegisterSongContainer extends React.Component {
 
         this.updateSong('songFile', response)
         this.setState({songFile: response});
-      }
-    });
-  };
-
-  handleChooseSongPictureClick = () => {
-    const options = {
-      title: 'Selecionar uma imagem',
-      storageOptions: {
-        skipBackup: true,
-        path: 'images'
-      }
-    };
-
-    ImagePicker.showImagePicker(options, (response) => {
-      if (response.didCancel) {
-        console.log('User cancelled image picker');
-      } else if (response.error) {
-        console.log('ImagePicker Error: ', response.error);
-      } else {
-        this.setState({imageFile: response});
-        this.updateSong('imageFile', response)
       }
     });
   };
@@ -292,33 +274,6 @@ class RegisterSongContainer extends React.Component {
                   </TouchableOpacity>
                 )}
               </View>
-              <MPText style={[styles.headerText, { marginTop: 10 }]}>
-                {imageFile || song.picture_url ? 'Imagem de Capa Selecionada' : 'Upload de Imagem de Capa'}
-              </MPText>
-              <View style={styles.errorCard(errors)}>
-                <MPGradientButton
-                  style={styles.uploadIcon}
-                  icon={MPCameraIcon}
-                  title={imageFile || song.picture_url ? this.getImageName() : 'Escolher o arquivo'}
-                  textSize={16}
-                  onPress={this.handleChooseSongPictureClick}
-                />
-
-                {!imageFile && !song.picture_url && (
-                  <MPText style={ [styles.subText, errors.imageFile ? {color: '#e13223'}: {} ]}>
-                    Você pode fazer upload de imagens em JPG, JPEG e PNG.
-                  </MPText>
-                )}
-
-                {(!!imageFile || !!song.picture_url) && (
-                  <TouchableOpacity onPress={this.handleChooseSongPictureClick}>
-                    <MPText style={styles.replaceSong}>
-                      Substituir arquivo
-                    </MPText>
-                  </TouchableOpacity>
-                )}
-
-              </View>
               <View style={ styles.horizontalContainer }>
                 <MPSongInfo
                   style={styles.songItem}
@@ -357,6 +312,7 @@ class RegisterSongContainer extends React.Component {
                   invalid={errors.coAuthors}
                   selected={song.coAuthors && song.coAuthors.length > 0}
                   title={'Tem outros autores?'}
+                  placeholder={'*Opcional'}
                   info={this.getFilledString('coAuthors')}
                   onPress={() => this.goToScreen('UsersScreen')}
                 />
@@ -394,7 +350,7 @@ class RegisterSongContainer extends React.Component {
               { (song.published_at === null || song.unpublished_at !== null) &&
               <TouchableOpacity style={styles.clickableTextContainer} onPress={this.handleFinishLaterClick}>
                 <MPText style={styles.clickableText}>
-                  Terminar depois
+                  Salvar Rascunho
                 </MPText>
               </TouchableOpacity>
               }

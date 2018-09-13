@@ -15,18 +15,14 @@ import {MPGradientButton, MPText, MPLoading, MPInput, MPForm, MPFormButton, MPHe
 import {
   MPArrowDownRedIcon,
   MPArrowUpRedIcon,
-  MPCameraIcon,
   MPFacebookIcon,
   MPGoogleIcon,
   MPLogoRegisterIcon,
   MPProfileIcon
 } from '../../../../assets/svg';
-import {MPCircleGradientButton} from "../../../../components/buttons";
-import ImagePicker from "react-native-image-picker";
 import {MPFloatingNotification} from "../../../../components/general";
 import {checkUsernameOrEmail} from "../../../../state/user/userAction";
 import {connect} from "react-redux";
-
 
 const BaseIcon = (props, Icon) => (
   <View {...props}>
@@ -79,49 +75,6 @@ class RegisterComponentScreen extends Component {
   handleToggleRegisterForm = () => {
     const extraMargin = Platform.OS === 'ios' ? 15 : 21;
     this.scrollViewRef.scrollToPosition(0, this.state.linearGradientHeight + extraMargin);
-  };
-
-  handleClickPhoto = () => {
-    // @todo refactoring to component capture image with options default and i18n
-    const options = {
-      title: 'Selecionar imagem de perfil',
-      cancelButtonTitle: 'Cancelar',
-      takePhotoButtonTitle: 'Tirar foto ...',
-      chooseFromLibraryButtonTitle: 'Selecionar foto ...',
-      cameraType: 'front',
-      quality: 0, // @todo revisar ou aumentar tamanho de upload
-      permissionDenied: {
-        title: 'Permissão negada',
-        text: 'Para captura ou escolha do avatar é necessário conceder permissão à Câmera ou Storage',
-        reTryTitle: 'Permitir',
-        okTitle: 'OK' 
-      },
-      storageOptions: {
-        skipBackup: true,
-        path: 'images'
-      }
-    };
-
-    ImagePicker.showImagePicker(options, (response) => {
-      const isErrorFilesize = response.fileSize > 2000000;
-      const isError = response.didCancel || response.error || isErrorFilesize;
-    
-      if (isError) {
-        this.handleChange({ name: 'imageFile', value: null });
-
-        if (isErrorFilesize) {
-          this.setState({ imageSizeError: true });
-          // @todo workaround timeout
-          const timer = setTimeout(() => {
-            this.setState({ imageSizeError: false });
-            clearTimeout(timer);
-          }, 2000);
-        }
-        return;
-      }
-
-      this.handleChange({ name: 'imageFile', value: response });
-    });
   };
 
   handleRegister = () => {

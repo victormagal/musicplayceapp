@@ -3,7 +3,6 @@ import {
   getIncludes,
   transformResponseData
 } from './api';
-import { Platform } from 'react-native';
 import { AuthService } from './AuthService';
 import axios from 'axios';
 
@@ -27,22 +26,27 @@ class UserService {
     let formData = new FormData();
 
     if (!file) {
-      return Promise.resolve();
+      return Promise.reject();
     }
 
-    formData.append('picture', {
-      uri: file.uri,
-      name: file.fileName,
-      type: `images/${ file.fileName.split('.')[1] }`
-    });
+    let { fileName, uri } = file;
+
+    if (!fileName) {
+      const positionDotExtension = uri.lastIndexOf('.');
+      const extension = uri.substr(positionDotExtension + 1, 3);
+      const name = uri.substring(uri.lastIndexOf('/') + 1, positionDotExtension);
+      fileName = `${name}.${extension}`;
+    }
+
+    const photo = {
+      uri,
+      type: 'image/jpeg',
+      name: fileName,
+    };
+    formData.append('picture', photo);
 
     const endpointUrl = `${ API_USER }/me/picture`;
-    return axios.post(endpointUrl, formData, {
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'multipart/form-data'
-      }
-    }).then(response => {
+    return axios.post(endpointUrl, formData).then(response => {
       const { data } = response.data;
       const { id, attributes } = data;
       return { id, ...attributes };
