@@ -229,7 +229,7 @@ class RegisterSongContainer extends React.Component {
 
   render() {
     const {song} = this.props;
-    const {errors, songFile, imageFile} = this.state;
+    const {errors, songFile} = this.state;
     return (
       <View style={styles.container}>
         <MPHeader
@@ -326,10 +326,10 @@ class RegisterSongContainer extends React.Component {
                 />
                 <MPSongInfo
                   style={styles.songItem}
-                  title={(song.folder && 'Pasta') || 'Organize suas músicas em pastas'}
+                  title={(song.folders && 'Pasta') || 'Organize suas músicas em pastas'}
                   placeholder={'*Opcional'}
-                  selected={song.folder && typeof song.folder.name !== 'undefined'}
-                  info={(song.folder && song.folder.name) || '' }
+                  selected={song.folders && song.folders.length > 0}
+                  info={(song.folders && song.folders[0].name) || '' }
                   onPress={() => this.goToScreen('FolderScreen')}
                 />
                 <MPSongInfo
