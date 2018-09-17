@@ -13,6 +13,7 @@ import feedbackReducer from './settings/feedback/feedbackReducer';
 import termsReducer from './settings/termsAndConditions/termsReducer';
 import feedsReducer from './feed/feedReducer';
 import plansReducer from './plan/planReducer';
+// import cardReducer from './card/cardReducer';
 import {AUTH_LOGOUT} from './auth/authAction';
 
 const rootReducer = combineReducers({
@@ -31,6 +32,7 @@ const rootReducer = combineReducers({
   termsReducer,
   feedsReducer,
   plansReducer
+  // cardReducer
 });
 
 
