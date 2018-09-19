@@ -96,13 +96,14 @@ export const updateDraftSong = (song) => {
   };
 }
 
-export const removeSong = (id) => {
+export const removeSong = (id, profileId) => {
   return (dispatch) => {
     dispatch(songStartLoading());
 
     return SongService.delete(id).then(() => {
       dispatch(songRemoveSuccess(id));
-      dispatch(fetchMySongs(id));
+      // @todo error  get profile
+      dispatch(fetchMySongs(profileId));
     }).catch((e) => {
       console.log('removeSongError', e);
       dispatch(songRemoveError())

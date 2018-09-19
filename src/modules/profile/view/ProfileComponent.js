@@ -15,7 +15,7 @@ import {
 import {
   MPProfileArrowIcon, MPSettingsIcon, MPSongAddIcon
 } from '../../../assets/svg/'
-import {uploadImage, followUser, fetchMySongs, removeSong} from "../../../state/action";
+import {uploadImage, followUser, removeSong} from "../../../state/action";
 import ImagePicker from 'react-native-image-picker';
 import {MPGroupIcon, MPProfileIcon} from "../../../assets/svg";
 import {MPFloatingNotification} from "../../../components/general";
@@ -88,7 +88,8 @@ class ProfileComponent extends React.Component {
         {
           text: 'OK',
           onPress: () => {
-            this.props.dispatch(removeSong(song.id));
+            const { profile } = this.props;
+            this.props.dispatch(removeSong(song.id, profile.id));
           }
         },
       ]
