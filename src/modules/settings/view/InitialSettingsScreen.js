@@ -61,26 +61,19 @@ class InitialSettingsScreenContainer extends React.Component {
       /* {
         id: '05',
         onChooseOption: () => this.props.navigation.navigate('addChangePlanSettings'),
-        title: 'Alterar plano',
-        icon: MPChangePlanIcon,
-        iconNext: MPArrowRightIcon
-      },
-      {
-        id: '06',
-        onChooseOption: () => this.props.navigation.navigate('paymentTypesSettings'),
-        title: 'Alterar forma de pagamento',
+        title: 'Minha assinatura',
         icon: MPPaymentTypesIcon,
         iconNext: MPArrowRightIcon
       },*/
       {
-        id: '07',
+        id: '06',
         onChooseOption: () => this.props.navigation.navigate('feedbackSettings'),
         title: 'Enviar feedback',
         icon: MPFeedbackConfigIcon,
         iconNext: MPArrowRightIcon
       },
       {
-        id: '08',
+        id: '07',
         onChooseOption: () => this.props.navigation.navigate('termsSettings'),
         title: 'Termos e condições',
         icon: MPTermsConfigIcon,

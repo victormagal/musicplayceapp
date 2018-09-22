@@ -43,7 +43,7 @@ class AddChangePlanScreenContainer extends React.Component {
       <View style={styles.parent}>
         <MPHeader back={true} onBack={this.handleBack} title={"Assine o plano para ter mais vantagens"} />
         <ScrollView style={styles.scroll}>
-          <MPAddChangePlan plans={this.state.plans}  onPress={this.addPlan.bind(this)} />
+          <MPAddChangePlan plans={this.state.plans} navigation={this.props.navigation}  onPress={this.addPlan.bind(this)} />
         </ScrollView>
       </View>
     );

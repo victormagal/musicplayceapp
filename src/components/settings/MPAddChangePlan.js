@@ -3,27 +3,50 @@ import { connect } from 'react-redux';
 import {
   StyleSheet,
   View,
-  TouchableWithoutFeedback
+  TouchableWithoutFeedback, Share, FlatList
 } from 'react-native';
 import {
   MPText,
-  MPTextField,
-  MPGradientButton
+  MPGradientButton,
+  MPItemList
 } from '../../components';
 import LinearGradient from 'react-native-linear-gradient';
+import {MPArrowRightIcon} from "../../assets/svg";
 
 class MPAddChangePlanComponent extends React.Component {
   state = {
       monthly: false,
   }
 
+  list = {
+    data: [
+      {
+        id: '02',
+        onChooseOption: () => this.props.navigation.navigate('paymentTypesSettings'),
+        title: 'Cadastrar cartão de crédito',
+        iconNext: MPArrowRightIcon
+      }
+    ]
+  }
+
   toggleMonth(){
     this.setState({monthly: !this.state.monthly});
   }
+
   render() {
     let {onPress, plans} = this.props;
-    let monthlyPlan = plans[1];
-    let yearlyPlan = plans[0];
+    let freePlan = plans[0];
+    let premiumPlan = plans[1];
+    let freePriceFormatted = '';
+    let premiumPriceFormatted = '';
+
+    if (freePlan) {
+      freePriceFormatted = new Intl.NumberFormat('pt-BR', {style: 'currency', currency: 'BRL'}).format(freePlan.attributes.value).replace('R$', '');
+    }
+
+    if (premiumPlan) {
+      premiumPriceFormatted = new Intl.NumberFormat('pt-BR', {style: 'currency', currency: 'BRL'}).format(premiumPlan.attributes.value).replace('R$', '');
+    }
 
     return (
         <View style={styles.container}>
@@ -34,12 +57,12 @@ class MPAddChangePlanComponent extends React.Component {
                 {
                     this.state.monthly == true ? (
                         <View style={styles.inButton}>
-                            <LinearGradient colors={['#BB1A1A', '#2E2C9D']} style={{flex: 1}} selected={true}>
-                                <MPText style={styles.selectedButton}>Mensal</MPText>
+                            <LinearGradient colors={['#BB1A1A', '#2E2C9D']} style={{flex: 1}} start={{x: 0, y: 0}} end={{x: 1, y:0}} selected={true}>
+                                <MPText style={styles.selectedButton}>{freePlan.attributes.title}</MPText>
                             </LinearGradient>
                             <TouchableWithoutFeedback  onPress={this.toggleMonth.bind(this)}>
                                 <View style={{flex: 1}}>
-                                    <MPText style={styles.notSelectedButton}>Anual</MPText>
+                                    <MPText style={styles.notSelectedButton}>{premiumPlan.attributes.title}</MPText>
                                 </View>
                             </TouchableWithoutFeedback>
                         </View>
@@ -47,11 +70,11 @@ class MPAddChangePlanComponent extends React.Component {
                         <View style={styles.inButton}>
                             <TouchableWithoutFeedback  onPress={this.toggleMonth.bind(this)}>
                                 <View style={{flex: 1}}>
-                                    <MPText style={styles.notSelectedButton}>Mensal</MPText>
+                                    <MPText style={styles.notSelectedButton}>{freePlan ? freePlan.attributes.title : null}</MPText>
                                 </View>
                             </TouchableWithoutFeedback>
-                            <LinearGradient colors={['#BB1A1A', '#2E2C9D']} style={{flex: 1}} selected={true}>
-                                <MPText style={styles.selectedButton}>Anual</MPText>
+                            <LinearGradient colors={['#BB1A1A', '#2E2C9D']} style={{flex: 1}} start={{x: 0, y: 0}} end={{x: 1, y:0}} selected={true}>
+                                <MPText style={styles.selectedButton}>{premiumPlan ? premiumPlan.attributes.title : null}</MPText>
                             </LinearGradient>
                         </View>
                     )
@@ -62,14 +85,14 @@ class MPAddChangePlanComponent extends React.Component {
                     <View>
                         <View style={{backgroundColor: '#FFF', marginHorizontal: 80, marginBottom: 2, paddingVertical: 20, borderRadius: 4}}>
                             <View>
-                                <MPText style={styles.topTitle}>{monthlyPlan? monthlyPlan.attributes.title : null}</MPText>
-                                <MPText style={styles.topSubTitle}>{monthlyPlan ? monthlyPlan.attributes.description : null}</MPText>
+                                <MPText style={styles.topTitle}>{freePlan ? freePlan.attributes.title : null}</MPText>
+                                <MPText style={styles.topSubTitle}>{freePlan ? freePlan.attributes.description : null}</MPText>
                             </View>
                         </View>
                         <View style={{backgroundColor: '#FFF', marginHorizontal: 80, marginBottom: 30}}>
                             <View>
-                                <MPText style={styles.bottomTitle}>R$ <MPText style={styles.bottomTitleEmph}>{monthlyPlan ? monthlyPlan.attributes.value : null}</MPText></MPText>
-                                <MPText style={styles.bottomSubTitle}>por mes</MPText>
+                                <MPText style={styles.bottomTitle}>R$ <MPText style={styles.bottomTitleEmph}>{freePriceFormatted}</MPText></MPText>
+                                <MPText style={styles.bottomSubTitle}>{freePlan ? freePlan.attributes.description_value : null}</MPText>
                             </View>
                         </View>
                     </View>
@@ -77,21 +100,29 @@ class MPAddChangePlanComponent extends React.Component {
                     <View>
                         <View style={{backgroundColor: '#FFF', marginHorizontal: 80, marginBottom: 2, paddingVertical: 20, borderRadius: 4}}>
                             <View>
-                                <MPText style={styles.topTitle}>{yearlyPlan ? yearlyPlan.attributes.title: null}</MPText>
-                                <MPText style={styles.topSubTitle}>{yearlyPlan ? yearlyPlan.attributes.description : null}</MPText>
+                                <MPText style={styles.topTitle}>{premiumPlan ? premiumPlan.attributes.title: null}</MPText>
+                                <MPText style={styles.topSubTitle}>{premiumPlan ? premiumPlan.attributes.description : null}</MPText>
                             </View>
                         </View>
                         <View style={{backgroundColor: '#FFF', marginHorizontal: 80, marginBottom: 30}}>
                             <View>
-                                <MPText style={styles.bottomTitle}>R$ <MPText style={styles.bottomTitleEmph}>{yearlyPlan ? yearlyPlan.attributes.value : null}</MPText></MPText>
-                                <MPText style={styles.bottomSubTitle}>por ano</MPText>
-                            </View>
-                        </View>
-                    </View>
-                )
-            }
-            <MPGradientButton style={{marginHorizontal: 80}} title={'Fazer upgrade'} textSize={16} onPress={onPress} />
-        </View>
+                                <MPText style={styles.bottomTitle}>R$ <MPText style={styles.bottomTitleEmph}>{premiumPriceFormatted}</MPText></MPText>
+                                <MPText style={styles.bottomSubTitle}>{premiumPlan ? premiumPlan.attributes.description_value : null}</MPText>
+                              </View>
+                          </View>
+                      </View>
+                  )
+              }
+              <MPGradientButton style={{marginHorizontal: 80}} title={'Fazer upgrade'} textSize={16} onPress={onPress} />
+
+              <View style={styles.containerList}>
+                <FlatList
+                  data={this.list.data}
+                  keyExtractor={item => item.id}
+                  renderItem={({ item }) => <MPItemList item={item} {...this.props} />}
+                />
+              </View>
+          </View>
     );
   }
 
@@ -164,6 +195,11 @@ const styles = StyleSheet.create({
     color: '#686868',
     fontFamily: 'Montserrat-Regular',
     marginBottom: 20,
+  },
+  containerList: {
+    flex: 2,
+    marginTop: 30,
+    marginBottom: 10
   }
 });
 
