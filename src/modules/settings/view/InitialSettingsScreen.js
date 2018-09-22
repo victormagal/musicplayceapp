@@ -58,7 +58,7 @@ class InitialSettingsScreenContainer extends React.Component {
         icon: MPPasswordConfigIcon,
         iconNext: MPArrowRightIcon
       },
-      {
+      /* {
         id: '05',
         onChooseOption: () => this.props.navigation.navigate('addChangePlanSettings'),
         title: 'Alterar plano',
@@ -71,7 +71,7 @@ class InitialSettingsScreenContainer extends React.Component {
         title: 'Alterar forma de pagamento',
         icon: MPPaymentTypesIcon,
         iconNext: MPArrowRightIcon
-      },
+      },*/
       {
         id: '07',
         onChooseOption: () => this.props.navigation.navigate('feedbackSettings'),
