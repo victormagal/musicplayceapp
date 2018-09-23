@@ -101,7 +101,7 @@ class UserService {
     const endpointUrl = field === 'email' ? `${ API_USER }/check-email` : `${ API_USER }/check-username`;
     return axios.post(endpointUrl, {
       [field]: value
-    }).then(response => response.data);
+    }).then(response => response.status);
   }
 
   //TODO: refactor
