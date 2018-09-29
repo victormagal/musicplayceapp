@@ -97,7 +97,8 @@ class ModalPlayerComponent extends React.Component {
       <View style={styles.playerContainer}>
         <Slider style={styles.playerSlider} thumbStyle={styles.playerThumb}
                 minimumTrackTintColor='#e13223' maximumTrackTintColor='#808080'
-                minimumValue={0} maximumValue={duration} onValueChange={this.props.onSongSliderChange}
+                minimumValue={0}
+                maximumValue={duration} onValueChange={this.props.onSongSliderChange}
                 value={progress}/>
 
         <View style={styles.modalPlayerMusicTextContainer}>

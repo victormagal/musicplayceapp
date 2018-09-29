@@ -11,14 +11,16 @@ import {
 import { saveProfile } from '../../state/action';
 import { MPCheckboxIcon } from '../../assets/svg';
 
-class MPCheckBoxComponent extends React.Component {
+class MPCheckBox extends React.Component {
   state = {
       checked: this.props.checked,
   }
 
   toggleCheck = () => {
-      this.setState({checked: !this.state.checked})
-  }
+    const checked = !this.state.checked;
+    this.setState({checked});
+    this.props.onChange(checked);
+  };
 
   render() {
       let { checked , title, style} = this.props;
@@ -65,9 +67,4 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = ({ fontReducer }) => {
-  return { ...fontReducer };
-};
-
-const MPCheckBox = connect(mapStateToProps)(MPCheckBoxComponent);
 export { MPCheckBox };

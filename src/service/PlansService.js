@@ -11,6 +11,16 @@ class PlansService {
         return response.data.data;
       });
   }
+
+  static addCard(card){
+    //TODO: MOCK, call API here
+    return Promise.resolve(card);
+  }
+
+  static removeCard(card){
+    //TODO: MOCK, call API here
+    return Promise.resolve(card);
+  }
 }
 
 export {PlansService};

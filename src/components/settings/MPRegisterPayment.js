@@ -5,8 +5,9 @@ import {
   View
 } from 'react-native';
 import {
-  MPTextField,
+  MPInput
 } from '../../components';
+import {updateLocalCard} from '../../state/action';
 
 class MPRegisterPaymentComponent extends React.Component {
   state = {
@@ -16,7 +17,7 @@ class MPRegisterPaymentComponent extends React.Component {
       cvv: '',
       cpf: '',
     }
-  }
+  };
 
   componentDidMount(){
     let {card} = this.props;
@@ -25,15 +26,22 @@ class MPRegisterPaymentComponent extends React.Component {
     }
   }
 
+  handleChangeText = ({name, value}) => {
+    let card = {...this.state.card};
+    card[name] = value;
+    this.setState({card});
+    this.props.dispatch(updateLocalCard(card));
+  };
+
   render() {
     return (
       <View style={styles.container}>
-        <MPTextField label={'Número do cartão'} value={this.state.card.number}/>
+        <MPInput label={'Número do cartão'} name="number" value={this.state.card.number} onChangeText={this.handleChangeText}/>
         <View style={{flexDirection: 'row'}}>
-            <MPTextField label={'Vencimento'} value={this.state.card.dueDate} style={{flex: 1, marginEnd: 20}}/>
-            <MPTextField label={'CVV'} value={this.state.card.cvv} style={{flex: 1,}}/>
+            <MPInput label={'Vencimento'} name="dueDate" value={this.state.card.dueDate} style={{flex: 1, marginEnd: 20}} onChangeText={this.handleChangeText}/>
+            <MPInput label={'CVV'} name="cvv" value={this.state.card.cvv} style={{flex: 1,}} onChangeText={this.handleChangeText}/>
         </View>
-        <MPTextField label={'CPF do titular'} value={this.state.card.cpf}/>
+        <MPInput label={'CPF do titular'} name="cpf" value={this.state.card.cpf} onChangeText={this.handleChangeText}/>
       </View>
     );
   }
@@ -46,8 +54,8 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = ({ fontReducer }) => {
-  return { ...fontReducer };
+const mapStateToProps = () => {
+  return {};
 };
 
 const MPRegisterPayment = connect(mapStateToProps)(MPRegisterPaymentComponent);
