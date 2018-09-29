@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Image, View, StyleSheet, Text, TouchableOpacity} from 'react-native';
+import {Image, View, StyleSheet, TouchableOpacity} from 'react-native';
 import {Card} from 'react-native-elements';
 import PropTypes from 'prop-types';
 import {MPSongListIcon, MPPlayIcon, MPStarIcon, MPFilledStarIcon} from '../../assets/svg';
@@ -26,7 +26,7 @@ class MPUserFull extends Component {
               <View style={styles.simpleUserCardImageContainer}>
                 <Image source={songImage} style={ styles.simpleUserCardImage }/>
                 <MPPlayIcon style={styles.playIcon}/>
-                <MPSongListIcon style={styles.songListIcon}/>
+                {/* <MPSongListIcon style={styles.songListIcon}/> */}
               </View>
             </TouchableOpacity>
             <View>
