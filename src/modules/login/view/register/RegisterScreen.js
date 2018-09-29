@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
+import { View } from 'react-native';
 import {connect} from 'react-redux';
 import {RegisterComponent} from './RegisterComponent';
 import {createUser} from '../../../../state/action';
-
+import {MPLoading} from '../../../../components';
 
 class RegisterScreenContainer extends Component {
 
@@ -37,14 +38,16 @@ class RegisterScreenContainer extends Component {
 
   render() {
     return (
-      <RegisterComponent
-        navigation={this.props.navigation}
-        onBackClick={this.handleBackClick}
-        onRegister={this.handleRegister}
-        loading={this.props.loading}
-        error={this.props.createUserError}
-        formError={this.state.error}
-      />
+      <View style={{ height: '100%' }}>
+        <RegisterComponent
+          navigation={this.props.navigation}
+          onBackClick={this.handleBackClick}
+          onRegister={this.handleRegister}
+          error={this.props.createUserError}
+          formError={this.state.error}
+        />
+        <MPLoading visible={this.props.loading} />
+      </View>
     );
   }
 }

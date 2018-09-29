@@ -41,6 +41,8 @@ const GoogleIcon = (props) => {
   return BaseIcon(props, MPGoogleIcon);
 };
 
+
+
 class RegisterComponentScreen extends Component {
   searchTimer = null;
   state = {
@@ -57,7 +59,6 @@ class RegisterComponentScreen extends Component {
     activeField: null,
     unavailableEmail: false,
     unavailableUsername: false,
-    imageSizeError: false,
     linearGradientHeight: 0
   };
 
@@ -94,10 +95,8 @@ class RegisterComponentScreen extends Component {
 
   handleSearch = (field, value) => {
     this.setState({ activeField: field });
-    if (this.searchTimer) {
-      clearTimeout(this.searchTimer);
-    }
 
+    clearTimeout(this.searchTimer);
     this.searchTimer = setTimeout(() => {
       this.props.dispatch(checkUsernameOrEmail({ field, value })).then(response => {
         this.setState({ activeField: null });
@@ -108,7 +107,6 @@ class RegisterComponentScreen extends Component {
           this.setState({ [unavailable]: false });
         }
       });
-      clearTimeout(this.searchTimer);
     }, 400);
   };
 
@@ -240,12 +238,6 @@ class RegisterComponentScreen extends Component {
 
           </View>
         </KeyboardAwareScrollView>
-        <MPLoading visible={this.props.loading} />
-        <MPFloatingNotification
-          visible={this.state.imageSizeError}
-          icon={<MPProfileIcon/>}
-          text="Imagem muito grande. Tente usar outra."
-        />
       </View>
     );
   }
