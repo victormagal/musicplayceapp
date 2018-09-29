@@ -41,8 +41,6 @@ const GoogleIcon = (props) => {
   return BaseIcon(props, MPGoogleIcon);
 };
 
-
-
 class RegisterComponentScreen extends Component {
   searchTimer = null;
   state = {
