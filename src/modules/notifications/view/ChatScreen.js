@@ -264,8 +264,8 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = ({ authReducer}) => {
-  return {...authReducer};
+const mapStateToProps = ({fontReducer, authReducer}) => {
+  return {...fontReducer, ...authReducer};
 };
 
 const ChatScreen = connect(mapStateToProps)(ChatScreenContainer);

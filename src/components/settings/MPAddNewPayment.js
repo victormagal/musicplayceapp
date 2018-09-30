@@ -13,11 +13,8 @@ class MPAddNewPaymentComponent extends React.Component {
 
   handleFavoriteCard = (checked) => {
     let {card} = this.props;
-    if(!card){
-      card = {};
-    }
-
     card.favorite = checked;
+
     this.props.dispatch(updateLocalCard(card));
   };
 

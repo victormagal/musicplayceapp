@@ -2,18 +2,15 @@ import React from 'react';
 import { 
   ScrollView, 
   StyleSheet,
-  View,
-  Alert
+  View 
 } from 'react-native';
-import {
-  MPIconButton,
+import { 
   MPHeader, 
   MPAddChangePlan,
-  MPAddPayment,
-  MPText
+  MPAddPayment
 } from '../../../components';
 import { connect } from 'react-redux';
-
+import { getPlans } from '../../../state/action';
 
 class AddChangePlanScreenContainer extends React.Component {
   constructor(props){
@@ -28,25 +25,17 @@ class AddChangePlanScreenContainer extends React.Component {
   };
 
   addPlan(){
-    Alert.alert(
-      'Alterar plano',
-      'Deseja alterar o plano?',
-      [
-        {
-          text: 'Cancelar',
-          style: 'cancel'
-        },
-        {
-          text: 'Alterar',
-          onPress: () => {
-            const { card } = this.props;
-            //TODO: subscription, call API HERE
-            this.props.navigation.pop();
-          }
-        },
-      ]
-    );
-   // this.props.navigation.navigate('message', { component: MPAddPayment, title: 'Cadastre seu cartão, é 100% seguro' });
+    this.props.navigation.navigate('message', { component: MPAddPayment, title: 'Cadastre seu cartão, é 100% seguro' });
+  }
+
+  componentWillMount(){
+    this.props.dispatch(getPlans());
+  }
+
+  componentWillReceiveProps(nextProps){
+    if(nextProps.plans){
+      this.setState({plans: nextProps.plans});
+    }
   }
 
   render() {
@@ -54,7 +43,7 @@ class AddChangePlanScreenContainer extends React.Component {
       <View style={styles.parent}>
         <MPHeader back={true} onBack={this.handleBack} title={"Assine o plano para ter mais vantagens"} />
         <ScrollView style={styles.scroll}>
-          <MPAddChangePlan navigation={this.props.navigation} onPress={this.addPlan.bind(this)} />
+          <MPAddChangePlan plans={this.state.plans} navigation={this.props.navigation}  onPress={this.addPlan.bind(this)} />
         </ScrollView>
       </View>
     );
@@ -74,8 +63,8 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = ({ plansReducer }) => {
-  return {...plansReducer};
+const mapStateToProps = ({ fontReducer, plansReducer }) => {
+  return { ...fontReducer, ...plansReducer };
 };
 
 const AddChangePlanScreen = connect(mapStateToProps)(AddChangePlanScreenContainer);

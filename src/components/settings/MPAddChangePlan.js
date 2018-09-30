@@ -9,64 +9,30 @@ import {Card} from 'react-native-elements';
 import {
   MPText,
   MPGradientButton,
-  MPAddNewPayment,
-  MPIconButton
+  MPItemList
 } from '../../components';
-import {updateLocalPlan, addCard, getPlans} from '../../state/action';
 import LinearGradient from 'react-native-linear-gradient';
-
+import {MPArrowRightIcon} from "../../assets/svg";
 
 class MPAddChangePlanComponent extends React.Component {
   state = {
-    monthly: true
+    monthly: false,
   };
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.plans) {
-      this.props.dispatch(updateLocalPlan(this.state.monthly ? nextProps.plans[0] : nextProps.plans[1]));
-    }
-  }
-
-  componentDidMount(){
-    this.props.dispatch(getPlans());
-  }
+  list = {
+    data: [
+      {
+        id: '02',
+        onChooseOption: () => this.props.navigation.navigate('paymentTypesSettings'),
+        title: 'Cadastrar cartão de crédito',
+        iconNext: MPArrowRightIcon
+      }
+    ]
+  };
 
   toggleMonth() {
-    const monthly = !this.state.monthly;
-    this.setState({monthly});
-    this.props.dispatch(updateLocalPlan(monthly ? this.props.plans[0] : this.props.plans[1]));
+    this.setState({monthly: !this.state.monthly});
   }
-
-  headerLeft = () => {
-    return [<MPIconButton onPress={this.handleBack} key={1} title={'Cancelar'}/>];
-  };
-
-  headerRight = () => {
-    return [<MPIconButton onPress={this.handleAddChangeCard} key={2} title={'Salvar'}/>];
-  };
-
-  handleAddChangeCard = () => {
-    this.props.dispatch(addCard(this.props.card));
-    this.handleBack();
-  };
-
-  handleBack = () => {
-    this.props.navigation.pop();
-  };
-
-  handleCardsDetail = () => {
-    if (this.props.cards.length > 0) {
-      this.props.navigation.navigate('paymentTypesSettings');
-      return;
-    }
-
-    this.props.navigation.navigate('message', {
-      component: MPAddNewPayment,
-      title: 'Cadastre seu cartão, é 100% seguro',
-      headerLeft: this.headerLeft(),
-      headerRight: this.headerRight()
-    });
-  };
 
   renderPlanCard(plan) {
     return (
@@ -82,7 +48,7 @@ class MPAddChangePlanComponent extends React.Component {
             style={styles.bottomSubTitle}>{plan ? plan.attributes.description_value : null}</MPText>
         </View>
       </View>
-    );
+    )
   }
 
   render() {
@@ -119,11 +85,11 @@ class MPAddChangePlanComponent extends React.Component {
                 <View style={styles.inButton}>
                   <LinearGradient colors={['#BB1A1A', '#2E2C9D']} style={{flex: 1}} start={{x: 0, y: 0}}
                                   end={{x: 1, y:0}} selected={true}>
-                    <MPText style={styles.selectedButton}>{freePlan && freePlan.attributes.title}</MPText>
+                    <MPText style={styles.selectedButton}>{freePlan.attributes.title}</MPText>
                   </LinearGradient>
                   <TouchableWithoutFeedback onPress={this.toggleMonth.bind(this)}>
                     <View style={{flex: 1}}>
-                      <MPText style={styles.notSelectedButton}>{premiumPlan && premiumPlan.attributes.title}</MPText>
+                      <MPText style={styles.notSelectedButton}>{premiumPlan.attributes.title}</MPText>
                     </View>
                   </TouchableWithoutFeedback>
                 </View>
@@ -145,12 +111,15 @@ class MPAddChangePlanComponent extends React.Component {
         <Card containerStyle={styles.cardContainerStyle}>
           {this.renderPlanCard(this.state.monthly ? freePlan : premiumPlan)}
         </Card>
+        <MPGradientButton style={styles.upgradeButton} title={'Fazer upgrade'} textSize={16} onPress={onPress}/>
 
-        {this.props.cards.length > 0 && !this.state.monthly &&  (
-          <MPGradientButton style={styles.upgradeButton} title={'Fazer upgrade'} textSize={16} onPress={onPress}/>
-        )}
-
-        <MPGradientButton style={styles.upgradeButton} title="Cartões" textSize={16} onPress={this.handleCardsDetail}/>
+        <View style={styles.containerList}>
+          <FlatList
+            data={this.list.data}
+            keyExtractor={item => item.id}
+            renderItem={({ item }) => <MPItemList item={item} {...this.props} />}
+          />
+        </View>
       </View>
     );
   }
@@ -252,8 +221,8 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = ({plansReducer}) => {
-  return {...plansReducer};
+const mapStateToProps = ({}) => {
+  return {};
 };
 
 const MPAddChangePlan = connect(mapStateToProps)(MPAddChangePlanComponent);
