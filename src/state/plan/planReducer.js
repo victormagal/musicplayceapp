@@ -4,23 +4,17 @@ import {
   FETCHED_PLANS_SUCCESS,
   UPDATE_LOCAL_CARD,
   CARD_ADD_SUCCESS,
-  CARD_REMOVE_SUCCESS
+  CARD_REMOVE_SUCCESS,
+  UPDATE_LOCAL_PLAN
 } from './planAction';
 
 const plansReducer = (state, action) => {
   state = state || {
       loading: false,
       plans: [],
+      plan: null,
       card: null,
-      cards: [
-        // {
-        //   number: '1111 2222 3333 3535',
-        //   dueDate: '17/12',
-        //   cvv: '353',
-        //   cpf: '111.111.111-01',
-        //   isFavorite: true,
-        // }
-      ]
+      cards: []
     };
 
   switch (action.type) {
@@ -40,11 +34,15 @@ const plansReducer = (state, action) => {
       return {
         ...state,
         loading: false,
-        plans: action.payload,
+        plans: action.payload
       };
 
     case UPDATE_LOCAL_CARD:
       state = {...state, card: action.payload};
+      break;
+
+    case UPDATE_LOCAL_PLAN:
+      state = {...state, plan: action.payload};
       break;
 
     case CARD_ADD_SUCCESS:
