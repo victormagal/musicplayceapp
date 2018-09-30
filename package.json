@@ -11,7 +11,7 @@
     "build:ios": "cd ios && xcodebuild archive -scheme musicplayce -archivePath $(pwd)/musicplayce.xcarchive && xcodebuild -exportArchive -exportOptionsPlist '$(pwd)/musicplayce/Release.plist' -archivePath '$(pwd)/musicplayce.xcarchive' -exportPath '$(pwd)/musicplayce.ipa'",
     "build:android": "cd android && ./gradlew assembleRelease --stacktrace",
     "bundle:android": "react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res",
-    "postinstall": "cd node_modules/react-native && ./scripts/ios-install-third-party.sh && third-party/glog-0.3.5/configure",
+    "postinstall": "cd node_modules/react-native && ./scripts/ios-install-third-party.sh && cd third-party/glog-0.3.5 && ./configure && make && make install",
     "test": "jest",
     "debug": "rndebugger-open --open"
   },
