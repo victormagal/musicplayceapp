@@ -319,8 +319,8 @@ class RegisterSongContainer extends React.Component {
                 <MPSongInfo
                   title={'Tem intérpretes?'}
                   style={styles.songItem}
-                  selected={song.interpreter_name && song.interpreter_name.length > 0}
-                  info={this.getFilledString('interpreter_name')}
+                  selected={song.interpreters && song.interpreters.length > 0}
+                  info={this.getFilledString('interpreters')}
                   placeholder={'*Opcional'}
                   onPress={() => this.goToScreen('InterpreterScreen')}
                 />

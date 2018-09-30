@@ -36,9 +36,16 @@ class SongService {
       };
     }
 
+    if (song.interpreters) {
+      relationships['interpreters'] = {
+        data: song.interpreters
+      };
+    }
+
     delete song.coAuthors;
     delete song.folder;
     delete song.tags;
+    delete song.interpreters;
 
     return {song, relationships};
   }
@@ -134,7 +141,7 @@ class SongService {
   }
 
   static getSong(song) {
-    return axios.get(`${API_SONG}/${song.id}?include=coAuthors,tags,comments,folders`).then(({data}) => {
+    return axios.get(`${API_SONG}/${song.id}?include=coAuthors,interpreters,tags,comments,folders`).then(({data}) => {
 
       let relations = getIncludes(data);
       let {id, attributes} = data.data;

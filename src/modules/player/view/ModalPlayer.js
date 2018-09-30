@@ -182,7 +182,7 @@ class ModalPlayerComponent extends React.Component {
           <MPText style={[styles.compositorText, styles.modalCompositorText]}>{song && this.renderComposers(song)}</MPText>
 
           <MPText style={[styles.compositorTitle, styles.alignCenter]}>INTÉRPRETE</MPText>
-          <MPText style={[styles.compositorText, styles.modalCompositorText]}>{song && song.interpreter_name ? song.interpreter_name : 'Não há interpretes' }</MPText>
+          <MPText style={[styles.compositorText, styles.modalCompositorText]}>{song && song.interpreters ? song.interpreters : 'Não há interpretes' }</MPText>
 
           <View style={[styles.row, styles.tagContainer, styles.modalTagContainer]}>
             <View style={[styles.row, styles.modalTagContent]}>
