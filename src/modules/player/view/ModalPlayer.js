@@ -119,7 +119,7 @@ class ModalPlayerComponent extends React.Component {
 
             <MPIconButton style={styles.modalPlayerButtons} icon={MPPlayerNextRedIcon}/>
           </View>
-          <MPIconButton style={styles.modalPlayerAddPlaylist} icon={MPSongListBlackIcon}/>
+          {/* <MPIconButton style={styles.modalPlayerAddPlaylist} icon={MPSongListBlackIcon}/> */}
         </View>
 
 
@@ -130,7 +130,7 @@ class ModalPlayerComponent extends React.Component {
           <View style={[styles.seeLyricsContainer, styles.row]}>
             <View style={[styles.row, styles.alignCenter]}>
               <MPSongRedIcon />
-              <MPText style={styles.seeLyricsText}>ACOMPANHA A LETRA</MPText>
+              <MPText style={styles.seeLyricsText}>ACOMPANHAR A LETRA</MPText>
             </View>
             <MPTriangleUpBlackIcon style={styles.alignCenter}/>
           </View>

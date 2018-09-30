@@ -320,9 +320,9 @@ class PlayerComponent extends React.Component {
 
               <View style={[styles.row, styles.indicationContainer]}>
                 <View style={styles.row}>
-                  <MPIconButton title="ADICIONAR À FILA" style={styles.iconButtonContainer}
+                  {/* <MPIconButton title="ADICIONAR À FILA" style={styles.iconButtonContainer}
                                 icon={MPSongListIcon} iconStyle={styles.iconButton}
-                                titleStyle={styles.iconButtonText}/>
+                                titleStyle={styles.iconButtonText}/> */}
 
                   <MPIconButton title="SALVAR" icon={MPHeartIcon} iconSelected={MPHeartRedIcon}
                                 style={styles.iconButtonContainer} selected={song && song.is_favorited}
