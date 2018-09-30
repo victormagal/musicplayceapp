@@ -5,18 +5,22 @@ import {
   View
 } from 'react-native';
 import {
-  MPTextField,
+  MPInput
 } from '../../components';
+import {updateLocalCard} from '../../state/action';
 
 class MPRegisterPaymentComponent extends React.Component {
   state = {
     card: {
-      number: '',
-      dueDate: '',
-      cvv: '',
+      card_number: '',
+      month: '',
+      year: '',
+      cvc: '',
+      cardHolderName: '',
       cpf: '',
+      favorite: ''
     }
-  }
+  };
 
   componentDidMount(){
     let {card} = this.props;
@@ -25,15 +29,24 @@ class MPRegisterPaymentComponent extends React.Component {
     }
   }
 
+  handleChangeText = ({name, value}) => {
+    let card = {...this.state.card};
+    card[name] = value;
+    this.setState({card});
+    this.props.dispatch(updateLocalCard(card));
+  };
+
   render() {
     return (
       <View style={styles.container}>
-        <MPTextField label={'Número do cartão'} value={this.state.card.number}/>
+        <MPInput label={'Número do cartão'} name="card_number" value={this.state.card.card_number} onChangeText={this.handleChangeText}/>
         <View style={{flexDirection: 'row'}}>
-            <MPTextField label={'Vencimento'} value={this.state.card.dueDate} style={{flex: 1, marginEnd: 20}}/>
-            <MPTextField label={'CVV'} value={this.state.card.cvv} style={{flex: 1,}}/>
+          <MPInput label={'CVV'} name="cvc" value={this.state.card.cvc} style={{flex: 1, marginEnd: 10}} onChangeText={this.handleChangeText}/>
+          <MPInput label={'Mês'} name="month" value={this.state.card.month} style={{flex: 1, marginEnd: 10}} onChangeText={this.handleChangeText}/>
+          <MPInput label={'Ano'} name="year" value={this.state.card.year} style={{flex: 1}} onChangeText={this.handleChangeText} />
         </View>
-        <MPTextField label={'CPF do titular'} value={this.state.card.cpf}/>
+        <MPInput label="Nome do titular" name="cardHolderName" value={this.state.card.cardHolderName} onChangeText={this.handleChangeText}/>
+        <MPInput label={'CPF do titular'} name="cpf" value={this.state.card.cpf} onChangeText={this.handleChangeText}/>
       </View>
     );
   }
@@ -46,8 +59,8 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = ({ fontReducer }) => {
-  return { ...fontReducer };
+const mapStateToProps = () => {
+  return {};
 };
 
 const MPRegisterPayment = connect(mapStateToProps)(MPRegisterPaymentComponent);
