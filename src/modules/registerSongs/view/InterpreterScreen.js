@@ -25,8 +25,8 @@ class InterpreterScreenContainer extends React.Component {
   }
 
   componentDidMount(){
-    if(this.props.song.interpreter_name && this.props.song.interpreter_name.length > 0){
-      const selecteds = this.props.song.interpreter_name.map((interpreter) => {
+    if(this.props.song.interpreters && this.props.song.interpreters.length > 0){
+      const selecteds = this.props.song.interpreters.map((interpreter) => {
         interpreter.selected = true;
         return interpreter;
       });
@@ -103,7 +103,7 @@ class InterpreterScreenContainer extends React.Component {
     if (selecteds.length > 0){
       const song = {...this.props.song};
 
-      song.interpreter_name = selecteds;
+      song.interpreters = selecteds;
       this.props.dispatch(updateSongRegisterData(song));
       this.handleBackClick();
     }
@@ -111,7 +111,7 @@ class InterpreterScreenContainer extends React.Component {
 
   handleMeClick = () => {
     let song = {...this.props.song};
-    song.interpreter_name = [];
+    song.interpreters = [];
     this.props.dispatch(updateSongRegisterData(song));
     this.handleBackClick();
   };

@@ -86,7 +86,7 @@ class StylesScreenContainer extends React.Component {
           icons={this.renderHeaderMenuSave()}
         />
         <ScrollView style={styles.scroll}>
-          <View>
+          <View style={{marginBottom: 50}}>
             <MPText style={styles.textTop}>
               Melhore a encontrabilidade do seu trabalho. Do que ela fala? Quais estilos combinam com sua musica?
             </MPText>

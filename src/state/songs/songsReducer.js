@@ -32,7 +32,7 @@ const defaultSong = {
   name: '',
   lyrics: '',
   description: '',
-  interpreter_name: null,
+  interpreters: null,
   indicationCount: null,
   songLanguages: null,
   coAuthors: null,

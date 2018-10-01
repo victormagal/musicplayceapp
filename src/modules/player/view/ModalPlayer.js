@@ -97,7 +97,8 @@ class ModalPlayerComponent extends React.Component {
       <View style={styles.playerContainer}>
         <Slider style={styles.playerSlider} thumbStyle={styles.playerThumb}
                 minimumTrackTintColor='#e13223' maximumTrackTintColor='#808080'
-                minimumValue={0} maximumValue={duration} onValueChange={this.props.onSongSliderChange}
+                minimumValue={0}
+                maximumValue={duration} onValueChange={this.props.onSongSliderChange}
                 value={progress}/>
 
         <View style={styles.modalPlayerMusicTextContainer}>
@@ -118,7 +119,7 @@ class ModalPlayerComponent extends React.Component {
 
             <MPIconButton style={styles.modalPlayerButtons} icon={MPPlayerNextRedIcon}/>
           </View>
-          <MPIconButton style={styles.modalPlayerAddPlaylist} icon={MPSongListBlackIcon}/>
+          {/* <MPIconButton style={styles.modalPlayerAddPlaylist} icon={MPSongListBlackIcon}/> */}
         </View>
 
 
@@ -129,7 +130,7 @@ class ModalPlayerComponent extends React.Component {
           <View style={[styles.seeLyricsContainer, styles.row]}>
             <View style={[styles.row, styles.alignCenter]}>
               <MPSongRedIcon />
-              <MPText style={styles.seeLyricsText}>ACOMPANHA A LETRA</MPText>
+              <MPText style={styles.seeLyricsText}>ACOMPANHAR A LETRA</MPText>
             </View>
             <MPTriangleUpBlackIcon style={styles.alignCenter}/>
           </View>
@@ -181,7 +182,7 @@ class ModalPlayerComponent extends React.Component {
           <MPText style={[styles.compositorText, styles.modalCompositorText]}>{song && this.renderComposers(song)}</MPText>
 
           <MPText style={[styles.compositorTitle, styles.alignCenter]}>INTÉRPRETE</MPText>
-          <MPText style={[styles.compositorText, styles.modalCompositorText]}>{song && song.interpreter_name ? song.interpreter_name : 'Não há interpretes' }</MPText>
+          <MPText style={[styles.compositorText, styles.modalCompositorText]}>{song && song.interpreters ? song.interpreters : 'Não há interpretes' }</MPText>
 
           <View style={[styles.row, styles.tagContainer, styles.modalTagContainer]}>
             <View style={[styles.row, styles.modalTagContent]}>

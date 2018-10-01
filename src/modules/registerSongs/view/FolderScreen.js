@@ -36,9 +36,9 @@ class FolderScreenContainer extends React.Component {
       let {data} = nextProps.userFolders;
       const {song} = this.props;
 
-      if (song.folder) {
+      if (song.folders) {
         data = data.map(f => {
-          if (f.id === song.folder.id) {
+          if (f.id === song.folders[0].id) {
             f.selected = true;
           }
           return f;
@@ -78,7 +78,7 @@ class FolderScreenContainer extends React.Component {
     let song = {...this.props.song};
 
     if (selected.length > 0) {
-      song.folder = selected[0];
+      song.folders = selected;
       this.props.dispatch(updateSongRegisterData(song));
       this.handleBackClick();
     } else {

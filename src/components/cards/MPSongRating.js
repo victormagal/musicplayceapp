@@ -68,7 +68,7 @@ class MPSongRating extends Component {
 
     return (
       <TouchableOpacity style={ styles.addSongIcon } onPress={this.toggleAdded}>
-        <MPSongListIcon/>
+        {/* <MPSongListIcon/> */}
       </TouchableOpacity>
     );
   }

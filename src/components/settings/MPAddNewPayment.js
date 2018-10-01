@@ -4,22 +4,29 @@ import {
   StyleSheet,
   View
 } from 'react-native';
-import {
-  MPText,
-  MPTextField,
-  MPGradientButton
-} from '../../components';
 import { MPRegisterPayment } from './MPRegisterPayment';
 import { MPCheckBox } from '../forms';
+import {updateLocalCard} from '../../state/action'
+
 
 class MPAddNewPaymentComponent extends React.Component {
 
-  render() {
+  handleFavoriteCard = (checked) => {
+    let {card} = this.props;
+    if(!card){
+      card = {};
+    }
 
+    card.favorite = checked;
+    this.props.dispatch(updateLocalCard(card));
+  };
+
+  render() {
     return (
         <View style={styles.container}>
             <MPRegisterPayment />
-            <MPCheckBox style={{paddingHorizontal: 40, marginTop: 30}} title={'Esta é minha forma de pagamento preferida.'}/>
+            <MPCheckBox style={{paddingHorizontal: 40, marginTop: 30}} title={'Esta é minha forma de pagamento preferida.'}
+                        onChange={this.handleFavoriteCard}/>
         </View>
     );
   }
@@ -33,8 +40,8 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = ({ fontReducer }) => {
-  return { ...fontReducer };
+const mapStateToProps = ({plansReducer}) => {
+  return {...plansReducer};
 };
 
 const MPAddNewPayment = connect(mapStateToProps)(MPAddNewPaymentComponent);

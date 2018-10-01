@@ -45,7 +45,6 @@ class InviteSettingsScreen extends React.Component {
         id: '04',
         onChooseOption: () => {
           Clipboard.setString('musicplayce link');
-          alert('Link copiado.');
         },
         title: 'Copiar o link',
         iconNext: MPClipboardIcon
