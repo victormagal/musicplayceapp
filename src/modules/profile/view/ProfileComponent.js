@@ -19,6 +19,7 @@ import {uploadImage, followUser, removeSong} from "../../../state/action";
 import ImagePicker from 'react-native-image-picker';
 import {MPGroupIcon, MPProfileIcon} from "../../../assets/svg";
 import {MPFloatingNotification} from "../../../components/general";
+import Toast from 'react-native-easy-toast';
 
 class ProfileComponent extends React.Component {
   scrollViewRef = null;
@@ -56,10 +57,12 @@ class ProfileComponent extends React.Component {
   };
 
   toggleFollow = () => {
-    const { profile, navigation, onFollowUpClick } = this.props;
+    const { onFollowUpClick } = this.props;
     if (this.props.followingUser) {
-      navigation.navigate('message', { component: MPConfirmStopFollow, profile });
+      this.refs.toast.show('Parou de seguir este usuário');
+      // navigation.navigate('message', { component: MPConfirmStopFollow, profile });
     } else {
+      this.refs.toast.show('Seguindo usuário');
       onFollowUpClick();
     }
   };
@@ -242,6 +245,7 @@ class ProfileComponent extends React.Component {
     return (
       <View style={{ flex: 1 }}>
         {this.renderHeader(me)}
+        <Toast ref="toast" />
         <ScrollView
           style={{ flex: 1 }}
           ref={this.scrollViewRef}

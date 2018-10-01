@@ -19,7 +19,8 @@ class MPUser extends Component {
       return null;
     }
 
-    if (user.isFollowing)
+    // @todo voltar
+    /* if (user.isFollowing)
       return (
         <TouchableOpacity style={styles.iconContainer} onPress={this.handleToggleFollowUser}>
           <MPLessArtistIcon />
@@ -32,7 +33,7 @@ class MPUser extends Component {
         <MPPlusArtistIcon />
         <MPPlusArtistAvatarIcon style={styles.iconAvatar}/>
       </TouchableOpacity>
-    );
+    ); */
   }
 
   render() {

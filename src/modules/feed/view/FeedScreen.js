@@ -9,8 +9,8 @@ import {
   MPTextField, MPIconButton, MPConfirmStopFollow, MPUserNotification, MPLoading
 } from '../../../components'
 import {MPSearchRedIcon, MPCloseFilledRedIcon} from '../../../assets/svg';
-import {fetchFeeds, getFollowNotifications, followUser} from '../../../state/action';
-
+import {fetchFeeds, getFollowNotifications, followUser, stopFollowUser} from '../../../state/action';
+import Toast from 'react-native-easy-toast';
 
 class FeedScreenContainer extends React.Component {
 
@@ -26,7 +26,8 @@ class FeedScreenContainer extends React.Component {
       searchingNotFound: false,
       feed: null,
       songsListOne: [],
-      songsListTwo: []
+      songsListTwo: [],
+      followSuccess: null
   };
     this.swiperRef = React.createRef();
   }
@@ -158,10 +159,13 @@ class FeedScreenContainer extends React.Component {
 
   handleToggleFollowUser = (from, user) => {
     if (user.isFollowing) {
-      this.props.navigation.navigate('message', { component: MPConfirmStopFollow, profile: user, from});
-    }else{
+      this.props.dispatch(stopFollowUser(user, from));
+      this.refs.toast.show('Parou de seguir este usuário');
+      // this.props.navigation.navigate('message', { component: MPConfirmStopFollow, profile: user, from});
+    } else{
       this.props.dispatch(followUser(user, from));
-    }
+      this.refs.toast.show('Seguindo usuário');
+    }    
   };
 
   renderFooterFollowingLoading = () => {
@@ -189,6 +193,11 @@ class FeedScreenContainer extends React.Component {
     }
     return (
       <View style={styles.container}>
+        <Toast
+          ref="toast"
+          position='top'
+          opacity={0.8}
+        />
         <MPHeader inverse={true}/>
         <View style={styles.content}>
           <MPTextField
