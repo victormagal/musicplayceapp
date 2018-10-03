@@ -25,8 +25,8 @@
     "axios": "^0.18.0",
     "moment": "^2.22.2",
     "prop-types": "^15.6.1",
-    "react": "~16.4.1",
-    "react-native": "~0.57.0",
+    "react": "16.5.1",
+    "react-native": "0.57.1",
     "react-native-actionsheet": "^2.4.2",
     "react-native-document-picker": "^2.1.0",
     "react-native-easy-toast": "^1.1.0",
@@ -51,10 +51,11 @@
   },
   "devDependencies": {
     "babel-jest": "23.4.0",
-    "babel-preset-react-native": "5.0.2",
-    "react-native-debugger-open": "^0.3.17",
+    "metro-react-native-babel-preset": "0.43.5",
     "jest": "23.4.1",
+    "react-native-debugger-open": "^0.3.17",
     "react-test-renderer": "16.4.1",
+    "schedule": "0.4.0",
     "xml2js": "^0.4.19"
   },
   "jest": {
