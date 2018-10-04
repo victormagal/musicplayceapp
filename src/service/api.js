@@ -80,6 +80,6 @@ export const transformResponseData = (data) => {
 };
 
 export const GOOGLE_API_KEY = 'AIzaSyBHlhntl4H8ilBeYWUc6naDgUPbYfbnv3g';
-export const API = 'http://dev.musicplayce.net/api';
+export const API = 'https://live.musicplayce.net/api';
 // export const API = 'http://35.226.244.95/api';
 // export const API = 'http://a00f1158.ngrok.io/api';
