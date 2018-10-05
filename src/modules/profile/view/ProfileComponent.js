@@ -232,7 +232,6 @@ class ProfileComponent extends React.Component {
     return [
       <MPIconButton
         key={Math.random()}
-        style={styles.logout}
         title='Sair'
         titleStyle={styles.headerMenuText}
         onPress={this.props.onLogoutClick}
@@ -505,9 +504,6 @@ const styles = StyleSheet.create({
     fontFamily: 'ProbaPro-Regular',
     fontSize: 18,
     color: '#000',
-  },
-  logout: {
-    padding: 10
   },
   profileArrow: {
     alignSelf: 'center',

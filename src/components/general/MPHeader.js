@@ -19,24 +19,30 @@ class MPHeader extends React.Component {
     return (
       <View style={[{backgroundColor}, style || {}]}>
         <View style={styles.header}>
-          {back && (
-            <TouchableOpacity onPress={onBack} style={styles.backContainer}>
-              {backIcon}
-            </TouchableOpacity>
-          )}
-          {iconsLeft && (
-            <View style={styles.iconsLeft}>
-              {iconsLeft}
-            </View>
-          )}
-          {logo}
-          {icons ?
-            <View style={styles.icons}>
-              {icons}
-            </View>
-            : back &&
-            <View style={styles.icons} />
-          }
+          <View style={[styles.column, styles.columnLeft]}>
+            {back && (
+              <TouchableOpacity onPress={onBack} style={styles.backContainer}>
+                {backIcon}
+              </TouchableOpacity>
+            )}
+            {iconsLeft && (
+              <View style={styles.iconsLeft}>
+                {iconsLeft}
+              </View>
+            )}
+          </View>
+          <View style={[styles.column, styles.columnCenter]}>
+            {logo}
+          </View>
+          <View style={[styles.column, styles.columnRight]}>
+            {icons ?
+              <View style={styles.iconsRight}>
+                {icons}
+              </View>
+              : back &&
+              <View style={styles.iconsRight} />
+            }
+          </View>
         </View>
         { title && title !== '' && (
           <MPText style={styles.title}>
@@ -71,21 +77,35 @@ const styles = StyleSheet.create({
           marginTop: 18,
         }})
   },
+  column: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    flex: 1,
+  },
+  columnLeft: { justifyContent: 'flex-start' },
+  columnCenter: { justifyContent: 'center' },
+  columnRight: { justifyContent: 'flex-end' },
+  iconsLeft: { 
+    marginLeft: 20,
+    flexDirection: 'row',
+  },
+  iconsRight: {
+    marginRight: 20,
+    flexDirection: 'row',
+  },
   backContainer: {
-    flex: 0,
-    width: 50,
-    marginLeft: 10,
-    marginTop: 12,
-    alignItems: 'center'
+    height: '100%',
+    justifyContent: 'center',
+    paddingLeft: 20,
+    paddingRight: 20,
   },
   back: {
     width: 10,
-    height: 20
+    height: 12
   },
   logo: {
-    flex: 1,
+    width: 120,
     height: 20,
-    alignSelf: 'center'
   },
   title: {
     fontFamily: 'Montserrat-Regular',
@@ -96,18 +116,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 40,
     textAlign: 'center'
   },
-  icons: {
-    flex: 0,
-    marginRight: 10,
-    marginTop: 12,
-    flexDirection: 'row',
-    justifyContent: 'flex-end'
-  },
-  iconsLeft: {
-    flex: 0,
-    marginLeft: 10,
-    justifyContent: 'center'
-  }
 });
 
 export { MPHeader };
