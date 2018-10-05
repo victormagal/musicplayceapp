@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  FlatList, ScrollView, StyleSheet, View
+  FlatList, ScrollView, StyleSheet, View, Share
 } from 'react-native';
 import {
   MPHeader, MPItemList, MPFloatingNotification
@@ -39,7 +39,11 @@ class InitialSettingsScreenContainer extends React.Component {
       },
       {
       	id: '02',
-      	onChooseOption: () => this.props.navigation.navigate('inviteSettings'),
+      	onChooseOption: () => Share.share({
+          title: 'Musicplayce',
+          message: 'Gostaria de te convidar a participar do Musicplayce...',
+          dialogTitle: 'Convidar amigos',
+        }),
       	title: 'Convide seus amigos',
       	icon: MPInviteConfigIcon,
       	iconNext: MPArrowRightIcon
