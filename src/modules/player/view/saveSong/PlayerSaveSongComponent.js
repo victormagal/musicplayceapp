@@ -1,12 +1,9 @@
 import React from 'react';
-import {View, StyleSheet, FlatList, ActivityIndicator} from 'react-native';
+import {View, StyleSheet, FlatList, ActivityIndicator, KeyboardAvoidingView} from 'react-native';
 import {
   MPHeader, MPIconButton, MPFolder, MPGradientButton, MPInput, MPLoading
 } from '../../../../components';
-import {withFixedBottom} from '../../../../connectors/withFixedBottom';
 
-const InputFolder = withFixedBottom(MPInput);
-const GradientButton = withFixedBottom(MPGradientButton);
 
 class PlayerSaveSongComponent extends React.Component {
 
@@ -41,7 +38,7 @@ class PlayerSaveSongComponent extends React.Component {
 
   render() {
     return (
-      <View style={styles.container}>
+      <KeyboardAvoidingView style={styles.container} behavior="padding">
         <MPHeader
           title="Escolha ou crie uma pasta para salvar"
           back={true}
@@ -59,13 +56,13 @@ class PlayerSaveSongComponent extends React.Component {
             ListFooterComponent={this.renderListFooter}
           />
           <View style={styles.inputFolderContainer}>
-            <InputFolder
+            <MPInput
               label="Nome da nova pasta"
               value={this.props.folderName}
               onChangeText={this.props.onChangeText}
             />
             <View>
-              <GradientButton
+              <MPGradientButton
                 style={styles.inputButtonAdd}
                 title="Criar"
                 onPress={this.props.onAddFolder}
@@ -74,7 +71,7 @@ class PlayerSaveSongComponent extends React.Component {
           </View>
         </View>
         <MPLoading visible={this.props.loading}/>
-      </View>
+      </KeyboardAvoidingView>
     );
   }
 }

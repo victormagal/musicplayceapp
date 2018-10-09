@@ -1,14 +1,10 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {StyleSheet, View, ScrollView, TouchableOpacity} from 'react-native';
+import {StyleSheet, View, ScrollView, TouchableOpacity, KeyboardAvoidingView} from 'react-native';
 import {MPHeader, MPInput, MPText, MPIconButton, MPLoading, MPUserHorizontal, MPGradientButton, MPForm, MPFormButton, MPInvitation} from '../../../components';
 import {searchUsers, inviteUser} from '../../../state/action';
 import {MPSearchRedIcon, MPCloseFilledRedIcon} from '../../../assets/svg';
 import {updateSongRegisterData} from "../../../state/songs/songsType";
-import { withFixedBottom } from '../../../connectors/withFixedBottom'
-
-InputInvitation = withFixedBottom(MPInput);
-InvitationGradientButton = withFixedBottom(MPGradientButton);
 
 class InterpreterScreenContainer extends React.Component {
   constructor(props) {
@@ -183,7 +179,7 @@ class InterpreterScreenContainer extends React.Component {
       usersSelected
     } = this.state;
     return (
-      <View style={styles.container}>
+      <KeyboardAvoidingView style={styles.container} behavior="padding">
         <MPHeader
           back={true}
           onBack={this.handleBackClick}
@@ -253,14 +249,14 @@ class InterpreterScreenContainer extends React.Component {
                 </MPText>
                 <View >
                   <MPForm>
-                    <InputInvitation
+                    <MPInput
                       contentStyle={styles.innerInputEmail}
                       label="E-mail"
                       value={this.state.invitationMail}
                       onChangeText={this.handleChangeText}
                     />
                     <MPFormButton>
-                      <InvitationGradientButton
+                      <MPGradientButton
                         style={[styles.inputButtonAdd]}
                         title="Criar"
                         onPress={this.handleInvite}
@@ -296,7 +292,7 @@ class InterpreterScreenContainer extends React.Component {
         </ScrollView>
 
         <MPLoading visible={this.props.loading} />
-      </View>
+      </KeyboardAvoidingView>
     );
   }
 }

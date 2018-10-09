@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {StyleSheet, View, ScrollView, Keyboard, FlatList, ActivityIndicator} from 'react-native';
+import {StyleSheet, View, ScrollView, Keyboard, FlatList, ActivityIndicator, KeyboardAvoidingView} from 'react-native';
 import {
   MPFolder, MPHeader, MPInput, MPForm, MPFormButton, MPGradientButton,
   MPIconButton, MPLoading, MPFloatingNotification
@@ -8,10 +8,6 @@ import {
 import {createFolder, getUserSongsFolders} from '../../../state/action';
 import {updateSongRegisterData} from "../../../state/songs/songsType";
 import {MPAlertIcon} from '../../../assets/svg';
-import { withFixedBottom } from '../../../connectors/withFixedBottom';
-
-const InputFolder = withFixedBottom(MPInput);
-const GradientButton = withFixedBottom(MPGradientButton);
 
 class FolderScreenContainer extends React.Component {
 
@@ -147,7 +143,7 @@ class FolderScreenContainer extends React.Component {
 
   render() {
     return (
-      <View style={styles.container}>
+      <KeyboardAvoidingView style={styles.container} behavior="padding">
         <MPHeader
           back={true}
           onBack={this.handleBackClick}
@@ -166,7 +162,7 @@ class FolderScreenContainer extends React.Component {
           />
           <View style={styles.inputFolderContainer}>
             <MPForm>
-              <InputFolder
+              <MPInput
                 label="Nome da nova pasta"
                 value={this.state.folderName}
                 onBlur={this.handleFolderValidate}
@@ -174,7 +170,7 @@ class FolderScreenContainer extends React.Component {
               />
               <View>
                 <MPFormButton>
-                  <GradientButton
+                  <MPGradientButton
                     style={styles.inputButtonAdd}
                     title="Criar"
                     onPress={this.handleCreateFolder}
@@ -188,7 +184,7 @@ class FolderScreenContainer extends React.Component {
         <MPFloatingNotification visible={this.state.showError}
                                 text='Selecione uma pasta'
                                 icon={<MPAlertIcon />}/>
-      </View>
+      </KeyboardAvoidingView>
     );
   }
 }
