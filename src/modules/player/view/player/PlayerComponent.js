@@ -3,7 +3,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import {Slider} from 'react-native-elements'
 import {
   Text, View, StyleSheet, TouchableOpacity, FlatList, ScrollView, Image,
-  TouchableWithoutFeedback, Modal, ActivityIndicator
+  Share, TouchableWithoutFeedback, Modal, ActivityIndicator
 } from 'react-native';
 import moment from 'moment';
 import {
@@ -382,7 +382,16 @@ class PlayerComponent extends React.Component {
 
   handlePlayClick = (song) => {
     this.props.onPlayClick(song);
-  };
+  }
+
+  handleShare() {
+    const link =  'https://www.musicplayce.com.br/';
+    Share.share({
+      title: 'Musicplayce',
+      message: `Venha para MusicPlayce e conheça um universo de músicas ${link}.`,
+      dialogTitle: 'Compartilhar música',
+    });
+  }
 
   renderItem = (artist, {item, index}) => {
     let style = null;
@@ -405,7 +414,12 @@ class PlayerComponent extends React.Component {
                     titleStyle={styles.headerMenuText} icon={MPCommentWhiteIcon}
                     style={styles.headerMenuItem}
                     onPress={this.handleToggleComments.bind(this, true)}/>,
-      <MPIconButton key={2} titleStyle={styles.headerMenuText} icon={MPShareWhiteIcon}/>
+      <MPIconButton
+        key={2} 
+        titleStyle={styles.headerMenuText}
+        icon={MPShareWhiteIcon}
+        onPress={this.handleShare}
+      />
     ];
   }
 
