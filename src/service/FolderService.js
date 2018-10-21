@@ -63,7 +63,7 @@ class FolderService {
       data : {
         type: 'folders',
         attributes: {
-          name: newName.value,
+          name: newName,
         }
       }
     };

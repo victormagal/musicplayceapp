@@ -12,7 +12,7 @@ class EditFolderComponent extends React.Component {
         key={1}
         title="Salvar"
         titleStyle={styles.headerMenuText}
-        onPress={() => this.props.onSave(this.state.foldername)}
+        onPress={() => this.props.onSave()}
       />
     ];
   }
