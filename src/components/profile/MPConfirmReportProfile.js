@@ -5,9 +5,8 @@ import {
   View
 } from 'react-native';
 import {
-    MPText,
+  MPText,
   MPGradientButton,
-  MPTextField,
   MPReportedProfile,
   MPCheckBox
 } from '../../components';
