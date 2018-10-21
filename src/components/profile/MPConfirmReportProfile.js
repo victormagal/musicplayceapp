@@ -5,9 +5,8 @@ import {
   View
 } from 'react-native';
 import {
-    MPText,
+  MPText,
   MPGradientButton,
-  MPTextField,
   MPReportedProfile,
   MPCheckBox
 } from '../../components';
@@ -59,14 +58,14 @@ class MPConfirmReportProfileComponent extends React.Component {
       <KeyboardAwareScrollView style={styles.container}>
         <MPText style={ styles.title }>O que está pegando?</MPText>
         <View style={styles.checkboxContainer}>
-          <MPCheckBox checked={this.state.isSpam} title={'É spam'} />
+          <MPCheckBox style={styles.marginSpam} checked={this.state.isSpam} title={'É spam'} />
           <MPCheckBox checked={this.state.isInappropiate} title={'É impróprio'} />
         </View>
         <MPText style={ styles.subTitle }>Descreva sua denúncia.</MPText>
         <MPForm>
           <MPInput style={{marginHorizontal:40, marginBottom: 40}} label={"Texto da denúncia"} value={this.state.form.report} name='report' onChangeText={this.handleTextChange} validators={['required']} error={this.props.error}/>
         </MPForm>
-        <MPGradientButton style={ styles.button } title={'Fazer denúncia'}   textSize={16} onPress={this.handleFoward.bind(this)} disabled={this.props.errors ? true: false}/>
+        <MPGradientButton style={ styles.button } title={'Fazer denúncia'} textSize={16} onPress={this.handleFoward.bind(this)} disabled={this.props.errors ? true: false}/>
         <MPGradientButton style={ styles.button } title={'Cancelar'} textSize={16} onPress={this.handleBack.bind(this)}/>
       </KeyboardAwareScrollView>
     );
@@ -101,7 +100,10 @@ const styles = StyleSheet.create({
   checkboxContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
-    marginBottom: 20,
+    marginBottom: 20
+  },
+  marginSpam: {
+    marginRight: 20
   }
 });
 
