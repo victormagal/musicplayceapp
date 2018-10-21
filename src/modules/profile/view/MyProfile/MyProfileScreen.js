@@ -1,4 +1,5 @@
 import React from 'react';
+import { Alert } from 'react-native';
 import {connect} from 'react-redux';
 import {ProfileComponent} from '../ProfileComponent';
 import {
@@ -48,10 +49,25 @@ class MyProfileScreenContainer extends React.Component {
   };
 
   handleLogout = () => {
-    const {dispatch, navigation} = this.props;
+    Alert.alert(
+      'Excluir',
+      'Deseja realmente sair do Musicplayce?',
+      [
+        {
+          text: 'Cancelar',
+          style: 'cancel'
+        },
+        {
+          text: 'OK',
+          onPress: () => {        
+            const {dispatch, navigation} = this.props;
 
-    dispatch(logout());
-    navigation.dangerouslyGetParent().dangerouslyGetParent().replace('login');
+            dispatch(logout());
+            navigation.dangerouslyGetParent().dangerouslyGetParent().replace('login');
+          }
+        },
+      ]
+    );
   };
 
   handleFollowerFollowingClick = (user) => {
