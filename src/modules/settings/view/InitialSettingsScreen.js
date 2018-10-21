@@ -40,8 +40,8 @@ class InitialSettingsScreenContainer extends React.Component {
       {
       	id: '02',
       	onChooseOption: () => Share.share({
-          title: 'Musicplayce',
-          message: 'Gostaria de te convidar a participar do Musicplayce...',
+          title: 'MusicPlayce',
+          message: 'Gostaria de te convidar a participar do MusicPlayce...',
           dialogTitle: 'Convidar amigos',
         }),
       	title: 'Convide seus amigos',

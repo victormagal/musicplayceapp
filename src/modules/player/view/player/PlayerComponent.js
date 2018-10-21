@@ -387,7 +387,7 @@ class PlayerComponent extends React.Component {
   handleShare() {
     const link =  'https://www.musicplayce.com.br/';
     Share.share({
-      title: 'Musicplayce',
+      title: 'MusicPlayce',
       message: `Venha para MusicPlayce e conheça um universo de músicas ${link}.`,
       dialogTitle: 'Compartilhar música',
     });
