@@ -291,9 +291,7 @@ class ProfileComponent extends React.Component {
         <View style={styles.containerLoading}>
           <View style={styles.contentLoading}>
             <ActivityIndicator size='large' color='#BB1A1A' />
-            <MPText style={styles.textLoading}>
-              { `Carregando ${me ? 'perfil' : 'artista'}...` }
-            </MPText>
+            <MPText style={styles.textLoading}>Carregando...</MPText>
           </View>
         </View>
       )
