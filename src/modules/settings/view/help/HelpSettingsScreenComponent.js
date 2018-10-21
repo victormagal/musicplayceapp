@@ -35,7 +35,7 @@ class HelpSettingsScreenComponent extends React.Component {
               />
             </View>
 						<View style={styles.borda}>
-              { !!faqs && faqs
+              {/* { !!faqs && faqs
                 .filter(faq => faq.attributes.question.includes(searchText) || faq.attributes.answer.includes(searchText))
                 .map(faq => (
                 <MPToggleList key={faq.id} title={faq.attributes.question}>
@@ -43,7 +43,7 @@ class HelpSettingsScreenComponent extends React.Component {
                     { faq.attributes.answer }
                   </MPText>
                 </MPToggleList>
-              ))}
+              ))} */}
 							<TouchableHighlight
                 underlayColor="transparent"
                 onPress={() => onQuestionNotFound('sendHelp')}
