@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert } from 'react-native';
+import { Alert, Share } from 'react-native';
 import {connect} from 'react-redux';
 import {ProfileComponent} from '../ProfileComponent';
 import {
@@ -38,7 +38,14 @@ class MyProfileScreenContainer extends React.Component {
   }
 
   handleFollowersEmptyClick = () => {
-    this.props.navigation.navigate('inviteSettings', {profile: true});
+    const link =  'https://www.musicplayce.com.br/';
+
+    Share.share({
+      title: 'MusicPlayce',
+      message: `Gostaria de te convidar a participar do MusicPlayce ${link}`,
+      dialogTitle: 'Convidar amigos',
+    });
+    // this.props.navigation.navigate('inviteSettings', {profile: true});
   };
 
   handleSongAddClick = () => {

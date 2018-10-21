@@ -39,11 +39,15 @@ class InitialSettingsScreenContainer extends React.Component {
       },
       {
       	id: '02',
-      	onChooseOption: () => Share.share({
-          title: 'MusicPlayce',
-          message: 'Gostaria de te convidar a participar do MusicPlayce...',
-          dialogTitle: 'Convidar amigos',
-        }),
+      	onChooseOption: () => {
+          const link =  'https://www.musicplayce.com.br/';
+
+          return Share.share({
+            title: 'MusicPlayce',
+            message: `Gostaria de te convidar a participar do MusicPlayce ${link}`,
+            dialogTitle: 'Convidar amigos'
+          });
+        },
       	title: 'Convide seus amigos',
       	icon: MPInviteConfigIcon,
       	iconNext: MPArrowRightIcon
