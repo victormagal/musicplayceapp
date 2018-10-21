@@ -3,7 +3,7 @@ import {
   Alert, View, StyleSheet, ScrollView, TouchableOpacity,
   ActivityIndicator, ImageBackground, Dimensions, FlatList
 } from 'react-native';
-import {Grayscale } from 'react-native-color-matrix-image-filters';
+import { Grayscale } from 'react-native-color-matrix-image-filters';
 import LinearGradient from 'react-native-linear-gradient';
 import PropTypes from 'prop-types';
 import {
