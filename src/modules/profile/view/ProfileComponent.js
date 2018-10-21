@@ -3,6 +3,7 @@ import {
   Alert, View, StyleSheet, ScrollView, TouchableOpacity,
   ActivityIndicator, ImageBackground, Dimensions, FlatList
 } from 'react-native';
+import {Grayscale } from 'react-native-color-matrix-image-filters';
 import LinearGradient from 'react-native-linear-gradient';
 import PropTypes from 'prop-types';
 import {
@@ -299,20 +300,22 @@ class ProfileComponent extends React.Component {
 
     return (
       <View style={{ backgroundColor: '#000' }}>
-        <ImageBackground
-          style={{ flex: 1, width: '100%' }}
-          source={profile.picture_url ? { uri: profile.picture_url } : null}
-        >
-          <LinearGradient
-            onLayout={event => this.setState({ linearGradientHeight: event.nativeEvent.layout.height })}
-            colors={['rgba(0, 0, 0, 0.2)', '#e13223']}
+        <Grayscale>
+          <ImageBackground
+            style={{ flex: 1, width: '100%' }}
+            source={profile.picture_url ? { uri: profile.picture_url } : null}
           >
-            { this.renderProfileData(profile) }
-            <TouchableOpacity style={styles.profileArrow} onPress={this.handleScrollEnd}>
-              <MPProfileArrowIcon />
-            </TouchableOpacity>
-          </LinearGradient>
-        </ImageBackground>
+            <LinearGradient
+              onLayout={event => this.setState({ linearGradientHeight: event.nativeEvent.layout.height })}
+              colors={['rgba(0, 0, 0, 0.2)', '#e13223']}
+            >
+              { this.renderProfileData(profile) }
+              <TouchableOpacity style={styles.profileArrow} onPress={this.handleScrollEnd}>
+                <MPProfileArrowIcon />
+              </TouchableOpacity>
+            </LinearGradient>
+          </ImageBackground>
+        </Grayscale>
         { this.renderSongsData(profile) }
         <MPShowFollowers
           hideSettings={!me}
