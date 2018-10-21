@@ -286,6 +286,7 @@ class ProfileComponent extends React.Component {
   }
 
   renderContent(profile) {
+    profile = profile || {};
     const { me, loadingProfile } = this.props;
     if (loadingProfile) {
       return (
