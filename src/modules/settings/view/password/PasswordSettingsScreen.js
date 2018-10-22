@@ -5,12 +5,12 @@ import {
   saveProfile
 } from '../../../../state/action';
 import { PasswordSettingsScreenComponent } from './PasswordSettingsScreenComponent';
-import { MPPassword } from '../../../../components';
+// import { MPPassword } from '../../../../components';
 
 class PasswordSettingsScreenContainer extends React.Component {
-  pages = {
+  /* pages = {
     'password': MPPassword
-  };
+  }; */
 
   state = {
     newPassword: null
@@ -22,10 +22,11 @@ class PasswordSettingsScreenContainer extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.saveProfileSuccess) {
-      this.props.navigation.navigate('message', {
+      this.props.navigation.navigate('MyProfileScreen', { toastPassword: true });
+      /* this.props.navigation.navigate('message', {
         component: this.pages['password'],
         newPassword: this.state.newPassword
-      });
+      }); */
     }
   }
 

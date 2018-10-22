@@ -44,6 +44,14 @@ class ProfileComponent extends React.Component {
     if (profile !== nextProps.profile) {
       this.props.onStopLoading()
     }
+
+    const navigationParams = nextProps.navigation.state.params;
+
+    if (navigationParams && navigationParams.toastPassword) {
+      nextProps.navigation.setParams({toastPassword: false});
+      this.refs.toast.show('Senha cadastrada com sucesso.');
+    }
+    
   }
 
   goToScreen = (rota, params = {}) => {
@@ -178,7 +186,6 @@ class ProfileComponent extends React.Component {
   };
 
   handleScrollChange = (e) => {
-    console.log( e.nativeEvent.contentOffset);
     this.setState({
       addSongButtonRed: e.nativeEvent.contentOffset.y <= 10
     });
