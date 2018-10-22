@@ -69,62 +69,6 @@ class EditProfileLocationComponent extends React.Component {
     }
   }
 
-  requestPermissionLocation = () => {
-    Permissions.check('location').then(response => {
-      if (response === 'authorized') {
-        this.requestLocation();
-      } else {
-        Permissions.request('location').then(locationResponse => {
-          if (locationResponse === 'authorized'){
-            this.requestLocation();
-          } else {
-            this.setState({ error: 'Sem acesso a localização.' });
-          }
-        });
-      }
-    });
-  };
-
-  requestLocation = () => {
-    const {states} = this.props;
-    this.props.dispatch(generalStartLoading());
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        const coords = position.coords;
-
-        GeneralService.getAddressFromCoordinates(coords.latitude, coords.longitude).then(response => {
-          let result = response.data.results;
-          if (result.length > 0) {
-            result = result[0];
-            const statePosition = result.address_components.length - 3;
-            const cityPosition = result.address_components.length - 4;
-
-            const city = result.address_components[cityPosition].short_name;
-            const state = result.address_components[statePosition].short_name;
-            const selectedState = states.filter(s => s.sigla === state)[0].id;
-            this.setState({city, state, selectedState, isCurrentLocation: true});
-          } else {
-            this.setState({ error: response.data.error_message });
-          }
-          this.props.dispatch(generalFinishLoading());
-        }).catch(e => {
-          console.log(e);
-          this.props.dispatch(generalFinishLoading());
-        });
-      },
-      (e) => {
-        console.log(e);
-        this.setState({error: 'Não foi possível usar a localização atual. Verifique se o GPS está habilitado.'});
-        this.props.dispatch(generalFinishLoading());
-      },
-      {enableHighAccuracy: true, timeout: 60000}
-    );
-  };
-
-  handleCurrentPosition = () => {
-    this.requestPermissionLocation();
-  };
-
   handleCitySearchChange = (cityTextValue) => {
     this.setState({ cityTextValue, error: null });
 
@@ -159,6 +103,17 @@ class EditProfileLocationComponent extends React.Component {
     this.setState({error});
   };
 
+  handleChangeStateOption = (index) => {
+    const {states} = this.props;
+
+    if(index) {
+      this.setState({
+        selectedState: states[index].id,
+        state: states[index].sigla
+      });
+    }
+  };
+
   renderHeaderMenuSave() {
     return [
       <MPIconButton
@@ -184,27 +139,15 @@ class EditProfileLocationComponent extends React.Component {
         />
         <ScrollView style={styles.scroll}>
           <View style={styles.container}>
-            <TouchableOpacity style={styles.currentPosition} onPress={() => this.handleCurrentPosition()}>
-              <MPLocationPinIcon/>
-              <MPText style={styles.currentPositionText}>
-                Usar minha localização atual
-              </MPText>
-            </TouchableOpacity>
-            <MPText style={styles.randomText}>
-              ou
-            </MPText>
             { states &&
               <View style={{ marginHorizontal: 20 }}>
                 <MPSelect
                   label={'Selecione o estado'}
                   customValue={selectedState ? states.filter(state => state.id === selectedState)[0].sigla : null}
                   value={selectedState ? selectedState.id : null}
-                  options={states.map(state => state.sigla)}
+                  options={states.map(state => state.nome)}
                   style={styles.containerSelect}
-                  onChangeOption={(selectedState) => this.setState({
-                    selectedState: states[selectedState].id,
-                    state: states[selectedState].sigla
-                  })}
+                  onChangeOption={this.handleChangeStateOption}
                 />
                 {selectedState &&
                   <MPTextField
@@ -280,26 +223,12 @@ const styles = StyleSheet.create({
     fontFamily: 'Montserrat-Regular',
     marginHorizontal: 20
   },
-  currentPosition: {
-    padding: 20,
-    backgroundColor: '#CCC',
-    marginBottom: 20,
-    flexDirection: 'row',
-    alignItems: 'center'
-  },
   citiesItem: {
     paddingHorizontal: 8,
     paddingVertical: 15,
     borderWidth: 1,
     borderColor: 'rgba(177, 177, 177, 0.8)',
     borderTopWidth: 0,
-  },
-  currentPositionText: {
-    fontSize: 16,
-    color: '#686868',
-    marginLeft: 10,
-    flex: 1,
-    fontFamily: 'Montserrat-Regular'
   },
   randomText: {
     marginVertical: 15,
