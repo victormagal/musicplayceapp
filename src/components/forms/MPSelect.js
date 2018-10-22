@@ -26,14 +26,14 @@ class MPSelectComponent extends React.Component {
 
   showActionSheet = () => {
     this.ActionSheet.show()
-  }
+  };
 
   handleOptionChange = (index) => {
     if (index === this.state.allOptions.length-1) {
       index = null;
     }
     this.props.onChangeOption(index);
-  }
+  };
 
   render() {
     const { allOptions } = this.state;
