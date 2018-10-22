@@ -7,7 +7,10 @@ import { MPText } from '../general';
 class MPShowLanguagesComponent extends Component{
 
     render() {
-      const { languages } = this.props;
+      let { languages } = this.props;
+      if (!Array.isArray(languages)) {
+        languages = [];
+      }
       return (
         <View style={ styles.parent }>
           <MPText style={ styles.placeHolderText}>
