@@ -129,8 +129,6 @@ class EditProfileLocationComponent extends React.Component {
     const {onBack, cities, states} = this.props;
     const {selectedState, cityTextValue, error, searching} = this.state;
 
-    console.log(states);
-
     return (
       <View style={styles.parent}>
         <MPHeader

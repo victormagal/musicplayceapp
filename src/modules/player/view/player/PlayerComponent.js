@@ -13,7 +13,6 @@ import {
 import {ModalPlayer} from '../ModalPlayer';
 import {
   MPStarIcon,
-  MPSongListIcon,
   MPHeartIcon,
   MPHeartRedIcon,
   MPBalloonTalkIcon,
@@ -160,6 +159,7 @@ class PlayerComponent extends React.Component {
   renderModalPlayer = () => {
     return <ModalPlayer visible={this.state.playerVisible}
                         song={this.props.song}
+                        onBack={this.handleTogglePlayer.bind(this, false)}
                         onCloseClick={this.handleTogglePlayer.bind(this, false)}
                         onLyricsClick={this.handleEnableLyricsPlayer}
                         onSongSaveClick={this.handleSaveSong.bind(this, this.props.song)}
