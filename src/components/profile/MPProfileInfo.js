@@ -73,18 +73,18 @@ class MPProfileInfo extends Component {
               </MPText>
             }
           </TouchableOpacity>
-          : (profile.social_networks && profile.social_networks.length > 0) &&
-              profile.social_networks.map(social => (
-              <TouchableOpacity
-                key={Math.random()}
-                style={{ flexDirection: 'row' }}
-                onPress={() => this.handleOpenSocialMedia(social.url)}
-              >
-                <MPText style={[styles.itemStyle, { marginRight: 10 }]}>
-                  { social.name }
-                </MPText>
-              </TouchableOpacity>
-            ))
+        : 
+          <View style={{ flexWrap: 'wrap', alignItems: 'flex-start', flexDirection: 'row' }}>
+            {
+              (profile.social_networks && profile.social_networks.length > 0) && profile.social_networks.map(social => (
+                <TouchableOpacity key={Math.random()} style={{ flexDirection: 'column' }} onPress={() => this.handleOpenSocialMedia(social.url)}>
+                  <MPText style={[styles.itemStyle, { marginRight: 10 }]}>
+                    { social.name }
+                  </MPText>
+                </TouchableOpacity>
+              ))
+            }
+          </View>
         }
         { isMe ?
           <TouchableOpacity
