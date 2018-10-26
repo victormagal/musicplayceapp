@@ -57,7 +57,7 @@ class MyProfileScreenContainer extends React.Component {
 
   handleLogout = () => {
     Alert.alert(
-      'Excluir',
+      '',
       'Deseja realmente sair do MusicPlayce?',
       [
         {

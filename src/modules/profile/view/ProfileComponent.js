@@ -370,7 +370,6 @@ class ProfileComponent extends React.Component {
             style={{ flex: 1 }}
             title='Indicação Feita'
             titlePlural='Indicações Feitas'
-            subtitle='Explore'
             me={me}
             count={countIndications}
           />

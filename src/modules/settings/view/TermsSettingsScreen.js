@@ -75,14 +75,6 @@ class TermsSettingsScreenContainer extends React.Component {
     }
     return (
       <View>
-        { showTopics &&
-          <MPSelect label={"Selecione um tópico"}
-                    value={selectedOption}
-                    options={options}
-                    style={styles.containerSelect}
-                    onChangeOption={(selectedOption) => this.setState({ selectedOption })}
-          />
-        }
         { termsAndConditions && termsData
           .filter(term => {
             if (selectedOption !== null) {

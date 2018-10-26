@@ -196,7 +196,7 @@ class ModalPlayerComponent extends React.Component {
           <MPText style={[styles.compositorText, styles.modalCompositorText]}>{song && this.renderComposers(song)}</MPText>
 
           <MPText style={[styles.compositorTitle, styles.alignCenter]}>INTÉRPRETE</MPText>
-          <MPText style={[styles.compositorText, styles.modalCompositorText]}>{song && song.interpreters ? song.interpreters : 'Não há interpretes' }</MPText>
+          <MPText style={[styles.compositorText, styles.modalCompositorText]}>{song && song.interpreters ? song.interpreters : 'Não há intérpretes' }</MPText>
 
           <View style={[styles.row, styles.tagContainer, styles.modalTagContainer]}>
             <View style={[styles.row, styles.modalTagContent]}>
@@ -204,8 +204,7 @@ class ModalPlayerComponent extends React.Component {
             </View>
           </View>
 
-          <TouchableOpacity style={[styles.playerHeart, styles.modalPlayerHeart]}
-                            onPress={this.props.onSongSaveClick}>
+          <TouchableOpacity style={[styles.playerHeart, styles.modalPlayerHeart]} onPress={this.props.onSongSaveClick}>
             {song && song.is_favorited ? <MPHeartRedIcon style={{width: 22, height: 30}}/> : <MPPlayerHeartIcon />}
           </TouchableOpacity>
 
@@ -309,7 +308,7 @@ const styles = StyleSheet.create({
   },
   playerIndicate: {
     alignSelf: 'center',
-    width: 80,
+    paddingHorizontal: 20,
     height: 24,
     borderWidth: 1,
     borderColor: '#e13223'
