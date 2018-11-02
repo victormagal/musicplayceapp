@@ -1,12 +1,32 @@
 import React from 'react';
-import { View, StyleSheet, Platform, Text, StatusBar, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Platform, Alert, StatusBar, TouchableOpacity } from 'react-native';
 import PropTypes from 'prop-types';
 import { MPText } from '../general/MPText';
 import {MPBackIcon, MPBackBlackIcon, MPLogoIcon, MPLogoBlackIcon, MPBackRedIcon, MPEmailTermsIcon} from '../../assets/svg';
 import { MPGradientButton } from '../buttons';
+import { UserService } from '../../service/UserService'
 
 class MPHeader extends React.Component {
+  
+  sendEmail = () => {
+    UserService.sendEmailTermsOfService().then( results => {
+      console.warn(result)
+      this.alertSuccessSendEmail()
+    })
+    .catch(error =>{
+      console.warn('error')
+    })
+  }
 
+  alertSuccessSendEmail = () => {
+    Alert.alert(
+      'Atenção',
+      'Email enviado com sucesso',
+      [
+        {text: 'OK', onPress: () => console.log('OK Pressed')},
+      ],
+    )
+  };
   render() {
     let { terms,title, back, onBack, inverse, transparent, icons, style, iconsLeft, withoutLogo, redBack } = this.props;
     let logo = inverse ? <MPLogoBlackIcon style={styles.logo} /> :
@@ -51,7 +71,7 @@ class MPHeader extends React.Component {
         )}
         {
           terms  && (
-          <MPGradientButton icon={MPEmailTermsIcon} title={'Enviar para meu e-mail'} style={{position: 'absolute', bottom: -18, paddingVertical: 8, alignSelf: 'center'}} textStyle={{paddingStart: 18}}/>
+          <MPGradientButton onPress={this.sendEmail}  icon={MPEmailTermsIcon} title={'Enviar para meu e-mail'} style={{position: 'absolute', bottom: -18, paddingVertical: 8, alignSelf: 'center'}} textStyle={{paddingStart: 18}}/>
         )}
       </View>
     );

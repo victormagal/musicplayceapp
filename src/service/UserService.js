@@ -197,6 +197,10 @@ class UserService {
       return response;
     });
   }
+
+  static sendEmailTermsOfService(){
+    return axios.post(`${API}/users/me/send-terms/`);
+  }
 }
 
 export {UserService};
