@@ -35,7 +35,8 @@ class ProfileComponent extends React.Component {
       linearGradientHeight: 0,
       isFollowing: false,
       imageSizeError: false,
-      addSongButtonRed: true
+      addSongButtonRed: true,
+      followingUser:this.props.followingUser
     };
   }
 
@@ -67,10 +68,12 @@ class ProfileComponent extends React.Component {
 
   toggleFollow = () => {
     const { onFollowUpClick } = this.props;
-    if (this.props.followingUser) {
+    if (this.state.followingUser) {
+      this.setState({followingUser : false});
       this.refs.toast.show('Parou de seguir este usuário');
       // navigation.navigate('message', { component: MPConfirmStopFollow, profile });
     } else {
+      this.setState({followingUser : true});
       this.refs.toast.show('Seguindo usuário');
       onFollowUpClick();
     }
@@ -358,7 +361,7 @@ class ProfileComponent extends React.Component {
             hasPhoto={profile.picture_url}
           />
           :
-          !hiddenFollow && <MPFollowButton isFollowing={this.props.followingUser} onPress={() => this.toggleFollow()}/>
+          !hiddenFollow && <MPFollowButton isFollowing={this.state.followingUser} onPress={() => this.toggleFollow()}/>
         }
         <MPProfileInfo
           isMe={me}

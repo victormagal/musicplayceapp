@@ -65,6 +65,7 @@ class EditProfileDescriptionComponent extends React.Component {
                 multiline={true}
                 value={this.state.description}
                 onChangeText={this.handleChange}
+                maxLength={300}
               />
               <View>
                 <MPFormButton>
