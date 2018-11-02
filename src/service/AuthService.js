@@ -1,12 +1,11 @@
 import axios from 'axios';
-import {API} from './api';
+import {API, API_AUTH} from './api';
 import {StorageService} from './StorageService';
 
 
-const API_AUTH = `${API}/auth`;
-
-
 class AuthService {
+
+
 
   static login(user) {
     let params = {
@@ -15,7 +14,6 @@ class AuthService {
         attributes: user
       }
     };
-
     return axios.post(`${API_AUTH}/login`, params)
       .then(response => {
         StorageService.setToken(response.data);
