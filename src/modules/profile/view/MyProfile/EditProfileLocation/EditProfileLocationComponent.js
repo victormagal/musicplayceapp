@@ -17,6 +17,8 @@ import {
 } from "../../../../../state/action";
 import {MPLocationPinIcon} from "../../../../../assets/svg/index";
 import {MPTextField} from "../../../../../components/forms";
+import AutoComplete from '../../../../../components/autocomplete-select/AutoComplete/AutoComplete'
+import Cities from './Cidades.json';
 
 
 class EditProfileLocationComponent extends React.Component {
@@ -33,13 +35,19 @@ class EditProfileLocationComponent extends React.Component {
       selectedState: null,
       error: null,
       searching: false,
-      isCurrentLocation: false
+      isCurrentLocation: false,
+      value: '',
+      citiesByState:[],
     };
   }
 
   componentDidMount() {
     const {dispatch} = this.props;
     dispatch(fetchStateBrazil());
+  }
+
+  onSelect = (suggestion) => {
+    this.setState({value: suggestion.nome_municipio});
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -105,6 +113,7 @@ class EditProfileLocationComponent extends React.Component {
 
   handleChangeStateOption = (index) => {
     const {states} = this.props;
+    this.setState({ citiesByState: Cities.filter(cities => cities.uf === states[index].sigla)});
 
     if(index) {
       this.setState({
@@ -150,11 +159,15 @@ class EditProfileLocationComponent extends React.Component {
                   onChangeOption={this.handleChangeStateOption}
                 />
                 {selectedState &&
-                  <MPTextField
-                    label='Digite o nome da cidade'
-                    value={cityTextValue}
-                    onChangeText={this.handleCitySearchChange}
-                  />
+                <AutoComplete
+                onSelect={this.onSelect}
+                suggestions={this.state.citiesByState}
+                suggestionObjectTextProperty='nome_municipio'
+                value={this.state.value}
+                onChangeText={(value) => this.setState({value})}
+                label={'Digite o nome da cidade'}
+
+              />
                 }
                 {(selectedState && cities) &&
                   <View style={{ marginTop: -8 }}>
