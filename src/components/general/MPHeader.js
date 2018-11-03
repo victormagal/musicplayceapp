@@ -14,19 +14,31 @@ class MPHeader extends React.Component {
       this.alertSuccessSendEmail()
     })
     .catch(error =>{
-      console.warn('error')
+      console.warn(error)
+      this.alertFailSendEmail()
     })
   }
 
   alertSuccessSendEmail = () => {
     Alert.alert(
-      'Atenção',
+      'Sucesso',
       'Email enviado com sucesso',
       [
         {text: 'OK', onPress: () => console.log('OK Pressed')},
       ],
     )
   };
+
+  alertFailSendEmail = () => {
+    Alert.alert(
+      'Erro',
+      'Email não foi enviado com sucesso',
+      [
+        {text: 'OK', onPress: () => console.log('OK Pressed')},
+      ],
+    )
+  };
+
   render() {
     let { terms,title, back, onBack, inverse, transparent, icons, style, iconsLeft, withoutLogo, redBack } = this.props;
     let logo = inverse ? <MPLogoBlackIcon style={styles.logo} /> :
