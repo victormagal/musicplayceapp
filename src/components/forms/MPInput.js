@@ -77,8 +77,8 @@ class MPInputComponent extends React.Component {
           secureTextEntry={this.state.isPassword}
           onChangeText={ this.handleChangeText }
           error={error}
-          maxLength = {maxLength}
           keyboardType={keyboardType || 'default'}
+          characterRestriction={maxLength}
           {...this.props.textProps}/>
 
         {secureTextEntry && (
