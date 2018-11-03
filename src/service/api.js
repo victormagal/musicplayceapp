@@ -91,7 +91,6 @@ export const API_PLANS = `${API}/plans`;
 export const API_SONG = `${API}/songs`;
 export const API_TAG = `${API}/tags`;
 export const API_TERMS_AND_CONDITIONS = `${API}/terms`;
-export const API_AUTH = `${API}/auth/users/me`;
 export const API_USER = `${API}/users`;
 // export const API = 'http://35.226.244.95/api';
 // export const API = 'http://a00f1158.ngrok.io/api';

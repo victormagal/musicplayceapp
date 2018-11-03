@@ -1,5 +1,5 @@
 import {
-  API_AUTH, API_USER,
+  API_USER,
   getIncludes,
   transformResponseData
 } from './api';
@@ -58,7 +58,7 @@ class UserService {
       }
     };
 
-    const endpointUrl = user.password ? API_AUTH : `${ API_USER }/${ user.id }`;
+    const endpointUrl = user.password ? `${API}/auth/users/me` : `${ API_USER }/${ user.id }`;
     return axios.put(endpointUrl, data)
       .then(response => response.data);
   }
