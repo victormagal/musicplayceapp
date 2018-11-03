@@ -1,7 +1,6 @@
 import {API_FEEDBACK} from './api';
 import axios from 'axios';
 
-
 class FeedbackService {
 
   static createFeedback(feedback) {

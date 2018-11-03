@@ -3,7 +3,6 @@ import {API_FOLDER, transformResponseData} from './api';
 
 class FolderService {
 
-
   static create(folder){
     let data = {
       data: {

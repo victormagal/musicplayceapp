@@ -2,10 +2,7 @@ import axios from 'axios';
 import {API_AUTH} from './api';
 import {StorageService} from './StorageService';
 
-
 class AuthService {
-
-
 
   static login(user) {
     let params = {
