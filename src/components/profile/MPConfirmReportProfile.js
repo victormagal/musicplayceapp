@@ -75,9 +75,10 @@ class MPConfirmReportProfileComponent extends React.Component {
           error={this.props.error ? 'Campo obrigatório' : ''}/>
           <MPFormButton>
             <MPGradientButton style={ styles.button } title={'Fazer denúncia'} textSize={16} onPress={this.handleFoward.bind(this)} disabled={this.props.errors ? true: false}/>
-            <MPGradientButton style={ styles.button } title={'Cancelar'} textSize={16} onPress={this.handleBack.bind(this)}/>
           </MPFormButton>
         </MPForm>
+        <MPGradientButton style={ styles.button } title={'Cancelar'} textSize={16} onPress={this.handleBack.bind(this)}/>
+
       </KeyboardAwareScrollView>
     );
   }
