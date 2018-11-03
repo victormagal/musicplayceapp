@@ -16,7 +16,7 @@ class MPLoading extends React.Component {
         <View style={styles.container}>
           <View style={styles.content}>
             <ActivityIndicator size="large" color="#BB1A1A" />
-            <MPText style={styles.text}>Aguarde...</MPText>
+            <MPText style={styles.text}>Carregando...</MPText>
           </View>
         </View>
       </Modal>
