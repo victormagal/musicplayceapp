@@ -1,4 +1,5 @@
 import {
+  API,
   API_USER,
   getIncludes,
   transformResponseData
@@ -196,7 +197,7 @@ class UserService {
   }
 
   static sendEmailTermsOfService(){
-    return axios.post(`${API}/users/me/send-terms/`);
+    return axios.post(`${API}/users/me/send-terms`, {});
   }
 }
 

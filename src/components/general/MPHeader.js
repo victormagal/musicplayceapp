@@ -9,12 +9,12 @@ import { UserService } from '../../service/UserService'
 class MPHeader extends React.Component {
   
   sendEmail = () => {
-    UserService.sendEmailTermsOfService().then( results => {
-      console.warn(result)
+    UserService.sendEmailTermsOfService().then( result => {
+      console.log(result)
       this.alertSuccessSendEmail()
     })
     .catch(error =>{
-      console.warn(error)
+      console.log(error)
       this.alertFailSendEmail()
     })
   }
