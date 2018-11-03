@@ -1,7 +1,5 @@
 import axios from 'axios';
-import {API, transformResponseData} from './api';
-
-const API_FOLDER = `${API}/folders`;
+import {API_FOLDER, transformResponseData} from './api';
 
 class FolderService {
 

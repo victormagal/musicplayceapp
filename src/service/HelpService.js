@@ -1,7 +1,5 @@
 import axios from 'axios';
-import {API} from './api';
-
-const API_HELP = `${API}/faqs`;
+import {API_HELP} from './api';
 
 class HelpService {
   static fetchFAQ() {

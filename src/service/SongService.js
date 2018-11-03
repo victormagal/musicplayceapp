@@ -1,10 +1,8 @@
 import {Platform} from "react-native";
 import axios from 'axios';
-import {API, transformResponseData, getIncludes} from './api';
+import {API_SONG, transformResponseData, getIncludes} from './api';
 import {FolderService} from "./FolderService";
 import {updateSongRegisterData} from "../state/songs/songsType";
-
-const API_SONG = `${API}/songs`;
 
 class SongService {
 

@@ -1,13 +1,10 @@
 import {
-  API,
+  API_AUTH, API_USER,
   getIncludes,
   transformResponseData
 } from './api';
 import { AuthService } from './AuthService';
 import axios from 'axios';
-
-const API_AUTH = `${API}/auth/users/me`;
-const API_USER = `${API}/users`;
 
 class UserService {
   static createUser(user) {

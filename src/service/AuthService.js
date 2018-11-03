@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {API, API_AUTH} from './api';
+import {API_AUTH} from './api';
 import {StorageService} from './StorageService';
 
 

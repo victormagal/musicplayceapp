@@ -1,6 +1,5 @@
 import axios from 'axios';
-import {API} from './api';
-const API_FEED = `${API}/full-text-search`;
+import {API_FEED} from './api';
 
 class FeedService {
 

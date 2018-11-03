@@ -1,7 +1,5 @@
 import axios from 'axios';
-import {API} from './api';
-
-const API_PLANS = `${API}/plans`;
+import {API_PLANS} from './api';
 
 class PlansService {
 

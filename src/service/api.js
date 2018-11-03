@@ -81,6 +81,17 @@ export const transformResponseData = (data) => {
 
 export const GOOGLE_API_KEY = 'AIzaSyBHlhntl4H8ilBeYWUc6naDgUPbYfbnv3g';
 export const API = 'http://mplive.us-east-1.elasticbeanstalk.com/api';
+export const API_FEEDBACK = `${API}/feedbacks`;
+export const API_CARD = `${API}/cards`;
 export const API_AUTH = `${API}/auth`;
+export const API_FEED = `${API}/full-text-search`;
+export const API_FOLDER = `${API}/folders`;
+export const API_HELP = `${API}/faqs`;
+export const API_PLANS = `${API}/plans`;
+export const API_SONG = `${API}/songs`;
+export const API_TAG = `${API}/tags`;
+export const API_TERMS_AND_CONDITIONS = `${API}/terms`;
+export const API_AUTH = `${API}/auth/users/me`;
+export const API_USER = `${API}/users`;
 // export const API = 'http://35.226.244.95/api';
 // export const API = 'http://a00f1158.ngrok.io/api';
