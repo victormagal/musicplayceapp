@@ -19,7 +19,6 @@ class MPCheckBox extends React.Component {
   toggleCheck = () => {
     const checked = !this.state.checked;
     this.setState({checked});
-    this.props.onChange(checked);
   };
 
   render() {
