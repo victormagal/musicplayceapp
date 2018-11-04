@@ -1,7 +1,10 @@
 import {
   API_USER,
+  API_REPORTS,
+  API_INVITE,
   getIncludes,
-  transformResponseData
+  transformResponseData,
+  API_AUTH
 } from './api';
 import { AuthService } from './AuthService';
 import axios from 'axios';
@@ -58,13 +61,13 @@ class UserService {
       }
     };
 
-    const endpointUrl = user.password ? `${API}/auth/users/me` : `${ API_USER }/${ user.id }`;
+    const endpointUrl = user.password ? `${API_AUTH}/users/me` : `${API_USER}/${user.id}`;
     return axios.put(endpointUrl, data)
       .then(response => response.data);
   }
 
   static getUserById(id) {
-    return axios.get(`${ API_USER }/${ id }`)
+    return axios.get(`${API_USER}/${id}`)
       .then(response => {
         const { data } = response.data;
         const { id, attributes } = data;
@@ -181,7 +184,7 @@ class UserService {
         attributes : report
       }
     };
-    return axios.post(`${API}/reports`, params).then(response => {
+    return axios.post(`${API_REPORTS}`, params).then(response => {
       return response;
     });
   }
@@ -190,13 +193,13 @@ class UserService {
     let params = {
       email: user.email
     };
-    return axios.post(`${API}/invite/${user.id}`, params).then(response => {
+    return axios.post(`${API_INVITE}/${user.id}`, params).then(response => {
       return response;
     });
   }
 
   static sendEmailTermsOfService(){
-    return axios.post(`${API}/users/me/send-terms/`);
+    return axios.post(`${API_USER}/me/send-terms/`);
   }
 }
 

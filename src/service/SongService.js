@@ -1,6 +1,6 @@
 import {Platform} from "react-native";
 import axios from 'axios';
-import {API_SONG, transformResponseData, getIncludes} from './api';
+import {API_SONG, API_SONG_ARTIST, API_LANGUAGES, transformResponseData, getIncludes} from './api';
 import {FolderService} from "./FolderService";
 import {updateSongRegisterData} from "../state/songs/songsType";
 
@@ -156,7 +156,7 @@ class SongService {
       params['page[number]'] = page;
     }
 
-    return axios.get(`${API}/song-artist/${user.id}`, {params})
+    return axios.get(`${API_SONG_ARTIST}/${user.id}`, {params})
       .then(response => {
         let {data, meta} = response.data;
         data = transformResponseData(data);
@@ -165,7 +165,7 @@ class SongService {
   }
 
   static getLanguages(){
-    return axios.get(`${API}/languages`).then(response => {
+    return axios.get(`${API_LANGUAGES}`).then(response => {
       return response.data;
     })
   }

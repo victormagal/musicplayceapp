@@ -1,15 +1,15 @@
 import axios from 'axios';
-import { GOOGLE_API_KEY, API } from "./api";
+import { API_STATES } from "./api";
 
 class GeneralService {
   static fetchCityBrazil(state, city) {
-    return axios.get(`${API}/states/${state}/cities/${city}`).then(response => {
+    return axios.get(`${API_STATES}/${state}/cities/${city}`).then(response => {
       return response.data
     });
   }
 
   static fetchStateBrazil() {
-    return axios.get(`${API}/states`).then(response =>
+    return axios.get(`${API_STATES}`).then(response =>
       response.data
     );
   }
