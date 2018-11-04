@@ -80,10 +80,8 @@ export const transformResponseData = (data) => {
 };
 
 export const GOOGLE_API_KEY = 'AIzaSyBHlhntl4H8ilBeYWUc6naDgUPbYfbnv3g';
-export const API = 'http://mplive.us-east-1.elasticbeanstalk.com';
+export const API = 'https://live.musicplayce.net';
 // export const API = 'https://73e1e272.ngrok.io'
-// export const API = 'http://35.226.244.95/api';
-// export const API = 'http://a00f1158.ngrok.io/api';
 export const API_FEEDBACK = `/api/${API}/feedbacks`;
 export const API_CARD = `${API}/api/cards`;
 export const API_AUTH = `${API}/api/auth`;
