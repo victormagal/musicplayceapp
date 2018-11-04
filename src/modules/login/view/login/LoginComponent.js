@@ -1,17 +1,17 @@
 import React, {Component} from 'react';
 import {
-  ScrollView, StyleSheet, View, TouchableWithoutFeedback, ImageBackground
+  ScrollView, StyleSheet, View, TouchableWithoutFeedback, ImageBackground, Linking
 } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import {
   MPGradientButton, MPHeader, MPText, MPInput, MPForm,
-  MPFormButton, MPLoading
+  MPFormButton, MPLoading, MPButton
 } from '../../../../components';
 import {
   MPFacebookIcon, MPGoogleIcon
 } from '../../../../assets/svg';
 import LinearGradient from 'react-native-linear-gradient';
-
+import {API} from '../../../../service/api';
 
 const BaseIcon = (props, Icon) => (
   <View {...props}>
@@ -63,12 +63,12 @@ class LoginComponent extends Component {
                 <View style={styles.container}>
                   <MPText style={styles.title}>Bem-vindo ao MusicPlayce</MPText>
 
-                  {/*<MPButton icon={FacebookIcon} title="Entre com Facebook" textSize={16} onPress={() => {}} style={styles.signinFB}/>*/}
-                  {/*<MPButton icon={GoogleIcon} title="Entre com Google+" textSize={16} onPress={() => {}} style={styles.signinGoogle}/>*/}
+                  <MPButton icon={FacebookIcon} title="Entre com Facebook" textSize={16} onPress={ ()=>{ Linking.openURL(`${API}/oauth/facebook`)}} style={styles.signinFB}/>
+                  <MPButton icon={GoogleIcon} title="Entre com Google+" textSize={16} onPress={ ()=>{ Linking.openURL(`${API}/oauth/google`)}} style={styles.signinGoogle}/>
 
                   {!this.props.error && (
                     <View>
-                      {/*<MPText style={styles.ouText}>ou</MPText>*/}
+                      <MPText style={styles.ouText}>ou</MPText>
                       <MPText style={styles.signinUser}>Entre com seu usuário</MPText>
                     </View>
                   )}
