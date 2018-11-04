@@ -1,12 +1,12 @@
 import React from 'react';
-import {NetInfo, NativeModules, NativeEventEmitter, View, Platform} from 'react-native';
+import { NetInfo, NativeModules, NativeEventEmitter, View, Platform, Button, Linking } from 'react-native';
 import {
   applyMiddleware,
   createStore
 } from 'redux';
-import {Provider} from 'react-redux';
+import { Provider } from 'react-redux';
 import thunkMiddleware from 'redux-thunk'
-import {createBottomTabNavigator, createStackNavigator} from 'react-navigation';
+import { createBottomTabNavigator, createStackNavigator } from 'react-navigation';
 import MusicControl from 'react-native-music-control';
 import {
   LoginScreens,
@@ -17,22 +17,22 @@ import {
   StartScreen,
   MessageScreen
 } from './src/modules';
-import {reducers} from './src/state/reducer';
+import { reducers } from './src/state/reducer';
 import {
   loadFont, updateNetwork, playerSongPause,
   playerSongUpdateProgress, songResume, songPause, songStop, playerSongStop
 } from './src/state/action';
-import {PlayerService} from './src/service';
-import {MPTabBottomComponent, MPNetworkNotification} from './src/components';
-import {applyAxiosInterceptops} from './src/connectors';
-import {MPTabConfigurationIcon, MPTabNotificationIcon, MPTabProfileIcon} from './src/assets/svg/custom';
+import { PlayerService } from './src/service';
+import { MPTabBottomComponent, MPNetworkNotification } from './src/components';
+import { applyAxiosInterceptops } from './src/connectors';
+import { MPTabConfigurationIcon, MPTabNotificationIcon, MPTabProfileIcon } from './src/assets/svg/custom';
 
 const { RNMusicPlayer } = NativeModules;
 const RNMusicPlayerEmitter = new NativeEventEmitter(RNMusicPlayer);
 
 const store = createStore(reducers, applyMiddleware(thunkMiddleware));
 
-if (__DEV__) {
+if (__DEV__ && Platform.OS === 'ios') {
   NativeModules.DevSettings.setIsDebuggingRemotely(true)
 }
 
@@ -56,9 +56,9 @@ const HomeTabBottomNavigation = createBottomTabNavigator({
     }
   }
 }, {
-  initialRouteName: 'feed',
-  tabBarComponent: MPTabBottomComponent
-});
+    initialRouteName: 'feed',
+    tabBarComponent: MPTabBottomComponent
+  });
 
 const StartNavigation = createStackNavigator(
   {
@@ -86,7 +86,7 @@ export default class App extends React.Component {
     this.playerUpdateListener = RNMusicPlayerEmitter.addListener('playerDidUpdateWithProgress', this.handleSongUpdateListener);
 
 
-    MusicControl.on('play', ()=> {
+    MusicControl.on('play', () => {
       store.dispatch(songResume());
     });
 
@@ -117,8 +117,8 @@ export default class App extends React.Component {
 
     if (RNMusicPlayer.statePlaying == currentPlayerState) {
       store.dispatch(playerSongUpdateProgress(state["progress"]));
-    }else if(RNMusicPlayer.stateStopped === currentPlayerState){
-      if(store.getState().playerReducer.player.isPlaying){
+    } else if (RNMusicPlayer.stateStopped === currentPlayerState) {
+      if (store.getState().playerReducer.player.isPlaying) {
         store.dispatch(playerSongStop());
         PlayerService.stopNotification();
       }
@@ -132,7 +132,7 @@ export default class App extends React.Component {
   render() {
     return (
       <Provider store={store}>
-        <View style={{flex: 1}}>
+        <View style={{ flex: 1 }}>
           <StartNavigation />
           <MPNetworkNotification />
         </View>

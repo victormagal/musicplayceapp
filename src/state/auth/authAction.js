@@ -1,5 +1,5 @@
-import {createAction} from 'redux-actions';
-import {AuthService} from '../../service';
+import { createAction } from 'redux-actions';
+import { AuthService } from '../../service';
 
 
 export const AUTH_START_LOADING = 'AUTH_START_LOADING';
@@ -15,7 +15,7 @@ export const authLogout = createAction(AUTH_LOGOUT, () => null);
 export const authSetStorageUser = createAction(AUTH_SET_STORAGE_USER, (data) => data);
 
 export const loginSuccess = createAction(AUTH_LOGIN_SUCCESS, (data) => {
-  return {...data};
+  return { ...data };
 });
 export const loginError = createAction(AUTH_LOGIN_ERROR);
 
@@ -29,7 +29,32 @@ export const login = (user) => {
       dispatch(loginSuccess(response));
       return response;
     }).catch(e => {
-      console.log('loginError', e.response);
+      console.log('loginError', e.response, e);
+      dispatch(loginError());
+    });
+  };
+};
+
+export const socialLogin = (url) => {
+  return (dispatch) => {
+    const urlParams = url.replace('musicplayce://logged_id?', '');
+    const parts = urlParams.split('&');
+    // 'access_token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC83M2UxZTI3Mi5uZ3Jvay5pb1wvb2F1dGhcL2dvb2dsZVwvY2FsbGJhY2siLCJpYXQiOjE1NDEyODIxMzEsImV4cCI6MTU0MTI4NTczMSwibmJmIjoxNTQxMjgyMTMxLCJqdGkiOiJvQkxIN3JiTkYwTU5LdTFOIiwic3ViIjoiZGY4MmQ4N2EtMGMyZC00MjJjLWE5MjMtOTdlY2QzZWNiMzI3IiwicHJ2IjoiODdlMGFmMWVmOWZkMTU4MTJmZGVjOTcxNTNhMTRlMGIwNDc1NDZhYSJ9.bGLl-rZ5eFfqtAEqlqK6UnFccOQqwte9nb808UvF8W8&token_type=bearer&expires_in=3600''
+    if (parts.length !== 3) {
+      throw new Error('Não foi possível fazer login com redes sociais.');
+    }
+    var token = {
+      access_token: parts[0].replace('access_token=', ''),
+      token_type: parts[1].replace('token_type=', ''),
+      expires_in: parseInt(parts[2].replace('expires_in=', ''))
+    }
+    console.log('token',token)
+    dispatch(authStartLoading());
+    return AuthService.setToken(token).then(response => {
+      dispatch(loginSuccess(response));
+      return response;
+    }).catch(e => {
+      console.log('socialLoginError', e.response, e);
       dispatch(loginError());
     });
   };
