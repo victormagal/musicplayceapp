@@ -75,7 +75,7 @@ class EditProfileSitesComponent extends React.Component {
       error = 'Por favor insira uma URL válida.';
     } else {
       error = null;
-      social_networks.push({ name: nameText, url: urlText });
+      social_networks.push({ name: nameText, url: "http://"+urlText });
       this.setState({ social_networks, urlText: '', nameText: '' });
     }
     this.setState({ error });
@@ -144,8 +144,9 @@ class EditProfileSitesComponent extends React.Component {
       <MPForm>
         <View style={{  marginHorizontal: 40 }}>
           <MPTextField
-            label="Cole aqui a URL da sua página"
+            label="Digite aqui a URL da sua página"
             value={urlText}
+            autoCapitalize={'none'}
             onChangeText={(value) => this.handleChange({ field: 'urlText', value })}
           />
           <MPTextField
@@ -154,7 +155,7 @@ class EditProfileSitesComponent extends React.Component {
             onChangeText={(value) => this.handleChange({ field: 'nameText', value })}
           />
           <MPGradientButton
-            title={'Adicionar esta'}
+            title={'Adicionar'}
             style={styles.addButton}
             onPress={this.handleAddSocialMedia}
           />

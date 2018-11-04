@@ -75,14 +75,6 @@ class TermsSettingsScreenContainer extends React.Component {
     }
     return (
       <View>
-        { showTopics &&
-          <MPSelect label={"Selecione um tópico"}
-                    value={selectedOption}
-                    options={options}
-                    style={styles.containerSelect}
-                    onChangeOption={(selectedOption) => this.setState({ selectedOption })}
-          />
-        }
         { termsAndConditions && termsData
           .filter(term => {
             if (selectedOption !== null) {
@@ -115,7 +107,8 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end'
   },
   scroll: {
-    flex: 2
+    flex: 2,
+    marginTop: 15
   },
   containerSelect: {
     borderBottomColor: 'rgba(0, 0, 0, 0.15)',
@@ -125,7 +118,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF'
   },
   container: {
-    marginVertical: 30
+    marginBottom: 30,
+    marginTop: 10
   },
   errorText: {
     color: 'rgba(255,0,0,1)',

@@ -1,10 +1,7 @@
 import axios from 'axios';
-import {API, transformResponseData} from './api';
-
-const API_FOLDER = `${API}/folders`;
+import {API_FOLDER, transformResponseData} from './api';
 
 class FolderService {
-
 
   static create(folder){
     let data = {
@@ -63,7 +60,7 @@ class FolderService {
       data : {
         type: 'folders',
         attributes: {
-          name: newName.value,
+          name: newName,
         }
       }
     };

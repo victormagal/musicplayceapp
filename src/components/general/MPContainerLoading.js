@@ -10,7 +10,7 @@ class MPContainerLoading extends Component{
       <View style={styles.containerLoading}>
         <View style={styles.contentLoading}>
           <ActivityIndicator size="large" color="#BB1A1A" />
-          <MPText style={styles.textLoading}>{message || 'Aguarde...'}</MPText>
+          <MPText style={styles.textLoading}>{message || 'Carregando...'}</MPText>
         </View>
       </View>
     );

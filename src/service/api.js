@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {StorageService} from './StorageService';
+import { StorageService } from './StorageService';
 
 // axios.interceptors.request.use(request => {
 //   console.log('Logger: request => ', request)
@@ -16,30 +16,30 @@ import {StorageService} from './StorageService';
 
 StorageService.getToken().then((token) => {
   console.log("TOKEN", token);
-  if(token) {
+  if (token) {
     axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-  }else{
+  } else {
     delete axios.defaults.headers.common['Authorization'];
   }
 });
 
 export const getIncludes = (response) => {
-  let {included, data} = response;
+  let { included, data } = response;
   let includes = {};
 
-  if(included) {
+  if (included) {
     for (let e of included) {
-      let {type, id, attributes} = e;
+      let { type, id, attributes } = e;
 
       if (!includes[type]) {
         includes[type] = {};
       }
 
-      includes[type][id] = {id, ...attributes};
+      includes[type][id] = { id, ...attributes };
     }
   }
 
-  if(data && data.relationships){
+  if (data && data.relationships) {
     return getItemRelations(data, includes);
   }
 
@@ -49,22 +49,22 @@ export const getIncludes = (response) => {
 export const getItemRelations = (data, includes) => {
   let relations = {};
 
-  if(data && data.relationships){
+  if (data && data.relationships) {
 
-    for(let key in data.relationships){
+    for (let key in data.relationships) {
       let relationData = data.relationships[key].data;
 
-      if(Array.isArray(relationData)) {
+      if (Array.isArray(relationData)) {
         for (let e of relationData) {
-          let {type, id} = e;
+          let { type, id } = e;
 
           if (!relations[key]) {
             relations[key] = [];
           }
           relations[key].push(includes[type][id]);
         }
-      }else{
-        let {type, id} = relationData;
+      } else {
+        let { type, id } = relationData;
         relations[key] = includes[type][id];
       }
     }
@@ -74,12 +74,28 @@ export const getItemRelations = (data, includes) => {
 };
 
 export const transformResponseData = (data) => {
-  return data.map(({id, attributes}) => {
-    return {id, ...attributes};
+  return data.map(({ id, attributes }) => {
+    return { id, ...attributes };
   });
 };
 
 export const GOOGLE_API_KEY = 'AIzaSyBHlhntl4H8ilBeYWUc6naDgUPbYfbnv3g';
-export const API = 'https://live.musicplayce.net/api';
+export const API = 'https://live.musicplayce.net';
+export const API_FEEDBACK = `${API}/api/feedbacks`;
+export const API_CARD = `${API}/api/cards`;
+export const API_AUTH = `${API}/api/auth`;
+export const API_FEED = `${API}/api/full-text-search`;
+export const API_FOLDER = `${API}/api/folders`;
+export const API_HELP = `${API}/api/faqs`;
+export const API_PLANS = `${API}/api/plans`;
+export const API_SONG = `${API}/api/songs`;
+export const API_TAG = `${API}/api/tags`;
+export const API_TERMS_AND_CONDITIONS = `${API}/api/terms`;
+export const API_USER = `${API}/api/users`;
+export const API_LANGUAGES = `${API}/api/languages`;
+export const API_SONG_ARTIST = `${API}/api/song-artist`;
+export const API_STATES = `${API}/api/states`;
+export const API_INVITE = `${API}/api/invite`;
 // export const API = 'http://35.226.244.95/api';
 // export const API = 'http://a00f1158.ngrok.io/api';
+

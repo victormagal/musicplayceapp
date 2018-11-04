@@ -1,7 +1,5 @@
 import axios from 'axios';
-import {API} from './api';
-
-const API_TERMS_AND_CONDITIONS = `${API}/terms`;
+import {API_TERMS_AND_CONDITIONS} from './api';
 
 class TermsAndConditionsService {
   static fetchTermsAndConditions() {

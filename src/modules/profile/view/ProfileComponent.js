@@ -3,6 +3,7 @@ import {
   Alert, View, StyleSheet, ScrollView, TouchableOpacity,
   ActivityIndicator, ImageBackground, Dimensions, FlatList
 } from 'react-native';
+import { Grayscale } from 'react-native-color-matrix-image-filters';
 import LinearGradient from 'react-native-linear-gradient';
 import PropTypes from 'prop-types';
 import {
@@ -34,7 +35,8 @@ class ProfileComponent extends React.Component {
       linearGradientHeight: 0,
       isFollowing: false,
       imageSizeError: false,
-      addSongButtonRed: true
+      addSongButtonRed: true,
+      followingUser:this.props.followingUser
     };
   }
 
@@ -43,6 +45,14 @@ class ProfileComponent extends React.Component {
     if (profile !== nextProps.profile) {
       this.props.onStopLoading()
     }
+
+    const navigationParams = nextProps.navigation.state.params;
+
+    if (navigationParams && navigationParams.toastPassword) {
+      nextProps.navigation.setParams({toastPassword: false});
+      this.refs.toast.show('Senha cadastrada com sucesso.');
+    }
+    
   }
 
   goToScreen = (rota, params = {}) => {
@@ -58,10 +68,12 @@ class ProfileComponent extends React.Component {
 
   toggleFollow = () => {
     const { onFollowUpClick } = this.props;
-    if (this.props.followingUser) {
+    if (this.state.followingUser) {
+      this.setState({followingUser : false});
       this.refs.toast.show('Parou de seguir este usuário');
       // navigation.navigate('message', { component: MPConfirmStopFollow, profile });
     } else {
+      this.setState({followingUser : true});
       this.refs.toast.show('Seguindo usuário');
       onFollowUpClick();
     }
@@ -177,7 +189,6 @@ class ProfileComponent extends React.Component {
   };
 
   handleScrollChange = (e) => {
-    console.log( e.nativeEvent.contentOffset);
     this.setState({
       addSongButtonRed: e.nativeEvent.contentOffset.y <= 10
     });
@@ -232,7 +243,6 @@ class ProfileComponent extends React.Component {
     return [
       <MPIconButton
         key={Math.random()}
-        style={styles.logout}
         title='Sair'
         titleStyle={styles.headerMenuText}
         onPress={this.props.onLogoutClick}
@@ -286,15 +296,14 @@ class ProfileComponent extends React.Component {
   }
 
   renderContent(profile) {
+    profile = profile || {};
     const { me, loadingProfile } = this.props;
     if (loadingProfile) {
       return (
         <View style={styles.containerLoading}>
           <View style={styles.contentLoading}>
             <ActivityIndicator size='large' color='#BB1A1A' />
-            <MPText style={styles.textLoading}>
-              { `Carregando ${me ? 'perfil' : 'artista'}...` }
-            </MPText>
+            <MPText style={styles.textLoading}>Carregando...</MPText>
           </View>
         </View>
       )
@@ -302,20 +311,22 @@ class ProfileComponent extends React.Component {
 
     return (
       <View style={{ backgroundColor: '#000' }}>
-        <ImageBackground
-          style={{ flex: 1, width: '100%' }}
-          source={profile.picture_url ? { uri: profile.picture_url } : null}
-        >
-          <LinearGradient
-            onLayout={event => this.setState({ linearGradientHeight: event.nativeEvent.layout.height })}
-            colors={['rgba(0, 0, 0, 0.2)', '#e13223']}
+        <Grayscale>
+          <ImageBackground
+            style={{ flex: 1, width: '100%' }}
+            source={profile.picture_url ? { uri: profile.picture_url } : null}
           >
-            { this.renderProfileData(profile) }
-            <TouchableOpacity style={styles.profileArrow} onPress={this.handleScrollEnd}>
-              <MPProfileArrowIcon />
-            </TouchableOpacity>
-          </LinearGradient>
-        </ImageBackground>
+            <LinearGradient
+              onLayout={event => this.setState({ linearGradientHeight: event.nativeEvent.layout.height })}
+              colors={['rgba(0, 0, 0, 0.2)', '#e13223']}
+            >
+              { this.renderProfileData(profile) }
+              <TouchableOpacity style={styles.profileArrow} onPress={this.handleScrollEnd}>
+                <MPProfileArrowIcon />
+              </TouchableOpacity>
+            </LinearGradient>
+          </ImageBackground>
+        </Grayscale>
         { this.renderSongsData(profile) }
         <MPShowFollowers
           hideSettings={!me}
@@ -350,7 +361,7 @@ class ProfileComponent extends React.Component {
             hasPhoto={profile.picture_url}
           />
           :
-          !hiddenFollow && <MPFollowButton isFollowing={this.props.followingUser} onPress={() => this.toggleFollow()}/>
+          !hiddenFollow && <MPFollowButton isFollowing={this.state.followingUser} onPress={() => this.toggleFollow()}/>
         }
         <MPProfileInfo
           isMe={me}
@@ -362,7 +373,6 @@ class ProfileComponent extends React.Component {
             style={{ flex: 1 }}
             title='Indicação Feita'
             titlePlural='Indicações Feitas'
-            subtitle='Explore'
             me={me}
             count={countIndications}
           />
@@ -505,9 +515,6 @@ const styles = StyleSheet.create({
     fontFamily: 'ProbaPro-Regular',
     fontSize: 18,
     color: '#000',
-  },
-  logout: {
-    padding: 10
   },
   profileArrow: {
     alignSelf: 'center',

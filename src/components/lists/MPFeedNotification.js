@@ -121,6 +121,7 @@ const styles = StyleSheet.create({
   },
   notificationText: {
     fontSize: 16,
+    lineHeight: 20,
     color: '#9b9b9b',
     fontFamily: 'ProbaPro-Regular',
     textAlign: 'left',

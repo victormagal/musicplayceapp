@@ -2,12 +2,17 @@ import React from 'react';
 import {
   Image,
   StyleSheet,
-  View
+  View,
+  TouchableOpacity,
 } from 'react-native';
 import { MPText } from '../../components';
 import { connect } from 'react-redux';
 
 class MPNotificationListComponent extends React.Component {
+
+  navigateToProfile = (userId) => {
+    this.props.navigation.navigate('userProfile', { userId });
+  }
 
   render() {
     let { item } = this.props;
@@ -61,10 +66,16 @@ class MPNotificationListComponent extends React.Component {
           }
           {
             notificationType == types[3] && (
-              <MPText style={styles.notificationText}>
-                <MPText style={styles.notificationTextEmpth}>{item.data.users.name}</MPText>{' te indicou para música '}
+              <View>
+                <View style={styles.viewNotificationText}>
+                  <TouchableOpacity onPress={() => this.navigateToProfile(item.data.users.id)}>
+                    <MPText style={styles.notificationTextEmpth}>{item.data.users.name}</MPText>
+                  </TouchableOpacity>
+                  <MPText style={styles.notificationText}>{' te indicou para música '}</MPText> 
+                </View>
                 <MPText style={styles.notificationTextEmpth}>{item.data.songs.name}</MPText>
-              </MPText>
+              </View>
+
             )
           }
           {
@@ -110,13 +121,17 @@ const styles = StyleSheet.create({
   },
   notificationText: {
     fontSize: 16,
+    lineHeight: 20,
     color: '#9b9b9b',
     fontFamily: 'ProbaPro-Regular',
     textAlign: 'left',
     flexWrap: 'wrap',
-    flex: 1,
     marginEnd: 15,
-    alignSelf: 'center'
+    alignSelf: 'center',
+  },
+  viewNotificationText: {
+    flex: 1,
+    flexDirection: 'row'
   },
   notificationTextEmpth: {
     color:'#4a90e2',

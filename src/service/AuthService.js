@@ -1,10 +1,6 @@
 import axios from 'axios';
-import {API} from './api';
-import {StorageService} from './StorageService';
-
-
-const API_AUTH = `${API}/auth`;
-
+import { API_AUTH } from './api';
+import { StorageService } from './StorageService';
 
 class AuthService {
 
@@ -15,17 +11,20 @@ class AuthService {
         attributes: user
       }
     };
-
     return axios.post(`${API_AUTH}/login`, params)
       .then(response => {
-        StorageService.setToken(response.data);
-        return AuthService.me().then(({data}) => {
-          let {id, attributes} = data.data;
-          let user = {id, ...attributes};
-          StorageService.setUser(user);
-          return user;
-        });
+        return AuthService.setToken(response.data);
       });
+  }
+
+  static setToken(responseData) {
+    StorageService.setToken(responseData);
+    return AuthService.me().then(({ data }) => {
+      let { id, attributes } = data.data;
+      let user = { id, ...attributes };
+      StorageService.setUser(user);
+      return user;
+    });
   }
 
   static logout() {
@@ -60,4 +59,4 @@ class AuthService {
   }
 }
 
-export {AuthService};
+export { AuthService };

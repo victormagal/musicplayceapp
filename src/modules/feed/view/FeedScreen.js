@@ -303,7 +303,7 @@ class FeedScreenContainer extends React.Component {
                       userName={song.artist && song.artist.name}
                       songName={song.name}
                       song={song}
-                      imagePath={song.picture_url}
+                      imagePath={song.artist !== undefined ? song.artist.picture_url: song.picture_url}
                       userImagePath={song.artist && song.artist.picture_url}
                       onPressUser={() => this.handleNavigateUserProfile(song.artist && song.artist.id)}
                       onPressMusic={this.handleNavigateMusic}
@@ -328,7 +328,7 @@ class FeedScreenContainer extends React.Component {
                       userName={song.artist && song.artist.name}
                       songName={song.name}
                       song={song}
-                      imagePath={song.picture_url}
+                      imagePath={song.artist !== undefined ? song.artist.picture_url: song.picture_url}
                       userImagePath={song.artist && song.artist.picture_url}
                       onPressUser={() => this.handleNavigateUserProfile(song.artist && song.artist.id)}
                       onPressMusic={this.handleNavigateMusic}

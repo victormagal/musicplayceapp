@@ -23,16 +23,18 @@ class EditFolderScreenContainer extends React.Component {
     }
   }
 
-  handleSaveClick = (newName) => {
-    this.props.dispatch(updateFolderName(this.state.folderId, newName));
-    this.props.navigation.pop();
+  handleSaveClick = () => {
+    const { foldername } = this.state;
+    this.props.dispatch(updateFolderName(this.state.folderId, foldername));
+    this.props.navigation.navigate('MyProfileScreen', { backFromPublishedOrDraft: true });
   };
 
   handleBackClick = () => {
     this.props.navigation.pop();
   };
 
-  handleTextChange = (value) => {
+  handleTextChange = (object) => {
+    const { value } = object;
     this.setState({foldername: value});
   };
 

@@ -1,9 +1,5 @@
-import {API} from './api';
+import {API_FEEDBACK} from './api';
 import axios from 'axios';
-
-
-const API_FEEDBACK = `${API}/feedbacks`;
-
 
 class FeedbackService {
 

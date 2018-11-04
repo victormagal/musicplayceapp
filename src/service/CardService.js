@@ -1,7 +1,5 @@
 import axios from 'axios';
-import {API, transformResponseData} from './api';
-
-const API_CARD = `${API}/cards`;
+import {API_CARD, transformResponseData} from './api';
 
 class CardService {
 

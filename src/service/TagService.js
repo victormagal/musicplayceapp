@@ -1,7 +1,5 @@
 import axios from 'axios';
-import {API, transformResponseData} from './api';
-
-const API_TAG = `${API}/tags`;
+import {API_TAG, transformResponseData} from './api';
 
 class TagService {
 

@@ -13,9 +13,8 @@ class MPUploadFirstSongComponent extends Component{
         return (
             <View style={ styles.parent }>
                 <MPText style={styles.titleText}>Faça upload do seu material e divulgue seu trabalho!</MPText>
-                <MPGradientButton icon={MPSongAddIcon} onPress={onPress} textSize={16}
-                                  style={{marginBottom: 82, marginHorizontal: 10}} title={'Cadastrar nova música'}/>
-                <MPText style={styles.emphText}>Faça upgrade para o plano premium e cadastre várias músicas</MPText>
+                <MPGradientButton icon={MPSongAddIcon} onPress={onPress} textSize={16} style={{marginBottom: 82, marginHorizontal: 10}} title={'Cadastrar nova música'}/>
+                {/* <MPText style={styles.emphText}>Faça upgrade para o plano premium e cadastre várias músicas</MPText> */}
             </View>
         )
     }

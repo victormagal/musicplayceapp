@@ -1,12 +1,10 @@
 import axios from 'axios';
-import {API} from './api';
-
-const API_PLANS = `${API}/plans`;
+import {API_PLANS, API_USER} from './api';
 
 class PlansService {
 
   static choosePlan(planId){
-    return axios.post(`${API}/users/me/choose-plan/${planId}`);
+    return axios.post(`${API_USER}/me/choose-plan/${planId}`);
   }
 
   static getPlans() {

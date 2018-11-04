@@ -80,7 +80,6 @@ class PlayerSaveSongContainer extends React.Component {
 
 
   render() {
-    console.log(this.props.favoritesFolder)
     return (
       <PlayerSaveSongComponent
         folders={this.state.folders}

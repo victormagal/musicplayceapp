@@ -1,4 +1,5 @@
 import React from 'react';
+import { Alert, Share } from 'react-native';
 import {connect} from 'react-redux';
 import {ProfileComponent} from '../ProfileComponent';
 import {
@@ -37,7 +38,14 @@ class MyProfileScreenContainer extends React.Component {
   }
 
   handleFollowersEmptyClick = () => {
-    this.props.navigation.navigate('inviteSettings', {profile: true});
+    const link =  'https://www.musicplayce.com.br/';
+
+    Share.share({
+      title: 'MusicPlayce',
+      message: `Gostaria de te convidar a participar do MusicPlayce ${link}`,
+      dialogTitle: 'Convidar amigos',
+    });
+    // this.props.navigation.navigate('inviteSettings', {profile: true});
   };
 
   handleSongAddClick = () => {
@@ -48,10 +56,25 @@ class MyProfileScreenContainer extends React.Component {
   };
 
   handleLogout = () => {
-    const {dispatch, navigation} = this.props;
+    Alert.alert(
+      '',
+      'Deseja realmente sair do MusicPlayce?',
+      [
+        {
+          text: 'Cancelar',
+          style: 'cancel'
+        },
+        {
+          text: 'OK',
+          onPress: () => {        
+            const {dispatch, navigation} = this.props;
 
-    dispatch(logout());
-    navigation.dangerouslyGetParent().dangerouslyGetParent().replace('login');
+            dispatch(logout());
+            navigation.dangerouslyGetParent().dangerouslyGetParent().replace('login');
+          }
+        },
+      ]
+    );
   };
 
   handleFollowerFollowingClick = (user) => {
