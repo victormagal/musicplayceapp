@@ -58,13 +58,13 @@ class InitialSettingsScreenContainer extends React.Component {
         icon: MPPasswordConfigIcon,
         iconNext: MPArrowRightIcon
       },
-      {
+      /*{
         id: '05',
         onChooseOption: () => this.props.navigation.navigate('addChangePlanSettings'),
         title: 'Minha assinatura',
         icon: MPPaymentTypesIcon,
         iconNext: MPArrowRightIcon
-      },
+      },*/
       {
         id: '06',
         onChooseOption: () => this.props.navigation.navigate('feedbackSettings'),
