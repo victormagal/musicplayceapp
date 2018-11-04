@@ -63,9 +63,10 @@ class LoginComponent extends Component {
               <View style={styles.container}>
                 <MPText style={styles.title}>Bem-vindo ao MusicPlayce</MPText>
 
+                {/*  
                 <MPButton icon={FacebookIcon} title="Entre com Facebook" textSize={16} onPress={() => { Linking.openURL(`${API_BASE}/oauth/facebook`) }} style={styles.signinFB} />
                 <MPButton icon={GoogleIcon} title="Entre com Google+" textSize={16} onPress={() => { Linking.openURL(`${API_BASE}/oauth/google`) }} style={styles.signinGoogle} />
-
+                */}
                 {!this.props.error && (
                   <View>
                     <MPText style={styles.ouText}>ou</MPText>
