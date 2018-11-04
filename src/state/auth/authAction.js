@@ -37,12 +37,18 @@ export const login = (user) => {
 
 export const socialLogin = (url) => {
   return (dispatch) => {
-    const urlParams = new URLSearchParams(url.replace('musicplayce://logged_id', ''));
-    var token = {
-      access_token: urlParams.get('access_token'),
-      token_type: urlParams.get('token_type'),
-      expires_in: parseInt(urlParams.get('expires_in'))
+    const urlParams = url.replace('musicplayce://logged_id?', '');
+    const parts = urlParams.split('&');
+    // 'access_token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC83M2UxZTI3Mi5uZ3Jvay5pb1wvb2F1dGhcL2dvb2dsZVwvY2FsbGJhY2siLCJpYXQiOjE1NDEyODIxMzEsImV4cCI6MTU0MTI4NTczMSwibmJmIjoxNTQxMjgyMTMxLCJqdGkiOiJvQkxIN3JiTkYwTU5LdTFOIiwic3ViIjoiZGY4MmQ4N2EtMGMyZC00MjJjLWE5MjMtOTdlY2QzZWNiMzI3IiwicHJ2IjoiODdlMGFmMWVmOWZkMTU4MTJmZGVjOTcxNTNhMTRlMGIwNDc1NDZhYSJ9.bGLl-rZ5eFfqtAEqlqK6UnFccOQqwte9nb808UvF8W8&token_type=bearer&expires_in=3600''
+    if (parts.length !== 3) {
+      throw new Error('Não foi possível fazer login com redes sociais.');
     }
+    var token = {
+      access_token: parts[0].replace('access_token=', ''),
+      token_type: parts[1].replace('token_type=', ''),
+      expires_in: parseInt(parts[2].replace('expires_in=', ''))
+    }
+    console.log('token',token)
     dispatch(authStartLoading());
     return AuthService.setToken(token).then(response => {
       dispatch(loginSuccess(response));

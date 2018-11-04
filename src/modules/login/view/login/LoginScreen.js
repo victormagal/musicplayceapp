@@ -25,7 +25,7 @@ class LoginScreenContainer extends Component {
       if (url && url.indexOf('musicplayce://logged_id') > -1) {
         this.props.dispatch(socialLogin(url));
       }
-    }).catch(err => console.error('An error occurred', err));
+    });//.catch(err => console.error('An error occurred', err));
   }
 
   handleUrl = ({ url }) => {
