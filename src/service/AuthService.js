@@ -1,6 +1,6 @@
 import axios from 'axios';
-import {API_AUTH} from './api';
-import {StorageService} from './StorageService';
+import { API_AUTH } from './api';
+import { StorageService } from './StorageService';
 
 
 class AuthService {
@@ -16,14 +16,18 @@ class AuthService {
     };
     return axios.post(`${API_AUTH}/login`, params)
       .then(response => {
-        StorageService.setToken(response.data);
-        return AuthService.me().then(({data}) => {
-          let {id, attributes} = data.data;
-          let user = {id, ...attributes};
-          StorageService.setUser(user);
-          return user;
-        });
+        return AuthService.setToken(response.data);
       });
+  }
+
+  static setToken(responseData) {
+    StorageService.setToken(responseData);
+    return AuthService.me().then(({ data }) => {
+      let { id, attributes } = data.data;
+      let user = { id, ...attributes };
+      StorageService.setUser(user);
+      return user;
+    });
   }
 
   static logout() {
@@ -58,4 +62,4 @@ class AuthService {
   }
 }
 
-export {AuthService};
+export { AuthService };

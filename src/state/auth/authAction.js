@@ -1,5 +1,5 @@
-import {createAction} from 'redux-actions';
-import {AuthService} from '../../service';
+import { createAction } from 'redux-actions';
+import { AuthService } from '../../service';
 
 
 export const AUTH_START_LOADING = 'AUTH_START_LOADING';
@@ -15,7 +15,7 @@ export const authLogout = createAction(AUTH_LOGOUT, () => null);
 export const authSetStorageUser = createAction(AUTH_SET_STORAGE_USER, (data) => data);
 
 export const loginSuccess = createAction(AUTH_LOGIN_SUCCESS, (data) => {
-  return {...data};
+  return { ...data };
 });
 export const loginError = createAction(AUTH_LOGIN_ERROR);
 
@@ -29,7 +29,26 @@ export const login = (user) => {
       dispatch(loginSuccess(response));
       return response;
     }).catch(e => {
-      console.log('loginError', e.response);
+      console.log('loginError', e.response, e);
+      dispatch(loginError());
+    });
+  };
+};
+
+export const socialLogin = (url) => {
+  return (dispatch) => {
+    const urlParams = new URLSearchParams(url.replace('musicplayce://logged_id', ''));
+    var token = {
+      access_token: urlParams.get('access_token'),
+      token_type: urlParams.get('token_type'),
+      expires_in: parseInt(urlParams.get('expires_in'))
+    }
+    dispatch(authStartLoading());
+    return AuthService.setToken(token).then(response => {
+      dispatch(loginSuccess(response));
+      return response;
+    }).catch(e => {
+      console.log('socialLoginError', e.response, e);
       dispatch(loginError());
     });
   };
