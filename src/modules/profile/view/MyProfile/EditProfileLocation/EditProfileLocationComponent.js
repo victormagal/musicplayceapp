@@ -98,12 +98,12 @@ class EditProfileLocationComponent extends React.Component {
   };
 
   handleSave = () => {
-    const {selectedState, cityTextValue} = this.state;
+    const {selectedState, state} = this.state;
     let error = null;
 
     if (selectedState === null) {
       error = 'O estado não pode ficar em branco.';
-    } else if (cityTextValue === '') {
+    } else if (state === '') {
       error = 'A cidade não pode ficar em branco.';
     } else {
       this.props.onSave({...this.state});
