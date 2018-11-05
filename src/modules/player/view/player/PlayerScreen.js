@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {View, StyleSheet} from 'react-native';
-import {MPFloatingNotification} from '../../../../components';
+import {MPFloatingNotification,MPLoading} from '../../../../components';
 import {PlayerComponent} from './PlayerComponent';
 import {
   songStop, songPlay, songPause, songResume, songSeekTo,
@@ -14,10 +14,12 @@ import {MPHeartRedIcon} from '../../../../assets/svg';
 class PlayerContainer extends React.Component {
   songTimer = null;
   state = {
-    coAuthors: []
+    coAuthors: [],
+    showLoading: true
   };
 
   componentDidMount() {
+    this.setState({showLoading: true});
     const {navigation} = this.props;
     if (navigation.state && navigation.state.params) {
       const {song} = navigation.state.params;
@@ -64,6 +66,7 @@ class PlayerContainer extends React.Component {
 
     this.props.dispatch(songStop()).then(_ => {
       this.props.dispatch(fetchOneSong(song)).then(s => {
+        this.setState({showLoading: false});
         let coAuthors = this.getUsersList(s);
         this.setState({coAuthors});
         this.props.dispatch(getUsersSongs(coAuthors));
@@ -106,6 +109,7 @@ class PlayerContainer extends React.Component {
   render() {
     return (
       <View style={styles.container}>
+        <MPLoading visible={this.state.showLoading}/>
         <PlayerComponent
           {...this.props}
           coAuthors={this.state.coAuthors}
