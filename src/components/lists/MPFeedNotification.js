@@ -57,26 +57,26 @@ class MPFeedNotification extends React.Component {
         }
         {
           notificationType == types[0] && (
-            <MPText style={styles.notificationText} onPress={handleSongNavigate.bind(this,notification.data.song)}>
-              <MPText style={styles.notificationTextEmpth}>{notification.data.song.name}</MPText> de
-              <MPText style={styles.notificationTextEmpth}> {notification.data.artistsOwner.name}</MPText> foi indicada para 
-              <MPText style={styles.notificationTextEmpth}> {notification.data.artistIndication.name}</MPText>
+            <MPText style={styles.notificationText}>
+              <MPText style={styles.notificationTextEmpth} onPress={handleSongNavigate.bind(this,notification.data.song)}>{notification.data.song.name}</MPText> de
+              <MPText style={styles.notificationTextEmpth} onPress={handleNavigateUserProfile.bind(this, notification.data.artistsOwner.id)}> {notification.data.artistsOwner.name}</MPText> foi indicada para 
+              <MPText style={styles.notificationTextEmpth} onPress={handleNavigateUserProfile.bind(this, notification.data.artistIndication.id)}> {notification.data.artistIndication.name}</MPText>
             </MPText>
           )
         }
         { 
           notificationType == types[1] && (
-            <MPText style={styles.notificationText} onPress={handleNavigateUserProfile.bind(this, notification.data.artists.id)}>
-              <MPText style={styles.notificationTextEmpth}>{notification.data.userFollower.name}</MPText> começou a seguir   
-              <MPText style={styles.notificationTextEmpth}> {notification.data.artists.name}</MPText>
+            <MPText style={styles.notificationText}>
+              <MPText style={styles.notificationTextEmpth} onPress={handleNavigateUserProfile.bind(this, notification.data.userFollower.id)}>{notification.data.userFollower.name}</MPText> começou a seguir   
+              <MPText style={styles.notificationTextEmpth} onPress={handleNavigateUserProfile.bind(this, notification.data.artists.id)}> {notification.data.artists.name}</MPText>
             </MPText>
           )
         } 
         { 
           notificationType == types[2] && (
-            <MPText style={styles.notificationText} onPress={handleNavigateUserProfile.bind(this, notification.data.users.id)}>
-              <MPText style={styles.notificationTextEmpth}>{notification.data.users.name} </MPText>comentou em
-              <MPText style={styles.notificationTextEmpth}> {notification.data.songs.name}</MPText>
+            <MPText style={styles.notificationText}>
+              <MPText style={styles.notificationTextEmpth} onPress={handleNavigateUserProfile.bind(this, notification.data.users.id)}>{notification.data.users.name} </MPText>comentou em
+              <MPText style={styles.notificationTextEmpth} onPress={handleSongNavigate.bind(this,notification.data.song)}> {notification.data.songs.name}</MPText>
             </MPText>
           )
         } 

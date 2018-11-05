@@ -2,8 +2,7 @@ import React from 'react';
 import {
   Image,
   StyleSheet,
-  View,
-  TouchableOpacity,
+  View
 } from 'react-native';
 import { MPText } from '../../components';
 import { connect } from 'react-redux';
@@ -13,6 +12,10 @@ class MPNotificationListComponent extends React.Component {
   navigateToProfile = (userId) => {
     this.props.navigation.navigate('userProfile', { userId });
   }
+
+  navigateToHandlePlaySong = (song) => {
+    this.props.navigation.navigate('player', {song});
+  };
 
   render() {
     let { item } = this.props;
@@ -43,46 +46,40 @@ class MPNotificationListComponent extends React.Component {
           }
           {
             notificationType == types[0] && (
-              <MPText style={styles.notificationText}>
-                <MPText style={styles.notificationTextEmpth}>{item.data.userLogged.name}</MPText>{' indicou a sua música '}
-                <MPText style={styles.notificationTextEmpth}>{item.data.song.name}</MPText>{' para '} 
-                <MPText style={styles.notificationTextEmpth}>{item.data.artistIndicate.name}</MPText>
+              <MPText style={styles.notificationTextWithImage}>
+                <MPText style={styles.notificationTextEmpth} onPress={() => this.navigateToProfile(item.data.users.id)}>{item.data.userLogged.name}</MPText>{' indicou a sua música '}
+                <MPText style={styles.notificationTextEmpth} onPress={() => this.navigateToHandlePlaySong(item.data.song)}>{item.data.song.name}</MPText>{' para '} 
+                <MPText style={styles.notificationTextEmpth} onPress={() => this.navigateToProfile(item.data.artistIndicate.id)}>{item.data.artistIndicate.name}</MPText>
               </MPText>
             )
           }
           {
             notificationType == types[1] && (
-              <MPText style={styles.notificationText}>
-                <MPText style={styles.notificationTextEmpth}>{item.data.users.name}</MPText> sua pergunta já está registrada em nosso sistema.
+              <MPText style={styles.notificationTextWithImage}>
+                <MPText style={styles.notificationTextEmpth} onPress={() => this.navigateToProfile(item.data.users.id)}>{item.data.users.name}</MPText> sua pergunta já está registrada em nosso sistema.
               </MPText>
             )
           }
           {
             notificationType == types[2] && (
-              <MPText style={styles.notificationText}>
-                <MPText style={styles.notificationTextEmpth}>{item.data.users.name}</MPText> começou a te seguir.
+              <MPText style={styles.notificationTextWithImage}>
+                <MPText style={styles.notificationTextEmpth} onPress={() => this.navigateToProfile(item.data.users.id)}>{item.data.users.name}</MPText> começou a te seguir.
               </MPText>
             )
           }
           {
             notificationType == types[3] && (
-              <View>
-                <View style={styles.viewNotificationText}>
-                  <TouchableOpacity onPress={() => this.navigateToProfile(item.data.users.id)}>
-                    <MPText style={styles.notificationTextEmpth}>{item.data.users.name}</MPText>
-                  </TouchableOpacity>
-                  <MPText style={styles.notificationText}>{' te indicou para música '}</MPText> 
-                </View>
-                <MPText style={styles.notificationTextEmpth}>{item.data.songs.name}</MPText>
-              </View>
-
+              <MPText style={styles.notificationTextWithImage}>
+                <MPText style={styles.notificationTextEmpth} onPress={() => this.navigateToProfile(item.data.users.id)}>{item.data.users.name}</MPText>{' te indicou para música '}
+                <MPText style={styles.notificationTextEmpth} onPress={() => this.navigateToHandlePlaySong(item.data.song)} >{item.data.songs.name}</MPText>
+              </MPText>
             )
           }
           {
             notificationType == types[4] && (
               <MPText style={styles.notificationText}>
                 <MPText style={styles.notificationTextEmpthBlack}>{item.data.count} {item.data.count > 1 ? 'pessoas' : 'pessoa'}</MPText>{item.data.count > 1 ? ' te indicaram ' : ' te indicou '}
-                <MPText style={styles.notificationTextEmpth}>{item.data.songs.name}</MPText>
+                <MPText style={styles.notificationTextEmpth} onPress={() => this.navigateToHandlePlaySong(item.data.song)} >{item.data.songs.name}</MPText>
               </MPText>
             )
           }
@@ -126,12 +123,21 @@ const styles = StyleSheet.create({
     fontFamily: 'ProbaPro-Regular',
     textAlign: 'left',
     flexWrap: 'wrap',
+    flex: 1,
+    marginEnd: 15,
+    alignSelf: 'center'
+  },
+  notificationTextWithImage: {
+    fontSize: 16,
+    lineHeight: 20,
+    color: '#9b9b9b',
+    fontFamily: 'ProbaPro-Regular',
+    textAlign: 'left',
+    flexWrap: 'wrap',
+    flex: 1,
     marginEnd: 15,
     alignSelf: 'center',
-  },
-  viewNotificationText: {
-    flex: 1,
-    flexDirection: 'row'
+    left:20
   },
   notificationTextEmpth: {
     color:'#4a90e2',
