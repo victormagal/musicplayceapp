@@ -19,7 +19,7 @@ import {MPLocationPinIcon} from "../../../../../assets/svg/index";
 import {MPTextField} from "../../../../../components/forms";
 import AutoComplete from '../../../../../components/autocomplete-select/AutoComplete/AutoComplete'
 import Cities from './Cidades.json';
-
+import States from './Estados.json';
 
 class EditProfileLocationComponent extends React.Component {
   refSaveButton = null;
@@ -54,7 +54,7 @@ class EditProfileLocationComponent extends React.Component {
     const { selectedState, isCurrentLocation } = this.state;
 
     if (prevState.selectedState === null && !this.props.loading && prevProps.location.state !== null) {
-      const selectedState = this.props.states.filter(s => s.sigla === this.state.state)[0].id;
+      const selectedState = States.filter(s => s.sigla === this.state.state)[0].id;
       this.setState({ selectedState, isCurrentLocation: true });
     }
 
@@ -113,12 +113,12 @@ class EditProfileLocationComponent extends React.Component {
 
   handleChangeStateOption = (index) => {
     const {states} = this.props;
-    this.setState({ citiesByState: Cities.filter(cities => cities.uf === states[index].sigla)});
+    this.setState({ citiesByState: Cities.filter(cities => cities.uf === States[index].sigla)});
 
     if(index) {
       this.setState({
-        selectedState: states[index].id,
-        state: states[index].sigla
+        selectedState: States[index].id,
+        state: States[index].sigla
       });
     }
   };
@@ -148,13 +148,13 @@ class EditProfileLocationComponent extends React.Component {
         />
         <ScrollView style={styles.scroll}>
           <View style={styles.container}>
-            { states &&
+            { States &&
               <View style={{ marginHorizontal: 20 }}>
                 <MPSelect
                   label={'Selecione o estado'}
-                  customValue={selectedState ? states.filter(state => state.id === selectedState)[0].sigla : null}
+                  customValue={selectedState ? States.filter(States => States.id === selectedState)[0].sigla : null}
                   value={selectedState ? selectedState.id : null}
-                  options={states.map(state => state.nome)}
+                  options={States.map(state => state.nome)}
                   style={styles.containerSelect}
                   onChangeOption={this.handleChangeStateOption}
                 />
