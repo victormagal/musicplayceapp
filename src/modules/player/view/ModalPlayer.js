@@ -45,7 +45,7 @@ class ModalPlayerComponent extends React.Component {
 
   componentDidMount(){
     BackHandler.addEventListener('hardwareBackPress', () => {
-      this.setState({playerVisible: false});
+      this.props.navigation.pop();
     });
   }
 
