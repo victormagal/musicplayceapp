@@ -81,7 +81,7 @@ export const transformResponseData = (data) => {
 
 export const GOOGLE_API_KEY = 'AIzaSyBHlhntl4H8ilBeYWUc6naDgUPbYfbnv3g';
 export const API_BASE = 'https://live.musicplayce.net';
-const API = '{API_BASE}/api';
+const API = `${API_BASE}/api`;
 export const API_FEEDBACK = `${API}/feedbacks`;
 export const API_CARD = `${API}/cards`;
 export const API_AUTH = `${API}/auth`;
