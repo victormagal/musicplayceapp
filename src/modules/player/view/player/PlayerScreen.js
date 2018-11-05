@@ -61,6 +61,7 @@ class PlayerContainer extends React.Component {
 
   handleSetupPlay = (song) => {
     if (this.props.song && this.props.song.id === song.id) {
+      this.setState({showLoading: false});
       return;
     }
 
