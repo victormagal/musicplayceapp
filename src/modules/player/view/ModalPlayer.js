@@ -44,8 +44,9 @@ const stars = new Array(5).fill();
 class ModalPlayerComponent extends React.Component {
 
   componentDidMount(){
-    BackHandler.addEventListener('hardwareBackPress', this.handleBackPress);
-
+    BackHandler.addEventListener('hardwareBackPress', () => {
+      this.props.navigation.pop();
+    });
   }
 
   componentWillUnmount(){

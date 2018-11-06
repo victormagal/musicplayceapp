@@ -83,7 +83,7 @@ class MusicLetterScreenContainer extends React.Component {
   };
 
   handleChangeOption = (selectedOption) => {
-    if (!selectedOption) {
+    if (!selectedOption && selectedOption !== 0) {
       return;
     }
 

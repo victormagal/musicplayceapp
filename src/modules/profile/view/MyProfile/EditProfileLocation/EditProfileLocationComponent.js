@@ -19,7 +19,7 @@ import {MPLocationPinIcon} from "../../../../../assets/svg/index";
 import {MPTextField} from "../../../../../components/forms";
 import AutoComplete from '../../../../../components/autocomplete-select/AutoComplete/AutoComplete'
 import Cities from './Cidades.json';
-
+import States from './Estados.json';
 
 class EditProfileLocationComponent extends React.Component {
   refSaveButton = null;
@@ -28,6 +28,7 @@ class EditProfileLocationComponent extends React.Component {
   constructor(props) {
     super(props);
     this.refSaveButton = React.createRef();
+    this.statesOrder = this.sortStates(States);
     this.state = {
       city: props.location.city || '',
       state: props.location.state || '',
@@ -54,7 +55,7 @@ class EditProfileLocationComponent extends React.Component {
     const { selectedState, isCurrentLocation } = this.state;
 
     if (prevState.selectedState === null && !this.props.loading && prevProps.location.state !== null) {
-      const selectedState = this.props.states.filter(s => s.sigla === this.state.state)[0].id;
+      const selectedState = this.statesOrderOrder.filter(s => s.sigla === this.state.state)[0].id;
       this.setState({ selectedState, isCurrentLocation: true });
     }
 
@@ -112,16 +113,45 @@ class EditProfileLocationComponent extends React.Component {
   };
 
   handleChangeStateOption = (index) => {
-    const {states} = this.props;
-    this.setState({ citiesByState: Cities.filter(cities => cities.uf === states[index].sigla)});
+    if(index !== null) {
+    this.setState({ citiesByState: this.sort(Cities.filter(cities => cities.uf === this.statesOrder[index].sigla))});
 
-    if(index) {
-      this.setState({
-        selectedState: states[index].id,
-        state: states[index].sigla
-      });
+      if(index) {
+        this.setState({
+          selectedState: this.statesOrder[index].id,
+          state: this.statesOrder[index].sigla
+       });
+     }
     }
   };
+
+  sortStates(states) {
+    const orderStates = {}
+    const statesResultOrder = []
+    for (const state of states) {
+      orderStates[state.nome.toLowerCase()] = state
+    }
+
+    for (const stateName of Object.keys(orderStates).sort()) {
+      statesResultOrder.push(orderStates[stateName])
+    }
+
+    return statesResultOrder
+  }
+
+  sort(cities) {
+    const orderCities = {}
+    const citiesResultOrder = []
+    for (const city of cities) {
+        orderCities[city.nome_municipio.toLowerCase()] = city
+    }
+
+    for (const cityName of Object.keys(orderCities).sort()) {
+      citiesResultOrder.push(orderCities[cityName])
+    }
+
+    return citiesResultOrder
+  }
 
   renderHeaderMenuSave() {
     return [
@@ -135,7 +165,7 @@ class EditProfileLocationComponent extends React.Component {
   }
 
   render() {
-    const {onBack, cities, states} = this.props;
+    const {onBack, cities} = this.props;
     const {selectedState, cityTextValue, error, searching} = this.state;
 
     return (
@@ -148,13 +178,13 @@ class EditProfileLocationComponent extends React.Component {
         />
         <ScrollView style={styles.scroll}>
           <View style={styles.container}>
-            { states &&
+            { this.statesOrder &&
               <View style={{ marginHorizontal: 20 }}>
                 <MPSelect
                   label={'Selecione o estado'}
-                  customValue={selectedState ? states.filter(state => state.id === selectedState)[0].sigla : null}
+                  customValue={selectedState ? this.statesOrder.filter(states => states.id === selectedState)[0].sigla : null}
                   value={selectedState ? selectedState.id : null}
-                  options={states.map(state => state.nome)}
+                  options={this.statesOrder.map(state => state.nome)}
                   style={styles.containerSelect}
                   onChangeOption={this.handleChangeStateOption}
                 />
