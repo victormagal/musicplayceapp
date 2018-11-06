@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, ScrollView, View, FlatList} from 'react-native';
+import {StyleSheet, ScrollView, View, FlatList, Share} from 'react-native';
 import {MPGradientButton, MPHeader, MPUser, MPText} from '../../../components';
 import {indicateSong} from '../../../state/action';
 import {connect} from 'react-redux';
@@ -44,7 +44,7 @@ class ConfirmationScreenContainer extends React.Component {
               Pronto! Tudo certo.
             </MPText>
             <MPText style={styles.subTitleText}>
-              Que tal indicar sua música pra uma banda que você goste?
+              Que tal indicar sua música pra um artista?
             </MPText>
             {
               feed && feed.artists.length > 0 && (
@@ -60,7 +60,15 @@ class ConfirmationScreenContainer extends React.Component {
               <MPGradientButton
                 textSize={16}
                 title={"Convidar para o MusicPlayce"}
-                onPress={() => console.log()}
+                onPress={() => {
+                  const link =  'https://www.musicplayce.com.br/';
+        
+                  return Share.share({
+                    title: 'MusicPlayce',
+                    message: `Gostaria de te convidar a participar do MusicPlayce ${link}`,
+                    dialogTitle: 'Convidar amigos'
+                  });
+                }}
                 style={ styles.confirmationButtonTop }
               />
               <MPGradientButton

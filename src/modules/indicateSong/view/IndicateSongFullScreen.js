@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, ScrollView, View, TextInput, FlatList} from 'react-native';
+import {StyleSheet, ScrollView, View, TextInput, FlatList, Share} from 'react-native';
 import {connect} from 'react-redux';
 import {MPHeader, MPTextField, MPUser, MPSong, MPGradientButton, MPText, MPLoading, MPIconButton} from '../../../components'
 import {searchUsers, fetchOneSong, indicateSong} from '../../../state/action';
@@ -122,10 +122,17 @@ class IndicateSongFullScreenContainer extends React.Component {
               <View>
                 <MPText style={ styles.textFieldSubText}><MPText style={ styles.textFieldSubTextEmph}>"{this.state.textValue} "</MPText> ainda não está no MusicPlayce.</MPText>
                 <View style={styles.infoTextContainer}>
-                  <MPText style={styles.infoText}>Quando <MPText
-                    style={styles.infoTextEmph}>{this.state.textValue} </MPText>fizer o cadastro, vamos mostrar sua indicação!</MPText>
-                  <MPGradientButton title='Indicar' textSize={16} style={styles.indicateButton}
-                                    onPress={()=> {}}/>
+                  <MPText style={styles.infoText}>Enquanto isso, que tal convidar seus amigos para o MusicPlayce?</MPText>
+                  <MPGradientButton title='Convidar' textSize={16} style={styles.indicateButton}
+                    onPress={() => {
+                       const link =  'https://www.musicplayce.com.br/';
+                            
+                        return Share.share({
+                          title: 'MusicPlayce',
+                          message: `Gostaria de te convidar a participar do MusicPlayce ${link}`,
+                          dialogTitle: 'Convidar amigos'
+                        });
+                    }}/>
                 </View>
               </View>
             )}
