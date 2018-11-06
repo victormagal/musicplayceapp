@@ -39,9 +39,9 @@ class IndicateSongFullScreenContainer extends React.Component {
 
     if (nextProps.songIndicateSuccess) {
       let {indicationCount} = nextProps;
-      if(indicationCount){
+     // if(indicationCount){
         this.goToScreen(indicationCount - 1);
-      }
+    //  }
     }
   }
 

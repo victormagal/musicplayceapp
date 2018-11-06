@@ -33,7 +33,7 @@ class IndicateSongFeedbackScreenContainer extends React.Component {
             <MPPlusIcon style={ styles.partnershipIcon }/>
             <MPUser user={this.state.artist} imagePath={this.state.artist.picture_url} onPress={() => {}} style={{}} />
           </View>
-          <MPText style={ styles.infoText }><MPText style={ styles.infoTextEmph }>{this.state.indicationCount}</MPText> outras pessoas sugeriram esta parceria também!</MPText>
+          {/* <MPText style={ styles.infoText }><MPText style={ styles.infoTextEmph }>{this.state.indicationCount}</MPText> outras pessoas sugeriram esta parceria também!</MPText> */}
           <MPGradientButton title='Fechar' textSize={16} style={styles.closeButton} onPress={this.handleBackClick} />
         </ScrollView>
       </View>
