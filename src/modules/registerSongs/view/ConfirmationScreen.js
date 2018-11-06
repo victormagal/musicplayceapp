@@ -39,7 +39,7 @@ class ConfirmationScreenContainer extends React.Component {
       <View style={styles.container}>
         <MPHeader back={false} inverse={true}/>
         <ScrollView style={styles.scroll}>
-          <View style={{ marginHorizontal: 30 }}>
+          <View style={{ marginHorizontal: 20 }}>
             <MPText style={styles.titleText}>
               Pronto! Tudo certo.
             </MPText>
