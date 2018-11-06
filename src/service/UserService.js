@@ -45,7 +45,7 @@ class UserService {
     };
     formData.append('picture', photo);
 
-    const endpointUrl = `${ API_USER }/me/picture`;
+    const endpointUrl = `${API_USER}/me/picture`;
     return axios.post(endpointUrl, formData).then(response => {
       const { data } = response.data;
       const { id, attributes } = data;
@@ -78,7 +78,7 @@ class UserService {
   static fetchUsers(search) {
     const params = {};
 
-    if (search){
+    if (search) {
       params.query = JSON.stringify({
         name: {
           $like: `%${search}%`
@@ -86,7 +86,7 @@ class UserService {
       });
     }
 
-    return axios.get(API_USER, {params})
+    return axios.get(API_USER, { params })
       .then(response => {
         //TODO: handle pagination
         const { data, meta } = response.data;
@@ -98,7 +98,7 @@ class UserService {
   }
 
   static checkUsernameOrEmail({ field, value }) {
-    const endpointUrl = field === 'email' ? `${ API_USER }/check-email` : `${ API_USER }/check-username`;
+    const endpointUrl = field === 'email' ? `${API_USER}/check-email` : `${API_USER}/check-username`;
     return axios.post(endpointUrl, {
       [field]: value
     }).then(response => response.data);
@@ -114,57 +114,57 @@ class UserService {
       });
   }
 
-  static getUserFollowings(user, page){
+  static getUserFollowings(user, page) {
     return UserService._followersOrFollowing(`${API_USER}/${user}/following`, page);
   }
 
-  static getUserFollowers(user, page){
+  static getUserFollowers(user, page) {
     return UserService._followersOrFollowing(`${API_USER}/${user}/followers`, page);
   }
 
-  static _followersOrFollowing(url, page){
+  static _followersOrFollowing(url, page) {
     let params = {
       'page[size]': 7
     };
 
-    if(page){
+    if (page) {
       params['page[number]'] = page;
     }
 
-    return axios.get(url, {params})
+    return axios.get(url, { params })
       .then(response => {
-        let {data, meta} = response.data;
+        let { data, meta } = response.data;
         data = transformResponseData(data);
-        return {data, ...meta};
+        return { data, ...meta };
       });
   }
 
-  static followUser(user){
+  static followUser(user) {
     return axios.post(`${API_USER}/me/following/${user}`);
   }
 
-  static stopFollowUser(user){
+  static stopFollowUser(user) {
     return axios.delete(`${API_USER}/me/following/${user}`);
   }
 
-  static getNotifications(page){
+  static getNotifications(page) {
     return axios.get(`${API_USER}/me/notifications?page=${page}`).then((response) => {
       return response.data;
     });
   }
 
-  static getFollowNotifications(page){
+  static getFollowNotifications(page) {
     return axios.get(`${API_USER}/me/notifications?page=${page}&searchType=following`).then((response) => {
       return response.data;
     });
   }
 
-  static getNotificationSettings(){
-    return axios.get(`${API_USER}/me/settings-notifications`).then((response)=>{
+  static getNotificationSettings() {
+    return axios.get(`${API_USER}/me/settings-notifications`).then((response) => {
       return response.data.data.attributes;
     });
   }
-  
+
   static patchNotificationSettings(settings) {
     const params = {
       data: {
@@ -177,11 +177,11 @@ class UserService {
     });
   }
 
-  static reportProfile(report){
+  static reportProfile(report) {
     let params = {
-      data : {
+      data: {
         type: 'reports',
-        attributes : report
+        attributes: report
       }
     };
     return axios.post(`${API_REPORTS}`, params).then(response => {
@@ -189,7 +189,7 @@ class UserService {
     });
   }
 
-  static inviteUser(user){
+  static inviteUser(user) {
     let params = {
       email: user.email
     };
@@ -198,9 +198,9 @@ class UserService {
     });
   }
 
-  static sendEmailTermsOfService(){
-    return axios.post(`${API_USER}/me/send-terms/`, {});
+  static sendEmailTermsOfService() {
+    return axios.post(`${API_USER}/me/send-terms`, {});
   }
 }
 
-export {UserService};
+export { UserService };
