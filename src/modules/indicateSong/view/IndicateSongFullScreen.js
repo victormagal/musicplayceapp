@@ -10,6 +10,7 @@ class IndicateSongFullScreenContainer extends React.Component {
 
   constructor(props) {
     super(props);
+    this.song = this.props.navigation.state.params.song;
     this.state = {
       textValue: '',
       songHeader: true,
@@ -17,7 +18,7 @@ class IndicateSongFullScreenContainer extends React.Component {
       artists: [],
       indication: {
         song: {},
-        artist: {},
+        artist: this.song !== undefined ? this.song :{},
       },
     };
   }

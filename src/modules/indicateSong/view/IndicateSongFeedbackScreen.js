@@ -82,6 +82,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
   },
   closeButton: {
+    marginTop: 20,
     justifyContent: 'center',
     alignSelf: 'center'
   }
