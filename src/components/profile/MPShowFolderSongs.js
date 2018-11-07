@@ -7,6 +7,7 @@ import {MPGradientBorderButton} from './MPGradientBorderButton';
 class MPShowFolderSongs extends Component {
 
   handleIndicateSong = (song) => {
+    song = {...song, artist: this.props.profile }
     this.props.navigation.navigate('IndicateSongFullScreen', {song});
   };
 
