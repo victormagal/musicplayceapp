@@ -72,9 +72,12 @@ class PlayerComponent extends React.Component {
   };
 
   handleSongDate = (songDate) => {
-    let date = songDate.split(" ")[0].split('-').reverse().join('/');
-    let time = songDate.split(" ")[1].slice(0, 5);
-    return `${date} às ${time}`;
+    if (songDate !== undefined ) {
+      let date = songDate.split(" ")[0].split('-').reverse().join('/');
+      let time = songDate.split(" ")[1].slice(0, 5);
+      return `${date} às ${time}`;
+    }
+    return '06/11/2018 às 12:40';
   };
 
   handleSaveSong = (song) => {
