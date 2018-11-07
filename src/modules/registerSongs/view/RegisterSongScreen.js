@@ -69,7 +69,11 @@ class RegisterSongContainer extends React.Component {
     this.setState({progressContentWidth: `${Math.ceil(width)}%`});
 
     if (nextProps.songPublishSuccess) {
-      this.props.navigation.navigate('ConfirmationScreen', {song: nextProps.fetchedSong});
+      let defaultFetchedSong = nextProps.fetchedSong;
+      if (Array.isArray(defaultFetchedSong)) {
+        defaultFetchedSong = defaultFetchedSong[2];
+      }
+      this.props.navigation.navigate('ConfirmationScreen', { song: defaultFetchedSong });
     }
 
     if (nextProps.fetchedSong && this.state.shouldFetchSong) {
