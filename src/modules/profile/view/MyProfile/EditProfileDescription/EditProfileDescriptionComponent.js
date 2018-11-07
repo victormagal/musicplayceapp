@@ -2,11 +2,13 @@ import React from 'react';
 import {
   ScrollView,
   StyleSheet,
-  View
+  View,
+  KeyboardAvoidingView
 } from 'react-native';
 import {
   MPHeader, MPText, MPInput, MPForm, MPFormButton, MPIconButton
 } from '../../../../../components/index';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 class EditProfileDescriptionComponent extends React.Component {
   refSaveButton = null;
@@ -45,13 +47,14 @@ class EditProfileDescriptionComponent extends React.Component {
   render() {
     let {onBack} = this.props;
     return (
-      <View style={styles.parent}>
+        <View style={styles.parent}>
         <MPHeader
           back={true}
           onBack={onBack}
           title={"Fale de você e do seu trabalho"}
           icons={this.renderHeaderMenuSave()}
         />
+        <KeyboardAwareScrollView>
         <ScrollView style={styles.scroll}>
           <View style={styles.container}>
             <MPText style={ styles.titleText}>
@@ -75,7 +78,8 @@ class EditProfileDescriptionComponent extends React.Component {
             </MPForm>
           </View>
         </ScrollView>
-      </View>
+        </KeyboardAwareScrollView>
+        </View>
     );
   }
 }
