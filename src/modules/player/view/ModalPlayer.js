@@ -45,8 +45,7 @@ class ModalPlayerComponent extends React.Component {
 
   componentDidMount(){
     BackHandler.addEventListener('hardwareBackPress', () => {
-      this.alertSuccessSendEmail();
-
+      this.handleBackPress();
     });
   }
   
