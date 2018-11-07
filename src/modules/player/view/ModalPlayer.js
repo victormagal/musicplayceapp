@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 import {
   Text, View, StyleSheet, TouchableOpacity, FlatList, ScrollView, Image,
-  TouchableWithoutFeedback, Modal, BackHandler
+  TouchableWithoutFeedback, Modal, BackHandler, Alert
 } from 'react-native';
 import {
   MPHeader, MPText, MPIconButton, MPButton
@@ -45,9 +45,20 @@ class ModalPlayerComponent extends React.Component {
 
   componentDidMount(){
     BackHandler.addEventListener('hardwareBackPress', () => {
-      this.props.navigation.pop();
+      this.alertSuccessSendEmail();
+
     });
   }
+  
+  alertSuccessSendEmail = () => {
+    Alert.alert(
+      'Sucesso',
+      'Email enviado com sucesso',
+      [
+        {text: 'OK', onPress: () => this.handleBack},
+      ],
+    )
+  };
 
   componentWillUnmount(){
     BackHandler.removeEventListener('hardwareBackPress', this.handleBackPress);
