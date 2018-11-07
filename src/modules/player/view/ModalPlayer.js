@@ -177,7 +177,7 @@ class ModalPlayerComponent extends React.Component {
       <Modal
         animationType="slide"
         visible={this.props.visible}
-        onRequestClose={() => {}}>
+        onRequestClose={this.handleBackPress}>
 
         <MPHeader icons={this.renderCloseIcon()} inverse={true} transparent={true}/>
 
