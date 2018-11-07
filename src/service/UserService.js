@@ -199,7 +199,9 @@ class UserService {
   }
 
   static sendEmailTermsOfService() {
-    return axios.post(`${API_USER}/me/send-terms`, {});
+    return axios.post(`${API_USER}/me/send-terms`, {}).then(response => {
+      return response;
+    });
   }
 }
 
