@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, ScrollView, View, FlatList, Share} from 'react-native';
+import {StyleSheet, ScrollView, View, FlatList, Share, Alert} from 'react-native';
 import {MPGradientButton, MPHeader, MPUser, MPText} from '../../../components';
 import {indicateSong} from '../../../state/action';
 import {connect} from 'react-redux';
@@ -26,7 +26,21 @@ class ConfirmationScreenContainer extends React.Component {
   handleIndicate = (user) => {
     let {song} = this.props.navigation.state.params;
     this.setState({song, artist: user, indicationCount: song.indications_count});
-    this.props.dispatch(indicateSong(song.id, user.id));
+    if(song.id !== undefined) {
+      this.props.dispatch(indicateSong(song.id, user.id));
+    } else {
+      this.alertUploadSong()
+    }
+  };
+
+  alertUploadSong = () => {
+    Alert.alert(
+      'Atencão',
+      'É necessário realizar o upload de uma música para poder indicar',
+      [
+        {text: 'OK', onPress: () => console.log('OK Pressed')},
+      ],
+    )
   };
 
   renderItem = ({item}) => {
