@@ -10,6 +10,7 @@ class IndicateSongFeedbackScreenContainer extends React.Component {
     super(props);
     if(this.props.navigation.state && this.props.navigation.state.params){
       let {artist, song, indicationCount } = this.props.navigation.state.params;
+      song = {...song, artist}
       this.state = {artist, song, indicationCount};
     }
   }

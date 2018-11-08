@@ -15,7 +15,9 @@ class ConfirmationScreenContainer extends React.Component {
 
   componentWillReceiveProps(nextProps){
     if(nextProps.songIndicateSuccess){
-      this.props.navigation.navigate('IndicateSongFeedbackScreen', {...this.state, registerSong: true});
+      // this.props.navigation.navigate('IndicateSongFeedbackScreen', {artist:this.state.artist, song:this.state.song, registerSong: true, indicatesong: true});
+      this.props.navigation.navigate('IndicateSongFullScreen', {artist:this.state.artist, song:this.state.song, registerSong: true, indicatesong: true});
+
     }
   }
 

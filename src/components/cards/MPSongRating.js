@@ -12,10 +12,12 @@ import {MPShowRating} from '../profile';
 class MPSongRating extends Component {
   constructor(props){
     super(props);
+    this.song = this.props.song
     this.state = {
       menuOpen: false,
       isNew: false,
       isAdded: this.props.isAdded,
+      song: this.props.song
     };
   }
 
@@ -29,8 +31,8 @@ class MPSongRating extends Component {
 
   handlePlayClick = () => {
     let {onPlayClick, song} = this.props;
-    const hasPath = !!song.path;
-    onPlayClick && onPlayClick(song);
+    const hasPath = !!this.song.path;
+    onPlayClick && onPlayClick(this.song);
   };
 
   handleClose = () => {
@@ -39,19 +41,19 @@ class MPSongRating extends Component {
 
   handleEditClick = () => {
     let {onEditClick, song} = this.props;
-    onEditClick(song);
+    onEditClick(this.song);
     this.handleClose();
   };
 
   handleUnpublishClick = () => {
     let {onUnpublish, song} = this.props;
-    onUnpublish(song);
+    onUnpublish(this.song);
     this.handleClose();
   };
 
   handleRemoveClick = () => {
     let {onExclude, song} = this.props;
-    onExclude(song);
+    onExclude(this.song);
     this.handleClose();
   };
 
@@ -75,7 +77,7 @@ class MPSongRating extends Component {
 
   render() {
     const {song, style, isNew, indication} = this.props;
-    const hasPath = !!song.path;
+    const hasPath = !!this.song.path;
     let cardStyle = [styles.simpleUserCardContainer];
     let titleStyle = [styles.simpleUserCardText];
 
@@ -94,7 +96,7 @@ class MPSongRating extends Component {
                 <View style={ styles.simpleUserCardImage }>
                   <Image
                     style={{ width: 100, height: 100 }}
-                    source={ song.picture_url ? { uri: song.picture_url } : require('../../assets/img/album-default.png')}/>
+                    source={ this.song.picture_url ? { uri: this.song.picture_url } : require('../../assets/img/album-default.png')}/>
 
                   {hasPath && (
                     <TouchableOpacity style={styles.playIcon} onPress={this.handlePlayClick}>
@@ -109,28 +111,28 @@ class MPSongRating extends Component {
                   }
 
                   { this.renderTopIcons() }
-                  {song && !song.published_at && (
+                  {this.song && !this.song.published_at && (
                     <View style={ styles.draftContainer}>
                       <MPText style={ styles.draftText}>RASCUNHO</MPText>
                     </View>
                   )}
                 </View>
                 <View>
-                  <MPText style={ titleStyle }>{ song && song.name || '' }</MPText>
-                  <MPShowRating rating={song.rating}/>
+                  <MPText style={ titleStyle }>{ this.song && this.song.name || '' }</MPText>
+                  <MPShowRating rating={this.song.rating}/>
                 </View>
-                {song.published_at && !song.is_indication && (
+                {this.song.published_at && !this.song.is_indication && (
                     <TouchableOpacity style={ styles.indicateSongContainer }
-                                      onPress={() => this.props.onIndicateClick(song)}>
+                                      onPress={() => this.props.onIndicateClick(this.song)}>
                       <MPSongIndicateIcon />
                       <MPText style={styles.indicateSongText}>INDIQUE</MPText>
                     </TouchableOpacity>
                   )
                 }
-                {song.published_at && song.is_indication && (
+                {this.song.published_at && this.song.is_indication && (
                     <View style={styles.indicateSongContainer}>
                       <MPSongIndicateFullIcon />
-                      <MPText style={styles.indicateSongText}>{ song.indications_count } {"\n"}INDICAÇÕES</MPText>
+                      <MPText style={styles.indicateSongText}>{ this.song.indications_count } {"\n"}INDICAÇÕES</MPText>
                     </View>
                   )
                 }
@@ -181,7 +183,7 @@ class MPSongRating extends Component {
               <MPText style={styles.menuText} onPress={this.handleEditClick}>EDITAR</MPText>
                 <View style={ styles.menuSeparator }/>
 
-                {song.published_at && (
+                {this.song.published_at && (
                   <View>
                     <MPText style={ styles.menuText } onPress={this.handleUnpublishClick}>DESPUBLICAR</MPText>
                     <View style={ styles.menuSeparator }/>
