@@ -59,7 +59,7 @@ class ConfirmationScreenContainer extends React.Component {
             <MPText style={styles.titleText}>
               Pronto! Tudo certo.
             </MPText>
-            <MPText style={styles.subTitleText}>
+            {/* <MPText style={styles.subTitleText}>
               Que tal indicar sua música pra um artista?
             </MPText>
             {
@@ -71,7 +71,7 @@ class ConfirmationScreenContainer extends React.Component {
                   numColumns={3}
                 />
               )
-            }
+            } */}
             <View style={ styles.confirmationButtonsContainer }>
               <MPGradientButton
                 textSize={16}
