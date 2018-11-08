@@ -78,6 +78,7 @@ class MPInputComponent extends React.Component {
           onChangeText={ this.handleChangeText }
           error={error}
           keyboardType={keyboardType || 'default'}
+          maxLength={maxLength}
           characterRestriction={maxLength}
           {...this.props.textProps}/>
 

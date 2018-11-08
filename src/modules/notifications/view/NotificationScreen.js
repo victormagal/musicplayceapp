@@ -125,9 +125,12 @@ class NotificationScreenContainer extends React.Component {
     return (
       <View style={styles.container}>
         <MPHeader />
-        <MPTabBar titles={['ALERTAS'/* , 'MENSAGENS' */]}
+        <MPTabBar titles={['ALERTAS']}
                   onTabChange={this.handleChangeTab}
                   index={this.state.tabIndex}/>
+        {/* <MPTabBar titles={['ALERTAS', 'MENSAGENS']}
+                  onTabChange={this.handleChangeTab}
+                  index={this.state.tabIndex}/> */}
         <Swiper
           ref={this.swiperRef}
           showsPagination={false}

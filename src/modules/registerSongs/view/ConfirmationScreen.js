@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, ScrollView, View, FlatList, Share} from 'react-native';
+import {StyleSheet, ScrollView, View, FlatList, Share, Alert} from 'react-native';
 import {MPGradientButton, MPHeader, MPUser, MPText} from '../../../components';
 import {indicateSong} from '../../../state/action';
 import {connect} from 'react-redux';
@@ -15,7 +15,9 @@ class ConfirmationScreenContainer extends React.Component {
 
   componentWillReceiveProps(nextProps){
     if(nextProps.songIndicateSuccess){
-      this.props.navigation.navigate('IndicateSongFeedbackScreen', {...this.state, registerSong: true});
+      // this.props.navigation.navigate('IndicateSongFeedbackScreen', {artist:this.state.artist, song:this.state.song, registerSong: true, indicatesong: true});
+      this.props.navigation.navigate('IndicateSongFullScreen', {artist:this.state.artist, song:this.state.song, registerSong: true, indicatesong: true});
+
     }
   }
 
@@ -26,7 +28,21 @@ class ConfirmationScreenContainer extends React.Component {
   handleIndicate = (user) => {
     let {song} = this.props.navigation.state.params;
     this.setState({song, artist: user, indicationCount: song.indications_count});
-    this.props.dispatch(indicateSong(song.id, user.id));
+    if(song.id !== undefined) {
+      this.props.dispatch(indicateSong(song.id, user.id));
+    } else {
+      this.alertUploadSong()
+    }
+  };
+
+  alertUploadSong = () => {
+    Alert.alert(
+      'Atencão',
+      'É necessário realizar o upload de uma música para poder indicar',
+      [
+        {text: 'OK', onPress: () => console.log('OK Pressed')},
+      ],
+    )
   };
 
   renderItem = ({item}) => {
@@ -39,11 +55,11 @@ class ConfirmationScreenContainer extends React.Component {
       <View style={styles.container}>
         <MPHeader back={false} inverse={true}/>
         <ScrollView style={styles.scroll}>
-          <View style={{ marginHorizontal: 30 }}>
+          <View style={{ marginHorizontal: 20 }}>
             <MPText style={styles.titleText}>
               Pronto! Tudo certo.
             </MPText>
-            <MPText style={styles.subTitleText}>
+            {/* <MPText style={styles.subTitleText}>
               Que tal indicar sua música pra um artista?
             </MPText>
             {
@@ -55,7 +71,7 @@ class ConfirmationScreenContainer extends React.Component {
                   numColumns={3}
                 />
               )
-            }
+            } */}
             <View style={ styles.confirmationButtonsContainer }>
               <MPGradientButton
                 textSize={16}

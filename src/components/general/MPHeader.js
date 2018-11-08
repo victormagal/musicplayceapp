@@ -19,12 +19,16 @@ class MPHeader extends React.Component {
     })
   }
 
+  handleBack = () => {
+    this.props.navigation.pop();
+  };
+
   alertSuccessSendEmail = () => {
     Alert.alert(
-      'Sucesso',
+      '',
       'Email enviado com sucesso',
       [
-        {text: 'OK', onPress: () => console.log('OK Pressed')},
+        {text: 'OK', onPress: () => this.handleBack},
       ],
     )
   };
@@ -34,7 +38,7 @@ class MPHeader extends React.Component {
       'Erro',
       'Email não foi enviado com sucesso',
       [
-        {text: 'OK', onPress: () => console.log('OK Pressed')},
+        {text: 'OK', onPress: () => this.handleBack},
       ],
     )
   };

@@ -10,14 +10,21 @@ class IndicateSongFullScreenContainer extends React.Component {
 
   constructor(props) {
     super(props);
+    this.song = this.props.navigation.state.params.song;
+    this.artist = this.props.navigation.state.params.artist;
+    this.song = {...this.song, artist: this.artist};
+
+    if (this.props.navigation.state.params.indicatesong) {
+      this.props.navigation.navigate('IndicateSongFeedbackScreen', {artist: this.artist, song:this.song, indicationCount:0});
+    }
     this.state = {
       textValue: '',
       songHeader: true,
       notFoundUser: false,
       artists: [],
       indication: {
-        song: {},
-        artist: {},
+        song: this.song !== undefined ? this.song :{},
+        artist: this.artist !== undefined ? this.artist :{},
       },
     };
   }
@@ -25,7 +32,8 @@ class IndicateSongFullScreenContainer extends React.Component {
   componentDidMount() {
     this.props.dispatch(searchUsers(''));
     if (this.props.navigation.state && this.props.navigation.state.params) {
-      let {song} = this.props.navigation.state.params;
+      let {song, artist} = this.props.navigation.state.params;
+      song = {...song, artist}
       this.setState({song: song});
     }
   }
@@ -39,9 +47,9 @@ class IndicateSongFullScreenContainer extends React.Component {
 
     if (nextProps.songIndicateSuccess) {
       let {indicationCount} = nextProps;
-      if(indicationCount){
+     // if(indicationCount){
         this.goToScreen(indicationCount - 1);
-      }
+    //  }
     }
   }
 
