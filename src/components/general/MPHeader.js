@@ -25,7 +25,7 @@ class MPHeader extends React.Component {
 
   alertSuccessSendEmail = () => {
     Alert.alert(
-      'Sucesso',
+      '',
       'Email enviado com sucesso',
       [
         {text: 'OK', onPress: () => this.handleBack},
