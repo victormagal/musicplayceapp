@@ -32,7 +32,7 @@ class MPProfileInfo extends Component {
             <MPVerifiedIcon style={{ marginLeft: 8 }} />
           }
         </View>
-        <View style={{ marginTop: 10, marginBottom: 20 }}>
+        {/* <View style={{ marginTop: 10, marginBottom: 20 }}>
           { isMe ?
             <TouchableOpacity
               style={{ flexDirection: 'row', alignItems: 'center' }}
@@ -55,7 +55,7 @@ class MPProfileInfo extends Component {
               </MPText>
             </View>
           }
-        </View>
+        </View> */}
         { isMe ?
           <TouchableOpacity
             style={{ flexDirection: 'row' }}
